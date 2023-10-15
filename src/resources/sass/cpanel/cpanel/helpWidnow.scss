@@ -1,0 +1,52 @@
+.helpWindowNormal{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height:calc(100% - 60px);
+    padding-top:60px;
+    width:20%;
+    z-index: 1;
+    color: var(--txt);
+    background-color: var(--bg);
+    transition-duration: .5s;
+}
+.helpWindow_popupPage{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height:calc(100% - 60px);
+    padding-top:60px;
+    width:20%;
+    z-index: 65;
+    background-color: transparent;
+    transition-duration: .5s;
+}
+.showHelpWindow{width:20%;}
+.hideHelpWindow{width:0%;}
+#helpWindowControls{
+    position: absolute;
+    margin-inline-start: 5px;
+    top:0;
+    right:20px;
+    border-bottom: none;
+    border-radius: 0 0 5px 5px;
+    height:fit-content;
+    z-index: 43;
+    background-color: var(--bg);
+    color:var(--bg-txt);
+    box-shadow: var(--sidmnu-shdw);
+    padding:10px 3px;
+    transition-duration: .5s;
+}
+#helpWindowControls span{
+    padding:5px;
+    margin:5px;
+    transition-duration: .2ms;
+    border-radius: 50%;
+    font-size: .9em;
+}
+#helpWindowControls span:hover{
+    background-color: var(--bg2);
+}
+.helpWindowControls_hide{
+    transform: translateY(-50px);
+}
+#autoHelp-clearAll:hover{color:var(--red)}

@@ -1,0 +1,171 @@
+#sideMenu-toggle{
+    font-size: 1em;
+    @media (min-width:$mobile-size) {
+        display:block;
+     }
+     display:none;
+     cursor: pointer;
+     padding:5px;
+     border-radius: 50%;
+     margin-inline-end:5px;
+}
+#sideMenu-toggle:hover{
+    background-color: var(--bg2);
+}
+#sideMenu-toggle > div{
+    transition-duration: .5s;
+    font-size: 1em;
+}
+#sideMenu-logo{
+    height:30px;
+    margin-inline-start:5px;
+    @media (max-width:520px) {
+        display:none;
+    }
+    margin-top:5px;
+}
+#sideMenu-Container{
+    // font-size: .65em;
+    height:100%;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    direction: rtl;
+    @media (min-width:$mobile-size) {
+        display:flex;
+     }
+    display:none;
+    box-shadow: 0 0 2px var(--shdw-20);
+    z-index: 39;
+}
+.sideMenu-Container_small{
+    .sideMenu-itemsContainerTitle{display:none;}
+    .sideMenu-itemTitle{display:none;}
+    .sideMenu-itemArrow{display:none;}
+    .side-menuItem{justify-content:center;}
+    #sideMenu-itemsContainer{width:fit-content;max-width:50px}
+    #sideMenu-toggle div:first-child{transform:rotateZ(180deg)}
+}
+#sideMenu-mainContainer{
+    min-height: calc(100%);
+    display:flex;
+    padding: 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: var(--bg);
+    box-shadow:var(--sidmnu-shdw);
+    z-index: 2;
+}
+.sideMenu-mainItem_billing{
+    all: unset;
+    display: block;
+    font-size:1.3em;
+    padding:10px;
+    cursor: pointer;
+    color:var(--txt);
+    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sideMenu-mainItem_billing:hover{text-decoration: none;}
+
+.sideMenu-mainItem{
+    font-size:1.3em;
+    padding:10px;
+    cursor: pointer;
+    color:var(--txt);
+    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.sideMenu-mainItem_unsaved{
+    position: absolute;
+    top:7px;
+    left:7px;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+.reportBug-sideMenu{
+    font-size:1.3em;
+    padding:10px;
+    cursor: pointer;
+    color:var(--txt);
+    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+}
+.Logout-sideMenu{
+    font-size:1.3em;
+    padding:10px;
+    cursor: pointer;
+    color:var(--txt);
+    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+}
+.sideMenu-mainItemSelected{
+    background-color: var(--bg3);
+    color:var(--bg-txt);
+}
+#sideMenu-itemsContainer{
+    height:calc(100%);
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: var(--bg);
+    transition-duration: 1s;
+    box-shadow: rgb(0 0 0 / 16%) 4px 0px 3px, rgb(0 0 0 / 23%) 1px 0px 3px;
+    max-width:500px;
+    width:fit-content;
+}
+
+.sideMenu-itemsContainerTitle{
+    align-self: flex-end;
+    font-size:1.2em;
+    color: var(--txt);
+    margin:0;
+    font-weight:600;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+}
+.side-menuItem{
+    color: var(--txt);
+    padding: 10px 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 10px);
+    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    position: relative;
+}
+.sideMenu-itemArrow{
+    margin-inline-end:10px;
+    font-size: .7em;
+    visibility: hidden;
+    flex-shrink: 0;
+}
+.sideMenu-itemTitle{
+    font-size:.8em;
+    margin-inline-start:10px;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+.sideMenu-itemIcon{
+    font-size:1.1em;
+    margin:0 5px;
+    flex-shrink: 0;
+}
+.side-menuItemSelected{
+    background-color: var(--bg3);
+}

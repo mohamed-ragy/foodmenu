@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+html{
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+body{
+    font-family: 'Roboto', sans-serif;    background-color: rgb(47, 47, 47);
+    color:rgb(211, 211, 211);
+    height:200%;
+    width:100%;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#output{
+    padding:10px;
+    margin:25px;
+    margin-bottom:0;
+    width:calc(100% - 70px);
+    height:calc(100% - 100px);
+    background-color: #101010;
+    overflow: auto;
+    font-family: 'Maven Pro', sans-serif;
+    white-space: nowrap;
+
+}
+.line{
+    height:1.3em;
+}
+.white{color:white;}
+.gray{color:gray;}
+.red{color:rgb(209, 20, 20);}
+.lightblue{color:rgb(102, 190, 220)}
+.lightblue2{color:rgb(200, 226, 235)}
+.yellow{color:rgb(205, 205, 39)}
+.violet{color:rgb(145, 69, 190)}
+.blue{color:blue}
+.blue2{color:#528eb6}
+
+input{
+    background-color:black;
+    outline:none;
+    box-shadow: none;
+    border:none;
+    padding:5px;
+    margin:5px;
+    border-radius: 3px;
+    color:rgb(211, 211, 211);
+    font-family: 'Roboto', sans-serif;
+}
+button{
+    all:unset;
+    background-color: rgb(227, 227, 227);
+    color:black;
+    padding:10px 20px;
+    margin:10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size:.9em;
+}
+button:hover{
+    background-color: white;
+}
+button:active{
+    background-color: rgb(227, 227, 227);
+}
+input.selectionIsDefault{
+    cursor: pointer;
+    background-color: red;
+}
+#inputs{
+    padding:20px;
+    width:calc(100% - 40px);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:calc(100% - 20px);
+}
+#catsContainer{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    flex-grow:2;
+    border-bottom:1px solid rgb(143, 143, 143);;
+    height:calc(100% - 20px);
+    width:calc(100% - 20px);
+    padding:10px;
+
+}
+.cats{
+    width:calc(100% - 10px);
+    padding:5px;
+    padding-top:0;
+    background-color: #1c1c1c;
+    border-radius: 5px;
+    height:calc(100% - 45px);
+
+}
+#addCat{
+    margin:0;
+    height:30px;
+    padding:0 10px;
+    border-radius: 5px 5px 0 0 ;
+}
+.catsHead{
+    margin:0 10px;
+    width:calc(100% - 20px);
+    height:30px;
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+}
+.catHead{
+    padding:5px 10px;
+    margin:0 3px;
+    height:20px;
+    user-select: none;
+    border-radius: 5px 5px 0 0 ;
+
+    cursor: pointer;
+    color:rgb(130, 130, 130);
+    background-color:#383838;
+}
+.catHead_selected{
+    color:azure;
+    background-color:#1c1c1c;
+}
+.cat{
+    padding:10px;
+    width:calc(100% - 20px);
+    height:calc(100% - 20px);
+    display:none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.cat_selected{
+    display:flex;
+}
+///////////
+.prodsContainer{
+    margin-left:25px;
+    margin-top:25px;
+    display:flex;
+    align-items:flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.optionsContainer{
+    margin-left:25px;
+    margin-bottom:25px;
+}
+
+.selectionsContainer{
+    margin-left:25px;
+}
+.prod{
+    background-color: #383838;
+    margin:10px;
+    padding:10px;
+    border-radius: 5px;
+}

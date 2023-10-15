@@ -1,0 +1,601 @@
+@font-face {
+  font-family: 'cpanel';
+  src:  url('fonts/cpanel.eot?o1xgac');
+  src:  url('fonts/cpanel.eot?o1xgac#iefix') format('embedded-opentype'),
+    url('fonts/cpanel.ttf?o1xgac') format('truetype'),
+    url('fonts/cpanel.woff?o1xgac') format('woff'),
+    url('fonts/cpanel.svg?o1xgac#cpanel') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'cpanel' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-weight: 500;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ico-check1:before {
+    content: "\e98e";
+    color:var(--green);
+}
+.ico-msg_sent:before{
+  color:var(--green-70)
+}
+.ico-msg_seen:before{
+  color:var(--green-70)
+}
+.ico-msg_sending:before{
+  color:var(--bg5)
+}
+// .ico-msgSeen:before {
+//     color:var(--green);
+//     font-size: .95em;
+// }
+// .ico-msgSent:before {
+//     color:var(--bg7);
+//     font-size: .85em;
+//     opacity: .5;
+// }
+// .ico-msgDelivered:before {
+//     color:var(--bg7);
+//     opacity: .5;
+//     font-size: .95em;
+// }
+// .ico-msgNotSent:before {
+//     color:var(--red);
+//     opacity: .75;
+//     font-size: .95em;
+// }
+// .ico-msgSending:before{
+//     color:var(--bg7);
+//     font-size: .7em;
+//     opacity: .5;
+// }
+.ico-guest::before{
+  color:var(--bg6);
+}
+  ////////////////////
+
+  .ico-dashboard:before {
+    content: "\e928";
+  }
+  .ico-home:before {
+    content: "\e92d";
+  }
+  .ico-activity_log:before {
+    content: "\e92f";
+  }
+  .ico-statistics_and_analytics:before {
+    content: "\e90f";
+  }
+  .ico-restaurant_expenses:before {
+    content: "\e910";
+  }
+  .ico-financial_reports:before {
+    content: "\e97e";
+  }
+  .ico-security:before {
+    content: "\e931";
+  }
+  .ico-email_address:before {
+    content: "\e924";
+  }
+  .ico-password:before {
+    content: "\e933";
+  }
+  .ico-phone_number:before {
+    content: "\e937";
+  }
+  .ico-my_staff:before {
+    content: "\e906";
+  }
+  .ico-sub_accounts:before {
+    content: "\e934";
+  }
+  .ico-delivery_accounts:before {
+    content: "\e947";
+  }
+  .ico-orders:before {
+    content: "\e91a";
+  }
+  .ico-incomplete_orders:before {
+    content: "\e901";
+  }
+  .ico-order_history:before {
+    content: "\e900";
+  }
+  .ico-categories:before {
+    content: "\e90e";
+  }
+  .ico-category_list:before {
+    content: "\e91b";
+  }
+  .ico-products:before {
+    content: "\e90b";
+  }
+  .ico-manage_products:before {
+    content: "\e982";
+  }
+  .ico-product_reviews:before {
+    content: "\e92a";
+  }
+  .ico-users:before {
+    content: "\e935";
+  }
+  .ico-create_new_user:before {
+    content: "\e943";
+  }
+  .ico-manage_users:before {
+    content: "\e986";
+  }
+  .ico-online_users:before {
+    content: "\e945";
+  }
+  .ico-design:before {
+    content: "\e93d";
+  }
+  .ico-templates:before {
+    content: "\e93e";
+  }
+  .ico-website_colors:before {
+    content: "\e942";
+  }
+  .ico-home_page_sections:before {
+    content: "\e989";
+  }
+  .ico-images:before {
+    content: "\e941";
+  }
+  .ico-settings:before {
+    content: "\e907";
+  }
+  .ico-system:before {
+    content: "\e936";
+  }
+  .ico-restaurant_information:before {
+    content: "\e93a";
+  }
+  .ico-languages:before {
+    content: "\e93b";
+  }
+  .ico-control_panel_settings:before {
+    content: "\e93f";
+  }
+  .ico-home_delivery_settings:before {
+    content: "\e949";
+  }
+  .ico-order_pickup_settings:before {
+    content: "\e94b";
+  }
+  .ico-dine_in_settings:before {
+    content: "\e94f";
+  }
+  .ico-promo_codes:before {
+    content: "\e950";
+  }
+  .ico-support:before {
+    content: "\e922";
+  }
+  .ico-submit_a_help_ticket:before {
+    content: "\e953";
+  }
+  .ico-ticket_history:before {
+    content: "\e954";
+  }
+  .ico-billing:before {
+    content: "\e94e";
+  }
+  .ico-bug:before {
+    content: "\e955";
+  }
+  .ico-logout:before {
+    content: "\e956";
+  }
+  .ico-msg_not_sent:before {
+    content: "\e902";
+  }
+  .ico-msg_sent:before {
+    content: "\e903";
+  }
+  .ico-msg_sending:before {
+    content: "\e903";
+  }
+  .ico-msg_seen:before {
+    content: "\e904";
+  }
+  .ico-star:before {
+    content: "\e92b";
+  }
+  .ico-starEmpty:before {
+    content: "\e95a";
+  }
+  .ico-address:before {
+    content: "\e9af";
+  }
+  .ico-userBlock:before {
+    content: "\e91d";
+  }
+  .ico-guest:before {
+    content: "\e920";
+  }
+  .ico-user:before {
+    content: "\e9a7";
+  }
+  .ico-card:before {
+    content: "\e999";
+  }
+  .ico-money:before {
+    content: "\e926";
+  }
+  .ico-lamp:before {
+    content: "\e97f";
+  }
+  .ico-datePicker:before {
+    content: "\e993";
+  }
+  .ico-search:before {
+    content: "\e96d";
+  }
+  .ico-title:before {
+    content: "\e97a";
+  }
+  .ico-description:before {
+    content: "\e90a";
+  }
+  .ico-edit:before {
+    content: "\e905";
+  }
+  .ico-langCode:before {
+    content: "\e99a";
+  }
+  .ico-gps:before {
+    content: "\e98c";
+  }
+  .ico-minus:before {
+    content: "\e98f";
+  }
+  .ico-plus:before {
+    content: "\e991";
+  }
+  .ico-no:before {
+    content: "\e992";
+  }
+  .ico-ticket:before {
+    content: "\e957";
+  }
+  .ico-delivery:before {
+    content: "\e94a";
+  }
+  .ico-pickup:before {
+    content: "\e94c";
+  }
+  .ico-dineIn:before {
+    content: "\e951";
+  }
+  .ico-power:before {
+    content: "\e938";
+  }
+  .ico-online:before {
+    content: "\e946";
+  }
+  .ico-report:before {
+    content: "\e923";
+  }
+  .ico-info:before {
+    content: "\e913";
+  }
+  .ico-success:before {
+    content: "\e91e";
+  }
+  .ico-attachment:before {
+    content: "\e97b";
+  }
+  .ico-help:before {
+    content: "\e968";
+  }
+  .ico-thumbsDown1:before {
+    content: "\e99f";
+  }
+  .ico-thumbsDown:before {
+    content: "\e997";
+  }
+  .ico-thumbsUp1:before {
+    content: "\e9a0";
+  }
+  .ico-thumbsUp:before {
+    content: "\e998";
+  }
+  .ico-fullScreen:before {
+    content: "\e965";
+  }
+  .ico-unbin:before {
+    content: "\e966";
+  }
+  .ico-pin:before {
+    content: "\e967";
+  }
+  .ico-eraser:before {
+    content: "\e964";
+  }
+  .ico-maximize:before {
+    content: "\e958";
+  }
+  .ico-minimize:before {
+    content: "\e911";
+  }
+  .ico-close:before {
+    content: "\e917";
+  }
+  .ico-left:before {
+    content: "\e916";
+  }
+  .ico-right:before {
+    content: "\e918";
+  }
+  .ico-up:before {
+    content: "\e963";
+  }
+  .ico-down:before {
+    content: "\e912";
+  }
+  .ico-seeMore:before {
+    content: "\e99d";
+  }
+  .ico-menu1:before {
+    content: "\e961";
+  }
+  .ico-send:before {
+    content: "\e915";
+  }
+  .ico-delete:before {
+    content: "\e908";
+  }
+  .ico-msgSending:before {
+    content: "\e962";
+  }
+  .ico-notifications:before {
+    content: "\e940";
+  }
+  .ico-chat:before {
+    content: "\e94d";
+  }
+  .ico-warning:before {
+    content: "\e92e";
+  }
+  .ico-upload:before {
+    content: "\e919";
+  }
+  .ico-download:before {
+    content: "\e925";
+  }
+  .ico-copy:before {
+    content: "\e921";
+  }
+  .ico-check:before {
+    content: "\e914";
+  }
+  .ico-youtube:before {
+    content: "\e930";
+  }
+  .ico-telegram:before {
+    content: "\e983";
+  }
+  .ico-whatsapp:before {
+    content: "\e984";
+  }
+  .ico-linkedin:before {
+    content: "\e985";
+  }
+  .ico-twitter:before {
+    content: "\e959";
+  }
+  .ico-facebook:before {
+    content: "\e939";
+  }
+  .ico-location:before {
+    content: "\e932";
+  }
+  .ico-announcement:before {
+    content: "\e93c";
+  }
+  .ico-clock:before {
+    content: "\e927";
+  }
+  .ico-refresh:before {
+    content: "\e91c";
+  }
+  .ico-slideshow:before {
+    content: "\e909";
+  }
+  .ico-canceled:before {
+    content: "\e90c";
+  }
+  .ico-image:before {
+    content: "\e90d";
+  }
+  .ico-shop:before {
+    content: "\e9ae";
+  }
+  .ico-menu2:before {
+    content: "\e9ad";
+  }
+  .ico-hidePassword:before {
+    content: "\e9ab";
+  }
+  .ico-showPassword:before {
+    content: "\e9ac";
+  }
+  .ico-cycle:before {
+    content: "\e9aa";
+  }
+  .ico-hashtag:before {
+    content: "\e9a9";
+  }
+  .ico-open:before {
+    content: "\e9a8";
+  }
+  .ico-list:before {
+    content: "\e9a6";
+  }
+  .ico-zoomOut:before {
+    content: "\e9a4";
+  }
+  .ico-zoomIn:before {
+    content: "\e9a5";
+  }
+  .ico-move:before {
+    content: "\e95b";
+  }
+  .ico-mute:before {
+    content: "\e9a3";
+  }
+  .ico-percent:before {
+    content: "\e9a2";
+  }
+  .ico-flag:before {
+    content: "\e9a1";
+  }
+  .ico-mobile:before {
+    content: "\e99b";
+  }
+  .ico-pc:before {
+    content: "\e99c";
+  }
+  .ico-menu:before {
+    content: "\e929";
+  }
+  .ico-rocket:before {
+    content: "\e996";
+  }
+  .ico-basics:before {
+    content: "\e995";
+  }
+  .ico-pdf:before {
+    content: "\e994";
+  }
+  .ico-print:before {
+    content: "\e990";
+  }
+  .ico-readyForPickup:before {
+    content: "\e948";
+  }
+  .ico-accepted:before {
+    content: "\e95c";
+  }
+  .ico-received:before {
+    content: "\e95c";
+  }
+  .ico-check0:before {
+    content: "\e98d";
+  }
+  .ico-check1:before {
+    content: "\e98e";
+  }
+  .ico-details:before {
+    content: "\e92c";
+  }
+  .ico-orderItems:before {
+    content: "\e95d";
+  }
+  .ico-dineinDone:before {
+    content: "\e98a";
+  }
+  .ico-dineinSettings:before {
+    content: "\e98b";
+  }
+  .ico-productPage:before {
+    content: "\e96c";
+  }
+  .ico-productCard:before {
+    content: "\e944";
+  }
+  .ico-button:before {
+    content: "\e96e";
+  }
+  .ico-input:before {
+    content: "\e96f";
+  }
+  .ico-spinner:before {
+    content: "\e970";
+  }
+  .ico-scrollbar:before {
+    content: "\e971";
+  }
+  .ico-checkbox:before {
+    content: "\e972";
+  }
+  .ico-popupIcons:before {
+    content: "\e973";
+  }
+  .ico-icons:before {
+    content: "\e974";
+  }
+  .ico-login:before {
+    content: "\e975";
+  }
+  .ico-change:before {
+    content: "\e976";
+  }
+  .ico-music:before {
+    content: "\e977";
+  }
+  .ico-instagram:before {
+    content: "\e978";
+  }
+  .ico-websiteTexts:before {
+    content: "\e979";
+  }
+  .ico-title1:before {
+    content: "\e97c";
+  }
+  .ico-r:before {
+    content: "\e980";
+  }
+  .ico-link:before {
+    content: "\e981";
+  }
+  .ico-save:before {
+    content: "\e987";
+  }
+  .ico-releaseNotes:before {
+    content: "\e95e";
+  }
+  .ico-createProduct:before {
+    content: "\e95f";
+  }
+  .ico-placeNewOrder:before {
+    content: "\e969";
+  }
+  .ico-pending:before {
+    content: "\e96a";
+  }
+  .ico-plans:before {
+    content: "\e97d";
+  }
+  .ico-billing1:before {
+    content: "\e99e";
+  }
+  .ico-cart:before {
+    content: "\e952";
+  }
+  .ico-restoreDefault:before {
+    content: "\e988";
+  }
+  .ico-share:before {
+    content: "\e91f";
+  }
+  .ico-createCategory:before {
+    content: "\e96b";
+  }
+  

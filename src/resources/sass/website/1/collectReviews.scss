@@ -1,0 +1,52 @@
+.collectReviewsReviewContainer{
+    margin:20px 5px;
+    width:calc(100% - 10px);
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    box-shadow: 0px 0px 10px 0px var(--dark10);
+    background-color:var(--bg2);
+}
+.collectReviewsReviewImg{
+    // height:100%;
+    width:100px;
+    object-fit: cover;
+}
+.collectReviewsReviewInputs{
+    width:calc(100% - 50px);
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+#collectReviews-Btn{
+    padding: 10px;
+    border-radius: 1px;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    position: sticky;
+    bottom:-25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+.collectReviewsPosted{
+    width:100%;
+    text-align:center;
+    font-size:1.5em;
+    color:var(--cs);
+    margin:20px 0;
+    opacity:0;
+    transform:translateY(10px);
+    transition-duration: 1000ms;
+}
+.collectReviewsPosted_show{
+    opacity:1;
+    transform:translateY(0px);
+}

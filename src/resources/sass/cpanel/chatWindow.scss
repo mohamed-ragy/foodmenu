@@ -1,0 +1,194 @@
+.chatWindow{
+    position: fixed;
+    z-index: 70;
+    height:400px;
+    width:300px;
+    transition-duration: 0s;
+    background-color: var(--bg);
+    border-radius:  5px;
+    overflow: hidden;
+    box-shadow: var(--shdw1);
+    color:var(--bg6);
+    .chatWindowHead{
+        color:var(--bg6);
+        a{
+            color:var(--bg6);
+            text-decoration: underline;
+        }
+    }
+    .chatWindowFixedDate{opacity: .7;}
+    .chatWindowScrollToBottom{opacity: .7;}
+}
+.chatWindowOnMove{
+    z-index: 72;
+}
+.chatWindow_mini{
+    height:49px;
+    opacity:1;
+}
+.activeChatWindow{
+    transition-duration: 0s;
+    z-index: 71;
+    opacity:1;
+    color:var(--txt);
+    box-shadow: var(--shdw1);
+    .chatWindowHead{
+        color:var(--green-txt);
+        a{
+            color:var(--green-txt);
+            text-decoration: underline;
+        }
+    }
+    .chatWindowFixedDate{opacity: 1;}
+    .chatWindowScrollToBottom{opacity: 1;}
+}
+///////////////head/////////////////////
+.chatWindowHead{
+    transition-duration: 0s;
+    height:50px;
+    padding:0 5px;
+    width:calc(100% - 10px);
+    background-color: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    z-index: 47;
+    position: relative;
+    background-color: var(--green);
+    color: var(--green-txt);
+    a{
+        color:var(--green-txt);
+        text-decoration: underline;
+    }
+}
+.chatWindowUserActions{
+    font-size: .75em;
+    margin-inline-start:5px;
+    margin-inline-end:10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+}
+.chatWindowUserName{
+    font-size: 1em;
+    font-weight: bold;
+    margin-inline-start: 2px;
+    margin-inline-end: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+}
+.chatWindowUsersOnlineIcon{
+    margin:3px !important;
+}
+
+////////////////footer///////////////////
+.chatWindowFooter{
+    transition-duration: 0s;
+    height:34px;
+    background-color: inherit;
+    z-index: 47;
+    position: relative;
+    border-top:1px solid var(--bg3);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+
+}
+.chatWindowUserIcon{
+    transition-duration: 0s;
+    font-size: 1.1em;
+    cursor: pointer;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    flex-shrink: 0;
+}
+.chatWindowUserIcon:hover{
+    background-color: var(--bg2);
+}
+.chatWindowInputMsg{
+    all: unset;
+    transition-duration: 0s;
+    font-size:.8em;
+    height: calc(34px - 10px);
+    flex-grow: 1;
+    width: 100px;
+    background-color: var(--bg2);
+    border-right:1px solid var(--bg3);
+    border-left:1px solid var(--bg3);
+    padding: 5px;
+    user-select: text;
+}
+////////////////body////////////////
+.chatwindowBody{
+    transition-duration: 0s;
+    height:calc(315px - 70px);
+    width:calc(100% - 10px);
+    margin:0;
+    padding:0 5px;
+    padding-top:50px;
+    background-color: var(--bg);
+    border-radius:  3px;
+    pointer-events: auto;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction:column-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-y:auto;
+    position: relative;
+}
+.chatWindowDateContainer{
+    margin:40px 20px;
+    width:calc(100% - 40px);
+    border-bottom:1px solid var(--bg6);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.chatWindowDate{
+    background-color: var(--bg);
+    color:var(--bg6);
+    width: auto;
+    padding: 0 7px;
+    margin-bottom: -9px;
+    text-align: center;
+    font-size: .8em;
+}
+.chatWindowMsgInfoIconsContainer{
+    transition-duration: 0s;
+    font-size: 1.1em;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin:.5em;
+    display:none;
+    opacity: .5;
+}
+.ChatWindowMsgCard{
+    width:100%;
+}
+.ChatWindowMsgCard_animation{
+    animation-name: ChatWindowMsgCardAnimation;
+    animation-iteration-count: 1;
+    animation-duration: 100ms;
+}
+@keyframes ChatWindowMsgCardAnimation {
+    0%{opacity:1;transform: translateY(50px) translateX(-20px) scale(.1);}
+    100%{opacity:1;transform: translateY(0px) translateX(0px) scale(1);}
+}

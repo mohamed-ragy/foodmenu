@@ -1,0 +1,44 @@
+.chatWindowMsgContainer_account{
+    transition-duration: 0s;
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+.chatWindowMsgContainer_account:hover{
+    .chatWindowMsgInfoIconsContainer{display:flex;}
+}
+.chatWindowMsg_account{
+    transition-duration: 0s;
+    max-width:calc(85% - 15px);
+    margin:7.5px 2.5px;
+    border-radius: 3px;
+    background-color: var(--green-10);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    min-width: 100px;
+}
+.chatWindowMsgText_account{
+    transition-duration: 0s;
+    user-select: text;
+    max-width: calc(100%);
+    overflow-wrap: break-word;
+    font-size: .85em;
+}
+.chatWindowMsgInfo_account{
+    transition-duration: 0s;
+    white-space: nowrap;
+    text-align:end;
+    width: calc(100% - 10px);
+    padding: 5px;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+}

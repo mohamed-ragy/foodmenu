@@ -1,0 +1,25 @@
+.restaurantExpensesContainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin:0 5px;
+    padding:10px 5px;
+    flex-grow: 3;
+    background-color: var(--c1);
+    box-shadow:var(--shdw3);
+
+}
+.restaurantExpensesContainer:hover{
+    background-color: var(--c3);
+}
+.deleteExpenses, .deleteMonthExpenses{
+    font-size: 1.5em;
+    margin:3px;
+    padding:5px;
+    color:var(--red);
+    cursor: pointer;
+    border-radius: 3px;
+}
+

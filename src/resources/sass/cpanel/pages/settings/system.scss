@@ -1,0 +1,18 @@
+.countryFlagCard{
+    border-radius:5px;
+    background-color: var(--bg2);
+    box-shadow: 0 0 0px 1px var(--shdw-5);
+    overflow: hidden;
+}
+.digitalWatch{
+    border: 2px solid var(--green);
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    min-width: 130px;
+    text-align: center;
+    background-color: var(--green-5);
+    color:var(--green);
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+}

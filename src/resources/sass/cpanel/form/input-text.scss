@@ -1,0 +1,154 @@
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+////////////////////////////////////////////////////////////
+.inputTextContainer{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    max-width:calc(100% - 2px);
+    border:1px solid var(--bg5);
+    border-radius: 3px;
+    margin:10px 0px;
+    width:fit-content;
+}
+.inputTextContainer_active{
+    border:1px solid var(--bg6) !important;
+}
+.inputTextContainer_100p{
+    width:calc(100% - 2px);
+}
+.inputTextIcon{
+    padding: 5px;
+    height:15px;
+    min-width:20px;
+    font-size: 1.2em;
+    background-color: transparent;
+    color: var(--bg6);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: .2s;
+    cursor: pointer;
+}
+
+.inputTextIconFlag{
+    // padding: 3px;
+    height:15px;
+    width:15px;
+    border-radius: 50%;
+}
+.inputText{
+    padding: 8px 3px;
+    height:15px;
+    width:300px;
+    max-width:calc(100% - 6px);
+    background-color: transparent;
+    color: var(--txt);
+    border:none;
+    font-size: .9em;
+    border-radius: 0;
+    margin:0;
+    user-select: auto;
+    font-family: 'Nunito','inter','Tajawal', sans-serif;
+    flex-grow: 2;
+}
+
+.inputText:focus {
+    outline:none;
+}
+.inputText::placeholder{
+    color:var(--bg6)
+}
+.inputText:read-only{
+    cursor: not-allowed;
+}
+.inputText_100p{
+    width:calc(100% - 6px);
+}
+.inputText-clearVal{
+    padding: 5px;
+    height:15px;
+    font-size: .8em;
+    background-color: transparent;
+    color: var(--bg6);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.inputText-copyVal{
+    padding: 5px;
+    height:15px;
+    font-size: .8em;
+    background-color: transparent;
+    color: var(--bg6);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.inputText-showPassword{
+    padding: 5px;
+    height:15px;
+    font-size: .8em;
+    background-color: transparent;
+    color: var(--bg6);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+/////////////////////////////////////////////////////////////
+.inputSearchContainer{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width:calc(100% - 22px);
+    border:1px solid var(--bg5);
+    border-radius: 4px;
+    margin:10px;
+}
+.inputSearch{
+    padding: 7px 7px;
+    height:15px;
+    width:calc(100% - 14px);
+    background-color: transparent;
+    color: var(--txt);
+    border:none;
+    font-size: .9em;
+    border-radius: 0;
+    margin:0;
+    user-select: auto;
+    font-family: 'Nunito','inter','Tajawal', sans-serif;
+}
+.inputSearch::placeholder{
+    color:var(--bg6)
+}
+.inputSearch:focus {
+    outline: none;
+    border-inline-end:none;
+}
+.inputSearchIcon{
+    padding: 7px;
+    height:15px;
+    font-size: 1em;
+    background-color: transparent;
+    color: var(--placeholder);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: .2s;
+    cursor: pointer;
+}
+////////////////////////////////////////////

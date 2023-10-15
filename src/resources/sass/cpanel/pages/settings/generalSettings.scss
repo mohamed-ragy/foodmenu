@@ -1,0 +1,55 @@
+.websitePhoneNumberInputDelete{
+    padding: 5px;
+    height:20px;
+    width:20px;
+    font-size: .9em;
+    background-color: transparent;
+    color: var(--placeholder);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color:var(--red-80);
+}
+
+#setting-restaurantLocation_map{
+    height:500px;
+    width:100%;
+}
+//////
+///
+.leaflet-control-zoom{border:none !important;}
+
+.leaflet-control-zoom-out, .leaflet-control-zoom-in{
+    background-color: var(--bg)!important;
+    color:var(--txt) !important;
+    font-size: 1.2em !important;
+}
+.leaflet-control-zoom-out, .leaflet-control-zoom-in, .restaurantLocation_currentLocationBtn, .restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--txt);
+    background-color: var(--bg);
+    background-color: var(--bg)!important;
+    border-radius: 2px !important;
+    color:var(--txt) !important;
+    box-shadow: var(--shdw2);
+}
+.restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation{
+    display:flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.restaurantLocation_unsetLocationBtn.confirm-btn{
+    color:var(--orange-txt) !important;
+}
+.restaurantLocation_unsetLocationBtn.confirm-btn:hover{
+    background-color:var(--orange) !important;
+}
+.leaflet-control-zoom-in:hover{text-decoration: none;background-color: var(--bg2) !important;}
+.leaflet-control-zoom-out:hover{text-decoration: none;background-color: var(--bg2) !important;}
+.restaurantLocation_currentLocationBtn:hover{text-decoration: none;background-color: var(--bg2) !important;}
+.restaurantLocation_unsetLocationBtn:hover, .createNewUser-unsetLocation:hover, .editUser-unsetLocation:hover{text-decoration: none;background-color: var(--bg2) !important;}
+
+.leaflet-disabled{color:var(--bg6) !important}

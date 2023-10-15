@@ -1,0 +1,45 @@
+
+#support-submitTicket-attachedImgs{
+    width:100%;
+    overflow: hidden;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+#support-submitTicket-attachAnImg{
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: .9em;
+    margin:10px;
+}
+.support-attachedImgContainer{
+    width: 70px;
+    height:70px;
+    border-radius: 2px;
+    margin:10px;
+    position: relative;
+    box-shadow: var(--shdw3);
+}
+.support-attachedImg{
+    width: 70px;
+    height:70px;
+    object-fit: contain;
+}
+.support-attachedImgRemove{
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    box-shadow: 0 0 10px -1px var(--shdw-10),0 0 0px 1px var(--shdw-10);
+    background-color: var(--bg);
+    border-radius: 50%;
+    color: var(--txt);
+    font-size: 0.7em;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

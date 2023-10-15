@@ -1,0 +1,242 @@
+@import './loading.scss'; //done
+@import '../style.scss';
+@import '../icons/2/icons2.scss';
+@import './popup.scss'; //done
+@import './liveChat.scss'; //done
+@import './order/addToCart.scss';//done
+@import './order/cart.scss';// done
+@import './order/placeOrder.scss'; //done
+@import './order/trackOrder.scss';//done
+@import './aboutus.scss'; // done
+@import './nav.scss'; //done
+@import './footer.scss'; //done
+@import './productCard.scss'; //done
+@import './homePage/intro.scss'; //done
+@import './homePage/ourStory.scss'; //done
+@import './homePage/info.scss'; //done
+@import './homePage/categories.scss'; //done
+@import './homePage/productList.scss'; //done
+@import './homePage/customerReviews.scss'; //done
+@import './product.scss'; // done
+@import './profile.scss';//done
+@import './collectReviews.scss'; //done
+
+@font-face {
+    font-family: 'ElMessiri';
+    src: url('/storage/fonts/ar/ElMessiri.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'Signika Negative';
+    src: url('/storage/fonts/en/signikaNegative.ttf') format("truetype");
+}
+
+:root {
+    --font2: 'Signika Negative','ElMessiri', 'serif';
+}
+*::-webkit-scrollbar {width: 8px;height:8px;background:transparent;}
+*::-webkit-scrollbar-track {background:transparent}
+*::-webkit-scrollbar-thumb {background: var(--scrlth);border-radius: 5px;}
+*::-webkit-scrollbar-thumb:hover {background: var(--scrlthhvr);}
+
+*::-moz-scrollbar {width: 8px;height:8px;background:transparent;}
+*::-moz-scrollbar-track {background:transparent}
+*::-moz-scrollbar-thumb {background: var(--scrlth);border-radius: 5px;}
+*::-moz-scrollbar-thumb:hover {background: var(--scrlthhvr);}
+//
+///////////////////main
+html{
+    overflow-y:hidden;
+    // overflow-y:hidden;
+}
+body{
+    background-color:var(--bg);
+    color:var(--bgtxt);
+    font-family: 'Signika Negative','ElMessiri', sans-serif;
+    font-weight: 400;
+    overflow-y:hidden;
+    // overflow-y:hidden;
+
+}
+#liveChat{
+    z-index: 60;
+}
+
+a{all:unset;cursor: pointer;color:var(--c2);}
+a:hover{text-decoration: underline;}
+.a-unset{all:unset;}
+.a-unset:hover{text-decoration: unset;}
+.tooltipPopup{
+    background-color: var(--bg3);
+    color: var(--bgtxt);
+    border-radius: 1px;
+    padding: 5px;
+    position: fixed;
+    display:flex ;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    z-index: 1500;
+    transition-duration: 0s;
+    width:fit-content;
+    max-width:300px;
+    @media (max-width:400px) {
+        max-width: 200px;
+        font-size:.7em;
+    }
+    box-shadow: var(--dark25) 0px 0px 4px 0px;
+    font-size:.8em;
+    border:1px solid var(--light);
+}
+.tooltipPopupHidden{
+    display:none;
+}
+///form
+input{
+    appearance: none;
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    width:180px;
+    padding:7px 10px;
+    font-family: 'Signika Negative','ElMessiri', sans-serif;
+    border-radius: 10px;
+    background-color: var(--bg);
+    color:var(--bgtxt);
+    border:.5px solid var(--c1-50);
+    transition-duration: 300ms;
+}
+input::placeholder{
+    color:var(--inputph);
+}
+input:focus{
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    border:.5px solid var(--c1);
+    background-color: var(--bg3);
+}
+input:disabled{
+    cursor: not-allowed;
+}
+input.promocodeCode{
+    width:120px;
+    padding:5px 8px;
+    border-radius: 5px 0 0 5px;
+    border-right:none;
+}
+input.promocodeCode_rtl{
+    width:120px;
+    padding:5px 8px;
+    border-radius: 0 5px 5px 0 ;
+    border-left:none;
+}
+textarea{
+    resize: none;
+    appearance: none;
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    width:180px;
+    padding:5px 10px;
+        font-family: 'Signika Negative','ElMessiri', sans-serif;
+    border-radius: 7px;
+    background-color: var(--bg);
+    color:var(--bgtxt);
+    border:.5px solid var(--c1-50);
+    transition-duration: 300ms;
+}
+textarea.postNewReviewReview{
+    margin: inline end 20px;
+    width:calc(100% - 42px);
+}
+textarea#addToCartItemNotice{
+    width:calc(100% - 22px);
+    display: block;
+    border:.1px solid transparent;
+}
+
+textarea#addToCartItemNotice:focus{
+    border:.1px solid transparent;
+}
+textarea::placeholder{
+    color:var(--inputph);
+}
+textarea:focus{
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    border:.5px solid var(--c1);
+    background-color: var(--bg3);
+}
+.inputError{
+    border:.5px solid var(--ce);
+}
+.inputError:focus{
+    border:.5px solid var(--ce);
+}
+
+button{
+    border:unset;
+    font-size:unset;
+    font-family: unset;
+    box-shadow:unset;
+    margin:unset;;
+    background-color: transparent;
+    color:var(--c1);
+    border:2px solid var(--c1);
+    cursor: pointer;
+    padding:8px 25px;
+    border-radius: 20px;
+    transition-duration: 150ms;
+    font-weight:bold;
+}
+button:hover{
+    background-color: var(--c1-10);
+}
+button:active{
+    background-color: transparent;
+    border:2px solid var(--c1);
+}
+button.promocodeApplyBtn{
+    border-radius: 0 5px 5px 0 ;
+    padding:5px 10px;
+}
+button.promocodeApplyBtn_rtl{
+    border-radius: 5px 0 0 5px;
+    padding:5px 10px;
+}
+.btn_error{
+    border:unset;
+    font-size:unset;
+    font-family: unset;
+    box-shadow:unset;
+    margin:unset;;
+    background-color: transparent;
+    color:var(--ce);
+    border:2px solid var(--ce);
+    cursor: pointer;
+    padding:8px 25px;
+    border-radius: 20px;
+    transition-duration: 150ms;
+    font-weight:bold;
+}
+.btn_error:hover{
+    background-color: var(--ce-10);
+}
+.btn_error:active{
+    background-color: transparent;
+    border:2px solid var(--ce);
+}
+button:disabled{
+    background-color: var(--btnDis);
+    border:2px solid transparent;
+    color:var(--light90);
+    cursor: not-allowed;
+}
+
+.ic-check1{color:var(--c2)}
+.ic-check0{color:var(--bgtxt)}
+/////general
+
+@import '../styleClasses.scss'

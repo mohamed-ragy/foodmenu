@@ -1,0 +1,39 @@
+
+$bg-light:#ffffffff;
+$bg-dark:#eaf0f6ff;
+$bg-window:rgba(255, 255, 255, 0.789);
+
+$text-light:#eaf0f6ff;
+$text-dark:rgb(50, 64, 78);
+
+$color-light:#52a4bdff;
+$color-dark:rgb(50, 64, 78);
+
+$bg-menu:rgb(50, 64, 78);
+$text-menu:#ffffffff;
+
+$error:rgb(116, 1, 1);
+$error-bg:rgb(197, 107, 107);
+$error-icon:rgb(221, 9, 9);
+
+$success:rgb(26, 102, 26);
+$success-bg:rgba(51, 194, 82, 0.973);
+$success-icon:rgb(58, 160, 49);
+
+$warning:rgb(102, 96, 12);
+$warning-bg:rgba(233, 222, 76, 0.973);
+
+// .text-error{
+//     background-color:$error-bg;
+//     border:.2em solid $error;
+//     border-radius:.5em;
+//     padding:.5em;
+//     color:$error;
+// }
+.text-error{
+
+    color:$error-icon;
+}
+.text-success{
+    color:$success-icon;
+}

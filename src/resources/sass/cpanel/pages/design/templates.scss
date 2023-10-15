@@ -1,0 +1,26 @@
+.templateContainer{
+    width:calc(100% - 20px);
+    margin:10px;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-shadow: 0 0 2px var(--shdw-20);
+    background-color: var(--c2);
+    border-radius: 3px;
+    overflow:hidden;
+    @media (min-width:1024px) {
+        width:calc(50% - 20px);
+    }
+}
+.templateContainerImg{
+    width:100%;
+    aspect-ratio: 1440 / 827;
+    object-fit: cover;
+    object-position: top center;
+    transition-duration: 10s;
+    transition-timing-function: linear;
+}
+.templateContainerImg:hover{
+    object-position: bottom center;
+}

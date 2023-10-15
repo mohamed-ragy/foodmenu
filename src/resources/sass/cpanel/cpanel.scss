@@ -1,0 +1,316 @@
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'inter';
+    src: url('/storage/fonts/en/inter.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'Tajawal';
+    src: url('/storage/fonts/ar/Tajawal.ttf') format("truetype");
+}
+$mobile-size:720px;
+$pc_size : $mobile-size + 1;
+
+p{margin:10px 5px;}
+
+*{-webkit-tap-highlight-color: transparent;}
+
+html{
+    margin: 0;
+    padding:0;
+    height: 100%;
+    width:100%;
+    overflow: hidden;
+}
+body{
+    font-family: 'Nunito','inter','Tajawal', sans-serif;
+    overscroll-behavior-y: contain;
+    margin: 0;
+    padding:0;
+    user-select: none;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+    color: var(--txt);
+    background-color: var(--bg);
+}
+.inter{font-family: 'inter','Nunito','Tajawal', sans-serif;}
+#bodyContainer{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding:0;
+    user-select: none;
+    height: calc(100% - 20px);
+    overflow: hidden;
+}
+#cp-body{
+    flex-grow:1;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    width:1px;
+}
+#cp-container{
+    height:calc(100%);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    position: relative;
+    @media print {
+        display:none;
+    }
+}
+
+@import 'cpanel/popupPage.scss';
+@import 'cpanel/helpWidnow.scss';
+@import 'cpanel/bodyPage.scss';
+
+@import 'cpanel/loadingScreen.scss';//done
+@import 'tools/_icons.scss';
+@import '/node_modules/leaflet/dist/leaflet.css';
+
+@import 'cpanel/autoHelp';//done
+@import 'cpanel/sideMenu';//done
+@import 'cpanel/nav';//notifications and guidealerts need to be fixed with the new icons
+@import 'cpanel/statusBar';//done
+@import 'chat';//done
+
+@import 'form/checkbox';//done
+@import 'form/button';//done
+@import 'form/input-text';//done
+@import 'form/input-list';//done
+@import 'form/textarea';//done
+@import 'form/numberPicker';//done
+@import 'form/timePicker.scss';//done
+
+
+@import 'tools/scrollBar';//done
+@import 'tools/popup'; //need to fix the popups blade file
+@import 'tools/alert';//done
+@import 'tools/loading';//done
+@import 'tools/f1';//done
+@import 'tools/sharepopup';
+@import 'tools/datePicker';//done
+
+
+
+@import 'pages/dashboard/home';
+@import 'pages/dashboard/activityLog';
+@import 'pages/dashboard/statistics';
+@import 'pages/dashboard/restaurantExpenses';
+@import 'pages/dashboard/financialReports';
+
+@import 'pages/security/phoneNumber';
+
+
+@import 'pages/orders/orders';
+@import 'pages/orders/order.scss';
+@import 'pages/orders/ordersTable';
+@import 'pages/orders/newOrder';
+
+@import 'pages/categories/categoriesList';
+
+@import 'pages/products/manageProducts';
+@import 'pages/products/productReviews';
+
+@import 'pages/design/templates';
+@import 'pages/design/websiteColors';
+@import 'pages/design/homePageSections';
+@import 'pages/design/images';
+
+@import 'pages/settings/system';//done
+@import 'pages/settings/generalSettings';//done
+@import 'pages/settings/lang';//done
+@import 'pages/settings/services';//done
+@import 'pages/settings/promocodes';//done
+
+@import 'pages/support/submitTicket';//done
+@import 'pages/support/ticketsHistory';//done
+
+a{
+    cursor: pointer;
+    text-decoration: none;
+    color:var(--a);
+}
+a:hover{
+    text-decoration: underline;
+}
+#printDiv{
+    top:0;
+    left:200%;
+    z-index:100000;
+    position: absolute;
+    background-color: white;
+    color:rgb(79, 79, 79);
+    visibility: hidden;
+    display:inline;
+    margin: 0mm;
+    padding: 0mm;
+    // border-bottom:1px dashed rgb(79, 79, 79);
+    text-align: center;
+}
+@media print {
+    @page {margin:auto;}
+    #printDiv{visibility: visible;}
+    body {
+        visibility: hidden;
+    }
+    html{
+        visibility: hidden;
+    }
+}
+#website_QRcodeDownload{
+    position:fixed;
+    bottom:200%;
+    left:200%;
+}
+/////////////////////
+#popupId{
+    background-color: var(--toltp-bg);
+    color:var(--txt);
+    border-radius: 5px;
+    position: fixed;
+    font-size: .85em;
+    flex-wrap: nowrap;
+    z-index: 5200;
+    transition-duration: 0s;
+    box-shadow: var(--toltp-shdw);
+    overflow: hidden;
+    @media (max-width:1023px) {
+        font-size: .8em;
+    }
+    animation:400ms popupIdAnimation 0s 1 ease;
+}
+@keyframes popupIdAnimation {
+    0%{transform: translateY(5px);opacity:0;}
+    100%{transform: translateY(0px);opacity:1;}
+}
+.popupIdClose{
+    position: absolute;
+    top:5px;
+    right:5px;
+    padding:5px;
+    font-size:.9em;
+    cursor: pointer;
+    background-color: var(--bg);
+    border-radius: 50%;
+}
+.popupIdClose:hover{
+    background-color: var(--bg2);
+}
+#tooltipDiv{
+    background-color: var(--toltp-bg);
+    color:var(--txt);
+    box-shadow: var(--toltp-shdw);
+    border-radius: 3px;
+    padding: 5px 8px;
+    position: fixed;
+    flex-wrap: nowrap;
+    z-index: 5250;
+    transition-duration: 0s;
+    max-width:400px;
+    font-size: .85em;
+    animation:400ms tooltipAnimation 0s 1 ease;
+}
+@keyframes tooltipAnimation {
+    0%{transform: translateY(-5px);opacity:0;}
+    100%{transform: translateY(0px);opacity:1;}
+}
+///////////
+#statisticsPopupDiv{
+    background-color: var(--toltp-bg);
+    color:var(--txt);
+    border-radius: 3px;
+    position: fixed;
+    display:flex;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    z-index: 250;
+    transition-duration: 0s;
+    font-size: .85em;
+    max-width:50vw;
+    box-shadow: var(--toltp-shdw);
+    @media (max-width:1023px) {
+        font-size: .8em;
+    }
+    animation:400ms tooltipAnimation 0s 1 ease;
+
+}
+/////////////
+.msgBox_orange{
+    padding:15px;
+    border:1px solid var(--orange);
+    background-color: var(--orange-5);
+    color:var(--orange);
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+}
+.msgBox_red{
+    padding:15px;
+    border:1px solid var(--red);
+    background-color: var(--red-5);
+    color:var(--red);
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+}
+/////////////
+table{
+    width:100%;
+}
+tr{
+    width:100%;
+    vertical-align: top;
+}
+tr:hover{background-color: var(--bg2);}
+.trHead:hover{background-color: var(--bg);}
+th{
+    background-color: var(--bg3);
+    padding:5px 10px;
+    border-bottom: 1px solid var(--bg5);
+    text-align: start;
+    font-weight: 400;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+    font-size: .8em;
+    color:var(--txt);
+}
+td{
+    border-bottom: 1px solid var(--bg5);
+    padding:10px;
+    text-align: start;
+    font-size: .8em;
+    color:var(--txt);
+}
+.tableRow_unsaved{
+    position: absolute;
+    top:7px;
+    left:7px;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+////
+.userIdIcon{
+    padding:4px;
+    border-radius: 50%;
+    border:1px solid var(--bg7);
+    color:var(--bg7);
+}
+@import 'tools/icons';
+@import 'styleClasses';

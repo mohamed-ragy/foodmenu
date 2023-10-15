@@ -1,0 +1,293 @@
+////////////guide hints///////////////////
+1 => email verification(4)
+2 => phone registered(4)
+3 => phone verification(4)
+4 => categories lang names(2)
+5 => categories img (3)
+6 => product availability (4)
+7 => product lang names(2)
+8 => product lang descriptions(1)
+9 => product category(3)
+10 => product image(3)
+11 => product option names (2)
+12 => product option selection names (2)
+13 => slide show(3)
+14 => (empty)
+15 => website switch(5)
+16 => website icon// canceled
+17 => website logo// canceled
+18 => website phone numbers(4)
+19 => (empty)
+20 => website addressess names(4)
+21 => website names (4)
+22 => website Descriptions(4)
+23 => website currencies(4)
+24 => website announcements(4)
+25 => website receipt msg(4)
+26 => restaurant location(4)
+27 => website pp(4)
+28 => restaurant email(4)
+29 => category description(1)
+30 => gallery(3)
+33 => homePageIntro(3)
+34 => info(3)
+35 => ourStory(3)
+36 => subscriptionCheck(?)
+
+
+
+///////////////////alert notifications
+1=> new order by user
+2 => order delivered by delivery man
+5 => order canceled
+3 => user signed up
+4 => new review
+22 => collect reviews posted
+74 => newTicketAnswer
+80 => financial report
+
+////////////////////////all alerts
+0.1 => force logout
+0.2 => cpanel update refresh
+0.3 => subaccount blocked
+0 => cpanel login
+1 => new order
+1.5 => user update cart
+2 => order delivered by delivery man
+3 => user signed up
+4 => new review
+5 => order canceled
+6 => order made by cp
+6.5 => order collect reviews msg seen
+6.6 => order set as dinein by cp
+6.7 => order set as diningin by cp
+7 => order recived by cp
+7.1 => order type changed
+7.2 => order notice changed
+7.3 => order phoneNumber changed
+7.4 => order address changed
+8 => order canceled by cp
+9 => order out for delivery by cp
+9.1 => order given to delivery man
+10 => order delivered by cp
+11 => order waiting for pickup
+12 => order picked up
+13 => order changed
+13.1 => order item notice changed
+13.2 => order deliveryCost changed
+13.3 => order discount changed
+14.1 => create category
+14.2 => sort categories
+14.3 => delete category
+14.4 => update category
+15 => product review deleted
+16 => resort products
+17 => product edit
+18.1 => create product
+18.2 => delete product
+19 => create delivery accounts
+19.1 => update delivery account
+19.2 => delete delivery account
+20 => (users update)
+20.1 => new user from cpanel//done
+20.2 => user ban status change
+20.3 => user info change
+21 => img uploaded or deleted
+22 => collect reviews
+23 => template theme
+24 => change product availability
+25 => create product option
+26 => delete product option
+27 => sort product options
+28 => edit product option
+29 => custom colors
+30 => website colors
+31 => create product selection
+32 => set default selection
+33 => delete selection
+34 => sort selections
+35 => edit selection
+36 => payment Methods count change
+37 => (empty)
+37.1 => (empty)
+37.2 => (empty)
+37.3 => (empty)
+37.4 => (empty)
+38 => (empty)
+39 => (empty)
+40 => (empty)
+41 => (empty)
+42 => (empty)
+43 => (empty)
+44 => (empty)
+45 => slideshow
+46 => (empty)
+47 => (empty)
+48 => (empty)
+49 => (empty)
+50 => gallery
+51 => restaurant email //done
+52 => homepage intro
+53 => homepage info
+54 => homePage ourstory
+55 => security change
+55.1 => subaccount change
+56 => avg pickup time//done
+56.1 => pickup payment methods//done
+56.2 => pickup minimum charge//done
+56.3 => pickup tax//done
+57 => working day//done
+57.1 => delivery tax settings//done
+57.2 => delivery minimum charge//done
+57.3 => delivery payment methods//done
+57.4 => avg delivery time//done
+57.5 => delivery cost//done
+57.6 => copy working days //done
+58 => website icon
+59 => website logo
+60 => add new lang //done
+60.1 => delete lang //done
+60.2 => edit lang //done
+60.3 => set as default lang //done
+60.4 => set as receipt lang //done
+61 => lang texts //done
+62 => website phone numbers//done
+63 => website addresses//done
+64 => website names //done
+65 => website descriptions //done
+66 => website social media links//done
+67 => website currencies //done
+68 => website accouncements//done
+69 => website switch
+70 => time zone //done
+71 => country //done
+72 => system settings //done
+73 => promocode created//done
+73.1 => promocode deleted//done
+73.2 => promocode is_active changed//done
+73.3 => promocode edited//done
+74 => newTicketAnswer//done
+75 => ticket solved//done
+76 => custom language
+77 => restaurant Location //done
+78 => Dine-in tax settings//done
+78.1 => dinein service //done
+79 => receiptMsg edited
+80 => financial report
+81 => new chat msg from cpanel
+82 => chat deleted by cpanel
+83 => msg deleted by cpanel
+
+
+
+/////////////////activities codes///////////////////////////////
+0 => userSignup
+1 => user profile update
+2 => user change email
+3 => user change password
+4 => (empty)
+5 => (empty)
+6 => order canceled by user
+7 => review posted on product
+8 => order placed by a user
+9 => category created
+10 => category deleted
+11 => category edited
+12 => product created
+13 => product edited
+14 => product deleted
+15 => product option created
+15.1 => product option deleted
+15.2 => product option edited
+15.3 => create product selection
+15.4 => selection set as default
+15.5 => delete selection
+15.6 => edit selection
+16 => review deleted
+17 => order deliveried by delivery
+18 => delivery account created
+19 => delivery account deleted
+20 => delivery account edited
+21 => user created by account
+22 => user banned
+23 => user unbanned
+24 => user information changed by account
+25 => order canceled by account
+25.5 => order set dining in by account
+25.6 => order set dined in by account
+26 => order received by account
+27 => order picked up by account
+28 => order delivered by account
+29 => order ready for pickup by account
+30 => order with delivery by account
+31 => order give to delivery by account
+32 => remove item from order by account
+33 => add item to order by account
+33.5 => order delivery cost changed by account
+33.6 => order discount changed by account
+34 => order placed by account
+35 => collect reviews
+36 => order type changed by cp
+36.1 => order notice changed
+36.2 => order phoneNumber changed
+36.3 => order address changed
+36.4 => order item qty changed
+36.5 => order options changed
+36.6 => order item notice changed
+37 => website colors changed
+38 => restaurant email
+39 => website template changed
+40 => promocode created
+40.1 => promocode modified
+41 => prommocode deleted
+42 => img uploaded
+43 => (empty)
+44 => img deleted
+45 => website langs
+46 => website texts
+47 => website switched on
+48 => website switched off
+49 => time zone
+50 => website name
+51 => website description
+52 => website announcement
+53 => social media
+54 => currency
+55 => country
+56 => website icon
+57 => website logo
+58 => phone numbers
+59 => restaurant addrss
+60 => system settings
+61 => home delivery settings
+62 => order pickup settings
+63 => restaurant location
+64 => save home page component
+65 => dine-in settings changed
+66 => receipt msg
+
+////cp zindexs
+tooltip 250
+alert 200-201
+popup 195
+autohelpfullscreen 190
+chatWindowOnMove 72
+activeChatWindow 71
+chatWindow 70
+infowindow 64
+helpwindow 1-65
+footer 50
+nav 40
+sidemenu 39
+///support texts codes
+0:'account',
+1:'billingAndSubscription',
+2:'productsAndCategories',
+3:'orders',
+4:'users',
+5:'deliveryAccounts',
+6:'websiteSystem',
+7:'design',
+8:'controlPanel',
+9:'liveChat',
+10:'other',

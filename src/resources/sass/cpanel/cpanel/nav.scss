@@ -1,0 +1,128 @@
+.nav{
+    width:calc(100%);
+    // padding:5px;
+    background-color: var(--bg);
+    color:var(--txt);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    z-index: 40;
+    overflow: visible;
+     @media print {
+        display:none;
+    }
+    box-shadow: 1px 0 2px var(--shdw-20);
+    @media (max-width:520px) {
+        justify-content: center;
+    }
+}
+#navTitle{
+    margin:0 10px;
+    display:flex;
+    align-items: baseline;
+    // font-weight:500;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+    @media (max-width:520px) {
+        display:none;
+    }
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-grow:1;
+}
+#navTitle div:nth-child(1){
+    font-size:1.1em;
+    @media (min-width:720px){
+        font-size:1.2em;
+    }
+}
+#navTitle div:nth-child(2){
+    font-size:.9em;
+    @media (min-width:720px){
+        font-size:1.1em;
+    }
+}
+.navMenu{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color:var(--txt);
+    flex-shrink: 0;
+    height:100%;
+
+}
+.navElement{
+    font-size: 1.3em;
+    padding: 10px 20px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.navElementSelected{
+    background-color:var(--bg2);
+}
+.navElementNum{
+    user-select: none;
+    border:1px solid var(--bg);
+    background-color: var(--bg);
+    min-width: 10px;
+    min-height: 10px;
+    padding: 2px;
+    left: 30px;
+    bottom: 5px;
+    font-size: 0.6em;
+    line-height: 0em;
+    margin: 0em;
+    border-radius: 20px;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+    flex-wrap: nowrap;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-name: none;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+}
+.navList{
+    position:absolute;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color:var(--bg);
+    color:var(--txt);
+    max-height: 70vh;
+    padding:10px 0;
+    z-index: 39;
+    display: none;
+    user-select: none;
+    border-radius: 0 0  2px 2px;
+    overflow-y: auto;
+    box-shadow: var(--shdw1);
+    animation: 150ms navListAnimation 0s 1 ease-in-out;
+    border-radius: 0 0 5px 5px;
+    background-color: var(--bg);
+}
+@keyframes navListAnimation {
+    0%{transform: translateY(-10px);opacity:0}
+    100%{transform: translateY(0);opacity:1}
+}
+@import './nav/menu.scss';//done
+@import './nav/notifications.scss';//done
+@import './nav/liveChat.scss';//done
+@import './nav/menuOrders.scss';//done
+@import './nav/guideHints.scss';//done
+
+.hotKeys{
+    font-size: .85em;
+    color:var(--bg6);
+}

@@ -1,0 +1,57 @@
+#f1_shortcutsContainer{
+    width:100%;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+}
+.f1_shortcutsContainer{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+    margin: 5px;
+    flex-grow: 1;
+    box-shadow: var(--shdw-10) 0px 0px 4px 0px;
+    min-width: calc(50% - 30px);
+    border-radius: 4px;;
+
+}
+.f1_shortCutsTitle{
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom:5px;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+}
+.f1_shortcutContainer{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
+    width: calc(100% - 10px);
+    font-size: .8em;
+}
+.f1_shortcutContainer:hover{
+    background-color: var(--bg2);
+
+}
+.f1_shortcutTitle{
+    margin-inline-end:20px;
+    text-align: start;
+}
+.f1_shortcutKeysContainer{
+    margin-inline-start:20px;
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.f1_shortcutKeys{
+    box-shadow: var(--shdw-10) 0px 0px 0px 1px;
+    padding:3px;
+    margin:5px 5px;
+    border-radius: 3px;
+}

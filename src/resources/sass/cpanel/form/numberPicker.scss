@@ -1,0 +1,93 @@
+.numberPickerContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    user-select:none;
+    padding: 10px;
+    border-top:1px solid var(--shdw-5);
+    width: fit-content;
+}
+.numberPickerContainer:hover{
+    background-color: var(--bg2);
+}
+.numberPickerContainer span{
+    font-size: .9em;
+}
+.numberPickerContainer_100p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:0 5px;
+    width:calc(100% - 30px);
+    user-select:none;
+    padding: 10px;
+    border-top:1px solid var(--shdw-5);
+}
+.numberPickerContainer_100p:hover{
+    background-color: var(--bg2);
+}
+.numberPickerContainer_100p span{
+    font-size: .9em;
+}
+.numberPickerControls{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline-start:20px;
+    background-color: var(--bg);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.numberPickerArrow{
+    cursor: pointer;
+    padding: 0 5px;
+    background-color: var(--bg5);
+    color:var(--shdw-60);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+}
+.numberPickerValue{
+    width: 80px;
+    text-align: center;
+    border-top:1px solid var(--bg5);
+    border-bottom:1px solid var(--bg5);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 23px;
+}
+////
+.numberPickerControls_s{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--bg);
+    border-radius: 2px;
+    overflow: hidden;
+    width:fit-content;
+}
+
+.numberPickerArrow_s{
+    cursor: pointer;
+    padding: 0 3px;
+    font-size:.7em;
+    background-color: var(--bg5);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+}
+.numberPickerValue_s{
+    width: 40px;
+    text-align: center;
+    border-top:1px solid var(--bg5);
+    border-bottom:1px solid var(--bg5);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    font-size:.8em;
+}

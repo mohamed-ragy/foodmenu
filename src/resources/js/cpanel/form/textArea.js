@@ -1,0 +1,62 @@
+drawTextArea = function(autoHelp,icon,iconFlag,title,id,maxlength,containerClass,value=''){
+    let iconElem;
+    if(iconFlag == ''){
+        iconElem = $('<span/>',{class:`textareaIcon ${icon}`});
+    }else if(iconFlag == 'CLF'){
+        iconElem = $('<img/>',{class:'textareaIconFlag customLangFlag'});
+    }else{
+        iconElem = $('<img/>',{class:'textareaIconFlag',src:`./storage/imgs/flags/${iconFlag}.png`});
+    }
+    return $('<div/>',{class:`textareaContainer ${containerClass}`,autoHelp:autoHelp}).append(
+        $('<div/>',{class:'textareaHead'}).append(
+            iconElem,
+            $('<span/>',{class:'textareaTitle mX5',html:title})
+        ),
+        $('<textarea/>',{class:'textarea',id:id,maxlength:maxlength,text:value}),
+        $('<div/>',{class:'textareaCounter'}).append(
+            $('<span/>',{class:'textAreaInputLength',text:value.length,}),
+            $('<span/>',{text:'/'}),
+            $('<span/>',{text:maxlength})
+        )
+    )
+}
+$('html,body').on('input change','.textarea',function(e){
+    // e.stopImmediatePropagation()
+    $(this).closest('.textareaContainer').find('.textareaTitle').removeClass('cR')
+    $(this).closest('.textareaContainer').find('.textareaIcon').removeClass('cR')
+    $(this).parent().find('.textAreaInputLength').text($(this).val().length);
+    if($(this).val().length == $(this).attr('maxlength')){
+        $(this).parent().find('.textAreaInputLength').addClass('cR');
+    }else{
+        $(this).parent().find('.textAreaInputLength').removeClass('cR');
+    }
+});
+$('html,body').on('click','.textareaHead',function(e){
+    e.stopImmediatePropagation();
+    $(this).closest('.textareaContainer').find('textarea').select();
+});
+$('.textarea').each(function(){
+    $(this).parent().find('.textAreaInputLength').text($(this).val().length);
+    if($(this).val().length == $(this).attr('maxlength')){
+        $(this).parent().find('.textAreaInputLength').addClass('cR');
+    }else{
+        $(this).parent().find('.textAreaInputLength').removeClass('cR');
+    }
+})
+$('html,body').on('focus','.textarea',function(e){
+    e.stopImmediatePropagation();
+    $(this).parent().addClass('textareaContainer_active');
+    $(this).closest('.textareaContainer').find('.textareaTitle').removeClass('cR cO').addClass('cG')
+    $(this).closest('.textareaContainer').find('.textareaIcon').removeClass('cR cO').addClass('cG')
+})
+$('html,body').on('focusout','.textarea',function(e){
+    e.stopImmediatePropagation();
+    $(this).parent().removeClass('textareaContainer_active');
+    $(this).closest('.textareaContainer').find('.textareaTitle').removeClass('cR cO cG')
+    $(this).closest('.textareaContainer').find('.textareaIcon').removeClass('cR cO cG')
+})
+textareaError = function(elem){
+    elem.focus();
+    elem.closest('.textareaContainer').find('.textareaTitle').addClass('cR')
+    elem.closest('.textareaContainer').find('.textareaIcon').addClass('cR')
+}

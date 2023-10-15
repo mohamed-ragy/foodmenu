@@ -1,0 +1,213 @@
+.loading{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    height:100%;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed;
+    backdrop-filter: blur(3px);
+}
+.loading::after{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+}
+.loading::before{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:20px;
+    height:20px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+}
+.loadingOrderHistory{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+
+}
+.loadingOrderHistory::after{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+}
+.loadingOrderHistory::before{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:20px;
+    height:20px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+}
+.loadingChat{
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.loadingChat::after{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+}
+.loadingChat::before{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:20px;
+    height:20px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+}
+.loadingPromocode{
+    position: relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:30px;
+    height:30px;
+    margin: auto;
+
+}
+.loadingPromocode::after{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+}
+.loadingPromocode::before{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    width:20px;
+    height:20px;
+    border-left:3px solid var(--c2);
+    border-top:3px solid var(--c2);
+    border-bottom:3px solid transparent;
+    border-right:3px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+}
+#websiteLoading{
+    width:100%;
+    height:100%;
+    background-color: var(--c3) !important;
+    z-index: 1000;
+    position: fixed;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    opacity:1;
+}
+.websiteloading{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    // cursor: not-allowed;
+    backdrop-filter: blur(3px);
+    position: relative;
+    height:100px;
+    width:100px;
+}
+.websiteloading::after{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    height:80px;
+    width:80px;
+    border-left:5px solid var(--c2);
+    border-top:5px solid var(--c2);
+    border-bottom:5px solid transparent;
+    border-right:5px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+}
+.websiteloading::before{
+    content:'';
+    position: absolute;
+    border-radius: 50%;
+    height:60px;
+    width:60px;
+    border-left:5px solid var(--c2);
+    border-top:5px solid var(--c2);
+    border-bottom:5px solid transparent;
+    border-right:5px solid transparent;
+    animation-name: loading1Animation;
+    animation-timing-function:linear;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+}
+@keyframes loading1Animation {
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(-360deg);}
+}

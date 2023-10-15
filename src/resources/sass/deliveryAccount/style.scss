@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('/storage/fonts2/en/Roboto.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'Tajawal';
+    src: url('/storage/fonts2/ar/Tajawal.ttf') format("truetype");
+}
+@import '../cpanel/tools/icons';
+@import '../cpanel/tools/loading';
+@import '../cpanel/tools/scrollBar';
+@import '../cpanel/form/button.scss';
+@import '/node_modules/leaflet/dist/leaflet.css';
+
+html{
+    height:100%;
+}
+body{
+    user-select: none;
+    background-color: var(--c1);
+    color:var(--c1txt);
+    font-family: 'Roboto','Tajawal', sans-serif;
+    margin: 0em;
+    padding: 0em;
+    height:100%;
+    @media (max-width:1023px) {
+        font-size:.9em;
+    }
+    position: relative;
+    overflow: hidden;
+}
+#header{
+    height:50px;
+    background-color: var(--c3);
+    width:100%;
+    max-width: 800px;
+    margin:auto;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#body{
+    height:calc(100% - 50px);
+    width:100%;
+    max-width: 800px;
+    margin:auto;
+    overflow-y: auto;
+
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--c4);
+}
+a:hover{
+    text-decoration: underline;
+}
+.ordersContainer{
+    margin:20px 10px;
+    width:calc(100% - 20px);
+}
+.orderContainer{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    padding:10px;
+    width:calc(100% - 20px);
+    box-shadow: var(--shdw4);
+    border-radius: 3px;
+    margin: 30px 0;
+}
+.orderRow{
+    width:calc(100% - 10px);
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top:1px solid var(--brlight);
+    padding:5px 5px;
+    @media (max-width:500px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+}
+.orderRow:hover{
+    background-color: var(--c2);
+}
+.orderCol{
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.orderRowStart{
+    font-weight: bold;
+    margin-inline-end:5px;
+    @media (max-width:500px) {
+        margin-bottom: 5px;
+    }
+}
+.orderColStart{
+    margin-bottom: 5px;
+
+}
+
+#mapContainer{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0, 0, 0, 0.679);
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    display:none;
+}
+#mapClose{
+    font-size:2em;
+    align-self:flex-end;
+    color:white;
+    margin:.25em;
+    cursor: pointer;
+}
+#map{
+    width:calc(100% - 2em);
+    height:calc(100% - 4.5em);
+    // background-color: red;
+}
+.showMapBtn{
+    width:auto;
+    min-width:auto;
+    padding:5px;
+}
+@import '../cpanel/styleClasses.scss';

@@ -1,0 +1,34 @@
+#menuOrdersList{
+    width: 250px;
+    right:100px;
+    @media (max-width:520px) {
+        right:0px;
+        left:0px;
+        width:calc(100%);
+        max-height: calc(100% - 80px);
+    }
+    overflow:unset;
+    padding-bottom:0;
+    overflow:hidden;
+}
+.navElementNum.incompleteOrdersSum{
+    background-color: var(--bg);
+    color: var(--orange);
+    border:1px solid var(--orange);
+}
+
+.menuOrders-element{
+    width:calc(100% - 10px);
+    padding: 10px 5px;
+    cursor: pointer;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: start;
+    position: relative;
+    border-top:1px solid var(--bg2);
+}
+.menuOrders-element:hover{
+    background-color:var(--bg2);
+}

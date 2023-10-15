@@ -1,0 +1,120 @@
+.categoryProductsContainer{
+    width:calc(100% - 50px);
+    margin:25px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+}
+.allProductsContainer{
+    width:calc(100% - 50px);
+    margin:25px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+}
+.productCard{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 40px 20px;
+    position: relative;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    background-color: var(--bg3);
+    border-radius: 10px;
+    box-shadow: 0 0 20px -12px var(--dark5);
+    width:400px;
+    flex-shrink: 0;
+}
+.productCard_productList{
+    box-shadow: 0 0 10px -1px var(--dark5);
+    margin: 0px 20px;
+    max-width:200px;
+}
+.productImgContainer{
+    text-decoration: none;
+    cursor: pointer;
+    width:100%;
+}
+.productImgContainer:hover{
+    text-decoration: none;
+}
+.productCardImg{
+    width:300px;
+    @media (max-width:720px) {
+        width:calc(100% - 50px);
+        max-width:calc(100% - 50px);
+        padding:15px 25px;
+    }
+    max-width:calc(100% - 100px);
+    padding:25px 50px;
+    object-fit: contain;
+}
+.productCardImg_productList{
+    max-height:150px;
+    max-width:150px;
+    padding:15px 25px;
+    @media (max-width:720px) {
+        width:calc(100% - 50px);
+        max-width:calc(100% - 50px);
+        padding:15px 25px;
+    }
+}
+.productCardTitle{
+    cursor: pointer;
+    font-size:2em;
+    text-align: center;
+    margin:5px 10px;
+    width:calc(100% - 20px);
+    font-weight:bold;
+    @media (max-width:720px) {
+        font-size: 1.5em;
+    }
+}
+.productCardTitle_productList{
+    font-size:1.5em;
+}
+.productCardStars{
+    font-size:1.5em;
+    align-self:center;
+}
+.productCardStars_productList{
+    font-size:1.1em;
+}
+.productCardDes{
+    text-align: center;
+    margin:5px 10px;
+    width:calc(100% - 20px);
+    @media (max-width:720px) {
+        font-size: .9em;
+    }
+}
+.productCardPrice{
+    font-size: 1.5em;
+    align-self:center;
+    margin-top:auto;
+}
+
+.productCardIcons{
+    align-self: center;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.productCardIcons_productList{
+    font-size:.8em;
+    margin:0;
+}
+.productCardIcon{
+    margin:2px;
+    padding:3px;
+    font-size:1.2em;
+    color:var(--dark);
+}
+.productCardIcon:hover{text-decoration: none;}

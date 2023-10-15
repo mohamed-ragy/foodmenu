@@ -1,0 +1,96 @@
+.timePickerContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select:none;
+    padding: 10px 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 0px 1px var(--shdw-5);
+    background-color: var(--bg);
+    width: fit-content;
+}
+.timePickerContainer:hover{
+    background-color: var(--bg2);
+}
+.timePickerContainer span{
+    font-size:.9em;
+}
+.timePickerContainer_100p{
+    width:calc(100% - 10px);
+    border-top:1px solid var(--shdw-5);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.timePickerControls{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.timePickerControlsHours, .timePickerControlsMins, .timePickerControlsAMPM{
+    padding:0 5px;
+    text-align: center;
+}
+.timePickerHU, .timePickerMU, .timePickerAMPMU,.timePickerHD, .timePickerMD, .timePickerAMPMD{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size:1em;
+    padding:5px;
+    cursor: pointer;
+    width:25px;
+}
+.timePickerHU, .timePickerMU, .timePickerAMPMU{
+    padding-bottom:2.5px;
+}
+.timePickerHD, .timePickerMD, .timePickerAMPMD{
+    padding-top: 2.5px;
+}
+.timePickerH, .timePickerM, .timePickerAMPM{
+    align-items: center;
+    justify-content: center;
+    font-size:.9em;
+    padding:3px 5px;
+    background-color: var(--bg);
+    border-radius: 4px;
+    border:1px solid var(--shdw-5);
+    width:25px;
+}
+.timePickerH, .timePickerM{
+    font-size:.9em;
+}
+.timePickerDump{
+    color:var(--bg5);
+    cursor: not-allowed !important;
+}
+.timePickerDump:hover{
+    background-color: var(--bg2);
+}
+.timePickerDump .timePickerHU{
+    cursor: not-allowed !important;
+}
+.timePickerDump .timePickerMU{
+    cursor: not-allowed !important;
+}
+.timePickerDump .timePickerAMPMU{
+    cursor: not-allowed !important;
+}
+.timePickerDump .timePickerHD{
+    cursor: not-allowed !important;
+}
+.timePickerDump .timePickerMD{
+    cursor: not-allowed !important;
+}
+.timePickerDump .timePickerAMPMD{
+    cursor: not-allowed !important;
+}
+.timePickerDump .timePickerH{
+    color: var(--bg) !important;
+}
+.timePickerDump .timePickerM{
+    color: var(--bg) !important;
+}
+.timePickerDump .timePickerAMPM{
+    color: var(--bg) !important;
+}

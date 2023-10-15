@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('/storage/fonts2/en/Roboto.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'Tajawal';
+    src: url('/storage/fonts2/ar/Tajawal.ttf') format("truetype");
+}
+
+@import '../cpanel/tools/icons';
+@import '../cpanel/tools/loading';
+@import '../cpanel/tools/scrollBar';
+@import '../cpanel/form/button.scss';
+@import '../cpanel/form/input-text.scss';
+
+html{height:100%;width:100%;}
+
+body{
+    user-select: none;
+    background-color: var(--c1);
+    color:var(--c1txt);
+    font-family: 'Roboto','Tajawal', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0em;
+    padding: 0em;
+    height:100%;
+    @media (max-width:1023px) {
+        font-size:.8em;
+    }
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#loginFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:0;
+    padding: 40px 20px;
+    overflow: auto;
+    transition-duration: 300ms;
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--c4);
+}
+a:hover{
+    text-decoration: underline;
+}
+.inputText{
+    @media (max-width:500px) {
+        width:170px;
+    }
+}
+// .btn{
+//     padding: 10px 30px;
+//     font-size:1.4em;
+// }
+.formContainer {
+    max-width:500px;
+    background-color: var(--c1);
+    border-radius: 3px;
+    box-shadow: var(--shdw4);
+    color: var(--placeholder2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    padding: 20px 30px;
+    transition-duration: .4s;
+    margin:0 ;
+}
+@import '../cpanel/styleClasses.scss';

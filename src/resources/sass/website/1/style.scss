@@ -1,0 +1,210 @@
+@import './loading.scss';
+@import '../style.scss';
+@import '../icons/1/icons.scss';
+@import './popup.scss';
+@import './liveChat.scss';
+@import './order/addToCart.scss';
+@import './order/cart.scss';
+@import './order/placeOrder.scss';
+@import './order/trackOrder.scss';
+@import './aboutus.scss';
+@import './nav.scss';
+@import './footer.scss';
+@import './productCard.scss';
+@import './homePage/intro.scss';
+@import './homePage/ourStory.scss';
+@import './homePage/info.scss';
+@import './homePage/categories.scss';
+@import './homePage/productList.scss';
+@import './homePage/customerReviews.scss';
+@import './homePage/gallery.scss';
+@import './product.scss';
+@import './profile.scss';
+@import './collectReviews.scss';
+@font-face {
+    font-family: 'playfairDisplay';
+    src: url('/storage/fonts/en/playfairDisplay.ttf') format("truetype");
+    font-weight:500;
+}
+@font-face {
+    font-family: 'inter';
+    src: url('/storage/fonts/en/inter.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'cairo';
+    src: url('/storage/fonts/ar/cairo.ttf') format("truetype");
+}
+
+:root {
+    --font2: 'playfairDisplay','cairo', 'serif';
+}
+*::-webkit-scrollbar {width: 8px;height:8px;background:transparent;}
+*::-webkit-scrollbar-track {background:var(--scrltr)}
+*::-webkit-scrollbar-thumb {background: var(--scrlth);border-radius: 0px;}
+*::-webkit-scrollbar-thumb:hover {background: var(--scrlthhvr);}
+
+*::-moz-scrollbar {width: 8px;height:8px;background:transparent;}
+*::-moz-scrollbar-track {background:var(--scrltr)}
+*::-moz-scrollbar-thumb {background: var(--scrlth);border-radius: 0px;}
+*::-moz-scrollbar-thumb:hover {background: var(--scrlthhvr);}
+//
+///////////////////main
+html{
+    overflow-y:hidden;
+}
+body{
+    background-color:var(--bg);
+    color:var(--bgtxt);
+    font-family: 'inter','cairo', sans-serif;
+    font-weight: 400;
+    overflow-y:hidden;
+    // overflow-y:autoa;
+    padding-top:50px;
+
+}
+#liveChat{
+    z-index: 60;
+}
+
+a{all:unset;cursor: pointer;color:var(--c2);}
+a:hover{text-decoration: underline;}
+.a-unset{all:unset;}
+.a-unset:hover{text-decoration: unset;}
+.tooltipPopup{
+    background-color: var(--bg3);
+    color: var(--bgtxt);
+    border-radius: 1px;
+    padding: 5px;
+    position: absolute;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    z-index: 1000;
+    transition-duration: 0s;
+    width:fit-content;
+    max-width:300px;
+    @media (max-width:400px) {
+        max-width: 200px;
+        font-size:.7em;
+    }
+    box-shadow: var(--dark25) 0px 0px 4px 0px;
+    font-size:.8em;
+}
+.tooltipPopupHidden{
+    display:none;
+}
+///form
+input{
+    appearance: none;
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    width:180px;
+    padding:5px 10px;
+        font-family: 'inter','cairo', sans-serif;
+    border-radius: 1px;
+    background-color: var(--inputbg);
+    color:var(--inputtxt);
+    border:1px solid var(--inputbr);
+}
+input::placeholder{
+    color:var(--inputph);
+}
+input:focus{
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    border:1px solid var(--inputbrfcs);
+    transition-duration: 300ms;
+    background-color: var(--inputbgfcs);
+}
+input:disabled{
+    cursor: not-allowed;
+}
+textarea{
+    resize: none;
+    appearance: none;
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    width:180px;
+    padding:5px 10px;
+        font-family: 'inter','cairo', sans-serif;
+    border-radius: 1px;
+    background-color: var(--inputbg);
+    color:var(--inputtxt);
+    border:1px solid var(--inputbr);
+}
+textarea#addToCartItemNotice{
+    width:calc(100% - 22px);
+    display: block;
+    border:.1px solid transparent;
+}
+textarea#addToCartItemNotice:focus{
+    border:.1px solid transparent;
+}
+textarea::placeholder{
+    color:var(--inputph);
+}
+textarea:focus{
+    box-shadow: unset;
+    border:unset;
+    outline: unset;
+    border:1px solid var(--inputbrfcs);
+    transition-duration: 300ms;
+    background-color: var(--inputbgfcs);
+}
+.inputError{
+    border:1px solid var(--ce);
+}
+.inputError:focus{
+    border:1px solid var(--ce);
+}
+button{
+    border:unset;
+    font-size:unset;
+    font-family: unset;
+    box-shadow:unset;
+    margin:unset;;
+    background-color: var(--c2);
+    color:var(--c5);
+    cursor: pointer;
+    padding:5px 25px;
+    border-radius: 1px;
+}
+button:hover{
+    background-color: var(--c2-light);
+}
+button:active{
+    background-color: var(--c2);
+}
+.btn_error{
+    border:unset;
+    font-size:unset;
+    font-family: unset;
+    box-shadow:unset;
+    margin:unset;;
+    background-color: var(--ce);
+    color:var(--light);
+    cursor: pointer;
+    padding:5px 25px;
+    border-radius: 1px;
+}
+.btn_error:hover{
+    background-color: var(--ce-90);
+}
+.btn_error:active{
+    background-color: var(--ce);
+}
+button:disabled{
+    background-color: var(--btnDis);
+    color:var(--light);
+    cursor: not-allowed;
+}
+.ic-check1{color:var(--c2)}
+.ic-check0{color:var(--bgtxt)}
+/////general
+
+@import '../styleClasses.scss'

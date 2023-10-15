@@ -1,0 +1,106 @@
+:root {
+    --bbg:#f9f9f9;
+    --bg:#ffffff;
+    --bg2:#f6f6f6;
+    --bg3:#edf1ee;
+    --bg4:#dbd9d9;
+    --bg5:#e4e4e4;
+    --bg6:#c5c5c5;
+    --bg7:#aaaaaa;
+    --toltp-bg:#ffffff;
+    --txt:#292929;
+    --area-br:#0000001a;
+
+
+    --c1:#ffffff;
+    --c1-75:#ffffffb3;
+    --c2:#f5f5f5;
+    --c3:#edf1ee;
+    --c4:#109092;
+    --c5:#2b6f70;
+    --c1txt:#565b5b;
+    --c4txt:#ffffff;
+
+    --ttbg:#ffffff;
+    --brlight:#efecec;
+    --sttsbr:#e2e2e2;
+    --placeholder:#b6b6b6;
+    --placeholder2:#8d8d8d;
+    --inpttxt:#5a5a5a;
+    --inptbr:#d0cfcf;
+    --areabr:#e1e1e1;
+    --a:#109092;
+    --sbbg:#d4d4d4;
+    --nparw:#e7e7e7;
+    --chtinc:#b6b6b6;
+    --chtumbg:#f9f9f9;
+    --chtambg:#eaf4f1;
+
+    --bgbr-bg:#ebebeb;
+    --bgbr-green:repeating-linear-gradient(0deg, #33aa8e, #4ccbaf);
+    --bgbr-orange:repeating-linear-gradient(0deg, #ff8850, #ffa77c);
+    --bgbr-red:repeating-linear-gradient(0deg, #d82634, #e04350);
+
+    --shdw1:var(--shdw-5) 0px 0px 10px, var(--shdw-20) 0px 1px 5px;
+    --shdw2:inset var(--shdw-10) 0px 0px 1px 1px;
+    --shdw3:var(--shdw-5) 0px 0px 24px 0px, var(--shdw-5) 0px 0px 0px 1px;
+    --shdw4: rgba(0, 0, 0, 0.1) 0px 0px 6px 0px;
+    --shdw5:0 0 5px 0 var(--shdw-5), 0 0 0px 1px var(--shdw-5);
+    --sidmnu-shdw:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;;
+    --toltp-shdw:var(--shdw-10) 0px 0px 15px, var(--shdw-20) 0px 1px 5px;
+    --toltp-shdw2:var(--shdw-10) 0px 0px 10px, var(--shdw-10) 0px 1px 5px;
+    --shdw-5:#0000000d;
+    --shdw-10:#0000001a;
+    --shdw-20:#00000033;
+    --shdw-30:#0000004d;
+    --shdw-40:#00000066;
+    --shdw-50:#00000080;
+    --shdw-60:#00000099;
+
+    --star:#ffb700;
+
+    --orange:#f0743a;
+    --orange-80:#f0743acc;
+    --orange-30:#f0743a4d;
+    --orange-20:#f0743a33;
+    --orange-10:#f0743a1a;
+    --orange-5:#f0743a0d;
+    --orange-txt:#ffffff;
+
+    --red:#f12031;
+    --red-80:#f12031cc;
+    --red-30:#f120314d;
+    --red-20:#f1203133;
+    --red-10:#f120311a;
+    --red-5:#f120310d;
+    --red-txt:#ffffff;
+
+
+    --green:#109092;
+    --green-80:#109092cc;
+    --green-70:#109092B3;
+    --green-30:#1090924d;
+    --green-20:#10909233;
+    --green-10:#1090921a;
+    --green-5:#1090920d;
+    --green-txt:#ffffff;
+
+    --cdelivery:#136fa4;
+    --cdeliveryTxt:#ffffff;
+    --cpickup:#ab4c89;
+    --cpickupTxt:#ffffff;
+    --cdineIn:#7a68cc;
+    --cdineInTxt:#ffffff;
+
+    --cs1:#1861ba;
+    --cs1-70:#1861BAB3;
+    --cs2:#bf600d;
+    --cs2-70:#bf600dB3;
+    --csso:#399737;
+    --csco:#DA1B2B;
+    --s-itemsTotal:#4d7f64;
+    --s-tax:#df6b62;
+    --s-deliveryCost:#006d77;
+    --s-service:#f5c396;
+
+}

@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'rubic';
+    src: url('/storage/fonts/en/rubic.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'kufi';
+    src: url('/storage/fonts/ar/kufi.ttf') format("truetype");
+}
+html{
+    height:100%;
+    margin:0;
+}
+body{
+    margin:0;
+    font-family: 'rubic','kufi', sans-serif;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top:200px;
+}
+img{
+    width:150px;
+    // filter: grayscale(100%);
+    margin-bottom:20px;
+}
+div{
+    margin:5px 20px;
+    text-align: center;
+    font-size:2em;
+    color:rgb(52, 52, 52)
+}

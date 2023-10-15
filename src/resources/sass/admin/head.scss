@@ -1,0 +1,96 @@
+//////////////////////head///////////////
+#headContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    box-shadow: 0 0 .2em .01em var(--color-1);
+    width:calc(90vw);
+    @media (min-width:720px) {
+        width:calc(75%);
+    }
+    z-index: 50;
+    position: relative;
+}
+#head{
+    user-select: none;
+    width:calc(100% - 2em);
+    height:3em;
+    padding:1em;
+    background-color: var(--color-5);
+    color:var(--color-1);
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 0 0 .5em .5em;
+    z-index: 50;
+    position: relative;
+}
+#logo{
+    height:3em;
+    width:auto;
+    margin: 0 .5em;
+}
+#menu{
+    width:calc(20em);
+    @media (max-width:720px) {
+        width:calc(15em);
+        margin-top:-.25em;
+    }
+    background-color: var(--color-6);
+    border:.5em solid var(--color-6);
+    border-top:none;
+    border-radius: 0 0 .5em .5em;
+    // overflow: hidden;
+    position: absolute;
+    top:-22.8em;
+    transition-duration: .5s;
+    box-shadow: inset 0 0 .4em .02em var(--color-1),
+                    0 0 .4em .02em var(--color-1);
+    // z-index: 30;
+}
+#menuTitle{
+    background-color: var(--color-6);
+    color:var(--color-1);
+    padding:.25em 1em;
+    padding-top:0;
+    margin-top:.5em;
+    border-radius: 0 0 .5em .5em;
+    font-weight: bold;
+    user-select: none;
+    cursor: pointer;
+    position: absolute;
+    top:calc(100%);
+    left:calc(50% - 3em);
+    // z-index: 100;
+    width:4em;
+    text-align: center;
+    box-shadow: 0em -.5em 0em .02em var(--color-6),
+                    0 0 .4em .02em var(--color-1);
+}
+.menuItem{
+    all:unset;
+    padding:.5em;
+    margin:.5em;
+    width:calc(100% - 2em);
+    border-radius: .2em;
+    z-index: 25;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    user-select: none;
+    cursor: pointer;
+    transition-duration: .1s;
+    background-color: var(--color-6);
+    color:var(--color-5);
+    box-shadow: inset 0 0 .2em .01em var(--color-1);
+}
+.menuItem:hover{
+    background-color: var(--color-5);
+    color:var(--color-1);
+}

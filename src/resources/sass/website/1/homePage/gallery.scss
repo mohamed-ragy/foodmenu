@@ -1,0 +1,128 @@
+.gallerySection{
+    margin-top:150px;
+    margin-bottom:40px;
+    width:100%;
+    text-align: center;
+
+}
+.galleryImgsContainer{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.galleryImgContainer{
+    width:400px;
+    width:calc(30% - 40px);
+    // height:400px;
+    aspect-ratio: 1/1;
+    @media (max-width:720px) {
+        width:200px;
+        height:200px;
+    }
+    margin:10px;
+    overflow: hidden;
+    position: relative;
+}
+.galleryImg{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition-duration: 1000ms;
+}
+.galleryImgContainer::after{
+    content:'';
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color: var(--dark25);
+    transition-duration: 1000ms;
+    pointer-events: none;
+}
+.galleryImg:hover{
+    transform:scale(1.05);
+}
+.galleryImgContainer:hover::after{
+    background-color: var(--dark10);
+}
+///////////////
+.galleryFullScreen{
+    position: fixed;
+    top:0;
+    left:0;
+    padding:20px 0;
+    width:calc(100%);
+    height:calc(100% - 40px);
+    background-color: var(--dark50);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.galleryFullScreenClose{
+    color:var(--light);
+    align-self: flex-end;
+    cursor: pointer;
+    margin:10px 20px;
+    font-size: 1.5em;
+}
+.galleryFullScreenImgContainer{
+    width:calc(100%);
+    height:calc(100% - 40px);
+    margin:20px 0;
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.galleryFullScreenImg{
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+.galleryFullScreenArrowRight{
+    font-size:3em;
+    color: var(--light);
+    position: absolute;
+    cursor: pointer;
+    align-self: flex-end;
+    height:100%;
+    width:8%;
+    min-width:80px;
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition-duration: 500ms;
+}
+.galleryFullScreenArrowRight:hover{
+    background-color: var(--dark25);
+    width:10%;
+    min-width:100px;
+}
+.galleryFullScreenArrowLeft{
+    font-size:3em;
+    color: var(--light);
+    position: absolute;
+    cursor: pointer;
+    align-self: flex-start;
+    height:100%;
+    width:8%;
+    min-width:80px;
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition-duration: 500ms;
+}
+.galleryFullScreenArrowLeft:hover{
+    background-color: var(--dark25);
+    width:10%;
+    min-width:100px;
+}

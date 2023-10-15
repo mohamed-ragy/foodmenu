@@ -1,0 +1,19 @@
+.vscode/
+node_modules/
+error.log
+composerCopy.json
+php
+README.md
+public/build
+public/css
+public/js
+public/storage
+vendor/
+storage/debugbar/
+storage/framework/
+storage/logs/
+storage/storage/
+storage/app/public/imgs/accounts
+storage/app/public/ragy
+.env
+# app/Http/Middleware/underConstruction.php

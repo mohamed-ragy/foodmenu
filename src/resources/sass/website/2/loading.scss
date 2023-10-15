@@ -1,0 +1,265 @@
+.loading{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    height:100%;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed;
+    backdrop-filter: blur(3px);
+}
+.loading div:nth-child(1){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0;
+}
+.loading div:nth-child(2){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .1s;
+}
+.loading div:nth-child(3){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+}
+.loadingOrderHistory{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+
+}
+.loadingOrderHistory div:nth-child(1){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0;
+}
+.loadingOrderHistory div:nth-child(2){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .1s;
+}
+.loadingOrderHistory div:nth-child(3){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+}
+.loadingChat{
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.loadingChat div:nth-child(1){
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+    margin:2px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation2;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0;
+}
+.loadingChat div:nth-child(2){
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+    margin:2px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation2;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .1s;
+}
+.loadingChat div:nth-child(3){
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+    margin:2px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation2;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+}
+.loadingPromocode{
+    position: relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+
+}
+.loadingPromocode div:nth-child(1){
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+    margin:2px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation2;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0;
+}
+.loadingPromocode div:nth-child(2){
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+    margin:2px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation2;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .1s;
+}
+.loadingPromocode div:nth-child(3){
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+    margin:2px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation2;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+}
+#websiteLoading{
+    width:100%;
+    height:100%;
+    z-index: 10000;
+    position: fixed;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    opacity:1;
+    background-color: var(--bg);
+}
+.websiteloading{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    // height:100px;
+    // width:100px;
+    margin-bottom:10px;
+}
+.websiteloading div:nth-child(1){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0;
+}
+.websiteloading div:nth-child(2){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .1s;
+}
+.websiteloading div:nth-child(3){
+    border-radius: 50%;
+    height:15px;
+    width:15px;
+    margin:3px;
+    background-color: var(--c2);
+    position: relative;
+    animation-name: loadingAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+}
+@keyframes loadingAnimation {
+    0%{transform:translateY(0px);opacity:1}
+    30%{transform:translateY(0px);opacity:.9;}
+    60%{transform:translateY(-6px);opacity:.7;background-color: var(--c1)}
+    90%{transform:translateY(0px);opacity:.9;}
+    100%{transform:translateY(0px);opacity:1}
+}
+@keyframes loadingAnimation2 {
+    0%{transform:translateY(0px);opacity:1}
+    30%{transform:translateY(0px);opacity:.9;}
+    60%{transform:translateY(-3px);opacity:.7;background-color: var(--c1)}
+    90%{transform:translateY(0px);opacity:.9;}
+    100%{transform:translateY(0px);opacity:1}
+}

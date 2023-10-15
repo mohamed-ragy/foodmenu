@@ -1,0 +1,212 @@
+finish control panel sync --done
+websockets db problem --done
+admins middleware
+ragy middleware --done
+queue--done
+chat with customers --done
+cpanel find option (like search)--done
+auto logout if dublicate login and multi accounts with authorities --done
+improve orders(use websockets to not get all orders on every change) --done
+serve connection lost detection--done
+fix chat seen only in subaccounts in chat--done
+fix typing in live chat--done
+make realse notes--done
+make activity log--done
+custom lang --done
+fix loops in controllers--done
+make go invisible from control panel for chat--done
+option to change sidemenu size and its settings--done
+improve currencies and countries--done
+clean cpanel functions file--done
+system settings save on click not auto save--done
+change validation on input in security--done
+remove the fmcolor fram from the opened info windows--done
+guide mode hints--done
+check things didnt fill in website informations--done
+notifications scroll to div--done
+redirect to opened tab after reload--done
+change alerts design--done
+settings country bug on first save--done
+add select day in activity logs and remove date from every activity and keep time--done
+fix design bug for cpanel when i receive order after click on the order from notifications--done
+change orders list--done
+cpanel popups without close icon fix close on click outside--done
+side menu small on small screens--done
+fix bug info window close on mouse leave--done
+set flags in input langs--done
+google maps--done
+guide hint announcements--done
+share on social media--done
+improve other informations comming from websocket notifications--done
+fix sort on save categories,products and products options--done
+share popup scroll to div --done
+problem saving delivery times--done
+sending emails and sms has limmit for same account--done
+fix account phone number to choose the country --done
+change logo--done
+chat cool down if too many msgs sent--done
+navList position but--done
+custom lang code--done
+info window from other side--done
+fix scrolltodiv tomeout in gudehints--done
+liveChat title in website--done
+check queris and indexs--done
+website size not saved bug--done
+products slide show not saved bug--done
+home page customers reviews not saved bug --done
+product card not saved bug --done
+live activitylogs 5 limit--done
+fix new chat windows postions in cpanel--done
+can start chat from cpanel--done
+chat in the website red notification--done
+website saved text--done
+search menu bug--done
+manage products icon--done
+position of chat cpanel--done
+change google maps with leaflet and OpenStreetMap--done
+cloudflair and ragy.live for the websocket--done
+cpanel chat undeliver msgs if invisible--done
+reconnecting bug--done
+option to change delivry cost in acepted orders and option to inform that delivery fees can change--done
+confirmDelete-Popup-content chage () to ""--done
+swap up and down disabled--done
+delivery times and pickup times safari problem--done
+delivery times and pickup times  hour 24 bug--done
+the bgcolor of the author i the tickbrowser--done
+limit the ticket msgs--done
+minimize maxmize tiptool in chat--done--and more
+check why loading sometimes stuck--done
+ticket status tag colors --done
+activity log bug--done
+autohelp zindex--done
+statistics archive--done
+change notifications numbers colors--done
+recheck no save in system--done
+reload tickets not with the main request--done
+cpanel controller get account if not master without invoices and tickets and other things--done -and more
+cookie permistion for website--done
+improve select box--done
+option to chose how long items stay in cart--done
+control panel url params more details--done
+ondelete img check if this img is uses somewhere else--done
+delivery account website remake--done
+cron job check payment--done
+change reviws card in cpanel(show all reviews by text bug, click on user name not woorking)-done
+cart lifetime bug(items removed)--done
+guide hints no need guide mode--done
+get help tickets on click on the menu tab--done
+recheck stausbar after show alert--done (in a better way no need to add texts to status bar anymore)
+print recipt--done
+update difftimes--done
+login pictures--done
+remake security (check sms and emails limmits - limmit wrong login tries)--done
+fix currncy symbole position--done
+make restaurant expenses--done
+make review load limmit--done
+make statistics--done
+remake statistics--done
+make delete private data--done
+make restaurant reports--done
+fix home page graph first hour--done
+fix texts--done
+home page layout when adding comonenet fix icon size--done
+about popup for the website--done
+collect reviews if on page add the review without need restart--done
+items names in track orders--done
+change simple check box and remove its component--done
+components to be removed['checkbox','cartCard','scrollbar','popupicons']--done
+make payment methods--done
+statistics product graph on firefox--done
+add payment method to the recipt--done
+manage user close all edit user windows on select another user--done
+edit product save options order button before select a product--done
+another mongodb for orders and all other docs expected to be more than 1m fast--done
+help center hyperlinks--done
+delivery account select language--done
+add more shortcuts(clear alerts)--done
+make F1 to show all shortcuts--done
+nav bar icons cpanel--done
+fix all  box shadows in the cpanel--done
+guide mode canel not changing the functions--done
+make search no results contact us and submit help ticket--done
+make loding screen tips--done
+make home page tips--done
+discount not applied of its less than 1 dollar--done
+repoort bug--done
+load component imgs after open the component window--done
+help window how hide bug--done
+product page in the website use products var inset of moreProducts and delete moreProducts var--done
+clean cpanel css--done
+fix mysql tables columns sizes--done
+check queries in controllers and fix if needed--done
+arabic fonts problem(cairo limon) --done
+payment method bug if the working hours out--done
+tuts pics with logo(settings:50-15)--done
+website popup clickout to close--done
+share reminder in the control pannel setting switched off by default--done
+qrcode--done
+hide russian--done
+remove placeOrderPopup and trackOrderPopup components--done
+pp for website--done
+check cpanelnotifications wbsocket--done
+recheck all controllers--done
+---------------------------
+---------------------------
+---------------------------
+
+////////////
+cookies settings for home
+use google and facebook third party cockies
+create email support@food-menu.net and info@food-menu.net
+security backup email
+
+////////////
+home realse notes
+ipad tests
+////////////////////
+make billing
+edit error pages
+set meta description for all pages
+check how to get high rank on google search
+update tut imgs
+free plan reminder popup to upgrade
+
+
+/////////////////////
+website texts fix and translate all pro
+
+create template pp for the website
+digital menu
+the food menu blog
+food menu
+food menu news letter subscription
+
+/////////new account reqirements
+create zero yesterday statistcs
+create first activity
+
+//////things need to be cleaned always
+help tickets imgs
+cache
+
+///////////emails needs to be done///////////////
+-wellcome mail with email verfication code
+-resend email verification
+-email changed with new verification code
+-password changed email
+-user recover password - token will be vailed for 30 mins only
+-submit ticket email
+-reset password for websits users
+-send email with the unblock link
+-send email that password changed
+-monthly report email
+
+////////delete a webiste (documents and tables need to be deleted manunally)
+//live_chats (mongo)
+//orders (mongo)
+//notifications (mongo)
+//activity_logs (mongo)
+//all statistics documents in statistics db (mongo)
+//delete imgs folder
+//tickets,ticket_msgs (dont delete keep for forum and for me)
+

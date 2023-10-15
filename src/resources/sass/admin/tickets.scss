@@ -1,0 +1,70 @@
+#ticketsContainerContainer{
+    height:100%;
+    overflow-y: auto;;
+}
+.ticketContainer{
+    margin:0;
+    padding:1em .5em;
+    width:calc(100% - 1em);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    border-bottom:.1em solid var(--color-1);
+
+}
+.ticketContainer:hover{
+    background-color: var(--color-6);
+    position: relative;
+    cursor: pointer;
+}
+.adminTicketMsg{
+    width:80%;
+    text-align: end;
+    border-radius: .5em;
+    box-shadow: 0 0 .2em .01em var(--color-1);
+    padding:1em;
+    padding-bottom:.25em;   
+    background-color: var(--color-6);
+    margin:1em 0;
+    position: relative;
+    align-self: flex-end;
+}
+.websiteTicketMsg{
+    width:80%;
+    text-align: start;
+    border-radius: .5em;
+    box-shadow: 0 0 .2em .01em var(--color-1);
+    padding:1em;
+    padding-bottom:.25em;   
+    margin:1em 0;
+    align-self: flex-start;
+    position: relative;
+    
+}
+.ticketPageContainer{
+    padding:1em 0;
+    height:calc(100% - 2em);
+    background-color: orange;
+
+}
+.ticketMsgsContainer{
+    width:calc(100% - 2em);
+    height:calc(100% - 2em);
+    padding:1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+    // overflow-y: scroll;
+    // background-color: aqua;
+    overflow: visible;
+    
+}
+.ticketAttachedImg{
+    width:4em;
+    height:4em;
+    cursor: pointer;
+}

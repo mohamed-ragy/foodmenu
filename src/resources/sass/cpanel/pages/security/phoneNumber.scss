@@ -1,0 +1,46 @@
+.accountPhoneSelectContainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border:1px solid var(--inptbr);
+    border-radius: 3px;
+    width:fit-content;
+    position: relative;
+    margin:0 10px;
+}
+.accountPhoneSelectFlag{
+    height:30px;
+    width:40px;
+    object-fit: cover;
+    border-radius: 3px 0 0 3px;
+}
+.accountPhoneSelectCountryCode, .accountPhoneSelectPhoneNumber{
+    padding: 5px 3px;
+    height:20px;
+    background-color: transparent;
+    color: var(--inpttxt);
+    border:none;
+    font-size: 1.1em;
+    border-radius: 0;
+    margin:0;
+    user-select: auto;
+    font-family: 'Nunito','inter','Tajawal', sans-serif;
+}
+.accountPhoneSelectCountryCode:focus,.accountPhoneSelectPhoneNumber:focus {
+    outline:none;
+}
+.accountPhoneSelectCountryCode{
+    width:35px;
+    border-inline-end:1px solid var(--inptbr);
+    padding-inline-start: 0;
+}
+.accountPhoneSelectKeysListContainer{
+    position: absolute;
+    top:30px;
+    background-color: var(--c1);
+    box-shadow: 0 0 10px 3px var(--shdw-20);
+    width:97px;
+    height: 200px;
+    overflow-y: scroll;
+}

@@ -1,0 +1,181 @@
+.productPageHead{
+    margin-top:40px;
+    margin-bottom:40px;
+    padding:40px;
+    // margin:40px 0;
+    width:calc(100% - 80px);
+    @media (max-width:1024px) {
+        // margin:20px 0;
+        padding: 20px;
+        width:calc(100% - 40px);
+    }
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.productPageTitle{
+    font-family: var(--font2);
+    color:var(--bgtxt);
+}
+.productPageImg{
+    width:50%;
+    max-width:500px;
+    aspect-ratio: 1 / 1 ;
+    object-fit: cover;
+    @media (max-width:1024px) {
+        width:calc(100%);
+        max-width:calc(100%);
+    }
+}
+.productPageTxtContainer{
+    width:calc(50% - 40px);
+    margin:20px;
+    margin-bottom: -50px;
+    @media (max-width:1024px) {
+        margin:20px;
+        margin-top:-80px;
+        width:calc(100% - 40px);
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+.productPageTxt{
+    opacity:0;
+    transform: translateX(20px);
+    box-shadow: var(--dark5) 0px 20px 25px -15px, var(--dark5) 0px 10px 10px -15px;
+    padding:20px;
+    background-color: var(--light75);
+    backdrop-filter: blur(5px);
+    color:var(--dark);
+    margin-inline-start: -100px;
+    @media (max-width:1024px) {
+        margin-inline-start: 0;
+
+    }
+    max-width:500px;
+    min-height: 150px;
+    min-width: 150px;
+}
+.productPageTxt_show{
+    opacity:1;
+    transform: translateX(0px);
+    transition-duration: 1s;
+}
+
+////allproducts
+.allProductsPageTagsContainer{
+    margin:20px;
+    margin-top: 60px;;
+    width:calc(100% - 40px);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.allProductsTagElem{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding:5px 10px;
+    margin:5px;
+    text-decoration: none;
+    color:var(--bgtxt);
+    background-color: var(--bg2);
+    transition-duration: 200ms;
+}
+.allProductsTagElem:hover{
+    text-decoration: none;
+    color:var(--bgtxt);
+}
+.allProductsTagElem_selected{
+    background-color: var(--c2-25);
+    transition-duration: 200ms;
+    // box-shadow:1px 1px 2px var(--dark10);
+}
+.allProductsTagElem_selected:hover{
+    background-color: var(--c2-25);
+    // color:var(--dark)
+}
+//////reviews
+.productPageReviews{
+    width:calc(100% - 40px);
+    margin:40px 20px;
+    display:flex;
+    // flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    @media (max-width:1024px) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+#productPageReviewsContainer{
+    max-width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+}
+.productReviewContainer{
+    background-color:var(--dark5);
+    color:var(--bgtxt);
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    // box-shadow: 1px 1px 20px -1px var(--dark5);
+    margin:20px 5px;
+    padding:15px;
+    max-width:calc(100% - 40px);
+    width:450px;
+    flex-shrink: 0;
+    animation-name: productReviewContainerAnimation;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-duration: 400ms;
+    // animation-delay: 200ms;
+}
+.postNewReviewContainer{
+    transform-origin: top center;
+    transition-duration: 400ms;
+    background-color:var(--bg2);
+    color:var(--bgtxt);
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-shadow: 0px 0px 10px 0px var(--dark10);
+    margin:20px 5px;
+    padding:15px;
+    width:450px;
+    max-width:calc(100% - 40px);
+    flex-shrink: 0;
+    position: sticky;
+    top:80px;
+}
+.postNewReviewContainer_hidden{
+    @media (max-width:1024px) {
+        transform: translateY(- 150%);
+    }
+}
+.postReviewStar{
+    opacity:1;
+    margin:0;
+    padding:3px;
+}
+.postReviewStar_noHover{
+    opacity:.5;
+}
+
+@keyframes productReviewContainerAnimation {
+    0%{opacity:0;transform:translateY(20px)}
+    100%{opacity:1;transform:translateY(0px)}
+}

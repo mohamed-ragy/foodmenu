@@ -1,0 +1,170 @@
+.datePickerContainerWrapper_100p{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // margin:0 5px;
+    width:calc(100% - 10px);
+    user-select:none;
+    padding: 10px 5px;
+    border-top:1px solid var(--shdw-5);
+}
+.datePickerContainerWrapper_100p:hover{
+    background-color: var(--bg2);
+}
+.datePickerSelectedDateContainer{
+    cursor: pointer;
+    background-color: var(--bg);
+    color:var(--txt);
+    border-radius: 2px;
+    border:1px solid var(--bg5);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    min-width:250px;
+    // margin:10px;
+    overflow: hidden;
+}
+.datePickerSelectedDate{
+    margin:5px;
+    font-size:.85em;
+    font-weight: 500;
+}
+.datePickerSelectedDateIcon{
+    height:35px;
+    font-size: 1.3em;
+    width:35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    color:var(--txt);
+    background-color: var(--bg);
+}
+///////////////
+.datePickerContainer{
+    width:250px;
+    box-shadow: var(--toltp-shdw2);
+    border-radius: 3px;
+    background-color: var(--bg);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    display:none;
+    position: absolute;
+    z-index: 50;
+}
+.datePickerMonthContainer{
+    padding:5px;
+    width:calc(100% - 10px);
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:5px;
+}
+.datePickerMonthNameContainer{
+    flex-grow: 3;
+    width:calc(100% - 40px);
+    padding:5px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    font-style: italic;
+    opacity: .8;
+    color:var(--green-80);
+    font-weight: bold;
+}
+.datePickerPrevMonthBtn, .datePickerNextMonthBtn{
+    opacity: .8;
+    color:var(--green-80);
+    cursor: pointer;
+    font-size: 1em;
+}
+.datePickerPrevMonthBtn:hover, .datePickerNextMonthBtn:hover{
+    color:var(--green);
+    opacity: 1;
+}
+.datePickerDaysContainer{
+    width:calc(100% - 10px);
+    padding-bottom:10px;
+    margin:0 5px;
+    align-self:center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    transition-duration: .5s;
+}
+.datePickerWeekDaysNames {
+    width:calc(100%);
+    align-self:center;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+
+}
+.datePickerWeekDays{
+    width:calc(100%);
+    align-self:center;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    transition-duration: .2s;
+}
+.datePickerDayName, .datePickerDay{
+    font-size:.85em;
+    width:2.5em;
+    height:2em;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    color:var(--txt);
+    opacity: .6;
+}
+.datePickerDay{
+    cursor: pointer;
+    color:var(--txt);
+    border-radius: 4px;
+}
+.datePickerDay:hover{
+    box-shadow: rgb(0 0 0 / 18%) 0px 2px 4px;
+    background-color: var(--bg2);
+}
+.datePickerDayDump:hover{
+    box-shadow:none;
+    background-color: transparent;
+    cursor:auto;
+}
+.datePickerSelectedDay{
+    background-color: var(--green);
+    color:var(--green-txt);
+}
+.datePickerSelectedDay:hover{
+    box-shadow: rgb(0 0 0 / 18%) 0px 2px 4px;
+    background-color: var(--green);
+    color:var(--green-txt);
+}
+.datePickerDayNoSelect{
+    color:var(--bg6);
+}
+.datePickerDayNoSelect:hover{
+    box-shadow:none;
+    background-color: transparent;
+    cursor:auto;
+}

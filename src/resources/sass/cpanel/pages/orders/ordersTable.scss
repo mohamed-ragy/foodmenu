@@ -1,0 +1,148 @@
+.orderHistoryMoreFiltersContainer{
+    width:100%;
+    max-height:0px;
+    transition-duration: .3s;
+    overflow: hidden;
+    opacity:0;
+}
+.orderHistoryMoreFiltersContainer_expand{
+    max-height:400px;
+    overflow: visible;
+    opacity:1;
+}
+
+.IncompleteOrderTypeElem{
+    padding:5px 0;
+    margin: 0 10px;
+    cursor: pointer;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    border-bottom:2px solid transparent;
+    color:var(--placeholder);
+    min-width:0;
+}
+.IncompleteOrderTypeElem_selected{
+    border-bottom: 3px solid var(--c5);
+    color:var(--c1txt);
+    font-weight: bold;
+}
+.IncompleteOrderTypeElem_selected[orderStatus="all"]div:nth-child(1){color:var(--c5);}
+.IncompleteOrderTypeElem_selected[orderStatus="0"]div:nth-child(1){color:var(--placeholder2);}
+.IncompleteOrderTypeElem_selected[orderStatus="1"]div:nth-child(1){color:var(--green);}
+.IncompleteOrderTypeElem_selected[orderStatus="3"]div:nth-child(1){color:var(--orange);}
+.IncompleteOrderTypeElem_selected[orderStatus="4"]div:nth-child(1){color:var(--orange);}
+////////////
+.ordersListTable{
+    border-collapse: collapse;
+    width:100%;
+    max-width:100%;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-top:50px;
+}
+.orderRowHead{
+    border-left:1px solid var(--brlight);
+    border-right:1px solid var(--brlight);
+    border-bottom:1px solid var(--brlight);
+}
+.orderRowHead td{
+    background-color: var(--c3);
+    padding: 10px;
+    font-weight: bold;
+}
+.orderRowHead td:nth-child(1){white-space: nowrap;}
+.orderRowHead td:nth-child(3){@media(max-width:1023px){display:none;}}
+.orderRowHead td:nth-child(4){@media(max-width:1279px){display:none;}}
+.orderRowHead td:nth-child(5){@media(max-width:1365px){display:none;}}
+
+.orderRow{
+    border-left:1px solid var(--brlight);
+    border-right:1px solid var(--brlight);
+    border-bottom:1px solid var(--brlight);
+}
+.orderRow td{
+    padding: 10px;
+}
+.orderRow td:nth-child(1){white-space: nowrap;}
+.orderRow td:nth-child(3){@media(max-width:1023px){display:none;}}
+.orderRow td:nth-child(4){@media(max-width:1279px){display:none;}}
+.orderRow td:nth-child(5){@media(max-width:1365px){display:none;}}
+.orderRow:hover{
+    background-color: var(--c2);
+    .orderRowItemImg{
+        border:3px solid var(--c2);
+    }
+    .orderRowItem{
+        border:3px solid var(--c2);
+    }
+}
+.orderRowTypeTag{
+    border-radius: 3px;
+    padding:8px;
+    font-size:1.5em;
+    box-shadow: inset 0 0 1px 1px var(--shdw-5);
+    background-color: var(--c1);
+}
+.orderRowStatusTag{
+    border-radius: 3px;
+    padding:3px 6px;
+    display:flex;
+    align-items: baseline;
+    justify-content: center;
+    background-color: var(--c1);
+    box-shadow: inset 0 0 1px 1px var(--shdw-5);
+    width: fit-content;
+    color:var(--c4txt);
+}
+.orderRowItemImg{
+    border:3px solid var(--c1);
+    border-radius: 50%;
+    width:25px;
+    height:25px;
+    object-fit: cover;
+    margin-inline-end:-12.5px;
+}
+.orderRowItem{
+    border:3px solid var(--c2);
+    background-color: var(--c3);
+    border-radius: 50%;
+    width:25px;
+    height:25px;
+    margin-inline-end:-12.5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+///////////
+#changeOrderStatus{
+    background-color: var(--ttbg);
+    color:var(--c1txt);
+    border-radius: 2px;
+    position: fixed;
+    display: none;
+    z-index: 249;
+    transition-duration: 0s;
+    box-shadow: 0 0 10px 3px var(--shdw-20);
+}
+.changeOrderStatusElem{
+    padding:10px;
+    border-radius: 2px;
+    cursor: pointer;
+    min-width:150px;
+
+}
+.changeOrderStatusElem:hover{background-color: var(--c2);}
+#changeOrderStatusGiveToDelivery{
+    background-color: var(--ttbg);
+    color:var(--c1txt);
+    border-radius: 2px;
+    position: fixed;
+    display: none;
+    z-index: 249;
+    transition-duration: 0s;
+    box-shadow: 0 0 10px 3px var(--shdw-20);
+    overflow-y: auto;
+}
+////////////////////////////////////

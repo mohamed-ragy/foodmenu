@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'foodmenu';
+  src:  url('demoIcons/foodmenu.eot?6tc7k1');
+  src:  url('demoIcons/foodmenu.eot?6tc7k1#iefix') format('embedded-opentype'),
+    url('demoIcons/foodmenu.ttf?6tc7k1') format('truetype'),
+    url('demoIcons/foodmenu.woff?6tc7k1') format('woff'),
+    url('demoIcons/foodmenu.svg?6tc7k1#foodmenu') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'foodmenu' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+//   line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ico-mobile:before {
+  content: "\e900";
+}
+.ico-tablet:before {
+  content: "\e901";
+}
+.ico-screen:before {
+  content: "\e902";
+}

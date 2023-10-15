@@ -1,0 +1,56 @@
+
+.loadingSpinner{
+    visibility: hidden;
+    position: absolute;
+    top:calc(50% - 1.5em);
+    left:calc(50% - 1.5em);
+    margin: .5em;
+    overflow: visible;
+    width:3em;
+    height:3em;
+}
+.loadingSpinnerContainer{
+    position: relative;
+    overflow: visible;
+}
+.loadingSpinnerImg{
+    position: absolute;
+    top:0em;
+    left:0em;
+    width: 3em;
+    height:3em;
+    border-radius: 50%;
+    background-color: var(--color-1);
+    animation-name: loadingSpinnerAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    margin: .5em;
+    // border:.1em solid var(--color-2);
+    opacity: .8;
+}
+.loadingSpinnerImg2{
+    position: absolute;
+    top:0em;
+    left:0em;
+    width:3em;
+    height:3em;
+    border-radius: 50%;
+    background-color: var(--color-2);
+    animation-name: loadingSpinnerAnimation2;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    margin: .5em;
+    // border:.1em solid var(--color-1);
+    opacity: .8;
+}
+@keyframes loadingSpinnerAnimation {
+0%{transform: scale(0);}
+50%{transform: scale(-1);}
+100%{transform: scale(0);}
+}
+@keyframes loadingSpinnerAnimation2 {
+    0%{transform: scale(-1);}
+    50%{transform: scale(0);}
+    100%{transform: scale(-1);}
+}
+    

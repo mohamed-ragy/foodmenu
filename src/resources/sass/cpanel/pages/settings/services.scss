@@ -1,0 +1,29 @@
+.dayRowStatus{
+    border-radius: 50px;
+    margin:5px;
+    background-color: var(--green);
+    height: 10px;
+    width:10px;
+    position: relative;
+    flex-shrink: 0;
+}
+.dayRowStatus_off{
+    background-color: var(--bg5);
+}
+.copyWorkingdayDump{
+    color:var(--bg5);
+    cursor: not-allowed;
+}
+.copyDayPopupDay{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width:calc(100% - 10px);
+    padding:5px;
+    font-size: .85em;;
+}
+.copyDayPopupDay:hover{
+    background-color: var(--bg2);
+}

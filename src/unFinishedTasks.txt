@@ -1,0 +1,43 @@
+tell user in get started help timezone, country and currancy to choose any thing to contenu if he need help and after submit a ticket
+make terms and pp
+recreate footer
+edit error pages
+remember me and forget password
+submit a ticket link in nav > cpanel
+report bug nav > cpanel make table with bugs and form send bugs from user to table and later show it on my cp
+arrange submenus numbers
+set description for all pages
+check how to get high rank on google search
+finish help
+idel and session timeout -- make in settings user chose if he want auto disconnect if idel forfor how long
+make site not active page
+create movetodev for all
+
+/////////////admin//////////////
+create clean temp imgs
+
+///////////help linkes need to be linked////////////
+email verfication help in get started > email help
+
+
+///////////emails needs to be done///////////////
+-wellcome mail with email verfication code
+-resend email verification
+-email changed with new verification code
+-password changed email
+-user recover password - token will be vailed for 30 mins only
+-submit ticket email
+-reset password for websits users
+-send email with the unblock link
+-send email that password changed
+-monthly report email
+//////////smtp data !important never delete/////////////////
+MAIL_MAILER=smtp
+MAIL_HOST=mail.hover.com
+MAIL_PORT=465
+MAIL_USERNAME="admin@food-menu.net"
+MAIL_PASSWORD="mjf9348tjpN,,PPOFHp908f"
+MAIL_ENCRYPTION=SSL
+MAIL_FROM_ADDRESS="admin@food-menu.net"
+MAIL_FROM_NAME="Food Menu"
+

@@ -1,0 +1,256 @@
+#manageProducts-manageProductsContainer{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:stretch;
+    justify-content: center;
+}
+.manageProductCardContainer{
+    border-radius: 3px;
+    box-shadow: var(--shdw5);
+    background-color: var(--c2);
+    display:flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    margin:15px;
+    transition-duration: .3s;
+    width: 250px;
+}
+
+.manageProductCardMoveContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: var(--shdw-20);
+    color: var(--c4txt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin: 5px;
+}
+.manageProductCardMoveContainer:hover{
+    background-color: var(--shdw-50);
+}
+.manageProductCardMove{
+    cursor: move;
+    font-size:1.4em;
+    color:var(--c4txt)
+}
+.manageProductCardImg{
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+.manageProductCardName{
+    font-size: 1.3em;
+    margin: 0 5px;
+    @media (max-width:1024px) {
+        font-size: 1.2em;
+    };
+    width: calc(100% - 10px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline;
+    white-space: nowrap;
+}
+.manageProductCardIconsContainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    border-top: 1px solid var(--sttsbr);
+    margin-top: auto;
+}
+.manageProductCardIcon{
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    box-shadow: none;
+    flex-grow: 1;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.manageProductCardIcon:hover{
+    background-color: var(--c3);
+    box-shadow: 0 0 1px 0px var(--shdw-10);
+}
+.manageProductCardDelete:hover{
+    color:var(--red);
+}
+.manageProductCardReviews{
+    color:var(--c1txt);
+}
+.manageProductCardReviews:hover{
+    color:var(--star)
+}
+
+///////sort
+#manageProductCardOnMove{
+    display:none;
+    position: absolute;
+    transition-duration: 0s !important;
+    z-index: 70;
+    transform: scale(.6);
+    transform-origin: 5% 5%;
+    box-shadow: 0 0 10px 0 var(--shdw-10), 0 0 0px 1px var(--shdw-5);
+
+    border-radius: 3px;
+    background-color: var(--c2);
+    overflow: hidden;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transition-duration: .2s;
+    width: 250px;
+    pointer-events: none;
+
+}
+.manageProductCardSelectedOnMove{
+    opacity:.5;
+}
+.manageProductCardHighlighted{
+    box-shadow: var(--shdw-20) -3px 3px 10px 1px;
+    transform: rotateY(10deg) rotateX(5deg);
+}
+//////////////// product options
+.productOptionCardContainer{
+    border-radius: 3px;
+    box-shadow: var(--shdw5);
+    background-color: var(--c2);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin:10px 0;
+    transition-duration: .2s;
+}
+.productOptionCardMoveIcon{
+    cursor: move;
+}
+.productOptionCardIconsContainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin:5px;
+}
+.productOptionCardIcon{
+    padding: 10px;
+    border-radius:3px;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin: 3px 0;
+    box-shadow: none;
+}
+.productOptionCardIcon:hover{
+    background-color: var(--c3);
+    box-shadow: 0 0 1px 0px var(--shdw-10);
+}
+.productOptionCardIconDelete:hover{
+    color:var(--red);
+}
+#productOptionCardOnMove{
+    display:none;
+    position: absolute;
+    transition-duration: 0s !important;
+    z-index: 70;
+    transform: scale(.7);
+    transform-origin: 5% 5%;
+    border-radius: 3px;
+    box-shadow: var(--shdw5);
+    background-color: var(--c2);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin:10px 0;
+    pointer-events: none;
+
+}
+.productOptionCardSelectedOnMove{
+    opacity:.5;
+}
+.productOptionCardHighlighted{
+    box-shadow: var(--shdw-20) -2px 2px 7px 1px;
+    transform: rotateY(6deg) rotateX(3deg);
+}
+.productOptionCardContainer_managing{
+    background-color: var(--c3);
+}
+////////////selections
+.selectionsOptionCard{
+    border-radius: 3px;
+    box-shadow: var(--shdw5);
+    background-color: var(--c2);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin:10px 0;
+    width:100%;
+}
+.selectionCardContainer{
+    border-radius: 3px;
+    box-shadow: var(--shdw5);
+    background-color: var(--c2);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin:5px 0;
+    transition-duration: .2s;
+    width:90%;
+    align-self: center;
+}
+.selectionCardMoveIcon{
+    cursor: move;
+}
+.selectionCardIcon{
+    padding: 10px;
+    border-radius:3px;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin: 3px 0;
+    box-shadow: none;
+}
+.selectionCardIcon:hover{
+    background-color: var(--c3);
+    box-shadow: 0 0 1px 0px var(--shdw-10);
+}
+.selectionCardIconDelete:hover{
+    color:var(--red);
+}
+#selectionCardOnMove{
+    display:none;
+    position: absolute;
+    transition-duration: 0s !important;
+    z-index: 70;
+    transform: scale(.7);
+    transform-origin: 5% 5%;
+    border-radius: 3px;
+    box-shadow: var(--shdw5);
+    background-color: var(--c2);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin:10px 0;
+    pointer-events: none;
+}
+.selectionCardSelectedOnMove{
+    opacity:.5;
+}
+.selectionCardHighlighted{
+    box-shadow: var(--shdw-20) -2px 2px 7px 1px;
+    transform: rotateY(6deg) rotateX(3deg);
+}

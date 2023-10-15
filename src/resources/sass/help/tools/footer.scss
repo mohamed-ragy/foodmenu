@@ -1,0 +1,14 @@
+footer{
+    margin-top:150px;
+    margin-bottom:100px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-top:40px;
+    max-width: 1000px;
+    border-top:1px solid #9d9d9d6a;
+    opacity:0;
+    transition-duration: 200ms;
+}
+.footer_show{
+    opacity:1;
+}

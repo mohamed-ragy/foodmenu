@@ -1,0 +1,98 @@
+//////////////////menu
+#Menu{
+    @media (min-width:$mobile-size) {
+        display:none;
+     }
+}
+#menuList{
+    width:400px;
+    right:0px;
+    @media (max-width:520px) {
+        right:0px;
+        left:0px;
+        width:calc(100%);
+        max-height: calc(100% - 80px);
+    }
+}
+.navMenu-elementCat{
+    margin:10px;
+    margin-top:40px;
+    font-size:1.2em;
+    font-weight: 500;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+}
+.navMenu-elementCat span:nth-child(1){
+    margin-inline-end: 5px;;
+}
+.navMenu-element_billing{
+    all: unset;
+    width:calc(100% - 20px);
+    padding:10px;
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: nowrap;
+    background-color:var(--bg);
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 0 2px 0px var(--shdw-10);
+    min-height: 20px;
+}
+.navMenu-element_billing:hover{
+    background-color:var(--bg2);
+    text-decoration: none;
+}
+
+.navMenu-element{
+    width:calc(100% - 20px);
+    padding:10px;
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: nowrap;
+    background-color:var(--bg);
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 0 2px 0px var(--shdw-10);
+    min-height: 20px;
+}
+.navMenu-element:hover{
+    background-color:var(--bg2);
+}
+.navMenu-element-icon{
+    font-size: 1em;
+    padding:10px;
+    margin:0;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.navMenu-mainItem_unsaved{
+    position: absolute;
+    top:2px;
+    left:7px;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+.navMenu-unsaved{
+    position: absolute;
+    bottom: 7px;
+    right: 16px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+.navMenu-element-body{
+    flex-grow: 3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:flex-start;
+    flex-wrap: nowrap;
+    font-size:1em;
+}

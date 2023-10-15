@@ -1,0 +1,80 @@
+////////////////noptifications
+#notificationsList{
+    width: 350px;
+    right:0px;
+    @media (max-width:520px) {
+        right:0px;
+        left:0px;
+        width:calc(100%);
+        max-height: calc(100% - 80px);
+    }
+}
+#notificationsNumber{
+    background-color: var(--bg);
+    color: var(--green);
+    border:1px solid var(--green);
+}
+#noNotifications{
+    text-align: center;
+}
+.notificationContainer_loading{
+    width:calc(100% - 10px);
+    padding: 10px 5px;
+    cursor: pointer;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: start;
+    position: relative;
+    border-top:1px solid var(--bg2);
+    height:30px;
+}
+.notificationContainer{
+    width:calc(100% - 10px);
+    padding: 15px 5px;
+    cursor: pointer;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: start;
+    position: relative;
+    border-top:1px solid var(--bg2);
+    min-height:30px;
+}
+.notificationContainer:hover{
+    background-color:var(--bg2);
+}
+.notificationContainer_unseen{
+    background-color: var(--bg2);
+}
+.notificationContainer_unseen:hover{
+    background-color: var(--bg2);
+}
+.notificationIcon{
+    margin-inline-end: 10px;
+    position: relative;
+    margin-inline-start: 5px;
+    font-size:1.6em;
+}
+.notificationBody{
+    font-size:.75em;
+    display: flex;
+    flex-grow: 2;
+    min-height: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.unSeenNotificationDot{
+    width:7px;
+    height:7px;
+    background-color: var(--orange);
+    border-radius:50%;
+    align-self: center;
+    margin-inline-start:10px;
+    font-size:1.1em;
+    flex-shrink: 0;
+}
+/////////

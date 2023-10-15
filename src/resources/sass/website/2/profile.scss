@@ -1,0 +1,52 @@
+#profilepage{
+    margin:20px;
+    width:calc(100% - 40px);
+    display:flex;
+    align-items: flex-start;
+    justify-content: center;
+    @media (max-width:720px) {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+    position: relative;
+}
+.profilePageMenu{
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    z-index: 3;
+    position: sticky;
+    top:80px;
+    margin-inline-end:10px;
+    @media (max-width:720px) {
+        position: static;
+    }
+}
+.profilePageElem{
+    padding:10px 20px;
+    color:var(--bgtxt);
+    text-decoration: none;
+    border-inline-end:3px solid var(--elemlight);
+}
+.profilePageElem:hover{
+    background-color: var(--elemlight);
+    color:var(--bgtxt);
+    text-decoration: none;
+    border-inline-end:3px solid transparent;
+}
+.profilePageElem_show{
+    background-color: var(--elemlight);
+    border-inline-end:3px solid var(--elem2);
+}
+.profilePageElem_show:hover{
+    background-color: var(--elemlight);
+    border-inline-end:3px solid var(--elem2);
+}
+.profilePageBody{
+    z-index: 1;
+    padding-top:50px;
+    max-width:100%;
+    width:600px;
+}

@@ -1,0 +1,56 @@
+///////////////////////////input //////////////////
+input.text{
+    all: unset;
+    position: relative;
+    height:2em;
+    width: auto;
+    background-color: $bg-light;
+    border: .2em solid $color-dark;
+    border-radius: .5em;
+    color:$text-dark;
+    padding:0 1em 0 1em;
+    transition-duration: .3s;
+}
+input.text:focus{
+    background-color:$bg-light;
+    border:.2em  solid $color-light;
+    border-right :.5em  solid $color-light;
+    border-left :.5em  solid $color-light;
+    color:$text-dark;
+
+}
+input.text::placeholder{
+    color:$color-light;
+    
+}
+input.text:disabled{
+    border: .2em solid $color-light;
+    background-color: $bg-dark;
+    color:$color-light;
+    cursor:no-drop;
+}
+
+textarea{
+    all: unset;
+    text-align: left;
+    background-color: $bg-light;
+    border: .2em solid $color-dark;
+    border-radius: .5em;
+    color:$text-dark;
+    padding:.3em 1.2em .3em 1.2em;
+    transition-duration: .3s;
+    
+}
+textarea:focus{
+    background-color: $bg-dark;
+    border:.2em  solid $color-light;
+    border-right :.5em  solid $color-light;
+    border-left :.5em  solid $color-light;
+    color:$text-dark;
+
+}
+textarea::placeholder{
+    color:$color-light;
+    
+}
+

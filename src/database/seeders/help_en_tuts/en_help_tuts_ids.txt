@@ -1,0 +1,75 @@
+1 => settings => Configuring Your Website In Different Languages
+2 => settings => Creating A Custom Language For Your Website
+3 => settings => Customizing Your Website Texts
+4 => settings => Modifying Your Control Panel Language
+5 => settings => Adjusting The Control Panel View
+6 => settings => Adjusting The Control Settings
+7 => settings => Adjusting the alert notifications
+8 => settings => The Guide Mode
+9 => settings => Time Zone and Country
+10 => settings => Adjusting the System Settings
+11 => settings => Your restaurant main information
+12 => settings => Adjusting your restaurant’s working hours
+13 => settings => Scheduling Discounts
+14 => settings => Your Restaurant’s Dine-In Service
+15 => settings => Your Restaurant's Home Delivery Service
+16 => settings => Your Restaurant's Order Pickup Service
+17 => basics => Foodmenu's Customer Support
+18 => basics => Your Account’s Help Tickets
+19 => basics => Employing Live Chat on Your Website
+20 => basics => Control Panel Home
+21 => basics => The Share Tool
+22 => basics => The Activity Log
+23 => basics => The Navigation Bar
+24 => basics => Control Panel Tools
+25 => basics => Your Restaurant's Website Domain Name
+26 => basics => The Guide Tip Area
+27 => basics => Your Website's Privacy Policy
+28 => basics => Your Website Structure
+29 => basics => Your products’ Rating and Reviews
+46 =? basics => Delivery Accounts
+30 => productsCategories => Creating a Product Category
+31 => productsCategories => Your product categories list
+32 => productsCategories => Your products category
+33 => productsCategories => Managing Your Product Reviews
+34 => productsCategories => Product Options
+35 => productsCategories => Creating a New Product
+36 => productsCategories => Editing your product options
+38 => productsCategories => Managing products
+39 => productsCategories => Your product special categories
+40 => orders => Creating promo codes
+56 => orders => Your restaurant’s ordering system
+57 => orders => Order Lifecycle
+58 => orders => Placing a new order
+59 => orders => Incomplete Orders
+60 => orders => Making Order Adjustments
+61 => orders => Orders History
+41 => users => Creating a new user
+42 => users => Managing your website users
+43 => users => Tracking Online Website Visitors
+44 => users => Types of website visitors
+45 => users => How a user manages their profile on your website
+47 => design => Website Templates
+48 => design => Your Account Images
+49 => design => Your website homepage sections
+50 => design => Homepage Intro
+51 => design => Your homepage info section
+52 => design => Our story section
+53 => design => Your homepage’s slideshow section
+54 => design => Your Website Gallery
+55 => design => Your website colors
+56 => orders => Your restaurant’s ordering system
+57 => orders => Order Lifecycle
+58 => orders => Placing a new order
+59 => orders => Incomplete Orders
+60 => orders => Making Order Adjustments
+61 => orders => Orders History
+62 => statistics => Financial Reports
+63 => statistics => Restaurant Expenses
+64 => statistics => The importance of statistics and analytics
+65 => statistics => Your restaurant’s orders performance
+66 => statistics => Analyzing your products performance
+67 => statistics => Analyzing Users Behavior
+68 => statistics => Delivery Personnel Performance
+69 => statistics => Comparing Growth Over Time
+70 => statistics => Statistics and Analytics

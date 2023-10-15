@@ -1,0 +1,87 @@
+#aboutus{
+    z-index: 1;
+    max-width:1024px;
+    margin:auto;
+    margin-top:40px;
+}
+.aboutuseSecContainer{
+    border: 1px solid var(--c1-10);
+    position: relative;
+    margin:30px 10px;
+    padding:30px 10px;
+    border-radius: 10px;
+    width:calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.aboutuseSecTitle{
+    font-family: var(--font2);
+    font-size:1.2em;
+    position: absolute;
+    margin-top:calc(-1.6em - 17.5px);
+    padding:5px;
+    background-color: var(--bg);
+    align-self:flex-start;
+    font-weight:bold;
+}
+.aboutusSOIcon{
+    all: unset;
+    margin:2px 7.5px 5px 7.5px;
+    font-size:1.5em;
+    cursor: pointer;
+}
+.aboutusSOIcon:hover{
+    text-decoration: none;
+    color:var(--dark75)
+}
+
+.workingHoursContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width:100%;
+    margin-top:10px;
+    // box-shadow: var(--dark25) 0px 0px 2px 0px;
+    border-radius: 1px;
+    overflow:hidden;
+}
+.workingHoursElem{
+    @media (max-width:400px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding:5px 10px;
+    width:calc(100% - 20px);
+    font-size:.9em;
+}
+
+.workingHoursElem_{
+    @media (max-width:400px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding:5px 10px;
+    width:calc(100% - 20px);
+    font-size:.9em;
+    background-color: var(--c1-5);
+}
+
+.workingHoursElemStart{margin-inline-end:20px;}
+.workingHoursElemEnd{margin-inline-start:10px;}
+.aboutusHappyHour{
+    color:var(--cs);
+    margin-inline-start: 5px ;
+}

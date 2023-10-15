@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'Nunito';
+    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'inter';
+    src: url('/storage/fonts/en/inter.ttf') format("truetype");
+}
+.inter{font-family: 'inter', sans-serif;}
+@import '../cpanel/tools/icons';
+@import '../cpanel/tools/loading';
+@import '../cpanel/tools/scrollBar';
+
+@import '../help/tools/header.scss';
+@import '../help/tools/mobileNav.scss';
+@import '../help/tools/nav.scss';
+@import '../help/tools/footer.scss';
+@import '../help/tools/search.scss';
+
+@import '../help/pages/home.scss';
+@import '../help/pages/cat.scss';
+@import '../help/pages/article.scss';
+*{-webkit-tap-highlight-color: transparent;}
+html{height:100%;width:100%;}
+
+body{
+    user-select: none;
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--c1);
+    color:var(--c1txt);
+    overflow: hidden;
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    @media (max-width:500px) {
+        font-size: .9em;
+    }
+}
+main{
+    @media (max-width:1024px) {
+        width:100%;
+    }
+    width:calc(100% - 300px);
+    height:calc(100% - 70px);
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+.main_home{
+    margin-top:0;
+    height:calc(100%);
+}
+.main_full{
+    width:100%;
+}
+.page{
+    padding:20px;
+    width:calc(100% - 40px);
+    transition-duration: 200ms;
+    max-width:1000px;
+}
+.page[page="home"]{margin-top:0;padding:0px;width:100%;max-width:100%;}
+
+.page_hidden{
+    opacity: 0;
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--a);
+    // font-weight: bold;
+}
+a:hover{
+    color: var(--c1txt);
+    text-decoration: none;
+}
+li{margin-top:5px;}
+[tooltip]{
+    position: relative;
+    width:fit-content;
+}
+#tooltip{
+    display:none;
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--c1);
+    color:rgb(117, 117, 117);
+    font-size: .8em;
+    padding:5px;
+    border-radius: 5px;
+    max-width:300px;
+    // min-width:200px;
+    box-shadow: var(--shdw1);
+    font-family: 'Nunito', sans-serif;
+    text-align: start;
+    animation-name: tooltipAnimation;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    // animation-delay:1000ms ;
+}
+@keyframes tooltipAnimation {
+    0%{opacity:0;transform: translateY(5px);}
+    80%{opacity:0;transform: translateY(5px);}
+    100%{opacity:1;transform: translateY(0px);}
+}
+.openPage{cursor: pointer;}
+.openPage:hover{text-decoration: none;}
+// .button{
+//     background-color: var(--c3);
+//     box-shadow: rgba(50, 50, 93, 0.15) 0px 0px 1px 1px;
+//     font-weight: bold;
+//     // padding:3px 8px;
+//     width:25px;
+//     height:25px;
+//     display:flex;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 3px;
+// }
+
+@import '../cpanel/styleClasses.scss';

@@ -1,0 +1,25 @@
+
+#statusBar{
+    width: calc(100% - 10px);
+    height:20px;
+    padding: 0 5px;
+    background-color: var(--bg3);
+    color: var(--bg-txt);
+    border-top:1px solid var(--shdw-10);
+    position: relative;
+    z-index: 50;
+    font-size: 0.8em;
+    overflow: auto;
+    transition-duration: .5s;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    text-align: start;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

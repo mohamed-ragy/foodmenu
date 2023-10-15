@@ -1,0 +1,22 @@
+
+.addNewLangElem{
+    padding:5px 10px;
+    width:calc(100% - 20px);
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--bg);
+    border-bottom:1px solid var(--bg2);
+}
+.addNewLangElem:hover{
+    background-color: var(--bg2);
+}
+.editLangTextInput{
+    border: 1px solid var(--c3);
+    height: 50px;
+    margin: 5px 0;
+}
+.editLangTextInput::placeholder{color:var(--bg4)}
+.editLangTextInput_error{
+    border:1px solid var(--red);
+}

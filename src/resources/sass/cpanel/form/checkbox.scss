@@ -1,0 +1,102 @@
+.checkbox {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+.checkbox+span {
+    font-size:1.35em;
+    z-index: 1;
+    position: relative;
+    width: 14px;
+    height: 20px;
+    background-color: var(--bg4);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0em;
+    margin:0;
+    padding-right: 20px;
+    transition-duration: 0.2s;
+    flex-shrink: 0;
+    margin-inline-start:20px;
+
+}
+.checkbox:checked+span {
+    background-color: var(--green);
+}
+
+.checkbox+span::after {
+    z-index: 1;
+    content: "";
+    cursor: pointer;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: var(--bg);
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+    transition-duration: 0.2s;
+    flex-shrink: 0;
+}
+.checkbox:checked+span::after {
+    left: 15px;
+    background-color: var(--bg);
+}
+
+.checkboxlabel{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    user-select:none;
+    padding: 10px;
+    border-top:1px solid var(--shdw-5);
+    width: fit-content;
+    border-radius: 4px;
+}
+.checkboxlabel:hover{
+    background-color: var(--bg2);
+}
+.checkboxlabel span{
+    font-size: .9em;
+}
+.checkboxlabel_100p{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // margin:0 5px;
+    width:calc(100% - 10px);
+    user-select:none;
+    padding: 10px 5px;
+    border-top:1px solid var(--shdw-5);
+}
+.checkboxlabel_100p:hover{
+    background-color: var(--bg2);
+}
+.checkboxlabel_100p span{
+    font-size: .9em;
+}
+.checkboxlabel_noTxt{
+    margin: auto;
+    user-select:none;
+    padding: 0px;
+    border-top:none;
+    .checkbox+span{
+        margin-inline-start: 0;
+    }
+}
+.checkboxlabel_goInvisible{
+    width:calc(100% - 20px);
+    background-color: unset;
+    margin:0;
+    box-shadow: none;
+}
+.checkboxlabel_goInvisible span{
+    font-size: .9em;
+}

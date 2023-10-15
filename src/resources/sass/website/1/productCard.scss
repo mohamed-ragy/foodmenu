@@ -1,0 +1,110 @@
+.categoryProductsContainer{
+    width:calc(100% - 50px);
+    margin:25px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.allProductsContainer{
+    width:calc(100% - 50px);
+    margin:25px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.productCard{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin:20px;
+    width: 360px;
+    height: 460px;
+    @media (max-width:500px) {
+        height:300px;
+
+    }
+    max-width: calc(100% - 40px);
+    position:relative;
+}
+.productCardBefore{
+    top:0;
+    left:0;
+    position: absolute;
+    max-width: calc(100%);
+    width:100%;
+    height:100%;
+    background-color: var(--dark25);
+    transition-duration: 500ms;
+    pointer-events: none;
+    z-index: 2;
+}
+.productCardBeforeHover{
+    background-color: var(--dark10);
+
+}
+.productCardInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width:calc(100% - 40px);
+    padding:20px;
+    background-color: var(--dark50);
+    backdrop-filter: blur(2px);
+    color:var(--light);
+    transition-duration: 200ms;
+    z-index: 3;
+    max-height:calc(100% - 100px);
+}
+.productCardName{
+    text-decoration: underline;
+    color:var(--light);
+    font-size:1.5em;
+    font-family: var(--font2);
+    margin-bottom:5px;
+
+}
+.productCardName:hover{
+    color:var(--light);
+}
+.productCardDes{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2em;
+    transition-duration: 500ms;
+    opacity:0;
+    height:0;
+}
+.productCardDes_show{
+    opacity:1;
+    height:3.6em;
+}
+.productCardIcons{
+    position: absolute;
+    top:0;
+    align-self: flex-end;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+.productCardIcon{
+    margin:5px 3px;
+    padding:3px;
+    font-size:1.3em;
+    background-color: var(--light90);
+    border-radius: 1px;
+    color:var(--dark);
+}
+.productCardIcon:hover{text-decoration: none;}

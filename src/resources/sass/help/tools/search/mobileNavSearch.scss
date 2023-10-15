@@ -1,0 +1,82 @@
+.mobileNavSearchContainer{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    position: relative;
+}
+.mobileNavSearchResultsContainer{
+    background-color: var(--c1);
+    z-index: 1;
+    transition-duration: 300ms;
+    opacity: 1;
+    height: 100%;
+    width:100%;
+    border-bottom:1px dashed var(--placeholder);
+    max-height:2000px;
+}
+.mobileNavSearchResults{
+    overflow-y: auto;
+    padding:5px;
+    width:calc(100% - 10px);
+    height:calc(100% - 45px);
+    overscroll-behavior:contain;
+}
+.mobileNavSearchResultsContainer_hidden{
+    opacity: .5;
+    box-shadow: none;
+    height:0px;
+    overflow: hidden;
+}
+.mobileNavSearch{
+    outline:none;
+    height:25px;
+    border:none;
+    border-bottom:1px dashed var(--inptbr);
+    width:100%;
+    padding:5px 0;
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+    color:var(--c1txt);
+    z-index: 5;
+}
+.mobileNavSearch::placeholder{color:var(--placeholder)}
+.mobileNavSearchLeft{
+    height:25px;
+    width:25px;
+    padding:5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--c1);
+    z-index: 5;
+    border-bottom:1px dashed var(--inptbr);
+}
+.mobileNavSearchRight{
+    height:25px;
+    padding:5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--c1);
+    z-index: 5;
+    border-bottom:1px dashed var(--inptbr);
+}
+
+///
+.mobileNavOpenSearchBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size:1.1em;
+    cursor: pointer;
+}
+.mobileNavCloseSearchBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size:1.1em;
+    cursor: pointer;
+}

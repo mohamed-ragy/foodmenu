@@ -1,0 +1,133 @@
+#colorsPreviewcontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 3px;
+    margin: 10px;
+    overflow: hidden;
+    background-color: var(--c2);
+    width:100px;
+    box-shadow: 0 0 9px 0 var(--shdw-5), 0 0 0px 1px var(--shdw-5);
+    @media (max-width:420px) {
+        width:60px;
+    }
+}
+.colorPreview{
+    height:40px;
+    width: 100%;
+    cursor: pointer;
+    flex-grow: 1;
+    transition-duration: .4s;
+    position: static;
+}
+.colorPreview:hover{
+    .colorPreviewTxt{display:block}
+}
+.colorPreviewTxt{
+    opacity:.8;
+    margin:4px;
+    display:none;
+    pointer-events: none;
+}
+#colorCardsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    height:430px;
+    position: relative;
+    overflow-y: scroll;
+    border-radius: 0.3em;
+    padding: 10px;
+    width:calc(100% - 140px);
+    @media (max-width:420px) {
+        width:calc(100% - 60px);
+    }
+    background-color: var(--c1);
+    box-shadow: 0 0 2px 0px var(--shdw-20), 0 0 0px 1px var(--shdw-5);
+}
+.colorCardLoading{
+    margin: 10px;
+    box-shadow: 0 0 2px var(--shdw-30);
+    border-radius:3px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    width:100px;
+    height:20px;
+}
+.colorCard{
+    margin: 10px;
+    box-shadow: 0 0 9px 0 var(--shdw-5), 0 0 0px 1px var(--shdw-5);
+    background-color: var(--c2);
+    border-radius:3px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition-duration: .5s;
+}
+.colorCardInside{
+    width:30px;
+    height:30px;
+}
+////////////custom colors
+#customColorsCard{
+    padding: 10px;
+    @media (max-width:420px) {
+        width:calc(100% - 10px);
+        padding: 5px;
+    }
+    box-shadow: 0 0 9px 0 var(--shdw-5), 0 0 0px 1px var(--shdw-5);
+    background-color: var(--c2);
+    border-radius:3px;
+    width:calc(100% - 20px);
+    display:flex;
+    @media (max-width:500px) {
+        flex-wrap: wrap;
+    }
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.customColorContainer{
+    cursor: pointer;
+    @media (max-width:500px) {
+        width:33.3333%;
+    }
+    transition-duration: .2s;
+}
+.customColor{
+    @media (max-width:500px) {
+        height:50px;
+    }
+    height:100px;
+    cursor: pointer;
+    transition-duration: .2s;
+}
+.customColorPicker{
+    width:100%;
+    height:100%;
+    visibility: hidden;
+}
+.customColorHex{
+    all: unset;
+    width:calc(100% - 10px);
+    margin:5px;
+    text-align: center;
+    background-color: var(--c1);
+    color:var(--c1txt);
+    cursor:text;
+    border-radius: 3px;
+}
+.customColorHex::placeholder{
+    color:var(--placeholder)
+}

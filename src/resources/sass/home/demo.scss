@@ -1,0 +1,80 @@
+@import 'demoIcons.scss';
+
+
+html{
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+}
+body{
+    height:100%;
+    width:100%;
+    padding:0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #eff8f4;
+
+}
+#head{
+   height:30px;
+   width:calc(100% - 20px);
+   padding:10px;
+   background-color: #ffffff;
+   display:flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#headIconsContainer{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width:1024px) {
+        display: none;
+    };
+}
+.headIcon{
+    font-size:2em;
+    cursor: pointer;
+    color:#585858;
+    margin:0 5px;
+}
+.headIcon_selected{
+    color:#12725f;
+
+}
+#previewContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    height:calc(100% - 50px);
+}
+#iframe{
+    width:calc(100% - 22px);
+    height:calc(100% - 22px);
+    margin:10px;
+    border:1px solid rgba(0, 0, 0, 0.112);
+}
+#preview{
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    border-radius: 4px;
+    margin:20px;
+    background-color: #ffffff;
+    transition-duration: 350ms;
+}
+.preview_screen{
+    width:calc(100% - 40px);
+    height:calc(100% - 40px);
+}
+// .preview_tablet{
+//     width:1024px;
+//     height:768px;
+// }
+.preview_mobile{
+    width:375px;
+    height:667px;
+}

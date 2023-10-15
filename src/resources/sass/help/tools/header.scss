@@ -1,0 +1,133 @@
+header{
+    padding:15px 20px;
+    width:calc(100% - 40px);
+    height:40px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top:0;
+    z-index: 10;
+    transition-duration: 250ms;
+
+}
+.headerTitle_f{
+    margin-right:5px;
+    height: 55px;
+    content:url("/storage/logo/f_white.png");
+    @media (max-width:500px) {
+        height:50px;
+        margin-top: 3px;
+    }
+
+}
+.headerTitle{
+    margin-inline-end:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.headerTitle span:nth-child(1){color:#128b8d}
+.headerTitle span:nth-child(1){color:var(--c4txt)}
+.headerTitle span:nth-child(2){color:var(--c4txt)}
+.header_notHome{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    background-color: var(--c1);
+    .headerSearchContainer{
+        @media (max-width:1024px) {
+            display: none;
+        }
+        display:flex;
+    }
+    .headerTitle span:nth-child(1){color:var(--c4)}
+    .headerTitle span:nth-child(2){color:var(--c1txt)}
+    .loginBtn{background-color: var(--c3);color:var(--c1txt);}
+    .loginBtn:hover{color:var(--c1txt)}
+    .headerElem{color:var(--c1txt);}
+    .headerElem:hover{color:var(--c4);}
+    .homeSearchContainer{display:none;}
+    .headMobileNavIcon{color:var(--c1txt);}
+    .homeSearchResultsContainer{display:none;}
+    .headerTitle_f{content:url("/storage/logo/f_green.png");}
+}
+.header_shadow{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    background-color: var(--c1);
+    .headerSearchContainer{
+        @media (max-width:1024px) {
+            display: none;
+        }
+        display:flex;
+    }
+    .headerTitle span:nth-child(1){color:var(--c4)}
+    .headerTitle span:nth-child(2){color:var(--c1txt)}
+    .loginBtn{background-color: var(--c3);color:var(--c1txt);}
+    .loginBtn:hover{color:var(--c1txt)}
+    .headerElem{color:var(--c1txt);}
+    .headerElem:hover{color:var(--c4);}
+    .homeSearchContainer{display:none;}
+    .headMobileNavIcon{color:var(--c1txt);}
+    .homeSearchResultsContainer{display:none;}
+    .headerTitle_f{content:url("/storage/logo/f_green.png");}
+}
+
+.loginBtn{
+    all:unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:var(--c4txt);
+    padding:6px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+.loginBtn:hover{
+    text-decoration: none;
+    span:nth-child(2){
+        transform: translateX(2px);
+    }
+    color:var(--c4txt);
+}
+.loginBtn span:nth-child(2){font-size:.8em;margin-inline-start:2px;transition-duration: 200ms;}
+
+.headerElem{
+    all:unset;
+    white-space: nowrap;
+    text-decoration: none;
+    font-weight: bold;
+    margin:0 10px;
+    cursor: pointer;
+    color:var(--c4txt);
+}
+.headerElem:hover{
+    text-decoration: none;
+    color:var(--c4txt);
+}
+
+.headerLinksContainer{
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    @media (max-width:1024px) {
+        display:none;
+    }
+    margin-inline-start:20px;
+}
+.headMobileNavIcon{
+    display:none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color:var(--c4txt);
+    @media (max-width:1024px) {
+        display:flex;
+    }
+}
+.MobileNavIconClose{
+    cursor: pointer;
+    font-size: 1.3em;
+    color:var(--c1txt);
+    @media (max-width:1024px) {
+        display:flex;
+    }
+}

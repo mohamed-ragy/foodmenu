@@ -1,0 +1,205 @@
+#placeOrder-orderTypeContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:calc(100% - 20px);
+    margin:10px;
+}
+.placeOrder-howReceiveOrder{
+    margin-top:10px;
+    margin-bottom:10px;
+    height:60px;
+    font-size:1.5em;
+    text-align: center;
+    transition-duration: .5s;
+    animation-name: howReceiveOrderAnimation;
+    animation-duration: 1s;
+    animation-timing-function:ease;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+}
+.placeOrder-howReceiveOrderHidden{
+    height:0;
+    opacity:0;
+    animation-name: howReceiveOrderAnimationOut;
+    animation-duration: .4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+    margin-top: -20px;
+}
+.placeOrder-orderType{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    padding:10px;
+    margin:20px 10px;
+    cursor: pointer;
+    box-shadow: var(--dark10) 0px 2px 1px -1.5px;
+    background-color: var(--elem);
+    border-radius: 10px;
+    min-width: 175px;
+    height:70px;
+    transition-duration: .5s;
+    animation-name: howReceiveOrderAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-delay: .2s;
+}
+
+.placeOrder-orderType:hover{
+    background-color: var(--elemlight);
+}
+.placeOrder-orderTypeSelected{
+    background-color: var(--c2);
+    color:var(--c5)
+}
+.placeOrder-orderTypeSelected:hover{
+    background-color: var(--c2);
+    color:var(--c5)
+}
+.placeOrder-orderTypeMini{
+    flex-direction: row;
+    padding:3px;
+    margin:10px 5px;
+    height:40px;
+    font-size:.9em
+}
+
+.placeOrder-orderDetails{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:20px 10px;
+    margin:50px 20px;
+    width:calc(100% - 62px);
+    position:relative;
+    border:1px solid var(--elem2);
+    border-radius: 1px;
+    @media (max-width:720) {
+        margin:20px 10px;
+        width:calc(100% - 42px);
+    }
+}
+.placeOrder-orderDetailsTitle{
+    position: absolute;
+    align-self: flex-start;
+    background-color: var(--bg);
+    top: -0.75em;
+    padding: 0 7px;
+}
+.paymentMethod{
+    padding: 10px;
+    margin: 5px;
+    width: calc(100% - 30px);
+    background-color: var(--elemlight);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.paymentMethod:hover{
+    background-color: var(--elem);
+
+}
+.paymentMethodContainerError{
+    border:1px solid var(--ce);
+}
+#placeOrderReceiptContainer{
+    margin:10px;
+    width:calc(100% - 10px);
+    border-top: 1px solid var(--elem2);
+}
+.placeOrderReceiptContainerContainerError{
+    border:1px solid var(--ce);
+}
+.placeOrderReceiptItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    width: calc(100% - 10px);
+    border-bottom: 1px solid var(--elem2);
+}
+.placeOrderReceiptItem:hover{
+    background-color: var(--elemlight);
+}
+.placeOrderReceiptIcon{
+    font-size:.8em;
+    cursor: pointer;
+    color:var(--cW);
+}
+#PlaceOrder-Btn{
+    padding: 10px;
+    border-radius: 10px;
+    width: calc(100% - 40px);
+    margin:10px;
+    margin-top: 30px;
+    position: sticky;
+    bottom:-25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: var(--bg);
+}
+
+.placeOrderSucessContainer{
+    animation-name: orderPlacedAnimation;
+    animation-duration: 1s;
+    animation-timing-function:ease;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+}
+.promocodeForm{
+    display:flex;
+    align-items: stretch;
+    justify-content: center;
+    min-width:100%;
+    margin-bottom:10px;
+}
+.promocodeApplied{
+    background-color: var(--elemlight);
+    display:flex;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 10px;
+    padding:5px;
+    animation-name: orderPlacedAnimation;
+    animation-duration: 1s;
+    animation-timing-function:ease;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+    margin-inline-start: auto;
+
+}
+
+.promocodeAppliedIcon{
+    font-size:2em;
+    margin:5px;
+    color:var(--cs)
+}
+//////////////
+@keyframes orderPlacedAnimation {
+    0%{opacity: 0;transform:translateY(10px)}
+    20%{opacity: 0;transform:translateY(10px)}
+    100%{opacity: 1;transform:translateY(0px)}
+}
+@keyframes howReceiveOrderAnimation {
+    0%{opacity: 0;transform:translateY(10px)}
+    50%{opacity: 0;transform:translateY(10px)}
+    100%{opacity: 1;transform:translateY(0px)}
+}
+@keyframes howReceiveOrderAnimationOut {
+    0%{opacity:1;height:60px;}
+    25%{opacity:0;}
+    100%{opacity:0;height:0;}
+}

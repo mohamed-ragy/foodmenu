@@ -1,0 +1,184 @@
+:root {
+    --bbg:#1a1a1a;
+    --bg:#1f1f1f;
+    --bg2:#252525;
+    --bg3:#2d2d2d;
+    --bg4:#393939;
+    --bg5:#3b3b3b;
+    --bg6:#4f4f4f;
+    --bg7:#606060;
+    --toltp-bg:#131313;
+    --txt:#d6d6d6;
+    --area-br:#1a1a1a;
+
+    --c1:#252525;
+    --c1-75:#252525b3;
+    --c2:#161616;
+    --c3:#1e3636;
+    --c4:#3a6c6c;
+    --c5:#175050;
+    --c1txt:#bcbcbc;
+    --c4txt:#e3e3e3;
+
+    --ttbg:#243d40;
+    --brlight:#223c3c;
+    --sttsbr:#173b3c;
+    --placeholder:#777777;
+    --placeholder2:#6c7a7a;
+    --inpttxt:#bcbcbc;
+    --inptbr:#223c3c;
+    --areabr:#375757;
+    --a:#217f7f;
+    --sbbg:#3e4640;
+    --nparw:#134b4b;
+    --chtinc:#969696;
+    --chtumbg:#233738;
+    --chtambg:#173b3c;
+
+    --bgbr-bg:#323232;
+    --bgbr-green:repeating-linear-gradient(0deg, #236959, #14987b);
+    --bgbr-orange:repeating-linear-gradient(0deg, #ac552c, #e6885b);
+    --bgbr-red:repeating-linear-gradient(0deg, #d82634, #e04350);
+
+    --shdw1:var(--shdw-5) 0px 0px 18px, var(--shdw-20) 0px 3px 10px;
+    --shdw2:inset var(--shdw-10) 0px 0px 2px 1px;
+    --shdw3:var(--shdw-5) 0px 0px 24px 0px, var(--shdw-5) 0px 0px 0px 1px;
+    --shdw4: rgba(0, 0, 0, .8) 0px 0px 2px 0px;
+    --shdw5:0 0 2px 0 var(--shdw-20), 0 0 0px 1px var(--shdw-10);
+    --sidmnu-shdw:rgba(0, 0, 0, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;;
+    --toltp-shdw:var(--shdw-30) 0px 0px 15px, var(--shdw-30) 0px 1px 5px;
+    --toltp-shdw2:var(--shdw-30) 0px 0px 10px, var(--shdw-20) 0px 1px 5px;
+    --shdw-5:#0000000d;
+    --shdw-10:#0000001a;
+    --shdw-20:#00000033;
+    --shdw-30:#0000004d;
+    --shdw-40:#00000066;
+    --shdw-50:#00000080;
+    --shdw-60:#00000099;
+
+    --star:#ffb700;
+
+    --orange:#ff8348;
+    --orange-80:#ff8348cc;
+    --orange-20:#f0743a33;
+    --orange-10:#f0743a1a;
+    --orange-5:#f0743a0d;
+    --orange-txt:#ffffff;
+
+    --red:#f12031;
+    --red-80:#f12031cc;
+    --red-20:#f1203133;
+    --red-10:#f120311a;
+    --red-5:#f120310d;
+    --red-txt:#ffffff;
+
+    --green:#109092;
+    --green-80:#109092cc;
+    --green-70:#109092B3;
+    --green-30:#1090924d;
+    --green-20:#10909233;
+    --green-10:#1090921a;
+    --green-5:#1090920d;
+    --green-txt:#ffffff;
+
+    --cdelivery:#136fa4;
+    --cdeliveryTxt:#ffffff;
+    --cpickup:#ab4c89;
+    --cpickupTxt:#ffffff;
+    --cdineIn:#7a68cc;
+    --cdineInTxt:#ffffff;
+
+    --cs1:#1861ba;
+    --cs1-70:#1861BAB3;
+    --cs2:#bf600d;
+    --cs2-70:#bf600dB3;
+    --csso:#399737;
+    --csco:#DA1B2B;
+    --s-itemsTotal:#4d7f64;
+    --s-tax:#df6b62;
+    --s-deliveryCost:#006d77;
+    --s-service:#f5c396;
+}
+
+/* --c1:#0e1919;
+--c1-75:#0e1919b3;
+--c2:#161f1f;
+--c3:#1e3636;
+--c4:#3a6c6c;
+--c5:#175050;
+--c1txt:#bcbcbc;
+--c4txt:#e3e3e3;
+
+--ttbg:#243d40;
+--brlight:#223c3c;
+--sttsbr:#173b3c;
+--placeholder:#777777;
+--placeholder2:#6c7a7a;
+--inpttxt:#bcbcbc;
+--inptbr:#223c3c;
+--areabr:#375757;
+--a:#217f7f;
+--sbbg:#3e4640;
+--nparw:#134b4b;
+--chtinc:#969696;
+--chtumbg:#233738;
+--chtambg:#173b3c;
+
+--bgbr-bg:#323232;
+--bgbr-green:repeating-linear-gradient(0deg, #236959, #14987b);
+--bgbr-orange:repeating-linear-gradient(0deg, #ac552c, #e6885b);
+--bgbr-red:repeating-linear-gradient(0deg, #d82634, #e04350);
+
+--shdw1:var(--shdw-5) 0px 0px 18px, var(--shdw-20) 0px 3px 10px;
+--shdw2:inset var(--shdw-10) 0px 0px 2px 1px;
+--shdw3:var(--shdw-5) 0px 0px 24px 0px, var(--shdw-5) 0px 0px 0px 1px;
+--shdw4: rgba(0, 0, 0, .8) 0px 0px 2px 0px;
+--shdw5:0 0 2px 0 var(--shdw-20), 0 0 0px 1px var(--shdw-10);
+--shdw-5:#0000000d;
+--shdw-10:#0000001a;
+--shdw-20:#00000033;
+--shdw-30:#0000004d;
+--shdw-40:#00000066;
+--shdw-50:#00000080;
+--shdw-60:#00000099;
+
+--star:#ffb700;
+
+--orange:#ff8348;
+--orange-80:#ff8348cc;
+--orange-20:#f0743a33;
+--orange-10:#f0743a1a;
+--orange-5:#f0743a0d;
+--orange-txt:#ffffff;
+
+--red:#f12031;
+--red-80:#f12031cc;
+--red-20:#f1203133;
+--red-10:#f120311a;
+--red-5:#f120310d;
+--red-txt:#ffffff;
+
+--green:#3b8c8e;
+--green-80:#3b8c8ecc;
+--green-20:#3b8b8c33;
+--green-10:#3b8b8c1a;
+--green-5:#3b8b8c0d;
+--green-txt:#ffffff;
+
+--cdelivery:#136fa4;
+--cdeliveryTxt:#ffffff;
+--cpickup:#ab4c89;
+--cpickupTxt:#ffffff;
+--cdineIn:#7a68cc;
+--cdineInTxt:#ffffff;
+
+--cs1:#1861ba;
+--cs1-70:#1861BAB3;
+--cs2:#bf600d;
+--cs2-70:#bf600dB3;
+--csso:#399737;
+--csco:#DA1B2B;
+--s-itemsTotal:#4d7f64;
+--s-tax:#df6b62;
+--s-deliveryCost:#006d77;
+--s-service:#f5c396; */
