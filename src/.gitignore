@@ -12,6 +12,7 @@ vendor/
 storage/debugbar/
 storage/framework/
 storage/logs/
+storage/pdf/
 storage/storage/
 storage/app/public/imgs/accounts
 storage/app/public/ragy
