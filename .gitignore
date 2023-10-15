@@ -16,7 +16,6 @@ src/storage/storage/
 src/storage/app/public/imgs/accounts
 src/storage/app/public/ragy
 src/.env
-src/app/Http/Middleware/underConstruction.php
 mysql
 mongodb
 .DS_Store
