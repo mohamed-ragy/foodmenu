@@ -1,0 +1,190 @@
+version: '3.7'
+
+networks:
+  foodmenu:
+    driver: bridge
+
+services:
+
+  app:
+    build:
+      args:
+        user: muha
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfiles/nginx.dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    container_name: foodmenu_app
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    depends_on:
+      - php
+      - mysql
+      - websockets
+      - queue
+      - mongodb
+    networks:
+      - foodmenu
+
+  php:
+    build:
+      args:
+        user: muha
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfiles/php.dockerfile
+    container_name: foodmenu_php
+    ports:
+      - 9000:9000
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    networks:
+      - foodmenu
+
+  mysql:
+    image: mysql:8.1.0
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    container_name: foodmenu_mysql
+    environment:
+      MYSQL_DATABASE: foodmenu
+      MYSQL_USER: foodmenu
+      MYSQL_PASSWORD: foodmenu
+      MYSQL_ROOT_PASSWORD: foodmenu
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - foodmenu
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - foodmenu
+  mongodb:
+    image: mongo:7.0.2
+    container_name: foodmenu_mongodb
+    restart: always
+    tty: true
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb:/data/db
+    working_dir: /var/www/foodmenu
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example 
+    networks:
+      - foodmenu
+
+  mongo-express:
+    image: mongo-express:1.0.0-18
+    container_name: foodmenu_mongo_express
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongodb:27017/
+    networks:
+      - foodmenu
+
+  websockets:
+    build:
+      context: ./
+      dockerfile: Dockerfiles/php.dockerfile
+      args:
+          user: muha
+          uid: 1000
+    command: ['php','artisan', 'websockets:serve']
+    container_name: foodmenu_websockets
+    restart: always
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    depends_on:
+      - php
+    ports:
+      - 6001:6001
+    networks:
+      - foodmenu
+
+  queue:
+    build:
+      context: ./
+      dockerfile: Dockerfiles/php.dockerfile
+      args:
+          user: muha
+          uid: 1000
+    command: ['php','artisan', 'queue:work']
+    container_name: foodmenu_queue
+    restart: always
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    depends_on:
+      - php
+    networks:
+      - foodmenu
+
+  composer:
+    build:
+      context: ./
+      dockerfile: Dockerfiles/php.dockerfile
+      args:
+        user: muha
+        uid: 1000
+    container_name: foodmenu_composer
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    depends_on:
+      - php
+    entrypoint: [ 'composer', '--ignore-platform-reqs' ]
+    networks:
+      - foodmenu
+
+  npm:
+    image: node:current-alpine
+    container_name: foodmenu_npm
+    volumes:
+      - ./src:/var/www/foodmenu
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "5173:5173"
+    working_dir: /var/www/foodmenu
+    entrypoint: [ 'npm' ]
+    networks:
+      - foodmenu
+
+  artisan:
+    build:
+      context: ./
+      dockerfile: Dockerfiles/php.dockerfile
+      args:
+        user: muha
+        uid: 1000
+    container_name: foodmenu_artisan
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    depends_on:
+      - mongodb
+      - mysql
+    entrypoint: [ 'php', '/var/www/foodmenu/artisan' ]
+    networks:
+      - foodmenu
+
