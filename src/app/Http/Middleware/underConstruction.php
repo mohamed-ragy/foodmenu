@@ -28,10 +28,10 @@ class underConstruction
             request()->getRequestUri() == '/stripe/subscriptions' ||
             request()->getRequestUri() == '/stripe/paymentmethods'){
             return $next($request);
-        }else if($request->server('HTTP_X_FORWARDED_FOR') == "156.202.150.149" || $request->ip() == "156.202.150.149"){
+        }else if($request->server('HTTP_X_FORWARDED_FOR') == "156.202.155.158" || $request->ip() == "156.202.155.158"){
             // return new response(view('home.underConstruction2'));
             return $next($request);
-        }else if($request->server('HTTP_X_FORWARDED_FOR') == "196.152.209.155" || $request->ip() == "196.152.209.155"){
+        }else if($request->server('HTTP_X_FORWARDED_FOR') == "156.202.155.158" || $request->ip() == "156.202.155.158"){
             // return new response(view('home.underConstruction2'));
             return $next($request);
         }
