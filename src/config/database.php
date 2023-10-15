@@ -72,7 +72,7 @@ return [
         ],
         'mongodb_live_chat' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', 'mongodb'),
+            'host' => env('MDB_HOST', 'mongodb'),
             'port' => env('MDB_PORT', '27017'),
             'database' => 'live_chat',
             'username' => env('MDB_USERNAME', 'root'),
@@ -80,7 +80,7 @@ return [
         ],
         'mongodb_notifications' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', 'mongodb'),
+            'host' => env('MDB_HOST', 'mongodb'),
             'port' => env('MDB_PORT', '27017'),
             'database' => 'notifications',
             'username' => env('MDB_USERNAME', 'root'),
@@ -88,7 +88,7 @@ return [
         ],
         'mongodb_activity_logs' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', 'mongodb'),
+            'host' => env('MDB_HOST', 'mongodb'),
             'port' => env('MDB_PORT', '27017'),
             'database' => 'activity_logs',
             'username' => env('MDB_USERNAME', 'root'),
@@ -96,7 +96,7 @@ return [
         ],
         'mongodb_statistics' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', 'mongodb'),
+            'host' => env('MDB_HOST', 'mongodb'),
             'port' => env('MDB_PORT', '27017'),
             'database' => 'statistics',
             'username' => env('MDB_USERNAME', 'root'),
