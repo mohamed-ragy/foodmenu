@@ -26,9 +26,9 @@ window.Echo = new Echo({
     wsHost: window.location.hostname,
     // wsPort: 6001,
     cluster:process.env.MIX_PUSHER_APP_CLUSTER,
-    wssPort: 443,
+    // wssPort: 443,
     wsPort: 80,
     disableStats: true,
     // activityTimeout: 10000,
-    enabledTransports: ['ws', 'wss'],
+    enabledTransports: ['ws'],
 });
