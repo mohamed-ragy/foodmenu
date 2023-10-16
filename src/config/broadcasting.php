@@ -40,7 +40,7 @@ return [
                 'host' => 'websockets',
                 'port' => 6001,
                 'scheme' => 'http',
-                'useTLS' => true,
+                'useTLS' => env('MIX_PUSHER_FORCE_TLS',false),
             ],
 
         ],
