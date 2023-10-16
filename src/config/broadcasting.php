@@ -40,7 +40,7 @@ return [
                 'host' => 'websockets',
                 'port' => 6001,
                 'scheme' => 'http',
-                'useTLS' => false,
+                'useTLS' => true,
             ],
 
         ],
