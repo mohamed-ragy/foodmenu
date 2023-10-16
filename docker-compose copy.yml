@@ -11,8 +11,8 @@ services:
       args:
         user: muha
         uid: 1000
-      context: ./
-      dockerfile: Dockerfiles/nginx.dockerfile
+      context: ./Dockerfiles
+      dockerfile: /nginx.dockerfile
     ports:
       - 80:80
     container_name: foodmenu_app
@@ -32,8 +32,8 @@ services:
       args:
         user: muha
         uid: 1000
-      context: ./
-      dockerfile: Dockerfiles/php.dockerfile
+      context: ./Dockerfiles
+      dockerfile: /php.dockerfile
     container_name: foodmenu_php
     ports:
       - 9000:9000
@@ -106,8 +106,8 @@ services:
 
   websockets:
     build:
-      context: ./
-      dockerfile: Dockerfiles/php.dockerfile
+      context: ./Dockerfiles
+      dockerfile: /php.dockerfile
       args:
           user: muha
           uid: 1000
@@ -125,8 +125,8 @@ services:
 
   queue:
     build:
-      context: ./
-      dockerfile: Dockerfiles/php.dockerfile
+      context: ./Dockerfiles
+      dockerfile: /php.dockerfile
       args:
           user: muha
           uid: 1000
@@ -142,8 +142,8 @@ services:
 
   composer:
     build:
-      context: ./
-      dockerfile: Dockerfiles/php.dockerfile
+      context: ./Dockerfiles
+      dockerfile: /php.dockerfile
       args:
         user: muha
         uid: 1000
@@ -172,8 +172,8 @@ services:
 
   artisan:
     build:
-      context: ./
-      dockerfile: Dockerfiles/php.dockerfile
+      context: ./Dockerfiles
+      dockerfile: /php.dockerfile
       args:
         user: muha
         uid: 1000
