@@ -15,7 +15,6 @@ services:
       dockerfile: Dockerfiles/nginx.dockerfile
     ports:
       - 80:80
-      - 443:443
     container_name: foodmenu_app
     volumes:
       - ./src:/var/www/foodmenu:delegated
