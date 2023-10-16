@@ -11,8 +11,8 @@ services:
       args:
         user: muha
         uid: 1000
-      context: ./Dockerfiles
-      dockerfile: /nginx.dockerfile
+      context: ./Dockerfiles/
+      dockerfile: nginx.dockerfile
     ports:
       - 80:80
     container_name: foodmenu_app
@@ -32,8 +32,8 @@ services:
       args:
         user: muha
         uid: 1000
-      context: ./Dockerfiles
-      dockerfile: /php.dockerfile
+      context: ./Dockerfiles/
+      dockerfile: php.dockerfile
     container_name: foodmenu_php
     ports:
       - 9000:9000
@@ -60,18 +60,7 @@ services:
       SERVICE_NAME: mysql
     networks:
       - foodmenu
-
-  phpmyadmin:
-    image: phpmyadmin:5.2.1
-    restart: always
-    ports:
-      - 8080:80
-    depends_on:
-      - mysql
-    environment:
-      - PMA_ARBITRARY=1
-    networks:
-      - foodmenu
+      
   mongodb:
     image: mongo:7.0.2
     container_name: foodmenu_mongodb
@@ -88,26 +77,10 @@ services:
     networks:
       - foodmenu
 
-  mongo-express:
-    image: mongo-express:1.0.0-18
-    container_name: foodmenu_mongo_express
-    restart: unless-stopped
-    depends_on:
-      - mongodb
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongodb:27017/
-    networks:
-      - foodmenu
-
   websockets:
     build:
-      context: ./Dockerfiles
-      dockerfile: /php.dockerfile
+      context: ./Dockerfiles/
+      dockerfile: php.dockerfile
       args:
           user: muha
           uid: 1000
@@ -125,8 +98,8 @@ services:
 
   queue:
     build:
-      context: ./Dockerfiles
-      dockerfile: /php.dockerfile
+      context: ./Dockerfiles/
+      dockerfile: php.dockerfile
       args:
           user: muha
           uid: 1000
@@ -142,8 +115,8 @@ services:
 
   composer:
     build:
-      context: ./Dockerfiles
-      dockerfile: /php.dockerfile
+      context: ./Dockerfiles/
+      dockerfile: php.dockerfile
       args:
         user: muha
         uid: 1000
@@ -172,8 +145,8 @@ services:
 
   artisan:
     build:
-      context: ./Dockerfiles
-      dockerfile: /php.dockerfile
+      context: ./Dockerfiles/
+      dockerfile: php.dockerfile
       args:
         user: muha
         uid: 1000
