@@ -24,47 +24,34 @@ $('html,body').on('click','#LiveChat-goInvisible',function(e){
     }
     window.globalChannel.send({invisible:account.isInvisible}).then(()=>{
         $('#LiveChat-goInvisible').prop('checked') ? account.isInvisible = 1 : account.isInvisible = 0;
-        // if(goInvisible == false){
-        //     for(const key in liveChats){
-        //         if(liveChats[key].lastMsg != null && liveChats[key].lastMsg.author == 1 && liveChats[key].lastMsg.is_delivered == false){
-        //                 liveChats[key].lastMsg.is_delivered = true;
-        //                 liveChats[key].lastMsg.delivered_at = response.now;
-        //         }
-        //         for(const key2 in liveChats[key].msgs){
-        //             if(liveChats[key].msgs[key2].is_delivered == false && liveChats[key].msgs[key2].author == 1){
-        //                 liveChats[key].msgs[key2].is_delivered = true;
-        //                 liveChats[key].msgs[key2].delivered_at = response.now;
-        //                 // $('#ChatWindowMsgCard-'+liveChats[key].id).find('.chatWindowMsgInfo').attr('tooltip',this.newMsgCalc(liveChats[key].msgs.[key2]).info)
-    
-        //             }
-        //         }
-        //     }
-        // }
     },()=>{
-        account.isInvisible == 1 ? $('#LiveChat-goInvisible').prop('checked',true) : $('#LiveChat-goInvisible').prop('checked',false) ; 
+        account.isInvisible == 1 ? $('#LiveChat-goInvisible').prop('checked',true) : $('#LiveChat-goInvisible').prop('checked',false) ;
     })
 
 })
 ////
-if(settings_temp.newMsgAlert == 0){
+if(settings.muteChat == 1){
     $('#navLiveChat-mute').find('.navLiveChat-muteCheck').addClass('ico-check1').removeClass('ico-check0')
 }else{
     $('#navLiveChat-mute').find('.navLiveChat-muteCheck').removeClass('ico-check1').addClass('ico-check0')
 }
 $('html,body').on('click','#navLiveChat-mute',function(e){
     e.stopImmediatePropagation();
-    if($(this).find('.navLiveChat-muteCheck').hasClass('ico-check1')){
-        if(settings.newMsgAlert == 0){
-            showAlert('warning',texts.cpanel.liveChat.noToneSelected,4000,true);
-            return;
-        }else{
-            settings_temp.newMsgAlert = settings.newMsgAlert;
-        }
+    if(settings.muteChat == 1){
+        settings.muteChat = 0;
+        $('#navLiveChat-mute').find('.navLiveChat-muteCheck').removeClass('ico-check1').addClass('ico-check0')
     }else{
-        settings_temp.newMsgAlert = 0;
+        settings.muteChat = 1;
+        $('#navLiveChat-mute').find('.navLiveChat-muteCheck').addClass('ico-check1').removeClass('ico-check0')
     }
-    setAlertsTones();
-    control_panel_settings_unsave_check();
+    $.ajax({
+        url:'settings',
+        type:'put',
+        data:{
+            _token:$('meta[name="csrf-token"]').attr('content'),
+            muteChat:settings.muteChat
+        }
+    })
 })
 ///////
 $('#LiveChat-chatPopup').prop('checked',settings_temp.chatPopup);

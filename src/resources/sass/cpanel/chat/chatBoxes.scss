@@ -8,7 +8,7 @@
     justify-content: flex-start;
     text-align: start;
     position: relative;
-    border-top:1px solid var(--bg2);
+    border-top:1px solid var(--white-2);
 }
 .liveChatBoxContainer{
     width:calc(100% - 10px);
@@ -20,10 +20,10 @@
     justify-content: flex-start;
     text-align: start;
     position: relative;
-    border-top:1px solid var(--bg2);
+    border-top:1px solid var(--white-2);
 }
 .liveChatBoxContainer:hover{
-    background-color:var(--bg2);
+    background-color:var(--white-2);
     .liveChatBoxSeeMore{visibility: visible;}
 }
 .liveChatBoxBody{
@@ -53,12 +53,11 @@
     cursor: pointer;
     font-size:1em;
     box-shadow: 0 0 1px 1px var(--shdw-5);
-    background-color: var(--bg);
-    color:var(--bg7)
+    background-color: var(--white);
+    color:var(--white-10)
 }
 .liveChatBoxSeeMore:hover{
-    // background-color: var(--bg2);
-    color:var(--txt)
+    color:var(--txt-1)
 }
 .liveChatBoxLastMsgContainer{
     display: flex;
@@ -95,9 +94,9 @@
     border-radius: 3px;
     z-index: 300;
     text-align: start;
-    background-color: var(--toltp-bg);
-    color:var(--txt);
-    box-shadow: var(--toltp-shdw);
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow: 0 0 5px var(--shdw-20);
 }
 .liveChatBoxMenuItem{
     display:flex;
@@ -111,7 +110,7 @@
 
 }
 .liveChatBoxMenuItem:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .liveChatBoxMenuItem.deletAllChats:hover{
     color:var(--red);

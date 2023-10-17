@@ -9,7 +9,7 @@
     }
 }
 #guideHintsNumber{
-    background-color: var(--bg);
+    background-color: var(--white);
     color: var(--red);
     border:1px solid var(--red);
 
@@ -25,13 +25,13 @@
     justify-content: flex-start;
     text-align: start;
     position: relative;
-    border-top:1px solid var(--bg2);
+    border-top:1px solid var(--white-2);
     min-height:30px;
 }
 
 .guideAlertContainer:hover{
     text-decoration: none !important;
-    background-color:var(--bg2);
+    background-color:var(--white-2);
 }
 .guideAlertContainer-red{
     background-color: var(--red-80);
@@ -73,7 +73,7 @@
     width:20px;
     object-fit: cover;
     border-radius: 50%;
-    border:2px solid var(--bg);
+    border:2px solid var(--white-2);
 }
 .guideAlertLangImg2{
     position: absolute;
@@ -83,7 +83,7 @@
     width:17px;
     object-fit: cover;
     border-radius: 50%;
-    border:1px solid var(--bg);
+    border:1px solid var(--white);
 }
 .guideAlertImg{
     object-fit: cover;

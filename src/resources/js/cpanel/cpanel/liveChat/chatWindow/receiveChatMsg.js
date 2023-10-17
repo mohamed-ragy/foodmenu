@@ -71,7 +71,7 @@ newMsgFromUser = function(type,id,msg){
                 }else{
                     window.chatBoxes.users.find(item=>item.user_id == id).lastMsg_at = parseInt(parseInt(new Date().getTime())/1000);
                 }
-    
+
             }
             if(typeof(window.unSeenChats_users[id]) === 'undefined'){
                 window.unSeenChats_users.push(id)
@@ -81,7 +81,7 @@ newMsgFromUser = function(type,id,msg){
                 drawChatMsg(type,id,msg,'prepend')
             }
             if(settings_temp.chatPopup){
-                if(settings_temp.newMsgAlert != 0){
+                if(settings.muteChat == 0){
                     $('#newChatMsgSound')[0].play();
                 }
                 openChatWindow(id,type)
@@ -101,8 +101,8 @@ newMsgFromUser = function(type,id,msg){
     }else if(type == 'guest'){
         getGuestsData([id]).then(()=>{
             website.guests.find(item=>item.id == id).lastChat = parseInt(parseInt(new Date().getTime())/1000)
-            website.guests.find(item=>item.id == id).lastMsg_id = msg._id 
-            website.guests.find(item=>item.id == id).last_msg = JSON.parse(JSON.stringify(msg)) 
+            website.guests.find(item=>item.id == id).lastMsg_id = msg._id
+            website.guests.find(item=>item.id == id).last_msg = JSON.parse(JSON.stringify(msg))
             if(window.getFirstChatsCheck){
                 if(typeof(window.chatBoxes.guests.find(item=>item.guest_id == id)) === 'undefined'){
                     window.chatBoxes.guests.push({
@@ -122,7 +122,7 @@ newMsgFromUser = function(type,id,msg){
             }
 
             if(settings_temp.chatPopup){
-                if(settings_temp.newMsgAlert != 0){
+                if(settings.muteChat == 0){
                     $('#newChatMsgSound')[0].play();
                 }
                 openChatWindow(id,type)

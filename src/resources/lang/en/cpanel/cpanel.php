@@ -67,6 +67,7 @@ return [
         'manage_promo_code' => 'Manage promo code',
         'working_hours' => 'Manage working hours',
         'user' => 'Website user',
+        'create_category' => 'Create new category',
         'edit_product' => '',
         'manage_product_options' => '',
         'create_delivery_account' => 'Create a delivery account',
@@ -331,7 +332,6 @@ return [
     ],
     'liveChat' => [
         'liveChat'=>'Live Chat',
-        'noToneSelected' => 'You haven\'t set any tone for incoming chat messages. To set a tone, go to the control panel settings.',
         'sentOn' => 'Sent at',
         'seenOn' => 'Seen at',
         'deletedOn' => 'Deleted on',

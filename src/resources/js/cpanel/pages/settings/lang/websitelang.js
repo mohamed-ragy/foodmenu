@@ -198,7 +198,7 @@ $('html,body').on('click','#langs-addNewLang',function(e){
     showPopup('addNewLang',function(){
         $('.addNewLangList').append(
             $('<div/>',{class:' mB10 pX10 w100p-20 row alnC jstfyE'}).append(
-                $('<div/>',{class:'popupPage pointer c_bg7 mT10',popupPage:'create_custom_language'}).append(
+                $('<div/>',{class:'popupPage pointer c_white-8 mT10',popupPage:'create_custom_language'}).append(
                     $('<span/>',{class:'ico-plus fs08 mie-5'}),
                     $('<span/>',{text:texts.settings.createCustomLang,class:'fs09'})
                 )

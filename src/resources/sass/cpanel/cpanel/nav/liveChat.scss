@@ -19,7 +19,7 @@
     }
 }
 .liveChatMsgsNumber{
-    background-color: var(--bg);
+    background-color: var(--white);
     color: var(--green);
     border:1px solid var(--green);
 }
@@ -31,16 +31,16 @@
     cursor: pointer;
 }
 #navLiveChat-optionsIcon:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .navLiveChat-optionsContainer{
     position:fixed;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: var(--toltp-bg);
-    color:var(--txt);
-    box-shadow: var(--toltp-shdw);
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow: 0 0 5px var(--shdw-20);
     padding:10px 0;
     z-index: 10;
     border-radius: 3px;
@@ -69,8 +69,7 @@
     align-items: center;
     justify-content: center;
     transition-duration: .3s;
-    box-shadow: 0 0 2px 0px var(--shdw-10);
-    background-color: var(--bg2);
+    background-color: var(--white-2);
     font-weight: 500;
     font-family: 'inter','Nunito','Tajawal', sans-serif;
 }

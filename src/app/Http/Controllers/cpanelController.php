@@ -385,21 +385,8 @@ class cpanelController extends Controller
         $account = Auth::guard('account')->user();
         $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
         $settings = cpanelSettings::where('account_id',$account->id)->first();
-        $allAlertsTones = foodmenuFunctions::alerts();
-        $alertTones = [];
-        foreach($allAlertsTones as $alertTone){
-            if($alertTone['id'] == $settings->normalAlert
-                || $alertTone['id'] == $settings->errorAlert
-                || $alertTone['id'] == $settings->successAlert
-                || $alertTone['id'] == $settings->warningAlert
-                || $alertTone['id'] == $settings->newMsgAlert
-            ){
-                array_push($alertTones,$alertTone);
-            }
-        }
         $foodMenuData = collect([
             'plans' => foodmenuFunctions::plans(),
-            'alertTones'=>$alertTones,
             'langs'=> foodmenuFunctions::languages(),
         ]);
 

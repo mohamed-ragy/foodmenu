@@ -1,6 +1,6 @@
 #sideMenu-toggle{
     font-size: 1em;
-    @media (min-width:$mobile-size) {
+    @media (min-width:720px) {
         display:block;
      }
      display:none;
@@ -10,7 +10,7 @@
      margin-inline-end:5px;
 }
 #sideMenu-toggle:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 #sideMenu-toggle > div{
     transition-duration: .5s;
@@ -25,7 +25,6 @@
     margin-top:5px;
 }
 #sideMenu-Container{
-    // font-size: .65em;
     height:100%;
     display:flex;
     flex-direction: row;
@@ -35,11 +34,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     direction: rtl;
-    @media (min-width:$mobile-size) {
+    @media (min-width:720px) {
         display:flex;
      }
     display:none;
-    box-shadow: 0 0 2px var(--shdw-20);
+    border-right:1px solid var(--white-2);
     z-index: 39;
 }
 .sideMenu-Container_small{
@@ -57,8 +56,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    background-color: var(--bg);
-    box-shadow:var(--sidmnu-shdw);
+    background-color: var(--white);
+    border-right:1px solid var(--white-2);
     z-index: 2;
 }
 .sideMenu-mainItem_billing{
@@ -67,8 +66,7 @@
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt);
-    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    color:var(--txt-1);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -80,8 +78,7 @@
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt);
-    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    color:var(--txt-1);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -101,19 +98,17 @@
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt);
-    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    color:var(--txt-1);
 }
 .Logout-sideMenu{
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt);
-    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
+    color:var(--txt-1);
 }
 .sideMenu-mainItemSelected{
-    background-color: var(--bg3);
-    color:var(--bg-txt);
+    background-color: var(--green-50);
+    color:var(--green-txt);
 }
 #sideMenu-itemsContainer{
     height:calc(100%);
@@ -121,9 +116,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    background-color: var(--bg);
+    background-color: var(--white);
     transition-duration: 1s;
-    box-shadow: rgb(0 0 0 / 16%) 4px 0px 3px, rgb(0 0 0 / 23%) 1px 0px 3px;
     max-width:500px;
     width:fit-content;
 }
@@ -131,13 +125,13 @@
 .sideMenu-itemsContainerTitle{
     align-self: flex-end;
     font-size:1.2em;
-    color: var(--txt);
+    color: var(--txt-1);
     margin:0;
     font-weight:600;
     font-family: 'inter','Nunito','Tajawal', sans-serif;
 }
 .side-menuItem{
-    color: var(--txt);
+    color: var(--txt-1);
     padding: 10px 5px;
     cursor: pointer;
     display: flex;
@@ -145,7 +139,6 @@
     align-items: center;
     justify-content: space-between;
     width: calc(100% - 10px);
-    box-shadow: rgb(0 0 0 / 3%) 0px 6px 24px 0px, rgb(0 0 0 / 3%) 0px 0px 0px 1px;
     position: relative;
 }
 .sideMenu-itemArrow{
@@ -167,5 +160,6 @@
     flex-shrink: 0;
 }
 .side-menuItemSelected{
-    background-color: var(--bg3);
+    background-color: var(--green-50);
+    color:var(--green-txt)
 }

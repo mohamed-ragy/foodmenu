@@ -5,8 +5,8 @@
     padding-top:60px;
     width:20%;
     z-index: 1;
-    color: var(--txt);
-    background-color: var(--bg);
+    color: var(--txt-1);
+    background-color: var(--white);
     transition-duration: .5s;
 }
 .helpWindow_popupPage{
@@ -30,9 +30,9 @@
     border-radius: 0 0 5px 5px;
     height:fit-content;
     z-index: 43;
-    background-color: var(--bg);
-    color:var(--bg-txt);
-    box-shadow: var(--sidmnu-shdw);
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow: 0 0 3px var(--shdw-10);
     padding:10px 3px;
     transition-duration: .5s;
 }
@@ -44,7 +44,7 @@
     font-size: .9em;
 }
 #helpWindowControls span:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .helpWindowControls_hide{
     transform: translateY(-50px);

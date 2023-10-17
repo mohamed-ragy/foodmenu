@@ -26,10 +26,10 @@ drawPage_promo_codes = function(){
     for(i=1;i<=5;i++){
         $('#promocodesTable').append(
             $('<tr/>',{class:''}).append(
-                $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w400 w150-720'})),
-                $('<td/>',{class:'taS none-720'}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w50'})),
-                $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w50'})),
-                $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w50'})),
+                $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w400 w150-720'})),
+                $('<td/>',{class:'taS none-720'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
+                $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
+                $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
             )
         )
     }

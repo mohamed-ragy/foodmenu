@@ -6,7 +6,7 @@ drawPopupPage_user_loading = function(userId){
     $('#popupPageBody').addClass('w400 mxw100p-40 p20').append(
         $('<div/>',{class:'row alnC jstfyS mX5 mB10'}).append(
             $('<div/>',{class:'br50p cardLoading h20 w20'}),
-            $('<div/>',{class:'mX5 cardLoading h8 w70 br10'}),
+            $('<div/>',{class:'mX5 cardLoading h10w70 br10'}),
         ),
         $('<div/>',{class:'row wrap alnS jstfyS w100p-20 pX10'}).append(
             $('<div/>',{class:'br3 cardLoading h20 w20 mX5'}),
@@ -15,18 +15,18 @@ drawPopupPage_user_loading = function(userId){
             $('<div/>',{class:'br3 cardLoading h20 w20 mX5'}),
         ),
         $('<div/>',{class:'area column alnS jstfyS'}).append(
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w100 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w150 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w100 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w200 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w50 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w50 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w100 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w150 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w100 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w200 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w50 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w50 br10'}),
         ),
         $('<div/>',{class:'area column alnS jstfyS'}).append(
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w100p-10 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w100p-10 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w100p-10 br10'}),
-            $('<div/>',{class:'mX5 mY5 cardLoading h8 w100p-10 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w100p-10 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w100p-10 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w100p-10 br10'}),
+            $('<div/>',{class:'mX5 mY5 cardLoading h10w100p-10 br10'}),
         )
     )
     getUsersData([userId]).then(function(){
@@ -47,7 +47,7 @@ drawPopupPage_user =function(user){
             ),
             $('<div/>',{class:'mX5 row alnC jstfyS'}).append(
                 $('<div/>',{class:`visitorOnlineIcon-user-${user.id}`}),
-                $('<div/>',{class:`fs08 visitorActions-user-${user.id}`}) 
+                $('<div/>',{class:`fs08 visitorActions-user-${user.id}`})
             ),
             $('<div/>',{class:'row alnS jstfyS mX5 mT5'}).append(
                 $('<button/>',{class:'authority_5 ico-chat btn_icon openChatWindow',type:'user',user:user.id,tooltip:texts.users.chatWith.replace(':name:',user.name)}).append($('<span/>',{class:`chatIconUnseen none chatUnseen-user-${user.id}`})),
@@ -115,7 +115,7 @@ drawUserPageCart = function(userId){
         }
         $(`.userPageCart-${userId}`).append(
             $('<div/>',{
-                class:'fs07 c_bg7 w100p taE mT10',
+                class:'fs07 c_white-8 w100p taE mT10',
                 text:texts.users.cartLastUpdate+' '+diffTime(user.cart_lastUpdate)
             })
         )

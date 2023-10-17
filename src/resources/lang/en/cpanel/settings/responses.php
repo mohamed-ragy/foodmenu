@@ -48,8 +48,6 @@ return [
     'controlSettingsSaveFail' => 'Unknown Error Occurred! Failed to save the control settings.',
     'alertNotificationsSaved' => 'Your alert notifications settings have been saved successfully.',
     'alertNotificationsSaveFail' => 'Unknown Error Occurred! Failed to save the alert notifications settings.',
-    'alertToneSaved' => 'Your alert tone has been saved successfully.',
-    'alertToneSaveFail' => 'Unknown Error Occurred! The alert tone has not been saved.',
     'cpanelLangFail' => 'Unknown Error Occurred! Failed to change the control panel language.',
     //new
     'planLangLimitError' => 'Failed to save! You have reached the number of languages allowed in your subscription plan.',

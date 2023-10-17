@@ -21,7 +21,7 @@ getChatMsgs = function(type,id){
                 })
                 drawChatMsgs(type,id,window.chatMsgs[`${type}-${id}`])
                 $(`#chatWindow-${type}-${id}`).find('.chatwindowBody').attr('getMoreMsgs','1')
-            }   
+            }
         }).fail(function(){
             $(`#chatWindow-${type}-${id}`).remove();
         })
@@ -64,9 +64,9 @@ getMoreChatMsgs = function(type,id){
                 drawChatMsgs(type,id,r.chatMsgs)
             }
             $(`#chatWindow-${type}-${id}`).find('.chatwindowBody').attr('getMoreMsgs','1')
-        }   
+        }
     })
-    
+
 }
 
 
@@ -84,7 +84,7 @@ drawChatMsg = function(type,id,msg,append,msgClass=''){
         '<a href="$1" target="_blank">$1</a>'
     )
     if(msg.is_deleted){
-        msg.message = drawDeletedMsg();      
+        msg.message = drawDeletedMsg();
     }
     if(msg.message.includes('o@')){
         msg.message = drawChatOrderMsg(msg.message)
@@ -93,7 +93,7 @@ drawChatMsg = function(type,id,msg,append,msgClass=''){
     }else{
         msg.message = `<div class="m5">${msg.message}</div>`
     }
-    
+
     if(msg.author == 0){
         if(append == 'append'){
             $(`#chatWindow-${type}-${id}`).find('.chatwindowBody').append(
@@ -121,7 +121,7 @@ drawChatMsg = function(type,id,msg,append,msgClass=''){
 drawChatMsg_account = function(msg,type,id,msgClass=''){
 
     let msgIcon = ''; let deleteMsgClass; let infoIcon;let deleteIcon;
-    msg.sent_at == null ? msgIcon = $('<div/>',{class:`chatMsgSending c_bg7 fs07`,text:texts.cpanel.liveChat.msgSending}) :null;
+    msg.sent_at == null ? msgIcon = $('<div/>',{class:`chatMsgSending c_white-8 fs07`,text:texts.cpanel.liveChat.msgSending}) :null;
     msg.sent_at == null ? deleteMsgClass = 'chatWindowDeleteTempMsg' : deleteMsgClass = 'chatWindowDeleteMsg' ;
     msg.sent_at == null ? infoIcon = '': infoIcon = $('<span/>',{class:'ico-info chatWindowMsgInfo mY2 fs08',tooltip:chatMsgTooltip(msg)});
     msg.is_deleted ? deleteIcon = '' : deleteIcon = $('<span/>',{class:`ico-delete pointer ${deleteMsgClass} mY2 fs08`,tooltip:texts.cpanel.liveChat.deleteMsg}) ;
@@ -223,11 +223,11 @@ setChatWindowBodyDates =function(type,id,msg,append){
     if(
         new Date(msg.sent_at * 1000).getDate() == new Date().getDate() &&
         new Date(msg.sent_at * 1000).getMonth() == new Date().getMonth() &&
-        new Date(msg.sent_at * 1000).getFullYear() == new Date().getFullYear() 
+        new Date(msg.sent_at * 1000).getFullYear() == new Date().getFullYear()
     ){msgDate = texts.cpanel.liveChat.msgToday}else if(
         new Date(msg.sent_at * 1000).getDate() == yesterday.getDate() &&
         new Date(msg.sent_at * 1000).getMonth() == yesterday.getMonth() &&
-        new Date(msg.sent_at * 1000).getFullYear() == yesterday.getFullYear() 
+        new Date(msg.sent_at * 1000).getFullYear() == yesterday.getFullYear()
     ){msgDate = texts.cpanel.liveChat.msgYesterday}
     if(append == 'append'){
     $(`#chatWindow-${type}-${id}`).find(`.chatWindowDateContainer[date="${msgDate}"]`).remove()
@@ -264,10 +264,10 @@ drawChatOrderMsg =function(txt){
             })
         ),
         $('<div/>',{class:'chatOrderBody'}).append(
-            $('<div/>',{class:'cardLoading br10 h8 w50 mX5 mY3'}),
-            $('<div/>',{class:'cardLoading br10 h8 w150 mX5 mY3'}),
-            $('<div/>',{class:'cardLoading br10 h8 w50 mX5 mY3'}),
-            $('<div/>',{class:'cardLoading br10 h8 w100 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10w50 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10w150 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10w50 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10w100 mX5 mY3'}),
         )
     )
 }

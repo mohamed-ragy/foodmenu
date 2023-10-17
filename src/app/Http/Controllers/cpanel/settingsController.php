@@ -210,7 +210,7 @@ class settingsController extends Controller
             if($request->saveCountry == null){return;}
             $saveCountry = website::where('id',$this->website_id)->update([
                 'country_code'=>$request->saveCountry,
-                'updated_at' => Carbon::now()->timestamp,        
+                'updated_at' => Carbon::now()->timestamp,
             ]);
             if($saveCountry){
                 foodmenuFunctions::notification('settings.country',[
@@ -782,71 +782,8 @@ class settingsController extends Controller
                 return response(['saveAlertNotificationsStatus'=>0,'msg' => Lang::get('cpanel/settings/responses.alertNotificationsSaveFail')]);
             }
         }
-        else if($request->has('getAlertsTones')){
-            $alertsTones = foodmenuFunctions::alerts();
-            return response(['alertsTones' => $alertsTones]);
-        }
-        else if($request->has(['saveAlertTone'])){
-            $url = foodmenuFunctions::alerts()[$request->tone]['url'];
-            if($request->alert == 'info'){
-                $saveInfoAlertTone = cpanelSettings::where('account_id', Auth::guard('account')->user()->id)
-                                        ->update([
-                                            'normalAlert'=> $request->tone,
-                                            'updated_at' => Carbon::now()->timestamp,
-                                        ]);
-                if($saveInfoAlertTone){
-                    return response(['saveInfoAlertToneStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaved')]);
-                }else{
-                    return response(['saveInfoAlertToneStatus'=>0,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaveFail')]);
-                }
-            }
-            if($request->alert == 'error'){
-                $saveErrorAlertTone = cpanelSettings::where('account_id', Auth::guard('account')->user()->id)
-                                        ->update([
-                                            'errorAlert'=> $request->tone,
-                                            'updated_at' => Carbon::now()->timestamp,
-                                        ]);
-                if($saveErrorAlertTone){
-                    return response(['saveErrorAlertToneStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaved')]);
-                }else{
-                    return response(['saveErrorAlertToneStatus'=>0,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaveFail')]);
-                }
-            }
-            if($request->alert == 'success'){
-                $saveSuccessAlertTone = cpanelSettings::where('account_id', Auth::guard('account')->user()->id)
-                                        ->update([
-                                            'successAlert'=> $request->tone,
-                                            'updated_at' => Carbon::now()->timestamp,
-                                        ]);
-                if($saveSuccessAlertTone){
-                    return response(['saveSuccessAlertToneStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaved')]);
-                }else{
-                }
-            }
-            if($request->alert == 'warning'){
-                $saveWarningAlertTone = cpanelSettings::where('account_id', Auth::guard('account')->user()->id)
-                                        ->update([
-                                            'warningAlert'=> $request->tone,
-                                            'updated_at' => Carbon::now()->timestamp,
-                                        ]);
-                if($saveWarningAlertTone){
-                    return response(['saveWarningAlertToneStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaved')]);
-                }else{
-                    return response(['saveWarningAlertToneStatus'=>0,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaveFail')]);
-                }
-            }
-            if($request->alert == 'newMsgAlert'){
-                $saveNewMsgAlertAlertTone = cpanelSettings::where('account_id', Auth::guard('account')->user()->id)
-                                        ->update([
-                                            'newMsgAlert'=> $request->tone,
-                                            'updated_at' => Carbon::now()->timestamp,
-                                        ]);
-                if($saveNewMsgAlertAlertTone){
-                    return response(['savenewMsgAlertStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaved')]);
-                }else{
-                    return response(['savenewMsgAlertStatus'=>0,'msg'=>Lang::get('cpanel/settings/responses.alertToneSaveFail')]);
-                }
-            }
+        else if($request->has('muteChat')){
+            cpanelSettings::where('account_id',Auth::guard('account')->user()->id)->update(['muteChat'=>(int)$request->muteChat]);
         }
 
         else if($request->has('getLangs')){

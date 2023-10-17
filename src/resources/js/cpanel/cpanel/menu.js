@@ -155,6 +155,11 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'category_list':
+                    if(account.authorities[1] == false){return;}
+                    drawPage_category_list();
+                    resolve(pushHistory);
+                break;
                 case 'create_new_user':
                     if(account.authorities[2] == false){return;}
                     drawPage_create_new_user();

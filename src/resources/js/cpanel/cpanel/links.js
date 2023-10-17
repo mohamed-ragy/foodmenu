@@ -129,11 +129,6 @@ $('html,body').on('click','.cpPage',function(e){
         //             getPromocodes();
         //         }
         //     break;
-        //     case 'control_panel_settings':
-                // if(window.alertsTonesFirstLoad == false){
-                //     getAlertsTones();
-                // }
-        //     break;
         //     case 'system':
         //         if(window.countriesAndTimezonesFirstLoad == false && account.authorities[4] == true){
         //             getCountriesTimezones();

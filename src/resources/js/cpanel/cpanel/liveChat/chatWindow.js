@@ -214,7 +214,7 @@ $('html,body').on('click','#deleteChatMsg-confirmBtn',function(e){
                         window.chatMsgs[`${type}-${id}`][key].message = '--';
                     }
                 }
-                if(type == 'user'){ 
+                if(type == 'user'){
                     if(website.users.find(item=>item.id == id).lastMsg_id == msgId){
                         website.users.find(item=>item.id == id).last_msg.deleted_at = r.now;
                         website.users.find(item=>item.id == id).last_msg.is_deleted = true;
@@ -225,7 +225,7 @@ $('html,body').on('click','#deleteChatMsg-confirmBtn',function(e){
                         }
                     }
                 }
-                if(type == 'guest'){ 
+                if(type == 'guest'){
                     if(website.guests.find(item=>item.id == id).lastMsg_id == msgId){
                         website.guests.find(item=>item.id == id).last_msg.deleted_at = r.now;
                         website.guests.find(item=>item.id == id).last_msg.is_deleted = true;
@@ -271,7 +271,7 @@ $('html,body').on('input change','.chatWindowShareProductInput',function(e){
 })
 $('html,body').on('click','.chatShareProduct',function(e){
     e.stopImmediatePropagation();
-    
+
     if($(this).closest('.chatWindow').find('.chatWindowShareProductContainer').hasClass('chatWindowShareProductContainer_show')){
         $(this).closest('.chatWindow').find('.chatWindowShareProductContainer').removeClass('chatWindowShareProductContainer_show')
 

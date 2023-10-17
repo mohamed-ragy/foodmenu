@@ -111,7 +111,7 @@ drawPage_restaurant_information = function(){
                     $('<span/>',{class:'ico-help help-icon',helpId:'restaurant_phone_numbers'})
                 ),
                 $('<div/>',{id:'setting-phoneNumbers'}),
-                $('<div/>',{id:'setting-addPhoneNumberBtn',class:'pointer c_bg7'}).append(
+                $('<div/>',{id:'setting-addPhoneNumberBtn',class:'pointer c_white-8'}).append(
                     $('<span/>',{class:'ico-plus fs07 mie-5'}),
                     $('<span/>',{text:texts.settings.addNewPhoneNumber,class:'fs08'})
                 ),

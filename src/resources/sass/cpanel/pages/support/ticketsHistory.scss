@@ -6,14 +6,14 @@
     font-size:.9em;
 }
 .ticketHistoryNext:hover, .ticketHistoryPrev:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .ticketHistoryArrow_dump{
-    color:var(--bg7);
+    color:var(--white-6);
     cursor: not-allowed;
 }
 .ticketHistoryArrow_dump:hover{
-    background-color: var(--bg);
+    background-color: var(--white);
 }
 .ticketsCountContainer{
     font-size:.8em;
@@ -29,9 +29,9 @@
     width:fit-content
 }
 .ticketStatusTag{
-    background-color: var(--bg);
-    border:1px solid var(--txt);
-    color:var(--txt);
+    background-color: var(--white);
+    border:1px solid var(--white-8);
+    color:var(--white-10);
 }
 .ticketStatusTag_pending{
     background-color: var(--orange-5);
@@ -65,8 +65,8 @@
     padding: 10px;
     margin:10px 5px;
     border-radius: 10px;
-    background-color: var(--bg3);
-    box-shadow: 0 0 0px 1px var(--shdw-5);
+    background-color: var(--white-2);
+    border:1px solid var(--white-2);
     align-self:flex-start;
     display:flex;
     flex-direction: column;
@@ -78,8 +78,8 @@
     padding: 10px;
     margin:10px 5px;
     border-radius: 10px;
-    background-color: var(--bg2);
-    box-shadow: 0 0 0px 1px var(--shdw-5);
+    background-color: var(--white);
+    border:1px solid var(--white-2);
     align-self:flex-end;
     display:flex;
     flex-direction: column;
@@ -107,9 +107,9 @@
     padding: 10px;
     height:100px;
     width:calc(100% - 22px);
-    border:1px solid var(--bg5);
+    border:1px solid var(--white-3);
     background-color: transparent;
-    color: var(--txt);
+    color: var(--txt-1);
     outline: none;
     font-size: .9em;
     border-radius: 5px;
@@ -120,6 +120,6 @@
 }
 #ticketBrowserInput:focus{
     outline: none;
-    border:1px solid var(--bg6);
+    border:1px solid var(--white-5);
     user-select: auto;
 }

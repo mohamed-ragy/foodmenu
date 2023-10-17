@@ -12,7 +12,7 @@
     overflow:hidden;
 }
 .navElementNum.incompleteOrdersSum{
-    background-color: var(--bg);
+    background-color: var(--white);
     color: var(--orange);
     border:1px solid var(--orange);
 }
@@ -27,8 +27,8 @@
     justify-content: space-between;
     text-align: start;
     position: relative;
-    border-top:1px solid var(--bg2);
+    border-top:1px solid var(--white-2);
 }
 .menuOrders-element:hover{
-    background-color:var(--bg2);
+    background-color:var(--white-2);
 }

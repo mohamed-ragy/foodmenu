@@ -5,11 +5,11 @@
     margin: 5px;
     user-select:none;
     padding: 10px;
-    border-top:1px solid var(--shdw-5);
+    border-top:1px solid var(--white-2);
     width: fit-content;
 }
 .numberPickerContainer:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .numberPickerContainer span{
     font-size: .9em;
@@ -22,10 +22,10 @@
     width:calc(100% - 30px);
     user-select:none;
     padding: 10px;
-    border-top:1px solid var(--shdw-5);
+    border-top:1px solid var(--white-2);
 }
 .numberPickerContainer_100p:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .numberPickerContainer_100p span{
     font-size: .9em;
@@ -35,15 +35,15 @@
     align-items: center;
     justify-content: center;
     margin-inline-start:20px;
-    background-color: var(--bg);
+    background-color: var(--white);
     border-radius: 4px;
     overflow: hidden;
 }
 .numberPickerArrow{
     cursor: pointer;
     padding: 0 5px;
-    background-color: var(--bg5);
-    color:var(--shdw-60);
+    background-color: var(--white-3);
+    color:var(--txt-1);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -52,8 +52,8 @@
 .numberPickerValue{
     width: 80px;
     text-align: center;
-    border-top:1px solid var(--bg5);
-    border-bottom:1px solid var(--bg5);
+    border-top:1px solid var(--white-3);
+    border-bottom:1px solid var(--white-3);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +64,7 @@
     display:flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: var(--bg);
+    background-color: var(--white);
     border-radius: 2px;
     overflow: hidden;
     width:fit-content;
@@ -74,7 +74,7 @@
     cursor: pointer;
     padding: 0 3px;
     font-size:.7em;
-    background-color: var(--bg5);
+    background-color: var(--white-3);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -83,8 +83,8 @@
 .numberPickerValue_s{
     width: 40px;
     text-align: center;
-    border-top:1px solid var(--bg5);
-    border-bottom:1px solid var(--bg5);
+    border-top:1px solid var(--white-3);
+    border-bottom:1px solid var(--white-3);
     display:flex;
     align-items: center;
     justify-content: center;

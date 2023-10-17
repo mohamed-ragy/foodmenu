@@ -19,13 +19,11 @@ control_panel_settings_unsave_check = function(){
     controlSettingsNoSaveCheck()
     guideModeNoSaveCheck()
     alertNotificationsNoSaveCheck()
-    alertTonesNoSaveCheck()
     if(
         viewSettingsNoSaveCheck() &&
         controlSettingsNoSaveCheck() &&
         guideModeNoSaveCheck() &&
-        alertNotificationsNoSaveCheck() &&
-        alertTonesNoSaveCheck()
+        alertNotificationsNoSaveCheck()
     ){
         $('.control_panel_settings_unsaved').addClass('none');
     }else{

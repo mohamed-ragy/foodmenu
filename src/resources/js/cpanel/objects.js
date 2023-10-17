@@ -197,7 +197,6 @@ for(const key in account.helpTips){
 ///////
 window.colorsFirstLoad = false;
 window.promocodesFirstLoad = false;
-window.alertsTonesFirstLoad = false;
 window.countriesAndTimezonesFirstLoad = false;
 window.financialReportsFirstLoad = false;
 window.activityLogFirstLoad = false;

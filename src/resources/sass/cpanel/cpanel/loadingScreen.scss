@@ -1,5 +1,5 @@
 #cpanelLoading{
-    background-color: var(--bg);
+    background-color: var(--white);
     position: fixed;
     top:0;
     left:0;
@@ -30,7 +30,7 @@
     width:115px;
     height:115px;
     background-color: transparent;
-    border:30px solid var(--bg3);
+    border:30px solid var(--white-2);
     animation-name: cpanelLoadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
@@ -43,7 +43,7 @@
     width:115px;
     height:115px;
     background-color: transparent;
-    border:30px solid var(--bg3);
+    border:30px solid var(--white-2);
     animation-name: cpanelLoadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
@@ -57,7 +57,7 @@
     width:115px;
     height:115px;
     background-color: transparent;
-    border:30px solid var(--bg3);
+    border:30px solid var(--white-2);
     animation-name: cpanelLoadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
@@ -72,7 +72,7 @@
     width:115px;
     height:115px;
     background-color: transparent;
-    border:30px solid var(--bg3);
+    border:30px solid var(--white-2);
     animation-name: cpanelLoadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;

@@ -14,15 +14,15 @@ class cpanelSettings extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     // public $timestamps = false;
 
@@ -41,6 +41,7 @@ class cpanelSettings extends Model
         'dClickConfirm',
         'shareReminder',
         'chatPopup',
+        'muteChat',
         'NewOrderAlerts',
         'DeliveredOrderAlerts',
         'NewUserAlerts',
@@ -48,11 +49,6 @@ class cpanelSettings extends Model
         'CanceledOrderAlerts',
         'onlineUserAlert',
         'onlineGuestAlert',
-        'normalAlert',
-        'errorAlert',
-        'successAlert',
-        'warningAlert',
-        'newMsgAlert',
 
     ];
     public function accounts(){

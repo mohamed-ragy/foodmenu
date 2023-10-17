@@ -17,8 +17,8 @@
     100%{transform:translateY(0px);opacity: 1;}
 }
 .popupCard{
-    background-color: var(--bg);
-    color:var(--bg-txt);
+    background-color: var(--white);
+    color:var(--txt-1);
     border-radius: 3px;
     max-width:calc(100% - 20px);
     max-height:calc(100% - 20px);
@@ -36,8 +36,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-bottom:1px dashed var(--bg4);
-    background-color: var(--bg);
+    border-bottom:1px dashed var(--white-4);
+    background-color: var(--white);
     border-radius: 3px 3px 0 0 ;
 }
 .popupTitle{
@@ -56,10 +56,11 @@
     border-radius: 50%;
     padding:5px;
     font-size:.85em;
+    background-color: var(--white-2);
     margin:0 5px;
 }
 .popupCloseStyle:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-3);
 }
 .popupBody{
     padding:10px;

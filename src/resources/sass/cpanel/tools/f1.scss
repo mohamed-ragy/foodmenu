@@ -14,9 +14,9 @@
     padding: 10px;
     margin: 5px;
     flex-grow: 1;
-    box-shadow: var(--shdw-10) 0px 0px 4px 0px;
-    min-width: calc(50% - 30px);
-    border-radius: 4px;;
+    border: 1px solid var(--white-3);
+    min-width: calc(50% - 32px);
+    border-radius: 4px;
 
 }
 .f1_shortCutsTitle{
@@ -36,7 +36,7 @@
     font-size: .8em;
 }
 .f1_shortcutContainer:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 
 }
 .f1_shortcutTitle{

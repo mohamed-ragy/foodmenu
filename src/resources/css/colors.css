@@ -1,17 +1,84 @@
 :root {
-    --bbg:#f9f9f9;
-    --bg:#ffffff;
-    --bg2:#f6f6f6;
-    --bg3:#edf1ee;
-    --bg4:#dbd9d9;
-    --bg5:#e4e4e4;
-    --bg6:#c5c5c5;
-    --bg7:#aaaaaa;
-    --toltp-bg:#ffffff;
-    --txt:#292929;
-    --area-br:#0000001a;
+    --white:rgb(255, 255, 255);
+    --white-1:rgb(255, 255, 255);
+    --white-2:rgb(247, 247, 247);
+    --white-3:rgb(235, 235, 235);
+    --white-4:rgb(225, 225, 225);
+    --white-5:rgb(215, 215, 215);
+    --white-6:rgb(205, 205, 205);
+    --white-7:rgb(195, 195, 195);
+    --white-8:rgb(185, 185, 185);
+    --white-9:rgb(175, 175, 175);
+    --white-10:rgb(165, 165, 165);
+
+    --txt-1:rgb(40, 40, 40);
+
+    --shdw-5:rgba(0, 0, 0, 0.05);
+    --shdw-10:rgba(0, 0, 0, 0.1);
+    --shdw-20:rgba(0, 0, 0, 0.2);
+    --shdw-30:rgba(0, 0, 0, 0.3);
+    --shdw-40:rgba(0, 0, 0, 0.4);
+    --shdw-50:rgba(0, 0, 0, 0.5);
+    --shdw-60:rgba(0, 0, 0, 0.6);
+
+    --green-txt:rgb(255, 255, 255);
+    --green:rgb(16, 144, 146);
+    --green-90:rgba(16, 144, 146, 0.9);
+    --green-80:rgba(16, 144, 146, 0.8);
+    --green-70:rgba(16, 144, 146, 0.7);
+    --green-60:rgba(16, 144, 146, 0.6);
+    --green-50:rgba(16, 144, 146, 0.5);
+    --green-40:rgba(16, 144, 146, 0.4);
+    --green-30:rgba(16, 144, 146, 0.3);
+    --green-20:rgba(16, 144, 146, 0.2);
+    --green-10:rgba(16, 144, 146, 0.1);
+    --green-5:rgba(16, 144, 146, 0.05);
+
+    --orange-txt:rgb(255, 255, 255);
+    --orange:rgb(240, 116, 58);
+    --orange-90:rgba(240, 116, 58, 0.9);
+    --orange-80:rgba(240, 116, 58, 0.8);
+    --orange-70:rgba(240, 116, 58, 0.7);
+    --orange-60:rgba(240, 116, 58, 0.6);
+    --orange-50:rgba(240, 116, 58, 0.5);
+    --orange-40:rgba(240, 116, 58, 0.4);
+    --orange-30:rgba(240, 116, 58, 0.3);
+    --orange-20:rgba(240, 116, 58, 0.2);
+    --orange-10:rgba(240, 116, 58, 0.1);
+    --orange-5:rgba(240, 116, 58, 0.05);
+
+    --red-txt:rgb(255, 255, 255);
+    --red:rgb(241, 32, 49);
+    --red-90:rgba(241, 32, 49, 0.9);
+    --red-80:rgba(241, 32, 49, 0.8);
+    --red-70:rgba(241, 32, 49, 0.7);
+    --red-60:rgba(241, 32, 49, 0.6);
+    --red-50:rgba(241, 32, 49, 0.5);
+    --red-40:rgba(241, 32, 49, 0.4);
+    --red-30:rgba(241, 32, 49, 0.3);
+    --red-20:rgba(241, 32, 49, 0.2);
+    --red-10:rgba(241, 32, 49, 0.1);
+    --red-5:rgba(241, 32, 49, 0.05);
+
+    /* ///// */
+    /* --bbg:rgb(249, 249, 249);
+    --bg:rgb(255, 255, 255);
+    --bg2:rgb(246, 246, 246);
+    --bg3:rgb(237, 241, 238);
+    --bg4:rgb(219, 217, 217);
+    --bg5:rgb(228, 228, 228);
+    --bg6:rgb(197, 197, 197);
+    --bg7:rgb(170, 170, 170);
+    --toltp-bg:rgb(255, 255, 255);
+    --txt:rgb(41, 41, 41);
+    --area-br:rgba(0, 0, 0, 0.102);
 
 
+
+ */
+
+    /* ///// */
+/*
     --c1:#ffffff;
     --c1-75:#ffffffb3;
     --c2:#f5f5f5;
@@ -49,13 +116,7 @@
     --sidmnu-shdw:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;;
     --toltp-shdw:var(--shdw-10) 0px 0px 15px, var(--shdw-20) 0px 1px 5px;
     --toltp-shdw2:var(--shdw-10) 0px 0px 10px, var(--shdw-10) 0px 1px 5px;
-    --shdw-5:#0000000d;
-    --shdw-10:#0000001a;
-    --shdw-20:#00000033;
-    --shdw-30:#0000004d;
-    --shdw-40:#00000066;
-    --shdw-50:#00000080;
-    --shdw-60:#00000099;
+
 
     --star:#ffb700;
 
@@ -101,6 +162,6 @@
     --s-itemsTotal:#4d7f64;
     --s-tax:#df6b62;
     --s-deliveryCost:#006d77;
-    --s-service:#f5c396;
+    --s-service:#f5c396; */
 
 }

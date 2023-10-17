@@ -5,9 +5,9 @@ drawLoadingChatBoxes = function(){
             $('<div/>',{class:'liveChatBox_loading'}).append(
                 $('<div/>',{class:'row alnC jstfyS w100p m5'}).append(
                     $('<div/>',{class:'cardLoading h10 w10 br50p'}),
-                    $('<div/>',{class:'cardLoading h6 w100 mX5 br10'}),
+                    $('<div/>',{class:'cardLoading h5 w100 mX5 br10'}),
                 ),
-                $('<div/>',{class:'cardLoading h6 w250 mX20 mY10 br10'}),
+                $('<div/>',{class:'cardLoading h5 w250 mX20 mY10 br10'}),
             )
         )
     }
@@ -54,9 +54,9 @@ drawChatBox = function(type,chatBox){
     let msgIcon ='';
     let liveChatBoxUnseenClass = 'none';
     if(type == 'user'){
-        user = website.users.find(item=>item.id == chatBox.user_id); 
+        user = website.users.find(item=>item.id == chatBox.user_id);
     }else if(type == 'guest'){
-        user = website.guests.find(item=>item.id == chatBox.guest_id); 
+        user = website.guests.find(item=>item.id == chatBox.guest_id);
     }
     if(user.last_msg.author == 0){
         user.last_msg.is_seen ?  msgIcon = $('<div/>',{class:`ico-msg_seen fs07 mie-2`,tooltip:`<div><span class="mie-3">${texts.cpanel.liveChat.seenOn}</span><span>${getDate(user.last_msg.seen_at).date_time.local}</span></div>`}) : msgIcon = $('<div/>',{class:`ico-msg_sent fs07 mie-2`,tooltip:`<div><span class="mie-3">${texts.cpanel.liveChat.sentOn}</span><span>${getDate(user.last_msg.sent_at).date_time.local}</span></div>`});
@@ -65,7 +65,7 @@ drawChatBox = function(type,chatBox){
         user.last_msg.is_seen ? liveChatBoxUnseenClass = 'none' : liveChatBoxUnseenClass = '';
     }
     if(user.last_msg.message.includes('o@')){
-        user.last_msg.message = texts.cpanel.liveChat.chatBoxOrder.replace(':order:',user.last_msg.message.split('@')[1]) 
+        user.last_msg.message = texts.cpanel.liveChat.chatBoxOrder.replace(':order:',user.last_msg.message.split('@')[1])
     }else if(user.last_msg.message.includes('p@')){
         user.last_msg.message = user.last_msg.message.split('@')[1]
     }
@@ -84,7 +84,7 @@ drawChatBox = function(type,chatBox){
                     msgIcon,
                     $('<div/>',{class:'liveChatBoxMsg',html:user.last_msg.message})
                 ),
-                $('<div/>',{class:'fs07 alnsE c_bg7 diffTimeCalc',time:user.last_msg.sent_at})
+                $('<div/>',{class:'fs07 alnsE c_white-8 diffTimeCalc',time:user.last_msg.sent_at})
             ),
             $('<div/>',{class:`liveChatBoxUnseen chatUnseen-${type}-${user.id} ${liveChatBoxUnseenClass}`})
         )
@@ -304,10 +304,10 @@ $('#liveChatMsgsList').on('scroll',function(e){
                         lastMsg_at:r.liveChats_users[key].last_msg.sent_at,
                     })
                 }
-            
+
                 type == 'user' ? window.getMoreChats_users = true : type == 'guest' ? window.getMoreChats_guests = true : null;
 
-                
+
             }
         })
     }

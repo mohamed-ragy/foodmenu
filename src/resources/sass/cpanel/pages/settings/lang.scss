@@ -5,18 +5,18 @@
     display:flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: var(--bg);
-    border-bottom:1px solid var(--bg2);
+    background-color: var(--white);
+    border-bottom:1px solid var(--white-2);
 }
 .addNewLangElem:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .editLangTextInput{
-    border: 1px solid var(--c3);
+    border: 1px solid var(--white-2);
     height: 50px;
     margin: 5px 0;
 }
-.editLangTextInput::placeholder{color:var(--bg4)}
+.editLangTextInput::placeholder{color:var(--white-6)}
 .editLangTextInput_error{
     border:1px solid var(--red);
 }

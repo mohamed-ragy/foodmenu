@@ -58,6 +58,7 @@ window.cpanelChannel = window.Echo.private(`cpanelChannel.${website.id}`);
 
 require("./objects");
 
+require("./drawPages/products.js");//done
 require("./drawPages/staff.js");//done
 require("./drawPages/users.js");//done
 require("./drawPages/settings.js");//done
@@ -232,11 +233,6 @@ showPage(pageParam,pageTabParam,keysObj).then(()=>{
     //     case 'promo_codes':
     //         if(window.promocodesFirstLoad == false && account.authorities[4] == true){
     //             getPromocodes();
-    //         }
-    //     break;
-    //     case 'control_panel_settings':
-    //         if(window.alertsTonesFirstLoad == false){
-    //             getAlertsTones();
     //         }
     //     break;
     //     case 'system':

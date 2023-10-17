@@ -8,10 +8,10 @@
     flex-shrink: 0;
 }
 .dayRowStatus_off{
-    background-color: var(--bg5);
+    background-color: var(--white-6);
 }
 .copyWorkingdayDump{
-    color:var(--bg5);
+    color: var(--white-6);
     cursor: not-allowed;
 }
 .copyDayPopupDay{
@@ -25,5 +25,5 @@
     font-size: .85em;;
 }
 .copyDayPopupDay:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }

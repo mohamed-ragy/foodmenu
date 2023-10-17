@@ -70,12 +70,12 @@
 .orderRow td:nth-child(4){@media(max-width:1279px){display:none;}}
 .orderRow td:nth-child(5){@media(max-width:1365px){display:none;}}
 .orderRow:hover{
-    background-color: var(--c2);
+    background-color: var(--white-2);
     .orderRowItemImg{
-        border:3px solid var(--c2);
+        border:3px solid var(--white-2);
     }
     .orderRowItem{
-        border:3px solid var(--c2);
+        border:3px solid var(--white-2);
     }
 }
 .orderRowTypeTag{
@@ -105,8 +105,8 @@
     margin-inline-end:-12.5px;
 }
 .orderRowItem{
-    border:3px solid var(--c2);
-    background-color: var(--c3);
+    border:3px solid var(--white);
+    background-color: var(--white-2);
     border-radius: 50%;
     width:25px;
     height:25px;

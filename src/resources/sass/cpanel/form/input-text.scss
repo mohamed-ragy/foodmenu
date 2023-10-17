@@ -15,13 +15,13 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     max-width:calc(100% - 2px);
-    border:1px solid var(--bg5);
+    border:1px solid var(--white-3);
     border-radius: 3px;
     margin:10px 0px;
     width:fit-content;
 }
 .inputTextContainer_active{
-    border:1px solid var(--bg6) !important;
+    border:1px solid var(--white-5) !important;
 }
 .inputTextContainer_100p{
     width:calc(100% - 2px);
@@ -32,7 +32,7 @@ input::-webkit-inner-spin-button {
     min-width:20px;
     font-size: 1.2em;
     background-color: transparent;
-    color: var(--bg6);
+    color: var(--white-4);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -41,7 +41,6 @@ input::-webkit-inner-spin-button {
 }
 
 .inputTextIconFlag{
-    // padding: 3px;
     height:15px;
     width:15px;
     border-radius: 50%;
@@ -52,7 +51,7 @@ input::-webkit-inner-spin-button {
     width:300px;
     max-width:calc(100% - 6px);
     background-color: transparent;
-    color: var(--txt);
+    color: var(--txt-1);
     border:none;
     font-size: .9em;
     border-radius: 0;
@@ -66,7 +65,7 @@ input::-webkit-inner-spin-button {
     outline:none;
 }
 .inputText::placeholder{
-    color:var(--bg6)
+    color:var(--white-6)
 }
 .inputText:read-only{
     cursor: not-allowed;
@@ -79,7 +78,7 @@ input::-webkit-inner-spin-button {
     height:15px;
     font-size: .8em;
     background-color: transparent;
-    color: var(--bg6);
+    color:var(--white-6);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -90,7 +89,7 @@ input::-webkit-inner-spin-button {
     height:15px;
     font-size: .8em;
     background-color: transparent;
-    color: var(--bg6);
+    color:var(--white-6);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -101,7 +100,7 @@ input::-webkit-inner-spin-button {
     height:15px;
     font-size: .8em;
     background-color: transparent;
-    color: var(--bg6);
+    color:var(--white-6);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -115,7 +114,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     width:calc(100% - 22px);
-    border:1px solid var(--bg5);
+    border:1px solid var(--white-3);
     border-radius: 4px;
     margin:10px;
 }
@@ -124,7 +123,7 @@ input::-webkit-inner-spin-button {
     height:15px;
     width:calc(100% - 14px);
     background-color: transparent;
-    color: var(--txt);
+    color: var(--txt-1);
     border:none;
     font-size: .9em;
     border-radius: 0;
@@ -133,7 +132,7 @@ input::-webkit-inner-spin-button {
     font-family: 'Nunito','inter','Tajawal', sans-serif;
 }
 .inputSearch::placeholder{
-    color:var(--bg6)
+    color:var(--white-6)
 }
 .inputSearch:focus {
     outline: none;
@@ -144,7 +143,7 @@ input::-webkit-inner-spin-button {
     height:15px;
     font-size: 1em;
     background-color: transparent;
-    color: var(--placeholder);
+    color:var(--white-6);
     display:flex;
     align-items: center;
     justify-content: center;

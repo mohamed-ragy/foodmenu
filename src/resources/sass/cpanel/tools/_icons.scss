@@ -36,34 +36,10 @@
   color:var(--green-70)
 }
 .ico-msg_sending:before{
-  color:var(--bg5)
+  color:var(--white-5)
 }
-// .ico-msgSeen:before {
-//     color:var(--green);
-//     font-size: .95em;
-// }
-// .ico-msgSent:before {
-//     color:var(--bg7);
-//     font-size: .85em;
-//     opacity: .5;
-// }
-// .ico-msgDelivered:before {
-//     color:var(--bg7);
-//     opacity: .5;
-//     font-size: .95em;
-// }
-// .ico-msgNotSent:before {
-//     color:var(--red);
-//     opacity: .75;
-//     font-size: .95em;
-// }
-// .ico-msgSending:before{
-//     color:var(--bg7);
-//     font-size: .7em;
-//     opacity: .5;
-// }
 .ico-guest::before{
-  color:var(--bg6);
+  color:var(--white-8);
 }
   ////////////////////
 
@@ -598,4 +574,3 @@
   .ico-createCategory:before {
     content: "\e96b";
   }
-  

@@ -206,12 +206,12 @@ drawProductReviewPage = function(reviewId){
                 class:'row alnC jstfyC mB10',
             }).append(
                 $('<div/>',{class:'br50p h20 w20 cardLoading'}),
-                $('<div/>',{class:'mX5 w150 h8 br3 cardLoading'})
+                $('<div/>',{class:'mX5 w150 h10br3 cardLoading'})
             ),
-            $('<div/>',{class:'m5 w250 h6 br3 cardLoading'}),
-            $('<div/>',{class:'m5 w150 h6 br3 cardLoading'}),
-            $('<div/>',{class:'m5 w250 h6 br3 cardLoading'}),
-            $('<div/>',{class:'m5 w200 h6 br3 cardLoading'}),
+            $('<div/>',{class:'m5 w250 h5 br3 cardLoading'}),
+            $('<div/>',{class:'m5 w150 h5 br3 cardLoading'}),
+            $('<div/>',{class:'m5 w250 h5 br3 cardLoading'}),
+            $('<div/>',{class:'m5 w200 h5 br3 cardLoading'}),
         )
     )
 

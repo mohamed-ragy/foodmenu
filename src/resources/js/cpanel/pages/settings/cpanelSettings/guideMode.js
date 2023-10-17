@@ -205,8 +205,7 @@ hotkeys = function(){
             }else{
                 $('.chatWindow').each(function(){
                     if($(this).hasClass('activeChatWindow')){
-                        let chat = new chatWindow($(this).attr('userId'));
-                        chat.close();
+                        closeChatWindow($(this))
                     }
                 });
                 $('#windowsCover_autoHelp').text('');

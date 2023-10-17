@@ -793,27 +793,27 @@ orders = class {
         $('#orderPage-orderDetails').text('').append(
             $('<div/>',{class:'column w100p-20 mX10 alnS jstfyS ofH brdr1 brdrT0 br3 mY20'}).append(
                 $('<div/>',{class:'fs101 pY10 pX5 w100p-10 bgc-c3 bold',text:texts.orders.orderInfo}),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w100 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w150 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w100 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w200 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w150 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w100 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w150 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w100 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w200 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w150 mX5 br3'})),
             ),
             $('<div/>',{class:'column w100p-20 mX10 alnS jstfyS ofH brdr1 brdrT0 br3 mY20'}).append(
                 $('<div/>',{class:'fs101 pY10 pX5 w100p-10 bgc-c3 bold',text:texts.orders.customer}),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w150 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w200 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w100 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w150 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w100 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w150 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w200 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w100 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w150 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w100 mX5 br3'})),
             ),
             $('<div/>',{class:'column w100p-20 mX10 alnS jstfyS ofH brdr1 brdrT0 br3 mY20'}).append(
                 $('<div/>',{class:'fs101 pY10 pX5 w100p-10 bgc-c3 bold',text:texts.orders.orderLifecycle}),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w150 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w200 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w100 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w150 mX5 br3'})),
-                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h6 w100 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w150 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w200 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w100 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w150 mX5 br3'})),
+                $('<div/>',{class:'orderPage-orderDetailsElem_loading'}).append($('<div/>',{class:'cardLoading h5 w100 mX5 br3'})),
             )
         )
         this.getOrder()

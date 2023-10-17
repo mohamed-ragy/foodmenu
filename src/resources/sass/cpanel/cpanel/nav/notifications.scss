@@ -10,7 +10,7 @@
     }
 }
 #notificationsNumber{
-    background-color: var(--bg);
+    background-color: var(--white);
     color: var(--green);
     border:1px solid var(--green);
 }
@@ -27,7 +27,7 @@
     justify-content: flex-start;
     text-align: start;
     position: relative;
-    border-top:1px solid var(--bg2);
+    border-top:1px solid var(--white-2);
     height:30px;
 }
 .notificationContainer{
@@ -40,17 +40,17 @@
     justify-content: flex-start;
     text-align: start;
     position: relative;
-    border-top:1px solid var(--bg2);
+    border-top:1px solid var(--white-2);
     min-height:30px;
 }
 .notificationContainer:hover{
-    background-color:var(--bg2);
+    background-color:var(--white-2);
 }
 .notificationContainer_unseen{
-    background-color: var(--bg2);
+    background-color:var(--white-2);
 }
 .notificationContainer_unseen:hover{
-    background-color: var(--bg2);
+    background-color:var(--white-2);
 }
 .notificationIcon{
     margin-inline-end: 10px;

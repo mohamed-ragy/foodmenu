@@ -26,10 +26,6 @@ drawPage_control_panel_settings = function(){
                         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'alertNotificationsNoSave ico-warning unsaved none mie-5 mis-2 fs1 '}),
                         $('<span/>',{text:texts.settings.alertNotifications})
                     ),
-                    $('<div/>',{tab:'alert_tone_settings',class:'pageTab'}).append(
-                        $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'alertToneSettingsNoSave ico-warning unsaved none mie-5 mis-2 fs1 '}),
-                        $('<span/>',{text:texts.settings.alertToneSettings})
-                    ),
                 ),
                 $('<div/>',{class:'pageTabArrow pageTabArrowRight ico-right'}),
             ),
@@ -87,51 +83,6 @@ drawPage_control_panel_settings = function(){
                 drawSwitchBtn('browsing_guests_alert',texts.settings.onlineGuestAlert,'cpanelSettings-onlineGuestAlert','checkboxlabel_100p authority_2'),
                 drawSaveCancelBtns('cpanelSettings-alertNotificationsSaveBtn','cpanelSettings-alertNotificationsCancelBtn','mT40'),
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'alert_tone_settings'}).append(
-                $('<div/>',{class:'pageSectionTitle2'}).append(
-                    $('<span/>',{class:'infoToneNotSaved unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
-                    $('<span/>',{text:texts.settings.infoAlertTone}),
-                    $('<span/>',{class:'ico-help help-icon',helpId:''})
-                ),
-                $('<div/>',{class:'alertSelectToneContainerTones',id:'alertSelectToneContainerTones-info'}),
-                drawSaveCancelBtns('cpanelSettings-infoAlerrtToneSaveBtn','cpanelSettings-infoAlerrtToneCancelBtn','mT40'),
-                $('<div/>',{class:'mY40 pageSection_brdrB'}),
-                //
-                $('<div/>',{class:'pageSectionTitle2'}).append(
-                    $('<span/>',{class:'errorToneNotSaved unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
-                    $('<span/>',{text:texts.settings.errorAlertTone}),
-                    $('<span/>',{class:'ico-help help-icon',helpId:''})
-                ),
-                $('<div/>',{class:'alertSelectToneContainerTones',id:'alertSelectToneContainerTones-error'}),
-                drawSaveCancelBtns('cpanelSettings-errorAlerrtToneSaveBtn','cpanelSettings-errorAlerrtToneCancelBtn','mT40'),
-                $('<div/>',{class:'mY40 pageSection_brdrB'}),
-                //
-                $('<div/>',{class:'pageSectionTitle2'}).append(
-                    $('<span/>',{class:'successToneNotSaved unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
-                    $('<span/>',{text:texts.settings.sucessAlertTone}),
-                    $('<span/>',{class:'ico-help help-icon',helpId:''})
-                ),
-                $('<div/>',{class:'alertSelectToneContainerTones',id:'alertSelectToneContainerTones-success'}),
-                drawSaveCancelBtns('cpanelSettings-successAlerrtToneSaveBtn','cpanelSettings-successAlerrtToneCancelBtn','mT40'),
-                $('<div/>',{class:'mY40 pageSection_brdrB'}),
-                //
-                $('<div/>',{class:'pageSectionTitle2'}).append(
-                    $('<span/>',{class:'warningToneNotSaved unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
-                    $('<span/>',{text:texts.settings.warningAlertTone}),
-                    $('<span/>',{class:'ico-help help-icon',helpId:''})
-                ),
-                $('<div/>',{class:'alertSelectToneContainerTones',id:'alertSelectToneContainerTones-warning'}),
-                drawSaveCancelBtns('cpanelSettings-warningAlerrtToneSaveBtn','cpanelSettings-warningAlerrtToneCancelBtn','mT40'),
-                $('<div/>',{class:'mY40 pageSection_brdrB'}),
-                //
-                $('<div/>',{class:'pageSectionTitle2'}).append(
-                    $('<span/>',{class:'newMsgAlertToneNotSaved unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
-                    $('<span/>',{text:texts.settings.newMsgAlertTone}),
-                    $('<span/>',{class:'ico-help help-icon',helpId:''})
-                ),
-                $('<div/>',{class:'alertSelectToneContainerTones',id:'alertSelectToneContainerTones-chat'}),
-                drawSaveCancelBtns('cpanelSettings-newMsgAlertToneSaveBtn','cpanelSettings-newMsgAlertToneCancelBtn','mT40'),
-            )
         ),
 
     )
@@ -160,6 +111,5 @@ drawPage_control_panel_settings = function(){
     $('#cpanelSettings-onlineUserAlert').prop('checked',settings_temp.onlineUserAlert);
     $('#cpanelSettings-onlineGuestAlert').prop('checked',settings_temp.onlineGuestAlert);
 
-    getAlertsTones();
     control_panel_settings_unsave_check();
 }

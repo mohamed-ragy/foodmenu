@@ -33,6 +33,7 @@ class CreateCpanelSettingsTable extends Migration
             $table->boolean('dClickConfirm')->default(true);
             $table->boolean('shareReminder')->default(false);
             $table->boolean('chatPopup')->default(true);
+            $table->boolean('muteChat')->default(false);
 
 
             $table->boolean('NewOrderAlerts')->default(true);
@@ -43,11 +44,6 @@ class CreateCpanelSettingsTable extends Migration
             $table->boolean('onlineUserAlert')->default(true);
             $table->boolean('onlineGuestAlert')->default(false);
 
-            $table->tinyInteger('normalAlert')->default(11);
-            $table->tinyInteger('errorAlert')->default(6);
-            $table->tinyInteger('successAlert')->default(15);
-            $table->tinyInteger('warningAlert')->default(16);
-            $table->tinyInteger('newMsgAlert')->default(12);
             $table->integer('created_at');
             $table->integer('updated_at')->nullable();
         });

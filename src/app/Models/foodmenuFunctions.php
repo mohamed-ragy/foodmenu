@@ -2840,32 +2840,6 @@ class foodmenuFunctions
         ];
     }
 
-    public static function alerts(){
-        return [
-            '0' => ['id' => 0,'en'=>'Mute','ar'=>'صامت','es'=>'Mudo','de'=>'stumm','it'=>'muto','ru'=>'немой','ua'=>'німий','fr'=>'muet','url'=>'/storage/audio/mute.mp3'],
-            '1' => ['id' => 1,'en'=>'Attention','ar'=>'تحذير','es'=>'Atención','de'=>'Aufmerksamkeit','it'=>'Attenzione','ru'=>'Внимание','ua'=>'Увага','fr'=>'Attention','url'=>'/storage/audio/attention.mp3'],
-            '2' => ['id' => 2,'en'=>'Back','ar'=>'عودة','es'=>'Atrás','de'=>'Zurück','it'=>'Di ritorno','ru'=>'Назад','ua'=>'Назад','fr'=>'Arrière','url'=>'/storage/audio/back.mp3'],
-            '3' => ['id' => 3,'en'=>'Buzz','ar'=>'الطنين','es'=>'Zumbar','de'=>'Summen','it'=>'Buzz','ru'=>'Гул','ua'=>'Дзиж','fr'=>'Bourdonner','url'=>'/storage/audio/buzz.mp3'],
-            '4' => ['id' => 4,'en'=>'Correct Answer','ar'=>'اجابة صحيحة','es'=>'Respuesta correcta','de'=>'Korrekte Antwort','it'=>'Risposta corretta','ru'=>'Правильный ответ','ua'=>'Правильна відповідь','fr'=>'Bonne réponse','url'=>'/storage/audio/correct-answer.mp3'],
-            '5' => ['id' => 5,'en'=>'Double Beep','ar'=>'صفير مزدوج','es'=>'Pitido doble','de'=>'Doppelter Piepton','it'=>'Doppio bip','ru'=>'Двойной звуковой сигнал','ua'=>'Подвійний звуковий сигнал','fr'=>'Double bip','url'=>'/storage/audio/double-beep.mp3'],
-            '6' => ['id' => 6,'en'=>'Error','ar'=>'خطأ','es'=>'Error','de'=>'Fehler','it'=>'Errore','ru'=>'Ошибка','ua'=>'Помилка','fr'=>'Erreur','url'=>'/storage/audio/error.mp3'],
-            '7' => ['id' => 7,'en'=>'Flute','ar'=>'الفلوت','es'=>'Flauta','de'=>'Flöte','it'=>'Flauto','ru'=>'Флейта','ua'=>'Флейта','fr'=>'Flûte','url'=>'/storage/audio/flute.mp3'],
-            '8' => ['id' => 8,'en'=>'Magic Marimba','ar'=>'ماجيك ماريمبا','es'=>'Marimba mágica','de'=>'Magische Marimba','it'=>'Marimba magica','ru'=>'Волшебная маримба','ua'=>'Чарівна Марімба','fr'=>'Marimba magique','url'=>'/storage/audio/magic-marimba.mp3'],
-            '9' => ['id' => 9,'en'=>'Mystery Harp','ar'=>'القيثارة الغامضة','es'=>'Arpa misteriosa','de'=>'Geheimnisvolle Harfe','it'=>'Arpa misteriosa','ru'=>'Таинственная арфа','ua'=>'Таємнича арфа','fr'=>'Harpe Mystère','url'=>'/storage/audio/mystery-harp.mp3'],
-            '10' => ['id' => 10,'en'=>'Notification','ar'=>'إشعار','es'=>'Notificación','de'=>'Benachrichtigung','it'=>'Notifica','ru'=>'Уведомление','ua'=>'Повідомлення','fr'=>'Notification','url'=>'/storage/audio/notification.mp3'],
-            '11' => ['id' => 11,'en'=>'Notification 2','ar'=>'إشعار','es'=>'Notificación','de'=>'Benachrichtigung','it'=>'Notifica','ru'=>'Уведомление','ua'=>'Повідомлення','fr'=>'Notification','url'=>'/storage/audio/notification2.mp3'],
-            '12' => ['id' => 12,'en'=>'Pop Alert','ar'=>'تنبيه فرقعة','es'=>'Alerta pop','de'=>'Pop-Alarm','it'=>'Allerta pop','ru'=>'Поп-оповещение','ua'=>'Поп-сповіщення','fr'=>'Alerte pop','url'=>'/storage/audio/pop-alert.mp3'],
-            '13' => ['id' => 13,'en'=>'Positive Notification','ar'=>'إعلام إيجابي','es'=>'Notificación positiva','de'=>'Positive Benachrichtigung','it'=>'Notifica positiva','ru'=>'Положительное уведомление','ua'=>'Позитивне сповіщення','fr'=>'Notification positive','url'=>'/storage/audio/positive-notification.mp3'],
-            '14' => ['id' => 14,'en'=>'Start','ar'=>'يبدأ','es'=>'Comienzo','de'=>'Start','it'=>'Cominciare','ru'=>'Начинать','ua'=>'Почати','fr'=>'Début','url'=>'/storage/audio/start.mp3'],
-            '15' => ['id' => 15,'en'=>'Success','ar'=>'النجاح','es'=>'Éxito','de'=>'Erfolg','it'=>'Successo','ru'=>'Успех','ua'=>'Успіх','fr'=>'Succès','url'=>'/storage/audio/success.mp3'],
-            '16' => ['id' => 16,'en'=>'Warning','ar'=>'تحذير','es'=>'Advertencia','de'=>'Warnung','it'=>'Avvertimento','ru'=>'Предупреждение','ua'=>'Увага','fr'=>'Avertissement','url'=>'/storage/audio/warning.mp3'],
-            '17' => ['id' => 17,'en'=>'Wrong Answer','ar'=>'إجابة خاطئة','es'=>'Respuesta incorrecta','de'=>'Falsche Antwort','it'=>'Risposta sbagliata','ru'=>'Неверный ответ','ua'=>'Неправильну відповідь','fr'=>'Mauvaise réponse','url'=>'/storage/audio/wrong-answer.mp3'],
-            '18' => ['id' => 18,'en'=>'Wrong','ar'=>'خاطئ','es'=>'Equivocado','de'=>'Falsch','it'=>'Sbagliato','ru'=>'Неправильно','ua'=>'Неправильно','fr'=>'Tort','url'=>'/storage/audio/wrong.mp3'],
-            '19' => ['id' => 19,'en'=>'Whistle','ar'=>'صافرة','es'=>'Silbar','de'=>'Pfeife','it'=>'Fischio','ru'=>'Свист','ua'=>'Свисток','fr'=>'Siffler','url'=>'/storage/audio/whistle.mp3'],
-
-        ];
-    }
-
     public static function archiveStatistice($orders,$reviews,$website_id,$day,$month,$year,$timeZone){
         // $notification = new stdClass();
         // $notification->website_id  = 1;

@@ -73,18 +73,18 @@ drawPopupPage_edit_language_texts = function(lang){
     );
     $('#popupPageBody').addClass('w800 mxw100p-40 p20').append(
         $('<div/>',{class:'w100p '}).append(
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-40 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-60 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-40 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-60 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-40 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-60 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-40 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-60 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-40 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-60 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-40 mxw100p'}),
-            $('<div/>',{class:'mY10 cardLoading h8 br5 w100p-60 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-40 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-60 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-40 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-60 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-40 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-60 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-40 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-60 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-40 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-60 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-40 mxw100p'}),
+            $('<div/>',{class:'mY10 cardLoading h10br5 w100p-60 mxw100p'}),
         )
     )
     getLangText(lang)

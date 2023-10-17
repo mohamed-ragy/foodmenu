@@ -1,0 +1,49 @@
+@import './margin.scss';
+@import './padding.scss';
+@import './zindex.scss';
+@import './font.scss';
+@import './width.scss';
+@import './height.scss';
+@import './borderRadius.scss';
+@import './display.scss';
+@import './position.scss';
+@import './colors.scss';
+
+//
+
+.brdrT0{border-top:0px;}
+.brdrB0{border-bottom:0px;}
+
+.notAllowed{cursor:not-allowed;}
+.pointer{cursor: pointer;}
+.cursorNormal{cursor: auto;}
+.cursorLoading{cursor: progress;}
+
+.blur3{backdrop-filter: blur(3px);}
+
+.vH{visibility: hidden;}
+.vV{visibility: visible;}
+
+.ofH{overflow: hidden;}
+
+.ltr{direction: ltr;}
+.rtl{direction: rtl;}
+
+.opacity0{opacity:0;}
+.opacity1{opacity:1;}
+
+.none-350{@media (max-width:350px){display:none;}}
+.none-420{@media (max-width:420px){display:none;}}
+.none-500{@media (max-width:500px){display:none;}}
+.none-720{@media (max-width:720px){display:none;}}
+.none-1024{@media (max-width:1023px){display:none;}}
+.none-1280{@media (max-width:1279px){display:none;}}
+.none{display: none;}
+
+
+.block-1024{@media(max-width:1024px){display:block}}
+.block-1366{@media(max-width:1365px){display:block}}
+.block-1280{@media(max-width:1279px){display:block}}
+
+.ofCover{object-fit: cover;}
+.blackWhite{filter:grayscale(100%)}

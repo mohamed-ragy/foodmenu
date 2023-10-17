@@ -32,10 +32,10 @@
     position: absolute;
     top: -5px;
     right: -10px;
-    box-shadow: 0 0 10px -1px var(--shdw-10),0 0 0px 1px var(--shdw-10);
-    background-color: var(--bg);
+    box-shadow: 0 0 10px -1px var(--shdw-5),0 0 0px 1px var(--shdw-5);
+    background-color: var(--white);
     border-radius: 50%;
-    color: var(--txt);
+    color: var(--txt-1);
     font-size: 0.7em;
     padding: 5px;
     display: flex;

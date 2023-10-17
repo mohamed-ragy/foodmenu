@@ -68,11 +68,11 @@
 
     <div id="alertsContainer"></div>
 
-    <audio id="alert_normal"><source src="" type="audio/mpeg" /></audio>
-    <audio id="alert_error"><source id="notificationErrorSource" src="" type="audio/mpeg" /></audio>
-    <audio id="alert_success"><source src="" type="audio/mpeg" /></audio>
-    <audio id="alert_warning"><source src="" type="audio/mpeg" /></audio>
-    <audio id="newChatMsgSound"><source id="newChatMsgSoundSource" src="" type="audio/mpeg" /></audio>
+    <audio id="alert_normal"><source src="./storage/audio/cpanelAlerts/normal.wav" type="audio/mpeg" /></audio>
+    <audio id="alert_error"><source id="notificationErrorSource" src="./storage/audio/cpanelAlerts/error.wav" type="audio/mpeg" /></audio>
+    <audio id="alert_success"><source src="./storage/audio/cpanelAlerts/success.wav" type="audio/mpeg" /></audio>
+    <audio id="alert_warning"><source src="./storage/audio/cpanelAlerts/warning.wav" type="audio/mpeg" /></audio>
+    <audio id="newChatMsgSound"><source id="newChatMsgSoundSource" src="./storage/audio/cpanelAlerts/chat.wav" type="audio/mpeg" /></audio>
 
     <div id="website_QRcodeDownload"></div>
     <div id="tooltipDiv"></div>

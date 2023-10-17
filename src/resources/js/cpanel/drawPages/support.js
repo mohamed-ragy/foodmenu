@@ -63,10 +63,10 @@ drawPage_ticket_history = function(){
     for(i=1;i<=10;i++){
         $('.ticketContainerLoadingContainer').append(
             $('<tr/>',{class:'trHead'}).append(
-                $('<td/>',{}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w30'})),
-                $('<td/>',{}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w400 w150-720'})),
-                $('<td/>',{}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w50'})),
-                $('<td/>',{}).append($('<div/>',{class:'cardLoading h8 mY5 br5 w50'})),
+                $('<td/>',{}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w30'})),
+                $('<td/>',{}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w400 w150-720'})),
+                $('<td/>',{}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
+                $('<td/>',{}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
             )
         )
     }

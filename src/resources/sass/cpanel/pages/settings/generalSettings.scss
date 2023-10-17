@@ -2,9 +2,8 @@
     padding: 5px;
     height:20px;
     width:20px;
-    font-size: .9em;
+    font-size: .95em;
     background-color: transparent;
-    color: var(--placeholder);
     display:flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +20,7 @@
 .leaflet-control-zoom{border:none !important;}
 
 .leaflet-control-zoom-out, .leaflet-control-zoom-in{
-    background-color: var(--bg)!important;
+    background-color: var(--white)!important;
     color:var(--txt) !important;
     font-size: 1.2em !important;
 }
@@ -29,17 +28,18 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--txt);
-    background-color: var(--bg);
-    background-color: var(--bg)!important;
+    color:var(--txt-1);
+    background-color: var(--white);
+    background-color: var(--white)!important;
     border-radius: 2px !important;
-    color:var(--txt) !important;
-    box-shadow: var(--shdw2);
+    color:var(--txt-1) !important;
+    box-shadow: 0 0 4px var(--shdw-10);
 }
 .restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation{
     display:flex !important;
     align-items: center !important;
     justify-content: center !important;
+    font-size:1.5em !important;
 }
 .restaurantLocation_unsetLocationBtn.confirm-btn{
     color:var(--orange-txt) !important;
@@ -47,9 +47,9 @@
 .restaurantLocation_unsetLocationBtn.confirm-btn:hover{
     background-color:var(--orange) !important;
 }
-.leaflet-control-zoom-in:hover{text-decoration: none;background-color: var(--bg2) !important;}
-.leaflet-control-zoom-out:hover{text-decoration: none;background-color: var(--bg2) !important;}
-.restaurantLocation_currentLocationBtn:hover{text-decoration: none;background-color: var(--bg2) !important;}
-.restaurantLocation_unsetLocationBtn:hover, .createNewUser-unsetLocation:hover, .editUser-unsetLocation:hover{text-decoration: none;background-color: var(--bg2) !important;}
+.leaflet-control-zoom-in:hover{text-decoration: none;background-color: var(--white-2) !important;}
+.leaflet-control-zoom-out:hover{text-decoration: none;background-color: var(--white-2) !important;}
+.restaurantLocation_currentLocationBtn:hover{text-decoration: none;background-color: var(--white-2) !important;}
+.restaurantLocation_unsetLocationBtn:hover, .createNewUser-unsetLocation:hover, .editUser-unsetLocation:hover{text-decoration: none;background-color: var(--white-2) !important;}
 
-.leaflet-disabled{color:var(--bg6) !important}
+.leaflet-disabled{color:var(--white-6) !important}

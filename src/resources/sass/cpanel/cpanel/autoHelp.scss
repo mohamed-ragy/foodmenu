@@ -15,18 +15,18 @@
     right:10%;
     bottom:10%;
     transition-duration: .5s;
-    box-shadow: 0 0 10px 3px var(--shdw-20);
-    background-color: var(--bg);
-    color:var(--txt);
+    box-shadow: 0 0 5px 0px var(--shdw-10);
+    background-color: var(--white);
+    color:var(--txt-1);
     padding:10px;
     border-radius: 3px;
     overflow: auto;
     animation:500ms autoHelpContainerAnimation 0s 1 ease-in-out;
 
 }
-.closeFullScreenAutoHelp{padding: 5px;border-radius: 50%;transition-duration: .2ms;font-size: .8em;}
+.closeFullScreenAutoHelp{background-color: var(--white-2);padding: 7px;border-radius: 50%;transition-duration: .2ms;font-size: .8em;}
 .closeFullScreenAutoHelp:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-3);
 }
 #windowsCover_autoHelp{
     position: absolute;
@@ -49,10 +49,9 @@
 ///////////////////////
 
 .autoHelpContainer{
-    border-top: 1px solid var(--bg3);
-    border-bottom: 1px solid var(--bg3);
-    // border-bottom: 1px dashed var(--bg6);
-    background-color: var(--bg);
+    border-top: 3px solid var(--white-2);
+    border-bottom: 3px solid var(--white-2);
+    background-color: var(--white);
     color:var(--txt);
     padding:10px;
     display:flex;
@@ -116,7 +115,7 @@
 }
 .autoHelpHeadIcon{
     cursor: pointer;
-    padding:4px;
+    padding:6px;
     border-radius: 50%;
     display:flex;
     align-items: center;
@@ -126,7 +125,7 @@
     font-size:.8em;
 }
 .autoHelpHeadIcon:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 
 .autoHelpBottomIcon{
@@ -139,11 +138,10 @@
     justify-content: center;
     flex-shrink: 0;
     flex-grow: 2;
-    // margin-bottom: 20px;
     font-size: .9em;
 }
 .autoHelpBottomIcon:hover{
-    background-color: var(--bg2);
+    background-color: var(--white-2);
 }
 .autoHelpRateContainer{
     display:flex;
@@ -157,7 +155,7 @@
     animation:300ms autoHelpContentAnimation 0s 1 ease-in-out;
 }
 .selectedAutoHelp{
-    background-color: var(--bg3);
+    background-color: var(--white-2);
 }
 .autoHelpUpSelected{
     color:var(--green);

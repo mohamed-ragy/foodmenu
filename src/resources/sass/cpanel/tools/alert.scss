@@ -1,5 +1,3 @@
-$mobile-size:720px;
-$pc_size : $mobile-size + 1;
 #alertsContainer{
     position: fixed;
     bottom:40px;
@@ -14,7 +12,7 @@ $pc_size : $mobile-size + 1;
     pointer-events: all;
     position: relative;
     z-index: 201;
-    @media (min-width:$mobile-size) {
+    @media (min-width:720px) {
         max-width:350px;
     }
     width:fit-content;
@@ -27,9 +25,9 @@ $pc_size : $mobile-size + 1;
     justify-content: center;
     flex-wrap: nowrap;
     border-radius: 10px;
-    background-color: var(--bg3);
+    background-color: var(--white-2);
     color:var(--txt);
-    box-shadow: 0 0 3px 0px var(--shdw-20);
+    box-shadow: 0 0 2px 0px var(--shdw-5), 0 0 2px 1px var(--shdw-5);
     overflow: hidden;
 }
 .alertIcon_normal{
@@ -97,44 +95,9 @@ $pc_size : $mobile-size + 1;
     align-self:flex-start;
     flex-shrink: 0;
     cursor: pointer;
+    background-color: var(--white-2);
 }
 .closeAlert:hover{
-    background-color: var(--bg);
+    background-color: var(--white-3);
 }
 /////////////
-.alertSelectToneContainerTones{
-    width: calc(100%);
-    height: 250px;
-    overflow-y: scroll;
-    border-radius: 1px;
-    background-color: var(--bg);
-    box-shadow:0 0 1px 1px var(--shdw-10);
-}
-
-.alertToneCard_loading{
-    border-bottom:1px solid var(--shdw-5);
-    background-color: var(--bg);
-    padding:5px;
-    width:calc(100% - 20px);
-     overflow: hidden;
-}
-.alertToneCard{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    border-bottom:1px solid var(--shdw-5);
-    background-color: var(--bg);
-    padding:5px;
-    width:calc(100% - 20px);
-    overflow: hidden;
-    cursor: pointer;
-}
-.alertToneCard:hover{
-    background-color: var(--bg2);
-}
-.alertToneCard > span:nth-child(3){
-    margin:0 5px;
-    margin-inline-start:auto;
-}
