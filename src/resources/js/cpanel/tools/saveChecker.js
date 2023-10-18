@@ -11,3 +11,4 @@ globalUnsaveChecker_navMenu = function(){
 
 require('./saveChecker/settings.js');
 require('./saveChecker/mystaff.js');
+require('./saveChecker/products.js');

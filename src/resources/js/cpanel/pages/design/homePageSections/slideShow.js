@@ -38,12 +38,12 @@ $('#imgBrowser-popup').on('click','.imgBrowser-slideShowImg',function(){
 });
 $('#homePageSections-slideShowProductsList').on('click','.inputListElement',function(e){
     let imgUrl = 'imgs/cpanel/noimg.png';
-    for(const key in products){
-        const product = products[key];
+    for(const key in website.products){
+        const product = website.products[key];
         if(product.id == $(this).attr('key')){
             let productCatName = '';
             if(product.category_id != null){
-                productCatName = categories.find(item=> item.id == product.category_id).name
+                productCatName = website.categories.find(item=> item.id == product.category_id).name
             }
             $('#homePageSections-slideShowImgCard').attr('src',product.imgUrl);
             $('#homePageSections-slideShowImgCard').attr('imgId',product.img_id);

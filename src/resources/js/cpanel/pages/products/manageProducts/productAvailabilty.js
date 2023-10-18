@@ -14,18 +14,18 @@ $('html,body').on('click','.manageProductCardProductAvailability',function(e){
             _token:$('meta[name="csrf-token"]').attr('content'),
             changeProductAvailabilty:productId,
             productAvailability:productAvailabilityStat,
-            productName:products.find(item=> item.id == productId).name,
+            productName:website.products.find(item=> item.id == productId).name,
         },success:function(response){
             if(response.changeProductAvailabiltyStatus = 1){
                 showAlert('success',response.msg,4000,true);
-                for(const key in products){
-                    if(products[key].id == productId){
-                        products[key].availability = productAvailabilityStat;
-                        window.guideHints.products(products);
+                for(const key in website.products){
+                    if(website.products[key].id == productId){
+                        website.products[key].availability = productAvailabilityStat;
+                        window.guideHints.products(website.products);
                     }
                 }
 
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
             }else if(response.changeProductAvailabiltyStatus = 0){
                 showAlert('error',response.msg,4000,true);
             }

@@ -189,22 +189,22 @@ drawPage_restaurant_information = function(){
     for(const key in website.languages){
         let lang = website.languages[key];
         $('#restaurant_name_inputBoxes').append(
-            drawInputText('','',lang.flag,`${texts.settings.websiteName} (${lang.name})`,`setting-restaurantName-${lang.code}`,'text',`${texts.settings.websiteName} (${lang.name})`,150,'clearVal','',website_temp.websiteNames[lang.code]),
+            drawInputText('','',lang.flag,`${texts.settings.websiteName} (${lang.name})`,`setting-restaurantName-${lang.code}`,'text',`${texts.settings.websiteName} (${lang.name})`,150,'clearVal','',website_temp.websiteNames[lang.code],false,'restaurantNameInputText'),
         );
         $('#websiteDescriptionTextAreas').append(
-            drawTextArea('','',lang.flag,`${texts.settings.websiteDescription} (${lang.name})`,`settings_websiteDescription_${lang.code}`,150,'',website_temp.websiteDescriptions[lang.code]),
+            drawTextArea('','',lang.flag,`${texts.settings.websiteDescription} (${lang.name})`,`settings_websiteDescription_${lang.code}`,150,'',website_temp.websiteDescriptions[lang.code],'websiteDescriptionTextarea'),
         );
         $('#restaurant_address_inputBoxes').append(
-            drawInputText('','',lang.flag,`${texts.settings.websiteAddress} (${lang.name})`,`setting-restaurantAddress_${lang.code}`,'text',`${texts.settings.websiteAddress} (${lang.name})`,300,'clearVal','inputText_100p',website_temp.addresses[lang.code]),
+            drawInputText('','',lang.flag,`${texts.settings.websiteAddress} (${lang.name})`,`setting-restaurantAddress_${lang.code}`,'text',`${texts.settings.websiteAddress} (${lang.name})`,300,'clearVal','inputText_100p',website_temp.addresses[lang.code],false,'restaurantAddressInputText'),
         );
         $('#currency_symbolInputBoxes').append(
-            drawInputText('','',lang.flag,`${texts.settings.currencySymbol} (${lang.name})`,`setting-enCurrency_${lang.code}`,'text',`${texts.settings.currencySymbol} (${lang.name})`,50,'clearVal','',website_temp.currencies[lang.code]),
+            drawInputText('','',lang.flag,`${texts.settings.currencySymbol} (${lang.name})`,`setting-enCurrency_${lang.code}`,'text',`${texts.settings.currencySymbol} (${lang.name})`,50,'clearVal','',website_temp.currencies[lang.code],false,'websiteCurrencyInputText'),
         );
         $('#website_announcement_textAreas').append(
-            drawTextArea('','',lang.flag,`${texts.settings.websiteAnnouncement} (${lang.name})`,`settings_Announcement_${lang.code}`,500,'',website_temp.website_announcements[lang.code]),
+            drawTextArea('','',lang.flag,`${texts.settings.websiteAnnouncement} (${lang.name})`,`settings_Announcement_${lang.code}`,500,'',website_temp.website_announcements[lang.code],'websiteAnnouncementInputText'),
         );
         $('#receipt_footer_message_textAreas').append(
-            drawTextArea('','',lang.flag,`${texts.settings.receiptMsg} (${lang.name})`,`settings_ReceiptMsg_${lang.code}`,250,'',website_temp.website_receiptMsgs[lang.code]),
+            drawTextArea('','',lang.flag,`${texts.settings.receiptMsg} (${lang.name})`,`settings_ReceiptMsg_${lang.code}`,250,'',website_temp.website_receiptMsgs[lang.code],'receiptMsgInputText'),
         )
     }
 

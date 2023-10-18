@@ -1,7 +1,7 @@
 $('#editOption-createNewSelection').on('click',function(){
     let productId = $(this).attr('productId');
     let optionId = $(this).attr('optionId');
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) === 'undefined'){
         return;
     }
@@ -31,7 +31,7 @@ $('#editOption-createNewSelection').on('click',function(){
 $('#createNewSection-createbtn').on('click',function(){
     let productId = $(this).attr('productId');
     let optionId = $(this).attr('optionId');
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) === 'undefined'){
         return;
     }
@@ -109,11 +109,11 @@ $('#createNewSection-createbtn').on('click',function(){
         },success:function(r){
             hideBtnLoading($('#createNewSection-createbtn'))
             if(r.createProductSelectionStatus == 1){
-                for(const key in products){
-                    if(products[key].id == product_id){
-                        for(const key2 in products[key].product_options){
-                            if(products[key].product_options[key2].id == option_id){
-                                products[key].product_options[key2].product_option_selections.push(r.selection);
+                for(const key in website.products){
+                    if(website.products[key].id == product_id){
+                        for(const key2 in website.products[key].product_options){
+                            if(website.products[key].product_options[key2].id == option_id){
+                                website.products[key].product_options[key2].product_option_selections.push(r.selection);
                             }
                         }
                     }
@@ -125,7 +125,7 @@ $('#createNewSection-createbtn').on('click',function(){
                     closePopup();
                 }
                 showAlert('success',r.msg,4000,true)
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
             }else if(r.createProductSelectionStatus == 0){
                 scrollToDiv($('#createNewSection-popup').find('.popupBody'),$('#createNewSection-selectionName'))
                 inputTextError($('#createNewProductOption-optionName'));

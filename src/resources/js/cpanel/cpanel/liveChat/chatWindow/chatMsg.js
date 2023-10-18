@@ -276,10 +276,10 @@ drawChatOrderMsg =function(txt){
 drawChatProductMsg = function(txt){
     let productName = txt.replace('p@','');
     let img = '/storage/imgs/noimg.png';
-    for(const key in products){
-        if(products[key].name == productName){
-            if(products[key].img_id != null){
-                img = '/storage/'+products[key].imgs.url;
+    for(const key in website.products){
+        if(website.products[key].name == productName){
+            if(website.products[key].img_id != null){
+                img = '/storage/'+website.products[key].imgs.url;
             }
         }
     }

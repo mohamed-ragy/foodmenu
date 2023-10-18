@@ -1,7 +1,7 @@
 $('#editOption-optionSelectionsContainer').on('click','.selectionCardIconDelete',function(e){
     e.stopImmediatePropagation();
     let product_id = $(this).closest('.selectionCardContainer').attr('productId');
-    let product = products.find(item => item.id == product_id);
+    let product = website.products.find(item => item.id == product_id);
     if(typeof(product) == 'undefined'){return;}
     let option_id = $(this).closest('.selectionCardContainer').attr('optionId');
     let option = product.product_options.find(item=> item.id == option_id);
@@ -30,7 +30,7 @@ $('#editOption-optionSelectionsContainer').on('click','.selectionCardIconDelete'
 
 $('html,body').on('click','#deleteSelection-confirmBtn',function(){
     let product_id = $(this).attr('productId');
-    let product = products.find(item=> item.id == product_id);
+    let product = website.products.find(item=> item.id == product_id);
     console.log(product)
     if(typeof(product) == 'undefined'){return;}
     let option_id = $(this).attr('optionId');
@@ -55,18 +55,18 @@ $('html,body').on('click','#deleteSelection-confirmBtn',function(){
         },success:function(r){
             hideBtnLoading($('#deleteSelection-confirmBtn'));
             if(r.delteProductSelectionStat == 1){
-                for(const key in products){
-                    if(products[key].id == product_id){
-                        for(const key2 in products[key].product_options){
-                            if(products[key].product_options[key2].id == option_id){
-                                for(const key3 in products[key].product_options[key2].product_option_selections){
-                                    if(products[key].product_options[key2].product_option_selections[key3].id == selection_id){
-                                        products[key].product_options[key2].product_option_selections.splice(key3,1);
+                for(const key in website.products){
+                    if(website.products[key].id == product_id){
+                        for(const key2 in website.products[key].product_options){
+                            if(website.products[key].product_options[key2].id == option_id){
+                                for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                                    if(website.products[key].product_options[key2].product_option_selections[key3].id == selection_id){
+                                        website.products[key].product_options[key2].product_option_selections.splice(key3,1);
                                         closePopup();
-                                        if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
+                                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
                                             setManageSelections(product_id,option_id);
                                         }
-                                        window.guideHints.products(products);
+                                        window.guideHints.products(website.products);
                                     }
                                 }
                             }

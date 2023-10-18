@@ -14,6 +14,7 @@ use App\Models\cpanelSettings;
 use App\Models\categories;
 use App\Models\foodmenuFunctions;
 use App\Models\plan;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
 
@@ -41,8 +42,8 @@ class categoriesController extends Controller
             $validate = Validator::make($request->all(),[
                 'categoryName' => 'required|regex:/^[a-z0-9_-]+$/',
             ],[
-                'categoryName.required'=>Lang::get('cpanel/categories/createNewCategory.categoryNameRequired'),
-                'categoryName.regex'=>Lang::get('cpanel/categories/createNewCategory.categoryNameRegex'),
+                'categoryName.required'=>Lang::get('cpanel/products/responses.categoryNameRequired'),
+                'categoryName.regex'=>Lang::get('cpanel/products/responses.categoryNameRegex'),
             ]);
 
             if($validate->fails()){
@@ -54,64 +55,54 @@ class categoriesController extends Controller
                     ])->count();
 
                 if($categoryUniqueCheck > 0){
-                    return response(['createNewCategoryStatus' => 4,'msg'=> Lang::get('cpanel/categories/createNewCategory.categoryNameUnique')]);
+                    return response(['createNewCategoryStatus' => 4,'msg'=> Lang::get('cpanel/products/responses.categoryNameUnique')]);
                 }else{
                     if(strtolower($request->categoryName) == 'privacypolicy' ||
                         strtolower($request->categoryName) == 'home' ||
                         strtolower($request->categoryName) == 'aboutus' ||
                         strtolower($request->categoryName) == 'profile' ||
                         strtolower($request->categoryName) == 'allproducts'
+
                      ){
-                        return response(['createNewCategoryStatus' => 5,'msg'=> Lang::get('cpanel/categories/createNewCategory.categoryNameNotAllowed')]);
+                        return response(['createNewCategoryStatus' => 5,'msg'=> Lang::get('cpanel/products/responses.categoryNameNotAllowed')]);
                     }else{
                         $categoriesCount = categories::where('website_id',$this->website_id)->count();
                         $planCategoriesLimit = foodmenuFunctions::plans()[website::where('id',$this->website_id)->pluck('plan')->first()]['categories'];
 
                         if($planCategoriesLimit <= $categoriesCount){
-                            return response(['createNewCategoryStatus' => 3,'msg'=> Lang::get('cpanel/categories/createNewCategory.createFailPlanLimit')]);
+                            return response(['createNewCategoryStatus' => 3,'msg'=> Lang::get('cpanel/products/responses.createFailPlanLimit')]);
                         }else{
                             $newCatSort = categories::where('website_id', $this->website_id)->max('sort');
+                            $names = [];
+                            $descriptions = [];
+                            foreach($request->categoryNames as $lang => $name){
+                                $names[$lang] = strip_tags($name);
+                            }
+                            foreach($request->categoryDescriptions as $lang => $description){
+                                $descriptions[$lang] = strip_tags($description);
+                            }
                             $createNewCategory = categories::create([
                                 'website_id'=>$this->website_id,
                                 'img_id'=>$request->categoryImg,
                                 'sort'=>$newCatSort + 1,
                                 'name'=>strip_tags($request->categoryName),
-                                'name_en'=>strip_tags($request->categoryName_en),
-                                'name_ar'=>strip_tags($request->categoryName_ar),
-                                'name_eg'=>strip_tags($request->categoryName_eg),
-                                'name_fr'=>strip_tags($request->categoryName_fr),
-                                'name_de'=>strip_tags($request->categoryName_de),
-                                'name_it'=>strip_tags($request->categoryName_it),
-                                'name_es'=>strip_tags($request->categoryName_es),
-                                'name_ru'=>strip_tags($request->categoryName_ru),
-                                'name_ua'=>strip_tags($request->categoryName_ua),
-                                'description_en' => strip_tags($request->categoryDescription_en),
-                                'description_ar' => strip_tags($request->categoryDescription_ar),
-                                'description_eg' => strip_tags($request->categoryDescription_eg),
-                                'description_fr' => strip_tags($request->categoryDescription_fr),
-                                'description_de' => strip_tags($request->categoryDescription_de),
-                                'description_it' => strip_tags($request->categoryDescription_it),
-                                'description_es' => strip_tags($request->categoryDescription_es),
-                                'description_ru' => strip_tags($request->categoryDescription_ru),
-                                'description_ua' => strip_tags($request->categoryDescription_ua),
+                                'names' => $names,
+                                'descriptions' => $descriptions,
                             ]);
                             if($createNewCategory){
-                                $notification = new stdClass();
-                                $notification->code = 14.1;
-                                $notification->website_id = $this->website_id;
-                                $notification->category = $createNewCategory;
-                                $notification->activity = activityLog::create([
+                                foodmenuFunctions::notification('category.create',[
                                     'website_id' => $this->website_id,
                                     'code' => 9,
                                     'account_id' => Auth::guard('account')->user()->id,
                                     'account_name' => Auth::guard('account')->user()->name,
                                     'category_id' => $createNewCategory->id,
                                     'category_name' => $createNewCategory->name,
+                                ],[
+                                    'category' => $createNewCategory
                                 ]);
-                                broadcast(new cpanelNotification($notification))->toOthers();
-                                return response(['createNewCategoryStatus' => 1,'msg'=> Lang::get('cpanel/categories/createNewCategory.createSaved'),'category' => $createNewCategory]);
+                                return response(['createNewCategoryStatus' => 1,'msg'=> Lang::get('cpanel/products/responses.createSaved'),'category' => $createNewCategory]);
                             }else{
-                                return response(['createNewCategoryStatus' => 0,'msg'=> Lang::get('cpanel/categories/createNewCategory.createSaveFail')]);
+                                return response(['createNewCategoryStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.createSaveFail')]);
                             }
                         }
                     }
@@ -127,21 +118,17 @@ class categoriesController extends Controller
             $sortCat2 = categories::where(['website_id'=>$this->website_id, 'id' => $request->toId])->update(['sort'=>$request->toSort]);
 
             if($sortCat1 && $sortCat2){
-
-                $notification = new stdClass();
-                $notification->code = 14.2;
-                $notification->fromId = $request->fromId;
-                $notification->fromSort = $request->fromSort;
-                $notification->toId = $request->toId;
-                $notification->toSort = $request->toSort;
-                $notification->website_id = $this->website_id;
-                broadcast(new cpanelNotification($notification))->toOthers();
+                foodmenuFunctions::notification('category.sort',null,[
+                    'fromId' => $request->fromId,
+                    'fromSort' => $request->fromSort,
+                    'toId' => $request->toId,
+                    'toSort' => $request->toSort,
+                ]);
                 return response(['sortCategoriesStatus' => 1]);
             }else{
-                return response(['sortCategoriesStatus' => 0,'msg' => Lang::get('cpanel/categories/categoriesList.categoriesSortSavedError')]);
+                return response(['sortCategoriesStatus' => 0,'msg' => Lang::get('cpanel/products/responses.categoriesSortSavedError')]);
 
             }
-
         }
         else if($request->has(['deleteCategory'])){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
@@ -149,63 +136,65 @@ class categoriesController extends Controller
             }
             $deleteCategory = categories::where(['id'=>$request->categoryId,'website_id'=>$this->website_id])->delete();
             if($deleteCategory){
-                $notification = new stdClass();
-                $notification->code = 14.3;
-                $notification->website_id = $this->website_id;
-                $notification->category_id = $request->categoryId;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('category.delete',[
                     'website_id' => $this->website_id,
                     'code' => 10,
                     'account_id' => Auth::guard('account')->user()->id,
                     'account_name' => Auth::guard('account')->user()->name,
                     'category_name' => $request->categoryName,
+                ],[
+                    'category_id' => $request->categoryId,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                return response(['deleteCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryDeleted')]);
+                return response(['deleteCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/products/responses.categoryDeleted')]);
             }else{
-                return response(['deleteCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryDeleteFail') ]);
+                return response(['deleteCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/products/responses.categoryDeleteFail') ]);
             }
         }
         else if($request->has(['editCategory'])){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
-            $editCategory = categories::where(['name'=>$request->categoryName , 'website_id'=>$this->website_id])->update([
+            $names = [];
+            $descriptions = [];
+            foreach($request->categoryNames as $lang => $name){
+                $names[$lang] = strip_tags($name);
+            }
+            foreach($request->categoryDescriptions as $lang => $description){
+                $descriptions[$lang] = strip_tags($description);
+            }
+            $editCategory = categories::where(['id'=>$request->editCategory , 'website_id'=>$this->website_id])->update([
                 'img_id'=>$request->categoryImg,
-                'name_en'=>strip_tags($request->categoryName_en),
-                'name_ar'=>strip_tags($request->categoryName_ar),
-                'name_eg'=>strip_tags($request->categoryName_eg),
-                'name_de'=>strip_tags($request->categoryName_de),
-                'name_it'=>strip_tags($request->categoryName_it),
-                'name_es'=>strip_tags($request->categoryName_es),
-                'name_fr'=>strip_tags($request->categoryName_fr),
-                'name_ru'=>strip_tags($request->categoryName_ru),
-                'name_ua'=>strip_tags($request->categoryName_ua),
-                'description_en' => strip_tags($request->categoryDescription_en),
-                'description_ar' => strip_tags($request->categoryDescription_ar),
-                'description_eg' => strip_tags($request->categoryDescription_eg),
-                'description_fr' => strip_tags($request->categoryDescription_fr),
-                'description_de' => strip_tags($request->categoryDescription_de),
-                'description_it' => strip_tags($request->categoryDescription_it),
-                'description_es' => strip_tags($request->categoryDescription_es),
-                'description_ru' => strip_tags($request->categoryDescription_ru),
-                'description_ua' => strip_tags($request->categoryDescription_ua),
+                'names' => $names,
+                'descriptions' => $descriptions,
+                'updated_at' => Carbon::now()->timestamp,
             ]);
             if($editCategory){
                 $category = categories::where(['name'=>$request->categoryName , 'website_id'=>$this->website_id])->first();
-                $notification = new stdClass();
-                $notification->code = 14.4;
-                $notification->website_id = $this->website_id;
-                $notification->category = $category;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('category.update',[
                     'website_id' => $this->website_id,
                     'code' => 11,
                     'account_id' => Auth::guard('account')->user()->id,
                     'account_name' => Auth::guard('account')->user()->name,
                     'category_id' => $request->editCategory,
                     'category_name' => $request->categoryName,
+                ],[
+                    'category' => $category,
+
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
+
+                // $notification = new stdClass();
+                // $notification->code = 14.4;
+                // $notification->website_id = $this->website_id;
+                // $notification->category = $category;
+                // $notification->activity = activityLog::create([
+                //     'website_id' => $this->website_id,
+                //     'code' => 11,
+                //     'account_id' => Auth::guard('account')->user()->id,
+                //     'account_name' => Auth::guard('account')->user()->name,
+                //     'category_id' => $request->editCategory,
+                //     'category_name' => $request->categoryName,
+                // ]);
+                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['editCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEdited'), 'category' => $category ]);
             }else{
                 return response(['editCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEditeFail') ]);

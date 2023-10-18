@@ -178,14 +178,23 @@
   .ico-logout:before {
     content: "\e956";
   }
+  .ico-move:before {
+    content: "\e95b";
+  }
+  .ico-share:before {
+    content: "\e905";
+  }
+  .ico-edit:before {
+    content: "\e91f";
+  }
   .ico-msg_not_sent:before {
     content: "\e902";
   }
-  .ico-msg_sent:before {
-    content: "\e903";
-  }
   .ico-msg_sending:before {
     content: "\e903";
+  }
+  .ico-msg_sent:before {
+    content: "\e960";
   }
   .ico-msg_seen:before {
     content: "\e904";
@@ -228,9 +237,6 @@
   }
   .ico-description:before {
     content: "\e90a";
-  }
-  .ico-edit:before {
-    content: "\e905";
   }
   .ico-langCode:before {
     content: "\e99a";
@@ -379,6 +385,12 @@
   .ico-facebook:before {
     content: "\e939";
   }
+  .ico-accepted:before {
+    content: "\e95c";
+  }
+  .ico-received:before {
+    content: "\e95c";
+  }
   .ico-location:before {
     content: "\e932";
   }
@@ -430,9 +442,6 @@
   .ico-zoomIn:before {
     content: "\e9a5";
   }
-  .ico-move:before {
-    content: "\e95b";
-  }
   .ico-mute:before {
     content: "\e9a3";
   }
@@ -465,12 +474,6 @@
   }
   .ico-readyForPickup:before {
     content: "\e948";
-  }
-  .ico-accepted:before {
-    content: "\e95c";
-  }
-  .ico-received:before {
-    content: "\e95c";
   }
   .ico-check0:before {
     content: "\e98d";
@@ -567,9 +570,6 @@
   }
   .ico-restoreDefault:before {
     content: "\e988";
-  }
-  .ico-share:before {
-    content: "\e91f";
   }
   .ico-createCategory:before {
     content: "\e96b";

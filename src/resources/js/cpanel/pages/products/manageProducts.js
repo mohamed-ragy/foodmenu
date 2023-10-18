@@ -8,7 +8,7 @@ drawProductsInputLists = function(){
     resetInputList($('#homePageSections-slideShowProductsList'));
     resetInputList($('#productReviews-selectProductList'));
     resetInputList($('#addOrderItem-productsListInput'));
-    if(products.length == 0){
+    if(website.products.length == 0){
         $('#homePageSections-slideShowProductsList, #productReviews-selectProductList, #addOrderItem-productsList').text('').append(
             $('<div/>',{
                 class:'m10',
@@ -19,8 +19,8 @@ drawProductsInputLists = function(){
         )
     }else{
         addToInputList($('#productReviews-selectProductList'),texts.products.allProducts,'allproducts')
-        for(const key in products){
-            let product = products[key];
+        for(const key in website.products){
+            let product = website.products[key];
             addToInputList($('#homePageSections-slideShowProductsList'),product.name,product.id)
             addToInputList($('#productReviews-selectProductList'),product.name,product.id)
             addToInputList($('#addOrderItem-productsList'),product.name,product.id)
@@ -38,7 +38,7 @@ drawManageProductCards = function(action){
     let productToDraw = [];
     let moveProductIconClass = 'none';
     if(action == 'allproducts'){
-        for(const key in products){productToDraw.push(products[key])}
+        for(const key in website.products){productToDraw.push(website.products[key])}
         if(productToDraw.length == 0){
             $('#manageProducts-manageProductsContainer').text(texts.products.noProducts)
         }else{
@@ -46,8 +46,8 @@ drawManageProductCards = function(action){
         }
         $('#manageProducts-manageProductsContainerTitle').text(texts.products.allProducts)
     }else if(action == 'uncategorized'){
-        for(const key in products){
-            if(products[key].category_id == null){productToDraw.push(products[key])}
+        for(const key in website.products){
+            if(website.products[key].category_id == null){productToDraw.push(website.products[key])}
         }
         if(productToDraw.length == 0){
             $('#manageProducts-manageProductsContainer').text(texts.products.noUnsortedProduct)
@@ -57,9 +57,9 @@ drawManageProductCards = function(action){
         $('#manageProducts-manageProductsContainerTitle').text(texts.products.unsortProduct)
     }else{
         moveProductIconClass = '';
-        for(const key in products){
+        for(const key in website.products){
             try{
-                if(products[key].category_id == categories.find(item=> item.name == action).id){productToDraw.push(products[key])}
+                if(website.products[key].category_id == website.categories.find(item=> item.name == action).id){productToDraw.push(website.products[key])}
             }catch{
                 window.page = {};
                 window.page.page = 'manage_products';
@@ -155,7 +155,7 @@ drawManageProductCards = function(action){
 drawProductPopupPage = function(productName){
     $('#productWindowContainer').removeClass('none');
     $('#productWindowNotFound').addClass('none')
-    product = products.find(item=> item.name == productName);
+    product = website.products.find(item=> item.name == productName);
     if (typeof(product) === "undefined"){
         // popupPageClose(false);
         $('#productWindowContainer').addClass('none');
@@ -191,7 +191,7 @@ drawProductPopupPage = function(productName){
         $('#productPage-unsorted').removeClass('none')
     }else{
         $('#prductPage-category').parent().removeClass('none')
-        $('#prductPage-category').attr('category',categories.find(item=> item.id == product.category_id).name).text(categories.find(item=> item.id == product.category_id).name)
+        $('#prductPage-category').attr('category',website.categories.find(item=> item.id == product.category_id).name).text(website.categories.find(item=> item.id == product.category_id).name)
         $('#productPage-unsorted').addClass('none')
     }
     if(product.ordered_sum == 1){

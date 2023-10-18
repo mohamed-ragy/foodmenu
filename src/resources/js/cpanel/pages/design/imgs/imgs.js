@@ -100,15 +100,15 @@ checkDeleteImg = function(imgId){
             deleteValidation = false;
         }
     }
-    for(const key in products){
-        if(products[key].img_id == imgId){
-                deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailProduct+' '+products[key].name+'.',class:'popupPage mX5',popupPage:'Edit-Product',product:products[key].name});
+    for(const key in website.products){
+        if(website.products[key].img_id == imgId){
+                deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailProduct+' '+website.products[key].name+'.',class:'popupPage mX5',popupPage:'Edit-Product',product:website.products[key].name});
                 deleteValidation = false;
         }
     }
-    for(const key in categories){
-        if(categories[key].img_id == imgId){
-                deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailCategory+' '+categories[key].name+'.',class:'popupPage mX5',popupPage:'Edit-Category',Category:categories[key].name});
+    for(const key in website.categories){
+        if(website.categories[key].img_id == imgId){
+                deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailCategory+' '+website.categories[key].name+'.',class:'popupPage mX5',popupPage:'Edit-Category',Category:website.categories[key].name});
                 deleteValidation = false;
         }
     }

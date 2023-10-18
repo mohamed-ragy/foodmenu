@@ -1,7 +1,7 @@
 setEditProduct = function(productName){
     $('#editProductWindowContainer').removeClass('none');
     $('#editProductWindowNotFound').addClass('none');
-    let product = products.find(item=> item.name == productName);
+    let product = website.products.find(item=> item.name == productName);
     if (typeof(product) === "undefined"){
         $('#editProductWindowContainer').addClass('none');
         $('#editProductWindowNotFound').removeClass('none');
@@ -14,7 +14,7 @@ setEditProduct = function(productName){
     if(product.category_id == null){
         $('#editProduct-productCategory').val(texts.products.unsortProduct).attr('key','uncategorized');
     }else{
-        $('#editProduct-productCategory').val(categories.find(item=> item.id == product.category_id).name).attr('key',categories.find(item=> item.id == product.category_id).name);
+        $('#editProduct-productCategory').val(website.categories.find(item=> item.id == product.category_id).name).attr('key',website.categories.find(item=> item.id == product.category_id).name);
     }
     $('#editProduct-productAvailability').prop('checked',product.availability)
     $('#editProduct-productImgCard').attr('imgId',product.img_id).attr('src',product.imgUrl)
@@ -41,7 +41,7 @@ setEditProduct = function(productName){
 }
 
 editProductNoSaveCheck = function(){
-    let product = products.find(item=> item.name == $('#editProduct-ProductName').val());
+    let product = website.products.find(item=> item.name == $('#editProduct-ProductName').val());
     if (typeof(product) === "undefined"){
         return;
     }
@@ -64,7 +64,7 @@ editProductNoSaveCheck = function(){
     product.description_ru == null ? product.description_ru = '' : product.description_ru = product.description_ru;
     product.description_ua == null ? product.description_ua = '' : product.description_ua = product.description_ua;
     let categoryIdCheck;
-    let tempCategory = categories.find(item=> item.name == $('#editProduct-productCategory').attr('key'))
+    let tempCategory = website.categories.find(item=> item.name == $('#editProduct-productCategory').attr('key'))
     if(typeof(tempCategory) === 'undefined'){categoryIdCheck = null}else{
         categoryIdCheck = tempCategory.id;
     }
@@ -147,21 +147,21 @@ $('#editProduct-saveBtn').on('click',function(){
     let productAvailability;
     $('#editProduct-productAvailability').prop('checked') ? productAvailability = 1 : productAvailability = 0;
     let productImg = $('#editProduct-productImgCard').attr('imgId');
-    let productSort = products.find(item=> item.name == productName).sort;
+    let productSort = website.products.find(item=> item.name == productName).sort;
     let productCategory;
-    let tempCategory = categories.find(item=> item.name == $('#editProduct-productCategory').attr('key'))
+    let tempCategory = website.categories.find(item=> item.name == $('#editProduct-productCategory').attr('key'))
     if(typeof(tempCategory) === 'undefined'){productCategory = null}else{
         productCategory = tempCategory.id;
     }
     $('#editProduct-productCategory').attr('key') == 'uncategorized' ? productCategory = null : null;
     let productCategoryChanged;
-    productCategory == products.find(item=> item.name == productName).category_id ? productCategoryChanged = false : productCategoryChanged = true;
+    productCategory == website.products.find(item=> item.name == productName).category_id ? productCategoryChanged = false : productCategoryChanged = true;
     if(productCategoryChanged){
         productSort = 0;
-        for(const key in products){
-            if(products[key].category_id == productCategory){
-                if(products[key].sort >= productSort){
-                    productSort = parseInt(products[key].sort) + 1;
+        for(const key in website.products){
+            if(website.products[key].category_id == productCategory){
+                if(website.products[key].sort >= productSort){
+                    productSort = parseInt(website.products[key].sort) + 1;
                 }
             }
         }
@@ -229,15 +229,15 @@ $('#editProduct-saveBtn').on('click',function(){
                         r.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
                     }
                 });
-                for(const key in products){
-                    if(products[key].id == r.product.id){
-                        products[key] = r.product;
+                for(const key in website.products){
+                    if(website.products[key].id == r.product.id){
+                        website.products[key] = r.product;
                     }
                 }
                 if($('#manageProducts-selectCategory').attr('key') != null){
                     drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
                 }
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
                 drawTodayHomeProducts();
                 showAlert('success',r.msg,4000,true);
                 popupPageClose(true);

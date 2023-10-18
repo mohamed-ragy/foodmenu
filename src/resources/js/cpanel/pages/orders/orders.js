@@ -279,7 +279,7 @@ orders = class {
         let moreProdsTooltip = '<div>'
         for(const key in order.order_items){
             let item = order.order_items[key];
-            let product = products.find(prod=> prod.id == item.product_id);
+            let product = website.products.find(prod=> prod.id == item.product_id);
             if(typeof(product) === 'undefined'){productImg = `storage/imgs/cpanel/noimg.png`}
             else{productImg = product.imgUrl_thumbnail;}
             if(key == 0 || key == 1){
@@ -291,7 +291,7 @@ orders = class {
         moreProdsTooltip = moreProdsTooltip + '</div>'
         if(order.order_items.length == 3){
             let item = order.order_items[2];
-            let product = products.find(prod=> prod.id == item.product_id);
+            let product = website.products.find(prod=> prod.id == item.product_id);
             if(typeof(product) === 'undefined'){productImg = `storage/imgs/cpanel/noimg.png`}
             data.itemsPics = data.itemsPics + `<img src="${productImg}" class="orderRowItemImg" tooltip="x${item.qty} ${item.productName}" />`
         }else if(order.order_items.length > 3){
@@ -1776,7 +1776,7 @@ orders = class {
     }
 
     drawCompleteOrderItem(item){
-        let product = products.find(elem=> elem.id == item.product_id);
+        let product = website.products.find(elem=> elem.id == item.product_id);
         let productImg;let productName;
         if(typeof(product) === 'undefined'){
             productImg = '/storage/imgs/cpanel/noimg.png';
@@ -1837,7 +1837,7 @@ orders = class {
         }
     }
     drawIncompleteOrderItem(item){
-        let product = products.find(elem=> elem.id == item.product_id);
+        let product = website.products.find(elem=> elem.id == item.product_id);
         let productImg;let productName;
         if(typeof(product) === 'undefined'){
             productImg = '/storage/imgs/cpanel/noimg.png';
@@ -1918,7 +1918,7 @@ orders = class {
         $('#orderPage-orderItems_origianl').removeClass('none');
         for(const key in items){
             let item = items[key];
-            let product = products.find(elem=> elem.id == item.product_id);
+            let product = website.products.find(elem=> elem.id == item.product_id);
             let productImg;let productName;
             if(typeof(product) === 'undefined'){
                 productImg = '/storage/imgs/cpanel/noimg.png';
@@ -2061,7 +2061,7 @@ orders = class {
         if(typeof(order) === 'undefined'){return;}
         let item = order.order_items.find(i=> i._id == itemId);
         if(typeof(item) === 'undefined'){return;}
-        let product = products.find(i=> i.id == item.product_id);
+        let product = website.products.find(i=> i.id == item.product_id);
         if(typeof(product) === 'undefined'){return;}
         let option = product.product_options.find(i=> i.id == optionId);
         if(typeof(option) === 'undefined'){return;}
@@ -2467,7 +2467,7 @@ orders = class {
                 for(const key in order.order_items){
                     let item = order.order_items[key];
                     let itemName;
-                    let product = products.find(i=> i.id == item.product_id);
+                    let product = website.products.find(i=> i.id == item.product_id);
                     if(typeof(product) === 'undefined'){itemName = item.productName}else{
                         if(product[`name_${website.receiptLanguage}`] != null && product[`name_${website.receiptLanguage}`] != ''){
                             itemName = product[`name_${website.receiptLanguage}`];

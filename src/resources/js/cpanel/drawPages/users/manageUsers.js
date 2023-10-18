@@ -58,7 +58,7 @@ drawManageUser = function(userId){
             ),
             $('<div/>',{class:'row alnC jstfyS mX10'}).append(
                 $('<div/>',{class:`visitorOnlineIcon-user-${user.id}`}),
-                $('<div/>',{class:`fs08 visitorActions-user-${user.id}`}) 
+                $('<div/>',{class:`fs08 visitorActions-user-${user.id}`})
             ),
             $('<div/>',{class:'row alnS jstfyS mX5 mT5'}).append(
                 $('<button/>',{class:'authority_5 ico-chat btn_icon openChatWindow',type:'user',user:user.id,tooltip:texts.users.chatWith.replace(':name:',user.name)}).append($('<span/>',{class:`chatIconUnseen none chatUnseen-user-${user.id}`})),
@@ -74,7 +74,7 @@ drawManageUser = function(userId){
                 ),
                 drawInputText('','ico-user','',texts.users.name,'editUser-name','text',texts.users.name,200,'clearVal','inputTextContainer_100p',user.name,false),
                 drawInputText('','ico-phone_number','',texts.users.phoneNumber,'editUser-phoneNumber','text',texts.users.phoneNumber,200,'clearVal','inputTextContainer_100p',user.phoneNumber,false),
-                
+
             ),
             drawInputText('','ico-address','',texts.users.address,'editUser-address','text',texts.users.address,200,'clearVal','inputTextContainer_100p',user.address,false),
             $('<div/>',{class:'area mT20'}).append(
@@ -121,7 +121,7 @@ drawEditUserMap = function(lat,lng){
             tooltipTemp:texts.settings.unsetLocation,
             autoHelp:'',
         }).append(
-            $('<div/>',{class:'btnTxt ico-no mA'}),
+            $('<div/>',{class:'btnTxt ico-no ma'}),
         )
     )
     if(lat != 0 || lng != 0){

@@ -1,6 +1,6 @@
 $('html,body').on('click','.manageProductCardDelete',function(e){
     e.stopImmediatePropagation();
-    let product = products.find(item=> item.id == $(this).attr('productId'));
+    let product = website.products.find(item=> item.id == $(this).attr('productId'));
     $('#delete-popup').find('.popupBody').text('').append(
         $('<div/>',{}).append(
             $('<div/>',{class:'fs105 m10',html:texts.products.productDeleteConfirm+' <b>'+product.name+'</b>?'}),
@@ -20,7 +20,7 @@ $('html,body').on('click','.manageProductCardDelete',function(e){
 $('html,body').on('click','#deleteProduct-confirmBtn',function(){
     showBtnLoading($('#deleteProduct-confirmBtn'));
     let productId = $(this).attr('productId')
-    let productName = products.find(item=> item.id == productId).name;
+    let productName = website.products.find(item=> item.id == productId).name;
     $.ajax({
         url:'products',
         type:'put',
@@ -33,11 +33,11 @@ $('html,body').on('click','#deleteProduct-confirmBtn',function(){
             hideBtnLoading($('#deleteProduct-confirmBtn'))
             if(r.deleteProductStatus == 1 ){
                 let categoryId;
-                for(const key in products){
-                    product = products[key];
+                for(const key in website.products){
+                    product = website.products[key];
                     if(product.id == productId){
                         categoryId = product.category_id;
-                        products.splice(key,1)
+                        website.products.splice(key,1)
                     }
                 }
                 if($('#manageProducts-selectCategory').attr('key') != null){
@@ -47,7 +47,7 @@ $('html,body').on('click','#deleteProduct-confirmBtn',function(){
                 drawProductsInputLists();
                 drawTodayHomeProducts();
                 showAlert('success',r.msg,4000,true);
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
             }else if(r.deleteProductStatus == 0){
                 showAlert('error',r.msg,4000,true);
             }

@@ -10,15 +10,15 @@ websiteAddressNoSaveCheck  =  function(){
         return false;
     }
 }
-for(const key in website.languages){
-    let lang = website.languages[key];
-    $('html,body').on('input change',`#setting-restaurantAddress_${lang.code}`,function(e){
-        e.stopImmediatePropagation();
-        website_temp.addresses[lang.code] = $(`#setting-restaurantAddress_${lang.code}`).val();
-        restaurant_information_unsave_chack();
-    })
-}
 
+$('html,body').on('input change','.restaurantAddressInputText',function(e){
+    e.stopImmediatePropagation();
+    for(const key in website.languages){
+        let lang = website.languages[key];
+        website_temp.addresses[lang.code] = $(`#setting-restaurantAddress_${lang.code}`).val();
+    }
+    restaurant_information_unsave_chack();
+})
 $('html,body').on('click','#setting-websiteAddressCancelBtn',function(e){
     e.stopImmediatePropagation();
     website_temp.addresses = JSON.parse(JSON.stringify(website.addresses));

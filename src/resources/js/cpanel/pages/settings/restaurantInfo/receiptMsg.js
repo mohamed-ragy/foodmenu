@@ -9,16 +9,15 @@ websiteReceiptMsgsNoSaveFunction = function(){
         return false;
     }
 }
-for(const key in website.languages){
-    let lang = website.languages[key];
-    $('html,body').on('input change',`#settings_ReceiptMsg_${lang.code}`,function(e){
-        e.stopImmediatePropagation();
+
+$('html,body').on('input change','.receiptMsgInputText',function(e){
+    e.stopImmediatePropagation();
+    for(const key in website.languages){
+        let lang = website.languages[key];
         website_temp.website_receiptMsgs[lang.code] = $(`#settings_ReceiptMsg_${lang.code}`).val();
-        restaurant_information_unsave_chack();
-    })
-
-}
-
+    }
+    restaurant_information_unsave_chack();
+})
 
 $('html,body').on('click','#settings-receiptMsgCancelBtn',function(e){
     e.stopImmediatePropagation();

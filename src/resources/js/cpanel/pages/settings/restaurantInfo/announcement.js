@@ -9,15 +9,15 @@ websiteAnnouncementsNoSaveFunction = function(){
     }
 
 }
-for(const key in website.languages){
-    let lang = website.languages[key];
-    $('html,body').on('input change',`#settings_Announcement_${lang.code}`,function(e){
-        e.stopImmediatePropagation();
-        website_temp.website_announcements[lang.code] = $(`#settings_Announcement_${lang.code}`).val();
-        restaurant_information_unsave_chack();
-    })
-}
 
+$('html,body').on('input change','.websiteAnnouncementInputText',function(e){
+    e.stopImmediatePropagation();
+    for(const key in website.languages){
+        let lang = website.languages[key];
+        website_temp.website_announcements[lang.code] = $(`#settings_Announcement_${lang.code}`).val();
+    }
+    restaurant_information_unsave_chack();
+})
 
 $('html,body').on('click','#settings-websiteAnnouncementCancelBtn',function(e){
     e.stopImmediatePropagation();

@@ -73,9 +73,12 @@
     <audio id="alert_success"><source src="./storage/audio/cpanelAlerts/success.wav" type="audio/mpeg" /></audio>
     <audio id="alert_warning"><source src="./storage/audio/cpanelAlerts/warning.wav" type="audio/mpeg" /></audio>
     <audio id="newChatMsgSound"><source id="newChatMsgSoundSource" src="./storage/audio/cpanelAlerts/chat.wav" type="audio/mpeg" /></audio>
-
-    <div id="website_QRcodeDownload"></div>
     <div id="tooltipDiv"></div>
+    <div id="popupId" class="none"></div>
+    <div id="liveChatBoxMenu" class="liveChatBoxMenu none"></div>
+    <div id="onMove" class=""></div>
+    
+    <div id="website_QRcodeDownload"></div>
     <div id="statisticsPopupDiv"></div>
     <div id="printDiv"></div>
     <div id="imgs-imgPreview" class="none">
@@ -99,15 +102,13 @@
     <div id="changeOrderStatusGiveToDelivery"></div>
     <div id="changeOrderType"></div>
     <div id="changeItemSelection"></div>
-    <div id="popupId" class="none"></div>
-    <div id="liveChatBoxMenu" class="liveChatBoxMenu none"></div>
 
     <div id="galleryImgOnMove"></div>
     <div id="slideShowImgOnMove"></div>
-    <div id="categoryCardOnMove"></div>
-    <div id="manageProductCardOnMove"></div>
-    <div id="productOptionCardOnMove"></div>
-    <div id="selectionCardOnMove"></div>
+    {{-- <div id="categoryCardOnMove"></div> --}}
+    {{-- <div id="manageProductCardOnMove"></div> --}}
+    {{-- <div id="productOptionCardOnMove"></div> --}}
+    {{-- <div id="selectionCardOnMove"></div> --}}
 </body>
 <form method="post" id="logoutForm" action="{{ route('account.logout') }}">
     @csrf

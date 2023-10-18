@@ -73,12 +73,12 @@ drawSubAccountsTable = function(){
 }
 drawPopupPage_sub_account = function(subaccountId){
     let subaccount = website.accounts.find(item=>item.id == subaccountId);
-    let authority0Icon = subaccount.authorities.split('')[0] == 1 ? 'ico-check cG' : 'ico-no cR'; 
-    let authority1Icon = subaccount.authorities.split('')[1] == 1 ? 'ico-check cG' : 'ico-no cR'; 
-    let authority2Icon = subaccount.authorities.split('')[2] == 1 ? 'ico-check cG' : 'ico-no cR'; 
-    let authority3Icon = subaccount.authorities.split('')[3] == 1 ? 'ico-check cG' : 'ico-no cR'; 
-    let authority4Icon = subaccount.authorities.split('')[4] == 1 ? 'ico-check cG' : 'ico-no cR'; 
-    let authority5Icon = subaccount.authorities.split('')[5] == 1 ? 'ico-check cG' : 'ico-no cR'; 
+    let authority0Icon = subaccount.authorities.split('')[0] == 1 ? 'ico-check cG' : 'ico-no cR';
+    let authority1Icon = subaccount.authorities.split('')[1] == 1 ? 'ico-check cG' : 'ico-no cR';
+    let authority2Icon = subaccount.authorities.split('')[2] == 1 ? 'ico-check cG' : 'ico-no cR';
+    let authority3Icon = subaccount.authorities.split('')[3] == 1 ? 'ico-check cG' : 'ico-no cR';
+    let authority4Icon = subaccount.authorities.split('')[4] == 1 ? 'ico-check cG' : 'ico-no cR';
+    let authority5Icon = subaccount.authorities.split('')[5] == 1 ? 'ico-check cG' : 'ico-no cR';
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.sub_account}),
         // $('<span/>',{class:'ico-help help-icon',helpId:''})
@@ -90,7 +90,7 @@ drawPopupPage_sub_account = function(subaccountId){
         ),
         $('<div/>',{class:'mX5 row alnC jstfyS'}).append(
             $('<div/>',{class:`subaccountOnlineIcon-${subaccount.id}`}),
-            $('<div/>',{class:`fs08 subaccountlastSeen2-${subaccount.id}`}) 
+            $('<div/>',{class:`fs08 subaccountlastSeen2-${subaccount.id}`})
         ),
         $('<div/>',{class:'area mT40'}).append(
             $('<div/>',{class:'areaTitle',text:texts.staff.authorities}),
@@ -164,7 +164,7 @@ drawPopupPage_manage_sub_account = function(subaccountId){
         ),
         $('<div/>',{class:'mX5 row alnC jstfyS'}).append(
             $('<div/>',{class:`subaccountOnlineIcon-${subaccount.id}`}),
-            $('<div/>',{class:`fs08 subaccountlastSeen2-${subaccount.id}`}) 
+            $('<div/>',{class:`fs08 subaccountlastSeen2-${subaccount.id}`})
         ),
         $('<div/>',{class:'area mT40'}).append(
             $('<div/>',{class:'areaTitle',text:texts.staff.authorities}),

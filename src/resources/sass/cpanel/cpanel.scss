@@ -112,7 +112,7 @@ body{
 @import 'pages/orders/ordersTable';
 @import 'pages/orders/newOrder';
 
-@import 'pages/categories/categoriesList';
+@import 'pages/categories/categoriesList';//done
 
 @import 'pages/products/manageProducts';
 @import 'pages/products/productReviews';
@@ -171,7 +171,7 @@ a:hover{
 #popupId{
     background-color: var(--white-1);
     color:var(--txt-1);
-    box-shadow: 0 0 5px var(--shdw-10);
+    box-shadow: 0 0 4px 1px var(--shdw-10);
     border-radius: 5px;
     position: fixed;
     font-size: .85em;
@@ -242,6 +242,7 @@ a:hover{
     animation:400ms tooltipAnimation 0s 1 ease;
 
 }
+
 /////////////
 .msgBox_orange{
     padding:15px;
@@ -299,6 +300,15 @@ td{
     position: absolute;
     top:7px;
     left:7px;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+.button_unsaved{
+    position: absolute;
+    top:7px;
+    left:10px;
     width:5px;
     height:5px;
     border-radius: 50%;
@@ -379,8 +389,8 @@ td{
     font-size: 1.1em;
     padding:3px;
     border-radius: 2px;
-    background-color: var(--c2);
-    color:var(--c1txt);
+    background-color: var(--shdw-40);
+    color:var(--white);
     cursor: pointer;
     pointer-events: none;
     // box-shadow: 0 0 1px 1px var(--shdw-10);

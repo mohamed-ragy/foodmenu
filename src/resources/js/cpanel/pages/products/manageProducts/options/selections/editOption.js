@@ -4,7 +4,7 @@ $('#editOption-optionSelectionsContainer').on('click','.productOptionCardIconEdi
 })
 
 setEditProductOption = function(productId,optionId,callback=()=>{}){
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) === 'undefined'){return;}
     let option = product.product_options.find(item=> item.id == optionId);
     if(typeof(option) === 'undefined'){return;}
@@ -27,7 +27,7 @@ setEditProductOption = function(productId,optionId,callback=()=>{}){
 
 $('#editProductOption-savebtn').on('click',function(){
     let option_name = $('#editProductOption-optionName').val()
-    let product = products.find(item=> item.id == $('#editProductOption-optionName').attr('productId'));
+    let product = website.products.find(item=> item.id == $('#editProductOption-optionName').attr('productId'));
     let option = product.product_options.find(item=> item.name == option_name);
     if(typeof(option) === 'undefined'){return;}
     let option_id = option.id;
@@ -63,22 +63,22 @@ $('#editProductOption-savebtn').on('click',function(){
         },success:function(r){
             hideBtnLoading($('#editProductOption-savebtn'));
             if(r.editProductOptionStat == 1){
-                for(const key in products){
-                    for(const key2 in products[key].product_options){
-                        if(products[key].product_options[key2].id == option_id){
-                            products[key].product_options[key2].name_en = name_en;
-                            products[key].product_options[key2].name_fr = name_fr;
-                            products[key].product_options[key2].name_de = name_de;
-                            products[key].product_options[key2].name_it = name_it;
-                            products[key].product_options[key2].name_es = name_es;
-                            products[key].product_options[key2].name_ar = name_ar;
-                            products[key].product_options[key2].name_ru = name_ru;
-                            products[key].product_options[key2].name_ua = name_ua;
-                            products[key].product_options[key2].name_eg = name_eg;
+                for(const key in website.products){
+                    for(const key2 in website.products[key].product_options){
+                        if(website.products[key].product_options[key2].id == option_id){
+                            website.products[key].product_options[key2].name_en = name_en;
+                            website.products[key].product_options[key2].name_fr = name_fr;
+                            website.products[key].product_options[key2].name_de = name_de;
+                            website.products[key].product_options[key2].name_it = name_it;
+                            website.products[key].product_options[key2].name_es = name_es;
+                            website.products[key].product_options[key2].name_ar = name_ar;
+                            website.products[key].product_options[key2].name_ru = name_ru;
+                            website.products[key].product_options[key2].name_ua = name_ua;
+                            website.products[key].product_options[key2].name_eg = name_eg;
                         }
                     }
                 }
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
                 showAlert('success',r.msg,4000,true);
                 if(!$('#editProductOption-popup').hasClass('none') && $('#editProductOption-optionName').val() == option_name){
                     closePopup();

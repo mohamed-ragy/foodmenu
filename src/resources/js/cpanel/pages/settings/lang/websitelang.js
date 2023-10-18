@@ -6,9 +6,9 @@ langsOptionsNoSaveCheck = function(){
             let lang2 = website_temp.languages[key2];
             if(lang.code == lang2.code){
                 if(lang.flag == lang2.flag && lang.name == lang2.name && lang.direction == lang2.direction){
-                    $(`.websiteLangsTableRowBtn_settings[lang="${lang.code}"]`).find('.tableRow_unsaved').addClass('none')
+                    $(`.websiteLangsNoSave-${lang.code}`).addClass('none')
                 }else{
-                    $(`.websiteLangsTableRowBtn_settings[lang="${lang.code}"]`).find('.tableRow_unsaved').removeClass('none')
+                    $(`.websiteLangsNoSave-${lang.code}`).removeClass('none')
                     langsNoSaveCheck = false;
                 }
             }
@@ -52,7 +52,7 @@ setWebsiteLangs = function(){
                 $('<td/>',{class:'taC tnw vaM'}).append($('<span/>',{lang:lang.code,class:`setReceiptLang ${receiptClass} fs101 pointer`,tooltip:texts.settings.setAsReceiptLang,}),$('<div/>',{class:'setReceiptLang_loading loading_s none'})),
                 $('<td/>',{class:'taC tnw vaM'}).append(
                     $('<div/>',{class:'row alnC jstfyC'}).append(
-                        $('<button/>',{lang:lang.code,class:'btn_table websiteLangsTableRowBtn_settings ico-settings popupPage',popupPage:'edit_language_options',tooltip:texts.settings.EditLangOptions}).append($('<span/>',{class:'tableRow_unsaved none'})),
+                        $('<button/>',{lang:lang.code,class:'btn_table websiteLangsTableRowBtn_settings ico-settings popupPage',popupPage:'edit_language_options',tooltip:texts.settings.EditLangOptions}).append($('<span/>',{class:`websiteLangsNoSave-${lang.code} tableRow_unsaved none`})),
                         $('<button/>',{lang:lang.code,class:'btn_table websiteLangsTableRowBtn_edit ico-edit popupPage',popupPage:'edit_language_texts',tooltip:texts.settings.EditLangText}).append($('<span/>',{class:'tableRow_unsaved none'})),
                         $('<button/>',{lang:lang.code,class:'btn_table deleteLang ico-delete',tooltip:texts.settings.removeLanguage}),
                     )

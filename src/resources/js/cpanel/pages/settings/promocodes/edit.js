@@ -19,10 +19,10 @@ editPromocodeNoSaveCheck = function(){
                     promocode1.is_pickup == promocode2.is_pickup &&
                     promocode1.is_guest == promocode2.is_guest
                 ){
-                    $(`.managePromocodeBtn[promocode="${promocode1.code}"]`).children().first().addClass('none')
+                    $(`.editPromocodeNoSave-${promocode1.id}`).addClass('none')
                 }else{
                     promocodesSaveCheck = false;
-                    $(`.managePromocodeBtn[promocode="${promocode1.code}"]`).children().first().removeClass('none')
+                    $(`.editPromocodeNoSave-${promocode1.id}`).removeClass('none')
                 }
             }
         }

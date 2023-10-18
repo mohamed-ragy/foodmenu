@@ -1,11 +1,12 @@
-for(const key in website.languages){
-    let lang = website.languages[key];
-    $('html,body').on('input change',`#setting-restaurantName-${lang.code}`,function(e){
-        e.stopImmediatePropagation();
+
+$('html,body').on('input change','.restaurantNameInputText',function(e){
+    e.stopImmediatePropagation();
+    for(const key in website.languages){
+        let lang = website.languages[key];
         website_temp.websiteNames[lang.code] = $(`#setting-restaurantName-${lang.code}`).val();
-        restaurant_information_unsave_chack();
-    })
-}
+    }
+    restaurant_information_unsave_chack();
+})
 $('html,body').on('click','#setting-restaurantName-CancelBtn',function(e){
     e.stopImmediatePropagation();
     website_temp.websiteNames = JSON.parse(JSON.stringify(website.websiteNames));

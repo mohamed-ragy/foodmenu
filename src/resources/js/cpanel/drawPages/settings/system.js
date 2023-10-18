@@ -127,7 +127,7 @@ drawPage_system = function(){
                     $('<span/>',{class:'ico-warning fs2 mB10'}),
                     $('<span/>',{class:'fs09 taC',text:texts.settings.deleteOrdersAndStatisticsText})
                 ),
-                $('<div/>',{class:'mA wFC mT40'}).append(
+                $('<div/>',{class:'ma wFC mT40'}).append(
                     drawInputText('','ico-password','',texts.settings.password,'deleteOrdersAndStatistics-password','password',texts.settings.password,150,'password'),
                     $('<div/>',{class:'btnContainer'}).append(
                         $('<button/>',{id:'deleteOrdersAndStatistics-btn',class:'btn btn-delete'}).append(
@@ -167,7 +167,7 @@ drawPage_system = function(){
         for(const key in website.languages){
             let lang = website.languages[key];
             $('#privacyPolicyTextAreas').append(
-                drawTextArea('','',lang.flag,`${texts.settings.privacyPolicy} (${lang.name})`,`system_PrivacyPolicy_${lang.code}`,20000,'',website_temp.website_privacyPolicy[lang.code])
+                drawTextArea('','',lang.flag,`${texts.settings.privacyPolicy} (${lang.name})`,`system_PrivacyPolicy_${lang.code}`,20000,'',website_temp.website_privacyPolicy[lang.code],'privacyPolicyTextArea')
             )
         }
     }

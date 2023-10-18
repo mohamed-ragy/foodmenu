@@ -12,9 +12,9 @@ calcTodayOrdersData = function(){
     }
     if(!account.is_master){return todayOrdersData}
 
-    for(const key in products){
+    for(const key in website.products){
         todayOrdersData.products.push({
-            name:products[key].name,
+            name:website.products[key].name,
             ordered:0,
             income:0,
         })
@@ -285,7 +285,7 @@ drawTodayHomeProducts = function(){
 drawHomeShareYoutProducts = function(){
     if(account.authorities[1] == 0){return;}
     $('#home-shareYourProductsContainer').text('');
-    if(products.length == 0){
+    if(website.products.length == 0){
         $('#home-shareYourProductsContainer').append(
             $('<div/>',{class:'m10 fs102'}).append(
                 $('<span>',{class:'mie-3',text:texts.home.noProducts1}),
@@ -293,8 +293,8 @@ drawHomeShareYoutProducts = function(){
             )
         )
     }else{
-        for(const key in products){
-            let product = products[key];
+        for(const key in website.products){
+            let product = website.products[key];
             $('#home-shareYourProductsContainer').append(
                 $('<div/>',{class:'homeShareProduct '}).append(
                     $('<img/>',{class:'w200 h100 br3 ofCover',src:product.imgUrl_thumbnail}),
@@ -343,7 +343,7 @@ drawTodayNotOrderedProducts = function(){
         )
     }else{
         for(const key in todayOrdersData.products_notOrdered){
-            let product = products.find(item=> item.name == todayOrdersData.products_notOrdered[key].name);
+            let product = website.products.find(item=> item.name == todayOrdersData.products_notOrdered[key].name);
             if(typeof(product) !== 'undefined'){
                 $('.home-productsNotOrderedContainer').append(
                     $('<div/>',{class:'homeShareProduct '}).append(

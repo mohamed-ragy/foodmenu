@@ -446,6 +446,12 @@ if(params.get('popupPage') != null){
         case 'manage_sub_account':
             keysObj.subaccount = params.get('subaccount')
         break;
+        case 'category':
+            keysObj.category = params.get('category')
+        break;
+        case 'edit_category':
+            keysObj.category = params.get('category')
+        break;
     }
     showPopupPage(params.get('popupPage'),keysObj).then(()=>{
         // window.popupPage.popupPage = params.get('popupPage')

@@ -12,23 +12,24 @@ class categories extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillable = [
-        'sort','name','website_id','img_id','name_en','name_eg',
-        'name_ar','name_fr','name_it','name_de','name_es','name_ru','name_ua',
-        'description_en','description_ar','description_eg','description_fr','description_de','description_it',
-        'description_es','description_ru','description_ua',
+        'sort','name','website_id','img_id','names','descriptions'
     ];
+    protected $casts = [
+        'names' => 'array',
+        'descriptions' => 'array',
 
+    ];
     public function websites(){
         return $this->belongsTo(website::class,'website_id','id');
     }

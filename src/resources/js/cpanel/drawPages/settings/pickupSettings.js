@@ -48,7 +48,7 @@ drawPage_order_pickup_settings = function(){
                     $('<span/>',{class:'ico-help help-icon',helpId:'average_time_to_prepare_an_order'})
                 ),
                 $('<div/>',{class:'wFC'}).append(
-                    $('<div/>',{class:'numberPickerControls w100p mT20 mA'}).append(
+                    $('<div/>',{class:'numberPickerControls w100p mT20 ma'}).append(
                         $('<div/>',{class:'numberPickerArrow ico-left',id:'avgPickupTimeD'}),
                         $('<div/>',{class:'numberPickerValue fs09 w200'}).append(
                             $('<span/>',{class:'mX2',id:'avgPickupTime',pickupTime:''}),
@@ -73,7 +73,7 @@ drawPage_order_pickup_settings = function(){
                         ),
                         $('<div/>',{class:'fs09 cashOnPickupCheck ico-check0'})
                     ),
-                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p brdrT0 mT10 cardOnPickup'}).append(
+                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p cardOnPickup'}).append(
                         $('<div/>',{class:'row alnC jstfyC mie-100'}).append(
                             $('<div/>',{class:'ico-card fs1 mie-5'}),
                             $('<div/>',{class:'fs09',text:texts.settings.cardOnPickup})

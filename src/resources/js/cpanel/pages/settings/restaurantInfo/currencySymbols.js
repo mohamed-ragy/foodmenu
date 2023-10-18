@@ -9,15 +9,15 @@ currenciesNoSaveCheck = function(){
         return false;
     }
 }
-for(const key in website.languages){
-    let lang = website.languages[key];
-    $('html,body').on('input change',`#setting-enCurrency_${lang.code}`,function(e){
-        e.stopImmediatePropagation();
-        website_temp.currencies[lang.code] = $(`#setting-enCurrency_${lang.code}`).val();
-        restaurant_information_unsave_chack();
-    })
-}
 
+$('html,body').on('input change','.websiteCurrencyInputText',function(e){
+    e.stopImmediatePropagation();
+    for(const key in website.languages){
+        let lang = website.languages[key];
+        website_temp.currencies[lang.code] = $(`#setting-enCurrency_${lang.code}`).val();
+    }
+    restaurant_information_unsave_chack();
+})
 $('html,body').on('click','#settings-currencyCancelBtn',function(e){
     e.stopImmediatePropagation();
     website_temp.currencies = JSON.parse(JSON.stringify(website.currencies));

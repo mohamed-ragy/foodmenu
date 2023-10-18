@@ -1,13 +1,13 @@
 /////////////////////description////////////////////////////////
-for(const key in website.languages){
-    let lang = website.languages[key];
-    $('html,body').on('input change',`#settings_websiteDescription_${lang.code}`,function(e){
-        e.stopImmediatePropagation();
-        website_temp.websiteDescriptions[lang.code] = $(`#settings_websiteDescription_${lang.code}`).val();
-        restaurant_information_unsave_chack();
-    })
-}
 
+$('html,body').on('input change','.websiteDescriptionTextarea',function(e){
+    e.stopImmediatePropagation();
+    for(const key in website.languages){
+        let lang = website.languages[key];
+        website_temp.websiteDescriptions[lang.code] = $(`#settings_websiteDescription_${lang.code}`).val();
+    }
+    restaurant_information_unsave_chack();
+})
 $('html,body').on('click','#settings-websiteDescriptionCancelBtn',function(e){
     e.stopImmediatePropagation();
     website_temp.websiteDescriptions = JSON.parse(JSON.stringify(website.websiteDescriptions))

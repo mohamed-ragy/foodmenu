@@ -157,7 +157,8 @@ $('html,body').on('input change','.editLangTextInput',function(e){
 
 $('html,body').on('click','#langTxts-editLangTextCancelBtn',function(){
     window.langTxts_temp[window.popupPage.language] = JSON.parse(JSON.stringify(window.langTxts[window.popupPage.language]))
-    getLangText()
+    console.log(window.langTxts_temp[window.popupPage.language])
+    getLangText(window.popupPage.language)
     popupPageClose(true);
     languages_unsave_check();
 })

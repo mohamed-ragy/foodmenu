@@ -64,7 +64,7 @@ drawPage_home_delivery_settings = function(){
                     $('<span/>',{class:'ico-help help-icon',helpId:'average_delivery_time'})
                 ),
                 $('<div/>',{class:'wFC'}).append(
-                    $('<div/>',{class:'numberPickerControls w100p mT20 mA'}).append(
+                    $('<div/>',{class:'numberPickerControls w100p mT20 ma'}).append(
                         $('<div/>',{class:'numberPickerArrow ico-left',id:'avgDeliveryTimeD'}),
                         $('<div/>',{class:'numberPickerValue fs09 w200'}).append(
                             $('<span/>',{class:'mX2',id:'avgDeliveryTime',deliveryTime:''}),
@@ -89,7 +89,7 @@ drawPage_home_delivery_settings = function(){
                         ),
                         $('<div/>',{class:'fs09 cashOnDeliveryCheck ico-check0'})
                     ),
-                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p brdrT0 mT10 cardOnDelivery'}).append(
+                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p cardOnDelivery'}).append(
                         $('<div/>',{class:'row alnC jstfyC mie-100'}).append(
                             $('<div/>',{class:'ico-card fs1 mie-5'}),
                             $('<div/>',{class:'fs09',text:texts.settings.cardOnDelivery})

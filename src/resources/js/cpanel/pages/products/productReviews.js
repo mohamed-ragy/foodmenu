@@ -32,7 +32,7 @@ setFindReviewFilters = function(clearReviews=true){
         $('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts');
     }else{
         try{
-            $('#productReviews-selectProduct').val(window.findReviewFilters.product).attr('key',products.find(item=> item.name == window.findReviewFilters.product).id);
+            $('#productReviews-selectProduct').val(window.findReviewFilters.product).attr('key',website.products.find(item=> item.name == window.findReviewFilters.product).id);
         }catch{
             $('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts');
         }
@@ -185,7 +185,7 @@ drawProductReview = function(review){
             $('<div/>',{
                 class:'row alnC jstfyC mB5',
             }).append(
-                $('<img/>',{class:'br50p h20 w20 ofCover',src:products.find(item=> item.name == review.product_name).imgUrl_thumbnail ?? '/storage/imgs/cpanel/noimg.png'}),
+                $('<img/>',{class:'br50p h20 w20 ofCover',src:website.products.find(item=> item.name == review.product_name).imgUrl_thumbnail ?? '/storage/imgs/cpanel/noimg.png'}),
                 $('<a/>',{class:'mX5 fs102 popupPage',popupPage:'Product',product:review.product_name,text:review.product_name})
             ),
             reviewStars,
@@ -251,7 +251,7 @@ drawProductReviewPage = function(reviewId){
                         $('<div/>',{
                             class:'row alnC jstfyC mB5',
                         }).append(
-                            $('<img/>',{class:'br50p h20 w20 ofCover',src:products.find(item=> item.name == review.product_name).imgUrl_thumbnail ?? '/storage/imgs/cpanel/noimg.png'}),
+                            $('<img/>',{class:'br50p h20 w20 ofCover',src:website.products.find(item=> item.name == review.product_name).imgUrl_thumbnail ?? '/storage/imgs/cpanel/noimg.png'}),
                             $('<a/>',{class:'mX5 fs102 popupPage',popupPage:'Product',product:review.product_name,text:review.product_name})
                         ),
                         reviewStars,
@@ -276,7 +276,7 @@ $('#bodyPage').on('scroll',function(){
 
 $('#productReviews-findReviewsBtn').on('click',function(){
 
-    let byProduct = products.find(item=> item.id == $('#productReviews-selectProduct').attr('key'));
+    let byProduct = website.products.find(item=> item.id == $('#productReviews-selectProduct').attr('key'));
     if(typeof(byProduct) == 'undefined'){
         window.findReviewFilters.product = 'allproducts';
     $('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts')

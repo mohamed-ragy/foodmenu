@@ -1451,7 +1451,7 @@ statistics = class  {
             }
         }
         let returnElems;
-        let product = products.find(item=> item.name == data.id);
+        let product = website.products.find(item=> item.name == data.id);
         let productNameElem;
         let productImg;
         let orderedTxt1;
@@ -1711,7 +1711,7 @@ statistics = class  {
             this.fillProductGraph_year(productName)
         }
         //////////////
-        let product = products.find(item=> item.name == productName);
+        let product = website.products.find(item=> item.name == productName);
         let productImg;
         let number;
         let compare = ''

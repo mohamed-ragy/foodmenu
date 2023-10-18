@@ -6,13 +6,13 @@ let optionCardOnMoveInterval;
 sortOptions = function(){
     let tempOptionFromSort;
     let tempOptionToSort;
-    for(const key in products){
-        for(const key2 in products[key].product_options){
-            if(products[key].product_options[key2].id == optionCardOnMoveFrom){
-                tempOptionFromSort = products[key].product_options[key2].sort;
+    for(const key in website.products){
+        for(const key2 in website.products[key].product_options){
+            if(website.products[key].product_options[key2].id == optionCardOnMoveFrom){
+                tempOptionFromSort = website.products[key].product_options[key2].sort;
             }
-            if(products[key].product_options[key2].id == optionCardOnMoveTo){
-                tempOptionToSort = products[key].product_options[key2].sort;
+            if(website.products[key].product_options[key2].id == optionCardOnMoveTo){
+                tempOptionToSort = website.products[key].product_options[key2].sort;
             }
         }
     }
@@ -33,18 +33,18 @@ sortOptions = function(){
             $('.productOptionMoveLoading').addClass('none').css('visibility','hidden');
             $('.productOptionCardMoveIcon').removeClass('none');
             if(r.sortOptionsStatus == 1){
-                for(const key in products){
-                    for(const key2 in products[key].product_options){
-                        if(products[key].product_options[key2].id == optionCardOnMoveFrom){
-                            products[key].product_options[key2].sort = tempOptionToSort;
-                            if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                                setEditProductOptions(products[key].name)
+                for(const key in website.products){
+                    for(const key2 in website.products[key].product_options){
+                        if(website.products[key].product_options[key2].id == optionCardOnMoveFrom){
+                            website.products[key].product_options[key2].sort = tempOptionToSort;
+                            if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                                setEditProductOptions(website.products[key].name)
                             }
                         }
-                        if(products[key].product_options[key2].id == optionCardOnMoveTo){
-                            products[key].product_options[key2].sort = tempOptionFromSort;
-                            if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                                setEditProductOptions(products[key].name)
+                        if(website.products[key].product_options[key2].id == optionCardOnMoveTo){
+                            website.products[key].product_options[key2].sort = tempOptionFromSort;
+                            if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                                setEditProductOptions(website.products[key].name)
                             }
                         }
 

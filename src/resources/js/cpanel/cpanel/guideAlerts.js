@@ -96,8 +96,8 @@ class guideHintsClass {
         this.deleteGuideAlert(5)
         this.deleteGuideAlert(29)
         if(account.authorities[1] == false){return}
-        for(const key in categories){
-            let category = categories[key];
+        for(const key in website.categories){
+            let category = website.categories[key];
             //// names
             if(category.name_en == null || category.name_en == ''){
                 window.guideAlertsOBJ.push({
@@ -431,8 +431,8 @@ class guideHintsClass {
         this.deleteGuideAlert(11)
         this.deleteGuideAlert(12)
 
-        for(const key in products){
-            let product = products[key];
+        for(const key in website.products){
+            let product = website.products[key];
             //availability
             if(product.availability == 0){
                 window.guideAlertsOBJ.push({

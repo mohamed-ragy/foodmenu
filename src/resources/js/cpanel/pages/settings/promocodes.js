@@ -81,7 +81,7 @@ drawPromoCodeRow = function(promocode){
                 drawSwitchBtn('',null,null,`checkboxlabel checkboxlabel_noTxt`,`promocodeTableAvailability promocodeTableAvailability-${promocode.id}`)
             ),
             $('<td/>',{class:'tnw vaM taC'}).append(
-                    $('<button/>',{promocode:promocode.code,class:'btn_table ico-settings popupPage managePromocodeBtn',popupPage:'manage_promo_code',tooltip:texts.cpanel.public.manage}).append($('<span/>',{class:'tableRow_unsaved none'})),
+                    $('<button/>',{promocode:promocode.code,class:'btn_table ico-settings popupPage managePromocodeBtn',popupPage:'manage_promo_code',tooltip:texts.cpanel.public.manage}).append($('<span/>',{class:`editPromocodeNoSave-${promocode.id} tableRow_unsaved none`})),
                     $('<button/>',{promocode:promocode.id,class:'btn_table ico-delete promocodeDeleteBtn',tooltip:texts.cpanel.public.delete}),
                 ),
         )

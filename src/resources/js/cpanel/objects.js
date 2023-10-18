@@ -98,8 +98,6 @@ if(account.is_master){
 
 window.window.imgs = website.imgs;
 window.window.imgBrowser = {opened:false,title:'',imgBrowserClass:''}
-window.categories = website.categories;
-window.products = website.products;
 window.help_tips = website.help_tips;
 window.lastActivites = website.activity_logs ?? [];
 
@@ -114,27 +112,37 @@ website.introImgUrl = `/storage/imgs/templates/${website.template}/intro.webp`
 website.infoImgUrl = `/storage/imgs/templates/${website.template}/info.webp`
 website.ourStoryImgUrl = `/storage/imgs/templates/${website.template}/ourStory.webp`
 
-for(const key in products){
-    products[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
-    products[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+for(const key in website.products){
+    website.products[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
+    website.products[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+    website_temp.products[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
+    website_temp.products[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
 }
-for(const key in categories){
-    categories[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
-    categories[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+for(const key in website.categories){
+    website.categories[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
+    website.categories[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+    website_temp.categories[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
+    website_temp.categories[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
 }
 Object.keys(imgs).some(function(k) {
-    Object.keys(products).some(function(key) {
-        if(imgs[k].id == products[key].img_id){
-            products[key].imgs = imgs[k];
-            products[key].imgUrl = '/storage/'+imgs[k].url;
-            products[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+    Object.keys(website.products).some(function(key) {
+        if(imgs[k].id == website.products[key].img_id){
+            website.products[key].imgs = imgs[k];
+            website.products[key].imgUrl = '/storage/'+imgs[k].url;
+            website.products[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+            website_temp.products[key].imgs = imgs[k];
+            website_temp.products[key].imgUrl = '/storage/'+imgs[k].url;
+            website_temp.products[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
         }
     });
-    Object.keys(categories).some(function(key) {
-        if(imgs[k].id == categories[key].img_id){
-            categories[key].imgs = imgs[k];
-            categories[key].imgUrl = '/storage/'+imgs[k].url;
-            categories[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+    Object.keys(website.categories).some(function(key) {
+        if(imgs[k].id == website.categories[key].img_id){
+            website.categories[key].imgs = imgs[k];
+            website.categories[key].imgUrl = '/storage/'+imgs[k].url;
+            website.categories[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+            website_temp.categories[key].imgs = imgs[k];
+            website_temp.categories[key].imgUrl = '/storage/'+imgs[k].url;
+            website_temp.categories[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
         }
     });
     if(imgs[k].id == website.icon){

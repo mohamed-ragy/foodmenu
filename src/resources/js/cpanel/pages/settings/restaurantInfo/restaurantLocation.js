@@ -64,7 +64,7 @@ drawRestaurantLocationMap = function(){
             tooltipTemp:texts.settings.unsetLocation,
             autoHelp:'',
         }).append(
-            $('<div/>',{class:'btnTxt ico-no mA'}),
+            $('<div/>',{class:'btnTxt ico-no ma'}),
             $('<div/>',{class:'btnLoading',})
         )
     )

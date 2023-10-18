@@ -19,13 +19,13 @@ $('#editOption-closeArea').on('click',function(){
     $('#editOption-container').addClass('none')
 })
 setManageSelections = function(productId,optionId){
-    let option = products.find(item=> item.id == productId).product_options.find(item=> item.id == optionId);
+    let option = website.products.find(item=> item.id == productId).product_options.find(item=> item.id == optionId);
     if(typeof(option) === 'undefined'){return;}
-    for(const key in products){
-        if(products[key].id == productId){
-            for(const key2 in products[key].product_options){
-                if(products[key].product_options[key2].id == optionId){
-                    products[key].product_options[key2].product_option_selections.sort((a,b)=>{
+    for(const key in website.products){
+        if(website.products[key].id == productId){
+            for(const key2 in website.products[key].product_options){
+                if(website.products[key].product_options[key2].id == optionId){
+                    website.products[key].product_options[key2].product_option_selections.sort((a,b)=>{
                         return parseInt(a.sort - b.sort);
                     })
                 }

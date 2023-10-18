@@ -147,11 +147,11 @@ updateToolTip = function(){
 shareReminder = function(){
     let shareIteml;let shareType;
     if(Math.floor(Math.random() * (2 - 1 + 1)) + 1 == 1){
-        shareItem = products[Math.floor(Math.random()*products.length)];
+        shareItem = website.products[Math.floor(Math.random()*website.products.length)];
         shareType = 'product';
         share(shareType,shareItem);
     }else{
-        shareItem = categories[Math.floor(Math.random()*categories.length)]
+        shareItem = website.categories[Math.floor(Math.random()*website.categories.length)]
         shareType = 'category';
         share(shareType,shareItem);
     }

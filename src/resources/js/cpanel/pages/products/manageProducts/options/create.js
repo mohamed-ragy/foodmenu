@@ -1,5 +1,5 @@
 $('#editProductOptions-createNewOption').on('click',function(){
-    let product = products.find(item=> item.id == $(this).attr('productId'));
+    let product = website.products.find(item=> item.id == $(this).attr('productId'));
     if(typeof(product) === 'undefined'){
         return;
     }
@@ -22,7 +22,7 @@ $('#editProductOptions-createNewOption').on('click',function(){
     })
 })
 $('#createNewProductOption-createbtn').on('click',function(){
-    let product = products.find(item=> item.id == $(this).attr('productId'));
+    let product = website.products.find(item=> item.id == $(this).attr('productId'));
     if(typeof(product) === 'undefined'){
         return;
     }
@@ -85,12 +85,12 @@ $('#createNewProductOption-createbtn').on('click',function(){
         },success:function(r){
             hideBtnLoading($('#createNewProductOption-createbtn'));
             if(r.createProductOptionStatus == 1){
-                for(const key in products){
-                    if(products[key].id == r.option.product_id){
-                        products[key].product_options.push(r.option);
-                        window.guideHints.products(products);
-                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                        setEditProductOptions(products[key].name)
+                for(const key in website.products){
+                    if(website.products[key].id == r.option.product_id){
+                        website.products[key].product_options.push(r.option);
+                        window.guideHints.products(website.products);
+                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                        setEditProductOptions(website.products[key].name)
                         $('.productOptionCardContainer[optionId="'+r.option.id+'"]').find('.productOptionCardIconManage').trigger('click');
                         closePopup();
                     }

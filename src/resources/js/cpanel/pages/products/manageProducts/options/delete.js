@@ -1,6 +1,6 @@
 $('html,body').on('click','.productOptionCardIconDelete',function(e){
     e.stopImmediatePropagation();
-    let product = products.find(item=> item.id == $(this).closest('.productOptionCardContainer').attr('productId'));
+    let product = website.products.find(item=> item.id == $(this).closest('.productOptionCardContainer').attr('productId'));
     let option = product.product_options.find(item=> item.id == $(this).closest('.productOptionCardContainer').attr('optionId'));
     $('#delete-popup').find('.popupBody').text('').append(
         $('<div/>',{}).append(
@@ -23,8 +23,8 @@ $('html,body').on('click','#deleteOption-confirmBtn',function(){
     showBtnLoading($('#deleteOption-confirmBtn'))
     let option_id = $(this).attr('optionId');
     let product_id = $(this).attr('productId');
-    let product_name = products.find(item=> item.id == product_id).name;
-    let option_name = products.find(item=> item.id == product_id).product_options.find(item=> item.id == option_id).name;
+    let product_name = website.products.find(item=> item.id == product_id).name;
+    let option_name = website.products.find(item=> item.id == product_id).product_options.find(item=> item.id == option_id).name;
     $.ajax({
         url:'products',
         type:'put',
@@ -38,14 +38,14 @@ $('html,body').on('click','#deleteOption-confirmBtn',function(){
         },success:function(r){
             hideBtnLoading($('#deleteOption-confirmBtn'))
             if(r.deleteProductOptionStatus == 1){
-                for(const key in products){
-                    if(products[key].id == product_id){
-                        for(const key2 in products[key].product_options){
-                            if(products[key].product_options[key2].id == option_id){
-                                products[key].product_options.splice(key2,1);
-                                window.guideHints.products(products);
-                                if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                                    setEditProductOptions(products[key].name)
+                for(const key in website.products){
+                    if(website.products[key].id == product_id){
+                        for(const key2 in website.products[key].product_options){
+                            if(website.products[key].product_options[key2].id == option_id){
+                                website.products[key].product_options.splice(key2,1);
+                                window.guideHints.products(website.products);
+                                if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                                    setEditProductOptions(website.products[key].name)
                                     closePopup();
                                 }
                             }

@@ -369,7 +369,7 @@ handelCpanelChannel = function(n,code){
                 window.chatMsgs[`${n.type}-${n.id}`].find(item=>item._id == n.msgId).deleted_by = n.deleted_by;
                 window.chatMsgs[`${n.type}-${n.id}`].find(item=>item._id == n.msgId).message = '--';
             }
-            if(n.type == 'user'){ 
+            if(n.type == 'user'){
                 if(typeof(website.users.find(item=>item.id == n.id)) !== 'undefined'){
                     if(website.users.find(item=>item.id == n.id).lastMsg_id == n.msgId){
                         website.users.find(item=>item.id == n.id).last_msg.is_deleted = true;
@@ -378,12 +378,12 @@ handelCpanelChannel = function(n,code){
                         website.users.find(item=>item.id == n.id).last_msg.message = '--';
                     }
                 }
-                
+
                 if($('#showUsersChatBoxes').hasClass('usersGuestsChat_selected')){
                     drawUsersChatBoxes();
                 }
             }
-            if(n.type == 'guest'){ 
+            if(n.type == 'guest'){
                 if(website.guests.find(item=>item.id == n.id).lastMsg_id == n.msgId){
                     website.guests.find(item=>item.id == n.id).last_msg.deleted_at = n.now;
                     website.guests.find(item=>item.id == n.id).last_msg.is_deleted = true;
@@ -848,7 +848,87 @@ handelCpanelChannel = function(n,code){
         case 'user.activity':
             chandelUserActivity(n)
             break;
-    
+        //categories
+        case 'category.sort':
+            website.categories.find(item=> item.id == n.fromId).sort = n.fromSort;
+            website.categories.find(item=> item.id == n.toId).sort = n.toSort;
+            website.categories.sort((a,b)=>{
+                return parseInt(a.sort) - parseInt(b.sort)
+            })
+            website_temp.categories.find(item=> item.id == n.fromId).sort = n.fromSort;
+            website_temp.categories.find(item=> item.id == n.toId).sort = n.toSort;
+            website_temp.categories.sort((a,b)=>{
+                return parseInt(a.sort) - parseInt(b.sort)
+            })
+            drawCategoryList();
+            break;
+        case 'category.create':
+            n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
+            n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+            Object.keys(imgs).some(function(k) {
+                if(imgs[k].id == n.category.img_id){
+                    n.category.imgs = imgs[k];
+                    n.category.imgUrl = '/storage/'+imgs[k].url;
+                    n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+                }
+            });
+            website.categories.push(JSON.parse(JSON.stringify(n.category)))
+            website_temp.categories.push(JSON.parse(JSON.stringify(n.category)))
+            drawCategoryList();
+            window.guideHints.categories(website.categories);
+            break;
+        case 'category.delete':
+            for(const key in website.categories){
+                category = website.categories[key];
+                if(n.category_id == category.id){
+                    website.categories.splice(key,1)
+                }
+            }
+            for(const key in website_temp.categories){
+                category = website_temp.categories[key];
+                if(n.category_id == category.id){
+                    website_temp.categories.splice(key,1)
+                }
+            }
+            for(const key in website.products){
+                if(website.products[key].category_id == n.category_id){
+                    website.products[key].category_id = null;
+                }
+            }
+            for(const key in website_temp.products){
+                if(website_temp.products[key].category_id == n.category_id){
+                    website_temp.products[key].category_id = null;
+                }
+            }
+            drawCategoryList();
+            window.guideHints.categories(website.categories);
+            break;
+        case 'category.update':
+            n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
+            n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+            Object.keys(imgs).some(function(k) {
+                if(imgs[k].id == n.category.img_id){
+                    n.category.imgs = imgs[k];
+                    n.category.imgUrl = '/storage/'+imgs[k].url;
+                    n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+                }
+            });
+            for(const key in website.categories){
+                if(website.categories[key].id == n.category.id){
+                    website.categories[key] = JSON.parse(JSON.stringify(n.category));
+                }
+            }
+            for(const key in website_temp.categories){
+                if(website_temp.categories[key].id == n.category.id){
+                    website_temp.categories[key] = JSON.parse(JSON.stringify(n.category));
+                }
+            }
+            drawCategoryList();
+            if(window.history.state.popupPage == 'edit_category' && window.history.state.category == n.category.name){
+                drawPopupPage_edit_category(n.category.name)
+            }
+            window.guideHints.categories(website.categories);
+            break;
     }
 
 
@@ -1226,40 +1306,6 @@ let n =[];
                 new orders(website.incompleteOrders[key].id).redrawChatOrder();
             }
         }
-    }else if(n.code == 14.1 && account.authorities[1] == 1){
-        n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
-        n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == n.category.img_id){
-                n.category.imgs = imgs[k];
-                n.category.imgUrl = '/storage/'+imgs[k].url;
-                n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-            }
-        });
-        categories.push(n.category)
-        drawCategoryList();
-        window.guideHints.categories(categories);
-    }else if(n.code == 14.2 && account.authorities[1] == 1){
-        categories.find(item=> item.id == n.fromId).sort = n.fromSort;
-        categories.find(item=> item.id == n.toId).sort = n.toSort;
-        categories.sort((a,b)=>{
-            return parseInt(a.sort) - parseInt(b.sort)
-        })
-        drawCategoryList();
-    }else if(n.code == 14.3 && account.authorities[1] == 1){
-        for(const key in categories){
-            category = categories[key];
-            if(n.category_id == category.id){
-                categories.splice(key,1)
-            }
-        }
-        for(const key in products){
-            if(products[key].category_id == n.category_id){
-                products[key].category_id = null;
-            }
-        }
-        drawCategoryList();
-        window.guideHints.categories(categories);
     }else if(n.code == 14.4 && account.authorities[1] == 1){
         n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
         n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
@@ -1270,20 +1316,20 @@ let n =[];
                 n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
             }
         });
-        for(const key in categories){
-            if(categories[key].id == n.category.id){
-                categories[key] = n.category;
+        for(const key in website.categories){
+            if(website.categories[key].id == n.category.id){
+                website.categories[key] = n.category;
 
             }
         }
         drawCategoryList();
         $("#editCategory-editCategoryCancelBtn").trigger('click');
-        window.guideHints.categories(categories);
+        window.guideHints.categories(website.categories);
     }else if(n.code == 15 && account.authorities[1] == 1){
         $('.productReviewContainer[reviewId="'+n.reviewId+'"').remove();
     }else if(n.code == 16 && account.authorities[1] == 1){
-        products.find(item=> item.id == n.fromId).sort = n.fromSort;
-        products.find(item=> item.id == n.toId).sort = n.toSort;
+        website.products.find(item=> item.id == n.fromId).sort = n.fromSort;
+        website.products.find(item=> item.id == n.toId).sort = n.toSort;
         if(window.history.state.page == 'manage_products' && window.history.state.category != null){
             drawManageProductCards(window.history.state.category)
         }
@@ -1297,9 +1343,9 @@ let n =[];
                 n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
             }
         });
-        for(const key in products){
-            if(products[key].id == n.product.id){
-                products[key] = n.product;
+        for(const key in website.products){
+            if(website.products[key].id == n.product.id){
+                website.products[key] = n.product;
             }
         }
         if(window.history.state.page == 'manage_products'){
@@ -1307,7 +1353,7 @@ let n =[];
                 drawManageProductCards(window.history.state.category)
             }
         }
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
         drawTodayHomeProducts();
     }else if(n.code == 18.1 && account.authorities[1] == 1){
         n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
@@ -1319,18 +1365,18 @@ let n =[];
                 n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
             }
         });
-        products.push(n.product);
+        website.products.push(n.product);
         if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
             drawManageProductCards(window.history.state.category);
         }
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
         drawProductsInputLists();
         drawTodayHomeProducts();
     }else if(n.code == 18.2 && account.authorities[1] == 1){
-        for(const key in products){
-            product = products[key];
+        for(const key in website.products){
+            product = website.products[key];
             if(product.id == n.productId){
-                products.splice(key,1);
+                website.products.splice(key,1);
             }
         }
         if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
@@ -1338,7 +1384,7 @@ let n =[];
         }
         drawProductsInputLists();
         drawTodayHomeProducts();
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
     }else if(n.code == 21 && account.authorities[3] == 1){
         imgs = n.imgs;
         drawImgs();
@@ -1397,34 +1443,34 @@ let n =[];
         }
         $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
     }else if(n.code == 24 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.productId){
-                products[key].availability = n.productAvailability
+        for(const key in website.products){
+            if(website.products[key].id == n.productId){
+                website.products[key].availability = n.productAvailability
             }
         }
         if(window.history.state.page == 'manage_products' && window.history.state.category != null){
             drawManageProductCards(window.history.state.category)
         }
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
     }else if(n.code == 25 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.option.product_id){
-                products[key].product_options.push(n.option);
-                window.guideHints.products(products);
-                if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                    setEditProductOptions(products[key].name)
+        for(const key in website.products){
+            if(website.products[key].id == n.option.product_id){
+                website.products[key].product_options.push(n.option);
+                window.guideHints.products(website.products);
+                if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                    setEditProductOptions(website.products[key].name)
                 }
             }
         }
     }else if(n.code == 26 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.product_id){
-                for(const key2 in products[key].product_options){
-                    if(products[key].product_options[key2].id == n.option_id){
-                        products[key].product_options.splice(key2,1);
-                        window.guideHints.products(products);
-                        if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                            setEditProductOptions(products[key].name)
+        for(const key in website.products){
+            if(website.products[key].id == n.product_id){
+                for(const key2 in website.products[key].product_options){
+                    if(website.products[key].product_options[key2].id == n.option_id){
+                        website.products[key].product_options.splice(key2,1);
+                        window.guideHints.products(website.products);
+                        if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                            setEditProductOptions(website.products[key].name)
                             closePopup();
                         }
                     }
@@ -1432,40 +1478,40 @@ let n =[];
             }
         }
     }else if(n.code == 27 && account.authorities[1] == 1){
-        for(const key in products){
-            for(const key2 in products[key].product_options){
-                if(products[key].product_options[key2].id == n.fromId){
-                    products[key].product_options[key2].sort = n.fromSort;
-                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                        setEditProductOptions(products[key].name)
+        for(const key in website.products){
+            for(const key2 in website.products[key].product_options){
+                if(website.products[key].product_options[key2].id == n.fromId){
+                    website.products[key].product_options[key2].sort = n.fromSort;
+                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                        setEditProductOptions(website.products[key].name)
                     }
                 }
-                if(products[key].product_options[key2].id == n.toId){
-                    products[key].product_options[key2].sort = n.toSort;
-                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-                        setEditProductOptions(products[key].name)
+                if(website.products[key].product_options[key2].id == n.toId){
+                    website.products[key].product_options[key2].sort = n.toSort;
+                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+                        setEditProductOptions(website.products[key].name)
                     }
                 }
             }
         }
 
     }else if(n.code == 28 && account.authorities[1] == 1){
-        for(const key in products){
-            for(const key2 in products[key].product_options){
-                if(products[key].product_options[key2].id == n.option_id){
-                    products[key].product_options[key2].name_en = n.name_en;
-                    products[key].product_options[key2].name_fr = n.name_fr;
-                    products[key].product_options[key2].name_de = n.name_de;
-                    products[key].product_options[key2].name_it = n.name_it;
-                    products[key].product_options[key2].name_es = n.name_es;
-                    products[key].product_options[key2].name_ar = n.name_ar;
-                    products[key].product_options[key2].name_ru = n.name_ru;
-                    products[key].product_options[key2].name_ua = n.name_ua;
-                    products[key].product_options[key2].name_eg = n.name_eg;
+        for(const key in website.products){
+            for(const key2 in website.products[key].product_options){
+                if(website.products[key].product_options[key2].id == n.option_id){
+                    website.products[key].product_options[key2].name_en = n.name_en;
+                    website.products[key].product_options[key2].name_fr = n.name_fr;
+                    website.products[key].product_options[key2].name_de = n.name_de;
+                    website.products[key].product_options[key2].name_it = n.name_it;
+                    website.products[key].product_options[key2].name_es = n.name_es;
+                    website.products[key].product_options[key2].name_ar = n.name_ar;
+                    website.products[key].product_options[key2].name_ru = n.name_ru;
+                    website.products[key].product_options[key2].name_ua = n.name_ua;
+                    website.products[key].product_options[key2].name_eg = n.name_eg;
                 }
             }
         }
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
         if(!$('#editProductOption-popup').hasClass('none') && $('#editProductOption-optionName').val() == n.option_name){
             $('#editProductOption-enName').val(n.name_en);
             $('#editProductOption-frName').val(n.name_fr);
@@ -1500,32 +1546,32 @@ let n =[];
         }
 
     }else if(n.code == 31 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.product_id){
-                for(const key2 in products[key].product_options){
-                    if(products[key].product_options[key2].id == n.selection.product_option_id){
-                        products[key].product_options[key2].product_option_selections.push(n.selection);
-                        if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-                            setManageSelections(products[key].id,products[key].product_options[key2].id);
+        for(const key in website.products){
+            if(website.products[key].id == n.product_id){
+                for(const key2 in website.products[key].product_options){
+                    if(website.products[key].product_options[key2].id == n.selection.product_option_id){
+                        website.products[key].product_options[key2].product_option_selections.push(n.selection);
+                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+                            setManageSelections(website.products[key].id,website.products[key].product_options[key2].id);
                         }
                     }
                 }
             }
         }
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
     }else if(n.code == 32 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.product_id){
-                for(const key2 in products[key].product_options){
-                    if(products[key].product_options[key2].id == n.option_id){
-                        for(const key3 in products[key].product_options[key2].product_option_selections){
-                            if(products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
-                                products[key].product_options[key2].product_option_selections[key3].isDefault = n.isDefault;
+        for(const key in website.products){
+            if(website.products[key].id == n.product_id){
+                for(const key2 in website.products[key].product_options){
+                    if(website.products[key].product_options[key2].id == n.option_id){
+                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                            if(website.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
+                                website.products[key].product_options[key2].product_option_selections[key3].isDefault = n.isDefault;
                             }else{
-                                products[key].product_options[key2].product_option_selections[key3].isDefault = false;
+                                website.products[key].product_options[key2].product_option_selections[key3].isDefault = false;
                             }
-                            if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-                                setManageSelections(products[key].id,products[key].product_options[key2].id);
+                            if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+                                setManageSelections(website.products[key].id,website.products[key].product_options[key2].id);
                             }
                         }
                     }
@@ -1533,18 +1579,18 @@ let n =[];
             }
         }
     }else if(n.code == 33 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.product_id){
-                for(const key2 in products[key].product_options){
-                    if(products[key].product_options[key2].id == n.option_id){
-                        for(const key3 in products[key].product_options[key2].product_option_selections){
-                            if(products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
-                                products[key].product_options[key2].product_option_selections.splice(key3,1);
-                                if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
+        for(const key in website.products){
+            if(website.products[key].id == n.product_id){
+                for(const key2 in website.products[key].product_options){
+                    if(website.products[key].product_options[key2].id == n.option_id){
+                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                            if(website.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
+                                website.products[key].product_options[key2].product_option_selections.splice(key3,1);
+                                if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
                                     setManageSelections(n.product_id,n.option_id);
                                 }
 
-                                window.guideHints.products(products);
+                                window.guideHints.products(website.products);
                             }
                         }
                     }
@@ -1552,48 +1598,48 @@ let n =[];
             }
         }
     }else if(n.code == 34 && account.authorities[1] == 1){
-        for(const key in products){
-            for(const key2 in products[key].product_options){
-                for(const key3 in products[key].product_options[key2].product_option_selections){
-                    if(products[key].product_options[key2].product_option_selections[key3].id == n.fromId){
-                        products[key].product_options[key2].product_option_selections[key3].sort = n.fromSort;
-                        if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-                            setManageSelections(products[key].id,products[key].product_options[key2].id)
+        for(const key in website.products){
+            for(const key2 in website.products[key].product_options){
+                for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                    if(website.products[key].product_options[key2].product_option_selections[key3].id == n.fromId){
+                        website.products[key].product_options[key2].product_option_selections[key3].sort = n.fromSort;
+                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+                            setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
                         }
                     }
-                    if(products[key].product_options[key2].product_option_selections[key3].id == n.toId){
-                        products[key].product_options[key2].product_option_selections[key3].sort = n.toSort;
-                        if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-                            setManageSelections(products[key].id,products[key].product_options[key2].id)
+                    if(website.products[key].product_options[key2].product_option_selections[key3].id == n.toId){
+                        website.products[key].product_options[key2].product_option_selections[key3].sort = n.toSort;
+                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+                            setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
                         }
                     }
                 }
             }
         }
     }else if(n.code == 35 && account.authorities[1] == 1){
-        for(const key in products){
-            if(products[key].id == n.product_id){
-                for(const key2 in products[key].product_options){
-                    if(products[key].product_options[key2].id == n.option_id){
-                        for(const key3 in products[key].product_options[key2].product_option_selections){
-                            if(products[key].product_options[key2].product_option_selections[key3].name == n.selection_name){
-                                products[key].product_options[key2].product_option_selections[key3].price = n.price;
-                                products[key].product_options[key2].product_option_selections[key3].name_en = n.name_en;
-                                products[key].product_options[key2].product_option_selections[key3].name_fr = n.name_fr;
-                                products[key].product_options[key2].product_option_selections[key3].name_de = n.name_de;
-                                products[key].product_options[key2].product_option_selections[key3].name_it = n.name_it;
-                                products[key].product_options[key2].product_option_selections[key3].name_es = n.name_es;
-                                products[key].product_options[key2].product_option_selections[key3].name_ar = n.name_ar;
-                                products[key].product_options[key2].product_option_selections[key3].name_ru = n.name_ru;
-                                products[key].product_options[key2].product_option_selections[key3].name_ua = n.name_ua;
-                                products[key].product_options[key2].product_option_selections[key3].name_eg = n.name_eg;
+        for(const key in website.products){
+            if(website.products[key].id == n.product_id){
+                for(const key2 in website.products[key].product_options){
+                    if(website.products[key].product_options[key2].id == n.option_id){
+                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                            if(website.products[key].product_options[key2].product_option_selections[key3].name == n.selection_name){
+                                website.products[key].product_options[key2].product_option_selections[key3].price = n.price;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_en = n.name_en;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_fr = n.name_fr;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_de = n.name_de;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_it = n.name_it;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_es = n.name_es;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_ar = n.name_ar;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_ru = n.name_ru;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_ua = n.name_ua;
+                                website.products[key].product_options[key2].product_option_selections[key3].name_eg = n.name_eg;
                             }
                         }
                     }
                 }
             }
         }
-        window.guideHints.products(products);
+        window.guideHints.products(website.products);
         if(!$('#editSection-popup').hasClass('none') && $('#editSection-selectionName').val() == n.selection_name){
             closePopup();
         }
@@ -2181,30 +2227,30 @@ let n =[];
     //             response.notification.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
     //         }
     //     });
-    //     categories.push(response.notification.category)
+    //     website.categories.push(response.notification.category)
     //     drawCategoryList();
-    //     window.guideHints.categories(categories);
+    //     window.guideHints.categories(website.categories);
     // }else if(response.notification.code == 14.2 && account.authorities[1] == 1){
-    //     categories.find(item=> item.id == response.notification.fromId).sort = response.notification.fromSort;
-    //     categories.find(item=> item.id == response.notification.toId).sort = response.notification.toSort;
-    //     categories.sort((a,b)=>{
+    //     website.categories.find(item=> item.id == response.notification.fromId).sort = response.notification.fromSort;
+    //     website.categories.find(item=> item.id == response.notification.toId).sort = response.notification.toSort;
+    //     website.categories.sort((a,b)=>{
     //         return parseInt(a.sort) - parseInt(b.sort)
     //     })
     //     drawCategoryList();
     // }else if(response.notification.code == 14.3 && account.authorities[1] == 1){
-    //     for(const key in categories){
-    //         category = categories[key];
+    //     for(const key in website.categories){
+    //         category = website.categories[key];
     //         if(response.notification.category_id == category.id){
-    //             categories.splice(key,1)
+    //             website.categories.splice(key,1)
     //         }
     //     }
-    //     for(const key in products){
-    //         if(products[key].category_id == response.notification.category_id){
-    //             products[key].category_id = null;
+    //     for(const key in website.products){
+    //         if(website.products[key].category_id == response.notification.category_id){
+    //             website.products[key].category_id = null;
     //         }
     //     }
     //     drawCategoryList();
-    //     window.guideHints.categories(categories);
+    //     window.guideHints.categories(website.categories);
     // }else if(response.notification.code == 14.4 && account.authorities[1] == 1){
     //     response.notification.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
     //     response.notification.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
@@ -2215,20 +2261,20 @@ let n =[];
     //             response.notification.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
     //         }
     //     });
-    //     for(const key in categories){
-    //         if(categories[key].id == response.notification.category.id){
-    //             categories[key] = response.notification.category;
+    //     for(const key in website.categories){
+    //         if(website.categories[key].id == response.notification.category.id){
+    //             website.categories[key] = response.notification.category;
 
     //         }
     //     }
     //     drawCategoryList();
     //     $("#editCategory-editCategoryCancelBtn").trigger('click');
-    //     window.guideHints.categories(categories);
+    //     window.guideHints.categories(website.categories);
     // }else if(response.notification.code == 15 && account.authorities[1] == 1){
     //     $('.productReviewContainer[reviewId="'+response.notification.reviewId+'"').remove();
     // }else if(response.notification.code == 16 && account.authorities[1] == 1){
-    //     products.find(item=> item.id == response.notification.fromId).sort = response.notification.fromSort;
-    //     products.find(item=> item.id == response.notification.toId).sort = response.notification.toSort;
+    //     website.products.find(item=> item.id == response.notification.fromId).sort = response.notification.fromSort;
+    //     website.products.find(item=> item.id == response.notification.toId).sort = response.notification.toSort;
     //     if(window.history.state.page == 'manage_products' && window.history.state.category != null){
     //         drawManageProductCards(window.history.state.category)
     //     }
@@ -2242,9 +2288,9 @@ let n =[];
     //             response.notification.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
     //         }
     //     });
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.product.id){
-    //             products[key] = response.notification.product;
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.product.id){
+    //             website.products[key] = response.notification.product;
     //         }
     //     }
     //     if(window.history.state.page == 'manage_products'){
@@ -2252,7 +2298,7 @@ let n =[];
     //             drawManageProductCards(window.history.state.category)
     //         }
     //     }
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     //     drawTodayHomeProducts();
     // }else if(response.notification.code == 18.1 && account.authorities[1] == 1){
     //     response.notification.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
@@ -2264,18 +2310,18 @@ let n =[];
     //             response.notification.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
     //         }
     //     });
-    //     products.push(response.notification.product);
+    //     website.products.push(response.notification.product);
     //     if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
     //         drawManageProductCards(window.history.state.category);
     //     }
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     //     drawProductsInputLists();
     //     drawTodayHomeProducts();
     // }else if(response.notification.code == 18.2 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         product = products[key];
+    //     for(const key in website.products){
+    //         product = website.products[key];
     //         if(product.id == response.notification.productId){
-    //             products.splice(key,1);
+    //             website.products.splice(key,1);
     //         }
     //     }
     //     if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
@@ -2283,7 +2329,7 @@ let n =[];
     //     }
     //     drawProductsInputLists();
     //     drawTodayHomeProducts();
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     // }else if(response.notification.code == 19 && account.authorities[2] == 1){
     //     deliveryAccounts.push(response.notification.deliveryAccount)
     //     drawDeliveryAccounts();
@@ -2387,34 +2433,34 @@ let n =[];
     //     }
     //     $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
     // }else if(response.notification.code == 24 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.productId){
-    //             products[key].availability = response.notification.productAvailability
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.productId){
+    //             website.products[key].availability = response.notification.productAvailability
     //         }
     //     }
     //     if(window.history.state.page == 'manage_products' && window.history.state.category != null){
     //         drawManageProductCards(window.history.state.category)
     //     }
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     // }else if(response.notification.code == 25 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.option.product_id){
-    //             products[key].product_options.push(response.notification.option);
-    //             window.guideHints.products(products);
-    //             if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-    //                 setEditProductOptions(products[key].name)
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.option.product_id){
+    //             website.products[key].product_options.push(response.notification.option);
+    //             window.guideHints.products(website.products);
+    //             if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+    //                 setEditProductOptions(website.products[key].name)
     //             }
     //         }
     //     }
     // }else if(response.notification.code == 26 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.product_id){
-    //             for(const key2 in products[key].product_options){
-    //                 if(products[key].product_options[key2].id == response.notification.option_id){
-    //                     products[key].product_options.splice(key2,1);
-    //                     window.guideHints.products(products);
-    //                     if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-    //                         setEditProductOptions(products[key].name)
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.product_id){
+    //             for(const key2 in website.products[key].product_options){
+    //                 if(website.products[key].product_options[key2].id == response.notification.option_id){
+    //                     website.products[key].product_options.splice(key2,1);
+    //                     window.guideHints.products(website.products);
+    //                     if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+    //                         setEditProductOptions(website.products[key].name)
     //                         closePopup();
     //                     }
     //                 }
@@ -2422,40 +2468,40 @@ let n =[];
     //         }
     //     }
     // }else if(response.notification.code == 27 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         for(const key2 in products[key].product_options){
-    //             if(products[key].product_options[key2].id == response.notification.fromId){
-    //                 products[key].product_options[key2].sort = response.notification.fromSort;
-    //                 if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-    //                     setEditProductOptions(products[key].name)
+    //     for(const key in website.products){
+    //         for(const key2 in website.products[key].product_options){
+    //             if(website.products[key].product_options[key2].id == response.notification.fromId){
+    //                 website.products[key].product_options[key2].sort = response.notification.fromSort;
+    //                 if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+    //                     setEditProductOptions(website.products[key].name)
     //                 }
     //             }
-    //             if(products[key].product_options[key2].id == response.notification.toId){
-    //                 products[key].product_options[key2].sort = response.notification.toSort;
-    //                 if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == products[key].name){
-    //                     setEditProductOptions(products[key].name)
+    //             if(website.products[key].product_options[key2].id == response.notification.toId){
+    //                 website.products[key].product_options[key2].sort = response.notification.toSort;
+    //                 if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
+    //                     setEditProductOptions(website.products[key].name)
     //                 }
     //             }
     //         }
     //     }
 
     // }else if(response.notification.code == 28 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         for(const key2 in products[key].product_options){
-    //             if(products[key].product_options[key2].id == response.notification.option_id){
-    //                 products[key].product_options[key2].name_en = response.notification.name_en;
-    //                 products[key].product_options[key2].name_fr = response.notification.name_fr;
-    //                 products[key].product_options[key2].name_de = response.notification.name_de;
-    //                 products[key].product_options[key2].name_it = response.notification.name_it;
-    //                 products[key].product_options[key2].name_es = response.notification.name_es;
-    //                 products[key].product_options[key2].name_ar = response.notification.name_ar;
-    //                 products[key].product_options[key2].name_ru = response.notification.name_ru;
-    //                 products[key].product_options[key2].name_ua = response.notification.name_ua;
-    //                 products[key].product_options[key2].name_eg = response.notification.name_eg;
+    //     for(const key in website.products){
+    //         for(const key2 in website.products[key].product_options){
+    //             if(website.products[key].product_options[key2].id == response.notification.option_id){
+    //                 website.products[key].product_options[key2].name_en = response.notification.name_en;
+    //                 website.products[key].product_options[key2].name_fr = response.notification.name_fr;
+    //                 website.products[key].product_options[key2].name_de = response.notification.name_de;
+    //                 website.products[key].product_options[key2].name_it = response.notification.name_it;
+    //                 website.products[key].product_options[key2].name_es = response.notification.name_es;
+    //                 website.products[key].product_options[key2].name_ar = response.notification.name_ar;
+    //                 website.products[key].product_options[key2].name_ru = response.notification.name_ru;
+    //                 website.products[key].product_options[key2].name_ua = response.notification.name_ua;
+    //                 website.products[key].product_options[key2].name_eg = response.notification.name_eg;
     //             }
     //         }
     //     }
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     //     if(!$('#editProductOption-popup').hasClass('none') && $('#editProductOption-optionName').val() == response.notification.option_name){
     //         $('#editProductOption-enName').val(response.notification.name_en);
     //         $('#editProductOption-frName').val(response.notification.name_fr);
@@ -2490,32 +2536,32 @@ let n =[];
     //     }
 
     // }else if(response.notification.code == 31 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.product_id){
-    //             for(const key2 in products[key].product_options){
-    //                 if(products[key].product_options[key2].id == response.notification.selection.product_option_id){
-    //                     products[key].product_options[key2].product_option_selections.push(response.notification.selection);
-    //                     if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-    //                         setManageSelections(products[key].id,products[key].product_options[key2].id);
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.product_id){
+    //             for(const key2 in website.products[key].product_options){
+    //                 if(website.products[key].product_options[key2].id == response.notification.selection.product_option_id){
+    //                     website.products[key].product_options[key2].product_option_selections.push(response.notification.selection);
+    //                     if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+    //                         setManageSelections(website.products[key].id,website.products[key].product_options[key2].id);
     //                     }
     //                 }
     //             }
     //         }
     //     }
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     // }else if(response.notification.code == 32 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.product_id){
-    //             for(const key2 in products[key].product_options){
-    //                 if(products[key].product_options[key2].id == response.notification.option_id){
-    //                     for(const key3 in products[key].product_options[key2].product_option_selections){
-    //                         if(products[key].product_options[key2].product_option_selections[key3].id == response.notification.selection_id){
-    //                             products[key].product_options[key2].product_option_selections[key3].isDefault = response.notification.isDefault;
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.product_id){
+    //             for(const key2 in website.products[key].product_options){
+    //                 if(website.products[key].product_options[key2].id == response.notification.option_id){
+    //                     for(const key3 in website.products[key].product_options[key2].product_option_selections){
+    //                         if(website.products[key].product_options[key2].product_option_selections[key3].id == response.notification.selection_id){
+    //                             website.products[key].product_options[key2].product_option_selections[key3].isDefault = response.notification.isDefault;
     //                         }else{
-    //                             products[key].product_options[key2].product_option_selections[key3].isDefault = false;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].isDefault = false;
     //                         }
-    //                         if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-    //                             setManageSelections(products[key].id,products[key].product_options[key2].id);
+    //                         if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+    //                             setManageSelections(website.products[key].id,website.products[key].product_options[key2].id);
     //                         }
     //                     }
     //                 }
@@ -2523,18 +2569,18 @@ let n =[];
     //         }
     //     }
     // }else if(response.notification.code == 33 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.product_id){
-    //             for(const key2 in products[key].product_options){
-    //                 if(products[key].product_options[key2].id == response.notification.option_id){
-    //                     for(const key3 in products[key].product_options[key2].product_option_selections){
-    //                         if(products[key].product_options[key2].product_option_selections[key3].id == response.notification.selection_id){
-    //                             products[key].product_options[key2].product_option_selections.splice(key3,1);
-    //                             if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.product_id){
+    //             for(const key2 in website.products[key].product_options){
+    //                 if(website.products[key].product_options[key2].id == response.notification.option_id){
+    //                     for(const key3 in website.products[key].product_options[key2].product_option_selections){
+    //                         if(website.products[key].product_options[key2].product_option_selections[key3].id == response.notification.selection_id){
+    //                             website.products[key].product_options[key2].product_option_selections.splice(key3,1);
+    //                             if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
     //                                 setManageSelections(response.notification.product_id,response.notification.option_id);
     //                             }
 
-    //                             window.guideHints.products(products);
+    //                             window.guideHints.products(website.products);
     //                         }
     //                     }
     //                 }
@@ -2542,48 +2588,48 @@ let n =[];
     //         }
     //     }
     // }else if(response.notification.code == 34 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         for(const key2 in products[key].product_options){
-    //             for(const key3 in products[key].product_options[key2].product_option_selections){
-    //                 if(products[key].product_options[key2].product_option_selections[key3].id == response.notification.fromId){
-    //                     products[key].product_options[key2].product_option_selections[key3].sort = response.notification.fromSort;
-    //                     if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-    //                         setManageSelections(products[key].id,products[key].product_options[key2].id)
+    //     for(const key in website.products){
+    //         for(const key2 in website.products[key].product_options){
+    //             for(const key3 in website.products[key].product_options[key2].product_option_selections){
+    //                 if(website.products[key].product_options[key2].product_option_selections[key3].id == response.notification.fromId){
+    //                     website.products[key].product_options[key2].product_option_selections[key3].sort = response.notification.fromSort;
+    //                     if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+    //                         setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
     //                     }
     //                 }
-    //                 if(products[key].product_options[key2].product_option_selections[key3].id == response.notification.toId){
-    //                     products[key].product_options[key2].product_option_selections[key3].sort = response.notification.toSort;
-    //                     if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-    //                         setManageSelections(products[key].id,products[key].product_options[key2].id)
+    //                 if(website.products[key].product_options[key2].product_option_selections[key3].id == response.notification.toId){
+    //                     website.products[key].product_options[key2].product_option_selections[key3].sort = response.notification.toSort;
+    //                     if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+    //                         setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
     //                     }
     //                 }
     //             }
     //         }
     //     }
     // }else if(response.notification.code == 35 && account.authorities[1] == 1){
-    //     for(const key in products){
-    //         if(products[key].id == response.notification.product_id){
-    //             for(const key2 in products[key].product_options){
-    //                 if(products[key].product_options[key2].id == response.notification.option_id){
-    //                     for(const key3 in products[key].product_options[key2].product_option_selections){
-    //                         if(products[key].product_options[key2].product_option_selections[key3].name == response.notification.selection_name){
-    //                             products[key].product_options[key2].product_option_selections[key3].price = response.notification.price;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_en = response.notification.name_en;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_fr = response.notification.name_fr;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_de = response.notification.name_de;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_it = response.notification.name_it;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_es = response.notification.name_es;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_ar = response.notification.name_ar;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_ru = response.notification.name_ru;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_ua = response.notification.name_ua;
-    //                             products[key].product_options[key2].product_option_selections[key3].name_eg = response.notification.name_eg;
+    //     for(const key in website.products){
+    //         if(website.products[key].id == response.notification.product_id){
+    //             for(const key2 in website.products[key].product_options){
+    //                 if(website.products[key].product_options[key2].id == response.notification.option_id){
+    //                     for(const key3 in website.products[key].product_options[key2].product_option_selections){
+    //                         if(website.products[key].product_options[key2].product_option_selections[key3].name == response.notification.selection_name){
+    //                             website.products[key].product_options[key2].product_option_selections[key3].price = response.notification.price;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_en = response.notification.name_en;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_fr = response.notification.name_fr;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_de = response.notification.name_de;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_it = response.notification.name_it;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_es = response.notification.name_es;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_ar = response.notification.name_ar;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_ru = response.notification.name_ru;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_ua = response.notification.name_ua;
+    //                             website.products[key].product_options[key2].product_option_selections[key3].name_eg = response.notification.name_eg;
     //                         }
     //                     }
     //                 }
     //             }
     //         }
     //     }
-    //     window.guideHints.products(products);
+    //     window.guideHints.products(website.products);
     //     if(!$('#editSection-popup').hasClass('none') && $('#editSection-selectionName').val() == response.notification.selection_name){
     //         closePopup();
     //     }

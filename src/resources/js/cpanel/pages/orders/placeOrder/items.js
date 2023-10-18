@@ -10,7 +10,7 @@ drawPlaceOrderItems = function(){
     $('#placeOrder-itemsContainer').text('')
     for(const key in window.placeOrder.items){
         let item = window.placeOrder.items[key];
-        let product = products.find(elem => elem.id == item.product_id);
+        let product = website.products.find(elem => elem.id == item.product_id);
         if(typeof(product) === 'undefined'){return;}
         let itemNoticeClass;
         let thisItemOptions;
@@ -116,7 +116,7 @@ $('html,body').on('click','.placeOrder-itemSelection',function(e){
     let selectionKey = $(this).attr('selectionKey');
     let productId = $(this).closest('.orderItemContainer').attr('productId');
     let optionId = $(this).attr('optionId');
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) === 'undefined'){return;}
     let option = product.product_options.find(item=> item.id == optionId);
     if(typeof(option) === 'undefined'){return;}
@@ -162,7 +162,7 @@ $('html,body').on('click','.placeOrder-itemSelectionChange',function(e){
     let optionId = $(this).attr('optionId');
     let selectionId = $(this).attr('selectionId');
 
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) === 'undefined'){return;}
     let option = product.product_options.find(item=> item.id == optionId);
     if(typeof(option) === 'undefined'){return;}

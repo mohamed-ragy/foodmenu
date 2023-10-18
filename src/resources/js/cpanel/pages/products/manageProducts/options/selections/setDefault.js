@@ -5,7 +5,7 @@ $('#editOption-optionSelectionsContainer').on('click','.selectionCardIconDefault
     let productId = $(this).closest('.selectionCardContainer').attr('productId');
     let optionId = $(this).closest('.selectionCardContainer').attr('optionId');
     let selectionId = $(this).closest('.selectionCardContainer').attr('selectionId');
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) === 'undefined'){
         return;
     }
@@ -30,15 +30,15 @@ $('#editOption-optionSelectionsContainer').on('click','.selectionCardIconDefault
             selection_name:selection.name,
         },success:function(r){
             if(r.setDefaultSelectionStat = 1){
-                for(const key in products){
-                    if(products[key].id == product.id){
-                        for(const key2 in products[key].product_options){
-                            if(products[key].product_options[key2].id == optionId){
-                                for(const key3 in products[key].product_options[key2].product_option_selections){
-                                    if(products[key].product_options[key2].product_option_selections[key3].id == selectionId){
-                                        products[key].product_options[key2].product_option_selections[key3].isDefault = isDefault;
+                for(const key in website.products){
+                    if(website.products[key].id == product.id){
+                        for(const key2 in website.products[key].product_options){
+                            if(website.products[key].product_options[key2].id == optionId){
+                                for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                                    if(website.products[key].product_options[key2].product_option_selections[key3].id == selectionId){
+                                        website.products[key].product_options[key2].product_option_selections[key3].isDefault = isDefault;
                                     }else{
-                                        products[key].product_options[key2].product_option_selections[key3].isDefault = false;
+                                        website.products[key].product_options[key2].product_option_selections[key3].isDefault = false;
                                     }
                                 }
                                 if($('#editOption-createNewSelection').attr('productId') == product.id && $('#editOption-createNewSelection').attr('optionId') == optionId){

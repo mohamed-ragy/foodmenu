@@ -1,7 +1,6 @@
 drawPopupPage_user_loading = function(userId){
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.user}),
-        $('<span/>',{class:'ico-help help-icon',helpId:3})
     );
     $('#popupPageBody').addClass('w400 mxw100p-40 p20').append(
         $('<div/>',{class:'row alnC jstfyS mX5 mB10'}).append(
@@ -99,7 +98,7 @@ drawUserPageCart = function(userId){
     }else{
         for(const key in userCart){
             let cartItem = userCart[key];
-            let product = products.find(item=> item.id == cartItem.productId)
+            let product = website.products.find(item=> item.id == cartItem.productId)
             if(typeof(product) !== 'undefined'){
                 $(`.userPageCart-${userId}`).append(
                     $('<div/>',{

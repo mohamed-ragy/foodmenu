@@ -4,7 +4,7 @@ share = function(type,item){
     showPopup($('#share-popup'),function(){
         if(type == 'product' ){
             if(item.category_id == null){return;}
-            $('#share-inputHidden').val(categories.find(cat => cat.id == item.category_id).name+'/'+item.name);
+            $('#share-inputHidden').val(website.categories.find(cat => cat.id == item.category_id).name+'/'+item.name);
         }else if(type == 'category'){
             $('#share-inputHidden').val(item.name);
         }
@@ -27,11 +27,11 @@ share = function(type,item){
 }
 $(document).on('click','.shareCatButton',function(e){
     e.stopImmediatePropagation();
-    share('category',categories.find(item=> item.id == $(this).attr('catId')));
+    share('category',website.categories.find(item=> item.id == $(this).attr('catId')));
 })
 $(document).on('click','.shareProdButton',function(e){
     e.stopImmediatePropagation();
-    share('product',products.find(item=> item.id == $(this).attr('prodId')));
+    share('product',website.products.find(item=> item.id == $(this).attr('prodId')));
 })
 
 $('.sharelangicon').on('click',function(e){

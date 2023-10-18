@@ -1,5 +1,5 @@
 calcAddOrderItemTotal = function(){
-    let product = products.find(item => item.id == $('#addOrderItem-itemContainer').attr('productId'));
+    let product = website.products.find(item => item.id == $('#addOrderItem-itemContainer').attr('productId'));
     if(typeof(product) === 'undefined'){return;}
     let itemTotal = parseFloat(product.price);
     $('.addItemSelectionCheck.ico-check1').each(function(){
@@ -81,7 +81,7 @@ $('html,body').on('click','#addOrderItem-qtyPlus',function(e){
 })
 /////////////////////
 $('#addOrderItem-productsList').on('click','.inputListElement',function(e){
-    let product = products.find(item=> item.id == $(this).attr('key'));
+    let product = website.products.find(item=> item.id == $(this).attr('key'));
     if(typeof(product) === 'undefined'){return;}
     !product.availability ? showAlert('warning',texts.orders.addItemUnavailable,4000,true) : null;
     $('#addOrderItem-itemContainer').removeClass('none')
@@ -104,7 +104,7 @@ $('#addOrderItem-ConfirmBtn').on('click',function(){
         $(this).removeClass('confirm-btn').attr('tooltip',null)
         updateToolTip();
     }
-    let product = products.find(item=> item.id == $('#addOrderItem-itemContainer').attr('productId'));
+    let product = website.products.find(item=> item.id == $('#addOrderItem-itemContainer').attr('productId'));
     if(typeof(product) === 'undefined'){closePopup();return}
     let qty = parseInt($('#addOrderItem-qty').text())
     let item_option_selections = [];

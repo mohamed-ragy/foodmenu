@@ -46,7 +46,7 @@ drawPopupPage_create_custom_language = function(){
 drawPopupPage_edit_language_options = function(lang){
     window.editLangOptionsCode = lang.code;
     $('#popupPageTitle').append(
-        $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'websiteLangsNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
+        $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:`websiteLangsNoSave-${lang.code} ico-warning unsaved none mie-5 mis-5 fs1 `}),
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.edit_language_options}),
         $('<span/>',{class:'ico-help help-icon',helpId:'edit_language_option'})
     );

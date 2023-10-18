@@ -296,7 +296,7 @@ $('html,body').on('click','.chatShareProduct',function(e){
 
 
         )
-        if(products.length == 0){
+        if(website.products.length == 0){
             $(this).closest('.chatWindow').find('.chatWindowShareProductContainer').append(
                 $('<div/>',{
                     class:'taC',
@@ -304,8 +304,8 @@ $('html,body').on('click','.chatShareProduct',function(e){
                 })
             )
         }
-        for(const key in products){
-            let product = products[key];
+        for(const key in website.products){
+            let product = website.products[key];
             $(this).closest('.chatWindow').find('.chatWindowShareProductContainer').append(
                 $('<div/>',{
                     class:'chatShareProductProduct',

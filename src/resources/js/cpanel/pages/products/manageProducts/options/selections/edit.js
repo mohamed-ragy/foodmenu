@@ -4,7 +4,7 @@ $('#editOption-optionSelectionsContainer').on('click','.selectionCardIconEdit',f
 })
 
 setEditProductSelection = function(productId,optionId,selectionId,callback=()=>{}){
-    let product = products.find(item=> item.id == productId);
+    let product = website.products.find(item=> item.id == productId);
     if(typeof(product) == 'undefined'){return;}
     let option = product.product_options.find(item=> item.id == optionId);
     if(typeof(option) == 'undefined'){return;}
@@ -31,7 +31,7 @@ setEditProductSelection = function(productId,optionId,selectionId,callback=()=>{
 $('#editSection-saveBtn').on('click',function(){
     let option_id = $('#editSection-selectionName').attr('optionId');
     let product_id = $('#editSection-selectionName').attr('productId');
-    let product = products.find(item => item.id == product_id);
+    let product = website.products.find(item => item.id == product_id);
     let selection_name = $('#editSection-selectionName').val();
     let option = product.product_options.find(item=>item.id == option_id);
     if(typeof(option) === 'undefined'){return;}
@@ -73,29 +73,29 @@ $('#editSection-saveBtn').on('click',function(){
         },success:function(r){
             hideBtnLoading($('#editSection-saveBtn'));
             if(r.editProductSelectionStatus == 1){
-                for(const key in products){
-                    if(products[key].id == product.id){
-                        for(const key2 in products[key].product_options){
-                            if(products[key].product_options[key2].id == option_id){
-                                for(const key3 in products[key].product_options[key2].product_option_selections){
-                                    if(products[key].product_options[key2].product_option_selections[key3].name == selection_name){
-                                        products[key].product_options[key2].product_option_selections[key3].price = price;
-                                        products[key].product_options[key2].product_option_selections[key3].name_en = name_en;
-                                        products[key].product_options[key2].product_option_selections[key3].name_fr = name_fr;
-                                        products[key].product_options[key2].product_option_selections[key3].name_de = name_de;
-                                        products[key].product_options[key2].product_option_selections[key3].name_it = name_it;
-                                        products[key].product_options[key2].product_option_selections[key3].name_es = name_es;
-                                        products[key].product_options[key2].product_option_selections[key3].name_ar = name_ar;
-                                        products[key].product_options[key2].product_option_selections[key3].name_ru = name_ru;
-                                        products[key].product_options[key2].product_option_selections[key3].name_ua = name_ua;
-                                        products[key].product_options[key2].product_option_selections[key3].name_eg = name_eg;
+                for(const key in website.products){
+                    if(website.products[key].id == product.id){
+                        for(const key2 in website.products[key].product_options){
+                            if(website.products[key].product_options[key2].id == option_id){
+                                for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                                    if(website.products[key].product_options[key2].product_option_selections[key3].name == selection_name){
+                                        website.products[key].product_options[key2].product_option_selections[key3].price = price;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_en = name_en;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_fr = name_fr;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_de = name_de;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_it = name_it;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_es = name_es;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_ar = name_ar;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_ru = name_ru;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_ua = name_ua;
+                                        website.products[key].product_options[key2].product_option_selections[key3].name_eg = name_eg;
                                     }
                                 }
                             }
                         }
                     }
                 }
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
                 showAlert('success',r.msg,4000,true);
                 if(!$('#editSection-popup').hasClass('none') && $('#editSection-selectionName').val() == selection_name){
                     closePopup();

@@ -6,14 +6,14 @@ let selectionCardOnMoveInterval;
 sortSelections = function(){
     let tempSelectionFromSort;
     let tempSelectionToSort;
-    for(const key in products){
-        for(const key2 in products[key].product_options){
-            for(const key3 in products[key].product_options[key2].product_option_selections){
-                if(products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveFrom){
-                    tempSelectionFromSort = products[key].product_options[key2].product_option_selections[key3].sort;
+    for(const key in website.products){
+        for(const key2 in website.products[key].product_options){
+            for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                if(website.products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveFrom){
+                    tempSelectionFromSort = website.products[key].product_options[key2].product_option_selections[key3].sort;
                 }
-                if(products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveTo){
-                    tempSelectionToSort = products[key].product_options[key2].product_option_selections[key3].sort;
+                if(website.products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveTo){
+                    tempSelectionToSort = website.products[key].product_options[key2].product_option_selections[key3].sort;
                 }
             }
         }
@@ -35,19 +35,19 @@ sortSelections = function(){
             $('.selectionCardMoveLoading').addClass('none').css('visibility','hidden');
             $('.selectionCardMoveIcon').removeClass('none');
             if(r.sortSelectionsStatus == 1){
-                for(const key in products){
-                    for(const key2 in products[key].product_options){
-                        for(const key3 in products[key].product_options[key2].product_option_selections){
-                            if(products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveFrom){
-                                products[key].product_options[key2].product_option_selections[key3].sort = tempSelectionToSort;
-                                if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-                                    setManageSelections(products[key].id,products[key].product_options[key2].id)
+                for(const key in website.products){
+                    for(const key2 in website.products[key].product_options){
+                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                            if(website.products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveFrom){
+                                website.products[key].product_options[key2].product_option_selections[key3].sort = tempSelectionToSort;
+                                if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+                                    setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
                                 }
                             }
-                            if(products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveTo){
-                                products[key].product_options[key2].product_option_selections[key3].sort = tempSelectionFromSort;
-                                if($('#editOption-createNewSelection').attr('productId') == products[key].id && $('#editOption-createNewSelection').attr('optionId') == products[key].product_options[key2].id){
-                                    setManageSelections(products[key].id,products[key].product_options[key2].id)
+                            if(website.products[key].product_options[key2].product_option_selections[key3].id == selectionCardOnMoveTo){
+                                website.products[key].product_options[key2].product_option_selections[key3].sort = tempSelectionFromSort;
+                                if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
+                                    setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
                                 }
                             }
                         }

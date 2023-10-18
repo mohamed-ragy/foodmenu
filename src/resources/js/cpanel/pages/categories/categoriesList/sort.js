@@ -4,11 +4,21 @@ let categoryOnMoveTo;
 let categoryOnMoveInterval;
 
 sortCategories = function(){
-    let tempCatFromSort = categories.find(item=> item.id == categoryOnMoveFrom).sort;
-    let tempCatToSort = categories.find(item=> item.id == categoryOnMoveTo).sort;
+    let tempCatFromSort = website.categories.find(item=> item.id == categoryOnMoveFrom).sort;
+    let tempCatToSort = website.categories.find(item=> item.id == categoryOnMoveTo).sort;
     if(tempCatFromSort == tempCatToSort){return;}
-    $('.categoryCardSortLoading').removeClass('none').css('visibility','visible')
     $('.categoryCardMove').addClass('none')
+    website.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatToSort;
+    website.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatFromSort;
+    website.categories.sort((a,b)=>{
+        return parseInt(a.sort) - parseInt(b.sort)
+    })
+    website_temp.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatToSort;
+    website_temp.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatFromSort;
+    website_temp.categories.sort((a,b)=>{
+        return parseInt(a.sort) - parseInt(b.sort)
+    })
+    drawCategoryList();
     $.ajax({
         url:'categories',
         type:'put',
@@ -20,57 +30,74 @@ sortCategories = function(){
             fromSort:tempCatToSort,
             toSort:tempCatFromSort,
         },success:function(r){
-            $('.categoryCardSortLoading').addClass('none').css('visibility','hidden')
             $('.categoryCardMove').removeClass('none')
             if(r.sortCategoriesStatus == 1){
-                categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatToSort;
-                categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatFromSort;
-                categories.sort((a,b)=>{
-                    return parseInt(a.sort) - parseInt(b.sort)
-                })
-                drawCategoryList();
+
             }else if(r.sortCategoriesStatus == 0){
                 showAlert('error',r.msg,4000,true);
+                website.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatFromSort;
+                website.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatToSort;
+                website.categories.sort((a,b)=>{
+                    return parseInt(a.sort) - parseInt(b.sort)
+                })
+                website_temp.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatFromSort;
+                website_temp.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatToSort;
+                website_temp.categories.sort((a,b)=>{
+                    return parseInt(a.sort) - parseInt(b.sort)
+                })
                 drawCategoryList();
             }
 
         }
+    }).fail(function(){
+        website.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatFromSort;
+        website.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatToSort;
+        website.categories.sort((a,b)=>{
+            return parseInt(a.sort) - parseInt(b.sort)
+        })
+        website_temp.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatFromSort;
+        website_temp.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatToSort;
+        website_temp.categories.sort((a,b)=>{
+            return parseInt(a.sort) - parseInt(b.sort)
+        })
+        drawCategoryList();
     })
 }
 
 
-$('#categoriesList-categoriesListContainer').on('mousedown touchstart','.categoryCardMove',function(e){
+$('html,body').on('mousedown touchstart','.categoryCardMove',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
+    console.log('gg')
     categoryOnMove = true;
-    categoryOnMoveFrom = $(this).attr('categoryId');
+    categoryOnMoveFrom = $(this).closest('.categoryCardContainer').attr('category');
     $(this).closest('.categoryCardContainer').addClass('categoryCardSelectedOnMove');
-    $('#categoryCardOnMove').html($(this).closest('.categoryCardContainer').html());
-    $('#categoryCardOnMove').width($(this).closest('.categoryCardContainer').width())
-    $('#categoryCardOnMove').css('display','flex');
+    $('#onMove').removeClass().addClass('categoryCardOnMove')
+    $('#onMove').html($(this).closest('.categoryCardContainer').html());
+    $('#onMove').width($(this).closest('.categoryCardContainer').width())
     if(!window.matchMedia("(pointer: coarse)").matches){
-        $('#categoryCardOnMove').css({
+        $('#onMove').css({
             'top':e.pageY,
             'left':e.pageX,
         });
     }else{
-        $('#categoryCardOnMove').css({
+        $('#onMove').css({
             'top':e.originalEvent.touches[0].pageY,
             'left':e.originalEvent.touches[0].pageX,
         });
     }
 });
-$('#bodyPage').on('mousemove touchmove',function(e){
+$('html,body').on('mousemove touchmove',function(e){
     if(categoryOnMove){
         e.stopImmediatePropagation();
         e.preventDefault();
         if(!window.matchMedia("(pointer: coarse)").matches){
-            $('#categoryCardOnMove').css({
+            $('#onMove').css({
                 'top':e.pageY,
                 'left':e.pageX,
             });
         }else{
-            $('#categoryCardOnMove').css({
+            $('#onMove').css({
                 'top':e.originalEvent.touches[0].pageY,
                 'left':e.originalEvent.touches[0].pageX,
             });
@@ -93,9 +120,9 @@ $('#bodyPage').on('mousemove touchmove',function(e){
         })
         clearInterval(categoryOnMoveInterval)
         categoryOnMoveInterval = setInterval(function(){
-            if(pageY < $('#bodyPage').offset().top + 100 && $('#categoriesList-categoriesListContainer').offset().top < $('#bodyPage').offset().top + 40){
+            if(pageY < $('#bodyPage').offset().top + 100 && $('.categoriesListContainer').offset().top < $('#bodyPage').offset().top + 40){
                 $('#bodyPage').scrollTop($('#bodyPage').scrollTop() - 5);
-            }else if(pageY > $('#bodyPage').offset().top + $('#bodyPage').height() - 100 && $('#categoriesList-categoriesListContainer').offset().top + $('#categoriesList-categoriesListContainer').height() > $('#bodyPage').offset().top + $('#bodyPage').height() - 10){
+            }else if(pageY > $('#bodyPage').offset().top + $('#bodyPage').height() - 100 && $('.categoriesListContainer').offset().top + $('.categoriesListContainer').height() > $('#bodyPage').offset().top + $('#bodyPage').height() - 10){
                 $('#bodyPage').scrollTop($('#bodyPage').scrollTop() + 5);
             }
         },10)
@@ -104,7 +131,7 @@ $('#bodyPage').on('mousemove touchmove',function(e){
     }
 
 });
-$('#bodyPage').on('mouseup touchend',function(e){
+$('html,body').on('mouseup touchend','#bodyPage',function(e){
     clearInterval(categoryOnMoveInterval)
     if(categoryOnMove){
         e.stopImmediatePropagation();
@@ -121,13 +148,13 @@ $('#bodyPage').on('mouseup touchend',function(e){
             if(
                 $(this).offset().top < pageY && ($(this).offset().top + $(this).outerHeight() ) > pageY && $(this).offset().left < pageX && ($(this).offset().left + $(this).outerWidth() ) > pageX
             ){
-                categoryOnMoveFrom = $('.categoryCardSelectedOnMove').attr('categoryId');
-                categoryOnMoveTo = $(this).attr('categoryId');
+                categoryOnMoveFrom = $('.categoryCardSelectedOnMove').attr('category');
+                categoryOnMoveTo = $(this).attr('category');
                 sortCategories();
             }
         })
         $('.categoryCardContainer').removeClass('categoryCardSelectedOnMove');
-        $('#categoryCardOnMove').hide();
+        $('#onMove').removeClass().html('').addClass('none');
         $('.categoryCardContainer').removeClass('categoryCardHighlighted');
         categoryOnMove = false;
     }

@@ -21,15 +21,15 @@ $('#createNewProduct-createBtn').on('click',function(){
         showAlert('error',texts.products.productNameRegex,4000,true)
         return;
     }
-    for(const key in products){
-        if($('#createNewProduct-ProductName').val() == products[key].name){
+    for(const key in website.products){
+        if($('#createNewProduct-ProductName').val() == website.products[key].name){
             scrollToDiv($('#bodyPage'),$('#createNewProduct-ProductName'))
             inputTextError($('#createNewProduct-ProductName'));
             showAlert('error',texts.products.productNameUnique,4000,true)
             return;
         }
     }
-    if(products.length >= window.plans[website.plan].products){
+    if(website.products.length >= window.plans[website.plan].products){
         showAlert('warning',texts.products.createFailPlanLimit,10000,true)
         return;
     }
@@ -42,7 +42,7 @@ $('#createNewProduct-createBtn').on('click',function(){
         if($('#createNewProduct-productCategory').attr('key') == 'uncategorized'){
             categoryId == null;
         }else{
-            categoryId = categories.find(item=> item.name == $('#createNewProduct-productCategory').attr('key')).id;
+            categoryId = website.categories.find(item=> item.name == $('#createNewProduct-productCategory').attr('key')).id;
         }
     }
     let productImg = $('#createNewProduct-productImgCard').attr('imgId') ?? null;
@@ -129,10 +129,10 @@ $('#createNewProduct-createBtn').on('click',function(){
                         r.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
                     }
                 });
-                products.push(r.product);
+                website.products.push(r.product);
                 $('#createNewProductOpen').attr('product',r.product.name).trigger('click');
 
-                window.guideHints.products(products);
+                window.guideHints.products(website.products);
                 drawProductsInputLists();
                 drawTodayHomeProducts();
                 drawManageProductCards($('#manageProducts-selectCategory').attr('key'))

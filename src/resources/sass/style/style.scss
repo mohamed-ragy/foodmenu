@@ -8,16 +8,16 @@
 @import './display.scss';
 @import './position.scss';
 @import './colors.scss';
-
+@import './borders.scss';
 //
 
-.brdrT0{border-top:0px;}
-.brdrB0{border-bottom:0px;}
+
 
 .notAllowed{cursor:not-allowed;}
 .pointer{cursor: pointer;}
 .cursorNormal{cursor: auto;}
 .cursorLoading{cursor: progress;}
+.cursorMove{cursor: move;}
 
 .blur3{backdrop-filter: blur(3px);}
 
@@ -32,6 +32,11 @@
 .opacity0{opacity:0;}
 .opacity1{opacity:1;}
 
+.ofCover{object-fit: cover;}
+.blackWhite{filter:grayscale(100%)}
+
+.pointer_events_none{pointer-events: none;}
+
 .none-350{@media (max-width:350px){display:none;}}
 .none-420{@media (max-width:420px){display:none;}}
 .none-500{@media (max-width:500px){display:none;}}
@@ -45,5 +50,3 @@
 .block-1366{@media(max-width:1365px){display:block}}
 .block-1280{@media(max-width:1279px){display:block}}
 
-.ofCover{object-fit: cover;}
-.blackWhite{filter:grayscale(100%)}

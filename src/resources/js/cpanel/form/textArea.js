@@ -1,4 +1,4 @@
-drawTextArea = function(autoHelp,icon,iconFlag,title,id,maxlength,containerClass,value=''){
+drawTextArea = function(autoHelp,icon,iconFlag,title,id,maxlength,containerClass,value='',inputClass=''){
     let iconElem;
     if(iconFlag == ''){
         iconElem = $('<span/>',{class:`textareaIcon ${icon}`});
@@ -12,7 +12,7 @@ drawTextArea = function(autoHelp,icon,iconFlag,title,id,maxlength,containerClass
             iconElem,
             $('<span/>',{class:'textareaTitle mX5',html:title})
         ),
-        $('<textarea/>',{class:'textarea',id:id,maxlength:maxlength,text:value}),
+        $('<textarea/>',{class:`textarea ${inputClass}`,id:id,maxlength:maxlength,text:value}),
         $('<div/>',{class:'textareaCounter'}).append(
             $('<span/>',{class:'textAreaInputLength',text:value.length,}),
             $('<span/>',{text:'/'}),

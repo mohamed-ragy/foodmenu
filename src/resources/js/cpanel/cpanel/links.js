@@ -24,9 +24,9 @@ $('html,body').on('click','.hideParent3',function(e){
 });
 $('html,body').on('click','.share',function(e){
     if($(this).attr('type') == 'category'){
-        share('category',categories.find(item=> item.id == $(this).attr('itemId')))
+        share('category',website.categories.find(item=> item.id == $(this).attr('itemId')))
     }else if($(this).attr('type') == 'product'){
-        share('product',products.find(item=> item.id == $(this).attr('itemId')))
+        share('product',website.products.find(item=> item.id == $(this).attr('itemId')))
     }
 })
 $('html,body').on('click','.copyVal',function(e){
@@ -350,6 +350,12 @@ $('html,body').on('click','.popupPage',function(e){
         break;
         case 'manage_sub_account':
             keysObj.subaccount = $(this).attr('subaccount')
+        break;
+        case 'category':
+            keysObj.category = $(this).attr('category')
+        break;
+        case 'edit_category':
+            keysObj.category = $(this).attr('category')
         break;
     }
     showPopupPage($(this).attr('popupPage'),keysObj).then((is_pushHistory)=>{
@@ -707,6 +713,12 @@ $(window).on('popstate',(e)=>{
             break;
             case 'manage_sub_account':
                 keysObj.subaccount = window.history.state.subaccount;
+            break;
+            case 'category':
+                keysObj.category = window.history.state.category;
+            break;
+            case 'edit_category':
+                keysObj.category = window.history.state.category;
             break;
         }
         // window.popupPage = {}

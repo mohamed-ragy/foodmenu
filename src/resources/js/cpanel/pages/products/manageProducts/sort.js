@@ -4,8 +4,8 @@ let productCardOnMoveTo;
 let productCardOnMoveInterval;
 
 sortProducts = function(){
-    let tempProductFromSort = products.find(item=> item.id == productCardOnMoveFrom).sort;
-    let tempProductToSort = products.find(item=> item.id == productCardOnMoveTo).sort;
+    let tempProductFromSort = website.products.find(item=> item.id == productCardOnMoveFrom).sort;
+    let tempProductToSort = website.products.find(item=> item.id == productCardOnMoveTo).sort;
     if(tempProductFromSort == tempProductToSort){return;}
     $('.manageProductCardSortLoading').removeClass('none').css('visibility','visible');
     $('.manageProductCardMove').addClass('none');
@@ -23,8 +23,8 @@ sortProducts = function(){
             $('.manageProductCardSortLoading').addClass('none').css('visibility','hidden');
             $('.manageProductCardMove').removeClass('none');
             if(r.sortProductsStatus == 1){
-                products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductToSort;
-                products.find(item=> item.id == productCardOnMoveTo).sort = tempProductFromSort;
+                website.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductToSort;
+                website.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductFromSort;
                 if($('#manageProducts-selectCategory').attr('key') != null){
                     drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
                 }

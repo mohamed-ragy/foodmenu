@@ -33,7 +33,7 @@ chandelUserActivity=function(n){
     let activity = texts.users[n.activity.status];
     switch(n.activity.status){
         case 'user_browse_category':
-            let category = categories.find(item=>item.name == n.activity.category);
+            let category = website.categories.find(item=>item.name == n.activity.category);
             if(typeof(category) === 'undefined'){
                 activity = texts.users.user_online;
             }else{
@@ -41,7 +41,7 @@ chandelUserActivity=function(n){
             }
             break;
         case 'user_browse_product':
-            let user_browse_product_product = products.find(item=>item.name == n.activity.product);
+            let user_browse_product_product = website.products.find(item=>item.name == n.activity.product);
             if(typeof(user_browse_product_product) === 'undefined'){
                 activity = texts.users.user_online;
             }else{
@@ -52,7 +52,7 @@ chandelUserActivity=function(n){
             activity = texts.users.user_trackOrder.replace(':order:',`<a class="popupPage popupId" popupId="order"  popupPage="order" order="${n.activity.order}">#${n.activity.order}</a>`)
             break;
         case 'user_writeReview':
-            let user_writeReview_product = products.find(item=>item.name == n.activity.product);
+            let user_writeReview_product = website.products.find(item=>item.name == n.activity.product);
             if(typeof(user_writeReview_product) === 'undefined'){
                 activity = texts.users.user_online;
             }else{
@@ -60,7 +60,7 @@ chandelUserActivity=function(n){
             }
             break;
         case 'user_addItemToCart':
-            let user_addItemToCart_product = products.find(item=>item.name == n.activity.product);
+            let user_addItemToCart_product = website.products.find(item=>item.name == n.activity.product);
             if(typeof(user_addItemToCart_product) === 'undefined'){
                 activity = texts.users.user_online;
             }else{
@@ -70,4 +70,3 @@ chandelUserActivity=function(n){
     }
     $(`.visitorActions-${n.type}-${n.id}`).html(activity).attr('tooltip',activity)
 }
-    

@@ -7,19 +7,19 @@ require('./options/selections.js')
 setEditProductOptions = function(productName){
     $('#editProductOptionsWindowContainer').removeClass('none');
     $('#editProductOptionsWindowNotFound').addClass('none');
-    let product = products.find(item=> item.name == productName);
+    let product = website.products.find(item=> item.name == productName);
     if(typeof(product) === 'undefined'){
         // popupPageClose(false);
         $('#editProductOptionsWindowContainer').addClass('none');
         $('#editProductOptionsWindowNotFound').removeClass('none');
         return;
     }
-    for(const key in products){
-        if(products[key].name == productName){
-            products[key].product_options.sort((a,b)=>{
+    for(const key in website.products){
+        if(website.products[key].name == productName){
+            website.products[key].product_options.sort((a,b)=>{
                 return parseInt(a.sort - b.sort);
             })
-            product = products[key];
+            product = website.products[key];
         }
     }
     // console.log(product);

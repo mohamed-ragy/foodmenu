@@ -1,4 +1,4 @@
-drawInputText = function(autoHelp,icon,iconFlag,tooltip,id,type,placeholder,maxlength,icon2,containerClass='',value='',readOnly=false){
+drawInputText = function(autoHelp,icon,iconFlag,tooltip,id,type,placeholder,maxlength,icon2,containerClass='',value='',readOnly=false,inputClass=''){
     let iconElem;let icon2Elem;
     if(iconFlag == ''){
         iconElem = $('<div/>',{class:`inputTextIcon`,tooltip:tooltip}).append(
@@ -22,7 +22,7 @@ drawInputText = function(autoHelp,icon,iconFlag,tooltip,id,type,placeholder,maxl
     }
     return $('<div/>',{class:`inputTextContainer ${containerClass}`,autoHelp:autoHelp}).append(
         iconElem,
-        $('<input/>',{class:'inputText',readOnly:readOnly,type:type,id:id,placeholder:placeholder,maxlength:maxlength,value:value,tooltip:tooltip}),
+        $('<input/>',{class:`inputText ${inputClass}`,readOnly:readOnly,type:type,id:id,placeholder:placeholder,maxlength:maxlength,value:value,tooltip:tooltip}),
         icon2Elem,
     )
 }
