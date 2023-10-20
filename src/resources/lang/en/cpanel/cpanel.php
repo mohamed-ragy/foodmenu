@@ -1,6 +1,4 @@
 <?php
-//hello
-//test
 return [
     'menu' => [
         'dashboard' => 'Dashboard',
