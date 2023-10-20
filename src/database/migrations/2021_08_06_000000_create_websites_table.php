@@ -30,13 +30,6 @@ class CreateWebsitesTable extends Migration
             $table->string('specialDomainName')->nullable()->unique();
 
             $table->json('languages');
-            // $table->string('defaultLanguage')->default('en');
-            // $table->string('receiptLanguage')->default('en');
-
-            // $table->string('customLang_flag')->nullable();
-            // $table->string('customLang_name')->nullable();
-            // $table->boolean('customLang_rtl')->default(false);
-            // $table->string('customLang_code')->nullable();
 
             $table->string('lat')->default('0');
             $table->string('lng')->default('0');

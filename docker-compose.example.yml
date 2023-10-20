@@ -5,19 +5,18 @@ networks:
     driver: bridge
 
 services:
-
   app:
     build:
       args:
         user: muha
         uid: 1000
-      context: ./Dockerfiles/
+      context: ./Dockerfiles
       dockerfile: nginx.dockerfile
     ports:
       - 80:80
     container_name: foodmenu_app
     volumes:
-      - ./src:/var/www/foodmenu:delegated
+      - ./src:/var/www/foodmenu
     depends_on:
       - php
       - mysql
@@ -38,7 +37,8 @@ services:
     ports:
       - 9000:9000
     volumes:
-      - ./src:/var/www/foodmenu:delegated
+      - ./src:/var/www/foodmenu
+      - ./Dockerfiles/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - foodmenu
 
@@ -60,7 +60,7 @@ services:
       SERVICE_NAME: mysql
     networks:
       - foodmenu
-      
+
   mongodb:
     image: mongo:7.0.2
     container_name: foodmenu_mongodb
@@ -70,10 +70,9 @@ services:
       - "27017:27017"
     volumes:
       - ./mongodb:/data/db
-    working_dir: /var/www/foodmenu
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example 
+      MONGO_INITDB_ROOT_PASSWORD: foodmenu
     networks:
       - foodmenu
 
@@ -88,7 +87,7 @@ services:
     container_name: foodmenu_websockets
     restart: always
     volumes:
-      - ./src:/var/www/foodmenu:delegated
+      - ./src:/var/www/foodmenu
     depends_on:
       - php
     ports:
@@ -107,7 +106,7 @@ services:
     container_name: foodmenu_queue
     restart: always
     volumes:
-      - ./src:/var/www/foodmenu:delegated
+      - ./src:/var/www/foodmenu
     depends_on:
       - php
     networks:
@@ -122,7 +121,7 @@ services:
         uid: 1000
     container_name: foodmenu_composer
     volumes:
-      - ./src:/var/www/foodmenu:delegated
+      - ./src:/var/www/foodmenu
     depends_on:
       - php
     entrypoint: [ 'composer', '--ignore-platform-reqs' ]
@@ -130,7 +129,7 @@ services:
       - foodmenu
 
   npm:
-    image: node:current-alpine
+    image: node:20.8.1
     container_name: foodmenu_npm
     volumes:
       - ./src:/var/www/foodmenu
@@ -152,7 +151,7 @@ services:
         uid: 1000
     container_name: foodmenu_artisan
     volumes:
-      - ./src:/var/www/foodmenu:delegated
+      - ./src:/var/www/foodmenu
     depends_on:
       - mongodb
       - mysql

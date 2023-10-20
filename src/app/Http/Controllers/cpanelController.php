@@ -46,14 +46,6 @@ class cpanelController extends Controller
         $this->middleware(function ($request, $next) {
             $this->website_id = Auth::guard('account')->user()->website_id;
             App::setlocale(Auth::guard('account')->user()->language);
-            // order::where(['website_id'=>1,'status'=>0])->update([
-            //     'status' => 3,
-            //     'delivery_id'=>12,
-            //     'deliveryName'=>'xalamoka',
-            //     'withDelivery_at' => Carbon::now()->timestamp,
-            //     'withDelivery_account_name' => Auth::guard('account')->user()->name,
-            //     'withDelivery_account_id' => Auth::guard('account')->user()->id,
-            // ]);
             return $next($request);
 
         })->except(['dologin','login','resetPassword']);

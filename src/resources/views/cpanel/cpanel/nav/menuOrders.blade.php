@@ -24,7 +24,7 @@
         </div>
         <div class="withDeliveryOrdersSum fs101 mX3">0</div>
     </div>
-    <div id="menuOrders-readyForPickupOrders" class="menuOrders-element  cpPage" cpPage="incomplete_orders" orderStatus="readyForPickup">
+    <div id="menuOrders-readyForPickupOrders" class="menuOrders-element cpPage" cpPage="incomplete_orders" orderStatus="readyForPickup">
         <div class="row alnBL jstfyC">
             <span class="ico-pickup mX5 fs1"></span>
             <span class="fs1">{{ trans('cpanel/orders/orders.readyForPickup')}}</span>

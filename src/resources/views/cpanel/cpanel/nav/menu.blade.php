@@ -5,4 +5,3 @@
         <div class="inputSearchIcon ico-search"></div>
     </div>
 </div>
-

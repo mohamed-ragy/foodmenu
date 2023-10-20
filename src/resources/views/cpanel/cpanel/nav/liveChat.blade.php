@@ -39,6 +39,4 @@
     <div><div id="noliveChatMsgs" class="fs085 mX10 mB10 none">{{ trans('cpanel/cpanel.liveChat.noLiveChatMsgs') }}</div></div>
     <div><div id="noliveChatMsgs_guests" class="fs085 mX10 mB10 none">{{ trans('cpanel/cpanel.liveChat.noLiveChatMsgs') }}</div></div>
 
-
-
 </div>

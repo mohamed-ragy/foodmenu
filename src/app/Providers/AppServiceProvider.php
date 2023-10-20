@@ -28,16 +28,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $getHost = request()->gethost();
         if(
-            request()->gethost() == env('APP_DOMAIN') ||
-            request()->gethost() == 'www'.env('APP_DOMAIN') ||
-            request()->gethost() == env('CPANEL_DOMAIN') ||
-            request()->gethost() == env('HELP_CENTER_DOMAIN') ||
-            request()->gethost() == env('BILLING_CENTER_DOMAIN')
+            $getHost == env('APP_DOMAIN') ||
+            $getHost == 'www'.env('APP_DOMAIN') ||
+            $getHost == env('CPANEL_DOMAIN') ||
+            $getHost == env('HELP_CENTER_DOMAIN') ||
+            $getHost == env('BILLING_CENTER_DOMAIN')
         ){
             config(['session.domain' =>  '.'.env('APP_DOMAIN')]);
         }else{
-            config(['session.cookie' =>  Str::slug(request()->gethost(), '_') ]);
+            config(['session.cookie' =>  Str::slug($getHost, '_') ]);
         }
 
     }
