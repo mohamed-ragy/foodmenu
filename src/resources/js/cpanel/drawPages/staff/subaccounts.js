@@ -6,12 +6,12 @@ drawPage_sub_accounts = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.sub_accounts}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'sub_accounts'})
             ),
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_sub_account',text:texts.staff.createSubAccount}),
             ),
-            $('<table/>',{id:'subAccountsTable',class:'w100p'})
+            $('<table/>',{id:'subAccountsTable',class:'w100p',autoHelp:'sub_accounts_list'})
         )
     );
     drawSubAccountsTable();
@@ -127,13 +127,13 @@ drawPopupPage_sub_account = function(subaccountId){
 drawPopupPage_create_sub_account = function(){
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.create_sub_account}),
-        $('<span/>',{class:'ico-help help-icon',helpId:''})
+        $('<span/>',{class:'ico-help help-icon',helpId:'create_new_sub_account'})
     );
     $('#popupPageBody').addClass('mxw100p-40 p20').append(
         drawInputText('','ico-edit','',texts.staff.accountName,'createSubaccount_name','text',texts.staff.accountName,'100','clearVal','inputTextContainer_100p mT0','',false),
         drawInputText('','ico-password','',texts.staff.password,'createSubaccount_password','password',texts.staff.password,'100','password','inputTextContainer_100p','',false),
         drawInputText('','ico-sub_accounts','',texts.staff.loginName,'createSubaccount_loginName','text',texts.staff.loginName,'100','copy','inputTextContainer_100p','',true),
-        $('<div/>',{class:'area mT40'}).append(
+        $('<div/>',{class:'area mT40',autoHelp:'manage_permissions'}).append(
             $('<div/>',{class:'areaTitle',text:texts.staff.authorities}),
             drawSwitchBtn('',texts.staff.authority0,'createNewSubAccount_authority0','checkboxlabel_100p brdrT0 mT10',''),
             drawSwitchBtn('',texts.staff.authority1,'createNewSubAccount_authority1','checkboxlabel_100p ',''),
@@ -166,7 +166,7 @@ drawPopupPage_manage_sub_account = function(subaccountId){
             $('<div/>',{class:`subaccountOnlineIcon-${subaccount.id}`}),
             $('<div/>',{class:`fs08 subaccountlastSeen2-${subaccount.id}`})
         ),
-        $('<div/>',{class:'area mT40'}).append(
+        $('<div/>',{class:'area mT40',autoHelp:'manage_permissions'}).append(
             $('<div/>',{class:'areaTitle',text:texts.staff.authorities}),
             drawSwitchBtn('',texts.staff.authority0,'manageSubAccount_authority0','checkboxlabel_100p brdrT0 mT10',''),
             drawSwitchBtn('',texts.staff.authority1,'manageSubAccount_authority1','checkboxlabel_100p ',''),

@@ -6,12 +6,12 @@ drawPage_delivery_accounts = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.delivery_accounts}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'delivery_accounts'})
             ),
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_delivery_account',text:texts.staff.createDeliveryAccount}),
             ),
-            $('<table/>',{id:'deliveryAccountsTable',class:'w100p'})
+            $('<table/>',{id:'deliveryAccountsTable',class:'w100p',autoHelp:'delivery_account_list'})
         )
     );
     drawDeliveryAccountsTable();
@@ -34,7 +34,6 @@ drawDeliveryAccountsTable = function(){
     )
     for(const key in website.deliveries){
         let delivery = website.deliveries[key];
-
         $('#deliveryAccountsTable').append(
             $('<tr/>',{class:''}).append(
                 $('<td/>',{class:'fs08 tnw taC vaM'}).append(
@@ -62,7 +61,7 @@ drawDeliveryAccountsTable = function(){
 drawPopupPage_create_delivery_account = function(){
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.create_delivery_account}),
-        $('<span/>',{class:'ico-help help-icon',helpId:''})
+        $('<span/>',{class:'ico-help help-icon',helpId:'create_delivery_account'})
     );
     $('#popupPageBody').addClass('mxw100p-40 p20').append(
         drawInputText('','ico-edit','',texts.staff.deliveryName,'createDeliveryAccount_name','text',texts.staff.deliveryName,'100','clearVal','mT0','',false),

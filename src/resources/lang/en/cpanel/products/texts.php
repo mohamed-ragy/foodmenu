@@ -7,16 +7,17 @@ return [
     'editCategory' => 'Edit category',
     'categoryIdentifier' => 'Category identifier',
     'categoryImg' => 'Category image',
-    'categoryNames' => 'Category Names',
-    'categoryName' => 'Category Name',
-    'categoryDescriptions'=>'Category Descriptions',
-    'categoryDescription'=>'Category Description',
-    'selectCategoryImg'=>'Select Category Image',
+    'categoryNames' => 'Category name',
+    'categoryName' => 'Name',
+    'categoryDescriptions'=>'Category description',
+    'categoryDescription'=>'Description',
+    'selectCategoryImg'=>'Select category image',
 
     'created' => 'Created :date:',
     'productOrdered' => 'Ordered :sum: times',
     'poductReviewed' => 'Reviewed :sum: times',
-    'manageOptions' => 'Manage Options',
-    'editProduct' => 'Edit Product',
-
+    'manageOptions' => 'Manage options',
+    'editProduct' => 'Edit product',
+    //l7ad hena 
 ];
+?>

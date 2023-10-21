@@ -640,10 +640,98 @@ return [
         <p>- By switching on the <b>Apply for pickup orders</b> button, you allow the promo code to be used on pickup orders. The opposite happens when you switch off the button.</p>
         string,
     ],    
-    '' => [
-        'title' => '',
+    ///// my staff
+    ///////Help icon
+    'delivery_accounts' => [
+        'title' => 'Delivery accounts',
         'content' => <<<string
-        <p></p>
+        <p>- Here, you can create and find all your delivery accounts. Delivery accounts are accounts that you can use to assign orders to your delivery personnel.</p>
+        <p>- To create a delivery account, click on the <b>Create new delivery account</b> button.</p>
+        string,
+    ], 
+    //////Auto help   
+    'delivery_account_list' => [
+        'title' => 'Delivery account list',
+        'content' => <<<string
+        <p>- Here, you can find and manage all your delivery accounts. Each account is sorted in a row, and each row contains:
+        <ul>
+        <li><b>Account name</b></li>
+        <li><b>Login name</b></li>
+        <li><b>Last seen status</b></li>
+        <li><b>Change password button:</b> You'll be able to enter a new password for the delivery account when you click on this button.</li>
+        <li><b>Delete button:</b> By clicking on it, you can permanently delete the delivery account.</li>
+        </ul></p>
+        string,
+    ],   
+    //////Help icon 
+    'create_delivery_account' => [
+        'title' => 'Create a delivery account',
+        'content' => <<<string
+        <p>- Here, you can enter the basic login details of the delivery account.</p>
+        <p>- In the <b>Name</b> input box, you can enter the delivery account name </p>
+        <p>- In the <b>Password</b> input box, enter the login password for the delivery account.</p>
+        <p>- In the <b>Login name</b> input box, enter the login name for the delivery account that is used to log in to the account. The login name is made up of the name you entered, followed by @ the identifier for your restaurant.</p>
+        string,
+    ], 
+    ////////Help icon   
+    'sub_accounts' => [
+        'title' => 'Sub-Accounts',
+        'content' => <<<string
+        <p>- Here, you can create and find all your sub-accounts. Sub-accounts are secondary accounts to your main one that you can use for your staff.</p>
+        <p>- To create a sub-account, click on the <b>Create new sub-account</b> button.</p>
+        string,
+    ],    
+    /////////Auto help
+    'sub_accounts_list' => [
+        'title' => 'Sub-accounts list',
+        'content' => <<<string
+        <p> - Here, you can find and manage all your sub-accounts. Each account is organized in a row, and each row contains:
+        <ul>
+        <li><b>Account name</b></li>
+        <li><b>Login name</b></li>
+        <li><b>Last seen status</b></li>
+        <li><b>Force logout button:</b> You can force log out the selected sub-account from any device by clicking on this button. </li>
+        <li><b>Manage permissions:</b> You can change the selected account's permissions by clicking on this button.</li>
+        <li><b>Change password button:</b> You'll be able to enter a new password for the sub-account when you click on this button.</li>
+        <li><b>Delete button:</b> By clicking on it, you can permanently delete the delivery account.</li>
+        </ul></p>
+        string,
+    ],    
+    'create_new_sub_account' => [
+        'title' => 'Create new sub-account',
+        'content' => <<<string
+        <p>- Here, you can enter the basic login details of the sub-account.</p>
+        <p>- In the <b>Name</b> input box, you can enter the sub-account's name in English letters, underscores, and numbers only.</p>
+        <p>- In the <b>Password</b> input box, enter the login password for the sub-account.</p>
+        <p>- In the <b>Login name</b> input box, enter the login name for the subaccount. The login name is made up of the name you entered, followed by @ the identifier for your restaurant.</p>
+        string,
+    ],    
+    'manage_permissions' => [
+        'title' => 'Manage permissions',
+        'content' => <<<string
+        <p>- Here, you can manage the permissions assigned to each sub-account through the provided switch buttons. Sub-accounts can have access to some actions, but not all, as some critical actions are reserved for the main account only.</p>
+        <p>- The sub-accounts can manage:
+        <ul>
+        <li>Orders</li>
+        <li>Products and categories</li>
+        <li>Users</li>
+        <li>Images and website design</li>
+        <li>Website system and settings</li>
+        <li>Chatting with users</li>
+        </ul></p>
+        <p>- While actions that can be managed solely by the main account are:
+        <ul>
+        <li>The restaurant's expenses</li>
+        <li>Financial reports</li>
+        <li>The main account's email address, password, and phone number</li>
+        <li>Sub-accounts</li>
+        <li>Delivery accounts</li>
+        <li>Billing center</li>
+        <li>The deletion of order history, archived statistics data, and activity log</li>
+        <li>Statistics and analytics</li>
+        <li>Help tickets</li>
+        <li>Website privacy policy</li>
+        </ul></p>
         string,
     ],    
     '' => [
@@ -663,47 +751,20 @@ return [
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],    
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],    
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
-        'title' => '',
-        'content' => <<<string
-        <p></p>
-        string,
-    ],    '' => [
-        'title' => '',
-        'content' => <<<string
-        <p></p>
-        string,
-    ],    '' => [
-        'title' => '',
-        'content' => <<<string
-        <p></p>
-        string,
-    ],    '' => [
-        'title' => '',
-        'content' => <<<string
-        <p></p>
-        string,
-    ],    '' => [
-        'title' => '',
-        'content' => <<<string
-        <p></p>
-        string,
-    ],    '' => [
-        'title' => '',
-        'content' => <<<string
-        <p></p>
-        string,
-    ],    '' => [
+    ],    
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>

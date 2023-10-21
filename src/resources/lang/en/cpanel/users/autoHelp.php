@@ -58,6 +58,4 @@ return [
     'autoHelp-onlineUsers-8' => '- If the online visitor card represents a guest (a website visitor who isn\'t logged in to your website), only the chat icon <span class="ico-chat"></span> will appear.',
 
 
-
-
 ];
