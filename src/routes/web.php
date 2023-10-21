@@ -65,121 +65,101 @@ Route::put('/underConstractionSignup',[homeController::class,'underConstractionS
 Route::post('/stripe/invoices',[stripeController::class,'invoices']);
 Route::post('/stripe/subscriptions',[stripeController::class,'subscriptions']);
 Route::post('/stripe/paymentmethods',[stripeController::class,'paymentmethods']);
-if( $getHost === env('APP_DOMAIN') || $getHost === 'www.'.env('APP_DOMAIN') ){
-    $foodmenu = function(){
-        $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en';
-        Route::get('/', function () use ($FoodMenuLang){
-            return redirect()->route('foodmenu.home', $FoodMenuLang);
-        })->name('root');
-    
-        Route::prefix('{FoodMenuLang}')->group(function ()use ($FoodMenuLang){
-            Route::get('/', function (){
-                return redirect()->route('foodmenu.home', $FoodMenuLang);
-            });
-            Route::get('/home',[foodmenuController::class,'home',$FoodMenuLang])->name('foodmenu.home');
-            Route::get('/register',[foodmenuController::class,'register',$FoodMenuLang])->name('foodmenu.register');
-        });
-    
-        Route::post('/doRegister',[foodmenuController::class,'doRegister']);
-        Route::post('/api',[foodmenuController::class,'api']);
-    };
-    Route::domain(env('APP_DOMAIN'))->group($foodmenu);
-    Route::domain('www.'.env('APP_DOMAIN'))->group($foodmenu);
-    return;
-}
-else if($getHost === env('CPANEL_DOMAIN')){
-    Route::domain(env('CPANEL_DOMAIN'))->group(function(){
-        Route::post('/dologin',[cpanelController::class,'dologin'])->middleware(['guest'])->name('account.dologin');
-        Route::Post('/logout',[cpanelController::class,'logout'])->middleware(['account'])->name('account.logout');
-        Route::get('/login',[cpanelController::class,'login'])->middleware(['guest'])->name('account.login');
-        Route::Post('/resetPassword',[cpanelController::class,'resetPassword'])->middleware(['guest'])->name('account.resetPassword');
 
-        Route::middleware(['account'])->group(function () {
-            Route::get('/',[cpanelController::class,'home'])->name('cpanel');
-            Route::get('/financialreport/{action}/{year}/{month}/{lang}/{currency}',[cpanelController::class,'financialreport'])->name('cpanel.financialreport');
-            Route::put('/notifications',[cpanelController::class,'notifications'])->name('cpanel.notifications');
-            Route::put('/liveChat',[cpanelController::class,'liveChat'])->name('cpanel.liveChat');
-            Route::put('/globalChannel',[cpanelController::class,'globalChannel'])->name('cpanel.globalChannel');
+$FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en';
+$foodmenu = function()use($FoodMenuLang){
+    Route::get('/', function () use ($FoodMenuLang){
+        return redirect()->route('foodmenu.home', $FoodMenuLang);
+    })->name('root');
 
-            Route::put('/dashboard',[cpanelController::class,'dashboard'])->name('cpanel.dashboard');
-            Route::put('/settings',[settingsController::class,'settings'])->name('cpanel.settings');
-            Route::put('/security',[securityController::class,'security'])->name('cpanel.security');
-            Route::put('/orders',[ordersController::class,'orders'])->name('cpanel.orders');
-            Route::put('/products',[productsController::class,'products'])->name('cpanel.products');
-            Route::put('/users',[usersController::class,'users'])->name('cpanel.users');
-            Route::post('/liveChat',[usersController::class,'liveChat'])->name('cpanel.liveChat');
-            Route::put('/categories',[categoriesController::class,'categories'])->name('cpanel.categories');
-            Route::Put('/billing',[billingController::class,'billing'])->name('cpanel.billing');
-            Route::put('/design',[designController::class,'design'])->name('cpanel.design');
-            Route::post('/imgs',[designController::class,'imgs'])->name('cpanel.imgs');
-            Route::put('/support',[supportController::class,'support'])->name('cpanel.support');
-            Route::put('/mystaff',[myStaffController::class,'mystaff'])->name('cpanel.mystaff');
-        });
-    });
-    return;
-}
-else if($getHost === env('BILLING_CENTER_DOMAIN')){
-    $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en';
-    Route::domain(env('BILLING_CENTER_DOMAIN'))->group(function()use($FoodMenuLang){
+    Route::prefix('{FoodMenuLang}')->group(function ()use ($FoodMenuLang){
         Route::get('/', function (){
-            return redirect()->route('billing.home', $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en');
-        })->name('billing.root');
-    
-        Route::prefix('{FoodMenuLang}')->group(function (){
-            Route::get('/',[billingController::class,'home',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.home');
-            Route::get('/invoice/{invoice_id}',[billingController::class,'invoice',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.invoice');
-            Route::get('/payment/{payment_return_url}',[billingController::class,'payment_return_url',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.payment_return_url');
-    
+            return redirect()->route('foodmenu.home', $FoodMenuLang);
         });
-    
-        Route::post('/api',[billingController::class,'api']);
+        Route::get('/home',[foodmenuController::class,'home',$FoodMenuLang])->name('foodmenu.home');
+        Route::get('/register',[foodmenuController::class,'register',$FoodMenuLang])->name('foodmenu.register');
     });
-    return;
-}
-else if($getHost === env('HELP_CENTER_DOMAIN')){
-    $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en';
-    Route::domain(env('HELP_CENTER_DOMAIN'))->group(function()use($FoodMenuLang){
+
+    Route::post('/doRegister',[foodmenuController::class,'doRegister']);
+    Route::post('/api',[foodmenuController::class,'api']);
+};
+$cpanel = function(){
+    Route::post('/dologin',[cpanelController::class,'dologin'])->middleware(['guest'])->name('account.dologin');
+    Route::Post('/logout',[cpanelController::class,'logout'])->middleware(['account'])->name('account.logout');
+    Route::get('/login',[cpanelController::class,'login'])->middleware(['guest'])->name('account.login');
+    Route::Post('/resetPassword',[cpanelController::class,'resetPassword'])->middleware(['guest'])->name('account.resetPassword');
+
+    Route::middleware(['account'])->group(function () {
+        Route::get('/',[cpanelController::class,'home'])->name('cpanel');
+        Route::get('/financialreport/{action}/{year}/{month}/{lang}/{currency}',[cpanelController::class,'financialreport'])->name('cpanel.financialreport');
+        Route::put('/notifications',[cpanelController::class,'notifications'])->name('cpanel.notifications');
+        Route::put('/liveChat',[cpanelController::class,'liveChat'])->name('cpanel.liveChat');
+        Route::put('/globalChannel',[cpanelController::class,'globalChannel'])->name('cpanel.globalChannel');
+
+        Route::put('/dashboard',[cpanelController::class,'dashboard'])->name('cpanel.dashboard');
+        Route::put('/settings',[settingsController::class,'settings'])->name('cpanel.settings');
+        Route::put('/security',[securityController::class,'security'])->name('cpanel.security');
+        Route::put('/orders',[ordersController::class,'orders'])->name('cpanel.orders');
+        Route::put('/products',[productsController::class,'products'])->name('cpanel.products');
+        Route::put('/users',[usersController::class,'users'])->name('cpanel.users');
+        Route::post('/liveChat',[usersController::class,'liveChat'])->name('cpanel.liveChat');
+        Route::put('/categories',[categoriesController::class,'categories'])->name('cpanel.categories');
+        Route::Put('/billing',[billingController::class,'billing'])->name('cpanel.billing');
+        Route::put('/design',[designController::class,'design'])->name('cpanel.design');
+        Route::post('/imgs',[designController::class,'imgs'])->name('cpanel.imgs');
+        Route::put('/support',[supportController::class,'support'])->name('cpanel.support');
+        Route::put('/mystaff',[myStaffController::class,'mystaff'])->name('cpanel.mystaff');
+    });
+};
+$billing = function()use($FoodMenuLang){
+    Route::get('/', function (){
+        return redirect()->route('billing.home', $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en');
+    })->name('billing.root');
+
+    Route::prefix('{FoodMenuLang}')->group(function (){
+        Route::get('/',[billingController::class,'home',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.home');
+        Route::get('/invoice/{invoice_id}',[billingController::class,'invoice',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.invoice');
+        Route::get('/payment/{payment_return_url}',[billingController::class,'payment_return_url',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.payment_return_url');
+
+    });
+
+    Route::post('/api',[billingController::class,'api']);
+};
+$help = function()use($FoodMenuLang){
+    Route::get('/', function ()use($FoodMenuLang){
+        return redirect()->route('help.home', $FoodMenuLang);
+    })->name('help.root');
+
+    Route::prefix('{FoodMenuLang}')->group(function ()use($FoodMenuLang){
         Route::get('/', function ()use($FoodMenuLang){
             return redirect()->route('help.home', $FoodMenuLang);
-        })->name('help.root');
-    
-        Route::prefix('{FoodMenuLang}')->group(function ()use($FoodMenuLang){
-            Route::get('/', function ()use($FoodMenuLang){
-                return redirect()->route('help.home', $FoodMenuLang);
-            });
-            Route::get('/home',[helpController::class,'home',$FoodMenuLang])->name('help.home');
-            Route::get('/articles/{cat}',[helpController::class,'cat',$FoodMenuLang])->name('help.cat');
-            Route::get('/articles/{cat}/{article}',[helpController::class,'article',$FoodMenuLang])->name('help.article');
-            Route::get('/articles/{cat}/{article}/{section}',[helpController::class,'section',$FoodMenuLang])->name('help.section');
         });
-        Route::post('/api',[helpController::class,'api']);
+        Route::get('/home',[helpController::class,'home',$FoodMenuLang])->name('help.home');
+        Route::get('/articles/{cat}',[helpController::class,'cat',$FoodMenuLang])->name('help.cat');
+        Route::get('/articles/{cat}/{article}',[helpController::class,'article',$FoodMenuLang])->name('help.article');
+        Route::get('/articles/{cat}/{article}/{section}',[helpController::class,'section',$FoodMenuLang])->name('help.section');
     });
-    return;
-}
-else if($getHost === env('DELIVERY_HUB_DOMAIN')){
-    Route::domain(env('DELIVERY_HUB_DOMAIN'))->group(function(){
-        Route::get('/',[deliveryAccountController::class,'home'])->middleware(['delivery'])->name('delivery.home');
-        Route::get('/login',[deliveryAccountController::class,'login'])->name('delivery.login');
-    
-        Route::post('/logout',[deliveryAccountController::class,'logout'])->Middleware(['delivery'])->name('delivery.logout');
-        Route::post('/dologin',[deliveryAccountController::class,'dologin'])->name('delivery.dologin');
-        Route::post('/orders',[deliveryAccountController::class,'orders'])->middleware('delivery')->name('delivery.orders');
-    });
-    return;
-}
-else if($getHost === env('ADMINISTRATION_DOMAIN')){
-    Route::domain(env('ADMINISTRATION_DOMAIN'))->group(function(){
-        Route::get('/login',[adminController::class,'login'])->middleware(['guest'])->name('admin.login');
-        Route::post('/dologin',[adminController::class,'dologin'])->middleware('guest')->name('admin.dologin');
-        Route::post('/logout',[adminController::class,'logout'])->middleware(['admin'])->name('admin.logout');
-        Route::post('/getInfo',[adminController::class,'getInfo'])->middleware('admin')->name('admin.getInfo');
-        Route::get('/',[adminController::class,'home'])->middleware(['admin'])->name('admin.home');
-    });
+    Route::post('/api',[helpController::class,'api']);
+};
+$delivery = function(){
+    Route::get('/',[deliveryAccountController::class,'home'])->middleware(['delivery'])->name('delivery.home');
+    Route::get('/login',[deliveryAccountController::class,'login'])->name('delivery.login');
 
-}
-else{
-    Route::get('/', function () use ($getHost){
-        return redirect()->route('website.home', $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en');
+    Route::post('/logout',[deliveryAccountController::class,'logout'])->Middleware(['delivery'])->name('delivery.logout');
+    Route::post('/dologin',[deliveryAccountController::class,'dologin'])->name('delivery.dologin');
+    Route::post('/orders',[deliveryAccountController::class,'orders'])->middleware('delivery')->name('delivery.orders');
+};
+$admin = function(){
+    Route::get('/login',[adminController::class,'login'])->middleware(['guest'])->name('admin.login');
+    Route::post('/dologin',[adminController::class,'dologin'])->middleware('guest')->name('admin.dologin');
+    Route::post('/logout',[adminController::class,'logout'])->middleware(['admin'])->name('admin.logout');
+    Route::post('/getInfo',[adminController::class,'getInfo'])->middleware('admin')->name('admin.getInfo');
+    Route::get('/',[adminController::class,'home'])->middleware(['admin'])->name('admin.home');
+};
+$website = function()use ($getHost){
+    $lang = Cookie::get(Str::slug($getHost.'_lang', '_'));
+    Route::get('/', function () use ($lang){
+        return redirect()->route('website.home', $lang);
     });
     Route::post('/user/login',[websiteController::class,'userLogin'])->name('website.userLogin');
     Route::get('/user/logout',[websiteController::class,'userLogout'])->name('website.userLogout');
@@ -195,19 +175,45 @@ else{
 
     Route::post('/website/activity',[websiteController::class,'activity'])->name('website.activity');
 
-    Route::prefix('{lang}')->group(function () use ($getHost){
+    Route::prefix('{lang}')->group(function () use ($lang){
 
-        Route::get('/', function  (){
-            return redirect()->route('website.home', $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en');
+        Route::get('/', function  () use ($lang){
+            return redirect()->route('website.home', $lang);
         });
         Route::get('/website-not-active',[websiteController::class,'websiteNotActive'])->name('websiteNotActive');
 
-        Route::get('/home',[websiteController::class,'home',$lang = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.home');
-        Route::get('/aboutus',[websiteController::class,'aboutus',$lang = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.aboutus');
-        Route::get('/profile',[websiteController::class,'profile',$lang = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.profile');
-        Route::get('/privacypolicy',[websiteController::class,'privacypolicy',$lang  = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.privacypolicy');
-        Route::get('/allproducts',[websiteController::class,'allproducts',$lang  = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.allproducts');
-        Route::get('/{category}',[websiteController::class,'category',$lang  = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.category');
-        Route::get('/{category}/{product}',[websiteController::class,'product',$lang  = Cookie::get(Str::slug($getHost.'_lang', '_'))  ?? 'en'])->name('website.product');
+        Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
+        Route::get('/aboutus',[websiteController::class,'aboutus',$lang])->name('website.aboutus');
+        Route::get('/profile',[websiteController::class,'profile',$lang])->name('website.profile');
+        Route::get('/privacypolicy',[websiteController::class,'privacypolicy',$lang])->name('website.privacypolicy');
+        Route::get('/allproducts',[websiteController::class,'allproducts',$lang])->name('website.allproducts');
+        Route::get('/{category}',[websiteController::class,'category',$lang])->name('website.category');
+        Route::get('/{category}/{product}',[websiteController::class,'product',$lang])->name('website.product');
     });
+};
+if(
+    $getHost === env('APP_DOMAIN') ||
+    $getHost === 'www.'.env('APP_DOMAIN') ||
+    $getHost === env('CPANEL_DOMAIN') ||
+    $getHost === env('BILLING_CENTER_DOMAIN') ||
+    $getHost === env('HELP_CENTER_DOMAIN') ||
+    $getHost === env('DELIVERY_HUB_DOMAIN') ||
+    $getHost === env('ADMINISTRATION_DOMAIN')
+){
+    Route::domain(env('APP_DOMAIN'))->group($foodmenu);
+    Route::domain('www.'.env('APP_DOMAIN'))->group($foodmenu);
+    Route::domain(env('CPANEL_DOMAIN'))->group($cpanel);
+    Route::domain(env('BILLING_CENTER_DOMAIN'))->group($billing);
+    Route::domain(env('HELP_CENTER_DOMAIN'))->group($help);
+    Route::domain(env('DELIVERY_HUB_DOMAIN'))->group($delivery);
+    Route::domain(env('ADMINISTRATION_DOMAIN'))->group($admin);
+}else{
+    Route::domain($getHost)->group($website);
+
 }
+
+
+
+
+
+
