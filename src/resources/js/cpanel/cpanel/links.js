@@ -101,6 +101,9 @@ $('html,body').on('click','.cpPage',function(e){
         case 'manage_users':
             keysObj.user = $(this).attr('user')
         break;
+        case 'manage_products':
+            keysObj.category = $(this).attr('category')
+        break;
     }
     showPage($(this).attr('cpPage'),openTab,keysObj).then((is_pushHistory)=>{
         // openTab != null ? $(`.pageTab[tab="${openTab}"]`).trigger('click') : null;
@@ -147,11 +150,11 @@ $('html,body').on('click','.cpPage',function(e){
         //     case 'manage_products':
         //         if(account.authorities[1] == true){
         //             if($(this).attr('category') == null || $(this).attr('category') == 'allproducts' ){
-        //                 $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allProducts)
+        //                 $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allproducts)
         //                 window.page.category = 'allproducts';
         //                 drawManageProductCards('allproducts');
         //             }else if($(this).attr('category') == 'uncategorized'){
-        //                 $('#manageProducts-selectCategory').attr('key','uncategorized').val(texts.products.unsortProduct)
+        //                 $('#manageProducts-selectCategory').attr('key','uncategorized').val(texts.products.uncategorized)
         //                 window.page.category = 'uncategorized';
         //                 drawManageProductCards('uncategorized');
         //             }else{
@@ -357,6 +360,13 @@ $('html,body').on('click','.popupPage',function(e){
         case 'edit_category':
             keysObj.category = $(this).attr('category')
         break;
+        case 'product':
+            keysObj.product = $(this).attr('product')
+        break;
+        case 'edit_product':
+            keysObj.product = $(this).attr('product')
+        break;
+
     }
     showPopupPage($(this).attr('popupPage'),keysObj).then((is_pushHistory)=>{
         // window.popupPage.popupPage = $(this).attr('popupPage');
@@ -620,6 +630,9 @@ $(window).on('popstate',(e)=>{
             case 'manage_users':
                 keysObj.user = window.history.state.user;
             break;
+            case 'manage_products':
+                keysObj.category = window.history.state.category;
+            break;
         }
         window.page.page = '';
         showPage(window.history.state.page,history.state.page.tab,keysObj).then(()=>{
@@ -639,11 +652,11 @@ $(window).on('popstate',(e)=>{
 
         //     case 'manage_products':
         //         if(window.history.state.category == null || window.history.state.category == 'allproducts' ){
-        //             $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allProducts)
+        //             $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allproducts)
         //             window.page.category = 'allproducts';
         //             drawManageProductCards('allproducts');
         //         }else if($(this).attr('category') == 'uncategorized'){
-        //             $('#manageProducts-selectCategory').attr('key','uncategorized').val(texts.products.unsortProduct)
+        //             $('#manageProducts-selectCategory').attr('key','uncategorized').val(texts.products.uncategorized)
         //             window.page.category = 'uncategorized';
         //             drawManageProductCards('uncategorized');
         //         }else{
@@ -720,6 +733,13 @@ $(window).on('popstate',(e)=>{
             case 'edit_category':
                 keysObj.category = window.history.state.category;
             break;
+            case 'product':
+                keysObj.product = window.history.state.product;
+            break;
+            case 'edit_product':
+                keysObj.product = window.history.state.product;
+            break;
+
         }
         // window.popupPage = {}
         window.popupPage.popupPage = '';
@@ -844,11 +864,11 @@ $(window).on('popstate',(e)=>{
 //         switch(window.history.state.page){
 //             case 'manage_products':
 //                 if(window.history.state.category == null || window.history.state.category == 'allproducts' ){
-//                     $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allProducts)
+//                     $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allproducts)
 //                     window.page.category = 'allproducts';
 //                     drawManageProductCards('allproducts');
 //                 }else if($(this).attr('category') == 'uncategorized'){
-//                     $('#manageProducts-selectCategory').attr('key','uncategorized').val(texts.products.unsortProduct)
+//                     $('#manageProducts-selectCategory').attr('key','uncategorized').val(texts.products.uncategorized)
 //                     window.page.category = 'uncategorized';
 //                     drawManageProductCards('uncategorized');
 //                 }else{

@@ -87,6 +87,7 @@ $('html,body').on('click','#editCategory_cancelBtn',function(e){
 })
 $('html,body').on('click','#editCategory_saveBtn',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     let categoryName =$('#editCategory_categoryName').val();
     let category = website.categories.find(item=>item.name == categoryName);
     if(typeof(category) === 'undefined'){return}

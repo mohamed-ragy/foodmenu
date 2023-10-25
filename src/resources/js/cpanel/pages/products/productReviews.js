@@ -29,12 +29,12 @@ setFindReviewFilters = function(clearReviews=true){
     window.history.star4 = window.page.star4;
     window.history.star5 = window.page.star5;
     if(window.findReviewFilters.product == 'allproducts'){
-        $('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts');
+        $('#productReviews-selectProduct').val(texts.products.allproducts).attr('key','allproducts');
     }else{
         try{
             $('#productReviews-selectProduct').val(window.findReviewFilters.product).attr('key',website.products.find(item=> item.name == window.findReviewFilters.product).id);
         }catch{
-            $('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts');
+            $('#productReviews-selectProduct').val(texts.products.allproducts).attr('key','allproducts');
         }
     }
     if(window.findReviewFilters.star1 == 1){
@@ -279,7 +279,7 @@ $('#productReviews-findReviewsBtn').on('click',function(){
     let byProduct = website.products.find(item=> item.id == $('#productReviews-selectProduct').attr('key'));
     if(typeof(byProduct) == 'undefined'){
         window.findReviewFilters.product = 'allproducts';
-    $('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts')
+    $('#productReviews-selectProduct').val(texts.products.allproducts).attr('key','allproducts')
     }else{window.findReviewFilters.product = byProduct.name}
 
     window.findReviewFilters.userId = $('#productReviews-selectUser').attr('key') ?? '';

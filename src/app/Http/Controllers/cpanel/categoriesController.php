@@ -181,20 +181,6 @@ class categoriesController extends Controller
                     'category' => $category,
 
                 ]);
-
-                // $notification = new stdClass();
-                // $notification->code = 14.4;
-                // $notification->website_id = $this->website_id;
-                // $notification->category = $category;
-                // $notification->activity = activityLog::create([
-                //     'website_id' => $this->website_id,
-                //     'code' => 11,
-                //     'account_id' => Auth::guard('account')->user()->id,
-                //     'account_name' => Auth::guard('account')->user()->name,
-                //     'category_id' => $request->editCategory,
-                //     'category_name' => $request->categoryName,
-                // ]);
-                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['editCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEdited'), 'category' => $category ]);
             }else{
                 return response(['editCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEditeFail') ]);

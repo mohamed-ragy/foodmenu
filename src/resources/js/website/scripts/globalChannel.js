@@ -51,15 +51,21 @@ window.globalChannel
     console.log(data)
     switch(data.code){
         case 'restaurant.online.status':
-        for(const key in window.onlineAccounts){
-            if(window.onlineAccounts[key] == data.account_id){
-                window.onlineAccounts.splice(key,1)
+            for(const key in window.onlineAccounts){
+                if(window.onlineAccounts[key] == data.account_id){
+                    window.onlineAccounts.splice(key,1)
+                }
             }
-        }
-        if(data.onlineStatus == 0){
-            window.onlineAccounts.push(data.account_id)
-        }
-        checkRestaurantOnlineStatus();
+            if(data.onlineStatus == 0){
+                window.onlineAccounts.push(data.account_id)
+            }
+            checkRestaurantOnlineStatus();
+        break;
+        case 'product.delete':
+
+        break;
+        case 'product.availability':
+            
         break;
     }
 });

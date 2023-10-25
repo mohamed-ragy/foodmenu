@@ -7,28 +7,30 @@ $('html,body').on('mouseenter','.popupId',function(e){
             // if(!account.authorities[0]){return;}
             let product = website.products.find(item=>item.name == $(this).attr('product'));
             if(typeof(product) === 'undefined'){return;}
-            let rating = Math.round(parseFloat(product.rating));
-            let ratingStars = {};
-            rating>=1 ? ratingStars['star1'] = 'ico-star' : 'ico-starEmpty';
-            rating>=2 ? ratingStars['star2'] = 'ico-star' : 'ico-starEmpty';
-            rating>=3 ? ratingStars['star3'] = 'ico-star' : 'ico-starEmpty';
-            rating>=4 ? ratingStars['star4'] = 'ico-star' : 'ico-starEmpty';
-            rating>=5 ? ratingStars['star5'] = 'ico-star' : 'ico-starEmpty';
+            let productRating = Math.round(parseFloat(product.rating));
+            let ratingStars = {
+                star1:productRating >= 1 ? 'ico-star' : 'ico-starEmpty',
+                star2:productRating >= 2 ? 'ico-star' : 'ico-starEmpty',
+                star3:productRating >= 3 ? 'ico-star' : 'ico-starEmpty',
+                star4:productRating >= 4 ? 'ico-star' : 'ico-starEmpty',
+                star5:productRating >= 5 ? 'ico-star' : 'ico-starEmpty',
+            }
             $('#popupId').text('').append(
                 $('<div/>',{class:'popupIdClose ico-close'}),
                 $('<div/>',{class:'mB10'}).append(
                     $('<img/>',{class:'w100p h50 mnw200 ofCover',src:product.imgUrl}),
                     $('<div/>',{class:'pX5 fs103',text:product.name}),
+                    $('<div/>',{class:'pX5 fs09 mB10',text:product.category_id === null ? texts.products.uncategorizedProduct : website.categories.find(item=>item.id == product.category_id).name}),
                     $('<div/>',{class:'mX5 row alnC jstyS mB5'}).append(
-                        $('<div/>',{class:`cStar fs102 ${ratingStars.star1}`}),
-                        $('<div/>',{class:`cStar fs102 ${ratingStars.star2}`}),
-                        $('<div/>',{class:`cStar fs102 ${ratingStars.star3}`}),
-                        $('<div/>',{class:`cStar fs102 ${ratingStars.star4}`}),
-                        $('<div/>',{class:`cStar fs102 ${ratingStars.star5}`}),
+                        $('<span/>',{class:`cStar fs102 ${ratingStars.star1}`}),
+                        $('<span/>',{class:`cStar fs102 ${ratingStars.star2}`}),
+                        $('<span/>',{class:`cStar fs102 ${ratingStars.star3}`}),
+                        $('<span/>',{class:`cStar fs102 ${ratingStars.star4}`}),
+                        $('<span/>',{class:`cStar fs102 ${ratingStars.star5}`}),
                     ),
                     $('<div/>',{class:'authority_1 pX5 fs09',text:texts.products.created.replace(':date:',getDate(product.created_at).date.local)}),
-                    $('<div/>',{class:'pX5 fs09 authority_master',text:texts.products.productOrdered.replace(':sum:',product.ordered_sum)}),
-                    $('<div/>',{class:'pX5 fs09 authority_master',text:texts.products.poductReviewed.replace(':sum:',product.ratings_sum)}),
+                    $('<div/>',{class:'pX5 fs09 authority_master',text:product.ordered_sum == 1 ? texts.products.productOrderedTime.replace(':sum:',product.ordered_sum) : texts.products.productOrderedTimes.replace(':sum:',product.ordered_sum)}),
+                    $('<div/>',{class:'pX5 fs09 authority_master',text:product.ratings_sum == 1 ? texts.products.poductReviewedTime.replace(':sum:',product.ratings_sum) : texts.products.poductReviewedTimes.replace(':sum:',product.ratings_sum)}),
                     $('<div/>',{class:'authority_1 row alnC jstfyE mis-20 mT10 mie-5'}).append(
                         $('<button/>',{class:'btn_icon popupPage',popupPage:'edit_product',product:product.name,text:texts.cpanel.public.edit}),
                         $('<button/>',{class:'btn_icon popupPage',popupPage:'manage_product_options',product:product.name,text:texts.products.manageOptions}),

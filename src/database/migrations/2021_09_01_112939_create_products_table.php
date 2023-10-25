@@ -27,24 +27,10 @@ class CreateProductsTable extends Migration
             $table->foreign('img_id')->references('id')->on('imgs')->onDelete('set null');
 
             $table->string('name')->index();
-            $table->string('name_en')->nullable();
-            $table->string('name_ar')->nullable();
-            $table->string('name_eg')->nullable();
-            $table->string('name_fr')->nullable();
-            $table->string('name_de')->nullable();
-            $table->string('name_it')->nullable();
-            $table->string('name_es')->nullable();
-            $table->string('name_ru')->nullable();
-            $table->string('name_ua')->nullable();
-            $table->text('description_en')->nullable();
-            $table->text('description_ar')->nullable();
-            $table->text('description_eg')->nullable();
-            $table->text('description_fr')->nullable();
-            $table->text('description_de')->nullable();
-            $table->text('description_it')->nullable();
-            $table->text('description_es')->nullable();
-            $table->text('description_ru')->nullable();
-            $table->text('description_ua')->nullable();
+
+            $table->json('names');
+            $table->json('descriptions');
+
             $table->decimal('price',10,2)->default(0.00);
             $table->boolean('availability')->default(true);
             $table->decimal('rating',10,2)->index()->nullable();

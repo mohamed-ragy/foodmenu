@@ -39,7 +39,7 @@
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)
     {{-- categories --}}
-    @include('cpanel.pages.categories.categories-list-page')
+    {{-- @include('cpanel.pages.categories.categories-list-page') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[3] == true)

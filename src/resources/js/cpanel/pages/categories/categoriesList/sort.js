@@ -50,6 +50,7 @@ sortCategories = function(){
 
         }
     }).fail(function(){
+        showAlert('error',r.msg,4000,true);
         website.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatFromSort;
         website.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatToSort;
         website.categories.sort((a,b)=>{
@@ -68,7 +69,6 @@ sortCategories = function(){
 $('html,body').on('mousedown touchstart','.categoryCardMove',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
-    console.log('gg')
     categoryOnMove = true;
     categoryOnMoveFrom = $(this).closest('.categoryCardContainer').attr('category');
     $(this).closest('.categoryCardContainer').addClass('categoryCardSelectedOnMove');

@@ -8,7 +8,7 @@ $('#reviewsMoreFilters').on('click',function(){
     }
 })
 
-$('#productReviews-selectProduct').val(texts.products.allProducts).attr('key','allproducts')
+$('#productReviews-selectProduct').val(texts.products.allproducts).attr('key','allproducts')
 
 $('#productReviews-selectUser').on('change input focusout focus',function(){
     setTimeout(function(){

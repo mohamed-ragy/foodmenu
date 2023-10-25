@@ -14,8 +14,8 @@
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)
     {{-- categories --}}
-    @include('cpanel.popupPage.categories.categories-list')
-    @include('cpanel.popupPage.categories.create-new-category')
+    {{-- @include('cpanel.popupPage.categories.categories-list') --}}
+    {{-- @include('cpanel.popupPage.categories.create-new-category') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)

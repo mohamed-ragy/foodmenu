@@ -7,8 +7,20 @@ sortProducts = function(){
     let tempProductFromSort = website.products.find(item=> item.id == productCardOnMoveFrom).sort;
     let tempProductToSort = website.products.find(item=> item.id == productCardOnMoveTo).sort;
     if(tempProductFromSort == tempProductToSort){return;}
-    $('.manageProductCardSortLoading').removeClass('none').css('visibility','visible');
     $('.manageProductCardMove').addClass('none');
+    website.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductToSort;
+    website.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductFromSort;
+    website.products.sort((a,b)=>{
+        return parseInt(a.sort) - parseInt(b.sort)
+    })
+    website_temp.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductToSort;
+    website_temp.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductFromSort;
+    website_temp.products.sort((a,b)=>{
+        return parseInt(a.sort) - parseInt(b.sort)
+    })
+    if($('#manageProducts-selectCategory').attr('key') != null){
+        drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
+    }
     $.ajax({
         url:'products',
         type:'put',
@@ -20,40 +32,62 @@ sortProducts = function(){
             fromSort:tempProductToSort,
             toSort:tempProductFromSort,
         },success:function(r){
-            $('.manageProductCardSortLoading').addClass('none').css('visibility','hidden');
             $('.manageProductCardMove').removeClass('none');
             if(r.sortProductsStatus == 1){
-                website.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductToSort;
-                website.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductFromSort;
-                if($('#manageProducts-selectCategory').attr('key') != null){
-                    drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
-                }
+
             }else if(r.sortProductsStatus == 0){
                 showAlert('error',r.msg,4000,true);
+                website.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductFromSort;
+                website.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductToSort;
+                website.products.sort((a,b)=>{
+                    return parseInt(a.sort) - parseInt(b.sort)
+                })
+                website_temp.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductFromSort;
+                website_temp.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductToSort;
+                website_temp.products.sort((a,b)=>{
+                    return parseInt(a.sort) - parseInt(b.sort)
+                })
                 if($('#manageProducts-selectCategory').attr('key') != null){
                     drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
                 }
             }
         }
+    }).fail(function(){
+        showAlert('error',r.msg,4000,true);
+        website.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductFromSort;
+        website.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductToSort;
+        website.products.sort((a,b)=>{
+            return parseInt(a.sort) - parseInt(b.sort)
+        })
+        website_temp.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductFromSort;
+        website_temp.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductToSort;
+        website_temp.products.sort((a,b)=>{
+            return parseInt(a.sort) - parseInt(b.sort)
+        })
+        if($('#manageProducts-selectCategory').attr('key') != null){
+            drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
+        }
     })
 }
 
 
-$('#manageProducts-manageProductsContainer').on('mousedown touchstart','.manageProductCardMove',function(e){
+$('html,body').on('mousedown touchstart','.manageProductCardMove',function(e){
     e.stopImmediatePropagation();
+    e.preventDefault();
     productCardOnMove = true;
-    productCardOnMoveFrom = $(this).attr('productId');
+    productCardOnMoveFrom = $(this).closest('.manageProductCardContainer').attr('product');
     $(this).closest('.manageProductCardContainer').addClass('manageProductCardSelectedOnMove');
-    $('#manageProductCardOnMove').html($(this).closest('.manageProductCardContainer').html());
-    $('#manageProductCardOnMove').width($(this).closest('.manageProductCardContainer').width())
-    $('#manageProductCardOnMove').css('display','flex');
+    $('#onMove').removeClass().addClass('manageProductCardOnMove')
+    $('#onMove').html($(this).closest('.manageProductCardContainer').html());
+    $('#onMove').width($(this).closest('.manageProductCardContainer').width())
+    $('#onMove').css('display','flex');
     if(!window.matchMedia("(pointer: coarse)").matches){
-        $('#manageProductCardOnMove').css({
+        $('#onMove').css({
             'top':e.pageY,
             'left':e.pageX,
         });
     }else{
-        $('#manageProductCardOnMove').css({
+        $('#onMove').css({
             'top':e.originalEvent.touches[0].pageY,
             'left':e.originalEvent.touches[0].pageX,
         });
@@ -65,12 +99,12 @@ $('#bodyPage').on('mousemove touchmove',function(e){
         e.stopImmediatePropagation();
         e.preventDefault();
         if(!window.matchMedia("(pointer: coarse)").matches){
-            $('#manageProductCardOnMove').css({
+            $('#onMove').css({
                 'top':e.pageY,
                 'left':e.pageX,
             });
         }else{
-            $('#manageProductCardOnMove').css({
+            $('#onMove').css({
                 'top':e.originalEvent.touches[0].pageY,
                 'left':e.originalEvent.touches[0].pageX,
             });
@@ -93,9 +127,9 @@ $('#bodyPage').on('mousemove touchmove',function(e){
         })
         clearInterval(productCardOnMoveInterval)
         productCardOnMoveInterval = setInterval(function(){
-            if(pageY < $('#bodyPage').offset().top + 100 && $('#manageProducts-manageProductsContainer').offset().top < $('#bodyPage').offset().top + 40){
+            if(pageY < $('#bodyPage').offset().top + 100 && $('.productsListContainer').offset().top < $('#bodyPage').offset().top + 40){
                 $('#bodyPage').scrollTop($('#bodyPage').scrollTop() - 5);
-            }else if(pageY > $('#bodyPage').offset().top + $('#bodyPage').height() - 100 && $('#manageProducts-manageProductsContainer').offset().top + $('#manageProducts-manageProductsContainer').height() > $('#bodyPage').offset().top + $('#bodyPage').height() - 10){
+            }else if(pageY > $('#bodyPage').offset().top + $('#bodyPage').height() - 100 && $('.productsListContainer').offset().top + $('.productsListContainer').height() > $('#bodyPage').offset().top + $('#bodyPage').height() - 10){
                 $('#bodyPage').scrollTop($('#bodyPage').scrollTop() + 5);
             }
         },10)
@@ -121,13 +155,14 @@ $('#bodyPage').on('mouseup touchend',function(e){
             if(
                 $(this).offset().top < pageY && ($(this).offset().top + $(this).outerHeight() ) > pageY && $(this).offset().left < pageX && ($(this).offset().left + $(this).outerWidth() ) > pageX
             ){
-                productCardOnMoveFrom = $('.manageProductCardSelectedOnMove').attr('productId');
-                productCardOnMoveTo = $(this).attr('productId');
+                productCardOnMoveFrom = $('.manageProductCardSelectedOnMove').attr('product');
+                productCardOnMoveTo = $(this).attr('product');
+                console.log(productCardOnMoveFrom)
                 sortProducts();
             }
         })
         $('.manageProductCardContainer').removeClass('manageProductCardSelectedOnMove');
-        $('#manageProductCardOnMove').hide();
+        $('#onMove').removeClass().html('').addClass('none');
         $('.manageProductCardContainer').removeClass('manageProductCardHighlighted');
         productCardOnMove = false;
     }

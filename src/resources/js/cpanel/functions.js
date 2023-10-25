@@ -32,7 +32,9 @@ addToInputList = function(list,text,key){
             text:text,
             key:key,
             class:'inputListElement'
-        })
+        }).append(
+            $('<div/>',{class:`inputListElement_unsaved none`})
+        )
     )
 }
 resetInputList = function(list){
@@ -373,7 +375,7 @@ getDate = function(timeStamp){
             UTC:time.toLocaleString(TimeLang,{ hour:'numeric', minute:'numeric',hour12 :hour12,timeZone:'UTC'}),
             local:time.toLocaleString(TimeLang,{ hour:'numeric', minute:'numeric',hour12 :hour12}),
         },
-        
+
     }
 }
 getDateAndTime = function(timeStamp,modify=''){
@@ -497,10 +499,7 @@ scrollToDiv = function(container,div,animationTime=500,space=50){
 diffTime = (time) => {
     let now;
     if(time == 'midnight'){
-        now = new Date().toLocaleString('en-US', { timeZone: webReloadForUpdatesite.timeZone });
-        time = new Date(new Date().toLocaleString('en-US', { timeZone: website.timeZone })).setHours(0,0,0,0);
-    }else{
-        now = new Date('UTC');
+        time = parseInt(new Date(new Date().toLocaleString('en-US', { timeZone: website.timeZone })).setHours(0,0,0,0) ) / 1000;
     }
     now = parseInt(parseInt(new Date().getTime()) / 1000);
     diff = now - time;

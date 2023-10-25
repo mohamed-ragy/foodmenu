@@ -1,16 +1,19 @@
 inputListNoSaveCheck = function(inputList){
-    editProductNoSaveCheck();
+    // manage_products_unsave_check();
     system_unsave_check();
 }
 drawInputList = function(autoHelp,icon,iconFlag,tooltip,id,placeholder,maxlength,listId,listLoading,containerClass='',listClass='',inputClass=''){
     let iconElem; let listContainer = $('<div/>',{class:'listContainer',id:listId});
     if(iconFlag == ''){
         iconElem = $('<div/>',{class:`inputListIcon`}).append(
-            $('<span/>',{class:icon})
+            $('<span/>',{class:icon}),
+            $('<div/>',{class:`inputList_unsaved none ${id}-unsaved`})
+
         );
     }else{
         iconElem = $('<div/>',{class:`inputListIcon`}).append(
-            $('<img/>',{class:'inputTextIconFlag',src:`./storage/imgs/flags/${iconFlag}.png`,alt:''})
+            $('<img/>',{class:'inputTextIconFlag',src:`./storage/imgs/flags/${iconFlag}.png`,alt:''}),
+            $('<div/>',{class:`inputList_unsaved none ${id}-unsaved`})
         );
     }
     if(listLoading){
@@ -25,9 +28,9 @@ drawInputList = function(autoHelp,icon,iconFlag,tooltip,id,placeholder,maxlength
             $('<div/>',{class:'inputListElementLoading2'}),
         )
     }
-    return $('<div/>',{class:'inputListContainer '+containerClass,autoHelp:autoHelp,tooltip:tooltip}).append(
+    return $('<div/>',{class:'inputListContainer '+containerClass,autoHelp:autoHelp}).append(
         iconElem,
-        $('<input/>',{id:id,key:'',class:`inputList ${inputClass}`,type:'text',placeholder:placeholder,maxlength:maxlength}),
+        $('<input/>',{id:id,key:'',class:`inputList ${inputClass}`,tooltip:tooltip,type:'text',placeholder:placeholder,maxlength:maxlength}),
         $('<div/>',{class:'inputListDownIcon ico-down mis-5'}),
         listContainer,
     )

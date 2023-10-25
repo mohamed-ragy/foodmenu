@@ -58,11 +58,7 @@ window.cpanelChannel = window.Echo.private(`cpanelChannel.${website.id}`);
 
 require("./objects");
 
-require("./drawPages/products.js");//done
-require("./drawPages/staff.js");//done
-require("./drawPages/users.js");//done
-require("./drawPages/settings.js");//done
-require("./drawPages/support.js");//done
+require("./drawPages.js");
 
 require("./functions");
 require("./cpanel/links.js"); //(need to finsih click to take to renew event)
@@ -213,6 +209,9 @@ switch(pageParam){
     case 'manage_users':
         keysObj.user = params.get('user')
     break;
+    case 'manage_products':
+        keysObj.category = params.get('category')
+    break;
 }
 showPage(pageParam,pageTabParam,keysObj).then(()=>{
     params.get('tab') != null ? $(`.pageTab[tab="${params.get('tab')}"]`).trigger('click') : null;
@@ -253,11 +252,11 @@ showPage(pageParam,pageTabParam,keysObj).then(()=>{
     //     case 'manage_products':
     //         if(account.authorities[1] == true){
     //             if(params.get('category') == null || params.get('category') == 'allproducts'){
-    //                 $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allProducts)
+    //                 $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.allproducts)
     //                 window.page.category = 'allproducts';
     //                 drawManageProductCards('allproducts');
     //             }else if(params.get('category') == 'uncategorized'){
-    //                 $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.unsortProduct)
+    //                 $('#manageProducts-selectCategory').attr('key','allproducts').val(texts.products.uncategorized)
     //                 window.page.category = 'uncategorized';
     //                 drawManageProductCards('uncategorized');
     //             }else{
@@ -451,6 +450,12 @@ if(params.get('popupPage') != null){
         break;
         case 'edit_category':
             keysObj.category = params.get('category')
+        break;
+        case 'product':
+            keysObj.product = params.get('product')
+        break;
+        case 'edit_product':
+            keysObj.product = params.get('product')
         break;
     }
     showPopupPage(params.get('popupPage'),keysObj).then(()=>{

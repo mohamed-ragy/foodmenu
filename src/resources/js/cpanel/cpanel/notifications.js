@@ -929,6 +929,104 @@ handelCpanelChannel = function(n,code){
             }
             window.guideHints.categories(website.categories);
             break;
+        case 'product.create':
+            n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
+            n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+            Object.keys(imgs).some(function(k) {
+                if(imgs[k].id == n.product.img_id){
+                    n.product.imgs = imgs[k];
+                    n.product.imgUrl = '/storage/'+imgs[k].url;
+                    n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+                }
+            });
+            website.products.push(n.product);
+            website_temp.products.push(n.product);
+            if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
+                drawManageProductCards(window.history.state.category);
+            }
+            window.guideHints.products(website.products);
+            break;
+        case 'product.delete':
+            for(const key in website.products){
+                product = website.products[key];
+                if(product.id == n.product_id){
+                    website.products.splice(key,1);
+                }
+            }
+            for(const key in website_temp.products){
+                product = website_temp.products[key];
+                if(product.id == n.product_id){
+                    website_temp.products.splice(key,1);
+                }
+            }
+            if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
+                drawManageProductCards(window.history.state.category);
+            }
+            window.guideHints.products(website.products);
+            manage_products_unsave_check();
+            break;
+        case 'product.availability':
+            for(const key in website.products){
+                if(website.products[key].id == n.product_id){
+                    website.products[key].availability = n.availability
+                }
+            }
+            for(const key in website_temp.products){
+                if(website_temp.products[key].id == n.product_id){
+                    website_temp.products[key].availability = n.availability
+                }
+            }
+            if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
+                drawManageProductCards(window.history.state.category);
+            }
+            window.guideHints.products(website.products);
+            manage_products_unsave_check();
+            break;
+        case 'product.sort':
+            website.products.find(item=> item.id == n.fromId).sort = n.fromSort;
+            website.products.find(item=> item.id == n.toId).sort = n.toSort;
+            website.products.sort((a,b)=>{
+                return parseInt(a.sort) - parseInt(b.sort)
+            })
+            website_temp.products.find(item=> item.id == n.fromId).sort = n.fromSort;
+            website_temp.products.find(item=> item.id == n.toId).sort = n.toSort;
+            website_temp.products.sort((a,b)=>{
+                return parseInt(a.sort) - parseInt(b.sort)
+            })
+            if(window.history.state.page == 'manage_products' && window.history.state.category != null){
+                drawManageProductCards(window.history.state.category)
+            }
+            break;
+        case 'product.edit':
+            n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
+            n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
+            Object.keys(imgs).some(function(k) {
+                if(imgs[k].id == n.product.img_id){
+                    n.product.imgs = imgs[k];
+                    n.product.imgUrl = '/storage/'+imgs[k].url;
+                    n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
+                }
+            });
+            n.product.product_options = JSON.parse(JSON.stringify(website.products.find(item=>item.id == n.product.id).product_options))
+            for(const key in website.products){
+                if(website.products[key].id == n.product.id){
+                    website.products[key] = JSON.parse(JSON.stringify(n.product));
+                }
+            }
+            for(const key in website_temp.products){
+                if(website_temp.products[key].id == n.product.id){
+                    website_temp.products[key] = JSON.parse(JSON.stringify(n.product));
+                }
+            }
+            if(window.history.state.page == 'manage_products' && window.history.state.category != null){
+                drawManageProductCards(window.history.state.category)
+            }
+            if(window.history.state.popupPage == 'edit_product' && window.history.state.product == n.product.name){
+                drawPopupPage_edit_product(n.product.name)
+            }
+            window.guideHints.products(website.products);
+            manage_products_unsave_check();
+            break;
     }
 
 
@@ -1327,12 +1425,6 @@ let n =[];
         window.guideHints.categories(website.categories);
     }else if(n.code == 15 && account.authorities[1] == 1){
         $('.productReviewContainer[reviewId="'+n.reviewId+'"').remove();
-    }else if(n.code == 16 && account.authorities[1] == 1){
-        website.products.find(item=> item.id == n.fromId).sort = n.fromSort;
-        website.products.find(item=> item.id == n.toId).sort = n.toSort;
-        if(window.history.state.page == 'manage_products' && window.history.state.category != null){
-            drawManageProductCards(window.history.state.category)
-        }
     }else if(n.code == 17 && account.authorities[1] == 1){
         n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
         n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
@@ -1355,36 +1447,6 @@ let n =[];
         }
         window.guideHints.products(website.products);
         drawTodayHomeProducts();
-    }else if(n.code == 18.1 && account.authorities[1] == 1){
-        n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
-        n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == n.product.img_id){
-                n.product.imgs = imgs[k];
-                n.product.imgUrl = '/storage/'+imgs[k].url;
-                n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-            }
-        });
-        website.products.push(n.product);
-        if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
-            drawManageProductCards(window.history.state.category);
-        }
-        window.guideHints.products(website.products);
-        drawProductsInputLists();
-        drawTodayHomeProducts();
-    }else if(n.code == 18.2 && account.authorities[1] == 1){
-        for(const key in website.products){
-            product = website.products[key];
-            if(product.id == n.productId){
-                website.products.splice(key,1);
-            }
-        }
-        if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
-            drawManageProductCards(window.history.state.category);
-        }
-        drawProductsInputLists();
-        drawTodayHomeProducts();
-        window.guideHints.products(website.products);
     }else if(n.code == 21 && account.authorities[3] == 1){
         imgs = n.imgs;
         drawImgs();
@@ -1442,16 +1504,6 @@ let n =[];
             websiteIcon = website.iconUrl;
         }
         $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
-    }else if(n.code == 24 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.productId){
-                website.products[key].availability = n.productAvailability
-            }
-        }
-        if(window.history.state.page == 'manage_products' && window.history.state.category != null){
-            drawManageProductCards(window.history.state.category)
-        }
-        window.guideHints.products(website.products);
     }else if(n.code == 25 && account.authorities[1] == 1){
         for(const key in website.products){
             if(website.products[key].id == n.option.product_id){

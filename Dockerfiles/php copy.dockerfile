@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
 
 
 # Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN pecl install mongodb 
 RUN echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini
@@ -33,9 +34,7 @@ RUN set -e; \
     docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype; \
     docker-php-ext-install -j$(nproc) gd && docker-php-ext-enable gd
 # RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring exif pcntl bcmath && docker-php-ext-enable mysqli
 
 
 # Clear cache

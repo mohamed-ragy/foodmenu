@@ -12,23 +12,27 @@ class product extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillable = [
-        'website_id','sort','category_id','img_id',
-        'name','name_en','name_ar','name_eg','name_fr','name_de','name_it','name_es','name_ru','name_ua',
-        'description_en','description_ar','description_eg','description_fr','description_de','description_it',
-        'description_es','description_ru','description_ua','price','availability','rating','ratings_sum','ordered_sum',
+        'website_id','sort','category_id','img_id','name',
+        'names',
+        'descriptions',
+        'price','availability','rating','ratings_sum','ordered_sum',
     ];
+    protected $casts = [
+        'names' => 'array',
+        'descriptions' => 'array',
 
+    ];
     public function websites(){
         return $this->belongsTo(website::class);
     }

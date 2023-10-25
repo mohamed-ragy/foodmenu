@@ -42,6 +42,32 @@ showPopupPage = function(popupPage,keysObj){
         window.popupPage = {};
         window.popupPage.popupPage = popupPage;
         switch(popupPage){
+            case 'edit_product':
+                if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
+                    window.popupPage.product = keysObj.product;
+                    drawPopupPage_edit_product(keysObj.product);
+                    resolve(true);
+                    break;
+                }else{
+                    reject(3)
+                }
+                resolve(true);
+                break;
+            case 'product':
+                if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
+                    window.popupPage.product = keysObj.product;
+                    drawPopupPage_product(keysObj.product);
+                    resolve(true);
+                    break;
+                }else{
+                    reject(3)
+                }
+                resolve(true);
+            break;
+            case 'create_product':
+                drawPopupPage_create_product();
+                resolve(true);
+            break;
             case 'edit_category':
                 if(typeof(website.categories.find(item=>item.name == keysObj.category)) !== 'undefined'){
                     window.popupPage.category = keysObj.category;

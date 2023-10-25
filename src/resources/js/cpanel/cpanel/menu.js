@@ -155,6 +155,13 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'manage_products':
+                    if(account.authorities[1] == false){return;}
+                    window.page.category = keysObj.category;
+                    if(typeof(window.page.category) === 'undefined' || window.page.category == null){window.page.category = 'allproducts'}
+                    drawPage_manage_products();
+                    resolve(pushHistory);
+                break;
                 case 'category_list':
                     if(account.authorities[1] == false){return;}
                     drawPage_category_list();

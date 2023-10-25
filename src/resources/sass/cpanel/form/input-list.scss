@@ -69,6 +69,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
     // z-index: 9;
 }
 .listContainer{
@@ -91,7 +92,7 @@
     cursor: pointer;
     box-shadow: 0 0 1px 0px var(--shdw-20);
     font-size: .9em;
-
+    position: relative;
 }
 .inputListElement:hover{
     background-color: var(--white-2);
@@ -127,3 +128,23 @@
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
+//
+.inputList_unsaved{
+    position: absolute;
+    top:5px;
+    left:5px;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+.inputListElement_unsaved{
+    position: absolute;
+    top:6px;
+    left:3px;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    background-color: var(--orange);
+}
+//

@@ -713,9 +713,9 @@ class demo
         foreach($category['products'] as $product){
             $prodSort = $prodSort + 1 ;
             if(rand(1,3) == 1){
-                $created_at = Carbon::now()->addYears(10);
+                $created_at = Carbon::now()->addYears(10)->timestamp;
             }else{
-                $created_at = Carbon::now()->subDays(20);
+                $created_at = Carbon::now()->subDays(20)->timestamp;
             }
             self::product($demoWebsite,$createCat,$product,$prodSort,$created_at);
         }
@@ -787,24 +787,28 @@ class demo
             'price' => $product['price'],
             'ordered_sum' => rand(10,100),
             'img_id' => $prodImg->id,
-            'name_en' => $product['name_en'],
-            'name_ar' => $product['name_ar'],
-            'name_eg' => $product['name_en'],
-            'name_fr' => $product['name_fr'],
-            'name_it' => $product['name_it'],
-            'name_de' => $product['name_de'],
-            'name_es' => $product['name_es'],
-            'name_ru' => '',
-            'name_ua' => $product['name_ua'],
-            'description_en' => $prodDes['en'],
-            'description_ar' => $prodDes['ar'],
-            'description_eg' => $prodDes['eg'],
-            'description_fr' => $prodDes['fr'],
-            'description_de' => $prodDes['de'],
-            'description_it' => $prodDes['it'],
-            'description_es' => $prodDes['es'],
-            'description_ru' => $prodDes['ru'],
-            'description_ua' => $prodDes['ua'],
+            'names' => [
+                'en' => $product['name_en'],
+                'ar' => $product['name_ar'],
+                'eg' => $product['name_en'],
+                'fr' => $product['name_fr'],
+                'it' => $product['name_it'],
+                'de' => $product['name_de'],
+                'es' => $product['name_es'],
+                'ua' => $product['name_ua'],
+            ],
+            'descriptions' => [
+                'en' => $prodDes['en'],
+                'ar' => $prodDes['ar'],
+                'eg' => $prodDes['eg'],
+                'fr' => $prodDes['fr'],
+                'de' => $prodDes['de'],
+                'it' => $prodDes['it'],
+                'es' => $prodDes['es'],
+                'ua' => $prodDes['ua'],
+            ],
+
+
             'created_at' => $created_at,
         ]);
 

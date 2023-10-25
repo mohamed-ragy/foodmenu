@@ -1,7 +1,15 @@
 $('html,body').on('click','.manageProductCardProductAvailability',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){
+        if($(this).prop('checked')){
+            $(this).prop('checked',false)
+        }else{
+            $(this).prop('checked',true)
+        }
+        return;
+    }
     let productAvailabilityStat;
-    let productId = $(this).attr('productId')
+    let productId = $(this).attr('key')
     if($(this).prop('checked')){
         productAvailabilityStat = 1;
     }else{
@@ -21,10 +29,13 @@ $('html,body').on('click','.manageProductCardProductAvailability',function(e){
                 for(const key in website.products){
                     if(website.products[key].id == productId){
                         website.products[key].availability = productAvailabilityStat;
-                        window.guideHints.products(website.products);
                     }
                 }
-
+                for(const key in website_temp.products){
+                    if(website_temp.products[key].id == productId){
+                        website_temp.products[key].availability = productAvailabilityStat;
+                    }
+                }
                 window.guideHints.products(website.products);
             }else if(response.changeProductAvailabiltyStatus = 0){
                 showAlert('error',response.msg,4000,true);

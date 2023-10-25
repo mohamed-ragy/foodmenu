@@ -21,6 +21,7 @@ $('html,body').on('click','.categoryCardDelete',function(e){
 })
 $('html,body').on('click','#deleteCategory-confirmBtn',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     showBtnLoading($('#deleteCategory-confirmBtn'));
     let categoryId = $(this).attr('category')
     let categoryName = website.categories.find(item=> item.id == categoryId).name;

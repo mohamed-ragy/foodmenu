@@ -1,71 +1,38 @@
-$('#createNewProduct-productImgCard').on('click',function(){
-    showImgBrowser(texts.products.selectProductImg,'imgBrowser-createProductImg');
+$('html,body').on('click','#createProduct_img',function(e){
+    e.stopImmediatePropagation();
+    showImgBrowser(texts.products.selectProductImg,'imgBrowser_createProductImg');
 });
-$('#imgBrowser-popup').on('click','.imgBrowser-createProductImg',function(){
+$('html,body').on('click','.imgBrowser_createProductImg',function(){
     closePopup();
     let imgId = $(this).attr('imgId')
     let imgUrl = $(this).attr('src');
-    $('#createNewProduct-productImgCard').attr('imgId',imgId)
-    $('#createNewProduct-productImgCard').attr('src',imgUrl)
+    $('#createProduct_img').attr('imgId',imgId)
+    $('#createProduct_img').attr('src',imgUrl)
 });
-$('#createNewProduct-createBtn').on('click',function(){
-    if($('#createNewProduct-ProductName').val() == '' || $('#createNewProduct-ProductName').val() == null){
-        scrollToDiv($('#bodyPage'),$('#createNewProduct-ProductName'))
-        inputTextError($('#createNewProduct-ProductName'));
-        showAlert('error',texts.products.productNameRequired,4000,true)
-        return;
-    }
-    if(!/^[a-z0-9_-]+$/.test($('#createNewProduct-ProductName').val())){
-        scrollToDiv($('#bodyPage'),$('#createNewProduct-ProductName'))
-        inputTextError($('#createNewProduct-ProductName'));
-        showAlert('error',texts.products.productNameRegex,4000,true)
-        return;
-    }
-    for(const key in website.products){
-        if($('#createNewProduct-ProductName').val() == website.products[key].name){
-            scrollToDiv($('#bodyPage'),$('#createNewProduct-ProductName'))
-            inputTextError($('#createNewProduct-ProductName'));
-            showAlert('error',texts.products.productNameUnique,4000,true)
-            return;
+$('html,body').on('click','#createProductBtn',function(e){
+    e.stopImmediatePropagation();
+    let productName = $('#createProduct_productName').val();
+    let productPrice = $('#createProduct_productPrice').val();
+    if(productPrice == '' || productPrice == null){productPrice = 0.00;$('#createProduct_productPrice').val('0.00')}
+    let categoryId = null;
+    if($('#createProduct_productCategory').val() != '' && $('#createProduct_productCategory').val() != null){
+        if($('#createProduct_productCategory').attr('key') == 'uncategorized'){
+            categoryId = null;
+        }else{
+            categoryId = website.categories.find(item=> item.name == $('#createProduct_productCategory').attr('key')).id;
         }
     }
-    if(website.products.length >= window.plans[website.plan].products){
-        showAlert('warning',texts.products.createFailPlanLimit,10000,true)
-        return;
+    let productImg = $('#createProduct_img').attr('imgId') ?? null;
+    if(productImg == ''){productImg = null}
+    let productNames = {};
+    let productDescriptions = {};
+    for(const key in website.languages){
+        let lang = website.languages[key];
+        productNames[lang.code] = $(`#createProduct_productName_${lang.code}`).val();
+        productDescriptions[lang.code] = $(`#createproduct_description_${lang.code}`).val();
     }
 
-    let productName = $('#createNewProduct-ProductName').val();
-    let productPrice = $('#createNewProduct-productPrice').val();
-    if(productPrice == '' || productPrice == null){productPrice = 0.00;$('#createNewProduct-productPrice').val('0.00')}
-    let categoryId = null;
-    if($('#createNewProduct-productCategory').val() != '' && $('#createNewProduct-productCategory').val() != null){
-        if($('#createNewProduct-productCategory').attr('key') == 'uncategorized'){
-            categoryId == null;
-        }else{
-            categoryId = website.categories.find(item=> item.name == $('#createNewProduct-productCategory').attr('key')).id;
-        }
-    }
-    let productImg = $('#createNewProduct-productImgCard').attr('imgId') ?? null;
-    if(productImg == ''){productImg = null}
-    let productName_en = $('#createNewProduct-enName').val()
-    let productName_fr = $('#createNewProduct-frName').val()
-    let productName_de = $('#createNewProduct-deName').val()
-    let productName_it = $('#createNewProduct-itName').val()
-    let productName_es = $('#createNewProduct-esName').val()
-    let productName_ar = $('#createNewProduct-arName').val()
-    let productName_ru = $('#createNewProduct-ruName').val()
-    let productName_ua = $('#createNewProduct-uaName').val()
-    let productName_eg = $('#createNewProduct-egName').val()
-    let productDescription_en = $('#createNewProduct_enDescription').val()
-    let productDescription_fr = $('#createNewProduct_frDescription').val()
-    let productDescription_de = $('#createNewProduct_deDescription').val()
-    let productDescription_it = $('#createNewProduct_itDescription').val()
-    let productDescription_es = $('#createNewProduct_esDescription').val()
-    let productDescription_ar = $('#createNewProduct_arDescription').val()
-    let productDescription_ru = $('#createNewProduct_ruDescription').val()
-    let productDescription_ua = $('#createNewProduct_uaDescription').val()
-    let productDescription_eg = $('#createNewProduct_egDescription').val()
-    showBtnLoading($('#createNewProduct-createBtn'));
+    showBtnLoading($('#createProductBtn'));
     $.ajax({
         url:'products',
         type:'put',
@@ -76,50 +43,12 @@ $('#createNewProduct-createBtn').on('click',function(){
             price:productPrice,
             categoryId:categoryId,
             productImgId:productImg,
-            name_en:productName_en,
-            name_fr:productName_fr,
-            name_de:productName_de,
-            name_it:productName_it,
-            name_es:productName_es,
-            name_ar:productName_ar,
-            name_ru:productName_ru,
-            name_ua:productName_ua,
-            name_eg:productName_eg,
-            description_en:productDescription_en,
-            description_fr:productDescription_fr,
-            description_de:productDescription_de,
-            description_it:productDescription_it,
-            description_es:productDescription_es,
-            description_ar:productDescription_ar,
-            description_ru:productDescription_ru,
-            description_ua:productDescription_ua,
-            description_eg:productDescription_eg,
+            productNames:productNames,
+            productDescriptions:productDescriptions,
         },success:function(r){
-            hideBtnLoading($('#createNewProduct-createBtn'));
+            hideBtnLoading($('#createProductBtn'));
             if(r.createNewProductStatus == 1){
                 showAlert('success',r.msg,4000,true)
-                $('#createNewProduct-ProductName').val('');
-                $('#createNewProduct-productPrice').val('0.00');
-                $('#createNewProduct-productCategory').val('').attr('key',null);
-                $('#createNewProduct-productImgCard').attr('imgId',null).attr('src','/storage/imgs/cpanel/noimg.png');
-                $('#createNewProduct-enName').val('');
-                $('#createNewProduct-frName').val('');
-                $('#createNewProduct-deName').val('');
-                $('#createNewProduct-itName').val('');
-                $('#createNewProduct-esName').val('');
-                $('#createNewProduct-arName').val('');
-                $('#createNewProduct-ruName').val('');
-                $('#createNewProduct-uaName').val('');
-                $('#createNewProduct-egName').val('');
-                $('#createNewProduct_enDescription').val('');
-                $('#createNewProduct_frDescription').val('');
-                $('#createNewProduct_deDescription').val('');
-                $('#createNewProduct_itDescription').val('');
-                $('#createNewProduct_esDescription').val('');
-                $('#createNewProduct_arDescription').val('');
-                $('#createNewProduct_ruDescription').val('');
-                $('#createNewProduct_uaDescription').val('');
-                $('#createNewProduct_egDescription').val('');
                 r.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
                 r.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
                 Object.keys(imgs).some(function(k) {
@@ -130,15 +59,21 @@ $('#createNewProduct-createBtn').on('click',function(){
                     }
                 });
                 website.products.push(r.product);
-                $('#createNewProductOpen').attr('product',r.product.name).trigger('click');
-
+                website_temp.products.push(r.product);
+                if(window.history.state.page == 'manage_products'){
+                    drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
+                }
                 window.guideHints.products(website.products);
-                drawProductsInputLists();
-                drawTodayHomeProducts();
-                drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
+                popupPageClose();
+                setTimeout(function(){
+                    showPopupPage('product',{'product':r.product.name}).then(()=>{
+                        pushHistory(true);
+                        authorities();
+                    })
+                },500)
+
             }else if(r.createNewProductStatus == 0){
-                scrollToDiv($('#bodyPage'),$('#createNewProduct-ProductName'))
-                inputTextError($('#createNewProduct-ProductName'));
+                inputTextError($('#createProduct_productName'));
                 showAlert('error',r.msg,4000,true)
             }else if(r.createNewProductStatus == 2){
                 showAlert('error',r.msg,4000,true)
