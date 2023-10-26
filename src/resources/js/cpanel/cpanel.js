@@ -457,6 +457,9 @@ if(params.get('popupPage') != null){
         case 'edit_product':
             keysObj.product = params.get('product')
         break;
+        case 'manage_product_options':
+            keysObj.product = params.get('product')
+        break;
     }
     showPopupPage(params.get('popupPage'),keysObj).then(()=>{
         // window.popupPage.popupPage = params.get('popupPage')

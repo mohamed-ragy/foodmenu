@@ -21,15 +21,7 @@ class CreateProductOptionsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('sort');
             $table->string('name');
-            $table->string('name_en')->nullable();
-            $table->string('name_ar')->nullable();
-            $table->string('name_eg')->nullable();
-            $table->string('name_fr')->nullable();
-            $table->string('name_de')->nullable();
-            $table->string('name_it')->nullable();
-            $table->string('name_es')->nullable();
-            $table->string('name_ru')->nullable();
-            $table->string('name_ua')->nullable();
+            $table->json('names');
             $table->integer('created_at');
             $table->integer('updated_at')->nullable();
         });

@@ -147,9 +147,10 @@ showPage = function(pageId,tab,keysObj){
         $('.side-menuItem[cpPage="'+pageId+'"]').find('.sideMenu-itemArrow').css('visibility','visible');
         // console.log(window.history.state.page)
         let pushHistory = true;
-        if(pageId == window.page.page){pushHistory = false;}
+        if(pageId == window.page.page){pushHistory = false;}else{
+            $('#bodyPage').find('#pageWrapper').css({'opacity':0});
+        }
 
-        $('#bodyPage').find('#pageWrapper').css({'opacity':0});
         setTimeout(()=>{
             $('#pageWrapper').removeClass().text('')
             window.page = {};

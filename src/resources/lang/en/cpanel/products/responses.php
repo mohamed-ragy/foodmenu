@@ -26,5 +26,14 @@ return [
     'productAvailabilityFaild' => 'Unknown Error Occurred! Failed to changed the product availability.',
     'productUpdateSaved' => 'The product details have been successfully edited.',
     'productUpdateSaveFaild' => 'Unknown Error Occurred! Failed to edit the product details.',
+    'optionsSortFail' => 'Unknown Error Occurred! Failed to save the options order.',
+    'optionNameRequired' => "The option identifier is required.",
+    'optionNameRegex' => 'The Option identifier can only be written in small English letters, numbers, or dashes.',
+    'optionNameUnique' => "You have already used this option identifier for the same product. Please enter another one.",
+    'planProductOptionsLimitError'=>'Failed to create a new product option. You have exceeded the available number of options for this product in your subscription plan. You can create more options if you upgrade your subscription plan.',
+    'createProductOptionCreated'=>'The product option has been saved successfully.',
+    'createProductOptionFailed'=>'Unknown Error Occurred! Failed to save the product option.',
+    'deleteProductOptionDeleted' =>'The product option has been deleted successfully.',
+    'deleteProductOptionFaild' => 'Unknown Error Occurred! Failed to delete the product option.',
 
 ];

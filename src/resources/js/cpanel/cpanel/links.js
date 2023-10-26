@@ -366,7 +366,9 @@ $('html,body').on('click','.popupPage',function(e){
         case 'edit_product':
             keysObj.product = $(this).attr('product')
         break;
-
+        case 'manage_product_options':
+            keysObj.product = $(this).attr('product')
+        break;
     }
     showPopupPage($(this).attr('popupPage'),keysObj).then((is_pushHistory)=>{
         // window.popupPage.popupPage = $(this).attr('popupPage');
@@ -739,7 +741,9 @@ $(window).on('popstate',(e)=>{
             case 'edit_product':
                 keysObj.product = window.history.state.product;
             break;
-
+            case 'manage_product_options':
+                keysObj.product = window.history.state.product;
+            break;
         }
         // window.popupPage = {}
         window.popupPage.popupPage = '';

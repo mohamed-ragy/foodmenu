@@ -4,73 +4,67 @@ let optionCardOnMoveTo;
 let optionCardOnMoveInterval;
 
 sortOptions = function(){
-    let tempOptionFromSort;
-    let tempOptionToSort;
-    for(const key in website.products){
-        for(const key2 in website.products[key].product_options){
-            if(website.products[key].product_options[key2].id == optionCardOnMoveFrom){
-                tempOptionFromSort = website.products[key].product_options[key2].sort;
-            }
-            if(website.products[key].product_options[key2].id == optionCardOnMoveTo){
-                tempOptionToSort = website.products[key].product_options[key2].sort;
-            }
-        }
-    }
+    let tempOptionFromSort = website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort;
+    let tempOptionToSort = website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort;
     if(tempOptionFromSort == tempOptionToSort){return;}
-    $('.productOptionMoveLoading').removeClass('none').css('visibility','visible');
-    $('.productOptionCardMoveIcon').addClass('none');
+
+    website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionToSort;
+    website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionFromSort;
+
+    website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionToSort;
+    website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionFromSort;
+
+    drawPopupPage_manage_product_options(window.history.state.product)
+
     $.ajax({
         url:'products',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             sortProductOptions:true,
+            product_name:window.history.state.product,
             fromId:optionCardOnMoveFrom,
             toId:optionCardOnMoveTo,
             fromSort:tempOptionToSort,
             toSort:tempOptionFromSort,
         },success:function(r){
-            $('.productOptionMoveLoading').addClass('none').css('visibility','hidden');
-            $('.productOptionCardMoveIcon').removeClass('none');
             if(r.sortOptionsStatus == 1){
-                for(const key in website.products){
-                    for(const key2 in website.products[key].product_options){
-                        if(website.products[key].product_options[key2].id == optionCardOnMoveFrom){
-                            website.products[key].product_options[key2].sort = tempOptionToSort;
-                            if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                                setEditProductOptions(website.products[key].name)
-                            }
-                        }
-                        if(website.products[key].product_options[key2].id == optionCardOnMoveTo){
-                            website.products[key].product_options[key2].sort = tempOptionFromSort;
-                            if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                                setEditProductOptions(website.products[key].name)
-                            }
-                        }
 
-                    }
-                }
             }else if(r.sortOptionsStatus == 0){
+                website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionFromSort;
+                website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionToSort;
+
+                website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionFromSort;
+                website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionToSort;
+                drawPopupPage_manage_product_options(window.history.state.product)
                 showAlert('error',r.msg,4000,true);
             }
         }
+    }).fail(function(){
+        website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionFromSort;
+        website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionToSort;
+
+        website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionFromSort;
+        website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionToSort;
+        drawPopupPage_manage_product_options(window.history.state.product)
+        showAlert('error',r.msg,4000,true);
     })
 }
-$('#editProductOptions-optionsContainer').on('mousedown touchstart','.productOptionCardMoveIcon',function(e){
+$('html,body').on('mousedown touchstart','.optionCardMoveContainer',function(e){
     e.stopImmediatePropagation();
     optionCardOnMove = true;
-    optionCardOnMoveFrom = $(this).attr('optionId');
-    $(this).closest('.productOptionCardContainer').addClass('productOptionCardSelectedOnMove');
-    $('#productOptionCardOnMove').html($(this).closest('.productOptionCardContainer').html());
-    $('#productOptionCardOnMove').width($(this).closest('.productOptionCardContainer').width())
-    $('#productOptionCardOnMove').css('display','flex');
+    optionCardOnMoveFrom = $(this).closest('.productOptionContainer').attr('option');
+    $(this).closest('.productOptionContainer').addClass('optionCardSelectedOnMove');
+    $('#onMove').removeClass().addClass('optionCardOnMove')
+    $('#onMove').html($(this).closest('.productOptionContainer').html());
+    $('#onMove').width($(this).closest('.productOptionContainer').width())
     if(!window.matchMedia("(pointer: coarse)").matches){
-        $('#productOptionCardOnMove').css({
+        $('#onMove').css({
             'top':e.pageY,
             'left':e.pageX,
         });
     }else{
-        $('#productOptionCardOnMove').css({
+        $('#onMove').css({
             'top':e.originalEvent.touches[0].pageY,
             'left':e.originalEvent.touches[0].pageX,
         });
@@ -81,18 +75,18 @@ $('#popupPageBody').on('mousemove touchmove',function(e){
         e.stopImmediatePropagation();
         e.preventDefault();
         if(!window.matchMedia("(pointer: coarse)").matches){
-            $('#productOptionCardOnMove').css({
+            $('#onMove').css({
                 'top':e.pageY,
                 'left':e.pageX,
             });
         }else{
-            $('#productOptionCardOnMove').css({
+            $('#onMove').css({
                 'top':e.originalEvent.touches[0].pageY,
                 'left':e.originalEvent.touches[0].pageX,
             });
         }
         let pageY; let pageX;
-        $('.productOptionCardContainer').removeClass('productOptionCardHighlighted')
+        $('.productOptionContainer').removeClass('optionCardHighlighted')
         if(!window.matchMedia("(pointer: coarse)").matches){
             pageY = e.pageY;
             pageX = e.pageX;
@@ -100,18 +94,18 @@ $('#popupPageBody').on('mousemove touchmove',function(e){
             pageY = e.targetTouches[0].pageY;
             pageX = e.targetTouches[0].pageX;
         }
-        $('.productOptionCardContainer').each(function(){
+        $('.productOptionContainer').each(function(){
             if(
                 $(this).offset().top < pageY && ($(this).offset().top + $(this).outerHeight() ) > pageY && $(this).offset().left < pageX && ($(this).offset().left + $(this).outerWidth() ) > pageX
             ){
-                $(this).addClass('productOptionCardHighlighted')
+                $(this).addClass('optionCardHighlighted')
             }
         })
         clearInterval(optionCardOnMoveInterval)
         optionCardOnMoveInterval = setInterval(function(){
-            if(pageY < $('#popupPageBody').offset().top + 100 && $('#editProductOptions-optionsContainer').offset().top < $('#popupPageBody').offset().top + 40){
+            if(pageY < $('#popupPageBody').offset().top + 100 && $('#productOptionsContainer').offset().top < $('#popupPageBody').offset().top + 40){
                 $('#popupPageBody').scrollTop($('#popupPageBody').scrollTop() - 5);
-            }else if(pageY > $('#popupPageBody').offset().top + $('#popupPageBody').height() - 100 && $('#editProductOptions-optionsContainer').offset().top + $('#editProductOptions-optionsContainer').height() > $('#popupPageBody').offset().top + $('#popupPageBody').height() - 10){
+            }else if(pageY > $('#popupPageBody').offset().top + $('#popupPageBody').height() - 100 && $('#productOptionsContainer').offset().top + $('#productOptionsContainer').height() > $('#popupPageBody').offset().top + $('#popupPageBody').height() - 10){
                 $('#popupPageBody').scrollTop($('#popupPageBody').scrollTop() + 5);
             }
         },10)
@@ -133,18 +127,18 @@ $('#popupPageBody').on('mouseup touchend',function(e){
             pageY = e.changedTouches[0].pageY;
             pageX = e.changedTouches[0].pageX;
         }
-        $('.productOptionCardContainer').each(function(){
+        $('.productOptionContainer').each(function(){
             if(
                 $(this).offset().top < pageY && ($(this).offset().top + $(this).outerHeight() ) > pageY && $(this).offset().left < pageX && ($(this).offset().left + $(this).outerWidth() ) > pageX
             ){
-                optionCardOnMoveFrom = $('.productOptionCardSelectedOnMove').attr('optionId');
-                optionCardOnMoveTo = $(this).attr('optionId');
+                optionCardOnMoveFrom = $('.optionCardSelectedOnMove').attr('option');
+                optionCardOnMoveTo = $(this).attr('option');
                 sortOptions();
             }
         })
-        $('.productOptionCardContainer').removeClass('productOptionCardSelectedOnMove');
-        $('#productOptionCardOnMove').hide();
-        $('.productOptionCardContainer').removeClass('productOptionCardHighlighted');
+        $('.productOptionContainer').removeClass('optionCardSelectedOnMove');
+        $('#onMove').removeClass().html('').addClass('none');
+        $('.productOptionContainer').removeClass('optionCardHighlighted');
         optionCardOnMove = false;
     }
 

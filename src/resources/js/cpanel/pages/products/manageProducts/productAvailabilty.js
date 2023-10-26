@@ -36,6 +36,7 @@ $('html,body').on('click','.manageProductCardProductAvailability',function(e){
                         website_temp.products[key].availability = productAvailabilityStat;
                     }
                 }
+                manage_products_unsave_check();
                 window.guideHints.products(website.products);
             }else if(response.changeProductAvailabiltyStatus = 0){
                 showAlert('error',response.msg,4000,true);

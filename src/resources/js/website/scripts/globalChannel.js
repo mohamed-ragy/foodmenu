@@ -65,7 +65,13 @@ window.globalChannel
 
         break;
         case 'product.availability':
-            
+
+        break;
+        case 'product.edit':
+
+        break;
+        case 'option.delete':
+
         break;
     }
 });

@@ -1,7 +1,7 @@
 require('./manageProducts/delete.js') //done
 require('./manageProducts/productAvailabilty.js') //done
 require('./manageProducts/sort.js') //done
-require('./manageProducts/edit.js') //
+require('./manageProducts/edit.js') //done
 require('./manageProducts/editOptions.js') //
 
 // drawProductsInputLists = function(){

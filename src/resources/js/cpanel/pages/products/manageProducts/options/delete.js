@@ -1,29 +1,33 @@
-$('html,body').on('click','.productOptionCardIconDelete',function(e){
+$('html,body').on('click','.productOptionDelete',function(e){
     e.stopImmediatePropagation();
-    let product = website.products.find(item=> item.id == $(this).closest('.productOptionCardContainer').attr('productId'));
-    let option = product.product_options.find(item=> item.id == $(this).closest('.productOptionCardContainer').attr('optionId'));
-    $('#delete-popup').find('.popupBody').text('').append(
-        $('<div/>',{}).append(
-            $('<div/>',{class:'fs105 m10',html:texts.products.optionDeleteConfirm1+' <b>'+option.name+'</b> '+texts.products.optionDeleteConfirm2+' <b>'+product.name+'</b>?'}),
+    let product = website.products.find(item=> item.name == window.history.state.product);
+    let option = product.product_options.find(item=> item.id == $(this).closest('.productOptionContainer').attr('option'));
+    showPopup('delete-popup',function(){
+        $('.popupBody').append(
+            $('<div/>',{class:'msgBox_orange'}).append(
+                $('<span/>',{class:'ico-warning fs2 mB10'}),
+                $('<span/>',{class:'taC',text:texts.products.optionDeleteConfirm.replace(':option:',option.name).replace(':product:',product.name)})
+            ),
             $('<div/>',{
-                class:'btnContainer',
+                class:'btnContainer mT40',
             }).append(
-                $('<button/>',{class:'btn btn-cancel popupClose',text:texts.cpanel.public.cancel}),
-                $('<button/>',{id:'deleteOption-confirmBtn',productId:product.id,optionId:option.id,class:'btn btn-delete'}).append(
+                $('<button/>',{class:'btn btn-cancel popupClose mie-5',text:texts.cpanel.public.cancel}),
+                $('<button/>',{id:'deleteOption-confirmBtn',option:option.id,class:'btn btn-delete'}).append(
                     $('<span/>',{class:'btnTxt',text:texts.cpanel.public.delete}),
                     $('<span/>',{class:'btnLoading'})
                 )
             )
         )
-    )
-    showPopup($('#delete-popup'))
+    });
 })
 
-$('html,body').on('click','#deleteOption-confirmBtn',function(){
+$('html,body').on('click','#deleteOption-confirmBtn',function(e){
+    e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     showBtnLoading($('#deleteOption-confirmBtn'))
-    let option_id = $(this).attr('optionId');
-    let product_id = $(this).attr('productId');
-    let product_name = website.products.find(item=> item.id == product_id).name;
+    let option_id = $(this).attr('option');
+    let product_name = window.history.state.product;
+    let product_id = website.products.find(item=> item.name == product_name).id;
     let option_name = website.products.find(item=> item.id == product_id).product_options.find(item=> item.id == option_id).name;
     $.ajax({
         url:'products',
@@ -44,8 +48,8 @@ $('html,body').on('click','#deleteOption-confirmBtn',function(){
                             if(website.products[key].product_options[key2].id == option_id){
                                 website.products[key].product_options.splice(key2,1);
                                 window.guideHints.products(website.products);
-                                if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                                    setEditProductOptions(website.products[key].name)
+                                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
+                                    drawPopupPage_manage_product_options(window.history.state.product)
                                     closePopup();
                                 }
                             }

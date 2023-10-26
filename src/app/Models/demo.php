@@ -827,15 +827,17 @@ class demo
             'product_id' => $product->id,
             'sort' => $optionSort,
             'name' => $option['name'],
-            'name_en' => $option['name_en'],
-            'name_ar' => $option['name_ar'],
-            'name_eg' => $option['name_en'],
-            'name_fr' => $option['name_fr'],
-            'name_it' => $option['name_it'],
-            'name_de' => $option['name_de'],
-            'name_es' => $option['name_es'],
-            'name_ru' => '',
-            'name_ua' => $option['name_ua'],
+            'names' => [
+                'en' => $option['name_en'],
+                'ar' => $option['name_ar'],
+                'eg' => $option['name_en'],
+                'fr' => $option['name_fr'],
+                'it' => $option['name_it'],
+                'de' => $option['name_de'],
+                'es' => $option['name_es'],
+                'ua' => $option['name_ua'],
+            ],
+
         ]);
         $selectionsArr = [];
         $selectionSort = 0;

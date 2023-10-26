@@ -1,5 +1,5 @@
 
-require('./selections/editOption.js')//done
+
 require('./selections/create.js')//done
 require('./selections/setDefault.js')//done
 require('./selections/delete.js')//done

@@ -848,7 +848,7 @@ handelCpanelChannel = function(n,code){
         case 'user.activity':
             chandelUserActivity(n)
             break;
-        //categories
+        //products
         case 'category.sort':
             website.categories.find(item=> item.id == n.fromId).sort = n.fromSort;
             website.categories.find(item=> item.id == n.toId).sort = n.toSort;
@@ -1026,6 +1026,39 @@ handelCpanelChannel = function(n,code){
             }
             window.guideHints.products(website.products);
             manage_products_unsave_check();
+            break;
+        case 'option.sort':
+            website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.toId).sort = n.toSort;
+            website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.fromId).sort = n.fromSort;
+            website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.fromId).sort = n.fromSort;
+            website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.toId).sort = n.toSort;
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            break;
+        case 'option.create':
+            website.products.find(item=>item.id == n.product_id).product_options.push(n.option);
+            website_temp.products.find(item=>item.id == n.product_id).product_options.push(n.option);
+            window.guideHints.products(website.products);
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            break;
+        case 'option.delete':
+            for(const key in website.products){
+                if(website.products[key].id == n.product_id){
+                    for(const key2 in website.products[key].product_options){
+                        if(website.products[key].product_options[key2].id == n.option_id){
+                            website.products[key].product_options.splice(key2,1);
+                            window.guideHints.products(website.products);
+                            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                                drawPopupPage_manage_product_options(window.history.state.product)
+                                closePopup();
+                            }
+                        }
+                    }
+                }
+            }
             break;
     }
 
@@ -1504,16 +1537,6 @@ let n =[];
             websiteIcon = website.iconUrl;
         }
         $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
-    }else if(n.code == 25 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.option.product_id){
-                website.products[key].product_options.push(n.option);
-                window.guideHints.products(website.products);
-                if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                    setEditProductOptions(website.products[key].name)
-                }
-            }
-        }
     }else if(n.code == 26 && account.authorities[1] == 1){
         for(const key in website.products){
             if(website.products[key].id == n.product_id){
@@ -1529,24 +1552,6 @@ let n =[];
                 }
             }
         }
-    }else if(n.code == 27 && account.authorities[1] == 1){
-        for(const key in website.products){
-            for(const key2 in website.products[key].product_options){
-                if(website.products[key].product_options[key2].id == n.fromId){
-                    website.products[key].product_options[key2].sort = n.fromSort;
-                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                        setEditProductOptions(website.products[key].name)
-                    }
-                }
-                if(website.products[key].product_options[key2].id == n.toId){
-                    website.products[key].product_options[key2].sort = n.toSort;
-                    if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                        setEditProductOptions(website.products[key].name)
-                    }
-                }
-            }
-        }
-
     }else if(n.code == 28 && account.authorities[1] == 1){
         for(const key in website.products){
             for(const key2 in website.products[key].product_options){

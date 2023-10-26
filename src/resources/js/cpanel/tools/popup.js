@@ -144,11 +144,16 @@ showPopup =function(popup,callback=()=>{}){
             $('.popupCard').addClass('popupCard-400');
         break;
         case 'changeDeliveryAccountPassword':
-            $('.popupTitle').text(texts.staff.changeDeliveryPassword);  
+            $('.popupTitle').text(texts.staff.changeDeliveryPassword);
         break;
         case 'changeSubaccountPassword':
-            $('.popupTitle').text(texts.staff.changeSubaccountPassword);  
+            $('.popupTitle').text(texts.staff.changeSubaccountPassword);
         break;
+        case 'createNewProductOption':
+            $('.popupTitle').text(texts.products.addOption);
+
+        break;
+
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){

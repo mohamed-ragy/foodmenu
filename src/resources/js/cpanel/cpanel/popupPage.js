@@ -29,7 +29,9 @@ showPopupPage = function(popupPage,keysObj){
             $('#helpWindow').removeClass('helpWindow_popupPage')
             $('#popupPage').find('.pageWrapper').hide();
             setTimeout(function(){
-                showPopupPage(popupPage);
+                showPopupPage(popupPage,keysObj).then(function(){
+                    pushHistory(true)
+                });
             },250);
             reject(4);
             return
@@ -42,6 +44,17 @@ showPopupPage = function(popupPage,keysObj){
         window.popupPage = {};
         window.popupPage.popupPage = popupPage;
         switch(popupPage){
+            case 'manage_product_options':
+                if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
+                    window.popupPage.product = keysObj.product;
+                    drawPopupPage_manage_product_options(keysObj.product);
+                    resolve(true);
+                    break;
+                }else{
+                    reject(3)
+                }
+                resolve(true);
+                break;
             case 'edit_product':
                 if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
                     window.popupPage.product = keysObj.product;

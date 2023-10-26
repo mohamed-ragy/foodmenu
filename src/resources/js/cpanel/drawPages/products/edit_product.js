@@ -1,5 +1,4 @@
 drawPopupPage_edit_product = function(product_name){
-    console.log(product_name)
     let product = website_temp.products.find(item=>item.name == product_name);
     $('#popupPageTitle').text('').append(
         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:`editProductNoSave_${product.name} ico-warning unsaved none mie-5 mis-5 fs1 `}),
@@ -7,6 +6,9 @@ drawPopupPage_edit_product = function(product_name){
         $('<span/>',{class:'ico-help help-icon',helpId:''})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40  p20').append(
+        $('<div/>',{class:'btnContainer'}).append(
+            $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'manage_product_options',product:product.name,text:texts.products.manageOptions}),
+        ),
         $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(
             $('<div/>',{text:texts.products.productImg,class:'c_white-8 fs08 mB3'}),
             $('<span/>',{class:'ico-edit imgCardIcon'}),

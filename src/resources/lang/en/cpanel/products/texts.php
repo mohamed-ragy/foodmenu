@@ -49,6 +49,11 @@ return [
     'productDescription'=>'Product Description',
     'selectProductImg' => 'Select Product Image',
     'productDeleteConfirm' => 'Are you sure you want to delete :product:?',
-
+    'addOption' => 'Create New Option',
+    'addOptionSelection' => 'Create New Selection',
+    'setAsdefaultSelection' => 'Set as the default selection',
+    'optionIdentifier'=>'Option identifier',
+    'optionNameLang' => 'Option name (:lang:)',
+    'optionDeleteConfirm' => 'Are you sure you want to delete the option :option: from :product:?',
 ];
 

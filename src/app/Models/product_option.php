@@ -12,21 +12,22 @@ class product_option extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillable = [
-        'website_id','product_id','name','sort','name_en','name_ar','name_eg',
-        'name_fr','name_de','name_it','name_es','name_ru','name_ua',
+        'website_id','product_id','name','sort','names'
     ];
-
+    protected $casts = [
+        'names' => 'array',
+    ];
     public function products(){
         return $this->belongsTo(product::class);
     }

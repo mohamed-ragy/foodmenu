@@ -285,6 +285,6 @@ drawChatProductMsg = function(txt){
     }
      return`<div class="chatProductContainer">
         <img class="chatProductImg popupPage" popupPage="Product" product="`+productName+`" src="`+img+`" alt="" />
-        <a class="chatProductTxt popupPage popupId" popupId="product" popupPage="Product" product="`+productName+`">`+productName+`</a>
+        <a class="chatProductTxt popupPage popupId" popupId="product" popupPage="product" product="`+productName+`">`+productName+`</a>
     </div>`
 }

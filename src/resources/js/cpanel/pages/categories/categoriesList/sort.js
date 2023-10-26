@@ -7,7 +7,6 @@ sortCategories = function(){
     let tempCatFromSort = website.categories.find(item=> item.id == categoryOnMoveFrom).sort;
     let tempCatToSort = website.categories.find(item=> item.id == categoryOnMoveTo).sort;
     if(tempCatFromSort == tempCatToSort){return;}
-    $('.categoryCardMove').addClass('none')
     website.categories.find(item=> item.id == categoryOnMoveFrom).sort = tempCatToSort;
     website.categories.find(item=> item.id == categoryOnMoveTo).sort = tempCatFromSort;
     website.categories.sort((a,b)=>{
@@ -30,7 +29,6 @@ sortCategories = function(){
             fromSort:tempCatToSort,
             toSort:tempCatFromSort,
         },success:function(r){
-            $('.categoryCardMove').removeClass('none')
             if(r.sortCategoriesStatus == 1){
 
             }else if(r.sortCategoriesStatus == 0){
