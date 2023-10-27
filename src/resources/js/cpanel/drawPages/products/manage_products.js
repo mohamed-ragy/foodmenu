@@ -125,7 +125,7 @@ drawManageProductCards = function(action){
                     class:'row alnC jstfySB w100p brdrT1',
                 }).append(
                     drawSwitchBtn('',null,'',`checkboxlabel manageProductCardIcon m0 br0 ${hideUncategorizedClass}`,'manageProductCardProductAvailability',texts.products.productAvailability,productAvailability,product.id),
-                    $('<div/>',{class:'ico-star cpPage manageProductCardIcon',cpPage:'product_reviews',product:product.name,tooltip:texts.products.reviews}),
+                    $('<div/>',{class:'ico-product_reviews cpPage manageProductCardIcon',cpPage:'product_reviews',product:product.name,tooltip:texts.products.reviews}),
                     $('<div/>',{class:'ico-list popupPage manageProductCardIcon',popupPage:'manage_product_options',product:product.name,tooltip:texts.products.manageOptions}),
                     $('<div/>',{class:'ico-edit popupPage manageProductCardIcon',popupPage:'edit_product',product:product.name,tooltip:texts.products.editProduct}).append($('<span/>',{class:`editProductNoSave_${product.name} button_unsaved none`})),
                     $('<div/>',{class:`ico-share share manageProductCardIcon ${hideUncategorizedClass}`,type:'product',itemId:product.id,tooltip:texts.cpanel.public.share}),

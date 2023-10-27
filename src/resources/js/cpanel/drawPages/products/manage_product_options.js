@@ -24,19 +24,18 @@ drawPopupPage_manage_product_options = function(product_name){
     for(const key in product.product_options){
         const option = product.product_options[key];
         $('#productOptionsContainer').append(
-            $('<div/>',{class:'productOptionContainer productOptionContainer_expand',option:option.id}).append(
+            $('<div/>',{class:'productOptionContainer',option:option.id}).append(
                 $('<div/>',{
                     class:'optionCardMoveContainer'
                 }).append(
                     $('<div/>',{class:'optionCardMove ico-move fs09 zx10 cursorMove m2',tooltip:texts.cpanel.public.swap}),
                 ),
                 $('<div/>',{class:'productOptionContainerHead'}).append(
-                    $('<div/>',{class:'bold500 fs101 productOptionContainerExpandIcon grow1 pointer',text:option.name}),
+                    $('<div/>',{class:'bold500 fs101',text:option.name}),
                     $('<div/>',{class:'row alnC jstfyE'}).append(
                         $('<div/>',{class:'optionHeadBtn ico-plus productOptionAddSelection fs09',tooltip:texts.products.addOptionSelection}),
                         $('<div/>',{class:'optionHeadBtn ico-edit productOptionEdit',tooltip:texts.cpanel.public.edit}),
                         $('<div/>',{class:'optionHeadBtn ico-delete fs101 productOptionDelete',tooltip:texts.cpanel.public.delete}),
-                        // $('<div/>',{class:'optionHeadBtn ico-down productOptionContainerExpandIcon'}),
 
                     )
                 ),
@@ -44,10 +43,13 @@ drawPopupPage_manage_product_options = function(product_name){
             )
         )
 
+        option.product_option_selections.sort((a,b)=>{
+            return parseInt(a.sort) - parseInt(b.sort)
+        });
         for(const key in option.product_option_selections){
             const selection = option.product_option_selections[key];
             $(`.productOptionsSelectionsContainer-${option.id}`).append(
-                $('<div/>',{class:'productOptionSelectionContainer'}).append(
+                $('<div/>',{class:'productOptionSelectionContainer',selection:selection.id}).append(
                     $('<div/>',{
                         class:'selectionCardMoveContainer'
                     }).append(
@@ -56,8 +58,8 @@ drawPopupPage_manage_product_options = function(product_name){
                     $('<div/>',{class:'fs09',text:selection.name}),
                     $('<div/>',{class:'row alnC jstfyE'}).append(
                         $('<div/>',{class:`selectionHeadBtn productOptionSelectionSetDefault`}).append(
-                            $('<div/>',{class:'loading_s none'}),
-                            $('<div/>',{class:`${selection.isDefault?'ico-check1':'ico-check0'}`,tooltip:texts.products.setAsdefaultSelection})
+                            $('<div/>',{class:'loading_s none productOptionSelectionSetDefaultLoading'}),
+                            $('<div/>',{class:`${selection.isDefault?'ico-check1':'ico-check0'} productOptionSelectionSetDefaultIcon`,tooltip:texts.products.setAsdefaultSelection})
                         ),
                         $('<div/>',{class:'selectionHeadBtn ico-edit productOptionSelectionEdit',tooltip:texts.cpanel.public.edit}),
                         $('<div/>',{class:'selectionHeadBtn ico-delete fs101 productOptionSelectionDelete',tooltip:texts.cpanel.public.delete}),

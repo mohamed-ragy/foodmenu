@@ -100,9 +100,9 @@ require("./pages/orders/addItem.js");
 require("./pages/orders/order.js");
 require("./pages/orders/newOrder.js");
 
-require("./pages/products/createNewProduct.js");
-require("./pages/products/manageProducts.js");
-require("./pages/products/productReviews.js");
+require("./pages/products/createNewProduct.js");//done
+require("./pages/products/manageProducts.js");//done
+require("./pages/products/productReviews.js");//
 
 require("./pages/users/functions.js");//done
 require("./pages/users/manageUsers.js");//done
@@ -112,8 +112,8 @@ require("./pages/users/createNewUser.js");//done
 require("./pages/staff/deliveryAccounts.js");//done
 require("./pages/staff/subAccounts.js");//done
 
-require("./pages/categories/categoriesList.js");
-require("./pages/categories/createNewCategory.js");
+require("./pages/categories/categoriesList.js");//done
+require("./pages/categories/createNewCategory.js");//done
 
 require("./pages/design/templates.js");
 require("./pages/design/websiteColors");

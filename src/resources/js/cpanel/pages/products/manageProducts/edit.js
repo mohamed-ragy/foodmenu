@@ -1,7 +1,7 @@
 
 
 editProductsNoSaveCheck = function(){
-    editProductsCheck = true;
+    let editProductsCheck = true;
     let unsavedProdsCats = [];
     for(const key in website.products){
         let product1 = website.products[key];

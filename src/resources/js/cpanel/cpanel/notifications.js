@@ -939,8 +939,8 @@ handelCpanelChannel = function(n,code){
                     n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
                 }
             });
-            website.products.push(n.product);
-            website_temp.products.push(n.product);
+            website.products.push(JSON.parse(JSON.stringify(n.product)));
+            website_temp.products.push(JSON.parse(JSON.stringify(n.product)));
             if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
                 drawManageProductCards(window.history.state.category);
             }
@@ -1037,8 +1037,8 @@ handelCpanelChannel = function(n,code){
             }
             break;
         case 'option.create':
-            website.products.find(item=>item.id == n.product_id).product_options.push(n.option);
-            website_temp.products.find(item=>item.id == n.product_id).product_options.push(n.option);
+            website.products.find(item=>item.id == n.product_id).product_options.push(JSON.parse(JSON.stringify(n.option)));
+            website_temp.products.find(item=>item.id == n.product_id).product_options.push(JSON.parse(JSON.stringify(n.option)));
             window.guideHints.products(website.products);
             if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
                 drawPopupPage_manage_product_options(window.history.state.product)
@@ -1050,10 +1050,95 @@ handelCpanelChannel = function(n,code){
                     for(const key2 in website.products[key].product_options){
                         if(website.products[key].product_options[key2].id == n.option_id){
                             website.products[key].product_options.splice(key2,1);
-                            window.guideHints.products(website.products);
-                            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                                drawPopupPage_manage_product_options(window.history.state.product)
-                                closePopup();
+                        }
+                    }
+                }
+            }
+            for(const key in website_temp.products){
+                if(website_temp.products[key].id == n.product_id){
+                    for(const key2 in website_temp.products[key].product_options){
+                        if(website_temp.products[key].product_options[key2].id == n.option_id){
+                            website_temp.products[key].product_options.splice(key2,1);
+                        }
+                    }
+                }
+            }
+            window.guideHints.products(website.products);
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            break;
+        case 'option.edit':
+            for(const key in website.languages){
+                const lang = website.languages[key];
+                website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).names[lang.code] = n.names[lang.code];
+                website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).names[lang.code] = n.names[lang.code];
+            }
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            window.guideHints.products(website.products);
+            break;
+        case 'selection.set_default':
+            for(const key in website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections){
+                website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections[key].isDefault = 0;
+            }
+            website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).isDefault = 1;
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            break;
+        case 'selection.sort':
+            website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.fromId).sort = n.fromSort;
+            website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.toId).sort = n.toSort;
+            website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.fromId).sort = n.fromSort;
+            website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.toId).sort = n.toSort;
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            break;
+        case 'selection.create':
+            website.products.find(item=>item.id == n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.push(JSON.parse(JSON.stringify(n.selection)))
+            website_temp.products.find(item=>item.id == n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.push(JSON.parse(JSON.stringify(n.selection)))
+            window.guideHints.products(website.products);
+            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_options(window.history.state.product)
+            }
+            break;
+        case 'selection.edit':
+            website.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).price = n.price;
+            website.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).names = n.names;
+            website_temp.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).price = n.price;
+            website_temp.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).names = n.names;
+            window.guideHints.products(website.products);
+            break;
+        case 'selection.delete':
+            for(const key in website.products){
+                if(website.products[key].id == n.product_id){
+                    for(const key2 in website.products[key].product_options){
+                        if(website.products[key].product_options[key2].id == n.option_id){
+                            for(const key3 in website.products[key].product_options[key2].product_option_selections){
+                                if(website.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
+                                    website.products[key].product_options[key2].product_option_selections.splice(key3,1);
+                                    closePopup();
+                                    if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
+                                        drawPopupPage_manage_product_options(window.history.state.product)
+                                    }
+                                    window.guideHints.products(website.products);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            for(const key in website_temp.products){
+                if(website_temp.products[key].id == n.product_id){
+                    for(const key2 in website_temp.products[key].product_options){
+                        if(website_temp.products[key].product_options[key2].id == n.option_id){
+                            for(const key3 in website_temp.products[key].product_options[key2].product_option_selections){
+                                if(website_temp.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
+                                    website_temp.products[key].product_options[key2].product_option_selections.splice(key3,1);
+                                }
                             }
                         }
                     }
@@ -1552,34 +1637,6 @@ let n =[];
                 }
             }
         }
-    }else if(n.code == 28 && account.authorities[1] == 1){
-        for(const key in website.products){
-            for(const key2 in website.products[key].product_options){
-                if(website.products[key].product_options[key2].id == n.option_id){
-                    website.products[key].product_options[key2].name_en = n.name_en;
-                    website.products[key].product_options[key2].name_fr = n.name_fr;
-                    website.products[key].product_options[key2].name_de = n.name_de;
-                    website.products[key].product_options[key2].name_it = n.name_it;
-                    website.products[key].product_options[key2].name_es = n.name_es;
-                    website.products[key].product_options[key2].name_ar = n.name_ar;
-                    website.products[key].product_options[key2].name_ru = n.name_ru;
-                    website.products[key].product_options[key2].name_ua = n.name_ua;
-                    website.products[key].product_options[key2].name_eg = n.name_eg;
-                }
-            }
-        }
-        window.guideHints.products(website.products);
-        if(!$('#editProductOption-popup').hasClass('none') && $('#editProductOption-optionName').val() == n.option_name){
-            $('#editProductOption-enName').val(n.name_en);
-            $('#editProductOption-frName').val(n.name_fr);
-            $('#editProductOption-deName').val(n.name_de);
-            $('#editProductOption-itName').val(n.name_it);
-            $('#editProductOption-esName').val(n.name_es);
-            $('#editProductOption-arName').val(n.name_ar);
-            $('#editProductOption-ruName').val(n.name_ru);
-            $('#editProductOption-uaName').val(n.name_ua);
-            $('#editProductOption-egName').val(n.name_eg);
-        }
     }else if(n.code == 29 && account.authorities[3] == 1){
         if(n.useCustomColors == true){
             website.useCustomColors = true;
@@ -1602,104 +1659,6 @@ let n =[];
             $('#websiteColors-colorCancelBtn').trigger('click');
         }
 
-    }else if(n.code == 31 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.product_id){
-                for(const key2 in website.products[key].product_options){
-                    if(website.products[key].product_options[key2].id == n.selection.product_option_id){
-                        website.products[key].product_options[key2].product_option_selections.push(n.selection);
-                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
-                            setManageSelections(website.products[key].id,website.products[key].product_options[key2].id);
-                        }
-                    }
-                }
-            }
-        }
-        window.guideHints.products(website.products);
-    }else if(n.code == 32 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.product_id){
-                for(const key2 in website.products[key].product_options){
-                    if(website.products[key].product_options[key2].id == n.option_id){
-                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
-                            if(website.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
-                                website.products[key].product_options[key2].product_option_selections[key3].isDefault = n.isDefault;
-                            }else{
-                                website.products[key].product_options[key2].product_option_selections[key3].isDefault = false;
-                            }
-                            if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
-                                setManageSelections(website.products[key].id,website.products[key].product_options[key2].id);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }else if(n.code == 33 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.product_id){
-                for(const key2 in website.products[key].product_options){
-                    if(website.products[key].product_options[key2].id == n.option_id){
-                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
-                            if(website.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
-                                website.products[key].product_options[key2].product_option_selections.splice(key3,1);
-                                if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
-                                    setManageSelections(n.product_id,n.option_id);
-                                }
-
-                                window.guideHints.products(website.products);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }else if(n.code == 34 && account.authorities[1] == 1){
-        for(const key in website.products){
-            for(const key2 in website.products[key].product_options){
-                for(const key3 in website.products[key].product_options[key2].product_option_selections){
-                    if(website.products[key].product_options[key2].product_option_selections[key3].id == n.fromId){
-                        website.products[key].product_options[key2].product_option_selections[key3].sort = n.fromSort;
-                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
-                            setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
-                        }
-                    }
-                    if(website.products[key].product_options[key2].product_option_selections[key3].id == n.toId){
-                        website.products[key].product_options[key2].product_option_selections[key3].sort = n.toSort;
-                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
-                            setManageSelections(website.products[key].id,website.products[key].product_options[key2].id)
-                        }
-                    }
-                }
-            }
-        }
-    }else if(n.code == 35 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.product_id){
-                for(const key2 in website.products[key].product_options){
-                    if(website.products[key].product_options[key2].id == n.option_id){
-                        for(const key3 in website.products[key].product_options[key2].product_option_selections){
-                            if(website.products[key].product_options[key2].product_option_selections[key3].name == n.selection_name){
-                                website.products[key].product_options[key2].product_option_selections[key3].price = n.price;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_en = n.name_en;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_fr = n.name_fr;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_de = n.name_de;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_it = n.name_it;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_es = n.name_es;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_ar = n.name_ar;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_ru = n.name_ru;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_ua = n.name_ua;
-                                website.products[key].product_options[key2].product_option_selections[key3].name_eg = n.name_eg;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        window.guideHints.products(website.products);
-        if(!$('#editSection-popup').hasClass('none') && $('#editSection-selectionName').val() == n.selection_name){
-            closePopup();
-        }
     }else if(n.code == 36){
         website.payment_methods_count = n.paymentmethodsCount;
         window.guideHints.subscriptionCheck();

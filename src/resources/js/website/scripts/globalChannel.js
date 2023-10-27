@@ -73,5 +73,11 @@ window.globalChannel
         case 'option.delete':
 
         break;
+        case 'selection.edit':
+
+        break;
+        case 'selection.delete':
+
+        break;
     }
 });

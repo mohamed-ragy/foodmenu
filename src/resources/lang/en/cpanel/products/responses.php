@@ -14,6 +14,7 @@ return [
     'categoryEdited'=> 'The category has been modified successfully.',
     'categoryEditeFail'=>'Unknown Error Occurred! Failed to modify the category.',
     //l7ad hena
+    'productsSortFail' => 'Unknown Error Occurred! Failed to save the products order.',
     'producctCreateSaved' => 'Your product has been created successfully.',
     'producctCreateSaveFail'=>'Unknown Error Occurred! Failed to create a new product.',
     'productNameRequired'=>'Please enter the product identifier.',
@@ -35,5 +36,15 @@ return [
     'createProductOptionFailed'=>'Unknown Error Occurred! Failed to save the product option.',
     'deleteProductOptionDeleted' =>'The product option has been deleted successfully.',
     'deleteProductOptionFaild' => 'Unknown Error Occurred! Failed to delete the product option.',
-
+    'setDefaultSelectionSaved' => 'The selection default settings have been saved successfully.',
+    'setDefaultSelectionFailed' => 'Unknown Error Occurred! Failed to set the default selection.',
+    'selectionsSortFail' => 'Unknown Error Occurred! Failed to save the selections order.',
+    'selectionNameRequired' => "The selection identifier is required.",
+    'selectionNameRegex' => 'The selection identifier can only be written in small English letters, numbers, or dashes.',
+    'selectionNameUnique' => "You have already used this selection identifier for the same option. Please enter another one.",
+    'createProductSelectionSaved' => 'The selection has been successfully saved.',
+    'createProductSelectionFailed'=>'Unknown Error Occurred! Failed to save the selection.',
+    'deleteProductSelectionDeleted' =>'The product selection has been deleted successfully.',
+    'deleteProductSelectionFaild' => 'Unknown Error Occurred! Failed to delete the product selection.',
+    'cantdeleteDefaultSelection' => "you can't delete the default selection.",
 ];

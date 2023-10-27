@@ -1,52 +1,33 @@
-$('#editOption-optionSelectionsContainer').on('click','.selectionCardIconDefault',function(e){
+$('html,body').on('click','.productOptionSelectionSetDefault',function(e){
     e.stopImmediatePropagation();
-    let isDefault;
-    if($(this).hasClass('ico-check1')){isDefault = 0}else{ isDefault = 1}
-    let productId = $(this).closest('.selectionCardContainer').attr('productId');
-    let optionId = $(this).closest('.selectionCardContainer').attr('optionId');
-    let selectionId = $(this).closest('.selectionCardContainer').attr('selectionId');
-    let product = website.products.find(item=> item.id == productId);
-    if(typeof(product) === 'undefined'){
-        return;
-    }
-    let option = product.product_options.find(item=> item.id == optionId);
-    if(typeof(option) === 'undefined'){return;}
-    let selection = option.product_option_selections.find(item=> item.id == selectionId);
-    if(typeof(selection) === 'undefined'){return;}
-    $('.selectionCardIconDefault').addClass('none');
-    $('.selectionCardIconDefaultLoading').removeClass('none').css('visibility','visible');
+    if(!coolDownChecker()){return;}
+    if($(this).find('.productOptionSelectionSetDefaultIcon').hasClass('ico-check1')){return}
+    let product = website.products.find(item=>item.name == window.history.state.product);
+    let option = product.product_options.find(item=>item.id == $(this).closest('.productOptionContainer').attr('option'))
+    let selection = option.product_option_selections.find(item=>item.id == $(this).closest('.productOptionSelectionContainer').attr('selection'))
+
+    $('.productOptionSelectionSetDefaultIcon').addClass('none');
+    $('.productOptionSelectionSetDefaultLoading').removeClass('none').addClass('vV');
     $.ajax({
         url:'products',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             setDefaultSelection:true,
-            isDefault:isDefault,
             product_id:product.id,
             product_name:product.name,
-            option_id:optionId,
+            option_id:option.id,
             option_name:option.name,
-            selection_id:selectionId,
+            selection_id:selection.id,
             selection_name:selection.name,
         },success:function(r){
             if(r.setDefaultSelectionStat = 1){
-                for(const key in website.products){
-                    if(website.products[key].id == product.id){
-                        for(const key2 in website.products[key].product_options){
-                            if(website.products[key].product_options[key2].id == optionId){
-                                for(const key3 in website.products[key].product_options[key2].product_option_selections){
-                                    if(website.products[key].product_options[key2].product_option_selections[key3].id == selectionId){
-                                        website.products[key].product_options[key2].product_option_selections[key3].isDefault = isDefault;
-                                    }else{
-                                        website.products[key].product_options[key2].product_option_selections[key3].isDefault = false;
-                                    }
-                                }
-                                if($('#editOption-createNewSelection').attr('productId') == product.id && $('#editOption-createNewSelection').attr('optionId') == optionId){
-                                    setManageSelections(product.id,optionId);
-                                }
-                            }
-                        }
-                    }
+                for(const key in website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections){
+                    website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections[key].isDefault = 0;
+                }
+                website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections.find(item=>item.id == selection.id).isDefault = 1;
+                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_options(window.history.state.product)
                 }
                 showAlert('success',r.msg,4000,true);
             }else if(r.setDefaultSelectionStat == 0){

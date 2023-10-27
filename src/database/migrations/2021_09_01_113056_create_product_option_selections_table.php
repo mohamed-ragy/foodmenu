@@ -23,15 +23,7 @@ class CreateProductOptionSelectionsTable extends Migration
             $table->decimal('price',10,2)->default(0.00);
             $table->boolean('isDefault')->default(false);
             $table->string('name');
-            $table->string('name_en')->nullable();
-            $table->string('name_ar')->nullable();
-            $table->string('name_eg')->nullable();
-            $table->string('name_fr')->nullable();
-            $table->string('name_de')->nullable();
-            $table->string('name_it')->nullable();
-            $table->string('name_es')->nullable();
-            $table->string('name_ru')->nullable();
-            $table->string('name_ua')->nullable();
+            $table->json('names');
             $table->integer('created_at');
             $table->integer('updated_at')->nullable();
         });

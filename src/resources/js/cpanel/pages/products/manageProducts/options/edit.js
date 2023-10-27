@@ -1,46 +1,44 @@
-$('#editOption-optionSelectionsContainer').on('click','.productOptionCardIconEdit',function(e){
+$('html,body').on('click','.productOptionEdit',function(e){
     e.stopImmediatePropagation();
-    setEditProductOption($(this).closest('.selectionsOptionCard').attr('productId'),$(this).closest('.selectionsOptionCard').attr('optionId'))
+    let product = website.products.find(item=>item.name == window.history.state.product);
+    let option = product.product_options.find(item=>item.id == $(this).closest('.productOptionContainer').attr('option'));
+    showPopup('editProductOption',function(){
+        $('.popupBody').addClass('m0 p10 w100p-20').append(
+            $('<div/>',{class:'row alnC jstfyS mB20'}).append(
+                $('<img/>',{class:'h40 w40 br5 ofCover',src:product.imgUrl_thumbnail}),
+                $('<div/>',{class:'fs102 bold500 mis-5',text:product.name}),
+                $('<div/>',{tooltip:texts.cpanel.public.unsaved,class:`editOptionNoSave_${product.name}_${option.id} ico-warning unsaved none mie-5 mis-5 fs1 `}),
+            ),
+            $('<div/>',{class:'',id:'editOptionInputsContainer',option:option.id}).append(
+                drawInputText('','ico-edit','',texts.products.optionIdentifier,'createOption_identifier','text',texts.products.optionIdentifier,200,'copy','',option.name,true,'')
+            ),
+            drawSaveCancelBtns('editOption_saveBtn','editOption_cancelBtn','mT20')
+        );
+        for(const key in website.languages){
+            const lang = website.languages[key];
+            $('#editOptionInputsContainer').append(
+                drawInputText('','',lang.flag,texts.products.optionNameLang.replace(':lang:',lang.name),`editOption_name-${lang.code}`,'text',texts.products.optionNameLang.replace(':lang:',lang.name),200,'clearVal','',option.names[lang.code],false,'')
+            )
+        }
+    })
+});
+
+
+$('html,body').on('click','#editOption_cancelBtn',function(e){
+    e.stopImmediatePropagation();
+    closePopup();
 })
 
-setEditProductOption = function(productId,optionId,callback=()=>{}){
-    let product = website.products.find(item=> item.id == productId);
-    if(typeof(product) === 'undefined'){return;}
-    let option = product.product_options.find(item=> item.id == optionId);
-    if(typeof(option) === 'undefined'){return;}
-    $('#editProductOption-popup-productImg').attr('src',product.imgUrl_thumbnail);
-    $('#editProductOption-popup-productName').text(product.name);
-    $('#editProductOption-optionName').attr('productid',productId).val(option.name)
-    $('#editProductOption-enName').val(option.name_en);
-    $('#editProductOption-frName').val(option.name_fr);
-    $('#editProductOption-deName').val(option.name_de);
-    $('#editProductOption-itName').val(option.name_it);
-    $('#editProductOption-esName').val(option.name_es);
-    $('#editProductOption-arName').val(option.name_ar);
-    $('#editProductOption-ruName').val(option.name_ru);
-    $('#editProductOption-uaName').val(option.name_ua);
-    $('#editProductOption-egName').val(option.name_eg);
-    showPopup($('#editProductOption-popup'),function(){
-        callback();
-    })
-}
-
-$('#editProductOption-savebtn').on('click',function(){
-    let option_name = $('#editProductOption-optionName').val()
-    let product = website.products.find(item=> item.id == $('#editProductOption-optionName').attr('productId'));
-    let option = product.product_options.find(item=> item.name == option_name);
-    if(typeof(option) === 'undefined'){return;}
-    let option_id = option.id;
-    let name_en = $('#editProductOption-enName').val();
-    let name_fr = $('#editProductOption-frName').val();
-    let name_de = $('#editProductOption-deName').val();
-    let name_it = $('#editProductOption-itName').val();
-    let name_es = $('#editProductOption-esName').val();
-    let name_ar = $('#editProductOption-arName').val();
-    let name_ru = $('#editProductOption-ruName').val();
-    let name_ua = $('#editProductOption-uaName').val();
-    let name_eg = $('#editProductOption-egName').val();
-    showBtnLoading($('#editProductOption-savebtn'));
+$('html,body').on('click','#editOption_saveBtn',function(e){
+    e.stopImmediatePropagation();
+    let product = website.products.find(item=>item.name == window.history.state.product);
+    let option_id = $('#editOptionInputsContainer').attr('option')
+    let option = product.product_options.find(item=> item.id == option_id);
+    let names ={};
+    for(const key in website.languages){
+        names[website.languages[key].code] = $(`#editOption_name-${website.languages[key].code}`).val();
+    }
+    showBtnLoading($('#editOption_saveBtn'));
     $.ajax({
         url:'products',
         type:'put',
@@ -49,39 +47,22 @@ $('#editProductOption-savebtn').on('click',function(){
             editProductOption:true,
             product_id:product.id,
             product_name:product.name,
-            option_name:option_name,
-            option_id:option_id,
-            name_en:name_en,
-            name_fr:name_fr,
-            name_de:name_de,
-            name_it:name_it,
-            name_es:name_es,
-            name_ar:name_ar,
-            name_ru:name_ru,
-            name_ua:name_ua,
-            name_eg:name_eg,
+            option_name:option.name,
+            option_id:option.id,
+            names:names,
         },success:function(r){
-            hideBtnLoading($('#editProductOption-savebtn'));
+            hideBtnLoading($('#editOption_saveBtn'));
             if(r.editProductOptionStat == 1){
-                for(const key in website.products){
-                    for(const key2 in website.products[key].product_options){
-                        if(website.products[key].product_options[key2].id == option_id){
-                            website.products[key].product_options[key2].name_en = name_en;
-                            website.products[key].product_options[key2].name_fr = name_fr;
-                            website.products[key].product_options[key2].name_de = name_de;
-                            website.products[key].product_options[key2].name_it = name_it;
-                            website.products[key].product_options[key2].name_es = name_es;
-                            website.products[key].product_options[key2].name_ar = name_ar;
-                            website.products[key].product_options[key2].name_ru = name_ru;
-                            website.products[key].product_options[key2].name_ua = name_ua;
-                            website.products[key].product_options[key2].name_eg = name_eg;
-                        }
-                    }
+                for(const key in website.languages){
+                    const lang = website.languages[key];
+                    website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).names[lang.code] = names[lang.code];
+                    website_temp.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).names[lang.code] = names[lang.code];
                 }
                 window.guideHints.products(website.products);
                 showAlert('success',r.msg,4000,true);
-                if(!$('#editProductOption-popup').hasClass('none') && $('#editProductOption-optionName').val() == option_name){
-                    closePopup();
+                closePopup();
+                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_options(window.history.state.product)
                 }
             }else if(r.editProductOptionStat == 0){
                 showAlert('error',r.msg,4000,true);

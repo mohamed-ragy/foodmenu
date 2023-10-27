@@ -1,134 +1,78 @@
-$('#editOption-createNewSelection').on('click',function(){
-    let productId = $(this).attr('productId');
-    let optionId = $(this).attr('optionId');
-    let product = website.products.find(item=> item.id == productId);
-    if(typeof(product) === 'undefined'){
-        return;
-    }
-    let option = product.product_options.find(item=> item.id == optionId);
-    if(typeof(option) === 'undefined'){
-        return;
-    }
-
-    $('#createNewSection-popup-productImg').attr('src',product.imgUrl_thumbnail);
-    $('#createNewSection-popup-productName').text(product.name+' ('+option.name+')');
-    $('#createNewSection-selectionName').val('')
-    $('#createNewSection-price').val('')
-    $('#createNewSection-enName').val('')
-    $('#createNewSection-frName').val('')
-    $('#createNewSection-deName').val('')
-    $('#createNewSection-itName').val('')
-    $('#createNewSection-esName').val('')
-    $('#createNewSection-arName').val('')
-    $('#createNewSection-ruName').val('')
-    $('#createNewSection-uaName').val('')
-    $('#createNewSection-egName').val('')
-    showPopup($('#createNewSection-popup'),function(){
-        $('#createNewSection-selectionName').select();
+$('html,body').on('click','.productOptionAddSelection',function(e){
+    e.stopImmediatePropagation();
+    let product = website.products.find(item=> item.name == window.history.state.product);
+    let option = product.product_options.find(item=>item.id == $(this).closest('.productOptionContainer').attr('option'));
+    showPopup('createNewProductSelection',function(){
+        $('.popupBody').addClass('m0 p10 w100p-20').append(
+            $('<div/>',{class:'row alnC jstfyS mB20'}).append(
+                $('<img/>',{class:'h40 w40 br5 ofCover',src:product.imgUrl_thumbnail}),
+                $('<div/>',{class:'mis-5'}).append(
+                    $('<span/>',{class:'fs102 bold500',text:product.name}),
+                    $('<span/>',{class:'mis-5',text:`(${option.name})`})
+                ),
+            ),
+            $('<div/>',{class:'',id:'createNewSelectionInputsContainer'}).append(
+                drawInputText('','ico-edit','',texts.products.selectionIdentifier,'createSelection_identifier','text',texts.products.selectionIdentifier,200,'clearVal','','',false,''),
+                drawInputText('','ico-money','',texts.products.selectionPrice,'createSelection_price','number',texts.products.selectionPrice,200,'clearVal','','',false,'')
+            ),
+            $('<div/>',{class:'btnContainer mT20'}).append(
+                $('<button/>',{class:'btn',id:'createNewSelection_btn',option:option.id}).append(
+                    $('<div/>',{class:'btnTxt',text:texts.cpanel.public.create}),
+                    $('<div/>',{class:'btnLoading'}),
+                )
+            )
+        );
+        for(const key in website.languages){
+            const lang = website.languages[key];
+            $('#createNewSelectionInputsContainer').append(
+                drawInputText('','',lang.flag,texts.products.selectionNameLang.replace(':lang:',lang.name),`createSelection_name-${lang.code}`,'text',texts.products.selectionNameLang.replace(':lang:',lang.name),200,'clearVal','','',false,'')
+            )
+        }
+        $('#createSelection_identifier').focus();
     })
-    $('#createNewSection-createbtn').attr('productId',productId).attr('optionId',optionId);
 })
-$('#createNewSection-createbtn').on('click',function(){
-    let productId = $(this).attr('productId');
-    let optionId = $(this).attr('optionId');
-    let product = website.products.find(item=> item.id == productId);
-    if(typeof(product) === 'undefined'){
-        return;
+$('html,body').on('click','#createNewSelection_btn',function(e){
+    e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
+    let product = website.products.find(item=> item.name == window.history.state.product);
+    let option = product.product_options.find(item=>item.id == $(this).attr('option'));
+    if($('#createSelection_price').val() == '' || $('#createSelection_price').val() == null){
+        $('#createSelection_price').val('0.00')
     }
-    let option = product.product_options.find(item=> item.id == optionId);
-    if(typeof(option) === 'undefined'){
-        return;
+    let selection_name = $('#createSelection_identifier').val();
+    let price = parseFloat($('#createSelection_price').val());
+    let selection_names = {};
+    for(const key in website.languages){
+        const lang = website.languages[key];
+        selection_names[lang.code] = $(`#createSelection_name-${lang.code}`).val();
     }
-    if($('#createNewSection-selectionName').val() == '' || $('#createNewSection-selectionName').val() == null){
-        scrollToDiv($('#createNewSection-popup').find('.popupBody'),$('#createNewSection-selectionName'))
-        inputTextError($('#createNewSection-selectionName'));
-        showAlert('error',texts.products.selectionNameRequired,4000,true)
-        return;
-    }
-    if(!/^[a-z0-9_-]+$/.test($('#createNewSection-selectionName').val())){
-        scrollToDiv($('#createNewSection-popup').find('.popupBody'),$('#createNewSection-selectionName'))
-        inputTextError($('#createNewProductOption-optionName'));
-        showAlert('error',texts.products.selectionNameRegex,4000,true)
-        return;
-    }
-    for(const key in option.product_option_selections){
-        if($('#createNewSection-selectionName').val() == option.product_option_selections[key].name){
-            scrollToDiv($('#createNewSection-popup').find('.popupBody'),$('#createNewSection-selectionName'))
-            inputTextError($('#createNewProductOption-optionName'));
-            showAlert('error',texts.products.selectionNameUnique,4000,true)
-            return;
-        }
-    }
-    let sort = 1;
-    if(option.product_option_selections.length > 0){
-        for(const key in option.product_option_selections){
-            if(option.product_option_selections[key].sort >= sort){sort = parseInt(option.product_option_selections[key].sort) + 1 }
-        }
-    }
-    let product_id = product.id;
-    let product_name = product.name;
-    let option_id = option.id;
-    let option_name = option.name;
-    let selection_name = $('#createNewSection-selectionName').val();
-    if($('#createNewSection-price').val() == '' || $('#createNewSection-price').val() == null){
-        $('#createNewSection-price').val('0.00')
-    }
-    let price = parseFloat($('#createNewSection-price').val());
-    let name_en = $('#createNewSection-enName').val();
-    let name_fr = $('#createNewSection-frName').val();
-    let name_de = $('#createNewSection-deName').val();
-    let name_it = $('#createNewSection-itName').val();
-    let name_es = $('#createNewSection-esName').val();
-    let name_ar = $('#createNewSection-arName').val();
-    let name_ru = $('#createNewSection-ruName').val();
-    let name_ua = $('#createNewSection-uaName').val();
-    let name_eg = $('#createNewSection-egName').val();
-    showBtnLoading($('#createNewSection-createbtn'))
+    showBtnLoading($('#createNewSelection_btn'))
     $.ajax({
         url:'products',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             createProductSelection:true,
-            product_id:product_id,
-            product_name:product_name,
-            option_id:option_id,
-            option_name:option_name,
-            sort:sort,
+            product_id:product.id,
+            product_name:product.name,
+            option_id:option.id,
+            option_name:option.name,
             selection_name:selection_name,
             price:price,
-            name_en:name_en,
-            name_fr:name_fr,
-            name_de:name_de,
-            name_it:name_it,
-            name_es:name_es,
-            name_ar:name_ar,
-            name_ru:name_ru,
-            name_ua:name_ua,
-            name_eg:name_eg,
+            selection_names:selection_names,
         },success:function(r){
-            hideBtnLoading($('#createNewSection-createbtn'))
+            hideBtnLoading($('#createNewSelection_btn'))
             if(r.createProductSelectionStatus == 1){
-                for(const key in website.products){
-                    if(website.products[key].id == product_id){
-                        for(const key2 in website.products[key].product_options){
-                            if(website.products[key].product_options[key2].id == option_id){
-                                website.products[key].product_options[key2].product_option_selections.push(r.selection);
-                            }
-                        }
-                    }
+                website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections.push(JSON.parse(JSON.stringify(r.selection)))
+                website_temp.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections.push(JSON.parse(JSON.stringify(r.selection)))
+                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_options(window.history.state.product)
                 }
-                if($('#editOption-createNewSelection').attr('productId') == product_id && $('#editOption-createNewSelection').attr('optionId') == option_id){
-                    setManageSelections(product_id,option_id);
-                }
-                if(!$('#createNewSection-popup').hasClass('none')){
-                    closePopup();
-                }
+                closePopup();
                 showAlert('success',r.msg,4000,true)
                 window.guideHints.products(website.products);
             }else if(r.createProductSelectionStatus == 0){
-                scrollToDiv($('#createNewSection-popup').find('.popupBody'),$('#createNewSection-selectionName'))
-                inputTextError($('#createNewProductOption-optionName'));
+                inputTextError($('#createSelection_identifier'));
                 showAlert('error',r.msg,4000,true)
             }else if(r.createProductSelectionStatus == 2){
                 showAlert('error',r.msg,4000,true);

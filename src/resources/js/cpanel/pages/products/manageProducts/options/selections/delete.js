@@ -1,44 +1,33 @@
-$('#editOption-optionSelectionsContainer').on('click','.selectionCardIconDelete',function(e){
+$('html,body').on('click','.productOptionSelectionDelete',function(e){
     e.stopImmediatePropagation();
-    let product_id = $(this).closest('.selectionCardContainer').attr('productId');
-    let product = website.products.find(item => item.id == product_id);
-    if(typeof(product) == 'undefined'){return;}
-    let option_id = $(this).closest('.selectionCardContainer').attr('optionId');
-    let option = product.product_options.find(item=> item.id == option_id);
-    if(typeof(option) == 'undefined'){return}
-    let selection_id = $(this).closest('.selectionCardContainer').attr('selectionId');
-    let selection = option.product_option_selections.find(item=> item.id == selection_id);
-    if(typeof(selection) == 'undefined'){return}
-    $('#delete-popup').find('.popupBody').text('').append(
-        $('<div/>',{}).append(
-            $('<div/>',{class:'fs105 m10',html:`${texts.products.selectionDeleteConfirm1} <b>${selection.name}</b> ${texts.products.selectionDeleteConfirm2} <b>${option.name}</b> ${texts.products.selectionDeleteConfirm3}?`}),
+    let product = website.products.find(item=>item.name == window.history.state.product);
+    let option = product.product_options.find(item=>item.id == $(this).closest('.productOptionContainer').attr('option'));
+    let selection = option.product_option_selections.find(item=>item.id == $(this).closest('.productOptionSelectionContainer').attr('selection'));
+    showPopup('delete-popup',function(){
+        $('.popupBody').append(
+            $('<div/>',{class:'msgBox_orange'}).append(
+                $('<span/>',{class:'ico-warning fs2 mB10'}),
+                $('<span/>',{class:'taC',text:texts.products.selectionDeleteConfirm.replace(':selection:',selection.name).replace(':option:',option.name)})
+            ),
             $('<div/>',{
-                class:'btnContainer',
+                class:'btnContainer mT40',
             }).append(
-                $('<button/>',{class:'btn btn-cancel popupClose',text:texts.cpanel.public.cancel}),
-                $('<button/>',{id:'deleteSelection-confirmBtn',productId:product_id,optionId:option_id,selectionId:selection_id,class:'btn btn-delete'}).append(
+                $('<button/>',{class:'btn btn-cancel popupClose mie-5',text:texts.cpanel.public.cancel}),
+                $('<button/>',{id:'deleteSelection-confirmBtn',option:option.id,selection:selection.id,class:'btn btn-delete'}).append(
                     $('<span/>',{class:'btnTxt',text:texts.cpanel.public.delete}),
                     $('<span/>',{class:'btnLoading'})
                 )
             )
         )
-    )
-    showPopup($('#delete-popup'))
-
-
+    });
 })
 
-$('html,body').on('click','#deleteSelection-confirmBtn',function(){
-    let product_id = $(this).attr('productId');
-    let product = website.products.find(item=> item.id == product_id);
-    console.log(product)
-    if(typeof(product) == 'undefined'){return;}
-    let option_id = $(this).attr('optionId');
-    let selection_id = $(this).attr('selectionId');
-    let option = product.product_options.find(item=>item.id == option_id);
-    if(typeof(option) === 'undefined'){return;}
-    let selection = option.product_option_selections.find(item=>item.id == selection_id);
-    if(typeof(selection) === 'undefined'){return;}
+$('html,body').on('click','#deleteSelection-confirmBtn',function(e){
+    e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
+    let product = website.products.find(item=>item.name == window.history.state.product);
+    let option = product.product_options.find(item=>item.id == $(this).attr('option'));
+    let selection = option.product_option_selections.find(item=>item.id == $(this).attr('selection'));
     showBtnLoading($('#deleteSelection-confirmBtn'));
     $.ajax({
         url:'products',
@@ -46,25 +35,25 @@ $('html,body').on('click','#deleteSelection-confirmBtn',function(){
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             deleteProductSelection:true,
-            product_id:product_id,
+            product_id:product.id,
             product_name:product.name,
-            option_id:option_id,
+            option_id:option.id,
             option_name:option.name,
-            selection_id:selection_id,
+            selection_id:selection.id,
             selection_name:selection.name,
         },success:function(r){
             hideBtnLoading($('#deleteSelection-confirmBtn'));
             if(r.delteProductSelectionStat == 1){
                 for(const key in website.products){
-                    if(website.products[key].id == product_id){
+                    if(website.products[key].id == product.id){
                         for(const key2 in website.products[key].product_options){
-                            if(website.products[key].product_options[key2].id == option_id){
+                            if(website.products[key].product_options[key2].id == option.id){
                                 for(const key3 in website.products[key].product_options[key2].product_option_selections){
-                                    if(website.products[key].product_options[key2].product_option_selections[key3].id == selection_id){
+                                    if(website.products[key].product_options[key2].product_option_selections[key3].id == selection.id){
                                         website.products[key].product_options[key2].product_option_selections.splice(key3,1);
                                         closePopup();
-                                        if($('#editOption-createNewSelection').attr('productId') == website.products[key].id && $('#editOption-createNewSelection').attr('optionId') == website.products[key].product_options[key2].id){
-                                            setManageSelections(product_id,option_id);
+                                        if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
+                                            drawPopupPage_manage_product_options(window.history.state.product)
                                         }
                                         window.guideHints.products(website.products);
                                     }
@@ -73,8 +62,22 @@ $('html,body').on('click','#deleteSelection-confirmBtn',function(){
                         }
                     }
                 }
+                for(const key in website_temp.products){
+                    if(website_temp.products[key].id == product.id){
+                        for(const key2 in website_temp.products[key].product_options){
+                            if(website_temp.products[key].product_options[key2].id == option.id){
+                                for(const key3 in website_temp.products[key].product_options[key2].product_option_selections){
+                                    if(website_temp.products[key].product_options[key2].product_option_selections[key3].id == selection.id){
+                                        website_temp.products[key].product_options[key2].product_option_selections.splice(key3,1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 showAlert('success',r.msg,4000,true);
             }else if(r.delteProductSelectionStat == 0){
+                closePopup();
                 showAlert('error',r.msg,4000,true);
             }
         }

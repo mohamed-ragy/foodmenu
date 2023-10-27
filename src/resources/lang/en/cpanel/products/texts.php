@@ -55,5 +55,12 @@ return [
     'optionIdentifier'=>'Option identifier',
     'optionNameLang' => 'Option name (:lang:)',
     'optionDeleteConfirm' => 'Are you sure you want to delete the option :option: from :product:?',
+    'editOption' => 'Edit Product Option',
+    'selectionIdentifier' => 'Selection identifier',
+    'selectionPrice' => 'Selection price',
+    'selectionNameLang' => 'Selection name (:lang:)',
+    'editSelection' => 'Edit Product Selection',
+    'selectionDeleteConfirm' => 'Are you sure you want to delete the selection :selection: from the :option: option?',
+
 ];
 

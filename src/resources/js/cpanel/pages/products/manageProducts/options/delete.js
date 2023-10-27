@@ -47,15 +47,25 @@ $('html,body').on('click','#deleteOption-confirmBtn',function(e){
                         for(const key2 in website.products[key].product_options){
                             if(website.products[key].product_options[key2].id == option_id){
                                 website.products[key].product_options.splice(key2,1);
-                                window.guideHints.products(website.products);
                                 if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
                                     drawPopupPage_manage_product_options(window.history.state.product)
-                                    closePopup();
                                 }
                             }
                         }
                     }
                 }
+                for(const key in website_temp.products){
+                    if(website_temp.products[key].id == product_id){
+                        for(const key2 in website_temp.products[key].product_options){
+                            if(website_temp.products[key].product_options[key2].id == option_id){
+                                website_temp.products[key].product_options.splice(key2,1);
+                            }
+                        }
+                    }
+                }
+
+                window.guideHints.products(website.products);
+                closePopup();
                 showAlert('success',r.msg,4000,true);
             }else if(r.deleteProductOptionStatus == 0){
                 showAlert('error',r.msg,4000,true);

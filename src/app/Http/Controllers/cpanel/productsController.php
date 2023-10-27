@@ -175,7 +175,7 @@ class productsController extends Controller
                 ]);
                 return response(['sortProductsStatus' => 1]);
             }else{
-                return response(['sortProductsStatus' => 0,'msg' => Lang::get('cpanel/products/products.productsSortFail')]);
+                return response(['sortProductsStatus' => 0,'msg' => Lang::get('cpanel/products/responses.productsSortFail')]);
             }
 
         }
@@ -340,35 +340,17 @@ class productsController extends Controller
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
+            $names = [];
+            foreach($request->names as $lang => $name){
+                $names[$lang] = strip_tags($name);
+            }
             $editOption = product_option::where(['website_id' => $this->website_id,'id' => $request->option_id])
                 ->update([
-                    'name_en' => strip_tags($request->name_en),
-                    'name_fr' => strip_tags($request->name_fr),
-                    'name_de' => strip_tags($request->name_de),
-                    'name_it' => strip_tags($request->name_it),
-                    'name_es' => strip_tags($request->name_es),
-                    'name_ar' => strip_tags($request->name_ar),
-                    'name_ru' => strip_tags($request->name_ru),
-                    'name_ua' => strip_tags($request->name_ua),
-                    'name_eg' => strip_tags($request->name_eg),
+                    'names' => $names,
+                    'updated_at' => Carbon::now()->timestamp
                 ]);
                 if($editOption){
-                    $notification = new stdClass();
-                    $notification->code = 28;
-                    $notification->website_id = $this->website_id;
-                    $notification->product_id = $request->product_id;
-                    $notification->option_name = $request->option_name;
-                    $notification->option_id = $request->option_id;
-                    $notification->name_en = $request->name_en;
-                    $notification->name_fr = $request->name_fr;
-                    $notification->name_de = $request->name_de;
-                    $notification->name_it = $request->name_it;
-                    $notification->name_es = $request->name_es;
-                    $notification->name_ar = $request->name_ar;
-                    $notification->name_ru = $request->name_ru;
-                    $notification->name_ua = $request->name_ua;
-                    $notification->name_eg = $request->name_eg;
-                    $notification->activity = activityLog::create([
+                    foodmenuFunctions::notification('option.edit',[
                         'website_id' => $this->website_id,
                         'code' => 15.2,
                         'account_id' => Auth::guard('account')->user()->id,
@@ -377,92 +359,25 @@ class productsController extends Controller
                         'product_name' => $request->product_name,
                         'option_id' => $request->option_id,
                         'option_name' => $request->option_name,
+                    ],[
+                        'product_name' => $request->product_name,
+                        'option_id' => $request->option_id,
+                        'product_id' => $request->product_id,
+                        'names' => $names,
                     ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
-                    return response(['editProductOptionStat' => 1, 'msg' => Lang::get('cpanel/products/products.createProductOptionCreated')]);
+                    return response(['editProductOptionStat' => 1, 'msg' => Lang::get('cpanel/products/responses.createProductOptionCreated')]);
                 }else{
-                    return response(['editProductOptionStat' => 0, 'msg' => Lang::get('cpanel/products/products.createProductOptionFailed')]);
+                    return response(['editProductOptionStat' => 0, 'msg' => Lang::get('cpanel/products/responses.createProductOptionFailed')]);
                 }
-        }
-        else if($request->has('createProductSelection')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
-            if($request->selection_name == ''){
-                return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/products.selectionNameRequired') ]);
-            }
-            $validate = Validator::make(['selection_name' => $request->selection_name],[
-                'selection_name' => 'regex:/^[a-z0-9_-]+$/',
-            ]);
-            if($validate->fails()){
-                return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/products.selectionNameRegex') ]);
-            }
-            $checkSelectionName = product_option_selection::where(['website_id' => $this->website_id,'product_option_id' => $request->option_id,'name' => $request->selection_name])->count();
-            if($checkSelectionName > 0){
-                return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/products.selectionNameUnique') ]);
-            }
-            $createNewSelection = product_option_selection::create([
-                'website_id' => $this->website_id,
-                'product_option_id' => $request->option_id,
-                'sort' => $request->sort,
-                'isDefault' => false,
-                'price' => strip_tags($request->price),
-                'name' => strip_tags($request->selection_name),
-                'name_en' => strip_tags($request->name_en),
-                'name_fr' => strip_tags($request->name_fr),
-                'name_de' => strip_tags($request->name_de),
-                'name_it' => strip_tags($request->name_it),
-                'name_es' => strip_tags($request->name_es),
-                'name_ar' => strip_tags($request->name_ar),
-                'name_ru' => strip_tags($request->name_ru),
-                'name_ua' => strip_tags($request->name_ua),
-                'name_eg' => strip_tags($request->name_eg),
-            ]);
-            if($createNewSelection){
-                $createdSelection = product_option_selection::where(['website_id' => $this->website_id,'name' => $request->selection_name])->first();
-                $notification = new stdClass();
-                $notification->code = 31;
-                $notification->website_id = $this->website_id;
-                $notification->selection = $createNewSelection;
-                $notification->product_id = $request->product_id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 15.3,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'product_id' => $request->product_id,
-                    'product_name' => $request->product_name,
-                    'option_id' => $request->option_id,
-                    'option_name' => $request->option_name,
-                    'selection_id' => $createdSelection->id,
-                    'selection_name' => $createdSelection->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                return response(['createProductSelectionStatus' => 1,'msg'=> Lang::get('cpanel/products/products.createProductSelectionSaved') , 'selection' => $createdSelection]);
-            }else{
-                return response(['createProductSelectionStatus' => 2,'msg'=> Lang::get('cpanel/products/products.createProductSelectionFailed') ]);
-            }
         }
         else if($request->has('setDefaultSelection')){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
-            if($request->isDefault == 1){
-                $removeDefault = product_option_selection::where(['website_id' => $this->website_id,'product_option_id' => $request->option_id])->update(['isDefault'=>false]);
-                $setDefault = product_option_selection::where(['website_id' => $this->website_id,'id' => $request->selection_id])->update(['isDefault' => true]);
-            }else{
-                $removeDefault = product_option_selection::where(['website_id' => $this->website_id,'product_option_id' => $request->option_id])->update(['isDefault'=>false]);
-                $setDefault = true;
-            }
+            $removeDefault = product_option_selection::where(['website_id' => $this->website_id,'product_option_id' => $request->option_id])->update(['isDefault'=>false]);
+            $setDefault = product_option_selection::where(['website_id' => $this->website_id,'id' => $request->selection_id])->update(['isDefault' => true]);
             if($removeDefault && $setDefault){
-                $notification = new stdClass();
-                $notification->code = 32;
-                $notification->website_id = $this->website_id;
-                $notification->product_id = $request->product_id;
-                $notification->option_id = $request->option_id;
-                $notification->selection_id = $request->selection_id;
-                $notification->isDefault = $request->isDefault;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('selection.set_default',[
                     'website_id' => $this->website_id,
                     'code' => 15.4,
                     'account_id' => Auth::guard('account')->user()->id,
@@ -473,40 +388,108 @@ class productsController extends Controller
                     'option_name' => $request->option_name,
                     'selection_id' => $request->selection_id,
                     'selection_name' => $request->selection_name,
+                ],[
+                    'product_id' => $request->productId,
+                    'product_name' => $request->product_name,
+                    'option_id' => $request->option_id,
+                    'selection_id' => $request->selection_id,
                 ]);
-                $user = new stdClass();
-                $user->id = 0;
-                $user->website_id = $this->website_id;
-                $user->code = 21;
-                $user->product_id = $request->product_id;
-                $user->option_id = $request->option_id;
-                $user->selection_id = $request->selection_id;
-                $user->isDefault = $request->isDefault;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user));
-                broadcast(new cpanelNotification($notification))->toOthers();
-                return response(['setDefaultSelectionStat'=>1,'msg'=> Lang::get('cpanel/products/products.setDefaultSelectionSaved')]);
+                return response(['setDefaultSelectionStat'=>1,'msg'=> Lang::get('cpanel/products/responses.setDefaultSelectionSaved')]);
             }else{
-                return response(['setDefaultSelectionStat'=>0,'msg'=> Lang::get('cpanel/products/products.setDefaultSelectionFailed')]);
+                return response(['setDefaultSelectionStat'=>0,'msg'=> Lang::get('cpanel/products/responses.setDefaultSelectionFailed')]);
+            }
+        }
+        else if($request->has(['sortProductSelections'])){
+            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
+                return;
+            }
+            $selectionSortFrom = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->fromId])->update(['sort'=>$request->fromSort]);
+            $selectionSortTo = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->toId])->update(['sort'=>$request->toSort]);
+            if($selectionSortFrom && $selectionSortTo){
+                foodmenuFunctions::notification('selection.sort',null,[
+                    'fromId' => $request->fromId,
+                    'fromSort' => $request->fromSort,
+                    'toId' => $request->toId,
+                    'toSort' => $request->toSort,
+                    'product_name' => $request->product_name,
+                    'option_id' => $request->option_id
+                ]);
+                return response(['sortSelectionsStatus' => 1]);
+            }else{
+                return response(['sortSelectionsStatus' => 0,'msg' => Lang::get('cpanel/products/responses.selectionsSortFail')]);
+            }
+        }
+        else if($request->has('createProductSelection')){
+            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
+                return;
+            }
+            if($request->selection_name == ''){
+                return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.selectionNameRequired') ]);
+            }
+            $validate = Validator::make(['selection_name' => $request->selection_name],[
+                'selection_name' => 'regex:/^[a-z0-9_-]+$/',
+            ]);
+            if($validate->fails()){
+                return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.selectionNameRegex') ]);
+            }
+            $checkSelectionName = product_option_selection::where(['website_id' => $this->website_id,'product_option_id' => $request->option_id,'name' => $request->selection_name])->count();
+            if($checkSelectionName > 0){
+                return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.selectionNameUnique') ]);
+            }
+            $newSelectionSort = product_option_selection::where(['website_id'=>$this->website_id,'product_option_id'=>$request->option_id])->max('sort');
+            $names = [];
+            foreach($request->selection_names as $lang => $name){
+                $names[$lang] = strip_tags($name);
+            }
+            $isDefault = false;
+            if(product_option_selection::where(['website_id'=>$this->website_id,'product_option_id'=>$request->option_id])->count() == 0){
+                $isDefault = true;
+            }
+            $createNewSelection = product_option_selection::create([
+                'website_id' => $this->website_id,
+                'product_option_id' => $request->option_id,
+                'name' => strip_tags($request->selection_name),
+                'sort' => $newSelectionSort + 1,
+                'isDefault' => $isDefault,
+                'price' => $request->price,
+                'names' => $names
+            ]);
+            if($createNewSelection){
+                foodmenuFunctions::notification('selection.create',[
+                    'website_id' => $this->website_id,
+                    'code' => 15.3,
+                    'account_id' => Auth::guard('account')->user()->id,
+                    'account_name' => Auth::guard('account')->user()->name,
+                    'product_id' => $request->product_id,
+                    'product_name' => $request->product_name,
+                    'option_id' => $request->option_id,
+                    'option_name' => $request->option_name,
+                    'selection_id' => $createNewSelection->id,
+                    'selection_name' => $createNewSelection->name,
+                ],[
+                    'product_name' => $request->product_name,
+                    'product_id' => $request->product_id,
+                    'option_id' => $request->option_id,
+                    'selection' => $createNewSelection,
+                ]);
+                return response(['createProductSelectionStatus' => 1,'msg'=> Lang::get('cpanel/products/responses.createProductSelectionSaved') , 'selection' => $createNewSelection]);
+            }else{
+                return response(['createProductSelectionStatus' => 2,'msg'=> Lang::get('cpanel/products/responses.createProductSelectionFailed') ]);
             }
         }
         else if($request->has('deleteProductSelection')){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
-            $deleteSelection = product_option_selection::where([
+            $selection = product_option_selection::where([
                 'website_id' => $this->website_id,
-                'product_option_id' => $request->option_id,
                 'id' => $request->selection_id,
-            ])->delete();
-            if($deleteSelection){
-                $notification = new stdClass();
-                $notification->code = 33;
-                $notification->website_id = $this->website_id;
-                $notification->product_id = $request->product_id;
-                $notification->option_id = $request->option_id;
-                $notification->selection_id = $request->selection_id;
-                $notification->activity = activityLog::create([
+            ])->first();
+            if($selection->isDefault == 1){
+                return response(['delteProductSelectionStat' => 0,'msg'=>Lang::get('cpanel/products/responses.cantdeleteDefaultSelection')]);
+            }
+            if($selection->delete()){
+                foodmenuFunctions::notification('selection.delete',[
                     'website_id' => $this->website_id,
                     'code' => 15.5,
                     'account_id' => Auth::guard('account')->user()->id,
@@ -517,80 +500,70 @@ class productsController extends Controller
                     'option_name' => $request->option_name,
                     'selection_id' => $request->selection_id,
                     'selection_name' => $request->selection_name,
+                ],[
+                    'product_id' => $request->product_id,
+                    'product_name' => $request->product_name,
+                    'option_id' => $request->option_id,
+                    'selection_id' => $request->selection_id,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $user->id = 0;
-                $user->website_id = $this->website_id;
-                $user->code = 20;
-                $user->product_id = $request->product_id;
-                $user->option_id = $request->option_id;
-                $user->selection_id = $request->selection_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user));
-                return response(['delteProductSelectionStat' => 1,'msg'=>Lang::get('cpanel/products/products.deleteProductSelectionDeleted')]);
-            }else{
-                return response(['delteProductSelectionStat' => 0,'msg'=>Lang::get('cpanel/products/products.deleteProductSelectionFaild')]);
-            }
-        }
-        else if($request->has(['sortProductSelections'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
-            $selectionSortFrom = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->fromId])->update(['sort'=>$request->fromSort]);
-            $selectionSortTo = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->toId])->update(['sort'=>$request->toSort]);
-            if($selectionSortFrom && $selectionSortTo){
                 $notification = new stdClass();
-                $notification->code = 34;
-                $notification->fromId = $request->fromId;
-                $notification->fromSort = $request->fromSort;
-                $notification->toId = $request->toId;
-                $notification->toSort = $request->toSort;
+                $notification->code = 'selection.delete';
                 $notification->website_id = $this->website_id;
-                broadcast(new cpanelNotification($notification))->toOthers();
-                return response(['sortSelectionsStatus' => 1]);
+                $notification->product_id = $request->product_id;
+                $notification->option_id = $request->option_id;
+                $notification->selection_id = $request->selection_id;
+                broadcast(new globalChannel($notification))->toOthers();
+                // $notification = new stdClass();
+                // $notification->code = 33;
+                // $notification->website_id = $this->website_id;
+                // $notification->product_id = $request->product_id;
+                // $notification->option_id = $request->option_id;
+                // $notification->selection_id = $request->selection_id;
+                // $notification->activity = activityLog::create([
+                    // 'website_id' => $this->website_id,
+                    // 'code' => 15.5,
+                    // 'account_id' => Auth::guard('account')->user()->id,
+                    // 'account_name' => Auth::guard('account')->user()->name,
+                    // 'product_id' => $request->product_id,
+                    // 'product_name' => $request->product_name,
+                    // 'option_id' => $request->option_id,
+                    // 'option_name' => $request->option_name,
+                    // 'selection_id' => $request->selection_id,
+                    // 'selection_name' => $request->selection_name,
+                // ]);
+                // broadcast(new cpanelNotification($notification))->toOthers();
+                // $user = new stdClass();
+                // $user->id = 0;
+                // $user->website_id = $this->website_id;
+                // $user->code = 20;
+                // $user->product_id = $request->product_id;
+                // $user->option_id = $request->option_id;
+                // $user->selection_id = $request->selection_id;
+                // $user->userType = 'user';
+                // broadcast(new usersStatus($user));
+                return response(['delteProductSelectionStat' => 1,'msg'=>Lang::get('cpanel/products/responses.deleteProductSelectionDeleted')]);
             }else{
-                return response(['sortSelectionsStatus' => 0,'msg' => Lang::get('cpanel/products/products.selectionsSortFail')]);
+                return response(['delteProductSelectionStat' => 0,'msg'=>Lang::get('cpanel/products/responses.deleteProductSelectionFaild')]);
             }
         }
         else if($request->has('editProductSelection')){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
+            $names = [];
+            foreach($request->selection_names as $lang => $name){
+                $names[$lang] = strip_tags($name);
+            }
             $editSelection = product_option_selection::where([
                 'website_id' => $this->website_id,
-                'product_option_id' => $request->option_id,
-                'name' => $request->selection_name,
+                'id' => $request->selection_id,
             ])->update([
-                'price' => strip_tags($request->price),
-                'name_en' => strip_tags($request->name_en),
-                'name_fr' => strip_tags($request->name_fr),
-                'name_de' => strip_tags($request->name_de),
-                'name_it' => strip_tags($request->name_it),
-                'name_es' => strip_tags($request->name_es),
-                'name_ar' => strip_tags($request->name_ar),
-                'name_ru' => strip_tags($request->name_ru),
-                'name_ua' => strip_tags($request->name_ua),
-                'name_eg' => strip_tags($request->name_eg),
+                'price' => $request->price,
+                'names' => $names,
+                'updated_at' => Carbon::now()->timestamp
             ]);
             if($editSelection){
-                $notification = new stdClass();
-                $notification->code = 35;
-                $notification->website_id = $this->website_id;
-                $notification->product_id = $request->product_id;
-                $notification->option_id = $request->option_id;
-                $notification->selection_name = $request->selection_name;
-                $notification->price = $request->price;
-                $notification->name_en = $request->name_en;
-                $notification->name_fr = $request->name_fr;
-                $notification->name_de = $request->name_de;
-                $notification->name_it = $request->name_it;
-                $notification->name_es = $request->name_es;
-                $notification->name_ar = $request->name_ar;
-                $notification->name_ru = $request->name_ru;
-                $notification->name_ua = $request->name_ua;
-                $notification->name_eg = $request->name_eg;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('selection.edit',[
                     'website_id' => $this->website_id,
                     'code' => 15.6,
                     'account_id' => Auth::guard('account')->user()->id,
@@ -601,23 +574,29 @@ class productsController extends Controller
                     'option_name' => $request->option_name,
                     'selection_id' => $request->selection_id,
                     'selection_name' => $request->selection_name,
+                ],[
+                    'product_name' => $request->product_name,
+                    'product_id' => $request->product_id,
+                    'option_id' => $request->option_id,
+                    'selection_id' => $request->selection_id,
+                    'price' => $request->price,
+                    'names' => $names,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $user->id = 0;
-                $user->website_id = $this->website_id;
-                $user->code = 15;
-                $user->product_id = $request->product_id;
-                $user->option_id = $request->option_id;
-                $user->selection_name = $request->selection_name;
-                $user->price = $request->price;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user));
-                return response(['editProductSelectionStatus' => 1,'msg'=>Lang::get('cpanel/products/products.createProductSelectionSaved')]);
+                $notification = new stdClass();
+                $notification->code = 'selection.edit';
+                $notification->website_id = $this->website_id;
+                $notification->product_id = $request->product_id;
+                $notification->option_id = $request->option_id;
+                $notification->selection_id = $request->selection_id;
+                $notification->price = $request->price;
+                $notification->names = $names;
+                broadcast(new globalChannel($notification))->toOthers();
+                return response(['editProductSelectionStatus' => 1,'msg'=>Lang::get('cpanel/products/responses.createProductSelectionSaved')]);
             }else{
-                return response(['editProductSelectionStatus' => 0,'msg'=>Lang::get('cpanel/products/products.createProductSelectionFailed')]);
+                return response(['editProductSelectionStatus' => 0,'msg'=>Lang::get('cpanel/products/responses.createProductSelectionFailed')]);
             }
         }
+
         else if($request->has('findReview')){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;

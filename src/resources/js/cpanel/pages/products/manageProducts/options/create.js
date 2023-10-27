@@ -20,7 +20,7 @@ $('html,body').on('click','#createNewProductOption',function(e){
         for(const key in website.languages){
             const lang = website.languages[key];
             $('#createNewOptionInputsContainer').append(
-                drawInputText('','',lang.flag,texts.products.optionNameLang.replace(':lang:',lang.name),`createOption_identifier-${lang.code}`,'text',texts.products.optionNameLang.replace(':lang:',lang.name),200,'clearVal','','',false,'')
+                drawInputText('','',lang.flag,texts.products.optionNameLang.replace(':lang:',lang.name),`createOption_name-${lang.code}`,'text',texts.products.optionNameLang.replace(':lang:',lang.name),200,'clearVal','','',false,'')
             )
         }
         $('#createOption_identifier').focus();
@@ -39,7 +39,7 @@ $('html,body').on('click','#createNewOption_btn',function(e){
     let option_names = {};
     for(const key in website.languages){
         const lang = website.languages[key];
-        option_names[lang.code] = $(`#createOption_identifier-${lang.code}`).val();
+        option_names[lang.code] = $(`#createOption_name-${lang.code}`).val();
     }
 
     $.ajax({
@@ -56,10 +56,12 @@ $('html,body').on('click','#createNewOption_btn',function(e){
             console.log(r);
             hideBtnLoading($('#createNewOption_btn'));
             if(r.createProductOptionStatus == 1){
-                website.products.find(item=>item.name == window.history.state.product).product_options.push(r.option);
-                website_temp.products.find(item=>item.name == window.history.state.product).product_options.push(r.option);
+                website.products.find(item=>item.name == product.name).product_options.push(JSON.parse(JSON.stringify(r.option)));
+                website_temp.products.find(item=>item.name == product.name).product_options.push(JSON.parse(JSON.stringify(r.option)));
                 window.guideHints.products(website.products);
-                drawPopupPage_manage_product_options(window.history.state.product)
+                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_options(window.history.state.product)
+                }
                 closePopup();
                 showAlert('success',r.msg,4000,true);
             }else if(r.createProductOptionStatus == 0){

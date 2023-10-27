@@ -843,26 +843,25 @@ class demo
         $selectionSort = 0;
         foreach($option['selections'] as $selection){
             $selectionSort = $selectionSort + 1;
-            array_push($selectionsArr,[
+            product_option_selection::create([
                 'website_id' => $websiteId,
                 'product_option_id' => $createOption->id,
                 'sort' => $selectionSort,
                 'price' => $selection['price'],
                 'isDefault' => $selection['isDefault'],
                 'name' => $selection['name'],
-                'name_en' => $selection['name_en'],
-                'name_ar' => $selection['name_ar'],
-                'name_eg' => $selection['name_en'],
-                'name_fr' => $selection['name_fr'],
-                'name_it' => $selection['name_it'],
-                'name_de' => $selection['name_de'],
-                'name_es' => $selection['name_es'],
-                'name_ru' => '',
-                'name_ua' => $selection['name_ua'],
-                'created_at' => Carbon::now()->timestamp
+                'names' => [
+                    'en' => $selection['name_en'],
+                    'ar' => $selection['name_ar'],
+                    'eg' => $selection['name_en'],
+                    'fr' => $selection['name_fr'],
+                    'it' => $selection['name_it'],
+                    'de' => $selection['name_de'],
+                    'es' => $selection['name_es'],
+                    'ua' => $selection['name_ua'],
+                ],
             ]);
         }
-        product_option_selection::insert($selectionsArr);
     }
 
     public static function users ($websiteId){

@@ -277,71 +277,8 @@
         </div>
     </div>
 
-{{-- /////////////////////////create product Option///////////////////// --}}
-    <div class="popupCard popupCard-600 none"  id="createProductOption-popup">
-    <div class="popupHead">
-        <div class="popupTitle"><span class="ico-edit fs102"></span><span class="mX5">{{ trans('cpanel/products/products.addOption') }}</span></div>
-        <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-    </div>
-    <div class="popupBody">
-        <div class="row alnC jstfyS">
-            <img src="" id="createProductOption-popup-productImg" class="h50 w50 br50p ofCover" alt="">
-            <div id="createProductOption-popup-productName" class="fs103 bold mX5"></div>
-        </div>
-        <div class="column alnS jstfyS mT20">
-            <x-input-text id="createNewProductOption-optionName" icon="ico-edit" placeholder="{{ trans('cpanel/products/products.productOptionName') }}" />
-            <x-input-text id="createNewProductOption-enName" containerClass="languageInput_en" iconFlag="USA" placeholder="{{ trans('cpanel/products/products.enName') }}"/>
-            <x-input-text id="createNewProductOption-frName" containerClass="languageInput_fr" iconFlag="FRA" placeholder="{{ trans('cpanel/products/products.frName') }}"/>
-            <x-input-text id="createNewProductOption-deName" containerClass="languageInput_de" iconFlag="DEU" placeholder="{{ trans('cpanel/products/products.deName') }}"/>
-            <x-input-text id="createNewProductOption-itName" containerClass="languageInput_it" iconFlag="ITA" placeholder="{{ trans('cpanel/products/products.itName') }}"/>
-            <x-input-text id="createNewProductOption-esName" containerClass="languageInput_es" iconFlag="ESP" placeholder="{{ trans('cpanel/products/products.esName') }}"/>
-            <x-input-text id="createNewProductOption-arName" containerClass="languageInput_ar" iconFlag="EGY" placeholder="{{ trans('cpanel/products/products.arName') }}"/>
-            <x-input-text id="createNewProductOption-ruName" containerClass="languageInput_ru" iconFlag="RUS" placeholder="{{ trans('cpanel/products/products.ruName') }}"/>
-            <x-input-text id="createNewProductOption-uaName" containerClass="languageInput_ua" iconFlag="UKR" placeholder="{{ trans('cpanel/products/products.uaName') }}"/>
-            <x-input-text id="createNewProductOption-egName" containerClass="languageInput_eg" iconFlag="CLF" placeholderTxt="{{ trans('cpanel/products/products.egName') }}" tooltip="{{ trans('cpanel/products/products.egName').' ' }}<span class='customLangName'></span>" class="inputTextCL"/>
-            <div class="btnContainer">
-                <button class="btn btn-cancel popupClose">{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                <button class="btn" id="createNewProductOption-createbtn">
-                    <div class="btnLoading"></div>
-                    <div class="btnTxt">{{ trans('cpanel/cpanel.public.create') }}</div>
-                </button>
-            </div>
-        </div>
-    </div>
-    </div>
 
-{{-- /////////////////////////edit product Option/////////////////////// --}}
-    <div class="popupCard popupCard-600 none"  id="editProductOption-popup">
-    <div class="popupHead">
-        <div class="popupTitle"><span class="ico-edit fs102"></span><span class="mX5">{{ trans('cpanel/products/products.editOption') }}</span></div>
-        <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-    </div>
-    <div class="popupBody">
-        <div class="row alnC jstfyS">
-            <img src="" id="editProductOption-popup-productImg" class="h50 w50 br50p ofCover" alt="">
-            <div id="editProductOption-popup-productName" class="fs103 bold mX5"></div>
-        </div>
-        <div class="column alnS jstfyS mT20">
-            <x-input-text id="editProductOption-optionName" closeIcon="no" attr="readOnly" icon="ico-edit" placeholder="{{ trans('cpanel/products/products.productOptionName') }}" />
-            <x-input-text id="editProductOption-enName" containerClass="languageInput_en" iconFlag="USA" placeholder="{{ trans('cpanel/products/products.enName') }}"/>
-            <x-input-text id="editProductOption-frName" containerClass="languageInput_fr" iconFlag="FRA" placeholder="{{ trans('cpanel/products/products.frName') }}"/>
-            <x-input-text id="editProductOption-deName" containerClass="languageInput_de" iconFlag="DEU" placeholder="{{ trans('cpanel/products/products.deName') }}"/>
-            <x-input-text id="editProductOption-itName" containerClass="languageInput_it" iconFlag="ITA" placeholder="{{ trans('cpanel/products/products.itName') }}"/>
-            <x-input-text id="editProductOption-esName" containerClass="languageInput_es" iconFlag="ESP" placeholder="{{ trans('cpanel/products/products.esName') }}"/>
-            <x-input-text id="editProductOption-arName" containerClass="languageInput_ar" iconFlag="EGY" placeholder="{{ trans('cpanel/products/products.arName') }}"/>
-            <x-input-text id="editProductOption-ruName" containerClass="languageInput_ru" iconFlag="RUS" placeholder="{{ trans('cpanel/products/products.ruName') }}"/>
-            <x-input-text id="editProductOption-uaName" containerClass="languageInput_ua" iconFlag="UKR" placeholder="{{ trans('cpanel/products/products.uaName') }}"/>
-            <x-input-text id="editProductOption-egName" containerClass="languageInput_eg" iconFlag="CLF" placeholderTxt="{{ trans('cpanel/products/products.egName') }}" tooltip="{{ trans('cpanel/products/products.egName').' ' }}<span class='customLangName'></span>" class="inputTextCL"/>
-            <div class="btnContainer">
-                <button class="btn btn-cancel popupClose">{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                <button class="btn" id="editProductOption-savebtn">
-                    <div class="btnLoading"></div>
-                    <div class="btnTxt">{{ trans('cpanel/cpanel.public.save') }}</div>
-                </button>
-            </div>
-        </div>
-    </div>
-    </div>
+
 {{-- /////////////////////////create new selection////////////////////// --}}
     <div class="popupCard popupCard-600 none"  id="createNewSection-popup">
         <div class="popupHead">

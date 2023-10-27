@@ -58,8 +58,8 @@ $('html,body').on('click','#createProductBtn',function(e){
                         r.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
                     }
                 });
-                website.products.push(r.product);
-                website_temp.products.push(r.product);
+                website.products.push(JSON.parse(JSON.stringify(r.product)));
+                website_temp.products.push(JSON.parse(JSON.stringify(r.product)));
                 if(window.history.state.page == 'manage_products'){
                     drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
                 }

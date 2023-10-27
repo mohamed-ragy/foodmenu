@@ -151,7 +151,15 @@ showPopup =function(popup,callback=()=>{}){
         break;
         case 'createNewProductOption':
             $('.popupTitle').text(texts.products.addOption);
-
+        break;
+        case 'editProductOption':
+            $('.popupTitle').text(texts.products.editOption);
+        break;
+        case 'createNewProductSelection':
+            $('.popupTitle').text(texts.products.addOptionSelection);
+        break;
+        case 'editProductSelection':
+            $('.popupTitle').text(texts.products.editSelection);
         break;
 
     }
