@@ -6,9 +6,9 @@ drawPage_manage_users=function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.manage_users}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                // $('<span/>',{class:'ico-help help-icon',helpId:''})
             ),
-            $('<div/>',{class:'area mT40'}).append(
+            $('<div/>',{class:'area mT40',autoHelp:'find_users'}).append(
                 $('<div/>',{class:'areaTitle',text:texts.users.findUser}),
                 drawInputList('','ico-users','',texts.users.findUser,'manageUsers-usersInputList',texts.users.findUserPlaceholder,250,'manageUsers-usersInputListList',false,'','findUserList','findUser'),
                 $('<div/>',{class:'btnContainer mT20'}).append(
@@ -18,7 +18,7 @@ drawPage_manage_users=function(){
                     )
                 )
             ),
-            $('<div/>',{class:'',id:'editUser-container'})
+            $('<div/>',{class:'',id:'editUser-container',autoHelp:'manage_users'})
         )
     )
 }
@@ -77,7 +77,7 @@ drawManageUser = function(userId){
 
             ),
             drawInputText('','ico-address','',texts.users.address,'editUser-address','text',texts.users.address,200,'clearVal','inputTextContainer_100p',user.address,false),
-            $('<div/>',{class:'area mT20'}).append(
+            $('<div/>',{class:'area mT20',autoHelp:'user_location'}).append(
                 $('<div/>',{class:'areaTitle',text:texts.users.userLocation}),
                 $('<div/>',{id:'editUser-Location',class:'m10 w100p-20 h250 zx1'}),
             ),
@@ -117,8 +117,8 @@ drawEditUserMap = function(lat,lng){
             class:'fs105 row editUser-unsetLocation relative',
             'aria-disabled':false,
             role:'button',
-            tooltip:texts.settings.unsetLocation,
-            tooltipTemp:texts.settings.unsetLocation,
+            tooltip:texts.users.userUnsetLocation,
+            tooltipTemp:texts.users.userUnsetLocation,
             autoHelp:'',
         }).append(
             $('<div/>',{class:'btnTxt ico-no ma'}),

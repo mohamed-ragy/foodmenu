@@ -734,10 +734,105 @@ return [
         </ul></p>
         string,
     ],    
-    '' => [
-        'title' => '',
+    'create_new_user_account' => [
+        'title' => 'Create new user account',
         'content' => <<<string
-        <p></p>
+        <p>- Here, you can create a new account for a website user by filling out the following user details:
+        <ul>
+        <li>Email address</li>
+        <li>Password</li>
+        <li>User name</li>
+        <li>Phone number</li>
+        <li>Address</li>
+        </ul></p>
+        string,
+    ],    
+    'user_location' => [
+        'title' => 'User location',
+        'content' => <<<string
+        <p>- The location specified will be used as the default location for home delivery orders, with the user still having the option to change the location for each delivery order.</p>
+        <p>- To set the user's location, you can zoom and pan around the map until you find the desired location, then click on it and drop the pin.</p>
+        <p>- To reset the location, click on <b>Unset location</b> <span class="ico-no fs101"></span> and select the new location.</p>
+        string,
+    ],    
+    'find_users' => [
+        'title' => 'Find users',
+        'content' => <<<string
+        <p>- Here, you can find all of the users registered on your website from the provided input list.</p>
+        <p>- To search for a user, type in the user's name or phone number, then the drop-down list will be filtered to match what you have entered.</p>
+    
+        string,
+    ],
+    'manage_users' => [
+        'title' => 'Manage users',
+        'content' => <<<string
+        <p>- After selecting a user, all of their details will be displayed, allowing you modify any of the following details upon their request.
+        <ul>
+        <li>Email address</li>
+        <li>Password</li>
+        <li>User name</li>
+        <li>Phone number</li>
+        <li>Address</li>
+        </ul></p>
+        <p>-  You can also find a few icons below the user's name that you can use to manage a user and view their important actions. To disallow a user from using their account, click on the <b>Ban user</b> <span class="ico-userBlock"></span> icon.</p>
+        string,
+    ],    
+    'online_users_and_guests' => [
+        'title' => 'Online users and guests',
+        'content' => <<<string
+        <p>- Here, you can find and live-track all the online users and guests browsing your website through the provided list.</p>
+        string,
+    ],   
+    'online_visitors_list' => [
+        'title' => 'Online visitors list',
+        'content' => <<<string
+        <p>- Each row in the list represents a current website visitor who is browsing your website.</p>
+        <p>- When a registered website user browses your website, their name will be displayed along with their status and a few icons where your can manage the user profile. If an unregistered website visitor browses your site, they will be assigned a temporary identifier, along with their status and the option to chat with them.</p>
+        <p>- Colors are used to indicate visitor status on your website, as shown below:
+        <ul>
+        <li>Green indicates that a visitor is actively using your website.</li>
+        <li>Orange indicates that the visitor is loading a page on your website.</li>
+        <li>Red marks that the visitor has logged out or is no longer connected to your website.</li>
+        </ul></p>
+        string,
+    ],    
+    'product_categories' => [
+        'title' => 'Product categories',
+        'content' => <<<string
+        <p>- Here, you can find and manage all of the product categories you have created on your account. To add a new product category, click on the <b>Create new category</b> button.</p>
+        string,
+    ],
+    'categories_list' => [
+        'title' => 'Categories list',
+        'content' => <<<string
+        <p>- Here, you can find the list of product categories you have created in the form of category cards.</p>
+        <p>- Each product category is represented by a card that displays the category image, category identifier, and a few icons that help you manage the category, as shown below:
+            <ul>
+            <li><b>Manage products:</b> By clicking on this button, you will be taken to the products page, where you can find all the products within the selected category.</li>
+            <li><b>Edit:</b> You can edit the basic product category details through this button.</li>
+            <li><b>Share:</b> You can share the category page on your social media platforms through this button.</li>
+            <li><b>Delete:</b> By clicking on this button, you will permanently delete the selected category, leaving all previously categorized products within it uncategorized.</li>
+            </ul></p>
+            <p>- The categories on your website are organized in the same order you specified here. To change their order, use the provided <b>drag and drop</b> icon.</p>
+        string,
+    ],
+    'create_new_product_category' => [
+        'title' => 'Create new product category',
+        'content' => <<<string
+        <p>- Here, you can fill out the basic information about your new product category.</p>
+        <p>- To add a category image, click on the image card and choose an image from your account's previously added images or upload a new one.</p>
+        <p>- In the <b>Category identifier</b> input box, you can enter the identifier that is used to create the URL for the category page and distinguish each category. The identifier has to be written in small English letters, numbers, underscores, or dashes only.</p>
+        <p>-In the <b>Category name</b> input boxes, enter a category name for each language you've selected for your website.</p>
+        <p>- A category description will be used as the meta description of the category page. In the <b>Category description</b> input boxes, you can enter a category description in each of the languages you have set for your website.</p>
+        string,
+    ],    
+    'edit_product_category' => [
+        'title' => 'Edit product category',
+        'content' => <<<string
+        <p>- Here, you can modify your product category details except for the product identifier, which cannot be changed once it has been created.</p>
+        <p>- To change the category image, click on the image card and choose an image from your account's previously added images or upload a new one.</p>
+        <p>- You can modify the category name in the different languages you've selected for your website from the <b>Category name</b> input boxes.</p>
+        <p>- In the <b>Category description</b> input boxes, you can modify the category description in each of the languages you have set for your website, which is also used as the meta description for the category page.</p>
         string,
     ],    
     '' => [
@@ -757,49 +852,188 @@ return [
         'content' => <<<string
         <p></p>
         string,
-    ],    
+    ],
     '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    
+    ],
     '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>
         string,
-    ],    '' => [
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
+        'title' => '',
+        'content' => <<<string
+        <p></p>
+        string,
+    ],
+    '' => [
         'title' => '',
         'content' => <<<string
         <p></p>

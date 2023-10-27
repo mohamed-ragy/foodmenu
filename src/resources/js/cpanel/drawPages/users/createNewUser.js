@@ -6,7 +6,7 @@ drawPage_create_new_user = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.create_new_user}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'create_new_user_account'})
             ),
             $('<div/>',{class:'wFC'}).append(
                 drawInputText('','ico-email_address','',texts.users.email,'createNewUser-email','text',texts.users.email,'100','clearVal','inputTextContainer_100p','',false),
@@ -15,7 +15,7 @@ drawPage_create_new_user = function(){
                 drawInputText('','ico-phone_number','',texts.users.phoneNumber,'createNewUser-phoneNumber','text',texts.users.phoneNumber,'100','clearVal','inputTextContainer_100p','',false),
             ),
             drawInputText('','ico-address','',texts.users.address,'createNewUser-address','text',texts.users.address,'100','clearVal','inputTextContainer_100p','',false),
-            $('<div/>',{class:'area mT20'}).append(
+            $('<div/>',{class:'area mT20',autoHelp:'user_location'}).append(
                 $('<div/>',{class:'areaTitle',text:texts.users.userLocation}),
                 $('<div/>',{class:'m10 w100p-20 h250 zx1',id:'createNewUser-Location'})
             ),
@@ -58,8 +58,8 @@ drawCreateNewUserMap = function(){
             class:'fs105 row createNewUser-unsetLocation relative',
             'aria-disabled':false,
             role:'button',
-            tooltip:texts.settings.unsetLocation,
-            tooltipTemp:texts.settings.unsetLocation,
+            tooltip:texts.users.userUnsetLocation,
+            tooltipTemp:texts.users.userUnsetLocation,
             autoHelp:'',
         }).append(
             $('<div/>',{class:'btnTxt ico-no ma'}),

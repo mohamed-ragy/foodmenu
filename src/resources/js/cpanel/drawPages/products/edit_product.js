@@ -19,10 +19,10 @@ drawPopupPage_edit_product = function(product_name){
         drawInputList('','ico-category_list','',texts.products.productCategory,'editProduct_productCategory',texts.products.findCategory,150,'editProduct_productCategoryList',false,'','',''),
         drawSwitchBtn('',texts.products.productAvailability,'editProduct_productAvailability','checkboxlabel_100p mT40 ','','',product.availability==1?true:false,null),
         $('<div/>',{class:'area mY40 editProduct_names'}).append(
-            $('<div/>',{class:'areaTitle',text:texts.products.productNames})
+            $('<div/>',{class:'areaTitle',text:texts.products.productName})
         ),
         $('<div/>',{class:'area mY40 editProduct_descriptions'}).append(
-            $('<div/>',{class:'areaTitle',text:texts.products.productDescriptions})
+            $('<div/>',{class:'areaTitle',text:texts.products.productDescription})
         ),
         drawSaveCancelBtns('editProduct_save','editProduct_cancel','mT40')
     )

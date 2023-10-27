@@ -13,10 +13,10 @@ drawPopupPage_create_product = function(){
         drawInputText('','ico-money','',texts.products.productPrice,'createProduct_productPrice','number',texts.products.productPrice,150,'clearVal','','',false),
         drawInputList('','ico-category_list','',texts.products.productCategory,'createProduct_productCategory',texts.products.findCategory,150,'createProduct_productCategoryList',false,'','',''),
         $('<div/>',{class:'area mY40 createProduct_names'}).append(
-            $('<div/>',{class:'areaTitle',text:texts.products.productNames})
+            $('<div/>',{class:'areaTitle',text:texts.products.productName})
         ),
         $('<div/>',{class:'area mY40 createProduct_descriptions'}).append(
-            $('<div/>',{class:'areaTitle',text:texts.products.productDescriptions})
+            $('<div/>',{class:'areaTitle',text:texts.products.productDescription})
         ),
         $('<div/>',{class:'btnContainer'}).append(
             $('<button/>',{class:'btn',id:'createProductBtn'}).append(

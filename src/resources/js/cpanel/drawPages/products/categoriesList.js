@@ -7,11 +7,12 @@ drawPage_category_list = function(){
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'categoryListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
                 $('<span/>',{text:texts.cpanel.menu.category_list}),
+                $('<span/>',{class:'ico-help help-icon',helpId:'product_categories'})
             ),
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_category',text:texts.products.createCategory})
             ),
-            $('<div/>',{class:'categoriesListContainer w100p row wrap alnS jstfyC'})
+            $('<div/>',{class:'categoriesListContainer w100p row wrap alnS jstfyC',autoHelp:'categories_list'})
         )
     )
     drawCategoryList();
@@ -78,7 +79,7 @@ drawPopupPage_category = function(categroyName){
         if(website.products[key].category_id == category.id){
             $('.categoryPopupPageProducts').append(
                 $('<li/>',{class:'fs08'}).append(
-                    $('<a/>',{class:'popupPage popupId',product:website.products[key].name,poupPage:'product',popupId:'product',text:website.products[key].name})
+                    $('<a/>',{class:'popupPage popupId',product:website.products[key].name,popupPage:'product',popupId:'product',text:website.products[key].name})
                 )
             )
         }
@@ -89,7 +90,7 @@ drawPopupPage_edit_category = function(categroyName){
     $('#popupPageTitle').text('').append(
         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:`editCategoryNoSave_${category.name} ico-warning unsaved none mie-5 mis-5 fs1 `}),
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.edit_category}),
-        $('<span/>',{class:'ico-help help-icon',helpId:''})
+        $('<span/>',{class:'ico-help help-icon',helpId:'edit_product_category'})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40  p20').append(
         $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(

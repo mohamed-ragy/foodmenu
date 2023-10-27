@@ -10,7 +10,6 @@ return [
     'userUnsetLocation' => 'Unset location',
     'bannedUser' => 'Banned user',
     
-    
     ////
     'chatWith' => 'Chat with :name:',
     'seePlacedOrders' => 'See orders placed by :name:',

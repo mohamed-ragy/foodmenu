@@ -6,9 +6,9 @@ drawPage_online_users = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.online_users}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'online_users_and_guests'})
             ),
-            $('<table/>',{id:'onlineUsersTable',class:'w100p'})
+            $('<table/>',{id:'onlineUsersTable',class:'w100p',autoHelp:'online_visitors_list'})
         )
     )
     drawOnlineUsersTable();

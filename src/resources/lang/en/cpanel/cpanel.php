@@ -21,10 +21,10 @@ return [
         'order_history' => 'Order History',
 
         'categories' => 'Categories',
-        'category_list' => 'Category List',
+        'category_list' => 'Product categories',
 
         'products' => 'Products',
-        'manage_products' => 'Manage Products',
+        'manage_products' => 'Manage products',
         'product_reviews' => 'Ratings And Reviews',
 
         'users' => 'Users',
