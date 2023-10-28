@@ -56,6 +56,17 @@ return [
     'editSelection' => 'Edit variant selection',
     'selectionDeleteConfirm' => 'Are you sure you want to delete the selection :selection: from the :option: variant?',
     //l7ad hena//////////////////////////////////////////////////
-
+    'findProduct'=>'Select a product',
+    'findReviews'=>'Find Reviews',
+    'moreFilters' => 'More Filters',
+    'lessFilters' => 'Less Filters',
+    'reviewsOn'=>'Reviews on',
+    'reviewsBy'=>'Reviews by',
+    'reviewsWith' =>'Reviews with',
+    'Star5Reviews' => '5-star rating',
+    'Star4Reviews' => '4-star rating',
+    'Star3Reviews' => '3-star rating',
+    'Star2Reviews' => '2-star rating',
+    'Star1Reviews' => '1-star rating',
 ];
 

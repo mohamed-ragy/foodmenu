@@ -279,72 +279,8 @@
 
 
 
-{{-- /////////////////////////create new selection////////////////////// --}}
-    <div class="popupCard popupCard-600 none"  id="createNewSection-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-edit fs102"></span><span class="mX5">{{ trans('cpanel/products/products.addOptionSelection') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="row alnC jstfyS">
-                <img src="" id="createNewSection-popup-productImg" class="h50 w50 br50p ofCover" alt="">
-                <div id="createNewSection-popup-productName" class="fs103 bold mX5"></div>
-            </div>
-            <div class="column alnS jstfyS mT20">
-                <x-input-text id="createNewSection-selectionName" icon="ico-edit" placeholder="{{ trans('cpanel/products/products.optionSelectionName') }}" />
-                <x-input-text id="createNewSection-price" type="number" icon="ico-money" placeholder="{{ trans('cpanel/products/products.optionSelectionPrice') }}"/>
-                <x-input-text id="createNewSection-enName" containerClass="languageInput_en" iconFlag="USA" placeholder="{{ trans('cpanel/products/products.enName') }}"/>
-                <x-input-text id="createNewSection-frName" containerClass="languageInput_fr" iconFlag="FRA" placeholder="{{ trans('cpanel/products/products.frName') }}"/>
-                <x-input-text id="createNewSection-deName" containerClass="languageInput_de" iconFlag="DEU" placeholder="{{ trans('cpanel/products/products.deName') }}"/>
-                <x-input-text id="createNewSection-itName" containerClass="languageInput_it" iconFlag="ITA" placeholder="{{ trans('cpanel/products/products.itName') }}"/>
-                <x-input-text id="createNewSection-esName" containerClass="languageInput_es" iconFlag="ESP" placeholder="{{ trans('cpanel/products/products.esName') }}"/>
-                <x-input-text id="createNewSection-arName" containerClass="languageInput_ar" iconFlag="EGY" placeholder="{{ trans('cpanel/products/products.arName') }}"/>
-                <x-input-text id="createNewSection-ruName" containerClass="languageInput_ru" iconFlag="RUS" placeholder="{{ trans('cpanel/products/products.ruName') }}"/>
-                <x-input-text id="createNewSection-uaName" containerClass="languageInput_ua" iconFlag="UKR" placeholder="{{ trans('cpanel/products/products.uaName') }}"/>
-                <x-input-text id="createNewSection-egName" containerClass="languageInput_eg" iconFlag="CLF" placeholderTxt="{{ trans('cpanel/products/products.egName') }}" tooltip="{{ trans('cpanel/products/products.egName').' ' }}<span class='customLangName'></span>" class="inputTextCL"/>
-                <div class="btnContainer">
-                    <button class="btn btn-cancel popupClose">{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                    <button class="btn" id="createNewSection-createbtn">
-                        <div class="btnLoading"></div>
-                        <div class="btnTxt">{{ trans('cpanel/cpanel.public.create') }}</div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-{{-- /////////////////////////edit selection//////////////////////////// --}}
-    <div class="popupCard popupCard-600 none"  id="editSection-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-edit fs102"></span><span class="mX5">{{ trans('cpanel/products/products.editSelection') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="row alnC jstfyS">
-                <img src="" id="editSection-popup-productImg" class="h50 w50 br50p ofCover" alt="">
-                <div id="editSection-popup-productName" class="fs103 bold mX5"></div>
-            </div>
-            <div class="column alnS jstfyS mT20">
-                <x-input-text id="editSection-selectionName" closeIcon="no" attr="readOnly" icon="ico-edit" placeholder="{{ trans('cpanel/products/products.optionSelectionName') }}" />
-                <x-input-text id="editSection-price" type="number" icon="ico-money" placeholder="{{ trans('cpanel/products/products.optionSelectionPrice') }}"/>
-                <x-input-text id="editSection-enName" containerClass="languageInput_en" iconFlag="USA" placeholder="{{ trans('cpanel/products/products.enName') }}"/>
-                <x-input-text id="editSection-frName" containerClass="languageInput_fr" iconFlag="FRA" placeholder="{{ trans('cpanel/products/products.frName') }}"/>
-                <x-input-text id="editSection-deName" containerClass="languageInput_de" iconFlag="DEU" placeholder="{{ trans('cpanel/products/products.deName') }}"/>
-                <x-input-text id="editSection-itName" containerClass="languageInput_it" iconFlag="ITA" placeholder="{{ trans('cpanel/products/products.itName') }}"/>
-                <x-input-text id="editSection-esName" containerClass="languageInput_es" iconFlag="ESP" placeholder="{{ trans('cpanel/products/products.esName') }}"/>
-                <x-input-text id="editSection-arName" containerClass="languageInput_ar" iconFlag="EGY" placeholder="{{ trans('cpanel/products/products.arName') }}"/>
-                <x-input-text id="editSection-ruName" containerClass="languageInput_ru" iconFlag="RUS" placeholder="{{ trans('cpanel/products/products.ruName') }}"/>
-                <x-input-text id="editSection-uaName" containerClass="languageInput_ua" iconFlag="UKR" placeholder="{{ trans('cpanel/products/products.uaName') }}"/>
-                <x-input-text id="editSection-egName" containerClass="languageInput_eg" iconFlag="CLF" placeholderTxt="{{ trans('cpanel/products/products.egName') }}" tooltip="{{ trans('cpanel/products/products.egName').' ' }}<span class='customLangName'></span>" class="inputTextCL"/>
-                <div class="btnContainer">
-                    <button class="btn btn-cancel popupClose">{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                    <button class="btn" id="editSection-saveBtn">
-                        <div class="btnLoading"></div>
-                        <div class="btnTxt">{{ trans('cpanel/cpanel.public.save') }}</div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 {{-- /////////////////////////add order item//////////////////////////// --}}
     <div class="popupCard popupCard-400 none"  id="addOrderItem-popup">
         <div class="popupHead">

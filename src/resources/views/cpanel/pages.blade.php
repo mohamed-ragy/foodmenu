@@ -25,7 +25,7 @@
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)
     {{-- products --}}
-    @include('cpanel.pages.products.Manage-Products-page')
+    {{-- @include('cpanel.pages.products.Manage-Products-page') --}}
     @include('cpanel.pages.products.Product-Reviews-page')
 @endif
 

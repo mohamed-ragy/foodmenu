@@ -6,5 +6,6 @@ require('./products/create_products.js')
 require('./products/edit_product.js')
 require('./products/manage_product_options.js')
 
+require('./products/product_reviews.js')
 //
 

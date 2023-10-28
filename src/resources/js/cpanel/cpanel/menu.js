@@ -156,6 +156,20 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'product_reviews':
+                    if(account.authorities[1] == false){return;}
+                        window.page.product = keysObj.product ?? 'allproducts';
+                        window.page.user = keysObj.user ?? '';
+                        window.page.byUsers = keysObj.byUsers ?? '1';
+                        window.page.byGuests = keysObj.byGuests ?? '1';
+                        window.page.star1 = keysObj.star1 ?? '1';
+                        window.page.star2 = keysObj.star2 ?? '1';
+                        window.page.star3 = keysObj.star3 ?? '1';
+                        window.page.star4 = keysObj.star4 ?? '1';
+                        window.page.star5 = keysObj.star5 ?? '1';
+                        draw_product_reviews();
+                        resolve(pushHistory);
+                break;
                 case 'manage_products':
                     if(account.authorities[1] == false){return;}
                     window.page.category = keysObj.category;

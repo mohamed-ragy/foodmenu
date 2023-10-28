@@ -104,6 +104,9 @@ $('html,body').on('click','.cpPage',function(e){
         case 'manage_products':
             keysObj.category = $(this).attr('category')
         break;
+        case 'product_reviews':
+
+        break;
     }
     showPage($(this).attr('cpPage'),openTab,keysObj).then((is_pushHistory)=>{
         // openTab != null ? $(`.pageTab[tab="${openTab}"]`).trigger('click') : null;
@@ -634,6 +637,17 @@ $(window).on('popstate',(e)=>{
             break;
             case 'manage_products':
                 keysObj.category = window.history.state.category;
+            break;
+            case 'product_reviews':
+                keysObj.product = window.history.state.product;
+                keysObj.user = window.history.state.user;
+                keysObj.byUsers = window.history.state.byUsers;
+                keysObj.byGuests = window.history.state.byGuests;
+                keysObj.star1 = window.history.state.star1;
+                keysObj.star2 = window.history.state.star2;
+                keysObj.star3 = window.history.state.star3;
+                keysObj.star4 = window.history.state.star4;
+                keysObj.star5 = window.history.state.star5;
             break;
         }
         window.page.page = '';

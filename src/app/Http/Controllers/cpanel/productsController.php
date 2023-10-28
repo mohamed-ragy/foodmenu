@@ -597,7 +597,7 @@ class productsController extends Controller
             }
         }
 
-        else if($request->has('findReview')){
+        else if($request->has('findReviews')){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
@@ -619,8 +619,10 @@ class productsController extends Controller
                 $findReview = $findReview->where('user_id',$request->byUser);
             }
 
-            $findReview = $findReview->whereIn('rate',$request->byRating)->with('users:id,name')->limit(10)->orderBy('posted_at','DESC')->get();
-            return response(['reviews' => $findReview]);
+            $findReview =  $findReview->whereIn('rate',$request->byRating);
+            $count = $findReview->count();
+            $reviews = $findReview->skip($request->skip)->limit(10)->orderBy('posted_at','DESC')->get();
+            return response(['reviews' => $reviews,'count' => $count]);
         }
         else if($request->has(['deleteReview'])){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){

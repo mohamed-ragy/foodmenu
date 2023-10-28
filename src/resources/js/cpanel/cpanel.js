@@ -212,6 +212,17 @@ switch(pageParam){
     case 'manage_products':
         keysObj.category = params.get('category')
     break;
+    case 'product_reviews':
+        keysObj.product = params.get('product')
+        keysObj.user = params.get('user')
+        keysObj.byUsers = params.get('byUsers')
+        keysObj.byGuests = params.get('byGuests')
+        keysObj.star1 = params.get('star1')
+        keysObj.star2 = params.get('star2')
+        keysObj.star3 = params.get('star3')
+        keysObj.star4 = params.get('star4')
+        keysObj.star5 = params.get('star5')
+    break;
 }
 showPage(pageParam,pageTabParam,keysObj).then(()=>{
     params.get('tab') != null ? $(`.pageTab[tab="${params.get('tab')}"]`).trigger('click') : null;

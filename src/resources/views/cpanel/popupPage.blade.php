@@ -20,8 +20,8 @@
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)
     {{-- products --}}
-    @include('cpanel.popupPage.products.Create-New-Product')
-    @include('cpanel.popupPage.products.Manage-Products')
+    {{-- @include('cpanel.popupPage.products.Create-New-Product') --}}
+    {{-- @include('cpanel.popupPage.products.Manage-Products') --}}
     @include('cpanel.popupPage.products.Product-Reviews')
 @endif
 
