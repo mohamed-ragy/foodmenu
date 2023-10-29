@@ -1,4 +1,6 @@
 draw_product_reviews = function(){
+    window.getProductReviewsSkip = 0;
+    window.noMoreProductReviews = false;
     $('#pageWrapper').addClass('mxw1000')
     $('#pageWrapper').append(
         $('<div/>',{
@@ -67,7 +69,10 @@ draw_product_reviews = function(){
             $('<div/>',{class:'mY40 pageSection_brdrB'}),
             $('<div/>',{id:'productReviewsContainer'}),
             $('<div/>',{id:'productReviewsContainer_loading',class:'none'}).append(
-                $('<div/>',{class:'cardLoading h20 w200'})
+                drawProductReviewCardLoading(),
+                drawProductReviewCardLoading(),
+                drawProductReviewCardLoading(),
+                drawProductReviewCardLoading(),
             ),
         )
     );
@@ -77,4 +82,53 @@ draw_product_reviews = function(){
         addToInputList($('#productReviews_selectProductList'),website.products[key].name,website.products[key].name)
     }
     setFindReviewsFilters();
+    getProductReviews();
+}
+drawProductReviewCardLoading = function(){
+    return $('<div/>',{class:'productReviewContainer'}).append(
+        $('<div/>',{class:'row alnC jstfyS mB5'}).append(
+            $('<div/>',{class:'cardLoading h40 w40 mie-5 br5'}),
+                $('<div/>',{class:''}).append(
+                    $('<div/>',{class:'cardLoading h10 mB5 w150 br5'}),
+                    $('<div/>',{class:'cardLoading h15 mT5 w100 br5'}),
+                )
+        ),
+        $('<div/>',{class:'cardLoading h10 w300 mT20 br5 mX10'}),
+        $('<div/>',{class:'cardLoading h10 w250 mT5 br5 mX10'}),
+        $('<div/>',{class:'cardLoading h10 w350 mT5 mB20 br5 mX10'}),
+        $('<div/>',{class:'fs09 column alnE jstfyE'}).append(
+            $('<div/>',{class:'cardLoading h10 mB5 w100 br5'}),
+            $('<div/>',{class:'cardLoading h10 mB5 w100 br5'}),
+
+        )
+    )
+}
+drawPopupPage_review = function(reviewId){
+    $('#popupPageTitle').text('').append(
+        $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.review}),
+    );
+    $('#popupPageBody').text('').addClass('mxw100p-40 p20').append(
+        $('<div/>',{id:'poupPageReviewContainer'}).append(
+            drawProductReviewCardLoading()
+        )
+    );
+    if(typeof(window.product_reviews.find(item=>item.id == reviewId)) === 'undefined'){
+        $.ajax({
+            url:'products',
+            type:'put',
+            data:{
+                _token:$('meta[name="csrf-token"]').attr('content'),
+                getReview:reviewId,
+            },success:function(r){
+                $('#poupPageReviewContainer').text('').append(
+                    drawProductReview(r.review,false)
+                )
+            }
+        })
+    }else{
+        $('#poupPageReviewContainer').text('').append(
+            drawProductReview(window.product_reviews.find(item=>item.id == reviewId),false)
+        )
+    }
+
 }

@@ -3,6 +3,33 @@ $('html,body').on('mouseenter','.popupId',function(e){
     e.stopImmediatePropagation();
     let thisPopupIdElem = $(this);
     switch($(this).attr('popupId')){
+        case 'review':
+            $('#popupId').text('').append(
+                $('<div/>',{id:'popupIdReviewContainer',class:'p10 mxw300'}).append(
+                    $('<div/>',{class:'cardLoading h10 mB5 w200 br5'}),
+                    $('<div/>',{class:'cardLoading h10 mB5 w200 br5'}),
+                    $('<div/>',{class:'cardLoading h10 mB5 w200 br5'}),
+                )
+            )
+            if(typeof(window.product_reviews.find(item=>item.id == $(this).attr('review'))) === 'undefined'){
+                $.ajax({
+                    url:'products',
+                    type:'put',
+                    data:{
+                        _token:$('meta[name="csrf-token"]').attr('content'),
+                        getReview:$(this).attr('review'),
+                    },success:function(r){
+                        $('#popupIdReviewContainer').text(r.review.review)
+                        checkUseenNotifications([4],'product_review_id',r.review.id)
+                    }
+                })
+            }else{
+                $('#popupIdReviewContainer').text('').append(
+                    window.product_reviews.find(item=>item.id == $(this).attr('review')).review
+                )
+                checkUseenNotifications([4],'product_review_id',window.product_reviews.find(item=>item.id == $(this).attr('review')).id)
+            }
+        break;
         case 'product':
             // if(!account.authorities[0]){return;}
             let product = website.products.find(item=>item.name == $(this).attr('product'));
@@ -21,7 +48,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
                     $('<img/>',{class:'w100p h50 mnw200 ofCover',src:product.imgUrl}),
                     $('<div/>',{class:'pX5 fs103',text:product.name}),
                     $('<div/>',{class:'pX5 fs09 mB10',text:product.category_id === null ? texts.products.uncategorizedProduct : website.categories.find(item=>item.id == product.category_id).name}),
-                    $('<div/>',{class:'mX5 row alnC jstyS mB5'}).append(
+                    $('<div/>',{class:'mX5 row alnC jstyS mB5 pointer cpPage',cpPage:'product_reviews',product:product.name}).append(
                         $('<span/>',{class:`cStar fs102 ${ratingStars.star1}`}),
                         $('<span/>',{class:`cStar fs102 ${ratingStars.star2}`}),
                         $('<span/>',{class:`cStar fs102 ${ratingStars.star3}`}),

@@ -163,7 +163,7 @@ drawPopupPage_product = function(product_name){
             $('<span/>',{class:'fs102 bold500',text:product.name}),
         ),
         $('<div/>',{class:'fs09 mB10',text:`${product.category_id === null ? texts.products.uncategorizedProduct : website.categories.find(item=>item.id == product.category_id).name}`}),
-        $('<div/>',{tooltip:productRatingTooltip,class:'fs101 cStar row alnC jstfyS'}).append(
+        $('<div/>',{tooltip:productRatingTooltip,class:'fs101 cStar row alnC jstfyS pointer cpPage',cpPage:'product_reviews',product:product.name}).append(
             $('<span/>',{class:ratingStars.star1}),
             $('<span/>',{class:ratingStars.star2}),
             $('<span/>',{class:ratingStars.star3}),

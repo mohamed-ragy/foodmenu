@@ -1,29 +1,32 @@
-$('#productReviews-reviewsContainer').on('click','.deleteReview',function(e){
+$('html,body').on('click','.deleteProductReview',function(e){
     e.stopImmediatePropagation();
-    let reviewId = $(this).attr('reviewId');
-    // let reviewCard = ;
-    let tempReviewCard;
-    $('#delete-popup').find('.popupBody').text('').append(
-        $('<div/>',{}).append(
-            $('<div/>',{class:'fs105 m10',text:texts.products.confirmDeleteReview}),
-            tempReviewCard = $('<div/>',{class:'productReviewContainer',html:$(this).closest('.productReviewContainer').html()}),
+    let reviewId = $(this).closest('.productReviewContainer').attr('review');
+    let reviewHTML;
+    showPopup('delete-popup',function(){
+        $('.popupBody').append(
+            $('<div/>',{class:'msgBox_orange'}).append(
+                $('<span/>',{class:'ico-warning fs2 mB10'}),
+                $('<span/>',{class:'taC',text:texts.products.confirmDeleteReview}),
+                reviewHTML = $('<div/>',{class:'productReviewContainer',html:$(`.productReviewContainer[review="${reviewId}"]`).html()})
+            ),
             $('<div/>',{
-                class:'btnContainer',
+                class:'btnContainer mT40',
             }).append(
-                $('<button/>',{class:'btn btn-cancel popupClose',text:texts.cpanel.public.cancel}),
-                $('<button/>',{id:'deleteReview-confirmBtn',reviewId:reviewId,class:'btn btn-delete'}).append(
+                $('<button/>',{class:'btn btn-cancel popupClose mie-5',text:texts.cpanel.public.cancel}),
+                $('<button/>',{id:'deleteReview-confirmBtn',review:reviewId,class:'btn btn-delete'}).append(
                     $('<span/>',{class:'btnTxt',text:texts.cpanel.public.delete}),
                     $('<span/>',{class:'btnLoading'})
                 )
             )
         )
-    )
-    tempReviewCard.find('.deleteReview').addClass('none');
-    showPopup($('#delete-popup'))
+        reviewHTML.find('.deleteProductReview').remove();
+
+    });
+
 })
 $('html,body').on('click','#deleteReview-confirmBtn',function(){
     showBtnLoading($('#deleteReview-confirmBtn'));
-    let reviewId = $(this).attr('reviewId');
+    let reviewId = $(this).attr('review');
     $.ajax({
         url:'products',
         type:'put',
@@ -35,9 +38,9 @@ $('html,body').on('click','#deleteReview-confirmBtn',function(){
             hideBtnLoading($('#deleteReview-confirmBtn'))
             if(r.deleteReviewStatus == 1){
                 showAlert('success',r.msg,4000,true);
-                $('.productReviewContainer[reviewId="'+reviewId+'"').remove();
+                $('.productReviewContainer[review="'+reviewId+'"').remove();
                 closePopup();
-                // need to remove Notification of this review here
+                checkUseenNotifications([4],'product_review_id',reviewId)
             }else{
                 showAlert('error',r.msg,4000,true);
             }

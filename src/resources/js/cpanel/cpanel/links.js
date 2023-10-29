@@ -105,7 +105,15 @@ $('html,body').on('click','.cpPage',function(e){
             keysObj.category = $(this).attr('category')
         break;
         case 'product_reviews':
-
+            keysObj.product = $(this).attr('product');
+            keysObj.user = $(this).attr('user');
+            keysObj.byUsers = window.history.state.byUsers;
+            keysObj.byGuests = window.history.state.byGuests;
+            keysObj.star1 = window.history.state.star1;
+            keysObj.star2 = window.history.state.star2;
+            keysObj.star3 = window.history.state.star3;
+            keysObj.star4 = window.history.state.star4;
+            keysObj.star5 = window.history.state.star5;
         break;
     }
     showPage($(this).attr('cpPage'),openTab,keysObj).then((is_pushHistory)=>{
@@ -371,6 +379,9 @@ $('html,body').on('click','.popupPage',function(e){
         break;
         case 'manage_product_options':
             keysObj.product = $(this).attr('product')
+        break;
+        case 'review':
+            keysObj.review = $(this).attr('review');
         break;
     }
     showPopupPage($(this).attr('popupPage'),keysObj).then((is_pushHistory)=>{
@@ -757,6 +768,9 @@ $(window).on('popstate',(e)=>{
             break;
             case 'manage_product_options':
                 keysObj.product = window.history.state.product;
+            break;
+            case 'review':
+                keysObj.review = window.history.state.review;
             break;
         }
         // window.popupPage = {}

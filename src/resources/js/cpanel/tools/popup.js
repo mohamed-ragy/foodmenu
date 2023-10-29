@@ -161,7 +161,7 @@ showPopup =function(popup,callback=()=>{}){
         case 'editProductSelection':
             $('.popupTitle').text(texts.products.editSelection);
         break;
-
+                
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){

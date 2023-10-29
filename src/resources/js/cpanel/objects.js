@@ -37,6 +37,10 @@ window.getMoreChats_guests = true;
 window.noMoreChats_users = false;
 window.noMoreChats_guests = false;
 
+window.getProductReviewsSkip = 0;
+window.getMoreProductsReviews = true;
+window.noMoreProductReviews = false;
+window.product_reviews = [];
 //
 // window.onlineGuests = [];
 // window.onlineUsers = [];

@@ -46,9 +46,7 @@ return [
     'deleteProductSelectionDeleted' =>'The variant selection has been deleted successfully.',
     'deleteProductSelectionFaild' => 'Unknown error occurred! Failed to delete the variant selection.',
     'cantdeleteDefaultSelection' => "You can't delete the default variant selection.",
-
-
-
-    
     //l7ad hena/////////////////////////////////////////////////////////////////////////////
+    'deleteReviewDeleted'=>'The review has been deleted successfully.',
+    'deleteReviewFaild'=>'Unknown Error Occurred! Failed to delete the review.',
 ];

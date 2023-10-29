@@ -15,9 +15,11 @@ setFindReviewsFilters = function(){
         window.page.byUsers = 1;
         window.page.byGuests = 1;
     }
-    if(window.page.byUsers == 1 || window.page.byGuests == 1){
-        window.page.user = '';
+    if(window.page.user != '' && window.page.user != null){
+        window.page.byUsers = 0;
+        window.page.byGuests = 0;
     }
+
     window.page.byUsers == 1 ? $('.productReviewsBy[productReviewsBy="users"]').find('.productReviewsByCheck').removeClass('ico-check0').addClass('ico-check1') :
     $('.productReviewsBy[productReviewsBy="users"]').find('.productReviewsByCheck').removeClass('ico-check1').addClass('ico-check0');
     window.page.byGuests == 1 ? $('.productReviewsBy[productReviewsBy="guests"]').find('.productReviewsByCheck').removeClass('ico-check0').addClass('ico-check1') :

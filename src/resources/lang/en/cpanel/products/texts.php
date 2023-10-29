@@ -68,5 +68,7 @@ return [
     'Star3Reviews' => '3-star rating',
     'Star2Reviews' => '2-star rating',
     'Star1Reviews' => '1-star rating',
+    'noReviews' =>'No reviews found!',
+    'confirmDeleteReview' => 'Are you sure you want to delete this review?',
 ];
 

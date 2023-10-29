@@ -79,5 +79,8 @@ window.globalChannel
         case 'selection.delete':
 
         break;
+        case 'review.delete':
+
+        break;
     }
 });

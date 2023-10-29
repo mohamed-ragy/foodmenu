@@ -620,9 +620,9 @@ class productsController extends Controller
             }
 
             $findReview =  $findReview->whereIn('rate',$request->byRating);
-            $count = $findReview->count();
+            // $count = $findReview->count();
             $reviews = $findReview->skip($request->skip)->limit(10)->orderBy('posted_at','DESC')->get();
-            return response(['reviews' => $reviews,'count' => $count]);
+            return response(['reviews' => $reviews]);
         }
         else if($request->has(['deleteReview'])){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
@@ -631,38 +631,31 @@ class productsController extends Controller
             $review = product_review::where(['id'=>$request->reviewId,'website_id'=>$this->website_id])->first();
             $deleteReview = product_review::where(['id'=>$request->reviewId,'website_id' => $this->website_id])->delete();
             if($deleteReview){
-                notification::where('product_review_id',$request->reviewId)->delete();
-                $notification = new stdClass();
-                $notification->code = 15;
-                $notification->reviewId = $request->reviewId;
-                $notification->website_id = $this->website_id;
-                $notification->activity = activityLog::create([
+                notification::where(['product_review_id'=>(int)$request->reviewId,'website_id' => (int)$this->website_id])->delete();
+                foodmenuFunctions::notification('review.delete',[
                     'website_id' => $this->website_id,
                     'code' => 16,
                     'account_id' => Auth::guard('account')->user()->id,
                     'account_name' => Auth::guard('account')->user()->name,
                     'product_id' => $review->product_id,
                     'product_name' => $review->product_name,
+                ],[
+                    'review_id' => $request->reviewId,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $user->id = 0;
-                $user->website_id = $this->website_id;
-                $user->code = 22;
-                $user->reviewId = $request->reviewId;
-                $user->product_id = $review->product_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user));
-                return response(['deleteReviewStatus' => 1,'msg'=>Lang::get('cpanel/products/productReviews.deleteReviewDeleted')]);
+                $notification = new stdClass();
+                $notification->code = 'review.delete';
+                $notification->website_id = $this->website_id;
+                $notification->review_id = $this->reviewId;
+                return response(['deleteReviewStatus' => 1,'msg'=>Lang::get('cpanel/products/responses.deleteReviewDeleted')]);
             }else{
-                return response(['deleteReviewStatus' => 0,'msg'=>Lang::get('cpanel/products/productReviews.deleteReviewFaild')]);
+                return response(['deleteReviewStatus' => 0,'msg'=>Lang::get('cpanel/products/responses.deleteReviewFaild')]);
             }
         }
         else if($request->has('getReview')){
             if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
                 return;
             }
-            $review = product_review::where(['website_id' => $this->website_id,'id'=>$request->getReview])->with('users:id,name')->first();
+            $review = product_review::where(['website_id' => $this->website_id,'id'=>$request->getReview])->first();
             return response(['review' => $review]);
         }
     }

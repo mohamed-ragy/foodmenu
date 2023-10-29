@@ -59,13 +59,18 @@ return [
         'menu' => 'Menu',
 
         'ticket_browser' => 'Ticket browser',
+
         'create_custom_language' => 'Create custom language',
         'edit_language_options' => 'Edit language options',
         'edit_language_texts' => 'Edit language text',
+
         'create_promo_code' => 'Create new promo code',
         'manage_promo_code' => 'Manage promo code',
+
         'working_hours' => 'Manage working hours',
+
         'user' => 'Website user',
+
         'category' => 'Category',
         'create_category' => 'Create new category',
         'edit_category' => 'Edit category',
@@ -73,9 +78,13 @@ return [
         'edit_product' => 'Edit product',
         'create_product' => 'Create new product',
         'manage_product_options' => 'Manage product options',
+        'review' => 'Product review',
+
         'create_delivery_account' => 'Create a delivery account',
         'delivery_account' => 'Delivery account',
+
         'order' => 'Order #:order:',
+
         'create_sub_account' => 'Create new sub-account',
         'sub_account' => 'Sub-account',
         'manage_sub_account' => 'Manage sub-account\'s authorities',

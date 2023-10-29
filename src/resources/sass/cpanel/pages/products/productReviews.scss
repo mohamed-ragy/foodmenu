@@ -9,6 +9,31 @@
     max-height: 500px;
     overflow: visible;
 }
+.productReviewContainer{
+    padding:10px;
+    border-radius: 5px;
+    margin:20px auto;
+    background-color: var(--white);
+    color:var(--txt-1);
+    border: 1px solid var(--white-2);
+    box-shadow: 0 0 15px var(--shdw-5);
+    text-align: start;
+    max-width: 600px;
+    position: relative;
+}
+.productReviewContainer:hover{
+    .deleteProductReview{display: block;}
+}
+.deleteProductReview{
+    position: absolute;
+    font-size: 1.2em;
+    top:5px;
+    right:5px;
+    display: none;
+}
+.deleteProductReview:hover{
+    color:var(--red)
+}
 // #productReviews-reviewsContainer{
 //     width:100%;
 //     margin-top:20px;

@@ -13,7 +13,7 @@ popupPageClose = function(push=true){
         pushHistory(true)
     }else{pushHistory(false)}
 }
-$('#popupPageClose').on('click',function(){
+$('#popupPageClose').on('click',function(){coolDownChecker
     popupPageClose(true);
 });
 
@@ -44,6 +44,11 @@ showPopupPage = function(popupPage,keysObj){
         window.popupPage = {};
         window.popupPage.popupPage = popupPage;
         switch(popupPage){
+            case 'review':
+                window.popupPage.review = keysObj.review;
+                drawPopupPage_review(window.popupPage.review);
+                resolve(3);
+            break;
             case 'manage_product_options':
                 if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
                     window.popupPage.product = keysObj.product;

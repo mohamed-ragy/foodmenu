@@ -111,8 +111,8 @@ drawNotification = function(notification,append,alert=false){
         case 4:
             icon = 'ico-product_reviews';
             containerClass = 'popupPage';
-            popupPage = 'Review';
-            attrs.reviewid = notification.product_review_id;
+            popupPage = 'review';
+            attrs.review = notification.product_review_id;
             notification.user_id != null ? user = notification.userName : null;
             notificationsMsg = `${texts.cpanel.notifications.newReview1} ${notification.productName} ${texts.cpanel.notifications.newReview2} ${user}.`;
             if(alert){
@@ -1145,6 +1145,10 @@ handelCpanelChannel = function(n,code){
                 }
             }
             break;
+        case 'review.delete':
+            checkUseenNotifications([4],'product_review_id',n.review_id)
+            $('.productReviewContainer[review="'+n.review_id+'"').remove();
+        break;
     }
 
 
@@ -1541,8 +1545,6 @@ let n =[];
         drawCategoryList();
         $("#editCategory-editCategoryCancelBtn").trigger('click');
         window.guideHints.categories(website.categories);
-    }else if(n.code == 15 && account.authorities[1] == 1){
-        $('.productReviewContainer[reviewId="'+n.reviewId+'"').remove();
     }else if(n.code == 17 && account.authorities[1] == 1){
         n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
         n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';

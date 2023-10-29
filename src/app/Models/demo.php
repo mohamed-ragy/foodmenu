@@ -943,10 +943,10 @@ class demo
         $reviewsArr = [];
         foreach($reviewsEG as $review){
             if(rand(0,1)){
-                $posted_at = Carbon::now()->subDays(rand(0,200))->timestamp;
-                if($product->created_at > Carbon::now()->timestamp){
-                    $posted_at = Carbon::now()->subHours(rand(0,150))->timestamp;
-                }
+                $posted_at = Carbon::now()->subDays(rand(0,200));
+                // if($product->created_at > Carbon::now()->timestamp){
+                //     $posted_at = Carbon::now()->subHours(rand(0,150));
+                // }
                 if(rand(1,0)){$userId = null;$userName = null;}
                 else{$user = $users->random(); $userId = $user->id; $userName = $user->name;}
                 array_push($reviewsArr,[
@@ -957,7 +957,7 @@ class demo
                     'userName' => $userName,
                     'rate' => explode('.',$review)[0],
                     'review' => explode('.',$review)[1],
-                    'posted_at' => $posted_at,
+                    'posted_at' => $posted_at->subHours(rand(0,150))->subMinutes(rand(0,60))->timestamp,
                     'created_at' => Carbon::now()->timestamp
                 ]);
             }
