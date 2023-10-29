@@ -645,7 +645,7 @@ class productsController extends Controller
                 $notification = new stdClass();
                 $notification->code = 'review.delete';
                 $notification->website_id = $this->website_id;
-                $notification->review_id = $this->reviewId;
+                $notification->review_id = $request->reviewId;
                 return response(['deleteReviewStatus' => 1,'msg'=>Lang::get('cpanel/products/responses.deleteReviewDeleted')]);
             }else{
                 return response(['deleteReviewStatus' => 0,'msg'=>Lang::get('cpanel/products/responses.deleteReviewFaild')]);
