@@ -281,7 +281,7 @@ orders = class {
             let item = order.order_items[key];
             let product = website.products.find(prod=> prod.id == item.product_id);
             if(typeof(product) === 'undefined'){productImg = `storage/imgs/cpanel/noimg.png`}
-            else{productImg = product.imgUrl_thumbnail;}
+            else{productImg = product.thumbnail;}
             if(key == 0 || key == 1){
                 data.itemsPics = data.itemsPics + `<img src="${productImg}" class="orderRowItemImg" tooltip="x${item.qty} ${item.productName}" />`
             }else{
@@ -1782,7 +1782,7 @@ orders = class {
             productImg = '/storage/imgs/cpanel/noimg.png';
             productName = `<span class="mie-10">${item.productName} <span class="fs08">(${texts.cpanel.public.deletedProduct})</span></span>`
         }else{
-            productImg = product.imgUrl_thumbnail;
+            productImg = product.thumbnail;
             productName = $('<a/>',{text:item.productName,class:'popupPage mie-10 fs102',popupPage:'Product',product:item.productName});
         }
         $('#orderPage-orderItemsContainer').append(
@@ -1843,7 +1843,7 @@ orders = class {
             productImg = '/storage/imgs/cpanel/noimg.png';
             productName = `<span class="mie-10">${item.productName} <span class="fs08">(${texts.cpanel.public.deletedProduct})</span></span>`
         }else{
-            productImg = product.imgUrl_thumbnail;
+            productImg = product.thumbnail;
             productName = $('<a/>',{text:item.productName,class:'popupPage mie-10 fs102',popupPage:'Product',product:item.productName});
         }
         $('#orderPage-orderItemsContainer').append(
@@ -1924,7 +1924,7 @@ orders = class {
                 productImg = '/storage/imgs/cpanel/noimg.png';
                 productName = `<span class="mie-10">${item.productName} <span class="fs08">(${texts.cpanel.public.deletedProduct})</span></span>`
             }else{
-                productImg = product.imgUrl_thumbnail;
+                productImg = product.thumbnail;
                 productName = $('<a/>',{text:item.productName,class:'popupPage mie-10 fs102',popupPage:'Product',product:item.productName});
             }
             let thisItemSelections;
@@ -2427,7 +2427,7 @@ orders = class {
                 $('#printDiv').append(
                     $('<img/>',{
                         class:'printReceiptLogo mX5',
-                        src:website.logoUrl ,
+                        src:website.logo ,
                         id:'receiptWebsiteLogoId',
                     }),
                     $('<div/>',{

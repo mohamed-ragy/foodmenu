@@ -13,6 +13,7 @@ class mediterranean extends Seeder
     {
         $mediterranean = new stdClass();
         $mediterranean->domainName = 'mediterranean';
+        $mediterranean->template = 15;
         $mediterranean->website_names = [
             'en' => 'Mediterranean',
             'ar' => 'البحر المتوسط',

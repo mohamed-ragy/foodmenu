@@ -13,10 +13,9 @@
     padding:10px;
     border-radius: 5px;
     margin:20px auto;
-    background-color: var(--white);
+    background-color: var(--white-1);
     color:var(--txt-1);
-    border: 1px solid var(--white-2);
-    box-shadow: 0 0 15px var(--shdw-5);
+    box-shadow:var(--card-shdw);
     text-align: start;
     max-width: 600px;
     position: relative;

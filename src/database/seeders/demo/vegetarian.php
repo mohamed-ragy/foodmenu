@@ -13,6 +13,7 @@ class vegetarian extends Seeder
     {
         $vegetarian = new stdClass();
         $vegetarian->domainName = 'vegetarian';
+        $vegetarian->template = 14;
         $vegetarian->website_names = [
             'en' => 'Vegetarian Restaurant',
             'ar' => 'مطعم نباتي',

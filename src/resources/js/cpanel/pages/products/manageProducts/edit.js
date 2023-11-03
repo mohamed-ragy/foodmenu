@@ -62,15 +62,8 @@ $('html,body').on('click','.imgBrowser_editProductImg',function(){
     $('#editProduct_img').attr('imgId',imgId)
     $('#editProduct_img').attr('src',imgUrl)
     website_temp.products.find(item=> item.name == window.history.state.product).img_id = imgId;
-    website_temp.products.find(item=> item.name == window.history.state.product).imgUrl = '/storage/imgs/cpanel/noimg.png';
-    website_temp.products.find(item=> item.name == window.history.state.product).imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-    Object.keys(imgs).some(function(k) {
-        if(imgs[k].id ==  website_temp.products.find(item=> item.name == window.history.state.product).img_id){
-            website_temp.products.find(item=> item.name == window.history.state.product).imgs = imgs[k];
-            website_temp.products.find(item=> item.name == window.history.state.product).imgUrl = '/storage/'+imgs[k].url;
-            website_temp.products.find(item=> item.name == window.history.state.product).imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-        }
-    });
+    website_temp.products.find(item=> item.name == window.history.state.product).img = imgUrl;
+    website_temp.products.find(item=> item.name == window.history.state.product).thumbnail = imgUrl;
     manage_products_unsave_check();
 });
 $('html,body').on('input change','.editProductNamesInputText',function(e){
@@ -130,15 +123,6 @@ $('html,body').on('click','#editProduct_save',function(e){
         },success:function(r){
             hideBtnLoading($('#editProduct_save'));
             if(r.editProductStatus == 1){
-                r.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
-                r.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-                Object.keys(imgs).some(function(k) {
-                    if(imgs[k].id == r.product.img_id){
-                        r.product.imgs = imgs[k];
-                        r.product.imgUrl = '/storage/'+imgs[k].url;
-                        r.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                    }
-                });
                 r.product.product_options = JSON.parse(JSON.stringify(website.products.find(item=>item.id == r.product.id).product_options))
                 for(const key in website.products){
                     if(website.products[key].id == r.product.id){

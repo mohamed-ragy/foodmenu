@@ -41,7 +41,7 @@ drawCategoryList = function(){
                     }).append(
                         $('<div/>',{class:'categoryCardMove ico-move fs09 zx10 cursorMove m2',tooltip:texts.cpanel.public.swap}),
                     ),
-                    $('<img/>',{src:category.imgUrl_thumbnail,class:'h150 w100p ofCover pointer_events_none'}),
+                    $('<img/>',{src:category.thumbnail,class:'h150 w100p ofCover pointer_events_none'}),
                     $('<a/>',{class:'popupId popupPage fs1 fs09-1024 mX5 mY10 w100p-10 ellipsis bold500',popupId:'category',popupPage:'category',category:category.name,text:category.name}),
                     $('<div/>',{
                         class:'row alnC jstfySB w100p brdrT1',
@@ -69,7 +69,7 @@ drawPopupPage_category = function(categroyName){
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.category}),
     );
     $('#popupPageBody').text('').addClass('mxw100p-40 p20').append(
-        $('<img/>',{src:category.imgUrl,class:'h150 w250 ofCover br5'}),
+        $('<img/>',{src:category.img,class:'h150 w250 ofCover br5'}),
         $('<div/>',{class:'fs102 bold500',text:category.name}),
         $('<div/>',{class:'authority_1 fs08',text:texts.products.created.replace(':date:',getDate(category.created_at).date.local)}),
         $('<div/>',{class:'authority_1 fs08',text:texts.products.containsProducts.replace(':num:',catProductsSum)}),
@@ -96,7 +96,7 @@ drawPopupPage_edit_category = function(categroyName){
         $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(
             $('<div/>',{text:texts.products.categoryImg,class:'c_white-8 fs08 mB3'}),
             $('<span/>',{class:'ico-edit imgCardIcon'}),
-            $('<img/>',{class:'imgCard g150 w150',imgId:category.img_id ?? '',id:'editCategory_img',src:category.imgUrl_thumbnail})
+            $('<img/>',{class:'imgCard g150 w150',imgId:category.img_id ?? '',id:'editCategory_img',src:category.thumbnail})
         ),
         drawInputText('','ico-edit','',texts.products.categoryIdentifier,'editCategory_categoryName','text',texts.products.categoryIdentifier,150,'copy','',category.name,true),
         $('<div/>',{class:'area mY40 editCategory_names'}).append(

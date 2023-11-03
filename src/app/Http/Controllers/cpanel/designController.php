@@ -437,7 +437,12 @@ class designController extends Controller
     }
     public function imgs(Request $request)
     {
-        if($request->has(['designUploadImg'])){
+        if($request->has('gitStorageSize')){
+            return response(img::where(['website_id'=>$this->website_id])->sum('size'));
+        }else if($request->has('getImgs')){
+            $imgs = img::where(['website_id'=>$this->website_id])->orderBy('created_at','DESC')->skip($request->skip)->limit(10)->get();
+            return response(['imgs'=>$imgs]);
+        }else if($request->has(['designUploadImg'])){
             if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
                 return;
             }

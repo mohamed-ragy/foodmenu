@@ -25,7 +25,9 @@ class CreateProductsTable extends Migration
 
             $table->UnsignedBigInteger('img_id')->nullable();
             $table->foreign('img_id')->references('id')->on('imgs')->onDelete('set null');
-
+            $table->string('img')->nullable();
+            $table->string('thumbnail')->nullable();
+            
             $table->string('name')->index();
 
             $table->json('names');

@@ -20,7 +20,7 @@ share = function(type,item){
             }
         });
         $('.shareIcon[shareTo="copy"]').trigger('click');
-        $('#share-img').attr('src',item.imgUrl);
+        $('#share-img').attr('src',item.img);
         $('#share-name').text(item.name);
 
     });

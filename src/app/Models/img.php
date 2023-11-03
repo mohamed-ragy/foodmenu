@@ -12,15 +12,15 @@ class img extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillabel =[
         'website_id',
@@ -29,7 +29,8 @@ class img extends Model
         'thumbnailUrl',
         'extension',
         'size',
-        'height','width'
+        'height','width',
+        'created_at'
     ];
 
     public function websites(){

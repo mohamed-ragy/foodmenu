@@ -156,6 +156,11 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'images':
+                    if(account.authorities[3] == false){return;}
+                    drawPage_images();
+                    resolve(pushHistory);
+                break;
                 case 'product_reviews':
                     if(account.authorities[1] == false){return;}
                         window.page.product = keysObj.product ?? 'allproducts';

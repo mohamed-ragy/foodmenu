@@ -23,7 +23,7 @@ class categories extends Model
 
     }
     protected $fillable = [
-        'sort','name','website_id','img_id','names','descriptions'
+        'sort','name','website_id','img_id','img','thumbnail','names','descriptions'
     ];
     protected $casts = [
         'names' => 'array',

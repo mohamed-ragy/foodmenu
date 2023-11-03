@@ -19,7 +19,7 @@ drawAddItemCard = function(product){
             $('<div/>',{
                 class:'row alnC jstfyC mX5 mY10',
             }).append(
-                $('<img/>',{class:'h50 w50 br3 ofCover',src:product.imgUrl_thumbnail}),
+                $('<img/>',{class:'h50 w50 br3 ofCover',src:product.thumbnail}),
                 $('<div/>',{class:'bold mX5'}).append(
                     $('<div/>',{text:product.name,class:'fs104'}),
                     $('<div/>',{text:website.currency+product.price,class:'fs103 mT3'})

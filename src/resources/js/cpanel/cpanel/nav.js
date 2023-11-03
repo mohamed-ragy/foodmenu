@@ -1,4 +1,4 @@
-$('#navTitle').children().first().attr('src',website.logoUrl)
+$('#navTitle').children().first().attr('src',website.logo)
 $('#navTitle').children().eq(1).text(website.domainName.toUpperCase())
 //////////////////////////////view////////////////////////
 showList = function(list,nav){

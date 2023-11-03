@@ -92,7 +92,7 @@ drawProductReview = function(review,deleteIcon){
     let productImg = './storage/imgs/cpanel/noimg.png';
     let product = website.products.find(item=>item.name == review.product_name);
     if(typeof(product) !== 'undefined'){
-        productImg = product.imgUrl_thumbnail
+        productImg = product.thumbnail
     }
 
     let reviewStars = $('<div/>',{class:'row alnC jstfyS'});

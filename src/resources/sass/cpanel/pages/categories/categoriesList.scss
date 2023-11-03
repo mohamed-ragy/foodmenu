@@ -1,7 +1,8 @@
 .categoryCardContainer{
     border-radius: 3px;
-    box-shadow: 0 0 1px 1px var(--shdw-5),0 0 10px var(--shdw-5);
     background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow:var(--card-shdw);
     display:flex;
     overflow: hidden;
     flex-direction: column;

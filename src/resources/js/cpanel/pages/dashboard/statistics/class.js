@@ -1463,7 +1463,7 @@ statistics = class  {
             productImg = `./storage/imgs/cpanel/noimg.png`
         }else{
             productNameElem = $('<a/>',{text:product.name,class:'popupPage m5 mB10 fs103',popupPage:'Product',product:product.name});
-            productImg = product.imgUrl
+            productImg = product.img
         }
         if(isCompare == 0){
             ///////////
@@ -1718,7 +1718,7 @@ statistics = class  {
         if(typeof(product) === 'undefined'){
             productImg = `./storage/imgs/cpanel/noimg.png`
         }else{
-            productImg = product.imgUrl
+            productImg = product.img
         }
         if($('.productsGraphsCatElem[cat="profites"]').hasClass('productsGraphsCatElem_selected')){
             if(this.isCompare){

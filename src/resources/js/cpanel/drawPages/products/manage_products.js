@@ -113,7 +113,7 @@ drawManageProductCards = function(action){
                 }).append(
                     $('<div/>',{class:'manageProductCardMove ico-move fs09 zx10 cursorMove m2',tooltip:texts.cpanel.public.swap}),
                 ),
-                $('<img/>',{src:product.imgUrl,class:'h150 w100p mB10 ofCover pointer_events_none'}),
+                $('<img/>',{src:product.img,class:'h150 w100p mB10 ofCover pointer_events_none'}),
                 $('<a/>',{class:'popupId popupPage fs1 fs09-1024 mX5 w100p-10 ellipsis bold500',popupId:'product',popupPage:'product',product:product.name,text:product.name}),
                 $('<div/>',{class:'mX5 fs1 fs09-1024',text:website.currency+product.price}),
                 productRatingDiv,
@@ -157,7 +157,7 @@ drawPopupPage_product = function(product_name){
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.product}),
     );
     $('#popupPageBody').text('').addClass('mxw100p-40 p20').append(
-        $('<img/>',{src:product.imgUrl,class:'h150 w250 ofCover br5'}),
+        $('<img/>',{src:product.img,class:'h150 w250 ofCover br5'}),
         $('<div/>',{}).append(
             $('<span/>',{class:`ico-warning cO fs08 mie-3 ${product.category_id != null ? 'none' : ''}`,tooltip:texts.products.uncategorizedProduct}),
             $('<span/>',{class:'fs102 bold500',text:product.name}),

@@ -13,6 +13,7 @@ class donuts extends Seeder
     {
         $donuts = new stdClass();
         $donuts->domainName = 'donuts';
+        $donuts->template = 8;
         $donuts->website_names = [
             'en' => 'Donuts Shop',
             'ar' => 'محل دوناتس',

@@ -176,7 +176,9 @@ class demo
 
         $demoWebsite->website_colors = 1;
         $demoWebsite->customColorsHexCode = ['color1'=>'#F5F5F5','color2'=>'#EBEBEB','color3'=>'#E0E0E0','color4'=>'#D6D6D6','color5'=>'#CCCCCC','colorError'=>'#D10000','colorSuccess'=>'#228B22','colorWarning'=>'#E3AE09','colorStar'=>'#ffc824'];
-        $demoWebsite->template = 'demo';
+        $demoWebsite->template = $website->template;
+        $demoWebsite->icon = "/storage/imgs/templates/$website->template/icon.webp";
+        $demoWebsite->logo = "/storage/imgs/templates/$website->template/logo.webp";
 
         $demoWebsite->gallery = '';
         $demoWebsite->slideShow = [
@@ -675,18 +677,21 @@ class demo
         $catImg = img::create([
             'website_id' => $demoWebsite->id,
             'name' => $category['name'],
-            'url' => $category['imgUrl'],
-            'thumbnailUrl' => $category['thumbnailUrl'],
+            'url' => "/storage/".$category['imgUrl'],
+            'thumbnailUrl' => "/storage/".$category['thumbnailUrl'],
             'extension' => 'webp',
             'size' => 104857,
             'height' => 1200,
             'width' => 1200,
+            'created_at' => Carbon::now()->subHours(rand(10,9000))->timestamp,
         ]);
         $createCat = categories::create([
             'website_id' => $demoWebsite->id,
             'sort' => $catSort,
             'name' => $category['name'],
             'img_id' => $catImg->id,
+            'img' => "/storage/".$category['imgUrl'],
+            'thumbnail' => "/storage/".$category['thumbnailUrl'],
             'names' => [
                 'en' => $category['name_en'],
                 'ar' => $category['name_ar'],
@@ -772,12 +777,13 @@ class demo
         $prodImg = img::create([
             'website_id' => $demoWebsite->id,
             'name' => $product['name'],
-            'url' => $product['imgUrl'],
-            'thumbnailUrl' => $product['thumbnailUrl'],
+            'url' => "/storage/".$product['imgUrl'],
+            'thumbnailUrl' => "/storage/".$product['thumbnailUrl'],
             'extension' => 'webp',
-            'size' => 104857,
+            'size' => random_int(1000000,10000000),
             'height' => 1200,
             'width' => 1200,
+            'created_at' => Carbon::now()->subHours(random_int(10,9000))->timestamp,
         ]);
         $createProd = product::create([
             'website_id' => $demoWebsite->id,
@@ -787,6 +793,8 @@ class demo
             'price' => $product['price'],
             'ordered_sum' => rand(10,100),
             'img_id' => $prodImg->id,
+            'img' => "/storage/".$product['imgUrl'],
+            'thumbnail' => "/storage/".$product['thumbnailUrl'],
             'names' => [
                 'en' => $product['name_en'],
                 'ar' => $product['name_ar'],

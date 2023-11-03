@@ -13,6 +13,7 @@ class fastfood extends Seeder
     {
         $fastFood = new stdClass();
         $fastFood->domainName = 'fastfood';
+        $fastFood->template = 11;
         $fastFood->website_names = [
             'en' => 'Fast Food',
             'ar' => 'الطعام السريع',

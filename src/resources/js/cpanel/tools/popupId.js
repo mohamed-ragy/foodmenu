@@ -45,7 +45,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
             $('#popupId').text('').append(
                 $('<div/>',{class:'popupIdClose ico-close'}),
                 $('<div/>',{class:'mB10'}).append(
-                    $('<img/>',{class:'w100p h50 mnw200 ofCover',src:product.imgUrl}),
+                    $('<img/>',{class:'w100p h50 mnw200 ofCover',src:product.thumbnail}),
                     $('<div/>',{class:'pX5 fs103',text:product.name}),
                     $('<div/>',{class:'pX5 fs09 mB10',text:product.category_id === null ? texts.products.uncategorizedProduct : website.categories.find(item=>item.id == product.category_id).name}),
                     $('<div/>',{class:'mX5 row alnC jstyS mB5 pointer cpPage',cpPage:'product_reviews',product:product.name}).append(
@@ -77,7 +77,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
             $('#popupId').text('').append(
                 $('<div/>',{class:'popupIdClose ico-close'}),
                 $('<div/>',{class:'mB10'}).append(
-                    $('<img/>',{class:'w100p h50 mnw200 ofCover',src:category.imgUrl}),
+                    $('<img/>',{class:'w100p h50 mnw200 ofCover',src:category.thumbnail}),
                     $('<div/>',{class:'pX5 fs103',text:category.name}),
                     $('<div/>',{class:'authority_1 pX5 fs09',text:texts.products.created.replace(':date:',getDate(category.created_at).date.local)}),
                     $('<div/>',{class:'authority_1 pX5 fs09',text:texts.products.containsProducts.replace(':num:',catProductsSum)}),

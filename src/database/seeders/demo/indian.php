@@ -13,6 +13,7 @@ class indian extends Seeder
     {
         $indian = new stdClass();
         $indian->domainName = 'indian';
+        $indian->template = 17;
         $indian->website_names = [
             'en' => 'Indian',
             'ar' => 'هندي',

@@ -13,6 +13,7 @@ class burgers extends Seeder
     {
         $burgers = new stdClass();
         $burgers->domainName = 'burgers';
+        $burgers->template = 6;
         $burgers->website_names = [
             'en' => 'Burgers',
             'ar' => 'برجر',

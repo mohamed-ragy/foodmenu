@@ -13,6 +13,7 @@ class chinese extends Seeder
     {
         $chinese = new stdClass();
         $chinese->domainName = 'chinese';
+        $chinese->template = 19;
         $chinese->website_names = [
             'en' => 'Chinese',
             'ar' => 'صينى',

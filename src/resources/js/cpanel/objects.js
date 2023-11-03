@@ -12,6 +12,7 @@ for(const key in website.workingDays_dinein){
 }
 
 website.guests = [];
+website.users = [];
 ///
 window.website_temp = JSON.parse(JSON.stringify(website));
 window.settings_temp = JSON.parse(JSON.stringify(settings));
@@ -83,7 +84,6 @@ website.customColors = website.customColorsHexCode;
 website.slideShow_contentTemp = JSON.parse(JSON.stringify(website.slideShow.content))
 window.globalChannelCheck = false;
 
-website.users = [];
 
 website.orderHistory = {};
 
@@ -100,104 +100,23 @@ if(account.is_master){
     // window.financialReports = website.financial_reports;
 }
 
-window.window.imgs = website.imgs;
-window.window.imgBrowser = {opened:false,title:'',imgBrowserClass:''}
+website.imgs = [];
+window.imgs_getMore = true;
+window.imgs_noMore = false;
+window.imgBrowser = {opened:false,title:'',imgBrowserClass:''}
+
 window.help_tips = website.help_tips;
+
 window.lastActivites = website.activity_logs ?? [];
 
 window.plans = foodMenuData.plans;
-window.alertTones = foodMenuData.alertTones;
 
 
-website.logoUrl = `/storage/imgs/templates/${website.template}/logo.webp`
-website.iconUrl = `/storage/imgs/templates/${website.template}/icon.webp`
-
-website.introImgUrl = `/storage/imgs/templates/${website.template}/intro.webp`
-website.infoImgUrl = `/storage/imgs/templates/${website.template}/info.webp`
-website.ourStoryImgUrl = `/storage/imgs/templates/${website.template}/ourStory.webp`
-
-for(const key in website.products){
-    website.products[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
-    website.products[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-    website_temp.products[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
-    website_temp.products[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-}
-for(const key in website.categories){
-    website.categories[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
-    website.categories[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-    website_temp.categories[key].imgUrl = '/storage/imgs/cpanel/noimg.png';
-    website_temp.categories[key].imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-}
-Object.keys(imgs).some(function(k) {
-    Object.keys(website.products).some(function(key) {
-        if(imgs[k].id == website.products[key].img_id){
-            website.products[key].imgs = imgs[k];
-            website.products[key].imgUrl = '/storage/'+imgs[k].url;
-            website.products[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-            website_temp.products[key].imgs = imgs[k];
-            website_temp.products[key].imgUrl = '/storage/'+imgs[k].url;
-            website_temp.products[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-        }
-    });
-    Object.keys(website.categories).some(function(key) {
-        if(imgs[k].id == website.categories[key].img_id){
-            website.categories[key].imgs = imgs[k];
-            website.categories[key].imgUrl = '/storage/'+imgs[k].url;
-            website.categories[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-            website_temp.categories[key].imgs = imgs[k];
-            website_temp.categories[key].imgUrl = '/storage/'+imgs[k].url;
-            website_temp.categories[key].imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-        }
-    });
-    if(imgs[k].id == website.icon){
-        website.iconUrl = '/storage/'+imgs[k].url;
-    }
-    if(imgs[k].id == website.logo){
-        website.logoUrl = '/storage/'+imgs[k].url;
-    }
-
-    if(imgs[k].id == website.intro.img){
-        website.imgs_introImg = imgs[k];
-        website.introImgUrl = `/storage/${imgs[k].url}`
-    }
-    if(imgs[k].id == website.info.img){
-        website.imgs_infoImg = imgs[k];
-        website.infoImgUrl = `/storage/${imgs[k].url}`
-    }
-    if(imgs[k].id == website.ourStory.img){
-        website.imgs_ourStoryImg = imgs[k];
-        website.ourStoryImgUrl = `/storage/${imgs[k].url}`
-    }
-});
-////////
-
+website.imgs_storage = null;
 ////////////
 window.page = {}
 window.popupPage = {}
 window.previewImg = {}
-window.findReviewFilters = {
-    product:'allproducts',
-    userId:'',
-    userName:'',
-    users:1,
-    guests:1,
-    star1:1,
-    star2:1,
-    star3:1,
-    star4:1,
-    star5:1,
-}
-window.orderHistoryFilters = {
-    dineIn:1,
-    delivered:1,
-    pickedUp:1,
-    canceled:1,
-    users:1,
-    guests:1,
-    userName:'',
-    userId:'',
-    orderNumber:''
-}
 //////
 account.helpTips == null ? account.helpTips = [] : null;
 for(const key in account.helpTips){

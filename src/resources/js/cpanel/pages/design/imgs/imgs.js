@@ -1,73 +1,52 @@
-
-drawImgs = function(){
-    $('#imgs-imgsContainer').text('').removeClass('mY20');
-    if(imgs.length == 0){$('#imgs-imgsContainer').text(texts.imgs.noUploads).addClass('mY20')}
-    for(const key in imgs){
-        let img = imgs[key]
-        let planStorage = window.plans[website.plan].storage
-        let imgSize = ( (img.size/1024)/1024 ).toFixed(2);
-        let imgSizePercent = ( imgSize / planStorage * 100).toFixed(2);
-        $('#imgs-imgsContainer').append(
+drawImg = function(img){
+    let planStorage = window.plans[website.plan].storage
+    let imgSize = ( (img.size/1024)/1024 ).toFixed(2);
+    let imgSizePercent = ( imgSize / planStorage * 100).toFixed(2);
+    $('#imgs_imgsContainer').append(
+        $('<div/>',{
+            class:'imgsImgCard',
+            imgId:img.id,
+        }).append(
+            $('<img/>',{class:'w300 h300 ofCover mxw100p',src:img.thumbnailUrl,}),
             $('<div/>',{
-                class:'imgsImgCard',
-                imgId:img.id,
+                class:'w300 fs09 mB10',
             }).append(
-                $('<img/>',{
-                    class:'imgsimg',
-                    src:'./storage/'+img.thumbnailUrl,
-                }),
-                $('<div/>',{
-                    class:'imgsImgInfo',
-                }).append(
-                    $('<div/>',{
-                        class:'mX5 mY2 row',
-                        tooltip:img.name+'.'+img.extension,
-                    }).append(
-                        $('<span/>',{class:'bold',text:texts.imgs.imgName+':'}),
-                        $('<span/>',{class:'mX3 imgsImgName',text:img.name+'.'+img.extension})
-                    ),
-                    $('<div/>',{
-                        class:'mX5 mY2',
-                    }).append(
-                        $('<span/>',{class:'bold',text:texts.imgs.imgType+':'}),
-                        $('<span/>',{class:'mX3',text:texts.imgs[img.extension.toLowerCase()]})
-                    ),
-                    $('<div/>',{
-                        class:'mX5 mY2',
-                    }).append(
-                        $('<span/>',{class:'bold',text:texts.imgs.dimensions+':'}),
-                        $('<span/>',{class:'mX3',text:img.width+' x '+img.height})
-                    ),
-                    $('<div/>',{
-                        class:'mX5 mY2',
-                    }).append(
-                        $('<span/>',{class:'bold',text:texts.imgs.imgSize+':'}),
-                        $('<span/>',{class:'mX3',text:imgSize+texts.imgs.mb+' ('+imgSizePercent+'%)'})
-                    ),
-                    $('<div/>',{
-                        class:'mX5 mY2',
-                        tooltip:getDateAndTime(img.created_at)
-                    }).append(
-                        $('<span/>',{class:'bold',text:texts.imgs.uploadedAt+':'}),
-                        $('<span/>',{class:'mX3 diffTimeCalc',time:img.created_at})
-                    ),
+                $('<div/>',{class:'mX5 row',tooltip:img.name+'.'+img.extension,}).append(
+                    $('<span/>',{class:'bold mie-3',text:texts.design.imgName+':'}),
+                    $('<span/>',{class:'ellipsis',text:img.name+'.'+img.extension})
                 ),
-                $('<div/>',{
-                    class:'imgsimgBtns',
+                $('<div/>',{class:'mX5'}).append(
+                    $('<span/>',{class:'bold mie-3',text:texts.design.imgType+':'}),
+                    $('<span/>',{text:texts.design[img.extension.toLowerCase()]})
+                ),
+                $('<div/>',{class:'mX5',}).append(
+                    $('<span/>',{class:'bold mie-3',text:texts.design.dimensions+':'}),
+                    $('<span/>',{text:img.width+' x '+img.height})
+                ),
+                $('<div/>',{class:'mX5'}).append(
+                    $('<span/>',{class:'bold mie-3',text:texts.design.imgSize+':'}),
+                    $('<span/>',{text:imgSize+texts.design.mb+' ('+imgSizePercent+'%)'})
+                ),
+                $('<div/>',{class:'mX5',tooltip:getDateAndTime(img.created_at)
                 }).append(
-                    $('<button/>',{imgId:img.id,class:'btn previewImg',text:texts.cpanel.public.preview}),
-                    $('<a/>',{class:'btn mY5 tdNone hvr-tdNone',text:texts.cpanel.public.download,download:img.name+'.'+img.extension,href:'./storage/'+img.url}),
-                    $('<button/>',{imgId:img.id,class:'btn copyImageLink',text:texts.cpanel.public.copyLink}),
-                    $('<button/>',{imgId:img.id,class:'btn btn-delete deleteImg',text:texts.cpanel.public.delete}),
-                )
+                    $('<span/>',{class:'bold mie-3',text:texts.design.uploadedAt+':'}),
+                    $('<span/>',{class:'diffTimeCalc',time:img.created_at})
+                ),
+            ),
+            $('<div/>',{
+                class:'imgsimgBtns',
+            }).append(
+                $('<div/>',{class:'imgsImgIcon ico-showPassword previewImg',img:img.id,tooltip:texts.cpanel.public.preview}),
+                $('<a/>',{class:'imgsImgIcon ico-download tdNone hvr-tdNone',tooltip:texts.cpanel.public.download,download:img.name+'.'+img.extension,href:img.url}),
+                $('<div/>',{class:'imgsImgIcon ico-copy copyImageLink',img:img.id,tooltip:texts.cpanel.public.copyLink}),
+                $('<div/>',{class:'imgsImgIcon ico-delete deleteImg',img:img.id,tooltip:texts.cpanel.public.delete}),
             )
         )
-    }
+    )
 }
 
-drawImgs();
 checkDeleteImg = function(imgId){
-    let img = imgs.find(item=> item.id == imgId);
+    let img = website.imgs.find(item=> item.id == imgId);
     let deleteLinkElem;
     let deleteValidation = true;
     if(imgId == website.logo){
@@ -76,30 +55,33 @@ checkDeleteImg = function(imgId){
     }else if (imgId == website.icon){
         deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailIcon,class:'cpPage mX5',cpPage:'restaurant_information'});
         deleteValidation = false
-    }else if(imgId == website.intro.img){
-        deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailIntro,class:'popupPage mX5',popupPage:'Website-Intro'});
-        deleteValidation = false
-    }else if(imgId == website.info.img){
-        deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailInfo,class:'popupPage mX5',popupPage:'Website-Info'});
-        deleteValidation = false
-    }else if(imgId == website.ourStory.img){
-        deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailOurStory,class:'popupPage mX5',popupPage:'Website-OurStory'});
-        deleteValidation = false
     }
-    let galleryCheck = website.gallery.split('.');
-    for(const key in galleryCheck){
-        if(imgId == galleryCheck[key]){
-            deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailGallery,class:'popupPage mX5',popupPage:'Website-Gallery'});
-            deleteValidation = false;
-        }
-    }
-    let slideShowCheck = website.slideShowImgs.split('.');
-    for(const key in slideShowCheck){
-        if(imgId == slideShowCheck[key]){
-            deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailslideShow,class:'popupPage mX5',popupPage:'Website-SlideShow'});
-            deleteValidation = false;
-        }
-    }
+    // else if(imgId == website.intro.img){
+    //     deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailIntro,class:'popupPage mX5',popupPage:'Website-Intro'});
+    //     deleteValidation = false
+    // }
+    // else if(imgId == website.info.img){
+    //     deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailInfo,class:'popupPage mX5',popupPage:'Website-Info'});
+    //     deleteValidation = false
+    // }
+    // else if(imgId == website.ourStory.img){
+    //     deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailOurStory,class:'popupPage mX5',popupPage:'Website-OurStory'});
+    //     deleteValidation = false
+    // }
+    // let galleryCheck = website.gallery.split('.');
+    // for(const key in galleryCheck){
+    //     if(imgId == galleryCheck[key]){
+    //         deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailGallery,class:'popupPage mX5',popupPage:'Website-Gallery'});
+    //         deleteValidation = false;
+    //     }
+    // }
+    // let slideShowCheck = website.slideShowImgs.split('.');
+    // for(const key in slideShowCheck){
+    //     if(imgId == slideShowCheck[key]){
+    //         deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailslideShow,class:'popupPage mX5',popupPage:'Website-SlideShow'});
+    //         deleteValidation = false;
+    //     }
+    // }
     for(const key in website.products){
         if(website.products[key].img_id == imgId){
                 deleteLinkElem = $('<a/>',{text:texts.imgs.deleteFailProduct+' '+website.products[key].name+'.',class:'popupPage mX5',popupPage:'Edit-Product',product:website.products[key].name});
@@ -140,15 +122,16 @@ checkDeleteImg = function(imgId){
 }
 $('html,body').on('click','.copyImageLink',function(e){
     e.stopImmediatePropagation();
-    let imgId = $(this).attr('imgId');
-    let imgUrl = imgs.find(item=> item.id == imgId).url;
-    navigator.clipboard.writeText('https://'+website.url+'/storage/'+imgUrl).then(function(){
+    let imgId = $(this).attr('img');
+    let imgUrl = website.imgs.find(item=> item.id == imgId).url;
+    navigator.clipboard.writeText(`https://${website.url}${imgUrl}`).then(function(){
         showAlert('normal',texts.imgs.copyed,4000,true);
     });
 });
+
 $('html,body').on('click','.deleteImg',function(e){
     e.stopImmediatePropagation();
-    let imgId = $(this).attr('imgId');
+    let imgId = $(this).attr('img');
     if(!checkDeleteImg(imgId)){return;}
     let img = imgs.find(item=> item.id == imgId);
     $('#delete-popup').find('.popupBody').text('').append(
@@ -195,6 +178,8 @@ $('html,body').on('click','#deleteImage-confirmBtn',function(){
         }
     });
 })
+
+
 setImgPreview = function(key){
     img = imgs[key];
     let planStorage = window.plans[website.plan].storage

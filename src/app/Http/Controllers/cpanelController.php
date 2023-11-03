@@ -275,9 +275,9 @@ class cpanelController extends Controller
                     // ->with(['financial_reports'=> function($q){
                     //     $q->select('month','year','website_id','id','created_at')->take(30)->orderBy('created_at','desc');
                     // }])
-                    ->with(['imgs'=>function($q){
-                        $q->orderBy('created_at','desc');
-                    }])
+                    // ->with(['imgs'=>function($q){
+                    //     $q->orderBy('created_at','desc');
+                    // }])
                     ->with(['activity_logs'=>function($q){
                         $q->orderBy('created_at','desc')->limit(5);
                     }])
@@ -356,9 +356,9 @@ class cpanelController extends Controller
                     }])
                     ->with(['deliveries'])
 
-                    ->with(['imgs'=>function($q){
-                        $q->orderBy('created_at','desc');
-                    }])
+                    // ->with(['imgs'=>function($q){
+                    //     $q->orderBy('created_at','desc');
+                    // }])
                     ->with(['categories'=>function($q){
                         $q->orderBy('sort','asc');
                     }])
@@ -370,9 +370,9 @@ class cpanelController extends Controller
             ->first();
         }
         $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];
-        if($website->template == 'demo'){
-            $website->template = $request->t ?? 1;
-        }
+        // if($website->template == 'demo'){
+        //     $website->template = $request->t ?? 1;
+        // }
         $website->templateData = foodmenuFunctions::templates()[$website->template];
         $account = Auth::guard('account')->user();
         $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];

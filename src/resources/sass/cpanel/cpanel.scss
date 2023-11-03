@@ -115,7 +115,7 @@ body{
 @import 'pages/categories/categoriesList';//done
 
 @import 'pages/products/manageProducts';//done
-@import 'pages/products/productReviews';
+@import 'pages/products/productReviews';//done
 
 @import 'pages/design/templates';
 @import 'pages/design/websiteColors';
@@ -376,9 +376,10 @@ td{
 //////
 .imgCard{
     background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow:var(--card-shdw);
     border-radius: 4px;
     object-fit: cover;
-    box-shadow: 0 0 2px 1px var(--shdw-5);
     cursor: pointer;
     overflow: hidden;
 }
@@ -390,7 +391,8 @@ td{
     padding:3px;
     border-radius: 2px;
     background-color: var(--shdw-40);
-    color:var(--white);
+    color:var(--txt-2);
+    // color:var(--white);
     cursor: pointer;
     pointer-events: none;
     // box-shadow: 0 0 1px 1px var(--shdw-10);

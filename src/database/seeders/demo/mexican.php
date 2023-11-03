@@ -13,6 +13,7 @@ class mexican extends Seeder
     {
         $mexican = new stdClass();
         $mexican->domainName = 'mexican';
+        $mexican->template = 13;
         $mexican->website_names = [
             'en' => 'Mexican Restaurant',
             'ar' => 'مطعم مكسيكي',

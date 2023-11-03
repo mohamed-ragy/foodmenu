@@ -13,6 +13,7 @@ class seafood extends Seeder
     {
         $seafood = new stdClass();
         $seafood->domainName = 'seafood';
+        $seafood->template = 22;
         $seafood->website_names = [
             'en' => 'Seafood',
             'ar' => 'مأكولات بحرية',

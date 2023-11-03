@@ -24,6 +24,8 @@
     --shdw-70:rgba(0, 0, 0, 0.7);
     --shdw-80:rgba(0, 0, 0, 0.8);
 
+    --card-shdw:0 0 20px var(--shdw-5), 0 0 1px 0px var(--shdw-10);
+
     --green-txt:rgb(255, 255, 255);
     --green:rgb(16, 144, 146);
     --green-90:rgba(16, 144, 146, 0.9);

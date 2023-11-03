@@ -13,6 +13,7 @@ class friedChicken extends Seeder
     {
         $friedChicken = new stdClass();
         $friedChicken->domainName = 'friedchicken';
+        $friedChicken->template = 21;
         $friedChicken->website_names = [
             'en' => 'Fried Chicken',
             'ar' => 'دجاج مقلي',

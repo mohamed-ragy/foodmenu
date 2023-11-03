@@ -475,15 +475,15 @@ handelCpanelChannel = function(n,code){
             $('#system-timeZoneCancelBtn').trigger('click');
             break;
         case 'settings.websiteIcon':
-            $('#settings-websiteIconImg').attr('src',n.iconUrl);
+            $('#settings-websiteIconImg').attr('src',n.icon);
             website.icon = n.icon;
-            website.iconUrl = n.iconUrl;
+            // website.iconUrl = n.iconUrl;
             // window.guideHints.websiteIcon();
             break;
         case 'settings.websiteLogo':
-            $('#settings-websiteLogoImg').attr('src',n.logoUrl);
+            $('#settings-websiteLogoImg').attr('src',n.logo);
             website.logo = n.logo
-            website.logoUrl = n.logoUrl;
+            // website.logoUrl = n.logoUrl;
             // window.guideHints.websiteLogo();
             break;
         case 'settings.websiteName':
@@ -863,15 +863,6 @@ handelCpanelChannel = function(n,code){
             drawCategoryList();
             break;
         case 'category.create':
-            n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
-            n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-            Object.keys(imgs).some(function(k) {
-                if(imgs[k].id == n.category.img_id){
-                    n.category.imgs = imgs[k];
-                    n.category.imgUrl = '/storage/'+imgs[k].url;
-                    n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                }
-            });
             website.categories.push(JSON.parse(JSON.stringify(n.category)))
             website_temp.categories.push(JSON.parse(JSON.stringify(n.category)))
             drawCategoryList();
@@ -903,16 +894,7 @@ handelCpanelChannel = function(n,code){
             drawCategoryList();
             window.guideHints.categories(website.categories);
             break;
-        case 'category.update':
-            n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
-            n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-            Object.keys(imgs).some(function(k) {
-                if(imgs[k].id == n.category.img_id){
-                    n.category.imgs = imgs[k];
-                    n.category.imgUrl = '/storage/'+imgs[k].url;
-                    n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                }
-            });
+        case 'category.edit':
             for(const key in website.categories){
                 if(website.categories[key].id == n.category.id){
                     website.categories[key] = JSON.parse(JSON.stringify(n.category));
@@ -930,15 +912,6 @@ handelCpanelChannel = function(n,code){
             window.guideHints.categories(website.categories);
             break;
         case 'product.create':
-            n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
-            n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-            Object.keys(imgs).some(function(k) {
-                if(imgs[k].id == n.product.img_id){
-                    n.product.imgs = imgs[k];
-                    n.product.imgUrl = '/storage/'+imgs[k].url;
-                    n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                }
-            });
             website.products.push(JSON.parse(JSON.stringify(n.product)));
             website_temp.products.push(JSON.parse(JSON.stringify(n.product)));
             if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
@@ -998,15 +971,6 @@ handelCpanelChannel = function(n,code){
             }
             break;
         case 'product.edit':
-            n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
-            n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-            Object.keys(imgs).some(function(k) {
-                if(imgs[k].id == n.product.img_id){
-                    n.product.imgs = imgs[k];
-                    n.product.imgUrl = '/storage/'+imgs[k].url;
-                    n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                }
-            });
             n.product.product_options = JSON.parse(JSON.stringify(website.products.find(item=>item.id == n.product.id).product_options))
             for(const key in website.products){
                 if(website.products[key].id == n.product.id){
@@ -1596,13 +1560,13 @@ let n =[];
         if(website.logo == null){
             websiteLogo = 'imgs/templates/'+website.template+'/logo.webp';
         }else{
-            websiteLogo = website.logoUrl;
+            websiteLogo = website.logo;
         }
         $('#settings-websiteLogoImg').attr('src','/storage/'+websiteLogo);
         if(website.icon == null){
             websiteIcon = 'imgs/templates/'+website.template+'/icon.webp';
         }else{
-            websiteIcon = website.iconUrl;
+            websiteIcon = website.icon;
         }
         $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
 
@@ -1615,13 +1579,13 @@ let n =[];
         if(website.logo == null){
             websiteLogo = 'imgs/templates/'+website.template+'/logo.webp';
         }else{
-            websiteLogo = website.logoUrl;
+            websiteLogo = website.logo;
         }
         $('#settings-websiteLogoImg').attr('src','/storage/'+websiteLogo);
         if(website.icon == null){
             websiteIcon = 'imgs/templates/'+website.template+'/icon.webp';
         }else{
-            websiteIcon = website.iconUrl;
+            websiteIcon = website.icon;
         }
         $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
     }else if(n.code == 26 && account.authorities[1] == 1){

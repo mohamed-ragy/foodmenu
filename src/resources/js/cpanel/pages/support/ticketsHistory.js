@@ -7,7 +7,7 @@ appendNewTicketMsg = function(msg,append){
     if(msg.author == 0){
         ticketMsgClass = 'ticketMsgwebsite';
         ticketMsgAuthor = website.domainName;
-        authorImg = website.logoUrl;
+        authorImg = website.logo;
         ticketMsgMSgClass = 'ltr';
     }else if(msg.author == 1){
         ticketMsgClass = 'ticketMsgadmin';

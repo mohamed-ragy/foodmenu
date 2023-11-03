@@ -211,12 +211,12 @@ $('#bodyPage').on('click','.applyTemplateBtn',function(e){
                 $('#design-homePageSections-ourStoryCancelBtn').trigger('click');
                 let websiteLogo;let websiteIcon;
                 if(website.logo == null){
-                    website.logoUrl = `/storage/imgs/templates/${website.template}/logo.webp`
-                    $('#settings-websiteLogoImg').attr('src',website.logoUrl);
+                    website.logo = `/storage/imgs/templates/${website.template}/logo.webp`
+                    $('#settings-websiteLogoImg').attr('src',website.logo);
                 }
                 if(website.icon == null){
-                    website.iconUrl = `/storage/imgs/templates/${website.template}/icon.webp`
-                    $('#settings-websiteIconImg').attr('src',website.iconUrl);
+                    website.icon = `/storage/imgs/templates/${website.template}/icon.webp`
+                    $('#settings-websiteIconImg').attr('src',website.icon);
                 }
                 if(website.intro.img == 'template'){
                     website.introImgUrl = `/storage/imgs/templates/${website.template}/intro.webp`

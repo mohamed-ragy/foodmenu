@@ -1,37 +1,41 @@
-
-
+require('./imgs/storageBar.js') //done
 require('./imgs/imgs.js') //done
 require('./imgs/uploadImg.js') //done
 require('./imgs/imgBrowser.js') //done
 
 
-resetStorageBar = function(){
-    let planStorage = window.plans[website.plan].storage
-    let currentStorage = 0;
-    for(const key in imgs){
-        currentStorage = currentStorage + imgs[key].size;
-    }
-    currentStorage = (currentStorage /1024 /1024).toFixed(2);
-    let storagePercent = (currentStorage / planStorage *100).toFixed(2);
+getImgs = function(){
+    return new Promise(function(resolve,reject){
+        if(!window.imgs_getMore || window.imgs_noMore ){resolve();return}
+        window.imgs_getMore = false;
+        $.ajax({
+            url:'/imgs',
+            type:'post',
+            data:{
+                _token:$('meta[name="csrf-token"]').attr('content'),
+                getImgs:true,
+                skip:website.imgs.length,
+            },
+            success:function(r){
+                if(r.imgs.length == 0){window.imgs_noMore = true;}
+                for(const key in r.imgs){
+                    website.imgs.push(r.imgs[key])
+                }
+                resolve(r.imgs);
+            }
+        }).done(function(){window.imgs_getMore = true;})
+    })
 
-    $('.imgs-storageBar-currentStorage').text(currentStorage);
-    $('.imgs-storageBar-planStorage').text(planStorage);
-    $('.storageBarinside').css({width:storagePercent+'%'});
-    if(storagePercent == 0 ){
-        $('.storageBarinside').css({'background-image':'transparent'});
-        $('.storageBarinside').css({'color':'var(--c1txt)'});
-    }
-    else if(storagePercent > 0 && 50 >= storagePercent ){
-        $('.storageBarinside').css({'background-image':'var(--bgbr-green)'});
-        $('.storageBarinside').css({'color':'var(--green-txt)'});
-    }
-    else if(storagePercent > 50 && 85 >= storagePercent ){
-        $('.storageBarinside').css({'background-image':'var(--bgbr-orange)'});
-        $('.storageBarinside').css({'color':'var(--orange-txt)'});
-    }
-    else if(storagePercent > 85 && 100 >= storagePercent ){
-        $('.storageBarinside').css({'background-image':'var(--bgbr-red)'});
-        $('.storageBarinside').css({'color':'var(--red-txt)'});
-    }
 }
-resetStorageBar();
+
+$('#bodyPage').on('scroll',function(e){
+    if(window.history.state.page == 'images' && window.imgs_getMore && !window.imgs_noMore){
+        if($('#bodyPage')[0].scrollHeight - $('#bodyPage').scrollTop() < $('#bodyPage').innerHeight() + 100){
+            getImgs().then(function(imgs){
+                for(const key in imgs){
+                    drawImg(imgs[key])
+                }
+            });
+        }
+    }
+})

@@ -23,7 +23,7 @@ class product extends Model
 
     }
     protected $fillable = [
-        'website_id','sort','category_id','img_id','name',
+        'website_id','sort','category_id','img_id','img','thumbnail','name',
         'names',
         'descriptions',
         'price','availability','rating','ratings_sum','ordered_sum',

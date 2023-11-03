@@ -183,8 +183,8 @@ drawPage_restaurant_information = function(){
     )
 
 
-    $('#settings-websiteIconImg').attr('src',website.iconUrl);
-    $('#settings-websiteLogoImg').attr('src',website.logoUrl);
+    $('#settings-websiteIconImg').attr('src',website.icon);
+    $('#settings-websiteLogoImg').attr('src',website.logo);
 
     for(const key in website.languages){
         let lang = website.languages[key];

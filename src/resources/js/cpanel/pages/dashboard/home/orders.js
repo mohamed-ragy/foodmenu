@@ -297,7 +297,7 @@ drawHomeShareYoutProducts = function(){
             let product = website.products[key];
             $('#home-shareYourProductsContainer').append(
                 $('<div/>',{class:'homeShareProduct '}).append(
-                    $('<img/>',{class:'w200 h100 br3 ofCover',src:product.imgUrl_thumbnail}),
+                    $('<img/>',{class:'w200 h100 br3 ofCover',src:product.thumbnail}),
                     $('<div/>',{class:'w100p-10 pY5 fs101 row alnC jstfySB'}).append(
                         $('<a/>',{text:product.name,class:'mX5 ellipsis w60p popupPage',popupPage:'Product',product:product.name}),
                         $('<span/>',{class:'ico-share share pointer',tooltip:texts.cpanel.public.share,type:'product',itemId:product.id}),
@@ -347,7 +347,7 @@ drawTodayNotOrderedProducts = function(){
             if(typeof(product) !== 'undefined'){
                 $('.home-productsNotOrderedContainer').append(
                     $('<div/>',{class:'homeShareProduct '}).append(
-                        $('<img/>',{class:'w200 h100 br3 ofCover',src:product.imgUrl_thumbnail}),
+                        $('<img/>',{class:'w200 h100 br3 ofCover',src:product.thumbnail}),
                         $('<div/>',{class:'w100p-10 pY5 fs101 row alnC jstfySB'}).append(
                             $('<a/>',{text:product.name,class:'mX5 ellipsis w60p popupPage',popupPage:'Product',product:product.name}),
                             $('<span/>',{class:'ico-share share pointer',tooltip:texts.cpanel.public.share,type:'product',itemId:product.id}),

@@ -13,6 +13,7 @@ class sushiBar extends Seeder
     {
         $sushiBar = new stdClass();
         $sushiBar->domainName = 'sushibar';
+        $sushiBar->template = 20;
         $sushiBar->website_names = [
             'en' => 'Sushi Bar',
             'ar' => 'شريط السوشي',

@@ -1,21 +1,4 @@
-for (const key in window.alertTones ) {
-    const alert = window.alertTones[key];
-    if(alert.id == settings_temp.normalAlert){
-        $('#alert_normal').attr('src', alert.url)[0];
-    }
-    if(alert.id == settings_temp.errorAlert){
-        $('#alert_error').attr('src', alert.url)[0];
-    }
-    if(alert.id == settings_temp.successAlert){
-        $('#alert_success').attr('src', alert.url)[0];
-    }
-    if(alert.id == settings_temp.warningAlert){
-        $('#alert_warning').attr('src', alert.url)[0];
-    }
-    if(alert.id == settings_temp.newMsgAlert){
-        $('#newChatMsgSound').attr('src', alert.url)[0];
-    }
-}
+
 showAlert = function(type,text,time=4000,sound=false){
     $('#statusBar').text(text);
     if(sound == true ){

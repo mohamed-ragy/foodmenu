@@ -35,6 +35,7 @@ appendImgToImgBrowser = function(imgId,imgName,imgUrl,imgBrowserClass,a){
         )
     )
 }
+
 showImgBrowser = function(title,imgBrowserClass){
     showPopup('imgBrowser',function(){
         $('.popupTitle').text(title)
@@ -56,7 +57,7 @@ showImgBrowser = function(title,imgBrowserClass){
         }
         for(const key in imgs){
             let img = imgs[key];
-            appendImgToImgBrowser(img.id,img.name,'/storage/'+img.thumbnailUrl,imgBrowserClass,'a');
+            appendImgToImgBrowser(img.id,img.name,img.thumbnailUrl,imgBrowserClass,'a');
         }
         window.imgBrowser.opened = true;
         window.imgBrowser.title = title;

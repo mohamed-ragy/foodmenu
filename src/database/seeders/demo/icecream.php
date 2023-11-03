@@ -13,6 +13,7 @@ class icecream extends Seeder
     {
         $icecream = new stdClass();
         $icecream->domainName = 'icecream';
+        $icecream->template = 23;
         $icecream->website_names = [
             'en' => 'Ice cream Shop',
             'ar' => 'محل مثلجات',

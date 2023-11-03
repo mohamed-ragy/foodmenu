@@ -49,15 +49,6 @@ $('html,body').on('click','#createProductBtn',function(e){
             hideBtnLoading($('#createProductBtn'));
             if(r.createNewProductStatus == 1){
                 showAlert('success',r.msg,4000,true)
-                r.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
-                r.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-                Object.keys(imgs).some(function(k) {
-                    if(imgs[k].id == r.product.img_id){
-                        r.product.imgs = imgs[k];
-                        r.product.imgUrl = '/storage/'+imgs[k].url;
-                        r.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                    }
-                });
                 website.products.push(JSON.parse(JSON.stringify(r.product)));
                 website_temp.products.push(JSON.parse(JSON.stringify(r.product)));
                 if(window.history.state.page == 'manage_products'){

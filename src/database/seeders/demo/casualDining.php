@@ -13,6 +13,7 @@ class casualDining extends Seeder
     {
         $casualDining = new stdClass();
         $casualDining->domainName = 'casualdining';
+        $casualDining->template = 3;
         $casualDining->website_names = [
             'en' => 'Casual Dining',
             'ar' => 'عشاء غير رسمي',

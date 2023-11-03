@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Lang;
 use App\Models\cpanelSettings;
 use App\Models\categories;
 use App\Models\foodmenuFunctions;
+use App\Models\img;
 use App\Models\plan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -81,9 +82,21 @@ class categoriesController extends Controller
                             foreach($request->categoryDescriptions as $lang => $description){
                                 $descriptions[$lang] = strip_tags($description);
                             }
+                            if($request->categoryImg == '' || $request->categoryImg == null){
+                                $img_url = '/storage/imgs/cpanel/noimg.png';
+                                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
+                            }else{
+                                $img = img::where(['website_id'=>$this->website_id,'id'=>$request->categoryImg])->first();
+                                if($img != null){
+                                    $img_url = $img->url;
+                                    $thumbnail_url = $img->thumbnailUrl;
+                                }
+                            }
                             $createNewCategory = categories::create([
                                 'website_id'=>$this->website_id,
                                 'img_id'=>$request->categoryImg,
+                                'img' => $img_url,
+                                'thumbnail' => $thumbnail_url,
                                 'sort'=>$newCatSort + 1,
                                 'name'=>strip_tags($request->categoryName),
                                 'names' => $names,
@@ -162,15 +175,27 @@ class categoriesController extends Controller
             foreach($request->categoryDescriptions as $lang => $description){
                 $descriptions[$lang] = strip_tags($description);
             }
+            if($request->categoryImg == '' || $request->categoryImg == null){
+                $img_url = '/storage/imgs/cpanel/noimg.png';
+                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
+            }else{
+                $img = img::where(['website_id'=>$this->website_id,'id'=>$request->categoryImg])->first();
+                if($img != null){
+                    $img_url = $img->url;
+                    $thumbnail_url = $img->thumbnailUrl;
+                }
+            }
             $editCategory = categories::where(['id'=>$request->editCategory , 'website_id'=>$this->website_id])->update([
                 'img_id'=>$request->categoryImg,
+                'img' => $img_url,
+                'thumbnail' => $thumbnail_url,
                 'names' => $names,
                 'descriptions' => $descriptions,
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($editCategory){
                 $category = categories::where(['name'=>$request->categoryName , 'website_id'=>$this->website_id])->first();
-                foodmenuFunctions::notification('category.update',[
+                foodmenuFunctions::notification('category.edit',[
                     'website_id' => $this->website_id,
                     'code' => 11,
                     'account_id' => Auth::guard('account')->user()->id,

@@ -4,7 +4,7 @@ $('html,body').on('click','#createNewProductOption',function(e){
     showPopup('createNewProductOption',function(){
         $('.popupBody').addClass('m0 p10 w100p-20').append(
             $('<div/>',{class:'row alnC jstfyS mB20'}).append(
-                $('<img/>',{class:'h40 w40 br5 ofCover',src:product.imgUrl_thumbnail}),
+                $('<img/>',{class:'h40 w40 br5 ofCover',src:product.thumbnail}),
                 $('<div/>',{class:'fs102 bold500 mis-5',text:product.name}),
             ),
             $('<div/>',{class:'',id:'createNewOptionInputsContainer'}).append(

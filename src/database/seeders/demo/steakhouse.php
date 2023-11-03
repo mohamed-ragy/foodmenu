@@ -13,6 +13,7 @@ class steakhouse extends Seeder
     {
         $steakhouse = new stdClass();
         $steakhouse->domainName = 'steakhouse';
+        $steakhouse->template = 18;
         $steakhouse->website_names = [
             'en' => 'Steakhouse',
             'ar' => 'بيت شرائح اللحم',

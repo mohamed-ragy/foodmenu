@@ -13,6 +13,7 @@ class sandwiches extends Seeder
     {
         $sandwiches = new stdClass();
         $sandwiches->domainName = 'sandwiches';
+        $sandwiches->template = 7;
         $sandwiches->website_names = [
             'en' => 'Sandwiches',
             'ar' => 'شطائر',

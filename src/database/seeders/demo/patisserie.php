@@ -13,6 +13,7 @@ class patisserie extends Seeder
     {
         $patisserie = new stdClass();
         $patisserie->domainName = 'patisserie';
+        $patisserie->template = 9;
         $patisserie->website_names = [
             'en' => 'Patisserie',
             'ar' => 'المعجنات',

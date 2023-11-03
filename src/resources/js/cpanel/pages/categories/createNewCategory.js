@@ -38,15 +38,6 @@ $('html,body').on('click','#createCategoryBtn',function(e){
             hideBtnLoading($('#createCategoryBtn'));
             if(response.createNewCategoryStatus == 1){
                 showAlert('success',response.msg,4000,true);
-                response.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
-                response.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-                Object.keys(imgs).some(function(k) {
-                    if(imgs[k].id == response.category.img_id){
-                        response.category.imgs = imgs[k];
-                        response.category.imgUrl = '/storage/'+imgs[k].url;
-                        response.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                    }
-                });
                 website.categories.push(JSON.parse(JSON.stringify(response.category)));
                 website_temp.categories.push(JSON.parse(JSON.stringify(response.category)));
                 drawCategoryList();

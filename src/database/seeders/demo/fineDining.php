@@ -13,6 +13,7 @@ class fineDining extends Seeder
     {
         $fineDining = new stdClass();
         $fineDining->domainName = 'finedining';
+        $fineDining->template = 4;
         $fineDining->website_names = [
             'en' => 'Fine Dining',
             'ar' => 'طعام ممتاز',

@@ -12,7 +12,7 @@ drawPopupPage_edit_product = function(product_name){
         $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(
             $('<div/>',{text:texts.products.productImg,class:'c_white-8 fs08 mB3'}),
             $('<span/>',{class:'ico-edit imgCardIcon'}),
-            $('<img/>',{class:'imgCard g150 w150',id:'editProduct_img',src:product.imgUrl_thumbnail})
+            $('<img/>',{class:'imgCard g150 w150',id:'editProduct_img',src:product.thumbnail})
         ),
         drawInputText('','ico-edit','',texts.products.productIdentifier,'editProduct_productName','text',texts.products.productIdentifier,150,'copy','',product.name,true),
         drawInputText('','ico-money','',texts.products.productPrice,'editProduct_productPrice','number',texts.products.productPrice,150,'clearVal','',product.price,false),

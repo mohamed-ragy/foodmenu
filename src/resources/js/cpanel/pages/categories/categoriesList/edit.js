@@ -36,15 +36,8 @@ $('html,body').on('click','.imgBrowser-editCatImg',function(e){
     $('#editCategory_img').attr('imgId',imgId)
     $('#editCategory_img').attr('src',imgUrl)
     website_temp.categories.find(item=> item.name == window.history.state.category).img_id = imgId;
-    website_temp.categories.find(item=> item.name == window.history.state.category).imgUrl = '/storage/imgs/cpanel/noimg.png';
-    website_temp.categories.find(item=> item.name == window.history.state.category).imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-    Object.keys(imgs).some(function(k) {
-        if(imgs[k].id ==  website_temp.categories.find(item=> item.name == window.history.state.category).img_id){
-            website_temp.categories.find(item=> item.name == window.history.state.category).imgs = imgs[k];
-            website_temp.categories.find(item=> item.name == window.history.state.category).imgUrl = '/storage/'+imgs[k].url;
-            website_temp.categories.find(item=> item.name == window.history.state.category).imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-        }
-    });
+    website_temp.categories.find(item=> item.name == window.history.state.category).img = imgUrl;
+    website_temp.categories.find(item=> item.name == window.history.state.category).thumbnail = imgUrl;
     category_list_unsave_check();
 });
 
@@ -114,15 +107,6 @@ $('html,body').on('click','#editCategory_saveBtn',function(e){
         },success:function(r){
             hideBtnLoading($('#editCategory_saveBtn'));
             if(r.editCategoryStatus == 1){
-                r.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
-                r.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-                Object.keys(imgs).some(function(k) {
-                    if(imgs[k].id == r.category.img_id){
-                        r.category.imgs = imgs[k];
-                        r.category.imgUrl = '/storage/'+imgs[k].url;
-                        r.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-                    }
-                });
                 for(const key in website.categories){
                     if(website.categories[key].id == r.category.id){
                         website.categories[key] = JSON.parse(JSON.stringify(r.category));

@@ -18,6 +18,7 @@ class americanDiner extends Seeder
     {
         $americanDiner = new stdClass();
         $americanDiner->domainName = 'americandiner';
+        $americanDiner->template = 2;
         $americanDiner->website_names = [
             'en' => 'American Diner',
             'ar' => 'أمريكان داينر',

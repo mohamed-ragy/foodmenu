@@ -29,7 +29,7 @@ drawPlaceOrderItems = function(){
                     }),
                     $('<img/>',{
                         class:'alnsS h50 w50 ofCover br3 mX5',
-                        src:product.imgUrl_thumbnail,
+                        src:product.thumbnail,
                     }),
                     $('<div/>',{
                         class:'grow2 alnsS mX5',

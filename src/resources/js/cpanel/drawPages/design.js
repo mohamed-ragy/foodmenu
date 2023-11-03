@@ -1,0 +1,1 @@
+require('./design/images.js')

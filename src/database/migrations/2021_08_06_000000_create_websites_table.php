@@ -59,8 +59,8 @@ class CreateWebsitesTable extends Migration
             $table->json('trendingProducts')->nullable();
 
 
-            $table->integer('icon')->nullable();
-            $table->integer('logo')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('logo')->nullable();
             $table->integer('website_colors')->default(1);
             $table->boolean('useCustomColors')->default(false);
             $table->json('customColorsHexCode');

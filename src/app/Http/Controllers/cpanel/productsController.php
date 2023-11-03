@@ -9,6 +9,7 @@ use App\Models\categories;
 use Illuminate\Http\Request;
 use App\Models\cpanelSettings;
 use App\Models\foodmenuFunctions;
+use App\Models\img;
 use App\Models\notification;
 use App\Models\plan;
 use App\Models\product;
@@ -74,6 +75,18 @@ class productsController extends Controller
             foreach($request->productDescriptions as $lang => $description){
                 $descriptions[$lang] = strip_tags($description);
             }
+
+            if($request->productImgId == '' || $request->productImgId == null){
+                $img_url = '/storage/imgs/cpanel/noimg.png';
+                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
+            }else{
+                $img = img::where(['website_id'=>$this->website_id,'id'=>$request->productImgId])->first();
+                if($img != null){
+                    $img_url = $img->url;
+                    $thumbnail_url = $img->thumbnailUrl;
+                }
+            }
+
             $createNewProduct = product::create([
                 'website_id'=>$this->website_id,
                 'sort'=> $newProdSort + 1,
@@ -81,6 +94,8 @@ class productsController extends Controller
                 'price' => strip_tags($request->price),
                 'category_id' => $request->categoryId,
                 'img_id'=>$request->productImgId,
+                'img' => $img_url,
+                'thumbnail' => $thumbnail_url,
                 'names' => $names,
                 'descriptions' => $descriptions,
                 'rating' => null,
@@ -197,12 +212,25 @@ class productsController extends Controller
                 $descriptions[$lang] = strip_tags($description);
             }
 
+            if($request->img_id == '' || $request->img_id == null){
+                $img_url = '/storage/imgs/cpanel/noimg.png';
+                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
+            }else{
+                $img = img::where(['website_id'=>$this->website_id,'id'=>$request->img_id])->first();
+                if($img != null){
+                    $img_url = $img->url;
+                    $thumbnail_url = $img->thumbnailUrl;
+                }
+            }
+
             if($product->update([
                 'sort' => $sort,
                 'price' => $request->price,
                 'availability'=> $request->availability,
                 'category_id' => $request->category_id,
                 'img_id'=>$request->img_id,
+                'img' => $img_url,
+                'thumbnail' => $thumbnail_url,
                 'names' => $names,
                 'descriptions' => $descriptions,
                 'updated_at' => Carbon::now()->timestamp

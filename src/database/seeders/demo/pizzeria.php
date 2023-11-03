@@ -20,6 +20,7 @@ class pizzeria extends Seeder
 
         $pizzeria = new stdClass();
         $pizzeria->domainName = 'pizzeria';
+        $pizzeria->template = 1;
         $pizzeria->website_names = [
             'en' => 'Pizzeria',
             'ar' => 'مطعم بيتزا',

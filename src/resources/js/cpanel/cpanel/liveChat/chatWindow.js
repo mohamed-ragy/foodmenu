@@ -314,7 +314,7 @@ $('html,body').on('click','.chatShareProduct',function(e){
                     $('<img/>',{
                         class:'chatShareProductImg',
                         alt:'',
-                        src:product.imgUrl_thumbnail,
+                        src:product.thumbnail,
                     }),
                     $('<div/>',{class:'chatShareProductName'}).append(
 

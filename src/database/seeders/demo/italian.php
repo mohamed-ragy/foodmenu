@@ -13,6 +13,7 @@ class italian extends Seeder
     {
         $italian = new stdClass();
         $italian->domainName = 'italian';
+        $italian->template = 5;
         $italian->website_names = [
             'en' => 'ITALIAN',
             'ar' => 'الايطالية',

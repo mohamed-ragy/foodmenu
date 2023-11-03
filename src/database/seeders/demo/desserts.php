@@ -13,6 +13,7 @@ class desserts extends Seeder
     {
         $desserts = new stdClass();
         $desserts->domainName = 'desserts';
+        $desserts->template = 10;
         $desserts->website_names = [
             'en' => 'Desserts Shop',
             'ar' => 'محل حلويات',

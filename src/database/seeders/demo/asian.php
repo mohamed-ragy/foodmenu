@@ -13,6 +13,7 @@ class asian extends Seeder
     {
         $asian = new stdClass();
         $asian->domainName = 'asian';
+        $asian->template = 16;
         $asian->website_names = [
             'en' => 'Asian',
             'ar' => 'آسيا',
