@@ -1,7 +1,7 @@
 drawPopupPage_create_product = function(){
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.create_product}),
-        $('<span/>',{class:'ico-help help-icon',helpId:''})
+        $('<span/>',{class:'ico-help help-icon',helpId:'create_new_product'})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40  p20').append(
         $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(

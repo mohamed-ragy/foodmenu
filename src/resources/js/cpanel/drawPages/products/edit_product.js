@@ -3,7 +3,7 @@ drawPopupPage_edit_product = function(product_name){
     $('#popupPageTitle').text('').append(
         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:`editProductNoSave_${product.name} ico-warning unsaved none mie-5 mis-5 fs1 `}),
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.edit_product}),
-        $('<span/>',{class:'ico-help help-icon',helpId:''})
+        $('<span/>',{class:'ico-help help-icon',helpId:'edit_product'})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40  p20').append(
         $('<div/>',{class:'btnContainer'}).append(

@@ -645,7 +645,7 @@ return [
     'delivery_accounts' => [
         'title' => 'Delivery accounts',
         'content' => <<<string
-        <p>- Here, you can create and find all your delivery accounts. Delivery accounts are accounts that you can use to assign orders to your delivery personnel.</p>
+        <p>- Delivery accounts are accounts that you can set up for your delivery personnel in order to assign them orders to deliver.</p>
         <p>- To create a delivery account, click on the <b>Create new delivery account</b> button.</p>
         string,
     ], 
@@ -834,41 +834,77 @@ return [
         <p>- You can modify the category name in the different languages you've selected for your website from the <b>Category name</b> input boxes.</p>
         <p>- In the <b>Category description</b> input boxes, you can modify the category description in each of the languages you have set for your website, which is also used as the meta description for the category page.</p>
         string,
-    ],    
-    '' => [
-        'title' => '',
+    ],  
+    /////////Help icon  
+    'manage_products' => [
+        'title' => 'Manage products',
         'content' => <<<string
-        <p></p>
+        <p>- Here, you can find all the products you created on your account. To add a new product, click on the <b>Create new product</b> button.</p>
+        <p>- To search for products within a specific category, click on the input list, then select the category. Alternatively, you can select <b>Uncategorized products</b> to view all products that are yet to be categorized, or select <b>All products</b> to view all products on your account.</p>
         string,
     ],    
-    '' => [
-        'title' => '',
+    /////////auto help
+    'product_cards' => [
+        'title' => 'Product cards',
         'content' => <<<string
-        <p></p>
+        <p>- Each product on your account is represented here as a product card, from which you can manage the product.</p>
+        <p>- Each product card contains basic information about the product as well as six action buttons as follows:</p>
+        <p><ul>
+        <li><b>Product availability:</b> By switching on the <b>Product availability</b> button, your product will be marked as available on your website. If you switch off the button, the product remains visible on your website but is marked as unavailable.</li>
+        <li><b>Reviews <span class="ico-product_reviews"></span> :</b> When you click this button, you will be taken to the rating and reviews page, where you can find and manage reviews for the selected product.</li>
+        <li><b>Manage product variants <span class="ico-list"></span> :</b> When you click on this button, you will be able to create or edit the selected product variants.</li>
+        <li><b>Edit product <span class="ico-edit"></span> :</b> By clicking on this button, you will be able to edit the selected product details.</li> 
+        <li><b>Share <span class="ico-share"></span> :</b> You can share the product page on your social media platforms by clicking on this button.</li>
+        <li><b>Delete <span class="ico-delete"></span> :</b> You can permanently delete the selected product from your website when you click on this button.</li>
+        </ul></p>
+        <p>- To change the order of products within the selected category, click on the <b>Drag and drop</b> icon <span class="ico-move"></span> and sort the products into the desired order you want on your website.</p>
         string,
     ],    
-    '' => [
-        'title' => '',
+    ////////help icon
+    'manage_product_variants' => [
+        'title' => 'Manage product variants',
         'content' => <<<string
-        <p></p>
+        <p>- Product variants are the different options you can add to a product, such as size or flavor. Within each product variant, you can add selections that customers can choose in regards to this variant.
+
+        For instance, your product "Milkshake" can have "size" as a variant and "regular" and "large" as selections.</p>
+        <p>- To add a new variant to the selected product, click on the <b>Create new product variant</b> button. You'll only be required to enter an identifier for the variant as a unique ID for it. The identifier has to be written in small English letters, numbers, underscores, or dashes only.
+        You can then enter the variant name exactly as you want it to appear on your website in the languages you have chosen.</p>
+        <p>- After creating a product variant, you can add selections to it by clicking on the <b>Create new variant selection</b> button and entering the selection identifier, price, and name.</p>
         string,
     ],
-    '' => [
-        'title' => '',
+    //////////help icon
+    'edit_product' => [
+        'title' => 'Edit product',
         'content' => <<<string
-        <p></p>
+        <p>- Here, you can edit the selected product's basic info, except for the product identifier, which is unchangeable once created.</p>
+        <p>- To change the product image, click on the image card to upload a new image or choose from the previously added images on your account.</p>
+        <p>- You can then modify the product price in its respective input box and categorize the product using the provided input list.</p>
+        <p>- To mark the product as available for purchase on your website, switch on the <b>Product availability</b> button. When you switch off the button, the opposite occurs.</p>
+        <p>- In the <b>Product name</b> input boxes, you can change the display name of your product as you want it to appear on your website in the languages you've selected.</p>
+        <p>- In the <b>Product description</b> input boxes, you can change the product description in the languages you have selected for your website.</p>
         string,
     ],
-    '' => [
-        'title' => '',
+    ///////////help icon
+    'create_new_product' => [
+        'title' => 'Create new product',
         'content' => <<<string
-        <p></p>
+        <p>- Here, you can enter all the basic info for the new product you're creating.</p>
+        <p>- To add a product image, click on the image card to upload a new image or browse from the previously added images on your account.</p>
+        <p>- In the <b>Product identifier</b> input box, you can enter a unique identifier for your product that is used to create the URL for the product pageand to distinguish it from other products on your account. The identifier has to be written in small English letters, numbers, underscores, or dashes only.</p>
+        <p>- Then, using the input boxes provided, you can set the product price and categorize it.</p>
+        <p>- In the <b>Product name</b> input boxes, you can enter the display name of your product as you want to appear on your website in the languages you've selected.</p>
+        <p>- In the <b>Product description</b> input boxes, you can enter the product description in the languages you have selected, which will appear on your website and be used as the meta description for the product page.</p>
         string,
     ],
-    '' => [
-        'title' => '',
+    /////////help icon
+    'product_rating_and_reviews' => [
+        'title' => 'Product rating and reviews',
         'content' => <<<string
-        <p></p>
+        <p>- Here, you can find and manage all the product ratings and reviews made by visitors to your website.</p>
+        <p>- To search for reviews on a specific product, click on the input list provided, or you can search for reviews on all of your products by selecting "All products". 
+        Alternatively, you can click on the <b>More Filters</b> button to be presented with additional filters from which you can narrow your search for reviews.</p>
+        <p>- After selecting the product(s) you want to review, click on the <b>Find</b> button, to view the results in the form of cards.</p>
+        <p>- Each review card includes all the details about the added review. To permanently delete a review from your website click on the <b>Delete</b> button <span class="ico-delete"></span>.</p>
         string,
     ],
     '' => [

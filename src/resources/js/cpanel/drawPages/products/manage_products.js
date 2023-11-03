@@ -7,6 +7,7 @@ drawPage_manage_products = function(){
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'productsListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
                 $('<span/>',{text:texts.cpanel.menu.manage_products}),
+                $('<span/>',{class:'ico-help help-icon',helpId:'manage_products'})
             ),
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_product',text:texts.products.createNewProduct})
@@ -15,7 +16,7 @@ drawPage_manage_products = function(){
                 drawInputList('','ico-categories','',texts.products.selectCategory,'manageProducts-selectCategory',texts.products.selectCategory,200,'manageProducts-selectCategoryList',false,'zx30','',''),
             ),
             $('<div/>',{class:'mY40 pageSection_brdrB'}),
-            $('<div/>',{class:'productsListContainer w100p row wrap alnS jstfyC'})
+            $('<div/>',{class:'productsListContainer w100p row wrap alnS jstfyC',autoHelp:'product_cards'})
         )
     )
 

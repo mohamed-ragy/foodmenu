@@ -8,7 +8,7 @@ draw_product_reviews = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.product_reviews}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'product_rating_and_reviews'})
             ),
             $('<div/>',{class:'w100p mT40'}).append(
                 $('<div/>',{class:'fs08 mB5',text:texts.products.reviewsOn}),
