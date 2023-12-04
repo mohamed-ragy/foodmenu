@@ -22,7 +22,7 @@ class underConstruction
             return $next($request);
         }
 
-        if(request()->getHost()  == 'ragy.food-menu.net' ||
+        if(
             request()->getRequestUri() == '/underConstractionSignup' ||
             request()->getRequestUri() == '/stripe/invoices' ||
             request()->getRequestUri() == '/stripe/subscriptions' ||
