@@ -71,12 +71,12 @@ class deliveryAccountController extends Controller
                 'delivery_id' => Auth::guard('delivery')->user()->id,
                 'status'=>3
             ])
-            ->orderBy('withDelivery_at','desc')->select([
+            ->orderBy('out_for_delivery_at','desc')->select([
                 'website_id','id','_id',
                 'isGuest','userName','phoneNumber','address','lat','lng',
                 'notice',
                 'total','paymentMethod',
-                'withDelivery_at',
+                'out_for_delivery_at',
             ])->get();
             return response(['orders'=> $orders]);
         }
@@ -132,7 +132,7 @@ class deliveryAccountController extends Controller
 
     }
     public function home(Request $request)
-    {   
+    {
         delivery::where('id',Auth::guard('delivery')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
         $settings = website::where('id',Auth::guard('delivery')->user()->website_id)->select(['currencies','languages'])->first();
         return view('deliveryAccount.home',['settings' => $settings]);

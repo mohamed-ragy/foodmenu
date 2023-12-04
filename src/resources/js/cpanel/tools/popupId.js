@@ -29,6 +29,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
                 )
                 checkUseenNotifications([4],'product_review_id',window.product_reviews.find(item=>item.id == $(this).attr('review')).id)
             }
+            showPopupId(thisPopupIdElem)
         break;
         case 'product':
             // if(!account.authorities[0]){return;}
@@ -64,6 +65,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
                     )
                 )
             )
+            showPopupId(thisPopupIdElem)
         break;
         case 'category':
             let category = website.categories.find(item=>item.name == $(this).attr('category'));
@@ -87,6 +89,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
                     )
                 )
             )
+            showPopupId(thisPopupIdElem)
         break;
         case 'user':
             getUsersData([$(this).attr('user')]).then(()=>{
@@ -117,6 +120,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
                 setUserOnlineStatus(user.id,'user')
                 setUnseenChat('user',user.id)
                 authorities();
+                showPopupId(thisPopupIdElem)
             });
         break;
         case 'delivery':
@@ -161,14 +165,49 @@ $('html,body').on('mouseenter','.popupId',function(e){
                         )
                     )
                     setDeliveryManOnlineStatus(delivery.id)
+                    showPopupId(thisPopupIdElem)
                 }
             },100)
 
         break;
         case 'order':
-            $('#popupId').addClass('p10').text('ba3ddeeen')
-            // need to be done
-            // the attr is order
+            $('#popupId').text('').addClass('p10').append(
+                // $('<div/>',{class:'bold500 fs101',text:`${texts.orders.order} #${$(this).attr('order')}`}),
+                $('<div/>',{class:'chatOrderBody'}).append(
+                    $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
+                    $('<div/>',{class:'cardLoading br10 h10 w150 mX5 mY3'}),
+                    $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
+                    $('<div/>',{class:'cardLoading br10 h10 w100 mX5 mY3'}),
+                )
+            )
+            showPopupId(thisPopupIdElem)
+            getOrder($(this).attr('order')).then(function(order){
+                order_data = orderRow_data(order);
+                $('#popupId').text('').addClass('p10').append(
+                    $('<div/>',{class:'bold500 mB2 fs101',text:`${texts.orders.order} #${order.id}`}),
+                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.orderPlaced}: `}),
+                        $('<div/>',{class:'fs09 diffTimeCalc',time:order.placed_at,})
+                    ),
+                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.type}: `}),
+                        $('<div/>',{class:'fs09',text:order_data.typeTxt})
+                    ),
+                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.status}: `}),
+                        $('<div/>',{class:`${order_data.statusColor} fs09`,text:texts.orders[order_data.status]})
+                    ),
+                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.customer}: `}),
+                        $('<div/>',{class:'fs09',html:order_data.user})
+                    ),
+                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.price}: `}),
+                        $('<div/>',{class:'fs09',text:`${website.currency}${parseFloat(order.total).toFixed(2)}`})
+                    ),
+                )
+            })
+
         break;
         case 'sub_account':
             let subaccount = website.accounts.find(item=>item.id == $(this).attr('subaccount'));
@@ -189,25 +228,46 @@ $('html,body').on('mouseenter','.popupId',function(e){
                 ),
             );
             setSubaccountOnlineStatus(subaccount.id)
+            showPopupId(thisPopupIdElem)
         break;
     }
+    // setTimeout(()=>{
+    //     if(thisPopupIdElem.is(':hover')){
+    //         $('#popupId').removeClass('none').css({
+    //             'top':$(this).offset().top - $('#popupId').outerHeight(),
+    //             'left':$(this).offset().left
+    //         })
+    //         if(parseFloat($('#popupId').offset().left) + parseFloat($('#popupId').width()) > $(window).width()){
+    //             $('#popupId').removeClass('none').css({
+    //                 'top':$(this).offset().top - $('#popupId').outerHeight(),
+    //                 'left':$(window).width() - $('#popupId').width() - 10,
+    //             })
+    //         }
+    //     }
+    // },500)
+
+})
+
+showPopupId = function(thisPopupIdElem){
     authorities();
     setTimeout(()=>{
         if(thisPopupIdElem.is(':hover')){
             $('#popupId').removeClass('none').css({
-                'top':$(this).offset().top - $('#popupId').outerHeight(),
-                'left':$(this).offset().left
+                'top':thisPopupIdElem.offset().top - $('#popupId').outerHeight(),
+                'left':thisPopupIdElem.offset().left
             })
             if(parseFloat($('#popupId').offset().left) + parseFloat($('#popupId').width()) > $(window).width()){
                 $('#popupId').removeClass('none').css({
-                    'top':$(this).offset().top - $('#popupId').outerHeight(),
+                    'top':thisPopupIdElem.offset().top - $('#popupId').outerHeight(),
                     'left':$(window).width() - $('#popupId').width() - 10,
                 })
             }
         }
     },500)
 
-})
+
+
+}
 $('html,body').on('mousemove',function(e){
     if($('.popupId:hover').length == 0 && $('#popupId:hover').length == 0){
         $('#popupId').addClass('none')

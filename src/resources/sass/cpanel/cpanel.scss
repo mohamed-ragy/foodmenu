@@ -93,7 +93,7 @@ body{
 @import 'tools/alert';//done
 @import 'tools/loading';//done
 @import 'tools/f1';//done
-@import 'tools/sharepopup';
+@import 'tools/sharepopup';//done
 @import 'tools/datePicker';//done
 
 
@@ -107,10 +107,13 @@ body{
 @import 'pages/security/phoneNumber';
 
 
-@import 'pages/orders/orders';
+// @import 'pages/orders/orders';
+// @import 'pages/orders/order.scss';
+// @import 'pages/orders/ordersTable';
+@import 'pages/orders/placeOrder.scss';
+@import 'pages/orders/incompleteOrders.scss';
+@import 'pages/orders/orderHistory.scss';
 @import 'pages/orders/order.scss';
-@import 'pages/orders/ordersTable';
-@import 'pages/orders/newOrder';
 
 @import 'pages/categories/categoriesList';//done
 
@@ -120,7 +123,7 @@ body{
 @import 'pages/design/templates';
 @import 'pages/design/websiteColors';
 @import 'pages/design/homePageSections';
-@import 'pages/design/images';
+@import 'pages/design/images';//done
 
 @import 'pages/settings/system';//done
 @import 'pages/settings/generalSettings';//done
@@ -247,7 +250,7 @@ a:hover{
 .msgBox_orange{
     padding:15px;
     border:1px solid var(--orange);
-    background-color: var(--orange-10);
+    background-color: var(--orange-5);
     color:var(--orange);
     border-radius: 5px;
     display:flex;
@@ -259,7 +262,7 @@ a:hover{
 .msgBox_red{
     padding:15px;
     border:1px solid var(--red);
-    background-color: var(--red-10);
+    background-color: var(--red-5);
     color:var(--red);
     border-radius: 5px;
     display:flex;

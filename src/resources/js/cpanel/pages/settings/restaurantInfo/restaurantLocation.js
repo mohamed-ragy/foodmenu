@@ -90,14 +90,7 @@ $('html,body').on('click','.restaurantLocation_unsetLocationBtn',function(e){
     // e.preventDefault();
     // e.stopPropagation();
     e.stopImmediatePropagation();
-    if(!$(this).hasClass('confirm-btn') && settings_temp.dClickConfirm){
-        $(this).addClass('confirm-btn').attr('tooltip',texts.cpanel.public.clickToConfirm);
-        updateToolTip();
-        return;
-    }else{
-        $(this).removeClass('confirm-btn').attr('tooltip',texts.settings.unsetLocation);
-        updateToolTip();
-    }
+    if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     if(!coolDownChecker()){return;}
     showBtnLoading($('.restaurantLocation_unsetLocationBtn'));
     let new_lat = 0;

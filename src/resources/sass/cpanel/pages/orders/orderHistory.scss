@@ -1,0 +1,37 @@
+.orderHistoryFiltersContainer{
+    opacity:0;
+    overflow: hidden;
+    transition-duration: 250ms;
+    max-height: 0px;
+}
+.orderHistoryFiltersContainer_show{
+    opacity: 1;
+    max-height: 500px;
+    overflow: visible;
+}
+//
+.orderHistoryNext, .orderHistoryPrev{
+    padding:5px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin:0 7px;
+    font-size:.9em;
+}
+.orderHistoryNext:hover, .orderHistoryPrev:hover{
+    background-color: var(--white-2);
+}
+.orderHistoryArrow_dump{
+    color:var(--white-6);
+    cursor: not-allowed;
+}
+.orderHistoryArrow_dump:hover{
+    background-color: var(--white);
+}
+.orderHistoryCountContainer{
+    font-size:.8em;
+    margin:0 7px;
+}
+
+.orderHistoryTR{
+    cursor: pointer;
+}

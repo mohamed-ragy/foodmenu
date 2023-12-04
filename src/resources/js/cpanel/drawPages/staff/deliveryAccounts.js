@@ -52,7 +52,7 @@ drawDeliveryAccountsTable = function(){
                     $('<button/>',{class:'btn_table ico-password editDeliveryAccountPassword',delivery:delivery.id,tooltip:texts.staff.changePassword}),
                     $('<button/>',{class:'btn_table deleteDeliveryPerson ico-delete',delivery:delivery.id,tooltip:texts.cpanel.public.delete})
                 ),
-                
+
             )
         )
         setDeliveryManOnlineStatus(delivery.id)
@@ -83,7 +83,7 @@ drawPopupPage_delivery_account = function(deliveryId){
             let delivery = website.deliveries.find(item=>item.id == deliveryId);
             let deliveryOrdersCounter = 0;
             let deliveryManOrdersNowTxt = texts.staff.deliveryManOrderNow;
-            
+
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key].delivery_id == delivery.id){
                     deliveryOrdersCounter = deliveryOrdersCounter + 1;
@@ -101,7 +101,7 @@ drawPopupPage_delivery_account = function(deliveryId){
                 ),
                 $('<div/>',{class:'mX5 row alnC jstfyS'}).append(
                     $('<div/>',{class:`deliveryOnlineIcon-${delivery.id}`}),
-                    $('<div/>',{class:`fs08 deliverylastSeen2-${delivery.id}`}) 
+                    $('<div/>',{class:`fs08 deliverylastSeen2-${delivery.id}`})
                 ),
                 $('<div/>',{class:'fs08 mX5',text:deliveryManOrdersNowTxt.replace(':num:',deliveryOrdersCounter)}),
                 $('<div/>',{class:'area mT40'}).append(
@@ -120,14 +120,14 @@ drawPopupPage_delivery_account = function(deliveryId){
                         $('.deliveryAccountPopupPageOrders').append(
                             $('<div/>',{class:'fs08'}).append(
                                 $('<a/>',{order:website.incompleteOrders[key]._id,class:'popupId popupPage mie-5',popupId:'order',popupPage:'order',text:`#${website.incompleteOrders[key].id}`}),
-                                $('<span/>',{class:'diffTimeCalc',time:website.incompleteOrders[key].withDelivery_at,timeText:texts.staff.handedToDeliveryMan.replace(':delivery:',delivery.deliveryName.split('@')[0])})
+                                $('<span/>',{class:'diffTimeCalc',time:website.incompleteOrders[key].out_for_delivery_at,timeText:texts.staff.handedToDeliveryMan.replace(':delivery:',delivery.deliveryName.split('@')[0])})
                             )
                         )
                     }
                 }
             }
             setDeliveryManOnlineStatus(delivery.id)
-        
+
         }
 
     },100)

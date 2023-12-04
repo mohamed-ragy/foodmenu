@@ -9,6 +9,7 @@ getImagesStorage = function(force=false){
                 gitStorageSize:true,
             },
             success:function(r){
+                website.imgs_storage = r;
                 return resolve(r)
             }
         })
@@ -29,7 +30,7 @@ resetStorageBar = function(){
             $('.storageBarinside').addClass('bgc_G')
         }else if(storagePercent > 50 && 85 >= storagePercent ){
             $('.storageBarinside').addClass('bgc_O')
-        }else if(storagePercent > 85 && 100 >= storagePercent ){
+        }else if(storagePercent > 85){
             $('.storageBarinside').addClass('bgc_R')
         }
     })

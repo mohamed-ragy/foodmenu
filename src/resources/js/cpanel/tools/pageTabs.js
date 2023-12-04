@@ -1,5 +1,5 @@
 $('html,body').on('click','.pageTab',function(e){
-    e.stopImmediatePropagation();
+    // e.stopImmediatePropagation();
     for(const key in window.menu){
         for(const key2 in window.menu[key].pages){
             if(window.menu[key].pages[key2].name == window.history.state.page){

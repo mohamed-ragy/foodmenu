@@ -258,16 +258,19 @@ class settingsController extends Controller
             if($request->websiteIcon == '' || $request->websiteIcon == null){
                 $template = website::where('id',$this->website_id)->pluck('template')->first();
                 $iconUrl = "/storage/imgs/templates/$template/icon.webp";
+                $iconId = null;
             }else{
                 $img = img::where(['website_id' => $this->website_id,'id'=>$request->websiteIcon])->first();
                 if($img == null){
                     return response(['saveWebsiteIconStatus' => 0,'msg'=>Lang::get('cpanel/settings/responses.websiteIconSaveFail')]);
                 }
                 $iconUrl = $img->url;
+                $iconId = $img->id;
             }
             $saveWebsiteIcon = website::where('id',$this->website_id)
                             ->update([
                                 'icon'=>$iconUrl,
+                                'icon_id'=>$iconId,
                                 'updated_at' => Carbon::now()->timestamp,
                              ]);
             if($saveWebsiteIcon){
@@ -278,6 +281,7 @@ class settingsController extends Controller
                     'account_name' => Auth::guard('account')->user()->name,
                 ],[
                     'icon'=>$iconUrl,
+                    'icon_id' => $iconId,
                 ]);
                 return response(['saveWebsiteIconStatus' => 1,'msg'=>Lang::get('cpanel/settings/responses.websiteIconSaved')]);
             }else{
@@ -291,16 +295,19 @@ class settingsController extends Controller
             if($request->websiteLogo == '' || $request->websiteLogo == null){
                 $template = website::where('id',$this->website_id)->pluck('template')->first();
                 $logoUrl = "/storage/imgs/templates/$template/logo.webp";
+                $logoId = null;
             }else{
                 $img = img::where(['website_id' => $this->website_id,'id'=>$request->websiteLogo])->first();
                 if($img == null){
                     return response(['saveWebsiteLogoStatus' => 0,'msg'=>Lang::get('cpanel/settings/responses.websiteLogoSaveFail')]);
                 }
                 $logoUrl = $img->url;
+                $logoId = $img->id;
             }
             $saveWebsiteLogo = website::where('id',$this->website_id)
                 ->update([
                     'logo'=>$logoUrl,
+                    'logo_id' => $logoId,
                     'updated_at' => Carbon::now()->timestamp,
                 ]);
             if($saveWebsiteLogo){
@@ -311,6 +318,7 @@ class settingsController extends Controller
                     'account_name' => Auth::guard('account')->user()->name,
                 ],[
                     'logo'=>$logoUrl,
+                    'logo_id' => $logoId,
                 ]);
                 return response(['saveWebsiteLogoStatus' => 1,'msg'=>Lang::get('cpanel/settings/responses.websiteLogoSaved')]);
             }else{
@@ -1170,8 +1178,8 @@ class settingsController extends Controller
                 return;
             }
             $savePickupSettings = website::where('id',$this->website_id)->update([
-                'cashOnPickup'=>$request->cashOnPickup,
-                'cardOnPickup'=>$request->cardOnPickup,
+                'cash_at_restaurant'=>$request->cash_at_restaurant,
+                'card_at_restaurant'=>$request->card_at_restaurant,
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($savePickupSettings){
@@ -1181,8 +1189,8 @@ class settingsController extends Controller
                     'account_id' => Auth::guard('account')->user()->id,
                     'account_name' => Auth::guard('account')->user()->name,
                 ],[
-                    'cashOnPickup' => $request->cashOnPickup,
-                    'cardOnPickup' => $request->cardOnPickup,
+                    'cash_at_restaurant' => $request->cash_at_restaurant,
+                    'card_at_restaurant' => $request->card_at_restaurant,
                 ]);
                 return response(['pickupPaymentMethodsStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.pickupSettingsSaved')]);
             }else{
@@ -1295,8 +1303,8 @@ class settingsController extends Controller
                 return;
             }
             $saveDeliverySettings = website::where('id',$this->website_id)->update([
-                'cashOnDelivery'=>$request->cashOnDelivery,
-                'cardOnDelivery'=>$request->cardOnDelivery,
+                'cash_on_delivery'=>$request->cash_on_delivery,
+                'card_on_delivery'=>$request->card_on_delivery,
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($saveDeliverySettings){
@@ -1306,8 +1314,8 @@ class settingsController extends Controller
                     'account_id' => Auth::guard('account')->user()->id,
                     'account_name' => Auth::guard('account')->user()->name,
                 ],[
-                    'cashOnDelivery' => $request->cashOnDelivery,
-                    'cardOnDelivery' => $request->cardOnDelivery,
+                    'cash_on_delivery' => $request->cash_on_delivery,
+                    'card_on_delivery' => $request->card_on_delivery,
                 ]);
                 return response(['saveDeliveryPaymentMethodsStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.deliverySettingsSaved')]);
             }else{

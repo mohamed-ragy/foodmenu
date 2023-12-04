@@ -1,0 +1,97 @@
+.incompleteOrdersTR{
+    cursor: pointer;
+}
+.orderRowTypeTag{
+    // border-radius: 3px;
+    // padding:5px;
+    // margin:5px;
+    // font-size:1.5em;
+    // box-shadow: inset 0 0 1px 1px var(--shdw-5);
+    // background-color: var(--white);
+}
+.orderRow{
+    // border-left:1px solid var(--white-10);
+    // border-right:1px solid var(--white-10);
+    // border-bottom:1px solid var(--white-10);
+}
+.orderRow:hover{
+    background-color: var(--white-2);
+    .orderRowItemImg{
+        border:3px solid var(--white-2);
+        background-color: var(--white);
+    }
+    .orderRowItem{
+        border:3px solid var(--white-2);
+        background-color: var(--white);
+    }
+}
+.orderRow td{
+    padding: 5px;
+}
+.orderRowItemImg{
+    border:3px solid var(--white);
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    object-fit: cover;
+    margin-inline-end:-20px;
+}
+.orderRowItem{
+    border:3px solid var(--white);
+    background-color: var(--white-2);
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    margin-inline-end:-20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+//
+.orderStatusTag{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2px 5px;
+    border: 1px solid var(--white-4);
+    width: fit-content;
+    border-radius: 5px;
+}
+#changeOrderStatus{
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    border-radius: 3px;
+    position: fixed;
+    z-index: 249;
+    transition-duration: 0s;
+    box-shadow: 0 0 10px 3px var(--shdw-10);
+    overflow: hidden;
+}
+.changeOrderStatusElem{
+    padding:10px;
+    border-radius: 2px;
+    cursor: pointer;
+    min-width:150px;
+    font-size: .8em;
+}
+.changeOrderStatusElem:hover{background-color: var(--white-2);}
+.orderAction_cancelOrder{
+    color: var(--red);
+}
+.orderAction_cancelOrder:hover{
+    color: var(--red);
+}
+//
+.giveOrderToDelivery_deliveryElem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:calc(100% - 10px);
+    user-select:none;
+    padding: 10px 5px;
+    border-top:1px solid var(--white-2);
+    // font-size: .9em;
+}
+.giveOrderToDelivery_deliveryElem:hover{
+    background-color: var(--white-2);
+}

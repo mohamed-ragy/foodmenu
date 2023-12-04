@@ -66,6 +66,11 @@
     </div>
 
 
+    <form id="imgs-uploadImgForm" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="designUploadImg" id="imgs-uploadImg" accept="image/png, image/jpeg, image/gif, image/bmp, image/webp" hidden>
+    </form>
+
     <div id="alertsContainer"></div>
 
     <audio id="alert_normal"><source src="./storage/audio/cpanelAlerts/normal.wav" type="audio/mpeg" /></audio>
@@ -77,13 +82,13 @@
     <div id="popupId" class="none"></div>
     <div id="liveChatBoxMenu" class="liveChatBoxMenu none"></div>
     <div id="onMove" class=""></div>
-    
+
     <div id="website_QRcodeDownload"></div>
     <div id="statisticsPopupDiv"></div>
     <div id="printDiv"></div>
     <div id="imgs-imgPreview" class="none">
         <div id="imgs-imgPreviewBtns">
-            <div class="row alnC jstfyC">
+            <div class="row alnC jstfyC vH imgs-imgPreveiwBtnsLeft">
                 <span tooltip="" download="" class="ico-info imgs-imgPreviewInfo imgs-imgPreviewBtn"></span>
                 <a tooltip="{{ trans('cpanel/cpanel.public.download') }}" download="" class="ico-download imgs-imgPreviewDownload imgs-imgPreviewBtn tdNone hvr-tdNone"></a>
                 <span tooltip="{{ trans('cpanel/cpanel.public.copy') }}" class="ico-copy copyImageLink imgs-imgPreviewBtn" imgId=""></span>
@@ -94,14 +99,15 @@
                 <span tooltip="{{ trans('cpanel/cpanel.public.close') }}" class="ico-close fs103 imgs-imgPreviewBtn" id="imgs-imgPreviewClose"></span>
             </div>
         </div>
-        <div class="ico-left imgPreviewArrow" id="imgs-imgPreviewPrev" ></div>
-        <img src="" class="imgs-imgPreviewimg" alt="" zoomLvl="1">
-        <div class="ico-right imgPreviewArrow" id="imgs-imgPreviewNext" ></div>
+        <img src="" class="imgs-imgPreviewimg none" alt="" zoomLvl="1">
+        <div class="imgPreviewLoading"></div>
     </div>
-    <div id="changeOrderStatus"></div>
-    <div id="changeOrderStatusGiveToDelivery"></div>
-    <div id="changeOrderType"></div>
-    <div id="changeItemSelection"></div>
+
+
+    <div id="changeOrderStatus" class="none"></div>
+    {{-- <div id="changeOrderStatusGiveToDelivery"></div> --}}
+    <div id="changeOrderType"  class="none"></div>
+    <div id="changeItemSelection" class="none"></div>
 
     <div id="galleryImgOnMove"></div>
     <div id="slideShowImgOnMove"></div>

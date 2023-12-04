@@ -63,7 +63,8 @@ class demo
             ticket::where('website_id',$deleteWebsite->id)->delete();
             ticket_msg::where('website_id',$deleteWebsite->id)->delete();
             website::where('domainName',$deleteWebsite->domainName)->delete();
-            // Storage::deleteDirectory('/imgs/accounts/'.$deleteWebsite->id);
+            img::where('website_id',$deleteWebsite->id)->delete();
+            Storage::deleteDirectory('/imgs/accounts/'.$deleteWebsite->id);
         }
         $end = hrtime(true);
         error_log('');
@@ -1140,14 +1141,14 @@ class demo
 
 
                 if($orderType == 0){
-                    if(random_int(0,1)){$order->paymentMethod = 'cashOnDelivery';}else{$order->paymentMethod = 'cardOnDelivery';}
+                    if(random_int(0,1)){$order->paymentMethod = 'cash_on_delivery';}else{$order->paymentMethod = 'card_on_delivery';}
                     $placed_at = Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 09:00:00',$timeZone)->setTimezone('UTC')->addMinutes(random_int(0,780));
                     $placedBy = random_int(0,1);
                     $is_deliveryMan = random_int(0,1);
                     $deliveryMan = $deliveries->random();
 
                 }else if($orderType == 1){
-                    if(random_int(0,1)){$order->paymentMethod = 'cashOnPickup';}else{$order->paymentMethod = 'cardOnPickup';}
+                    if(random_int(0,1)){$order->paymentMethod = 'cash_at_restaurant';}else{$order->paymentMethod = 'card_at_restaurant';}
                     $placed_at = Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 09:00:00',$timeZone)->setTimezone('UTC')->addMinutes(random_int(0,780));
                     $placedBy = random_int(0,1);
 
@@ -1157,8 +1158,8 @@ class demo
 
                 }
 
-                $order->placed_at = $placed_at;
-                $order->created_at = $placed_at;
+                $order->placed_at = $placed_at->timestamp;
+                // $order->created_at = $placed_at;
                 $order->placed_by = $placedBy;
                 $order->status = 0;
 
@@ -1178,18 +1179,18 @@ class demo
                     $isCanceled = true;
                     $order->status = 2;
                 }else{
-                    if($placedBy == 0){$order->received_at = $placed_at;}
-                    else{$order->received_at = Carbon::createFromFormat('Y-m-d H:i:s',$placed_at->year.'-'.$placed_at->month.'-'.$placed_at->day.' '.$placed_at->hour.':'.$placed_at->format('i').':'.$placed_at->format('s'),'UTC')->addMinutes(random_int(1,10));}
+                    if($placedBy == 0){$order->accepted_at = $placed_at;}
+                    else{$order->accepted_at = Carbon::createFromFormat('Y-m-d H:i:s',$placed_at->year.'-'.$placed_at->month.'-'.$placed_at->day.' '.$placed_at->hour.':'.$placed_at->format('i').':'.$placed_at->format('s'),'UTC')->addMinutes(random_int(1,10));}
                     $account = $accounts->random();
-                    $order->received_account_id = $account->id;
-                    $order->received_account_name = $account->name;
+                    $order->accepted_account_id = $account->id;
+                    $order->accepted_account_name = $account->name;
                     $order->status = 1;
                 }
 
 
                 if($orderType == 0 && !$isCanceled){
                     if(random_int(0,5) == 5){
-                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->received_at->year.'-'.$order->received_at->month.'-'.$order->received_at->day.' '.$order->received_at->hour.':'.$order->received_at->format('i').':'.$order->received_at->format('s'),'UTC')->addMinutes(random_int(1,20));
+                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->accepted_at->year.'-'.$order->accepted_at->month.'-'.$order->accepted_at->day.' '.$order->accepted_at->hour.':'.$order->accepted_at->format('i').':'.$order->accepted_at->format('s'),'UTC')->addMinutes(random_int(1,20));
                         $order->canceled_by = 0;
                         $account = $accounts->random();
                         $order->canceled_account_id = $account->id;
@@ -1206,16 +1207,16 @@ class demo
                             $order->delivery_id = $deliveryMan->null;
 
                         }
-                        $order->withDelivery_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->received_at->year.'-'.$order->received_at->month.'-'.$order->received_at->day.' '.$order->received_at->hour.':'.$order->received_at->format('i').':'.$order->received_at->format('s'),'UTC')->addMinutes(random_int(15,30));
+                        $order->out_for_delivery_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->accepted_at->year.'-'.$order->accepted_at->month.'-'.$order->accepted_at->day.' '.$order->accepted_at->hour.':'.$order->accepted_at->format('i').':'.$order->accepted_at->format('s'),'UTC')->addMinutes(random_int(15,30));
                         $account = $accounts->random();
-                        $order->withDelivery_account_id = $account->id;
-                        $order->withDelivery_account_name = $account->name;
+                        $order->out_for_delivery_account_id = $account->id;
+                        $order->out_for_delivery_account_name = $account->name;
                         $order->status = 3;
                     }
 
                 }else if($orderType == 1 && !$isCanceled){
                     if(random_int(0,5) == 5){
-                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->received_at->year.'-'.$order->received_at->month.'-'.$order->received_at->day.' '.$order->received_at->hour.':'.$order->received_at->format('i').':'.$order->received_at->format('s'),'UTC')->addMinutes(random_int(1,20));
+                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->accepted_at->year.'-'.$order->accepted_at->month.'-'.$order->accepted_at->day.' '.$order->accepted_at->hour.':'.$order->accepted_at->format('i').':'.$order->accepted_at->format('s'),'UTC')->addMinutes(random_int(1,20));
                         $order->canceled_by = 0;
                         $account = $accounts->random();
                         $order->canceled_account_id = $account->id;
@@ -1223,16 +1224,16 @@ class demo
                         $isCanceled = true;
                         $order->status = 2;
                     }else{
-                        $order->readyToPickup_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->received_at->year.'-'.$order->received_at->month.'-'.$order->received_at->day.' '.$order->received_at->hour.':'.$order->received_at->format('i').':'.$order->received_at->format('s'),'UTC')->addMinutes(random_int(15,30));
+                        $order->ready_for_pickup_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->accepted_at->year.'-'.$order->accepted_at->month.'-'.$order->accepted_at->day.' '.$order->accepted_at->hour.':'.$order->accepted_at->format('i').':'.$order->accepted_at->format('s'),'UTC')->addMinutes(random_int(15,30));
                         $account = $accounts->random();
-                        $order->readyToPickup_account_id = $account->id;
-                        $order->readyToPickup_account_name = $account->name;
+                        $order->ready_for_pickup_account_id = $account->id;
+                        $order->ready_for_pickup_account_name = $account->name;
                         $order->status = 4;
                     }
 
                 }else if($orderType == 2 && !$isCanceled){
                     if(random_int(0,5) == 5){
-                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->received_at->year.'-'.$order->received_at->month.'-'.$order->received_at->day.' '.$order->received_at->hour.':'.$order->received_at->format('i').':'.$order->received_at->format('s'),'UTC')->addMinutes(random_int(1,20));
+                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->accepted_at->year.'-'.$order->accepted_at->month.'-'.$order->accepted_at->day.' '.$order->accepted_at->hour.':'.$order->accepted_at->format('i').':'.$order->accepted_at->format('s'),'UTC')->addMinutes(random_int(1,20));
                         $order->canceled_by = 0;
                         $account = $accounts->random();
                         $order->canceled_account_id = $account->id;
@@ -1240,7 +1241,7 @@ class demo
                         $isCanceled = true;
                         $order->status = 2;
                     }else{
-                        $order->diningin_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->received_at->year.'-'.$order->received_at->month.'-'.$order->received_at->day.' '.$order->received_at->hour.':'.$order->received_at->format('i').':'.$order->received_at->format('s'),'UTC')->addMinutes(random_int(15,30));
+                        $order->diningin_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->accepted_at->year.'-'.$order->accepted_at->month.'-'.$order->accepted_at->day.' '.$order->accepted_at->hour.':'.$order->accepted_at->format('i').':'.$order->accepted_at->format('s'),'UTC')->addMinutes(random_int(15,30));
                         $account = $accounts->random();
                         $order->diningin_account_id = $account->id;
                         $order->diningin_account_name = $account->name;
@@ -1252,7 +1253,7 @@ class demo
                 if($orderType == 0 && !$isCanceled){
                     $order->collectReviewSeen = true;
                     if(random_int(0,5) == 5){
-                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->withDelivery_at->year.'-'.$order->withDelivery_at->month.'-'.$order->withDelivery_at->day.' '.$order->withDelivery_at->hour.':'.$order->withDelivery_at->format('i').':'.$order->withDelivery_at->format('s'),'UTC')->addMinutes(random_int(1,15));
+                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->out_for_delivery_at->year.'-'.$order->out_for_delivery_at->month.'-'.$order->out_for_delivery_at->day.' '.$order->out_for_delivery_at->hour.':'.$order->out_for_delivery_at->format('i').':'.$order->out_for_delivery_at->format('s'),'UTC')->addMinutes(random_int(1,15));
                         $order->canceled_by = 0;
                         $account = $accounts->random();
                         $order->canceled_account_id = $account->id;
@@ -1260,7 +1261,7 @@ class demo
                         $isCanceled = true;
                         $order->status = 2;
                     }else{
-                        $order->delivered_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->withDelivery_at->year.'-'.$order->withDelivery_at->month.'-'.$order->withDelivery_at->day.' '.$order->withDelivery_at->hour.':'.$order->withDelivery_at->format('i').':'.$order->withDelivery_at->format('s'),'UTC')->addMinutes(random_int(10,20));
+                        $order->delivered_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->out_for_delivery_at->year.'-'.$order->out_for_delivery_at->month.'-'.$order->out_for_delivery_at->day.' '.$order->out_for_delivery_at->hour.':'.$order->out_for_delivery_at->format('i').':'.$order->out_for_delivery_at->format('s'),'UTC')->addMinutes(random_int(10,20));
                         if(true){
                             $order->delivered_by = 1;
                             $order->delivered_delivery_id = $deliveryMan->id;
@@ -1277,7 +1278,7 @@ class demo
                 }else if($orderType == 1 && !$isCanceled){
                     $order->collectReviewSeen = true;
                     if(random_int(0,5) == 5){
-                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->readyToPickup_at->year.'-'.$order->readyToPickup_at->month.'-'.$order->readyToPickup_at->day.' '.$order->readyToPickup_at->hour.':'.$order->readyToPickup_at->format('i').':'.$order->readyToPickup_at->format('s'),'UTC')->addMinutes(random_int(1,15));
+                        $order->canceled_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->ready_for_pickup_at->year.'-'.$order->ready_for_pickup_at->month.'-'.$order->ready_for_pickup_at->day.' '.$order->ready_for_pickup_at->hour.':'.$order->ready_for_pickup_at->format('i').':'.$order->ready_for_pickup_at->format('s'),'UTC')->addMinutes(random_int(1,15));
                         $order->canceled_by = 0;
                         $account = $accounts->random();
                         $order->canceled_account_id = $account->id;
@@ -1285,7 +1286,7 @@ class demo
                         $isCanceled = true;
                         $order->status = 2;
                     }else{
-                        $order->pickedUp_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->readyToPickup_at->year.'-'.$order->readyToPickup_at->month.'-'.$order->readyToPickup_at->day.' '.$order->readyToPickup_at->hour.':'.$order->readyToPickup_at->format('i').':'.$order->readyToPickup_at->format('s'),'UTC')->addMinutes(random_int(1,15));
+                        $order->pickedUp_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->ready_for_pickup_at->year.'-'.$order->ready_for_pickup_at->month.'-'.$order->ready_for_pickup_at->day.' '.$order->ready_for_pickup_at->hour.':'.$order->ready_for_pickup_at->format('i').':'.$order->ready_for_pickup_at->format('s'),'UTC')->addMinutes(random_int(1,15));
                         $account = $accounts->random();
                         $order->pickedUp_account_id = $account->id;
                         $order->pickedUp_account_name = $account->name;
@@ -1302,10 +1303,10 @@ class demo
                         $isCanceled = true;
                         $order->status = 2;
                     }else{
-                        $order->dinein_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->diningin_at->year.'-'.$order->diningin_at->month.'-'.$order->diningin_at->day.' '.$order->diningin_at->hour.':'.$order->diningin_at->format('i').':'.$order->diningin_at->format('s'),'UTC')->addMinutes(random_int(20,40));
+                        $order->dinedin_at = Carbon::createFromFormat('Y-m-d H:i:s',$order->diningin_at->year.'-'.$order->diningin_at->month.'-'.$order->diningin_at->day.' '.$order->diningin_at->hour.':'.$order->diningin_at->format('i').':'.$order->diningin_at->format('s'),'UTC')->addMinutes(random_int(20,40));
                         $account = $accounts->random();
-                        $order->dinein_account_id = $account->id;
-                        $order->dinein_account_name = $account->name;
+                        $order->dinedin_account_id = $account->id;
+                        $order->dinedin_account_name = $account->name;
                         $order->status = 7;
                     }
                 }
@@ -1361,7 +1362,7 @@ class demo
                 // $ordersDay2->subday(1);
                 $thisDayOrders = order::
                 where(function($q) use ($ordersDay, $website){
-                    $q->where('website_id',$website->id)->whereBetween('dinein_at',[Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 00:00:00',$website->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 23:59:59',$website->timeZone)->setTimezone('UTC')]);
+                    $q->where('website_id',$website->id)->whereBetween('dinedin_at',[Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 00:00:00',$website->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 23:59:59',$website->timeZone)->setTimezone('UTC')]);
                 })
                 ->orWhere(function($q) use ($ordersDay, $website){
                     $q->where('website_id',$website->id)->whereBetween('canceled_at',[Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 00:00:00',$website->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay->year.'-'.$ordersDay->month.'-'.$ordersDay->day.' 23:59:59',$website->timeZone)->setTimezone('UTC')]);
@@ -1411,7 +1412,7 @@ class demo
         //     $ordersDay2->addDay(1);
         //     $thisDayOrders = order::
         //     where(function($q) use ($ordersDay2, $website){
-        //         $q->where('website_id',$website->id)->whereBetween('dinein_at',[Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay2->year.'-'.$ordersDay2->month.'-'.$ordersDay2->day.' 00:00:00',$website->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay2->year.'-'.$ordersDay2->month.'-'.$ordersDay2->day.' 23:59:59',$website->timeZone)->setTimezone('UTC')]);
+        //         $q->where('website_id',$website->id)->whereBetween('dinedin_at',[Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay2->year.'-'.$ordersDay2->month.'-'.$ordersDay2->day.' 00:00:00',$website->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay2->year.'-'.$ordersDay2->month.'-'.$ordersDay2->day.' 23:59:59',$website->timeZone)->setTimezone('UTC')]);
         //     })
         //     ->orWhere(function($q) use ($ordersDay2, $website){
         //         $q->where('website_id',$website->id)->whereBetween('canceled_at',[Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay2->year.'-'.$ordersDay2->month.'-'.$ordersDay2->day.' 00:00:00',$website->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$ordersDay2->year.'-'.$ordersDay2->month.'-'.$ordersDay2->day.' 23:59:59',$website->timeZone)->setTimezone('UTC')]);

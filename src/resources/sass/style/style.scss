@@ -19,6 +19,8 @@
 .cursorLoading{cursor: progress;}
 .cursorMove{cursor: move;}
 
+
+
 .blur3{backdrop-filter: blur(3px);}
 
 .vH{visibility: hidden;}
@@ -31,6 +33,8 @@
 
 .opacity0{opacity:0;}
 .opacity1{opacity:1;}
+
+.overflowX-A{overflow-x: auto;}
 
 .ofCover{object-fit: cover;}
 .blackWhite{filter:grayscale(100%)}
@@ -50,3 +54,4 @@
 .block-1366{@media(max-width:1365px){display:block}}
 .block-1280{@media(max-width:1279px){display:block}}
 
+.unset{all:unset;}

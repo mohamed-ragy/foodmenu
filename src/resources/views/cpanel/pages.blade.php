@@ -47,7 +47,7 @@
     @include('cpanel.pages.design.Templates-page')
     @include('cpanel.pages.design.Website-Colors-page')
     @include('cpanel.pages.design.Home-Page-Sections-page')
-    @include('cpanel.pages.design.Images-page')
+    {{-- @include('cpanel.pages.design.Images-page') --}}
 @endif
 
 {{-- settings --}}

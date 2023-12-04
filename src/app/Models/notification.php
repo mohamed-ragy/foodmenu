@@ -29,7 +29,7 @@ class notification extends Model
         'financialReport_id','month','year',
         'ticket_id',
         'user_id','userName',
-        'order_id',
+        'order_id','order_number',
         'product_review_id','reviewsSum',
         'product_id','productName',
         'delivery_id','deliveryName',

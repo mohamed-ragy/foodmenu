@@ -178,6 +178,18 @@
   .ico-logout:before {
     content: "\e956";
   }
+  .ico-print:before {
+    content: "\e990";
+  }
+  .ico-open:before {
+    content: "\e9a8";
+  }
+  .ico-accepted:before {
+    content: "\e95c";
+  }
+  .ico-pending:before {
+    content: "\e962";
+  }
   .ico-list:before {
     content: "\e9a6";
   }
@@ -353,7 +365,7 @@
     content: "\e908";
   }
   .ico-msgSending:before {
-    content: "\e962";
+    content: "\e96a";
   }
   .ico-notifications:before {
     content: "\e940";
@@ -394,11 +406,8 @@
   .ico-facebook:before {
     content: "\e939";
   }
-  .ico-accepted:before {
-    content: "\e95c";
-  }
-  .ico-received:before {
-    content: "\e95c";
+  .ico-plans:before {
+    content: "\e97d";
   }
   .ico-location:before {
     content: "\e932";
@@ -439,9 +448,6 @@
   .ico-hashtag:before {
     content: "\e9a9";
   }
-  .ico-open:before {
-    content: "\e9a8";
-  }
   .ico-zoomOut:before {
     content: "\e9a4";
   }
@@ -474,9 +480,6 @@
   }
   .ico-pdf:before {
     content: "\e994";
-  }
-  .ico-print:before {
-    content: "\e990";
   }
   .ico-readyForPickup:before {
     content: "\e948";
@@ -555,12 +558,6 @@
   }
   .ico-placeNewOrder:before {
     content: "\e969";
-  }
-  .ico-pending:before {
-    content: "\e96a";
-  }
-  .ico-plans:before {
-    content: "\e97d";
   }
   .ico-billing1:before {
     content: "\e99e";

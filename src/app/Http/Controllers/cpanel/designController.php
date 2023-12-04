@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use App\Models\plan;
 use App\Models\img;
 use App\Models\websiteColors;
+use Illuminate\Support\Facades\File;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use stdClass;
@@ -438,24 +439,25 @@ class designController extends Controller
     public function imgs(Request $request)
     {
         if($request->has('gitStorageSize')){
+            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+                return;
+            }
             return response(img::where(['website_id'=>$this->website_id])->sum('size'));
         }else if($request->has('getImgs')){
             $imgs = img::where(['website_id'=>$this->website_id])->orderBy('created_at','DESC')->skip($request->skip)->limit(10)->get();
             return response(['imgs'=>$imgs]);
+        }else if($request->has('getImg')){
+            return response(['img' => img::where(['id'=>$request->getImg,'website_id'=>$this->website_id])->first()]);
         }else if($request->has(['designUploadImg'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
-                return;
-            }
+            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){return;}
             $validate = Validator::make(['uploadImg'=> $request->designUploadImg ],
             [
                 'uploadImg' => 'required|mimes:webp,png,jpeg,gif,bmp,jpg,jpe|max:10240'
             ]);
 
             if($validate->fails()){
-                return response( ['imgUpladStatus'=> 0,'error'=> Lang::get('cpanel/design/imgs.uploadError') ] );
+                return response( ['imgUpladStatus'=> 0,'error'=> Lang::get('cpanel/design/responses.uploadError') ] );
             }else{
-
-
                 $domainName = website::where('id',$this->website_id)->pluck('domainName')->first();
                 $file = $request->file('designUploadImg');
                 $fileExtention = $file->guessExtension();
@@ -464,87 +466,69 @@ class designController extends Controller
 
                 $planStorage = foodmenuFunctions::plans()[website::where('id',$this->website_id)->pluck('plan')->first()]['storage'];
                 $planStorage = $planStorage * 1024 * 1024;
-                $savedImgs = img::where('website_id',$this->website_id)->pluck('size');
-                $currentStorage = 0;
-                foreach($savedImgs as $savedImg){
-                    $currentStorage = $currentStorage + $savedImg;
-                }
+                $currentStorage = img::where('website_id',$this->website_id)->sum('size');
                 $newStorage = $currentStorage + $fileSize;
 
 
                 if($newStorage > $planStorage){
-                    return response( ['imgUpladStatus'=> 2,'msg'=> Lang::get('cpanel/design/imgs.noSpace') ] );
+                    return response( ['imgUpladStatus'=> 2,'msg'=> Lang::get('cpanel/design/responses.noSpace') ] );
                 }else{
                     $file->storeAs('imgs/websites/'. $this->website_id ,$tempname.'.'.$fileExtention);
 
                     $thumbnail = Image::make($request->file('designUploadImg'));
-                    $thumbnail->resize(500, 500, function ($constraint) { $constraint->aspectRatio(); $constraint->upsize(); });
+                    $thumbnail->resize(400, 400, function ($constraint) { $constraint->aspectRatio(); $constraint->upsize(); });
                     $thumbnail->save( 'storage/imgs/websites/'. $this->website_id.'/'.$tempname.'_thumbnail.'.$fileExtention);
 
                     $img = new img();
                     $img->website_id = $this->website_id;
                     $img->name = $tempname;
-                    $img->url = 'imgs/websites/'. $this->website_id.'/'.$tempname.'.'.$fileExtention;
-                    $img->thumbnailUrl = 'imgs/websites/'. $this->website_id.'/'.$tempname.'_thumbnail.'.$fileExtention;
+                    $img->url = '/storage/imgs/websites/'. $this->website_id.'/'.$tempname.'.'.$fileExtention;
+                    $img->thumbnailUrl = '/storage/imgs/websites/'. $this->website_id.'/'.$tempname.'_thumbnail.'.$fileExtention;
                     $img->extension = $fileExtention;
                     $img->size = $fileSize;
                     $img->width = Image::make($request->file('designUploadImg'))->width();
                     $img->height = Image::make($request->file('designUploadImg'))->height();
                     $img->save();
 
-
-                    $imgs = img::where('website_id',$this->website_id)->orderBy('created_at','desc')->get();
-                    $notification = new stdClass();
-                    $notification->code = 21;
-                    $notification->imgs = $imgs;
-                    $notification->website_id = $this->website_id;
-                    $notification->activity = activityLog::create([
+                    foodmenuFunctions::notification('img.upload',[
                         'website_id' => $this->website_id,
                         'code' => 42,
                         'img_id' => $img->id,
                         'img_name' => $img->name,
                         'account_id' => Auth::guard('account')->user()->id,
                         'account_name' => Auth::guard('account')->user()->name,
+                    ],[
+                        'img'=>$img,
                     ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
-                    return response( [ 'imgUpladStatus'=>1, 'msg'=> Lang::get('cpanel/design/imgs.uploaded'), 'imgs' => $imgs ] );
+                    return response( [ 'imgUpladStatus'=>1, 'msg'=> Lang::get('cpanel/design/responses.imgUploaded'), 'img' => $img ] );
                 }
-
             }
 
-        }
-        else if($request->has(['deleteImg'])){
+        }else if($request->has(['deleteImg'])){
             if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
                 return;
             }
             $img = img::where('id',$request->imgId)->select('url','thumbnailUrl','name')->first();
-            $imgUrl = $img->url;
-            $thumbUrl = $img->thumbnailUrl;
-            $deleteStorage = Storage::delete([$imgUrl]);
-            $deleteThumbStorage = Storage::delete([$thumbUrl]);
-            if($deleteStorage && $deleteThumbStorage){
-                $deleteDB = img::where(['id'=>$request->imgId,'website_id'=>$this->website_id])->delete();
-                if($deleteDB){
-                    $imgs = img::where('website_id',$this->website_id)->orderBy('created_at','desc')->get();
-                    $notification = new stdClass();
-                    $notification->code = 21;
-                    $notification->imgs = $imgs;
-                    $notification->website_id = $this->website_id;
-                    $notification->activity = activityLog::create([
+
+            $deleteFiles = File::delete(ltrim($img->url,'/'),ltrim($img->thumbnailUrl,'/'));
+            if($deleteFiles){
+                if(img::where('id',$request->imgId)->delete()){
+                    foodmenuFunctions::notification('img.delete',[
                         'website_id' => $this->website_id,
                         'code' => 44,
                         'img_id' => $request->imgId,
                         'img_name' => $img->name,
                         'account_id' => Auth::guard('account')->user()->id,
                         'account_name' => Auth::guard('account')->user()->name,
+                    ],[
+                        'img_id'=>$request->imgId,
                     ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
-                    return response(['deleteImgStatus' => 1,'msg'=>Lang::get('cpanel/design/imgs.imgDeleted'),'imgs' => $imgs]);
+                    return response(['deleteImgStatus' => 1,'msg'=>Lang::get('cpanel/design/responses.imgDeleted')]);
                 }else{
-                    return response(['deleteImgStatus' => 0, 'msg' => Lang::get('cpanel/design/imgs.unknownError')]);
+                    return response(['deleteImgStatus' => 0, 'msg' => Lang::get('cpanel/design/responses.imgDeleteError')]);
                 }
             }else{
-                return response(['deleteImgStatus' => 0, 'msg' => Lang::get('cpanel/design/imgs.unknownError')]);
+                return response(['deleteImgStatus' => 55, 'msg' => Lang::get('cpanel/design/responses.imgDeleteError')]);
             }
         }
 
@@ -557,13 +541,13 @@ class designController extends Controller
                 'ticketUploadImg' => 'required|mimes:webp,png,jpeg,gif,bmp,jpg,jpe|max:1024'
             ]);
             if($validate->fails()){
-                return response( ['ticketUploadImgStatus'=> 0,'error'=> Lang::get('cpanel/design/imgs.uploadError') ] );
+                return response( ['ticketUploadImgStatus'=> 0,'error'=> Lang::get('cpanel/design/responses.uploadError') ] );
             }else{
                 $file = $request->file('ticketUploadImg');
                 $fileExtention = $file->guessExtension();
                 $tempname = 'foodmenu-'. $this->website_id .'-'. strtolower( Str::random(20) );
                 $file->storeAs('imgs/websites/'. $this->website_id.'/ticketsImgs' ,$tempname.'.'.$fileExtention);
-                return response(['ticketUploadImgStatus' => 1 , 'msg'=> Lang::get('cpanel/design/imgs.uploaded'),'url'=>'imgs/websites/'. $this->website_id.'/ticketsImgs/'.$tempname.'.'.$fileExtention]);
+                return response(['ticketUploadImgStatus' => 1 , 'msg'=> Lang::get('cpanel/design/responses.uploaded'),'url'=>'imgs/websites/'. $this->website_id.'/ticketsImgs/'.$tempname.'.'.$fileExtention]);
             }
         }
         else if($request->has(['deleteTicketAttachment'])){

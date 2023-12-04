@@ -41,13 +41,13 @@ if(website.isDemo == true && website.templateData.imgsType == 'trans'){
 }
 
 
-website.logo = website.logo ? `/storage/${imgs.find(item => item.id == website.logo).url}` : `/storage/imgs/templates/${website.template}/logo.webp`
-website.icon = website.icon ? `/storage/${imgs.find(item => item.id == website.icon).url}` : `/storage/imgs/templates/${website.template}/icon.webp`
+// website.logo = website.logo ? `/storage/${imgs.find(item => item.id == website.logo).url}` : `/storage/imgs/templates/${website.template}/logo.webp`
+// website.icon = website.icon ? `/storage/${imgs.find(item => item.id == website.icon).url}` : `/storage/imgs/templates/${website.template}/icon.webp`
 
 for(const key in products){
 
-    products[key].imgUrl = products[key].img_id ? '/storage/'+imgs.find(item => item.id == products[key].img_id).url : '/storage/imgs/noimg.png';
-    products[key].thumbnailUrl = products[key].img_id ? '/storage/'+imgs.find(item => item.id == products[key].img_id).thumbnailUrl : '/storage/imgs/noimg.png';
+    // products[key].imgUrl = products[key].img_id ? '/storage/'+imgs.find(item => item.id == products[key].img_id).url : '/storage/imgs/noimg.png';
+    // products[key].thumbnailUrl = products[key].img_id ? '/storage/'+imgs.find(item => item.id == products[key].img_id).thumbnailUrl : '/storage/imgs/noimg.png';
     products[key].nameLang = products[key][`name_${lang}`] ? products[key][`name_${lang}`] : products[key].name;
     products[key].descriptionLang = products[key][`description_${lang}`] ? products[key][`description_${lang}`] : ``;
     products[key].catName = categories.find(item=> item.id == products[key].category_id).name;
@@ -63,8 +63,8 @@ for(const key in products){
     products[key].defaultPrice = website.currency+parseFloat(productDefaultPrice).toFixed(2);
 }
 for(const key in categories){
-    categories[key].imgUrl = categories[key].img_id ? `/storage/${imgs.find(item => item.id == categories[key].img_id).url}` : `/storage/imgs/noimg.png`;
-    categories[key].thumbnailUrl = categories[key].img_id ? `/storage/${imgs.find(item => item.id == categories[key].img_id).thumbnailUrl}` : `/storage/imgs/noimg.png`;
+    // categories[key].imgUrl = categories[key].img_id ? `/storage/${imgs.find(item => item.id == categories[key].img_id).url}` : `/storage/imgs/noimg.png`;
+    // categories[key].thumbnailUrl = categories[key].img_id ? `/storage/${imgs.find(item => item.id == categories[key].img_id).thumbnailUrl}` : `/storage/imgs/noimg.png`;
     categories[key].nameLang = categories[key][`name_${lang}`] ? categories[key][`name_${lang}`] : categories[key].name;
     categories[key].descriptionLang = categories[key][`description_${lang}`] ? categories[key][`description_${lang}`] : '';
     categories[key].link = `/${urlLang}/${categories[key].name}`;

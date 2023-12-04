@@ -240,7 +240,41 @@
     animation:1s loading infinite linear;
 }
 
-
+.imgPreviewLoading{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin: auto;
+    margin-top:calc(50% - 40px);
+    margin-left:calc(50% - 40px);
+}
+.imgPreviewLoading::before{
+    content:'';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-top: 3px solid var(--white);
+    border-right: 3px solid transparent;
+    box-sizing: border-box;
+    animation:1s loading infinite linear;
+}
+.imgPreviewLoading:after{
+    content:'';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    border-bottom: 3px solid var(--white);
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+    animation:1s loading infinite linear;
+}
 
 
 @keyframes loading {

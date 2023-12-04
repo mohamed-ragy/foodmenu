@@ -30,6 +30,11 @@ $('html,body').on('keyup','#lang-customLanguageFlag',function(e){
         )
     }
 })
+$('html,body').on('click','.createCustomLang-direction',function(e){
+    e.stopImmediatePropagation();
+    $('.createCustomLang-directionCheck').addClass('ico-check0').removeClass('ico-check1');
+    $(this).find('.createCustomLang-directionCheck').removeClass('ico-check0').addClass('ico-check1')
+})
 $('html,body').on('click','#lang-customLanguageSaveBtn',function(e){
     e.stopImmediatePropagation();
     if($('#lang-customLanguageName').val() == ''){
@@ -53,12 +58,7 @@ $('html,body').on('click','#lang-customLanguageSaveBtn',function(e){
         return;
     }
     showBtnLoading($('#lang-customLanguageSaveBtn'));
-    let customLang_direction;
-    if($('#lang-customLangDirection').prop('checked') == true){
-        customLang_direction = 'rtl';
-    }else{
-        customLang_direction = 'ltr';
-    }
+    let customLang_direction = $('.createCustomLang-directionCheck.ico-check1').closest('.createCustomLang-direction').attr('direction');
     let customLang_name = $('#lang-customLanguageName').val();
     let customLang_code = $('#lang-customLanguageCode').val();
     let customLang_flag = $('#lang-customLanguageFlag').attr('key');

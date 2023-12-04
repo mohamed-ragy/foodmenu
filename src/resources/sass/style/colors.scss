@@ -1,10 +1,13 @@
+.bgc_trans{background-color: transparent;}
+
+
 .c_facebook{color:#4267B2;}
 .c_twitter{color:#000000;}
 .c_linkedin{color:#0A66C2;}
 .c_whatsapp{color:#128C7E;}
 .c_telegram{color:#0088cc;}
 .c_youtube{color:#ff0000;}
-.c_instagram{color:#bc2a8d  ;}
+.c_instagram{color:#bc2a8d;}
 
 .bgc_facebook{background-color:#4267B2;}
 .bgc_twitter{background-color:#000000;}
@@ -43,4 +46,16 @@
 .cStar{color:var(--star)}
 
 
+.c_delivery{color:var(--cdelivery);}
+.c_pickup{color:var(--cpickup);}
+.c_dineIn{color:var(--cdineIn);}
+.c_deliveryT{color:var(--cdeliveryTxt);}
+.c_pickupT{color:var(--cpickupTxt);}
+.c_dineInT{color:var(--cdineInTxt);}
 
+.bgc_delivery{background-color:var(--cdelivery);}
+.bgc_pickup{background-color:var(--cpickup);}
+.bgc_dineIn{background-color:var(--cdineIn);}
+.bgc_deliveryT{background-color:var(--cdeliveryTxt);}
+.bgc_pickupT{background-color:var(--cpickupTxt);}
+.bgc_dineInT{background-color:var(--cdineInTxt);}

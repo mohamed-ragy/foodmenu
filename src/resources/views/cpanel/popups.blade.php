@@ -1,151 +1,4 @@
 <div class="popupContainer none">
-{{-- /////////////////////////share popup/////////////////////////////// --}}
-    <div class="popupCard popupCard-800 none"  id="share-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-share"></span><span class="mX5">{{ trans('cpanel/cpanel.public.share') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <input type="hidden" id="share-inputHidden">
-            <div id="share-imgNameContainer">
-                <img src="" id="share-img" alt="">
-                <div id="share-name"></div>
-            </div>
-            <div class="w100p row wrap alnSH jstfyC">
-                <div class="area mxw330">
-                    <span class="areaTitle">{{ trans('cpanel/cpanel.public.selectShareLang') }}</span>
-                    <div class="row column w100p alnC jstfyC">
-                        <div lang="en" class="sharelangicon languageInput_en">
-                            <img src="{{ asset('/storage/imgs/flags/USA.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.en') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="ar" class="sharelangicon languageInput_ar">
-                            <img src="{{ asset('/storage/imgs/flags/EGY.png') }}" alt="" class="sharelangiconImg" >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.ar') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="eg" class="sharelangicon languageInput_eg">
-                            <img src="" alt="" class="sharelangiconImg customLangFlag" >
-                            <span class="grow2 fs-102 mX10 customLangName" ></span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="fr" class="sharelangicon languageInput_fr">
-                            <img src="{{ asset('/storage/imgs/flags/FRA.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.fr') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="es" class="sharelangicon languageInput_es">
-                            <img src="{{ asset('/storage/imgs/flags/ESP.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.es') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="it" class="sharelangicon languageInput_it">
-                            <img src="{{ asset('/storage/imgs/flags/ITA.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.it') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="de" class="sharelangicon languageInput_de">
-                            <img src="{{ asset('/storage/imgs/flags/DEU.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.de') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="ru" class="sharelangicon languageInput_ru">
-                            <img src="{{ asset('/storage/imgs/flags/RUS.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.ru') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-
-                        <div lang="ua" class="sharelangicon languageInput_ua">
-                            <img src="{{ asset('/storage/imgs/flags/UKR.png') }}" alt="" class="sharelangiconImg " >
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.ua') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                    </div>
-                </div>
-                <div  class="area mxw330">
-                    <span class="areaTitle">{{ trans('cpanel/cpanel.public.shareOn') }}</span>
-                    <div class="row column w100p alnC jstfyC">
-                        <div class="shareIcon" shareTo="copy">
-                            <span class="ico-copy fs105 m5"></span>
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.copyLink') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                        <div class="shareIcon" shareTo="facebook">
-                            <span class=" ico-facebook fs105 m5" style="color:#4267B2;"></span>
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.facebook') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                        <div class="shareIcon" shareTo="twitter">
-                            <span class=" ico-twitter fs105 m5" style="color:#1DA1F2;"></span>
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.twitter') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                        <div class="shareIcon" shareTo="linkedin">
-                            <span class=" ico-linkedin fs105 m5" style="color:#0A66C2;"></span>
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.linkedin') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                        <div class="shareIcon" shareTo="whatsapp">
-                            <span class=" ico-whatsapp fs105 m5" style="color:#128C7E;"></span>
-                            <span class="grow2 fs-102 mX10">{{ trans("cpanel/cpanel.public.whatsapp") }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                        <div class="shareIcon" shareTo="telegram">
-                            <span class=" ico-telegram fs105 m5" style="color:#0088cc;"></span>
-                            <span class="grow2 fs-102 mX10">{{ trans('cpanel/cpanel.public.telegram') }}</span>
-                            <span class="ico-check0 fs102 m5" ></span>
-                        </div>
-                    </div>
-
-                    <div class="shareBtnContainer" shareTo="copy">
-                        <button class="btn" id="share-copy">{{ trans('cpanel/cpanel.public.copyLink') }}</button>
-                    </div>
-                    <div class="shareBtnContainer" shareTo="facebook">
-                        <button class="btn" id="share-facebook">{{ trans('cpanel/cpanel.public.shareOn') }} {{ trans('cpanel/cpanel.public.facebook') }}</button>
-                    </div>
-                    <div class="shareBtnContainer" shareTo="twitter">
-                        <button class="btn" id="share-twitter">{{ trans('cpanel/cpanel.public.shareOn') }} {{ trans('cpanel/cpanel.public.twitter') }}</button>
-                    </div>
-                    <div class="shareBtnContainer" shareTo="linkedin">
-                        <button class="btn" id="share-linkedin">{{ trans('cpanel/cpanel.public.shareOn') }} {{ trans('cpanel/cpanel.public.linkedin') }}</button>
-                    </div>
-                    <div class="shareBtnContainer" shareTo="whatsapp">
-                        <button class="btn" id="share-whatsapp">{{ trans('cpanel/cpanel.public.shareOn') }} {{ trans('cpanel/cpanel.public.whatsapp') }}</button>
-                    </div>
-                    <div class="shareBtnContainer" shareTo="telegram">
-                        <button class="btn" id="share-telegram">{{ trans('cpanel/cpanel.public.shareOn') }} {{ trans('cpanel/cpanel.public.telegram') }}</button>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-{{-- /////////////////////////imgs browser popup//////////////////////// --}}
-    {{-- need to fix its design --}}
-    <div class="popupCard popupCard-800x800 none"  id="imgBrowser-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-imgs"></span><span class="mX5" id="imgBrowserTitle"></span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="btnContainer">
-                <button class="imgs-uploadImgBtn btn">
-                    <span class="btnTxt">{{ trans('cpanel/design/imgs.uploadNew') }}</span>
-                    <span class="btnLoading"></span>
-                </button>
-            </div>
-            <div id="imgsBrowserContainer"></div>
-        </div>
-    </div>
 {{-- /////////////////////////slideShowimg edit///////////////////////// --}}
     <div class="popupCard popupCard-600 none"  id="slideShowImgEdit-popup">
         <div class="popupHead">
@@ -281,27 +134,7 @@
 
 
 
-{{-- /////////////////////////add order item//////////////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="addOrderItem-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-createProduct fs102"></span><span class="mX5">{{ trans('cpanel/orders/orders.addOrderItem') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="mnh400 column w100p">
-                <x-input-list id="addOrderItem-productsListInput" listId="addOrderItem-productsList" icon="ico-products" placeholder="{{ trans('cpanel/orders/orders.findProduct') }}" />
-                <div id="addOrderItem-itemContainer" class=" mT20"></div>
-                <textarea  id="addOrderItem-itemNotice" class="textarea" placeholder="{{ trans('cpanel/orders/orders.specialRequest') }}"></textarea>
-                <div class="btnContainer">
-                    <button class="btn btn-cancel" id="addOrderItem-ConfirmBtn">
-                        <span>{{ trans('cpanel/orders/orders.addItem') }}</span>
-                        <span class="mX3"></span>
-                        <span id="addOrderItem-itemTotal"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 {{-- /////////////////////////scheduled discount alert////////////////// --}}
     <div class="popupCard popupCard-400 none"  id="scheduledDiscountAlert-popup">
         <div class="popupHead">
@@ -312,16 +145,7 @@
 
         </div>
     </div>
-{{-- /////////////////////////access denied///////////////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="accessDenied-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/cpanel.public.accessDenied') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="fs102 mY10">{{ trans('cpanel/cpanel.public.accessDenied2') }}</div>
-        </div>
-    </div>
+
 {{-- /////////////////////////change email confirm////////////////////// --}}
     <div class="popupCard popupCard-400 none"  id="changeEmail-popup">
         <div class="popupHead">

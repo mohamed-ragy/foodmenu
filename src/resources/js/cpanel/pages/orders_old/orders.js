@@ -173,11 +173,11 @@ orders = class {
         if(typeof(order) === 'undefined'){return '';}
         let data = {};
         let dateTooltip = `<div class="mY5">${texts.orders.orderPlaced} (${getDateAndTime(order.placed_at)})</div>`
-        order.received_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderAccepted} (${getDateAndTime(order.received_at)})</div>` : null;
+        order.accepted_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderAccepted} (${getDateAndTime(order.accepted_at)})</div>` : null;
         order.diningin_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderDiningIn} (${getDateAndTime(order.diningin_at)})</div>` : null;
-        order.dinein_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderDineIn} (${getDateAndTime(order.dinein_at)})</div>` : null;
-        order.withDelivery_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderWithDelivery} (${getDateAndTime(order.withDelivery_at)})</div>` : null;
-        order.readyToPickup_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderreadyForPickup} (${getDateAndTime(order.readyToPickup_at)})</div>` : null;
+        order.dinedin_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderDineIn} (${getDateAndTime(order.dinedin_at)})</div>` : null;
+        order.out_for_delivery_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderWithDelivery} (${getDateAndTime(order.out_for_delivery_at)})</div>` : null;
+        order.ready_for_pickup_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderreadyForPickup} (${getDateAndTime(order.ready_for_pickup_at)})</div>` : null;
         order.delivered_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderDelivered} (${getDateAndTime(order.delivered_at)})</div>` : null;
         order.pickedUp_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderPickedup} (${getDateAndTime(order.pickedUp_at)})</div>` : null;
         order.canceled_at != null ? dateTooltip = dateTooltip+`<div class="mY5">${texts.orders.orderCanceled} (${getDateAndTime(order.canceled_at)})</div>` : null;
@@ -380,10 +380,10 @@ orders = class {
                 if(r.receiveOrderStatus == 1){
                     for(const key in website.incompleteOrders){
                         if(website.incompleteOrders[key].id == order.id){
-                            website.incompleteOrders[key].status =1;
-                            website.incompleteOrders[key].received_at = new Date().toISOString();
-                            website.incompleteOrders[key].received_account_name = account.name;
-                            website.incompleteOrders[key].received_account_id = account.id;
+                            website.incompleteOrders[key].status = 1;
+                            website.incompleteOrders[key].accepted_at = new Date().toISOString();
+                            website.incompleteOrders[key].accepted_account_name = account.name;
+                            website.incompleteOrders[key].accepted_account_id = account.id;
                             new orders().incompleteOrders();
                             new orders(website.incompleteOrders[key].id).redrawChatOrder();
                             if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
@@ -462,9 +462,9 @@ orders = class {
                     for(const key in website.incompleteOrders){
                         if(website.incompleteOrders[key].id == order.id){
                             website.incompleteOrders[key].status = 4;
-                            website.incompleteOrders[key].readyToPickup_at = new Date().toISOString();
-                            website.incompleteOrders[key].readyToPickup_account_name = account.name;
-                            website.incompleteOrders[key].readyToPickup_account_id = account.id;
+                            website.incompleteOrders[key].ready_for_pickup_at = new Date().toISOString();
+                            website.incompleteOrders[key].ready_for_pickup_account_name = account.name;
+                            website.incompleteOrders[key].ready_for_pickup_account_id = account.id;
                             new orders(website.incompleteOrders[key].id).redrawChatOrder();
                             new orders().incompleteOrders();
                             if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
@@ -542,9 +542,9 @@ orders = class {
                     for(const key in website.incompleteOrders){
                         if(website.incompleteOrders[key].id == order.id){
                             website.incompleteOrders[key].status = 3;
-                            website.incompleteOrders[key].withDelivery_at = new Date().toISOString();
-                            website.incompleteOrders[key].withDelivery_account_name = account.name;
-                            website.incompleteOrders[key].withDelivery_account_id = account.id;
+                            website.incompleteOrders[key].out_for_delivery_at = new Date().toISOString();
+                            website.incompleteOrders[key].out_for_delivery_account_name = account.name;
+                            website.incompleteOrders[key].out_for_delivery_account_id = account.id;
                             new orders().incompleteOrders();
                             let orderId = website.incompleteOrders[key].id;
                             new orders(orderId).redrawChatOrder();
@@ -585,9 +585,9 @@ orders = class {
                             website.incompleteOrders[key].status = 3;
                             website.incompleteOrders[key].delivery_id = delivery.id;
                             website.incompleteOrders[key].deliveryName = delivery.deliveryName;
-                            website.incompleteOrders[key].withDelivery_at = new Date().toISOString();
-                            website.incompleteOrders[key].withDelivery_account_name = account.name;
-                            website.incompleteOrders[key].withDelivery_account_id = account.id;
+                            website.incompleteOrders[key].out_for_delivery_at = new Date().toISOString();
+                            website.incompleteOrders[key].out_for_delivery_account_name = account.name;
+                            website.incompleteOrders[key].out_for_delivery_account_id = account.id;
                             new orders().incompleteOrders();
                             let orderId = website.incompleteOrders[key].id;
                             new orders(orderId).redrawChatOrder();
@@ -667,9 +667,9 @@ orders = class {
                     for(const key in website.incompleteOrders){
                         if(website.incompleteOrders[key].id == order.id){
                             website.incompleteOrders[key].status = 7;
-                            website.incompleteOrders[key].dinein_at = new Date().toISOString();
-                            website.incompleteOrders[key].dinein_account_name = account.name;
-                            website.incompleteOrders[key].dinein_account_id = account.id;
+                            website.incompleteOrders[key].dinedin_at = new Date().toISOString();
+                            website.incompleteOrders[key].dinedin_account_name = account.name;
+                            website.incompleteOrders[key].dinedin_account_id = account.id;
                             if(account.is_master == true){
                                 todayOrders.push(website.incompleteOrders[key])
                                 drawTodayHomeOrders()
@@ -892,7 +892,7 @@ orders = class {
             $('<div/>',{class:'column w100p-20 mX10 alnS jstfyS ofH brdr1 brdrT0 br3 mY20',autoHelp:customerAutoHelp}).append(
                 $('<div/>',{class:'fs101 pY10 pX5 w100p-10 bgc-c3 bold',text:texts.orders.customer}),
                 $('<div/>',{class:'orderPage-orderDetailsElem'}).append(
-                    $('<div/>',{html:orderData.userName,class:'taE'})
+                    $('<div/>',{html:orderData.userName,class:'taE'})   
                 ),
                 orderData.phoneNumber,
                 orderData.address,
@@ -1158,10 +1158,10 @@ orders = class {
             )
         )
 
-        if(order.received_at != null && order.received_at != ''){
+        if(order.accepted_at != null && order.accepted_at != ''){
             data.lifecycle.append(
                 $('<div/>',{class:'orderLifecycleContainer'}).append(
-                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.received_at,'onlyTime')}),
+                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.accepted_at,'onlyTime')}),
                     $('<div/>',{class:'orderLifecycleLeft'}).append(
                         $('<div/>',{class:'orderLifecycleIcon ico-accepted fs101 cG brdr-cG'}),
                         $('<div/>',{class:'orderLifecycleLine'})
@@ -1170,9 +1170,9 @@ orders = class {
                         $('<div/>',{class:'fs102 cG',text:texts.orders.orderAccepted}),
                         $('<div/>',{class:'fs085'}).append(
                             $('<span/>',{class:'mie-3',text:texts.orders.by}),
-                            $('<a/>',{class:'popupPage',accountId:order.received_account_id,popupPage:'Sub-Account',text:order.received_account_name}),
+                            $('<a/>',{class:'popupPage',accountId:order.accepted_account_id,popupPage:'Sub-Account',text:order.accepted_account_name}),
                         ),
-                        $('<div/>',{class:'fs085',text:getDateAndTime(order.received_at,'noTime')}),
+                        $('<div/>',{class:'fs085',text:getDateAndTime(order.accepted_at,'noTime')}),
                     )
                 )
             )
@@ -1198,10 +1198,10 @@ orders = class {
                 )
             )
         }
-        if(order.type == 2 && order.dinein_at != null && order.dinein_at != ''){
+        if(order.type == 2 && order.dinedin_at != null && order.dinedin_at != ''){
             data.lifecycle.append(
                 $('<div/>',{class:'orderLifecycleContainer'}).append(
-                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.dinein_at,'onlyTime')}),
+                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.dinedin_at,'onlyTime')}),
                     $('<div/>',{class:'orderLifecycleLeft'}).append(
                         $('<div/>',{class:'orderLifecycleIcon ico-dineIn fs101 cG brdr-cG'}),
                     ),
@@ -1209,18 +1209,18 @@ orders = class {
                         $('<div/>',{class:'fs102 cG',text:texts.orders.orderDineIn}),
                         $('<div/>',{class:'fs085'}).append(
                             $('<span/>',{class:'mie-3',text:texts.orders.by}),
-                            $('<a/>',{class:'popupPage',accountId:order.dinein_account_id,popupPage:'Sub-Account',text:order.dinein_account_name}),
+                            $('<a/>',{class:'popupPage',accountId:order.dinedin_account_id,popupPage:'Sub-Account',text:order.dinedin_account_name}),
                         ),
-                        $('<div/>',{class:'fs085',text:getDateAndTime(order.dinein_at,'noTime')}),
+                        $('<div/>',{class:'fs085',text:getDateAndTime(order.dinedin_at,'noTime')}),
                     )
                 )
             )
         }
 
-        if(order.type == 1 && order.readyToPickup_at != null && order.readyToPickup_at != ''){
+        if(order.type == 1 && order.ready_for_pickup_at != null && order.ready_for_pickup_at_at_at_at != ''){
             data.lifecycle.append(
                 $('<div/>',{class:'orderLifecycleContainer'}).append(
-                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.readyToPickup_at,'onlyTime')}),
+                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.ready_for_pickup_at,'onlyTime')}),
                     $('<div/>',{class:'orderLifecycleLeft'}).append(
                         $('<div/>',{class:'orderLifecycleIcon ico-pickup fs101 cO brdr-cO'}),
                         $('<div/>',{class:'orderLifecycleLine'})
@@ -1229,9 +1229,9 @@ orders = class {
                         $('<div/>',{class:'fs102 cO',text:texts.orders.orderreadyForPickup}),
                         $('<div/>',{class:'fs085'}).append(
                             $('<span/>',{class:'mie-3',text:texts.orders.by}),
-                            $('<a/>',{class:'popupPage',accountId:order.readyToPickup_account_id,popupPage:'Sub-Account',text:order.readyToPickup_account_name}),
+                            $('<a/>',{class:'popupPage',accountId:order.ready_for_pickup_account_id,popupPage:'Sub-Account',text:order.ready_for_pickup_account_name}),
                         ),
-                        $('<div/>',{class:'fs085',text:getDateAndTime(order.readyToPickup_at,'noTime')}),
+                        $('<div/>',{class:'fs085',text:getDateAndTime(order.ready_for_pickup_at,'noTime')}),
                     )
                 )
             )
@@ -1255,7 +1255,7 @@ orders = class {
             )
         }
 
-        if(order.type == 0 && order.withDelivery_at != null && order.withDelivery_at != ''){
+        if(order.type == 0 && order.out_for_delivery_at != null && order.out_for_delivery_at != ''){
             let withDeliveryWith = ``;
             if(order.delivery_id != null && order.delivery_id != ''){
                 withDeliveryWith = $('<div/>',{class:'fs085'}).append(
@@ -1266,7 +1266,7 @@ orders = class {
 
             data.lifecycle.append(
                 $('<div/>',{class:'orderLifecycleContainer'}).append(
-                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.withDelivery_at,'onlyTime')}),
+                    $('<div/>',{class:'mY7 w70 taE',text:getDateAndTime(order.out_for_delivery_at,'onlyTime')}),
                     $('<div/>',{class:'orderLifecycleLeft'}).append(
                         $('<div/>',{class:'orderLifecycleIcon ico-delivery fs101 cO brdr-cO'}),
                         $('<div/>',{class:'orderLifecycleLine'})
@@ -1276,9 +1276,9 @@ orders = class {
                         withDeliveryWith,
                         $('<div/>',{class:'fs085'}).append(
                             $('<span/>',{class:'mie-3',text:texts.orders.by}),
-                            $('<a/>',{class:'popupPage',accountId:order.withDelivery_account_id,popupPage:'Sub-Account',text:order.withDelivery_account_name}),
+                            $('<a/>',{class:'popupPage',accountId:order.out_for_delivery_account_id,popupPage:'Sub-Account',text:order.out_for_delivery_account_name}),
                         ),
-                        $('<div/>',{class:'fs085',text:getDateAndTime(order.withDelivery_at,'noTime')}),
+                        $('<div/>',{class:'fs085',text:getDateAndTime(order.out_for_delivery_at,'noTime')}),
                     )
                 )
             )

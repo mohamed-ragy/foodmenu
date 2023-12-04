@@ -1,5 +1,5 @@
 deliveryPaymentMethodsNoSaveCheck = function(){
-    if(website_temp.cardOnDelivery == website.cardOnDelivery && website_temp.cashOnDelivery == website.cashOnDelivery){
+    if(website_temp.card_on_delivery == website.card_on_delivery && website_temp.cash_on_delivery == website.cash_on_delivery){
         $('.delivery_payment_methods-NoSave').addClass('none');
         return true;
     }else{
@@ -8,24 +8,24 @@ deliveryPaymentMethodsNoSaveCheck = function(){
 
     }
 }
-$('html,body').on('click','.cardOnDelivery',function(e){
+$('html,body').on('click','.card_on_delivery',function(e){
     e.stopImmediatePropagation();
-    $('.cardOnDeliveryCheck').hasClass('ico-check1') ? website_temp.cardOnDelivery = 0 : website_temp.cardOnDelivery = 1;
-    website_temp.cardOnDelivery ? $('.cardOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cardOnDeliveryCheck').removeClass('ico-check1').addClass('ico-check0');
+    $('.card_on_delivery_check').hasClass('ico-check1') ? website_temp.card_on_delivery = 0 : website_temp.card_on_delivery = 1;
+    website_temp.card_on_delivery ? $('.card_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_on_delivery_check').removeClass('ico-check1').addClass('ico-check0');
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','.cashOnDelivery',function(e){
+$('html,body').on('click','.cash_on_delivery',function(e){
     e.stopImmediatePropagation();
-    $('.cashOnDeliveryCheck').hasClass('ico-check1') ? website_temp.cashOnDelivery = 0 : website_temp.cashOnDelivery = 1;
-    website_temp.cashOnDelivery ? $('.cashOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cashOnDeliveryCheck').removeClass('ico-check1').addClass('ico-check0');
+    $('.cash_on_delivery_check').hasClass('ico-check1') ? website_temp.cash_on_delivery = 0 : website_temp.cash_on_delivery = 1;
+    website_temp.cash_on_delivery ? $('.cash_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_on_delivery_check').removeClass('ico-check1').addClass('ico-check0');
     home_delivery_settings_unsave_check();
 })
 $('html,body').on('click','#deliveryPaymentMethodsCancelBtn',function(e){
     e.stopImmediatePropagation();
-    website_temp.cashOnDelivery = website.cashOnDelivery;
-    website_temp.cardOnDelivery = website.cardOnDelivery;
-    website_temp.cardOnDelivery ? $('.cardOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cardOnDeliveryCheck').removeClass('ico-check1').addClass('ico-check0');
-    website_temp.cashOnDelivery ? $('.cashOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cashOnDeliveryCheck').removeClass('ico-check1').addClass('ico-check0');
+    website_temp.cash_on_delivery = website.cash_on_delivery;
+    website_temp.card_on_delivery = website.card_on_delivery;
+    website_temp.cash_on_delivery ? $('.cash_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_on_delivery_check').removeClass('ico-check1').addClass('ico-check0');
+    website_temp.card_on_delivery ? $('.card_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_on_delivery_check').removeClass('ico-check1').addClass('ico-check0');
     home_delivery_settings_unsave_check();
 })
 $('html,body').on('click','#deliveryPaymentMethodsSaveBtn',function(e){
@@ -38,16 +38,16 @@ $('html,body').on('click','#deliveryPaymentMethodsSaveBtn',function(e){
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             saveDeliveryPaymentMethods:true,
-            cardOnDelivery:website_temp.cardOnDelivery,
-            cashOnDelivery:website_temp.cashOnDelivery,
+            card_on_delivery:website_temp.card_on_delivery,
+            cash_on_delivery:website_temp.cash_on_delivery,
         },success:function(r){
             hideBtnLoading($('#deliveryPaymentMethodsSaveBtn'));
             if(r.saveDeliveryPaymentMethodsStatus == 1){
                 showAlert('success',r.msg,4000,true);
-                website.cardOnDelivery = website_temp.cardOnDelivery;
-                website.cashOnDelivery = website_temp.cashOnDelivery;
-                website_temp.cardOnDelivery ? $('.cardOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cardOnDeliveryCheck').removeClass('ico-check1').addClass('ico-check0');
-                website_temp.cashOnDelivery ? $('.cashOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cashOnDeliveryCheck').removeClass('ico-check1').addClass('ico-check0');
+                website.card_on_delivery = website_temp.card_on_delivery;
+                website.cash_on_delivery = website_temp.cash_on_delivery;
+                website_temp.card_on_delivery ? $('.card_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_on_delivery_check').removeClass('ico-check1').addClass('ico-check0');
+                website_temp.cash_on_delivery ? $('.cash_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_on_delivery_check').removeClass('ico-check1').addClass('ico-check0');
                 home_delivery_settings_unsave_check();
             }else if(r.saveDeliveryPaymentMethodsStatus == 0){
                 showAlert('error',r.msg,4000,true);

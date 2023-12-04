@@ -61,6 +61,9 @@ class CreateWebsitesTable extends Migration
 
             $table->string('icon')->nullable();
             $table->string('logo')->nullable();
+            $table->bigInteger('icon_id')->nullable();
+            $table->bigInteger('logo_id')->nullable();
+
             $table->integer('website_colors')->default(1);
             $table->boolean('useCustomColors')->default(false);
             $table->json('customColorsHexCode');
@@ -90,8 +93,8 @@ class CreateWebsitesTable extends Migration
             $table->integer('printerWidth')->default(80);
 
             $table->boolean('useDelivery')->default(true);
-            $table->boolean('cashOnDelivery')->default(true);
-            $table->boolean('cardOnDelivery')->default(true);
+            $table->boolean('cash_on_delivery')->default(true);
+            $table->boolean('card_on_delivery')->default(true);
             $table->decimal('deliveryCost',10,2)->default(0.00);
             $table->boolean('showDeliveryCostChangable')->default(false);
             $table->decimal('deliveryTaxCost',10,2)->default(0.00);
@@ -103,8 +106,8 @@ class CreateWebsitesTable extends Migration
             $table->json('workingDays_delivery');
 
             $table->boolean('usePickup')->default(true);
-            $table->boolean('cashOnPickup')->default(true);
-            $table->boolean('cardOnPickup')->default(true);
+            $table->boolean('cash_at_restaurant')->default(true);
+            $table->boolean('card_at_restaurant')->default(true);
             $table->decimal('pickupTaxCost',10,2)->default(0.00);
             $table->decimal('pickupTaxPercentage',10,2)->default(0.00);
             $table->boolean('usePickupTaxCost')->default(false);

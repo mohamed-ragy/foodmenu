@@ -23,15 +23,15 @@ class User extends Authenticatable
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillable = [
         'email',
@@ -90,7 +90,8 @@ class User extends Authenticatable
         return $this->belongsTo(liveChat::class,'lastMsg_id','_id');
     }
     public function promocodes(){
-        return $this->belongsToMany(promocode::class,'users_promocodes','user_id','promocode_id')->withTimestamps();;
+        return $this->belongsToMany(promocode::class,'users_promocodes','user_id','promocode_id');
+        // return $this->belongsToMany(promocode::class,'users_promocodes','user_id','promocode_id')->withTimestamps();
     }
 
 }

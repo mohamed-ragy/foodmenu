@@ -67,6 +67,13 @@
 
     --star:#ffb700;
 
+    --cdelivery:#136fa4;
+    --cdeliveryTxt:#ffffff;
+    --cpickup:#ab4c89;
+    --cpickupTxt:#ffffff;
+    --cdineIn:#7a68cc;
+    --cdineInTxt:#ffffff;
+    
     /* ///// */
     /* --bbg:rgb(249, 249, 249);
     --bg:rgb(255, 255, 255);
@@ -153,12 +160,7 @@
     --green-5:#1090920d;
     --green-txt:#ffffff;
 
-    --cdelivery:#136fa4;
-    --cdeliveryTxt:#ffffff;
-    --cpickup:#ab4c89;
-    --cpickupTxt:#ffffff;
-    --cdineIn:#7a68cc;
-    --cdineInTxt:#ffffff;
+
 
     --cs1:#1861ba;
     --cs1-70:#1861BAB3;

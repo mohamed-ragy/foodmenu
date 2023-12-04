@@ -26,15 +26,7 @@ setSubaccountOnlineStatus = function(subaccountId){
 $('html,body').on('click','.subAccount-unblock',function(e){
     e.stopImmediatePropagation();
     if(!coolDownChecker()){return;}
-    if(!$(this).hasClass('confirm-btn') && settings_temp.dClickConfirm){
-        $('.subAccount-unblock').attr('tooltip',texts.staff.unblockSubAccount).removeClass('confirm-btn');
-        $(this).attr('tooltip',texts.cpanel.public.clickToConfirm).addClass('confirm-btn');
-        updateToolTip();
-        return;
-    }else{
-        $(this).attr('tooltip',texts.staff.unblockSubAccount).removeClass('confirm-btn');
-        updateToolTip();
-    }
+    if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
 
     if($(this).find('.subAccount-unblockIcon').hasClass('none')){return}
     $(this).find('.ico-warning').addClass('none');

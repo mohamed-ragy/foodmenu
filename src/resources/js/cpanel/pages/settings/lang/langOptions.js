@@ -33,11 +33,20 @@ $('html,body').on('change input','#langOptions-langName',function(e){
     website_temp.languages[window.editLangOptionsCode].name = $(this).val()
     languages_unsave_check();
 })
-$('html,body').on('click','#langOptions-langDirection',function(e){
+
+
+$('html,body').on('click','.langOptions-direction',function(e){
     e.stopImmediatePropagation();
-    $(this).prop('checked') ? website_temp.languages[window.editLangOptionsCode].direction = 'rtl' : website_temp.languages[window.editLangOptionsCode].direction = 'ltr' ;
+    $('.langOptions-directionCheck').addClass('ico-check0').removeClass('ico-check1');
+    $(this).find('.langOptions-directionCheck').removeClass('ico-check0').addClass('ico-check1')
+    if($(this).attr('direction') == 'rtl'){
+        website_temp.languages[window.editLangOptionsCode].direction = 'rtl'
+    }else if($(this).attr('direction') == 'ltr'){
+        website_temp.languages[window.editLangOptionsCode].direction = 'ltr'
+    }
     languages_unsave_check();
 })
+
 $('html,body').on('click','#langOptions-cancelBtn',function(e){
     e.stopImmediatePropagation();
     website_temp.languages = JSON.parse(JSON.stringify(website.languages));

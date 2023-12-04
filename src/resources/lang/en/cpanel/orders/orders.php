@@ -6,64 +6,36 @@ return [
     'manageOrder' => 'Manage Order',
     'incompleteOrdersList' => 'Incomplete Orders List',
     'orderHistory' => 'Order History',
-    'findOrders' => 'Find Orders',
     'noOrders' => 'No orders found.',
-    'moreFilters' => 'More Filters',
-    'lessFilters' => 'Less Filters',
     'orderInfo' => 'Order Information',
-    'orderNumber' => 'Order Number',
     'type' => 'Type',
     'orderLifecycle' => 'Order Lifecycle',
     'orderActions' => 'Order Actions',
     'takeAction' => 'Take Action',
     'giveTo' => 'Give to',
-    'orderNumber' => 'Order Number',
-    'placedFor' => 'Placed for',
-    'orderStatus' => 'Order Status',
 
     'newOrder' => 'New Order',
-    'placeOrder' => 'Place Order',
     'placeNewOrder' => 'Place New Order',
-    'placeOrderFor' => 'Place Order for',
 
-    'viewOrder' => 'View order',
-    'printReceipt' => 'Print receipt',
 
-    'modifiedBy' => 'Last modified by',
+
     'by' => 'by',
-    'addedBy' => 'Added by',
-    'addByScheduledDiscounts' => 'Added by a scheduled discounts',
-    'addByPromocode' => 'Added by the promo code',
+
     'waitingAction' => 'Wating for Action',
     'orderDetails' => 'Order Details',
     'findUser' => 'Find a User',
-    'address' => 'Address',
-    'phoneNumber' => 'Phone Number',
-    'addLocation' => 'Add Location',
-    'removeLocation' => 'Remove Location',
-    'orderNotice' => 'Additional Comment',
-    'noticePlaceholder' => 'Comment...',
+
+
+
 
     'orderItems' => 'Order Items',
-    'addItem' => 'Add Item',
-    'addOrderItem' => 'Add Order Item',
-    'qty' => 'Quantity',
-    'findProduct' => 'Find Product',
-    'specialRequest' => 'Special Request',
     'addSpecialRequest' => 'Add a special request',
     'addItemUnavailable' => 'This product is set as unavailable, but you can still add it to the order.',
     'removeItem' => 'Remove Item',
-    'orderCheck' => 'Order Receipt',
-    'originalItems' => 'Original Order Items',
     'itemsLastModified' => 'Items last modified by',
 
-    'subTotal' => 'Subtotal',
-    'tax' => 'Tax',
-    'service' => 'Service',
-    'deliveryCost' => 'Delivery Fees',
-    'discount' => 'Discount',
+
     'scheduledDiscount' => 'Scheduled Discount',
-    'total' => 'Total',
     'scheduledDiscountAlert' => 'Scheduled Discount Available',
     'scheduledDiscountAlert1' => 'There is a',
     'scheduledDiscountAlert2' => 'discount available now for',
@@ -73,25 +45,19 @@ return [
     'scheduledDiscountAlert_pickup' => 'pickup orders',
 
     'paymentMethod' => 'Payment Method',
-    'cashOnDelivery' => 'Cash on delivery',
-    'cardOnDelivery' => 'Card on delivery',
-    'cashOnPickup' => 'Cash at the restaurant',
-    'cardOnPickup' => 'Payment card at the restaurant',
+    'cash_on_delivery' => 'Cash on delivery',
+    'card_on_delivery' => 'Card on delivery',
+    'cash_at_restaurant' => 'Cash at the restaurant',
+    'card_at_restaurant' => 'Payment card at the restaurant',
 
-    'customer' => 'Customer',
-    'status' => 'Status',
-    'items' => 'Items',
-    'price' => 'Price',
-    'order' => 'Order',
+
     'paymentMethod' => 'Payment Method',
-    'collectReviewsSeen' => 'Post-purchase Survey',
-    'seen' => 'Seen',
-    'unSeen' => 'Unseen',
 
-    'cashOnDelivery' => 'Cash on delivery',
-    'cardOnDelivery' => 'Card on delivery',
-    'cashOnPickup' => 'Cash at the restaurant',
-    'cardOnPickup' => 'Payment card at the restaurant',
+
+    'cash_on_delivery' => 'Cash on delivery',
+    'card_on_delivery' => 'Card on delivery',
+    'cash_at_restaurant' => 'Cash at the restaurant',
+    'card_at_restaurant' => 'Payment card at the restaurant',
 
     'noIncompleteOrders' => 'There are no incomplete orders at the moment.',
     'noPendingOrders' => 'There are no pending orders at the moment.',
@@ -100,42 +66,16 @@ return [
     'noReadyForPickupOrders' => 'There are no orders ready for pickup at the moment.',
     'noDiningInOrders' => 'There’s no one currently dining in at your restaurant.',
 
-    'orderType' => 'Order Type',
-    'pickup' => 'Pickup Order',
-    'delivery' => 'Home Delivery',
-    'dineIn' => 'Dine-in',
 
-    'all' => 'All',
-    'pending' => 'Pending',
-    'accepted' => 'Accepted',
-    'withDelivery' => 'Out for Delivery',
+
     'outForDeliveryWith' => 'With',
-    'readyForPickup' => 'Ready for Pickup',
-    'diningIn' => 'Dining In',
-    'delivered' => 'Delivered',
-    'pickedUp' => 'Picked Up',
-    'dinedIn' => 'Dined-In',
-    'canceled' => 'Canceled',
 
-    'orderPlaced' => 'Placed',
-    'orderDineIn' => 'Dined in',
-    'orderDiningIn' => 'Dining in',
-    'orderAccepted' => 'Accepted',
-    'orderDelivered' => 'Delivered',
-    'orderPickedup' => 'Picked Up',
-    'orderWithDelivery' => 'Out for Delivery',
-    'orderreadyForPickup' => 'Ready for Pickup',
-    'orderCanceled' => 'Canceled',
 
-    'markAsDinein' => 'Mark as dined in',
-    'markAsDiningin' => 'Mark as dining in',
-    'acceptOrder' => 'Accept Order',
-    'markAsreadyForPickup' => 'Mark as ready for pickup',
-    'markAsPickedUp' => 'Mark as picked up',
-    'markAsWithDelivery' => 'Mark as out for delivery',
-    'markAsDelivered' => 'Mark as delivered',
-    'giveToDelivery' => 'Give to delivery person',
-    'cancelOrder' => 'Cancel Order',
+
+
+
+
+
 
     'qty2' => 'Qty',
     'item' => 'Item',
@@ -146,54 +86,26 @@ return [
     'chatOrderWorngUser' => 'This user is not the one who placed the order; they won\'t be able to track it.',
     'changeTypeToDeliveryWarning' => 'Please add the customer\'s delivery address as you have changed the order type to home delivery order.',
     ////////
-    'receiveOrderSaved' => 'The order has been accepted successfully.',
-    'receiveOrderSaveFaild' => 'Unknown Error Occurred! Failed to accept the order.',
-    'cancelOrderSaved' => 'The order has been canceled successfully.',
-    'cancelOrderSaveFaild' => 'Unknown Error Occurred! Failed to cancel the order.',
-    'markAsreadyForPickupSaved' => 'The order has been successfully set as ready for pickup.',
-    'markAsreadyForPickupSaveFaild' => 'Unknown Error Occurred! Failed to set the order as ready for pickup.',
-    'markAsPickedUpOrderSaved' => 'The order has been successfully set as picked up.',
-    'markAsPickedUpOrderSaveFaild' => 'Unknown Error Occurred! Failed to set the order as picked up.',
-    'markAsWithDeliverySaved' => 'The order has been successfully set as out for delivery.',
-    'markAsWithDeliverySaveFaild' => 'Unknown Error Occurred! Failed to set the order as out for delivery.',
-    'markAsDeliveredOrderSaved' => 'The order has been successfully set as delivered.',
-    'markAsDeliveredOrderSaveFaild' => 'Unknown Error Occurred! Failed to set the order as delivered.',
-    'markAsDineInOrderSaved' => 'The order has been successfully set as dined in.',
-    'markAsDineInOrderSaveFaild' => 'Unknown Error Occurred! Failed to set the order as dined in.',
-    'markAsDiningInOrderSaved' => 'The order has been successfully set as dining in.',
-    'markAsDiningOrderSaveFaild' => 'Unknown Error Occurred! Failed to set the order as dining in.',
+
+
+
+
+
+
     ////
-    'changeOrderTypeSaved' => 'The order type has been changed successfully.',
-    'changeOrderTypeFail' => 'Unknown Error Occurred! Failed to change the order type.',
-    'changeOrderNoticeSaved' => 'The comment on the order has been changed successfully.',
-    'changeOrderNoticeFail' => 'Unknown Error Occurred! Failed to change the comment on the order.',
-    'changePhoneNumberSaved' => 'The phone number has been changed successfully.',
-    'changePhoneNumberFail' => 'Unknown Error Occurred! Failed to change the phone number.',
-    'changeAddressSaved' => 'The order delivery address has been changed successfully.',
-    'changeAddressFail' => 'Unknown Error Occurred! Failed to change the order delivery address.',
+
+
+
+
     /////
-    'addItemToOrderSaved' => 'The item has been added to the order successfully.',
-    'addItemToOrderFail' => 'Unknown Error Occurred! Failed to add the item to the order.',
-    'removeItemToOrderSaved' => 'The item has been removed from the order successfully.',
-    'removeItemToOrderFail' => 'Unknown Error Occurred! Failed to remove the item from the order.',
-    'cantRemoveLastItem' => 'This item cannot be removed; the order must have at least one item.',
-    'changeItemQtySaved' => 'The item quantity has been changed successfully.',
-    'changeItemQtyFail' => 'Unknown Error Occurred! Failed to change the item quantity.',
-    'changeItemSelectionSaved' => 'The selection has been changed successfully.',
-    'changeItemSelectionFail' => 'Unknown Error Occurred! Failed to change the item selection.',
-    'changeItemNoticeSaved' => 'The item special request has been changed successfully.',
-    'changeItemNoticeFail' => 'Unknown Error Occurred! Failed to change the item special request.',
-    'changeDeliverycostSaved' => 'The order delivery cost has been changed successfully.',
-    'changeDeliverycostFail' => 'Unknown Error Occurred! Failed to change the order delivery cost.',
-    'changeDiscountSaved' => 'The order discount has been changed successfully.',
-    'changeDiscountFail' => 'Unknown Error Occurred! Failed to change the order discount.',
+
+
+
+
+
+
     /////
-    'placeNewOrderPlaced' => 'The order has been placed successfully.',
-    'placeNewOrderFaild' => 'Unknown Error Occurred! Failed to place the order.',
-    'placeOrderErrorNoItems' => 'Failed to place the order. You haven\'t added any items to the order yet.',
-    'placeOrderErrorSelectUser' => 'Please select a user.',
-    'placeOrderErrorPhoneNumberRequired' => 'Please enter the phone number.',
-    'placeOrderErrorAddressRequired' => 'Please enter the delivery address.',
+
 
 
     /////////////////////////autohelp

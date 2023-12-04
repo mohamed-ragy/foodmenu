@@ -34,8 +34,6 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PDF;
-use MongoDB\BSON\UTCDateTime;
-use Termwind\Components\Raw;
 
 class cpanelController extends Controller
 {
@@ -317,8 +315,8 @@ class cpanelController extends Controller
                     'fastLoading',
                     'useDelivery',
                     'langPopup',
-                    'cashOnDelivery',
-                    'cardOnDelivery',
+                    'cash_on_delivery',
+                    'card_on_delivery',
                     'acceptDeliveryOrders24',
                     'deliveryCost',
                     'showDeliveryCostChangable',
@@ -330,8 +328,8 @@ class cpanelController extends Controller
                     'workingDays_delivery',
                     'averageDeliveryTime',
                     'usePickup',
-                    'cashOnPickup',
-                    'cardOnPickup',
+                    'cash_at_restaurant',
+                    'card_at_restaurant',
                     'acceptPickupOrders24',
                     'pickupTaxCost',
                     'pickupTaxPercentage',
@@ -478,12 +476,12 @@ class cpanelController extends Controller
         if($request->has(['getNotifications'])){
             $notificationCodes =[];
             if(Auth::guard('account')->user()->is_master == true){
-                $notificationCodes = [1,2,3,4,5,22,74,80];
+                $notificationCodes = ['orders.new_order_user',2,3,4,'orders.canceled_by_user',22,74,80];
             }else{
                 if(str_split(Auth::guard('account')->user()->authorities)[0] == true){
-                    array_push($notificationCodes,1);
+                    array_push($notificationCodes,'orders.new_order_user');
                     array_push($notificationCodes,2);
-                    array_push($notificationCodes,5);
+                    array_push($notificationCodes,'orders.canceled_by_user');
                 }
                 if(str_split(Auth::guard('account')->user()->authorities)[2] == true){
                     array_push($notificationCodes,3);
@@ -821,12 +819,12 @@ class cpanelController extends Controller
             // $todayOrders = [];
             if(Auth::guard('account')->user()->is_master == true){
                 $timezone =website::where('id',$this->website_id)->pluck('timeZone')->first();
-                $notificationCodes = [1,2,3,4,5,74,80];
+                $notificationCodes = ['orders.new_order_user',2,3,4,'orders.canceled_by_user',74,80];
                 // $todayOrders = order::where('placed_at','>',Carbon::today($timezone))->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
 
 
                 $todayOrders = order::where(function($q) use ($timezone){
-                    $q->where('dinein_at','>',Carbon::today($timezone));
+                    $q->where('dinedin_at','>',Carbon::today($timezone));
                 })->orWhere(function($q) use ($timezone){
                     $q->where('delivered_at','>',Carbon::today($timezone));
                 })->orWhere(function($q) use ($timezone){
@@ -841,9 +839,9 @@ class cpanelController extends Controller
             }else{
                 $todayOrders = [];
                 if(str_split(Auth::guard('account')->user()->authorities)[0] == true){
-                    array_push($notificationCodes,1);
+                    array_push($notificationCodes,'orders.new_order_user');
                     array_push($notificationCodes,2);
-                    array_push($notificationCodes,5);
+                    array_push($notificationCodes,'orders.canceled_by_user');
                 }
                 if(str_split(Auth::guard('account')->user()->authorities)[2] == true){
                     array_push($notificationCodes,3);

@@ -1,5 +1,5 @@
 pickupPaymentMethodsNoSaveCheck = function(){
-    if(website_temp.cardOnPickup == website.cardOnPickup && website_temp.cashOnPickup == website.cashOnPickup){
+    if(website_temp.card_at_restaurant == website.card_at_restaurant && website_temp.cash_at_restaurant == website.cash_at_restaurant){
         $('.pickup_payment_methods-NoSave').addClass('none');
         return true;
     }else{
@@ -7,24 +7,24 @@ pickupPaymentMethodsNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('click','.cardOnPickup',function(e){
+$('html,body').on('click','.card_at_restaurant',function(e){
     e.stopImmediatePropagation();
-    $('.cardOnPickupCheck').hasClass('ico-check1') ? website_temp.cardOnPickup = 0 : website_temp.cardOnPickup = 1;
-    website_temp.cardOnPickup ? $('.cardOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cardOnPickupCheck').removeClass('ico-check1').addClass('ico-check0');
+    $('.card_at_restaurant_check').hasClass('ico-check1') ? website_temp.card_at_restaurant = 0 : website_temp.card_at_restaurant = 1;
+    website_temp.card_at_restaurant ? $('.card_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','.cashOnPickup',function(e){
+$('html,body').on('click','.cash_at_restaurant',function(e){
     e.stopImmediatePropagation();
-    $('.cashOnPickupCheck').hasClass('ico-check1') ? website_temp.cashOnPickup = 0 : website_temp.cashOnPickup = 1;
-    website_temp.cashOnPickup ? $('.cashOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cashOnPickupCheck').removeClass('ico-check1').addClass('ico-check0');
+    $('.cash_at_restaurant_check').hasClass('ico-check1') ? website_temp.cash_at_restaurant = 0 : website_temp.cash_at_restaurant = 1;
+    website_temp.cash_at_restaurant ? $('.cash_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     order_pickup_settings_unsave_check();
 })
 $('html,body').on('click','#pickupPaymentMethodsCancelBtn',function(e){
     e.stopImmediatePropagation();
-    website_temp.cashOnPickup = website.cashOnPickup;
-    website_temp.cashOnPickup ? $('.cashOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cashOnPickupCheck').removeClass('ico-check1').addClass('ico-check0');
-    website_temp.cardOnPickup = website.cardOnPickup;
-    website_temp.cardOnPickup ? $('.cardOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cardOnPickupCheck').removeClass('ico-check1').addClass('ico-check0');
+    website_temp.cash_at_restaurant = website.cash_at_restaurant;
+    website_temp.cash_at_restaurant ? $('.cash_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
+    website_temp.card_at_restaurant = website.card_at_restaurant;
+    website_temp.card_at_restaurant ? $('.card_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     order_pickup_settings_unsave_check();
 })
 $('html,body').on('click','#pickupPaymentMethodsSaveBtn',function(e){
@@ -37,16 +37,16 @@ $('html,body').on('click','#pickupPaymentMethodsSaveBtn',function(e){
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             savePickupPaymentMethods:true,
-            cardOnPickup:website_temp.cardOnPickup,
-            cashOnPickup:website_temp.cashOnPickup,
+            card_at_restaurant:website_temp.card_at_restaurant,
+            cash_at_restaurant:website_temp.cash_at_restaurant,
         },success:function(r){
             hideBtnLoading($('#pickupPaymentMethodsSaveBtn'));
             if(r.pickupPaymentMethodsStatus == 1){
                 showAlert('success',r.msg,4000,true);
-                website.cardOnPickup = website_temp.cardOnPickup;
-                website.cashOnPickup = website_temp.cashOnPickup;
-                website_temp.cardOnPickup ? $('.cardOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cardOnPickupCheck').removeClass('ico-check1').addClass('ico-check0');
-                website_temp.cashOnPickup ? $('.cashOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : $('.cashOnPickupCheck').removeClass('ico-check1').addClass('ico-check0');
+                website.card_at_restaurant = website_temp.card_at_restaurant;
+                website.cash_at_restaurant = website_temp.cash_at_restaurant;
+                website_temp.card_at_restaurant ? $('.card_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
+                website_temp.cash_at_restaurant ? $('.cash_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
                 order_pickup_settings_unsave_check();
             }else if(r.pickupPaymentMethodsStatus == 0){
                 showAlert('error',r.msg,4000,true);

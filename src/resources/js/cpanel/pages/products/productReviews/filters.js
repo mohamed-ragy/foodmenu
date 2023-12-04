@@ -93,8 +93,6 @@ $('html,body').on('click','.productReviewsWith',function(e){
         $(this).find('.productReviewsWithCheck').removeClass('ico-check0').addClass('ico-check1');
     }
 })
-
-
 $('html,body').on('click','.productReviewsBy',function(e){
     e.stopImmediatePropagation();
     if($(this).attr('productReviewsBy') == 'users' || $(this).attr('productReviewsBy') == 'guests'){
@@ -129,5 +127,4 @@ $('html,body').on('click','.productReviewsBy',function(e){
 
     }
 })
-
 //

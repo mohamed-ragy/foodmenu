@@ -130,7 +130,9 @@ showPopup =function(popup,callback=()=>{}){
                         $('<div/>',{class:'btnTxt',text:texts.design.uploadNew})
                     )
                 ),
-                $('<div/>',{id:'imgsBrowserContainer'})
+                $('<div/>',{id:'imgsBrowserContainer'}),
+                drawLoadMore('imgBrowser_loadMore','none'),
+                $('<div>',{id:'imgBrowserNoImgs',class:'ma taC none',text:texts.design.noUploads}),
             );
         break;
         case 'addNewLang':
@@ -161,7 +163,24 @@ showPopup =function(popup,callback=()=>{}){
         case 'editProductSelection':
             $('.popupTitle').text(texts.products.editSelection);
         break;
-                
+        case 'error-popup':
+            $('.popupTitle').text(texts.cpanel.public.error);
+        break;
+        case 'accessDenied':
+            $('.popupTitle').text(texts.cpanel.public.accessDenied);
+            $('.popupBody').append(
+                $('<div/>',{text:texts.cpanel.public.accessDenied2})
+            )
+        break;
+        case 'share-popup':
+            $('.popupTitle').text(texts.cpanel.public.share);
+        break;
+        case 'addItem':
+            $('.popupTitle').text(texts.orders.addOrderItem);
+        break;
+        case 'giveOrderToDeliveryMan':
+            $('.popupTitle').text(texts.orders.giveOrderToDelivery);
+        break;
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){

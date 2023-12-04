@@ -15,10 +15,9 @@
                 <div class="storageBar">
                 <div class="storageBarinside"></div>
             </div>
-            <form id="imgs-uploadImgForm" enctype="multipart/form-data">
-                @csrf
-                <input type="file" name="designUploadImg" id="imgs-uploadImg" accept="image/png, image/jpeg, image/gif, image/bmp, image/webp" hidden>
-            </form>
+
+
+
             <div class="btnContainer">
                 <button class="imgs-uploadImgBtn btn">
                     <span class="btnTxt">{{ trans('cpanel/design/imgs.uploadNew') }}</span>

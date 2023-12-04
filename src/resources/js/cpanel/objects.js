@@ -53,11 +53,19 @@ window.todayOrders = [];
 window.notifications = [];
 window.receiptTxt = null;
 window.placeOrder = {
+    isGuest:false,
+    user_id:null,
+    userName:null,
+    phoneNumber:'',
+    address:'',
+    lat:'0',
+    lng:'0',
+    type:'2',
+    notice:'',
+    paymentMethod:null,
     items:[],
     deliveryCost:parseFloat(website.deliveryCost),
     discount:0,
-    userLat:0,
-    userLng:0,
 }
 
 window.pageNotifications = {
@@ -85,8 +93,10 @@ website.slideShow_contentTemp = JSON.parse(JSON.stringify(website.slideShow.cont
 window.globalChannelCheck = false;
 
 
-website.orderHistory = {};
-
+// window.getOrderHistorySkip = 0;
+// window.getMoreOrderHistory = true;
+// window.noMoreOrderHistory = false;
+website.orderHistory = [];
 website.incompleteOrders = [];
 
 for(const key in website.languages){
@@ -104,6 +114,8 @@ website.imgs = [];
 window.imgs_getMore = true;
 window.imgs_noMore = false;
 window.imgBrowser = {opened:false,title:'',imgBrowserClass:''}
+
+window.share = {item:null,type:null}
 
 window.help_tips = website.help_tips;
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cpanel;
 
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
+use App\Models\delivery;
 use Illuminate\Http\Request;
 use App\Models\website;
 use Illuminate\Support\Facades\App;
@@ -25,12 +26,13 @@ class ordersController extends Controller
 {
 
     protected $website_id;
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
 
         });
@@ -39,661 +41,8 @@ class ordersController extends Controller
     }
     public function orders(Request $request)
     {
-
-
-        if($request->has(['acceptOrder'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['id'=>(inT)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($order->status == 0){
-                $receiveOrder = $order->update([
-                    'status'=> 1,
-                    'received_at'=> Carbon::now(),
-                    'received_account_name' => Auth::guard('account')->user()->name,
-                    'received_account_id' => Auth::guard('account')->user()->id,
-                ]);
-                if($receiveOrder){
-                    $notification = new stdClass();
-                    $notification->code = 7;
-                    $notification->website_id = $this->website_id;
-                    $notification->orderId = $request->orderId;
-                    $notification->received_at = Carbon::now();
-                    $notification->received_account_name = Auth::guard('account')->user()->name;
-                    $notification->received_account_id = Auth::guard('account')->user()->id;
-                    $notification->activity = activityLog::create([
-                        'website_id' => $this->website_id,
-                        'code' => 26,
-                        'order_id'=> $request->orderId,
-                        'account_id' => Auth::guard('account')->user()->id,
-                        'account_name' => Auth::guard('account')->user()->name,
-                    ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
-                    $user = new stdClass();
-                    $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                    $user->code = 23;
-                    $user->status = 1;
-                    $user->orderId = $request->orderId;
-                    $user->website_id = $this->website_id;
-                    $user->userType = 'user';
-                    broadcast(new usersStatus($user))->toOthers();
-                    return response(['receiveOrderStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.receiveOrderSaved')]);
-                }else{
-                    return response(['receiveOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.receiveOrderSaveFaild')]);
-
-                }
-            }else{
-                return response(['receiveOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.receiveOrderSaveFaild')]);
-            }
-        }
-        else if($request->has(['cancelOrder'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['cancelOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.cancelOrderSaveFaild')]);
-            }
-            $cancelOrder = $order->update([
-                'status'=> 2,
-                'canceled_at'=> Carbon::now(),
-                'canceled_by'=>0,
-                'canceled_account_name'=>Auth::guard('account')->user()->name,
-                'canceled_account_id'=>Auth::guard('account')->user()->id
-            ]);
-            if($cancelOrder){
-                $notification = new stdClass();
-                $notification->code = 8;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->canceled_by = 0;
-                $notification->canceled_at = Carbon::now();
-                $notification->canceled_account_name = Auth::guard('account')->user()->name;
-                $notification->canceled_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 25,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 2;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['cancelOrderStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.cancelOrderSaved')]);
-            }else{
-                return response(['cancelOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.cancelOrderSaveFaild')]);
-
-            }
-        }
-        else if($request->has(['setReadyForPickup'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $setReadyForPickup = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($setReadyForPickup->status != 1){
-                return response(['setReadyToPickupStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsReadyToPickupSaveFaild')]);
-            }
-            if($setReadyForPickup->update([
-                    'status'=> 4,
-                    'readyToPickup_at'=> Carbon::now(),
-                    'readyToPickup_account_name' => Auth::guard('account')->user()->name,
-                    'readyToPickup_account_id' => Auth::guard('account')->user()->id,
-                ])){
-                $notification = new stdClass();
-                $notification->code = 11;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->readyToPickup_at = Carbon::now();
-                $notification->readyToPickup_account_name = Auth::guard('account')->user()->name;
-                $notification->readyToPickup_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 29,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $setReadyForPickup->user_id != null ? $user->id = $setReadyForPickup->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 4;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['setReadyToPickupStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsReadyToPickupSaved')]);
-            }else{
-                return response(['setReadyToPickupStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsReadyToPickupSaveFaild')]);
-
-            }
-        }
-        else if($request->has(['setPickedup'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $setPickedUpOrder = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($setPickedUpOrder->status != 1 && $setPickedUpOrder->status != 4){
-                return response(['setPickedUpOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsPickedUpOrderSaveFaild')]);
-            }
-            if($setPickedUpOrder->update([
-                    'status'=> 6,
-                    'pickedUp_at'=> Carbon::now(),
-                    'pickedUp_account_name' => Auth::guard('account')->user()->name,
-                    'pickedUp_account_id' => Auth::guard('account')->user()->id,
-                ])){
-                $notification = new stdClass();
-                $notification->code = 12;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->pickedUp_at = Carbon::now();
-                $notification->pickedUp_account_name = Auth::guard('account')->user()->name;
-                $notification->pickedUp_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 27,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $setPickedUpOrder->user_id != null ? $user->id = $setPickedUpOrder->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 6;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['setPickedUpOrderStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsPickedUpOrderSaved')]);
-            }else{
-                return response(['setPickedUpOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsPickedUpOrderSaveFaild')]);
-
-            }
-        }
-        else if($request->has(['setWithDelivery'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $setWithDelivery = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($setWithDelivery->status != 1){
-                return response(['setWithDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsWithDeliverySaveFaild')]);
-            }
-            if($setWithDelivery->update([
-                'status'=> 3,
-                'withDelivery_at'=> Carbon::now(),
-                'withDelivery_account_name' => Auth::guard('account')->user()->name,
-                'withDelivery_account_id' => Auth::guard('account')->user()->id,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 9;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->withDelivery_at = Carbon::now();
-                $notification->withDelivery_account_name = Auth::guard('account')->user()->name;
-                $notification->withDelivery_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 30,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $setWithDelivery->user_id != null ? $user->id = $setWithDelivery->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 3;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['setWithDeliveryStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsWithDeliverySaved')]);
-            }else{
-                return response(['setWithDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsWithDeliverySaveFaild')]);
-
-            }
-        }
-        else if($request->has(['giveToDelivery'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $giveToDelivery = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($giveToDelivery->status != 1 && $giveToDelivery->status != 3){
-                return response(['giveToDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsWithDeliverySaveFaild')]);
-            }
-            if($giveToDelivery->update([
-                'status' => 3,
-                'delivery_id'=>(int)$request->deliveryId,
-                'deliveryName'=>$request->deliveryName,
-                'withDelivery_at'=>Carbon::now(),
-                'withDelivery_account_name' => Auth::guard('account')->user()->name,
-                'withDelivery_account_id' => Auth::guard('account')->user()->id,
-            ])){
-                $order = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->with('order_items')->first();
-                $notification = new stdClass();
-                $notification->code = 9.1;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->delivery_id = $request->deliveryId;
-                $notification->deliveryName = $request->deliveryName;
-                $notification->withDelivery_at = Carbon::now();
-                $notification->withDelivery_account_name = Auth::guard('account')->user()->name;
-                $notification->withDelivery_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 31,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'delivery_id'=>$request->deliveryId,
-                    'delivery_name'=>$request->deliveryName,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $giveToDelivery->user_id != null ? $user->id = $giveToDelivery->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 3;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['giveToDeliveryStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsWithDeliverySaved')]);
-            }else{
-                return response(['giveToDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsWithDeliverySaveFaild')]);
-            }
-        }
-        else if($request->has(['setDelivered'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $setDelivered = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($setDelivered->status != 3 && $setDelivered->status != 1){
-                return response(['setDeliveredStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsDeliveredOrderSaveFaild')]);
-            }
-            if($setDelivered->update([
-                'status'=> 5,
-                'delivered_at'=> Carbon::now(),
-                'delivered_by' => 0,
-                'delivered_account_name' => Auth::guard('account')->user()->name,
-                'delivered_account_id' => Auth::guard('account')->user()->id,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 10;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->delivered_at = Carbon::now();
-                $notification->delivered_by = 0;
-                $notification->delivered_account_name = Auth::guard('account')->user()->name;
-                $notification->delivered_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 28,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $setDelivered->user_id != null ? $user->id = $setDelivered->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 5;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['setDeliveredStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsDeliveredOrderSaved')]);
-            }else{
-                return response(['setDeliveredStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/orders.markAsDeliveredOrderSaveFaild')]);
-
-            }
-        }
-        else if($request->has('setDineIn')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $setDineIn = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($setDineIn->status != 1 && $setDineIn->status != 8){
-                return response(['setDineInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/orders.markAsDineInOrderSaveFaild')]);
-            }
-            if($setDineIn->update([
-                'status'=> 7,
-                'dinein_at'=> Carbon::now(),
-                'dinein_account_name' => Auth::guard('account')->user()->name,
-                'dinein_account_id' => Auth::guard('account')->user()->id,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 6.6;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->dinein_at = Carbon::now();
-                $notification->dinein_account_name = Auth::guard('account')->user()->name;
-                $notification->dinein_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 25.6,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $setDineIn->user_id != null ? $user->id = $setDineIn->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 7;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['setDineInStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsDineInOrderSaved')]);
-            }else{
-                return response(['setDineInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/orders.markAsDineInOrderSaveFaild')]);
-            }
-        }
-        else if($request->has('setDiningIn')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $setDiningIn = order::where(['id'=>(int)$request->orderId,'website_id'=>$this->website_id])->first();
-            if($setDiningIn->status != 1){
-                return response(['setDineInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/orders.markAsDiningOrderSaveFaild')]);
-            }
-            if($setDiningIn->update([
-                'status'=> 8,
-                'diningin_at'=> Carbon::now(),
-                'diningin_account_name' => Auth::guard('account')->user()->name,
-                'diningin_account_id' => Auth::guard('account')->user()->id,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 6.7;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->diningin_at = Carbon::now();
-                $notification->diningin_account_name = Auth::guard('account')->user()->name;
-                $notification->diningin_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 25.5,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $setDiningIn->user_id != null ? $user->id = $setDiningIn->user_id : $user->id = 0;
-                $user->code = 23;
-                $user->status = 8;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['setDineInStatus' => 1, 'msg'=> Lang::get('cpanel/orders/orders.markAsDiningInOrderSaved')]);
-            }else{
-                return response(['setDineInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/orders.markAsDiningOrderSaveFaild')]);
-            }
-        }
-        else if($request->has('changeOrderType')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            if($request->newType != 0 && $request->newType != 1 && $request->newType != 2){
-                return response(['changeOrderTypeStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeOrderTypeFail')]);
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            $oldType = $order->type;
-            if($order == null){
-                return response(['changeOrderTypeStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeOrderTypeFail')]);
-            }
-            if($order->status != 0 && $order->status != 1){
-                return response(['changeOrderTypeStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeOrderTypeFail')]);
-            }
-            $website = website::where('id',$this->website_id)->select([
-                'deliveryCost', 'deliveryTaxCost', 'deliveryTaxPercentage', 'useDeliveryTaxCost',
-                'pickupTaxCost','pickupTaxPercentage','usePickupTaxCost',
-                'dineInTaxPercentage','dineInTaxCost','useDineInTaxCost','dineInServicePercentage','dineInServiceCost','useDineInServiceCost',
-            ])->first();
-
-            $discount = (double)$order->discount;
-            $discount_itemsTotal = (double)$order->discount_itemsTotal;
-            $itemsTotal = (double)$order->itemsTotal;
-            $deliveryCost = (double)0;
-            $service = (double)0;
-            $servicePercent = (double)0;
-            $tax = (double)0;
-            $taxPercent = (double)0;
-            $total = (double)0;
-            if($request->newType == 0){
-                $deliveryCost = (double)$website->deliveryCost;
-                if($website->useDeliveryTaxCost){
-                    $tax = (double)$website->deliveryTaxCost;
-                }else{
-                    if((double)$website->deliveryTaxPercentage > 0){
-                        $taxPercent = $website->deliveryTaxPercentage;
-                        $tax = ((double)$website->deliveryTaxPercentage / 100) * $discount_itemsTotal;
-                    }
-                }
-            }else if($request->newType == 1){
-                if($website->usePickupTaxCost){
-                    $tax = (double)$website->pickupTaxCost;
-                }else{
-                    if((double)$website->pickupTaxPercentage > 0){
-                        $taxPercent = $website->pickupTaxPercentage;
-                        $tax = ((double)$website->pickupTaxPercentage / 100) * $discount_itemsTotal;
-                    }
-                }
-            }else if($request->newType == 2){
-                if($website->useDineInTaxCost){
-                    $tax = (double)$website->dineInTaxCost;
-                }else{
-                    if((double)$website->dineInTaxPercentage > 0){
-                        $taxPercent = $website->dineInTaxPercentage;
-                        $tax = ((double)$website->dineInTaxPercentage / 100) * $discount_itemsTotal;
-                    }
-                }
-                if($website->useDineInServiceCost){
-                    $service = (double)$website->dineInServiceCost;
-                }else{
-                    if((double)$website->dineInServicePercentage > 0){
-                        $servicePercent = $website->dineInServicePercentage;
-                        $service = ((double)$website->dineInServicePercentage / 100) * $discount_itemsTotal;
-                    }
-                }
-            }
-            $total = $discount_itemsTotal + $tax + $service + $deliveryCost;
-
-            if($order->update([
-                'type' => (int)$request->newType,
-                'typeEdit_account_name' => Auth::guard('account')->user()->name,
-                'typeEdit_account_id' => Auth::guard('account')->user()->id,
-
-                'tax' => (double)$tax,
-                'taxPercent' => (double)$taxPercent,
-                'service' => (double)$service,
-                'servicePercent' => (double)$servicePercent,
-                'deliveryCost' => (double)$deliveryCost,
-                'total' => (double)$total,
-                'deliveryEdit_account_name' => null,
-                'deliveryEdit_account_id' => null,
-                'paymentMethod' => null,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 7.1;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->newType = (int)$request->newType;
-                $notification->typeEdit_account_name = Auth::guard('account')->user()->name;
-                $notification->typeEdit_account_id = Auth::guard('account')->user()->id;
-                $notification->tax = (double)$tax;
-                $notification->taxPercent = (double)$taxPercent;
-                $notification->service = (double)$service;
-                $notification->servicePercent = (double)$servicePercent;
-                $notification->deliveryCost = (double)$deliveryCost;
-                $notification->total = (double)$total;
-
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 36,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'newType' => $request->newType,
-                    'oldType' => $oldType,
-
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                $user->code = 24;
-                $user->type = (int)$request->newType;
-                $user->orderId = $request->orderId;
-
-                $user->tax = (double)$tax;
-                $user->taxPercent = (double)$taxPercent;
-                $user->service = (double)$service;
-                $user->servicePercent = (double)$servicePercent;
-                $user->deliveryCost = (double)$deliveryCost;
-                $user->total = (double)$total;
-
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response([
-                    'changeOrderTypeStatus'=>1,
-                    'msg'=> Lang::get('cpanel/orders/orders.changeOrderTypeSaved'),
-                    'tax' => (double)$tax,
-                    'taxPercent' => (double)$taxPercent,
-                    'service' => (double)$service,
-                    'servicePercent' => (double)$servicePercent,
-                    'deliveryCost' => (double)$deliveryCost,
-                    'total' => (double)$total,
-                ]);
-            }
-
-        }
-        else if($request->has('changeOrderNotice')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeOrderNoticeStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeOrderNoticeFail')]);
-            }
-            if($order->update([
-                'notice' => $request->newNotice,
-                'noticeEdit_account_id' => Auth::guard('account')->user()->id,
-                'noticeEdit_account_name' => Auth::guard('account')->user()->name,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 7.2;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->newNotice = $request->newNotice;
-                $notification->noticeEdit_account_name = Auth::guard('account')->user()->name;
-                $notification->noticeEdit_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 36.1,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                return response(['changeOrderNoticeStatus'=>1,'msg'=> Lang::get('cpanel/orders/orders.changeOrderNoticeSaved')]);
-            }else{
-                return response(['changeOrderNoticeStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeOrderNoticeFail')]);
-            }
-        }
-        else if($request->has('changePhoneNumber')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changePhoneNumberStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changePhoneNumberFail')]);
-            }
-            if($order->update([
-                'phoneNumber' => $request->newPhoneNumber,
-                'phoneEdit_account_id' => Auth::guard('account')->user()->id,
-                'phoneEdit_account_name' => Auth::guard('account')->user()->name,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 7.3;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->newPhoneNumber = $request->newPhoneNumber;
-                $notification->phoneEdit_account_name = Auth::guard('account')->user()->name;
-                $notification->phoneEdit_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 36.2,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                $user->code = 25;
-                $user->phoneNumber = $request->newPhoneNumber;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['changePhoneNumberStatus'=>1,'msg'=> Lang::get('cpanel/orders/orders.changePhoneNumberSaved')]);
-            }else{
-                return response(['changePhoneNumberStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changePhoneNumberFail')]);
-            }
-        }
-        else if($request->has('changeAddress')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeAddressStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeAddressFail')]);
-            }
-            if($order->update([
-                'address' => $request->newAddress,
-                'addressEdit_account_id' => Auth::guard('account')->user()->id,
-                'addressEdit_account_name' => Auth::guard('account')->user()->name,
-            ])){
-                $notification = new stdClass();
-                $notification->code = 7.4;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $request->orderId;
-                $notification->newAddress = $request->newAddress;
-                $notification->addressEdit_account_name = Auth::guard('account')->user()->name;
-                $notification->addressEdit_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 36.3,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                $user->code = 26;
-                $user->address = $request->newAddress;
-                $user->orderId = $request->orderId;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-                return response(['changeAddressStatus'=>1,'msg'=> Lang::get('cpanel/orders/orders.changeAddressSaved')]);
-            }else{
-                return response(['changeAddressStatus'=>0,'msg'=> Lang::get('cpanel/orders/orders.changeAddressFail')]);
-            }
-        }
-        else if($request->has(['placeNewOrder'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
+        if($request->has(['placeNewOrder'])){
+            if(str_split($this->account->authorities)[0] == false){
                 return;
             }
 
@@ -712,6 +61,9 @@ class ordersController extends Controller
             $itemsTotal = (double)0;
             $discount_itemsTotal = (double)0;
 
+            if(empty($request->orderItems)){
+                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);
+            }
             foreach($request->orderItems as $item){
                 array_push($orderItemsIds,$item['product_id']);
             }
@@ -719,19 +71,19 @@ class ordersController extends Controller
                 $q->with('product_option_selections');
             }])->get();
 
-            if(empty($request->orderItems) || empty($products)){
-                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.placeNewOrderFaild')]);
+            if(empty($products)){
+                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);
             }
             foreach($request->orderItems as $item){
                 $itemSelections = [];
                 $product = $products->where('id',$item['product_id'])->first();
-                if(!$product){return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.placeNewOrderFaild')]);}
+                if(!$product){return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);}
                 $itemTotal = (double)$product->price;
-                if(!empty($item['order_item_option_selections'])){
-                    foreach($item['order_item_option_selections'] as $itemOption){
-                        $productOption = $product->product_options->where('id',$itemOption['product_option_id'])->first();
-                        $productSelection = $productOption->product_option_selections->where('id',$itemOption['product_option_selection_id'])->first();
-                        if(!$productOption || !$productSelection){return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.placeNewOrderFaild')]);}
+                if(!empty($item['selections'])){
+                    foreach($item['selections'] as $itemOption){
+                        $productOption = $product->product_options->where('id',$itemOption['option_id'])->first();
+                        $productSelection = $productOption->product_option_selections->where('id',$itemOption['selection_id'])->first();
+                        if(!$productOption || !$productSelection){return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);}
                         $itemTotal = $itemTotal + $productSelection->price;
                         array_push($itemSelections,[
                             'optionName' => $productOption->name,
@@ -776,14 +128,14 @@ class ordersController extends Controller
                 if($request->discount != $discount){
                     $discount = $request->discount;
                     $discount_by = 1;
-                    $discount_account_name = Auth::guard('account')->user()->name;
-                    $discount_account_id = Auth::guard('account')->user()->id;
+                    $discount_account_name = $this->account->name;
+                    $discount_account_id = $this->account->id;
                 }
                 $discount_itemsTotal = $itemsTotal  - (($itemsTotal  * $discount)/100);
 
                 if((double)$website->deliveryCost != $request->deliveryCost){
-                    $deliveryEdit_account_name = Auth::guard('account')->user()->name;
-                    $deliveryEdit_account_id = Auth::guard('account')->user()->id;
+                    $deliveryEdit_account_name = $this->account->name;
+                    $deliveryEdit_account_id = $this->account->id;
                 }
                 if($website->useDeliveryTaxCost){
                     $tax = (double)$website->deliveryTaxCost;
@@ -802,8 +154,8 @@ class ordersController extends Controller
                 if($request->discount != $discount){
                     $discount = $request->discount;
                     $discount_by = 1;
-                    $discount_account_name = Auth::guard('account')->user()->name;
-                    $discount_account_id = Auth::guard('account')->user()->id;
+                    $discount_account_name = $this->account->name;
+                    $discount_account_id = $this->account->id;
                 }
                 $discount_itemsTotal = $itemsTotal  - (($itemsTotal  * $discount)/100);
 
@@ -824,8 +176,8 @@ class ordersController extends Controller
                 if($request->discount != $discount){
                     $discount = $request->discount;
                     $discount_by = 1;
-                    $discount_account_name = Auth::guard('account')->user()->name;
-                    $discount_account_id = Auth::guard('account')->user()->id;
+                    $discount_account_name = $this->account->name;
+                    $discount_account_id = $this->account->id;
                 }
                 $discount_itemsTotal = $itemsTotal  - (($itemsTotal  * $discount)/100);
 
@@ -847,7 +199,7 @@ class ordersController extends Controller
                 }
 
             }else{
-                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.placeNewOrderFaild')]);
+                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);
             }
 
 
@@ -857,6 +209,7 @@ class ordersController extends Controller
             $request->isGuest == 1 ? $isGuest = true : $isGuest = false;
             $isGuest ? $user_id = null : $user_id = (int)$request->user_id;
             $isGuest ? $userName = null : $userName = strip_tags($request->userName);
+
             $order = new order([
                 'website_id' => (int)$this->website_id,
                 'id' => order::where('website_id',(int)$this->website_id )->max('id') + 1,
@@ -889,22 +242,22 @@ class ordersController extends Controller
                 // 'delivery_id' => null,
                 // 'deliveryName' => null,
 
-                'placed_at' => new UTCDateTime(),
+                'placed_at' => Carbon::now()->timestamp,
                 'placed_by' => 0,
-                'placed_account_name' => Auth::guard('account')->user()->name,
-                'placed_account_id' => Auth::guard('account')->user()->id,
-                'received_at' => new UTCDateTime(),
-                'received_account_name' => Auth::guard('account')->user()->name,
-                'received_account_id' => Auth::guard('account')->user()->id,
+                'placed_account_name' => $this->account->name,
+                'placed_account_id' => $this->account->id,
+                'accepted_at' => Carbon::now()->timestamp,
+                'accepted_account_name' => $this->account->name,
+                'accepted_account_id' => $this->account->id,
 
-                'withDelivery_at' => null,
+                'out_for_delivery_at' => null,
                 'delivered_at' => null,
 
-                'readyToPickup_at' => null,
+                'ready_for_pickup_at' => null,
                 'pickedUp_at' => null,
 
                 'diningin_at' => null,
-                'dinein_at' => null,
+                'dinedin_at' => null,
 
                 'canceled_at' => null,
 
@@ -931,127 +284,732 @@ class ordersController extends Controller
 
             $order->save();
             if($order){
-                $order = foodmenuFunctions::checkOrderId($this->website_id,$order->id);
-                $notification = new stdClass();
-                $notification->code = 6;
-                $notification->website_id = $this->website_id;
-                $notification->order = $order;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('orders.new_order_account',[
                     'website_id' => $this->website_id,
-                    'code' => 34,
-                    'order_id' => $order->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'order.new_order_by_account',
+                    'order_id' => $order->_id,
+                    'order_number' => $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order' => $order
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                if(!$isGuest){
-                    $user = new stdClass();
-                    $user->id = $user_id;
-                    $user->code = 17;
-                    $user->order = $order;
-                    $user->website_id = $this->website_id;
-                    $user->userType = 'user';
-                    broadcast(new usersStatus($user))->toOthers();
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('new_order_account',$this->website_id,'user',$order->user_id,['order' => $order]);
                 }
-                return response(['placeOrderStat' => 1,'msg' => Lang::get('cpanel/orders/orders.placeNewOrderPlaced'), 'order' => $order]);
+                return response(['placeOrderStat' => 1,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderPlaced'), 'order' => $order]);
 
 
             }else{
-                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.placeNewOrderFaild')]);
+                return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);
             }
-        }
-        /////
-        else if($request->has('findOrders')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
+        }else if($request->has(['acceptOrder'])){
+            if(str_split($this->account->authorities)[0] == false){
                 return;
             }
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 0){
+                return response(['acceptOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.acceptOrderSaveFaild')]);
+            }
+            $updateOrder = $order->update([
+                'status'=> 1,
+                'accepted_at'=> Carbon::now()->timestamp,
+                'accepted_account_name' => $this->account->name,
+                'accepted_account_id' => $this->account->id,
+            ]);
+            if($updateOrder){
+                foodmenuFunctions::notification('orders.accepted',[
+                    'website_id' => $this->website_id,
+                    'code' => 26,
+                    'order_id'=> $order->_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $order->_id,
+                    'accepted_at'=> Carbon::now()->timestamp,
+                    'accepted_account_name' => $this->account->name,
+                    'accepted_account_id' => $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_accepted',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['acceptOrderState' => 1, 'msg'=> Lang::get('cpanel/orders/responses.acceptOrderSaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['acceptOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.acceptOrderSaveFaild')]);
+            }
+        }else if($request->has(['cancelOrder'])){
+            if(str_split($this->account->authorities)[0] == false){
+                return;
+            }
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['cancelOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.cancelOrderSaveFaild')]);
+            }
+            $cancelOrder = $order->update([
+                'status'=> 2,
+                'canceled_at'=> Carbon::now()->timestamp,
+                'canceled_by'=> 0,
+                'canceled_account_name'=>$this->account->name,
+                'canceled_account_id'=>$this->account->id
+            ]);
+            if($cancelOrder){
+                foodmenuFunctions::notification('orders.canceled_by_account',[
+                    'website_id' => $this->website_id,
+                    'code' => 25,
+                    'order_id'=> $request->orderId,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $order->_id,
+                    'canceled_at'=> Carbon::now()->timestamp,
+                    'canceled_by'=> 0,
+                    'canceled_account_name'=>$this->account->name,
+                    'canceled_account_id'=>$this->account->id
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_canceled',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['cancelOrderState' => 1, 'msg'=> Lang::get('cpanel/orders/responses.cancelOrderSaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['cancelOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.cancelOrderSaveFaild')]);
+
+            }
+        }else if($request->has(['markAsreadyForPickup'])){
+            if(str_split($this->account->authorities)[0] == false){
+                return;
+            }
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 1){
+                return response(['markAsreadyForPickupState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsReadyToPickupSaveFaild')]);
+            }
+            if($order->update([
+                    'status'=> 4,
+                    'ready_for_pickup_at'=> Carbon::now()->timestamp,
+                    'ready_for_pickup_account_name' => $this->account->name,
+                    'ready_for_pickup_account_id' => $this->account->id,
+                ])){
+                    foodmenuFunctions::notification('orders.ready_for_pickup',[
+                        'website_id' => $this->website_id,
+                        'code' => 29,
+                        'order_id'=> $request->orderId,
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                    ],[
+                        'order_id' => $order->_id,
+                        'ready_for_pickup_at'=> Carbon::now()->timestamp,
+                        'ready_for_pickup_account_name' => $this->account->name,
+                        'ready_for_pickup_account_id' => $this->account->id,
+                    ]);
+                    if(!$order->isGuest){
+                        foodmenuFunctions::notification_website('order_ready_for_pickup',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                    }
+                return response(['markAsreadyForPickupState' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsReadyToPickupSaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['markAsreadyForPickupState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsReadyToPickupSaveFaild')]);
+
+            }
+        }else if($request->has(['setPickedup'])){
+            if(str_split($this->account->authorities)[0] == false){
+                return;
+            }
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 1 && $order->status != 4){
+                return response(['setPickedUpOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsPickedUpOrderSaveFaild')]);
+            }
+            if($order->update([
+                    'status'=> 6,
+                    'pickedUp_at'=> Carbon::now()->timestamp,
+                    'pickedUp_account_name' => $this->account->name,
+                    'pickedUp_account_id' => $this->account->id,
+                ])){
+                    foodmenuFunctions::notification('orders.picked_up',[
+                        'website_id' => $this->website_id,
+                        'code' => 27,
+                        'order_id'=> $request->orderId,
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                    ],[
+                        'order_id' => $order->_id,
+                        'pickedUp_at'=> Carbon::now()->timestamp,
+                        'pickedUp_account_name' => $this->account->name,
+                        'pickedUp_account_id' => $this->account->id,
+                    ]);
+                    if(!$order->isGuest){
+                        foodmenuFunctions::notification_website('order_picked_up',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                    }
+                return response(['setPickedUpOrderStatus' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsPickedUpOrderSaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['setPickedUpOrderStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsPickedUpOrderSaveFaild')]);
+
+            }
+        }else if($request->has(['markAsOutForDelivery'])){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 1){
+                return response(['markAsOutForDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsWithDeliverySaveFaild')]);
+            }
+            if($order->update([
+                'status'=> 3,
+                'out_for_delivery_at'=> Carbon::now()->timestamp,
+                'out_for_delivery_account_name' => $this->account->name,
+                'out_for_delivery_account_id' => $this->account->id,
+            ])){
+                foodmenuFunctions::notification('orders.out_for_delivery',[
+                    'website_id' => $this->website_id,
+                    'code' => 30,
+                    'order_id'=> $request->orderId,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $order->_id,
+                    'out_for_delivery_at'=> Carbon::now()->timestamp,
+                    'out_for_delivery_account_name' => $this->account->name,
+                    'out_for_delivery_account_id' => $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_out_for_delivery',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['markAsOutForDeliveryStatus' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsWithDeliverySaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['markAsOutForDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsWithDeliverySaveFaild')]);
+
+            }
+        }else if($request->has(['giveToDelivery'])){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 1 && $order->status != 3){
+                return response(['giveToDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsWithDeliverySaveFaild')]);
+            }
+            $deliveryMan = delivery::where(['website_id'=> $this->website_id,'id' => $request->delivery_id])->first();
+            $order->out_for_delivery_at == null ? $out_for_delivery_at = Carbon::now()->timestamp : $out_for_delivery_at = $order->out_for_delivery_at;
+            if($order->update([
+                'status' => 3,
+                'delivery_id'=>$deliveryMan->id,
+                'deliveryName'=>$deliveryMan->deliveryName,
+                'out_for_delivery_at'=>$out_for_delivery_at,
+                'out_for_delivery_account_name' => $this->account->name,
+                'out_for_delivery_account_id' => $this->account->id,
+            ])){
+                foodmenuFunctions::notification('orders.to_delivery_man',[
+                    'website_id' => $this->website_id,
+                    'code' => 31,
+                    'order_id'=> $request->orderId,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'delivery_id'=>$deliveryMan->id,
+                    'delivery_name'=>$deliveryMan->deliveryName,
+                ],[
+                    'order_id' => $order->_id,
+                    'delivery_id'=>$deliveryMan->id,
+                    'delivery_name'=>$deliveryMan->deliveryName,
+                    'out_for_delivery_at'=>$out_for_delivery_at,
+                    'out_for_delivery_account_name' => $this->account->name,
+                    'out_for_delivery_account_id' => $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_out_for_delivery',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['giveToDeliveryStatus' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsWithDeliverySaved'),'out_for_delivery_at'=>$out_for_delivery_at]);
+            }else{
+                return response(['giveToDeliveryStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsWithDeliverySaveFaild')]);
+            }
+        }else if($request->has(['setDelivered'])){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 3 && $order->status != 1){
+                return response(['setDeliveredStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsDeliveredOrderSaveFaild')]);
+            }
+            if($order->update([
+                'status'=> 5,
+                'delivered_at'=> Carbon::now()->timestamp,
+                'delivered_by' => 0,
+                'delivered_account_name' => $this->account->name,
+                'delivered_account_id' => $this->account->id,
+            ])){
+                foodmenuFunctions::notification('orders.delivered_by_account',[
+                    'website_id' => $this->website_id,
+                    'code' => 28,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $order->_id,
+                    'delivered_at'=> Carbon::now()->timestamp,
+                    'delivered_by' => 0,
+                    'delivered_account_name' => $this->account->name,
+                    'delivered_account_id' => $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_delivered',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['setDeliveredStatus' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsDeliveredOrderSaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['setDeliveredStatus' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsDeliveredOrderSaveFaild')]);
+
+            }
+        }else if($request->has('setDiningIn')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 1){
+                return response(['setDiningInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/responses.markAsDiningOrderSaveFaild')]);
+            }
+            if($order->update([
+                'status'=> 8,
+                'diningin_at'=> Carbon::now()->timestamp,
+                'diningin_account_name' => $this->account->name,
+                'diningin_account_id' => $this->account->id,
+            ])){
+                foodmenuFunctions::notification('orders.diningin',[
+                    'website_id' => $this->website_id,
+                    'code' => 25.5,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $order->_id,
+                    'diningin_at'=> Carbon::now()->timestamp,
+                    'diningin_account_name' => $this->account->name,
+                    'diningin_account_id' => $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_diningin',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['setDiningInStatus' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsDiningInOrderSaved'),'now' => Carbon::now()->timestamp]);
+            }else{
+                return response(['setDiningInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/responses.markAsDiningOrderSaveFaild')]);
+            }
+        }else if($request->has('setDinedIn')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
+            if($order->status != 1 && $order->status != 8){
+                return response(['setDinedInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/responses.markAsDinedInOrderSaveFaild')]);
+            }
+            if($order->update([
+                'status'=> 7,
+                'dinedin_at'=> Carbon::now()->timestamp,
+                'dinedin_account_name' => $this->account->name,
+                'dinedin_account_id' => $this->account->id,
+            ])){
+                foodmenuFunctions::notification('orders.dinedin',[
+                    'website_id' => $this->website_id,
+                    'code' => 25.6,
+                    'order_id'=> $request->orderId,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $order->_id,
+                    'dinedin_at'=> Carbon::now()->timestamp,
+                    'dinedin_account_name' => $this->account->name,
+                    'dinedin_account_id' => $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_dinedin',$this->website_id,'user',$order->user_id,['order' => $order->_id]);
+                }
+                return response(['setDinedInStatus' => 1, 'msg'=> Lang::get('cpanel/orders/responses.markAsDinedInOrderSaved'),'now'=>Carbon::now()->timestamp]);
+            }else{
+                return response(['setDinedInStatus' => 0, 'msg'=> Lang::get('cpanel/orders/responses.markAsDinedInOrderSaveFaild')]);
+            }
+        }else if($request->has('findOrders')){
+            if(str_split($this->account->authorities)[0] == false){return;}
             $statuses = [];
-            foreach($request->findOrderStatuses as $status){
+            foreach($request->statuses as $status){
                 array_push($statuses,(int)$status);
             }
-            if($request->orderNumber != '' && $request->orderNumber != ''){
-                $orders = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderNumber])->whereIn('status',[2,5,6,7])->with('order_items')->get();
-            }else if($request->userId != '' && $request->userId != null){
-                if($request->findOrdersAfter == '' || $request->findOrdersAfter == null){
-                    $orders = order::where(['website_id' => $this->website_id,'user_id'=>(int)$request->userId])
-                    ->whereIn('status',$statuses)
-                    ->with('order_items')
-                    ->orderBy('placed_at','DESC')->take(30)->get();
-                }else{
-                    $orders = order::where(['website_id' => $this->website_id,'user_id'=>(int)$request->userId])
-                    ->whereIn('status',$statuses)
-                    ->where('placed_at','<', new DateTime($request->findOrdersAfter))
-                    ->with('order_items')
-                    ->orderBy('placed_at','DESC')->take(30)->get();
+
+            $orders = order::where(['website_id'=>$this->website_id])->whereIn('status',$statuses);
+            if($request->user == ''){
+                if($request->byGuests == 1 && $request->byUsers == 0){
+                    $orders->where(['isGuest'=>true]);
+                }else if($request->byGuests == 0 && $request->byUsers == 1){
+                    $orders->where(['isGuest'=>false]);
                 }
             }else{
-                if($request->users == 1 && $request->guests == 0){
-                    if($request->findOrdersAfter == '' || $request->findOrdersAfter == null){
-                        $orders = order::where('website_id',$this->website_id)->where('isGuest',false)
-                        ->whereIn('status',$statuses)->with('order_items')
-                        ->orderBy('placed_at','DESC')->take(30)->get();
-                    }else{
-                        $orders = order::where('website_id',$this->website_id)->where('isGuest',false)
-                        ->whereIn('status',$statuses)
-                        ->where('placed_at','<', new DateTime($request->findOrdersAfter))
-                        ->with('order_items')
-                        ->orderBy('placed_at','DESC')->take(30)->get();
-                    }
-
-
-                }else if($request->users == 0 && $request->guests == 1){
-                    if($request->findOrdersAfter == '' || $request->findOrdersAfter == null){
-                        $orders = order::where('website_id',$this->website_id)->where('isGuest',true)
-                        ->whereIn('status',$statuses)
-                        ->with('order_items')
-                        ->orderBy('placed_at','DESC')->take(30)->get();
-                    }else{
-                        $orders = order::where('website_id',$this->website_id)->where('isGuest',true)
-                        ->whereIn('status',$statuses)
-                        ->where('placed_at','<', new DateTime($request->findOrdersAfter))
-                        ->with('order_items')
-                        ->orderBy('placed_at','DESC')->take(30)->get();
-                    }
-
-                }else if($request->users == 1 && $request->guests == 1){
-                    if($request->findOrdersAfter == '' || $request->findOrdersAfter == null){
-                        $orders = order::where('website_id',$this->website_id)
-                        ->whereIn('status',$statuses)
-                        ->with('order_items')
-                        ->orderBy('placed_at','DESC')->take(30)->get();
-                    }else{
-                        $orders = order::where('website_id',$this->website_id)
-                        ->whereIn('status',$statuses)
-                        ->where('placed_at','<', new DateTime($request->findOrdersAfter))
-                        ->with('order_items')
-                        ->orderBy('placed_at','DESC')->take(30)->get();
-                    }
-
-                }
-
+                $orders->where(['user_id'=>(int)$request->user]);
             }
-            return response(['orders' => $orders]);
-
-        }
-        else if($request->has('getOrder')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
+            if($request->orderNumber != ''){
+                $orders->where('id',(int)$request->orderNumber);
             }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->getOrder])
+            $orderBy = $request->orderBy;
+            if($request->orderBy == 'price'){$orderBy = 'total';}
+            else if($request->orderBy == 'customer'){$orderBy = 'userName';}
+            else if($request->orderBy == 'items'){$orderBy = 'order_items';}
+            return response(['orders' => $orders->orderBy($orderBy,$request->sort)->skip($request->skip)->limit(10)->get(),'count' => $orders->count()]);
+        }else if($request->has('getOrder')){
+
+            $order = order::where('website_id',$this->website_id)
+            ->where('_id',$request->getOrder)
             ->with('order_items')
             ->first();
-            return response(['order' => $order]);
-        }
-        /////
-        else if($request->has('addItemToOrder')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
+            if($order == null){
+                $order = order::where('website_id',$this->website_id)
+                ->where('id',(int)$request->getOrder)
+                ->with('order_items')
+                ->first();
             }
 
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order == null){return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.addItemToOrderFail')]);}
+            return response(['order' => $order]);
+        }else if($request->has('changeOrderNotice')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.addItemToOrderFail')]);
+                return response(['changeOrderNoticeStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeOrderNoticeFail')]);
+            }
+            if($order->update([
+                'notice' => $request->newNotice,
+                'noticeEdit_account_id' => $this->account->id,
+                'noticeEdit_account_name' => $this->account->name,
+            ])){
+                foodmenuFunctions::notification('orders.update.notice',[
+                    'website_id' => $this->website_id,
+                    'code' => 36.1,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $request->order_id,
+                    'notice' => $request->newNotice,
+                    'noticeEdit_account_id' => $this->account->id,
+                    'noticeEdit_account_name' => $this->account->name,
+                ]);
+                return response(['changeOrderNoticeStatus'=>1,'msg'=> Lang::get('cpanel/orders/responses.changeOrderNoticeSaved')]);
+            }else{
+                return response(['changeOrderNoticeStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeOrderNoticeFail')]);
+            }
+        }else if($request->has('changePhoneNumber')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['changePhoneNumberStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changePhoneNumberFail')]);
+            }
+            if($order->update([
+                'phoneNumber' => $request->phoneNumber,
+                'phoneEdit_account_id' => $this->account->id,
+                'phoneEdit_account_name' => $this->account->name,
+            ])){
+                foodmenuFunctions::notification('orders.update.phoneNumber',[
+                    'website_id' => $this->website_id,
+                    'code' => 36.2,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $request->order_id,
+                    'phoneNumber' => $request->phoneNumber,
+                    'phoneEdit_account_id' => $this->account->id,
+                    'phoneEdit_account_name' => $this->account->name,
+                ]);
+                return response(['changePhoneNumberStatus'=>1,'msg'=> Lang::get('cpanel/orders/responses.changePhoneNumberSaved')]);
+            }else{
+                return response(['changePhoneNumberStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changePhoneNumberFail')]);
+            }
+        }else if($request->has('changeAddress')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['changeAddressStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeAddressFail')]);
+            }
+            if($order->update([
+                'address' => $request->address,
+                'addressEdit_account_id' => $this->account->id,
+                'addressEdit_account_name' => $this->account->name,
+            ])){
+                foodmenuFunctions::notification('orders.update.address',[
+                    'website_id' => $this->website_id,
+                    'code' => 36.3,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'order_id' => $request->order_id,
+                    'address' => $request->address,
+                    'addressEdit_account_id' => $this->account->id,
+                    'addressEdit_account_name' => $this->account->name,
+                ]);
+                return response(['changeAddressStatus'=>1,'msg'=> Lang::get('cpanel/orders/responses.changeAddressSaved')]);
+            }else{
+                return response(['changeAddressStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeAddressFail')]);
+            }
+        }else if($request->has('changeOrderType')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            if($request->type != 0 && $request->type != 1 && $request->type != 2){
+                return response(['changeOrderTypeStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeOrderTypeFail')]);
+            }
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            $oldType = $order->type;
+            if($order == null){
+                return response(['changeOrderTypeStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeOrderTypeFail')]);
+            }
+            if($order->status != 0 && $order->status != 1){
+                return response(['changeOrderTypeStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeOrderTypeFail')]);
+            }
+            $website = website::where('id',$this->website_id)->select([
+                'deliveryCost', 'deliveryTaxCost', 'deliveryTaxPercentage', 'useDeliveryTaxCost',
+                'pickupTaxCost','pickupTaxPercentage','usePickupTaxCost',
+                'dineInTaxPercentage','dineInTaxCost','useDineInTaxCost','dineInServicePercentage','dineInServiceCost','useDineInServiceCost',
+            ])->first();
+
+            $discount = (double)$order->discount;
+            $discount_itemsTotal = (double)$order->discount_itemsTotal;
+            $itemsTotal = (double)$order->itemsTotal;
+            $deliveryCost = (double)0;
+            $service = (double)0;
+            $servicePercent = (double)0;
+            $tax = (double)0;
+            $taxPercent = (double)0;
+            $total = (double)0;
+            if($request->type == 0){
+                $deliveryCost = (double)$website->deliveryCost;
+                if($website->useDeliveryTaxCost){
+                    $tax = (double)$website->deliveryTaxCost;
+                }else{
+                    if((double)$website->deliveryTaxPercentage > 0){
+                        $taxPercent = $website->deliveryTaxPercentage;
+                        $tax = ((double)$website->deliveryTaxPercentage / 100) * $discount_itemsTotal;
+                    }
+                }
+            }else if($request->type == 1){
+                if($website->usePickupTaxCost){
+                    $tax = (double)$website->pickupTaxCost;
+                }else{
+                    if((double)$website->pickupTaxPercentage > 0){
+                        $taxPercent = $website->pickupTaxPercentage;
+                        $tax = ((double)$website->pickupTaxPercentage / 100) * $discount_itemsTotal;
+                    }
+                }
+            }else if($request->type == 2){
+                if($website->useDineInTaxCost){
+                    $tax = (double)$website->dineInTaxCost;
+                }else{
+                    if((double)$website->dineInTaxPercentage > 0){
+                        $taxPercent = $website->dineInTaxPercentage;
+                        $tax = ((double)$website->dineInTaxPercentage / 100) * $discount_itemsTotal;
+                    }
+                }
+                if($website->useDineInServiceCost){
+                    $service = (double)$website->dineInServiceCost;
+                }else{
+                    if((double)$website->dineInServicePercentage > 0){
+                        $servicePercent = $website->dineInServicePercentage;
+                        $service = ((double)$website->dineInServicePercentage / 100) * $discount_itemsTotal;
+                    }
+                }
+            }
+            $total = $discount_itemsTotal + $tax + $service + $deliveryCost;
+
+            if($order->update([
+                'type' => (int)$request->type,
+                'typeEdit_account_name' => $this->account->name,
+                'typeEdit_account_id' => $this->account->id,
+
+                'tax' => (double)$tax,
+                'taxPercent' => (double)$taxPercent,
+                'service' => (double)$service,
+                'servicePercent' => (double)$servicePercent,
+                'deliveryCost' => (double)$deliveryCost,
+                'total' => (double)$total,
+                'deliveryEdit_account_name' => null,
+                'deliveryEdit_account_id' => null,
+                'paymentMethod' => null,
+            ])){
+                foodmenuFunctions::notification('orders.update.type',[
+                    'website_id' => $this->website_id,
+                    'code' => 36,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'newType' => $request->type,
+                    'oldType' => $oldType,
+                ],[
+                    'order_id' => $request->order_id,
+                    'type' => (int)$request->type,
+                    'typeEdit_account_name' => $this->account->name,
+                    'typeEdit_account_id' => $this->account->id,
+                    'tax' => (double)$tax,
+                    'taxPercent' => (double)$taxPercent,
+                    'service' => (double)$service,
+                    'servicePercent' => (double)$servicePercent,
+                    'deliveryCost' => (double)$deliveryCost,
+                    'total' => (double)$total,
+                    'deliveryEdit_account_name' => null,
+                    'deliveryEdit_account_id' => null,
+                    'paymentMethod' => null,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_type_change',$this->website_id,'user',$order->user_id,[
+                        'type' => (int)$request->newType,
+                        'tax' => (double)$tax,
+                        'taxPercent' => (double)$taxPercent,
+                        'service' => (double)$service,
+                        'servicePercent' => (double)$servicePercent,
+                        'deliveryCost' => (double)$deliveryCost,
+                        'total' => (double)$total,
+                        'deliveryEdit_account_name' => null,
+                        'deliveryEdit_account_id' => null,
+                        'paymentMethod' => null,
+                    ]);
+                }
+                return response([
+                    'changeOrderTypeStatus'=>1,
+                    'msg'=> Lang::get('cpanel/orders/responses.changeOrderTypeSaved'),
+                    'tax' => (double)$tax,
+                    'taxPercent' => (double)$taxPercent,
+                    'service' => (double)$service,
+                    'servicePercent' => (double)$servicePercent,
+                    'deliveryCost' => (double)$deliveryCost,
+                    'total' => (double)$total,
+                ]);
+            }
+
+        }else if($request->has('changeDiscount')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            $oldDiscount = $order->discount;
+            if($order == null){return response(['changeDiscountStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDiscountFail')]);}
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['changeDiscountStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDiscountFail')]);
+            }
+
+            $itemsTotal = (double)$order->itemsTotal;
+            $service = (double)$order->service;
+            $tax = (double)$order->tax;
+            $deliveryCost = (double)$order->deliveryCost;
+
+            $discount = (int)$request->discount;
+            $discount_itemsTotal = $itemsTotal - (($itemsTotal * $discount )/100);
+
+            if((double)$order->taxPercent > 0){
+                $tax = ((double)$order->taxPercent / 100) * $discount_itemsTotal;
+            }
+
+            if((double)$order->servicePercent > 0){
+                $service = ((double)$order->servicePercent / 100) * $discount_itemsTotal;
+            }
+
+            $total = $discount_itemsTotal + $tax + $service + $deliveryCost;
+
+            if($order->update([
+                'discount' => (int)$discount,
+                'discount_itemsTotal' => (double)$discount_itemsTotal,
+                'tax' => (double)$tax,
+                'service' => (double)$service,
+                'total' => (double)$total,
+                'discount_by' => 1,
+                'discount_promocode' => null,
+                'discount_promocode_id' => null,
+                'discount_account_id' => $this->account->id,
+                'discount_account_name' => $this->account->name,
+            ])){
+                foodmenuFunctions::notification('orders.update.discount',[
+                    'website_id' => $this->website_id,
+                    'code' => 33.6,
+                    'order_id'=> $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'discount' => $discount,
+                    'oldDiscount' => $oldDiscount,
+                ],[
+                    'order_id' => $request->order_id,
+                    'discount' => (int)$discount,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    'discount_by' => 1,
+                    'discount_promocode' => null,
+                    'discount_promocode_id' => null,
+                    'discount_account_id' => $this->account->id,
+                    'discount_account_name' => $this->account->name,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_discount_change',$this->website_id,'user',$order->user_id,[
+                        'order_id' => $request->order_id,
+                        'discount' => (int)$discount,
+                        'discount_itemsTotal' => (double)$discount_itemsTotal,
+                        'tax' => (double)$tax,
+                        'service' => (double)$service,
+                        'total' => (double)$total,
+                        'discount_by' => 1,
+                        'discount_promocode' => null,
+                        'discount_promocode_id' => null,
+                    ]);
+                }
+                return response([
+                    'changeDiscountStat' => 1,
+                    'msg' => Lang::get('cpanel/orders/responses.changeDiscountSaved'),
+                    'discount' => (int)$discount,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    // 'discount_by' => 1,
+                    // 'discount_promocode' => null,
+                    // 'discount_promocode_id' => null,
+                    // 'discount_account_id' => $this->account->id,
+                    // 'discount_account_name' => $this->account->name,
+                ]);
+            }else{
+                return response(['changeDiscountStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDiscountFail')]);
+            }
+        }else if($request->has('changeDeliveryCost')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            $oldDeliveryCost = $order->deliveryCost;
+            if($order == null){return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDeliverycostFail')]);}
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDeliverycostFail')]);
+            }
+            if($order->type != 0){
+                return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDeliverycostFail')]);
+            }
+            $discount_itemsTotal = (double)$order->discount_itemsTotal;
+            $tax = (double)$order->tax;
+            $deliveryCost = (double)$request->deliveryCost;
+            $total = $discount_itemsTotal + $tax + $deliveryCost;
+
+            if($order->update([
+                'deliveryCost' => (double)$deliveryCost,
+                'total' => (double)$total,
+                'deliveryEdit_account_name'=> $this->account->name,
+                'deliveryEdit_account_id'=> $this->account->id,
+            ])){
+                foodmenuFunctions::notification('orders.update.deliveryCost',[
+                    'website_id' => $this->website_id,
+                    'code' => 33.5,
+                    'order_id'=> $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'deliveryCost' => $order->deliveryCost,
+                    'oldDeliveryCost' => $oldDeliveryCost,
+                ],[
+                    'order_id' => $request->order_id,
+                    'deliveryCost' => (double)$deliveryCost,
+                    'total' => (double)$total,
+                    'deliveryEdit_account_name'=> $this->account->name,
+                    'deliveryEdit_account_id'=> $this->account->id,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_deliveryCost_change',$this->website_id,'user',$order->user_id,[
+                        'order_id' => $request->order_id,
+                        'deliveryCost' => (double)$deliveryCost,
+                        'total' => (double)$total,
+                    ]);
+                }
+
+                return response([
+                    'changeDeliveryCostStat' => 1,
+                    'msg' => Lang::get('cpanel/orders/responses.changeDeliverycostSaved'),
+                    'deliveryCost' => (double)$deliveryCost,
+                    'total' => (double)$total,
+                ]);
+            }else{
+                return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeDeliverycostFail')]);
+            }
+        }else if($request->has('addItemToOrder')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order == null){return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.addItemToOrderFail')]);}
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.addItemToOrderFail')]);
             }
             if($order->itemsEdit_account_id == null){
                 $orderOldItems = $order->order_items->toArray();
@@ -1061,8 +1019,7 @@ class ordersController extends Controller
                 ->with(['product_options'=>function($q){
                     $q->with('product_option_selections');
                 }])->first();
-            if($product == null){return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.addItemToOrderFail')]);}
-
+            if($product == null){return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.addItemToOrderFail')]);}
 
             $itemSelections = [];
             $itemTotal = (double)$product->price;
@@ -1071,7 +1028,7 @@ class ordersController extends Controller
                 foreach($request->item['order_item_option_selections'] as $itemOption){
                     $productOption = $product->product_options->where('id',$itemOption['product_option_id'])->first();
                     $productSelection = $productOption->product_option_selections->where('id',$itemOption['product_option_selection_id'])->first();
-                    if(!$productOption || !$productSelection){return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.addItemToOrderFail')]);}
+                    if(!$productOption || !$productSelection){return response(['addItemToOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.addItemToOrderFail')]);}
                     $itemTotal = $itemTotal + $productSelection->price;
                     array_push($itemSelections,[
                         'optionName' => $productOption->name,
@@ -1123,8 +1080,8 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                         'order_items_original' => $orderOldItems,
                     ]);
                 }else{
@@ -1134,58 +1091,75 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
+                    ]);
+                }
+                foodmenuFunctions::notification('orders.update.addItem',[
+                    'website_id' => $this->website_id,
+                    'code' => 33,
+                    'order_id'=> $request->order_id,
+                    'item' => $addItem,
+                    'itemsTotal' => (double)$itemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    'itemsEdit_account_name'=> $this->account->name,
+                    'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
+                ],[
+                    'order_id' => $request->order_id,
+                    'item' => $addItem,
+                    'itemsTotal' => (double)$itemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    'itemsEdit_account_name'=> $this->account->name,
+                    'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_item_added',$this->website_id,'user',$order->user_id,[
+                        'order_id' => $request->order_id,
+                        'item' => $addItem,
+                        'itemsTotal' => (double)$itemsTotal,
+                        'discount_itemsTotal' => (double)$discount_itemsTotal,
+                        'tax' => (double)$tax,
+                        'service' => (double)$service,
+                        'total' => (double)$total,
                     ]);
                 }
 
-                $editedOrder = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->with('order_items')->first();
-
-                $notification = new stdClass();
-                $notification->code = 13;
-                $notification->website_id = $this->website_id;
-                $notification->order = $editedOrder;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 33,
-                    'order_id'=> $editedOrder->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'product_name' => $orderItem['productName'],
-                    'product_id' => $orderItem['product_id'],
-                    'qty' => (int)$orderItem['qty'],
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                $user = new stdClass();
-                $editedOrder->user_id != null ? $user->id = $editedOrder->user_id : $user->id = 0;
-                $user->code = 16;
-                $user->order = $editedOrder;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
                 return response([
                     'addItemToOrderStat' => 1,
-                    'msg'=>Lang::get('cpanel/orders/orders.addItemToOrderSaved'),
-                    'order' => $editedOrder,
+                    'msg'=>Lang::get('cpanel/orders/responses.addItemToOrderSaved'),
+                    'item' => $addItem,
+                    'itemsTotal' => (double)$itemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    // 'itemsEdit_account_name'=> $this->account->name,
+                    // 'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
                 ]);
             }
-        }
-        else if($request->has('removeItemFromOrder')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
+        }else if($request->has('removeItemFromOrder')){
+            if(str_split($this->account->authorities)[0] == false){return;}
 
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order == null){return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.removeItemToOrderFail')]);}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order == null){return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.removeItemToOrderFail')]);}
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.removeItemToOrderFail')]);
+                return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.removeItemToOrderFail')]);
             }
-            if($order->order_items->count() == 1){return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.removeItemToOrderFail')]);}
+            if($order->order_items->count() == 1){return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.removeItemToOrderFail')]);}
             if($order->itemsEdit_account_id == null){
                 $orderOldItems = $order->order_items->toArray();
             }
 
-            $item = $order->order_items()->find($request->itemId);
+            $item = $order->order_items()->find($request->item_id);
             $productId = $item->product_id;
             $productName = $item->productName;
 
@@ -1215,8 +1189,8 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                         'order_items_original' => $orderOldItems,
                     ]);
                 }else{
@@ -1226,62 +1200,129 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                     ]);
                 }
-                $editedOrder = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->with('order_items')->first();
-
-                $notification = new stdClass();
-                $notification->code = 13;
-                $notification->website_id = $this->website_id;
-                $notification->order = $editedOrder;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('orders.update.removeItem',[
                     'website_id' => $this->website_id,
                     'code' => 32,
-                    'order_id'=> $editedOrder->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'order_id'=> $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_name' => $productName,
                     'product_id' => $productId,
+                ],[
+                    'order_id' => $request->order_id,
+                    'item_id' => $request->item_id,
+                    'itemsTotal' => (double)$itemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    'itemsEdit_account_name'=> $this->account->name,
+                    'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-
-                $user = new stdClass();
-                $editedOrder->user_id != null ? $user->id = $editedOrder->user_id : $user->id = 0;
-                $user->code = 16;
-                $user->order = $editedOrder;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_item_removed',$this->website_id,'user',$order->user_id,[
+                        'order_id' => $request->order_id,
+                        'item_id' => $request->item_id,
+                        'itemsTotal' => (double)$itemsTotal,
+                        'discount_itemsTotal' => (double)$discount_itemsTotal,
+                        'tax' => (double)$tax,
+                        'service' => (double)$service,
+                        'total' => (double)$total,
+                    ]);
+                }
                 return response([
                     'removeItemFromOrderStat' => 1,
-                    'msg' => Lang::get('cpanel/orders/orders.removeItemToOrderSaved'),
-                    'order' => $editedOrder,
+                    'msg' => Lang::get('cpanel/orders/responses.removeItemToOrderSaved'),
+                    'itemsTotal' => (double)$itemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    // 'itemsEdit_account_name'=> $this->account->name,
+                    // 'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
                 ]);
+
+
+                // $notification = new stdClass();
+                // $notification->code = 13;
+                // $notification->website_id = $this->website_id;
+                // $notification->order = $editedOrder;
+                // $notification->activity = activityLog::create([
+                    // 'website_id' => $this->website_id,
+                    // 'code' => 32,
+                    // 'order_id'=> $editedOrder->id,
+                    // 'account_id' => $this->account->id,
+                    // 'account_name' => $this->account->name,
+                    // 'product_name' => $productName,
+                    // 'product_id' => $productId,
+                // ]);
+                // broadcast(new cpanelNotification($notification))->toOthers();
+
+                // $user = new stdClass();
+                // $editedOrder->user_id != null ? $user->id = $editedOrder->user_id : $user->id = 0;
+                // $user->code = 16;
+                // $user->order = $editedOrder;
+                // $user->website_id = $this->website_id;
+                // $user->userType = 'user';
+                // broadcast(new usersStatus($user))->toOthers();
+
+
             }else{
-                return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/orders.removeItemToOrderFail')]);
+                return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.removeItemToOrderFail')]);
             }
-        }
-        else if($request->has('changeItemQty')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
+        }else if($request->has('changeItemNotice')){
+            if(str_split($this->account->authorities)[0] == false){
                 return;
             }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order == null){return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemQtyFail')]);}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order == null){return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemNoticeFail')]);}
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemQtyFail')]);
+                return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemNoticeFail')]);
             }
-            $item = $order->order_items()->find($request->itemId);
+            $item = $order->order_items()->find($request->item_id);
+            if($item->update([
+                'itemNotice' => $request->itemNotice
+            ])){
+                foodmenuFunctions::notification('orders.update.itemNotice',[
+                    'website_id' => $this->website_id,
+                    'code' => 36.6,
+                    'order_id'=> $request->order_id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'product_name' => $item->productName,
+                    'product_id' => $item->product_id,
+                ],[
+                    'order_id' => $request->order_id,
+                    'item_id' => $request->item_id,
+                    'itemNotice' => $request->itemNotice,
+                ]);
+
+                return response(['changeItemNoticeStat' => 1,'msg' => Lang::get('cpanel/orders/responses.changeItemNoticeSaved')]);
+            }else{
+                return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemNoticeFail')]);
+            }
+        }else if($request->has('changeItemQty')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order == null){return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemQtyFail')]);}
+            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
+                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemQtyFail')]);
+            }
+            $item = $order->order_items()->find($request->item_id);
             if($order->itemsEdit_account_id == null){
                 $orderOldItems = $order->order_items->toArray();
             }
             if($request->action != 'minus' && $request->action != 'plus'){
-                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemQtyFail')]);
+                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemQtyFail')]);
             }
             if($request->action == 'minus' && $item->qty == 1){
-                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemQtyFail')]);
+                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemQtyFail')]);
             }
 
             if($request->action == 'minus'){$newQty = (int)$item->qty - 1;}
@@ -1318,8 +1359,8 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                         'order_items_original' => $orderOldItems,
                     ]);
                 }else{
@@ -1329,70 +1370,87 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                     ]);
                 }
 
-                $editedOrder = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->with('order_items')->first();
-                $notification = new stdClass();
-                $notification->code = 13;
-                $notification->website_id = $this->website_id;
-                $notification->order = $editedOrder;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('orders.update.qty',[
                     'website_id' => $this->website_id,
                     'code' => 36.4,
-                    'order_id'=> $editedOrder->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'order_id'=> $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_name' => $item->productName,
                     'product_id' => $item->product_id,
                     'qty' => $newQty,
+                ],[
+                    'order_id' => $request->order_id,
+                    'item_id' => $request->item_id,
+                    'item_total' => $newItemTotal,
+                    'item_qty' => $newQty,
+                    'itemsTotal' => (double)$newItemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    'itemsEdit_account_name'=> $this->account->name,
+                    'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-
-                $user = new stdClass();
-                $editedOrder->user_id != null ? $user->id = $editedOrder->user_id : $user->id = 0;
-                $user->code = 16;
-                $user->order = $editedOrder;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_item_qtyChanged',$this->website_id,'user',$order->user_id,[
+                        'order_id' => $request->order_id,
+                        'item_id' => $request->item_id,
+                        'item_total' => $newItemTotal,
+                        'item_qty' => $newQty,
+                        'itemsTotal' => (double)$newItemsTotal,
+                        'discount_itemsTotal' => (double)$discount_itemsTotal,
+                        'tax' => (double)$tax,
+                        'service' => (double)$service,
+                        'total' => (double)$total,
+                    ]);
+                }
 
                 return response([
                     'changeItemQtyStat' => 1,
-                    'msg' => Lang::get('cpanel/orders/orders.changeItemQtySaved'),
-                    'order' => $editedOrder,
+                    'msg' => Lang::get('cpanel/orders/responses.changeItemQtySaved'),
+                    'item_total' => $newItemTotal,
+                    'item_qty' => $newQty,
+                    'itemsTotal' => (double)$newItemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    // 'itemsEdit_account_name'=> $this->account->name,
+                    // 'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
                 ]);
-
             }else{
-                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemQtyFail')]);
+                return response(['changeItemQtyStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemQtyFail')]);
             }
 
-        }
-        else if($request->has('changeItemSelection')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order == null){return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemSelectionFail')]);}
+        }else if($request->has('changeItemSelection')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $order = order::where(['website_id'=>$this->website_id,'_id'=>$request->order_id])->first();
+            if($order == null){return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemSelectionFail')]);}
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemSelectionFail')]);
+                return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemSelectionFail')]);
             }
             if($order->itemsEdit_account_id == null){
                 $orderOldItems = $order->order_items->toArray();
             }
-            $item = $order->order_items()->find($request->itemId);
+            $item = $order->order_items()->find($request->item_id);
             $oldItemTotal = (double)$item->total;
 
             $newItemTotal = (double)$item->price;
             $newItemSelectionsArr = [];
-            $selection = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->selectionId])->select(['id','name','price'])->first();
+            $selection = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->selection_id])->select(['id','name','price'])->first();
             if($selection == null){
-                return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemSelectionFail')]);
+                return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemSelectionFail')]);
             }
             foreach($item->order_item_option_selections as $key => $itemOption){
-                if($itemOption['product_option_id'] == $request->optionId){
+                if($itemOption['product_option_id'] == $request->option_id){
                     $optionName = $itemOption['optionName'];
                     $oldSelectionName = $itemOption['selectionName'];
                     array_push($newItemSelectionsArr,[
@@ -1441,8 +1499,8 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                         'order_items_original' => $orderOldItems,
                     ]);
                 }else{
@@ -1452,235 +1510,74 @@ class ordersController extends Controller
                         'tax' => (double)$tax,
                         'service' => (double)$service,
                         'total' => (double)$total,
-                        'itemsEdit_account_name'=> Auth::guard('account')->user()->name,
-                        'itemsEdit_account_id'=> Auth::guard('account')->user()->id,
+                        'itemsEdit_account_name'=> $this->account->name,
+                        'itemsEdit_account_id'=> $this->account->id,
                     ]);
                 }
-
-                $editedOrder = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->with('order_items')->first();
-                $notification = new stdClass();
-                $notification->code = 13;
-                $notification->website_id = $this->website_id;
-                $notification->order = $editedOrder;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('orders.update.selection',[
                     'website_id' => $this->website_id,
                     'code' => 36.5,
-                    'order_id'=> $editedOrder->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'order_id'=> $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_name' => $item->productName,
                     'product_id' => $item->product_id,
                     'option_name' => $optionName,
                     'old_selection_name' => $oldSelectionName,
                     'selection_name' => $selection->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-
-                $user = new stdClass();
-                $editedOrder->user_id != null ? $user->id = $editedOrder->user_id : $user->id = 0;
-                $user->code = 16;
-                $user->order = $editedOrder;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-
-                return response([
-                    'changeItemSelectionStat' => 1,
-                    'msg' => Lang::get('cpanel/orders/orders.changeItemSelectionSaved'),
-                    'order' => $editedOrder,
-                ]);
-
-            }else{
-                return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemSelectionFail')]);
-            }
-        }
-        else if($request->has('changeItemNotice')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            if($order == null){return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemNoticeFail')]);}
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemNoticeFail')]);
-            }
-            $item = $order->order_items()->find($request->itemId);
-            if($item->update([
-                'itemNotice' => $request->itemNotice
-            ])){
-                $notification = new stdClass();
-                $notification->code = 13.1;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = (int)$request->orderId;
-                $notification->itemId = $request->itemId;
-                $notification->itemNotice = $request->itemNotice;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 36.6,
-                    'order_id'=> $request->orderId,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'product_name' => $item->productName,
-                    'product_id' => $item->product_id,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-                return response(['changeItemNoticeStat' => 1,'msg' => Lang::get('cpanel/orders/orders.changeItemNoticeSaved')]);
-            }else{
-                return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeItemNoticeFail')]);
-            }
-        }
-        else if($request->has('changeDeliveryCost')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            $oldDeliveryCost = $order->deliveryCost;
-            if($order == null){return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDeliverycostFail')]);}
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDeliverycostFail')]);
-            }
-            if($order->type != 0){
-                return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDeliverycostFail')]);
-            }
-            $discount_itemsTotal = (double)$order->discount_itemsTotal;
-            $tax = (double)$order->tax;
-            $deliveryCost = (double)$request->deliveryCost;
-            $total = $discount_itemsTotal + $tax + $deliveryCost;
-
-            if($order->update([
-                'deliveryCost' => (double)$deliveryCost,
-                'total' => (double)$total,
-                'deliveryEdit_account_name'=> Auth::guard('account')->user()->name,
-                'deliveryEdit_account_id'=> Auth::guard('account')->user()->id,
-            ])){
-
-                $notification = new stdClass();
-                $notification->code = 13.2;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $order->id;
-                $notification->deliveryCost = $order->deliveryCost;
-                $notification->total = $order->total;
-                $notification->deliveryEdit_account_name = Auth::guard('account')->user()->name;
-                $notification->deliveryEdit_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 33.5,
-                    'order_id'=> $order->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'deliveryCost' => $order->deliveryCost,
-                    'oldDeliveryCost' => $oldDeliveryCost,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-
-                $user = new stdClass();
-                $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                $user->code = 27;
-                $user->orderId = $order->id;
-                $user->deliveryCost = $order->deliveryCost;
-                $user->total = $order->total;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-
-                return response([
-                    'changeDeliveryCostStat' => 1,
-                    'msg' => Lang::get('cpanel/orders/orders.changeDeliverycostSaved'),
-                    'deliveryCost' => (double)$deliveryCost,
-                    'total' => (double)$total,
-                ]);
-            }else{
-                return response(['changeDeliveryCostStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDeliverycostFail')]);
-            }
-        }
-        else if($request->has('changeDiscount')){
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
-                return;
-            }
-            $order = order::where(['website_id'=>$this->website_id,'id'=>(int)$request->orderId])->first();
-            $oldDiscount = $order->discount;
-            if($order == null){return response(['changeDiscountStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDiscountFail')]);}
-            if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
-                return response(['changeDiscountStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDiscountFail')]);
-            }
-
-            $itemsTotal = (double)$order->itemsTotal;
-            $service = (double)$order->service;
-            $tax = (double)$order->tax;
-            $deliveryCost = (double)$order->deliveryCost;
-
-            $discount = (int)$request->discount;
-            $discount_itemsTotal = $itemsTotal - (($itemsTotal * $discount )/100);
-
-            if((double)$order->taxPercent > 0){
-                $tax = ((double)$order->taxPercent / 100) * $discount_itemsTotal;
-            }
-
-            if((double)$order->servicePercent > 0){
-                $service = ((double)$order->servicePercent / 100) * $discount_itemsTotal;
-            }
-
-            $total = $discount_itemsTotal + $tax + $service + $deliveryCost;
-
-            if($order->update([
-                'discount' => (int)$discount,
-                'discount_itemsTotal' => (double)$discount_itemsTotal,
-                'tax' => (double)$tax,
-                'service' => (double)$service,
-                'total' => (double)$total,
-                'discount_by' => 1,
-                'discount_promocode' => null,
-                'discount_promocode_id' => null,
-                'discount_account_id' => Auth::guard('account')->user()->id,
-                'discount_account_name' => Auth::guard('account')->user()->name,
-            ])){
-
-                $notification = new stdClass();
-                $notification->code = 13.3;
-                $notification->website_id = $this->website_id;
-                $notification->orderId = $order->id;
-                $notification->discount = (int)$discount;
-                $notification->discount_itemsTotal = (double)$discount_itemsTotal;
-                $notification->tax = (double)$tax;
-                $notification->service = (double)$service;
-                $notification->total = (double)$total;
-                $notification->discount_account_name = Auth::guard('account')->user()->name;
-                $notification->discount_account_id = Auth::guard('account')->user()->id;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 33.6,
-                    'order_id'=> $order->id,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'discount' => $discount,
-                    'oldDiscount' => $oldDiscount,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-
-                $user = new stdClass();
-                $order->user_id != null ? $user->id = $order->user_id : $user->id = 0;
-                $user->code = 28;
-                $user->orderId = $order->id;
-                $user->discount = (int)$discount;
-                $user->discount_itemsTotal = $order->discount_itemsTotal;
-                $user->tax = $order->tax;
-                $user->service = $order->service;
-                $user->total = $order->total;
-                $user->website_id = $this->website_id;
-                $user->userType = 'user';
-                broadcast(new usersStatus($user))->toOthers();
-
-                return response([
-                    'changeDiscountStat' => 1,
-                    'msg' => Lang::get('cpanel/orders/orders.changeDiscountSaved'),
-                    'discount' => (int)$discount,
+                ],[
+                    'order_id' => $request->order_id,
+                    'item_id' => $request->item_id,
+                    'item_total' => $newItemTotal,
+                    'item_order_item_option_selections' => $newItemSelectionsArr,
+                    'itemsTotal' => (double)$newItemsTotal,
                     'discount_itemsTotal' => (double)$discount_itemsTotal,
                     'tax' => (double)$tax,
                     'service' => (double)$service,
                     'total' => (double)$total,
+                    'itemsEdit_account_name'=> $this->account->name,
+                    'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
+                ]);
+                if(!$order->isGuest){
+                    foodmenuFunctions::notification_website('order_item_selectionChanged',$this->website_id,'user',$order->user_id,[
+                        'order_id' => $request->order_id,
+                        'item_id' => $request->item_id,
+                        'item_total' => $newItemTotal,
+                        'item_order_item_option_selections' => $newItemSelectionsArr,
+                        'itemsTotal' => (double)$newItemsTotal,
+                        'discount_itemsTotal' => (double)$discount_itemsTotal,
+                        'tax' => (double)$tax,
+                        'service' => (double)$service,
+                        'total' => (double)$total,
+                    ]);
+                }
+                return response([
+                    'changeItemSelectionStat' => 1,
+                    'msg' => Lang::get('cpanel/orders/responses.changeItemSelectionSaved'),
+                    'item_total' => $newItemTotal,
+                    'item_order_item_option_selections' => $newItemSelectionsArr,
+                    'itemsTotal' => (double)$newItemsTotal,
+                    'discount_itemsTotal' => (double)$discount_itemsTotal,
+                    'tax' => (double)$tax,
+                    'service' => (double)$service,
+                    'total' => (double)$total,
+                    'itemsEdit_account_name'=> $this->account->name,
+                    'itemsEdit_account_id'=> $this->account->id,
+                    'order_items_original' => $order->order_items_original,
                 ]);
             }else{
-                return response(['changeDiscountStat' => 0,'msg' => Lang::get('cpanel/orders/orders.changeDiscountFail')]);
+                return response(['changeItemSelectionStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemSelectionFail')]);
             }
+        }else if($request->has('getOrderActivities')){
+            if(str_split($this->account->authorities)[0] == false){return;}
+            $activities = activityLog::where(['website_id' => (int)$this->website_id, 'order_id' => $request->order_id])->orderBy('created_at','desc')->get();
+            return response([
+                'activities' => $activities,
+            ]);
         }
+
+
+
     }
 }

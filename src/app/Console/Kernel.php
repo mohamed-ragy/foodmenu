@@ -48,7 +48,7 @@ class Kernel extends ConsoleKernel
                     $yesterday->modify('-1 day');
                     $thisDayOrders = order::
                     where(function($q) use ($yesterday, $job){
-                        $q->where('website_id',$job->website_id)->whereBetween('dinein_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);
+                        $q->where('website_id',$job->website_id)->whereBetween('dinedin_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);
                     })
                     ->orWhere(function($q) use ($yesterday, $job){
                         $q->where('website_id',$job->website_id)->whereBetween('canceled_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);

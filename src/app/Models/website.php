@@ -14,16 +14,16 @@ class website extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillable = [
         'plan','billingPeriod',
@@ -58,7 +58,8 @@ class website extends Model
         'website_colors',
         'useCustomColors',
         'customColorsHexCode',
-        'icon','logo','template',
+        'icon','logo','icon_id','logo_id',
+        'template',
         'intro',
         'info',
         'ourStory',
@@ -81,8 +82,8 @@ class website extends Model
         'fastLoading',
 
         'useDelivery',
-        'cashOnDelivery',
-        'cardOnDelivery',
+        'cash_on_delivery',
+        'card_on_delivery',
         'acceptDeliveryOrders24',
         'deliveryCost',
         'showDeliveryCostChangable',
@@ -95,8 +96,8 @@ class website extends Model
         'workingDays_delivery',
 
         'usePickup',
-        'cashOnPickup',
-        'cardOnPickup',
+        'cash_at_restaurant',
+        'card_at_restaurant',
         'acceptPickupOrders24',
         'pickupTaxCost',
         'pickupTaxPercentage',

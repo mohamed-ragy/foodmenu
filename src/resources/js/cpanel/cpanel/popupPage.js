@@ -7,7 +7,7 @@ popupPageClose = function(push=true){
     $('#popupPage').css({'right':'unset','left':'-110%'});
     $('#helpWindow').removeClass('helpWindow_popupPage')
     $('#popupPage').find('.pageWrapper').hide();
-    delete window.page.tab;
+    // delete window.page.tab;
     window.popupPage = {};
     if(push){
         pushHistory(true)
@@ -44,12 +44,24 @@ showPopupPage = function(popupPage,keysObj){
         window.popupPage = {};
         window.popupPage.popupPage = popupPage;
         switch(popupPage){
+            case 'order':
+                if(account.authorities[0] == false){reject(1);return;}
+                window.popupPage.order = keysObj.order;
+                drawPopupPage_order(keysObj.order);
+                resolve(3);
+            break;
+            case 'place_new_order':
+                if(account.authorities[0] == false){reject(1);return;}
+                drawPopupPage_place_new_order();
+                resolve(3);
+            break;
             case 'review':
                 window.popupPage.review = keysObj.review;
                 drawPopupPage_review(window.popupPage.review);
                 resolve(3);
             break;
             case 'manage_product_options':
+                if(account.authorities[1] == false){reject(1);return;}
                 if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
                     window.popupPage.product = keysObj.product;
                     drawPopupPage_manage_product_options(keysObj.product);
@@ -61,6 +73,7 @@ showPopupPage = function(popupPage,keysObj){
                 resolve(true);
                 break;
             case 'edit_product':
+                if(account.authorities[1] == false){reject(1);return;}
                 if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
                     window.popupPage.product = keysObj.product;
                     drawPopupPage_edit_product(keysObj.product);
@@ -83,10 +96,12 @@ showPopupPage = function(popupPage,keysObj){
                 resolve(true);
             break;
             case 'create_product':
+                if(account.authorities[1] == false){reject(1);return;}
                 drawPopupPage_create_product();
                 resolve(true);
             break;
             case 'edit_category':
+                if(account.authorities[1] == false){reject(1);return;}
                 if(typeof(website.categories.find(item=>item.name == keysObj.category)) !== 'undefined'){
                     window.popupPage.category = keysObj.category;
                     drawPopupPage_edit_category(keysObj.category);
@@ -95,6 +110,7 @@ showPopupPage = function(popupPage,keysObj){
                 }else{
                     reject(3)
                 }
+            break;
             case 'category':
                 if(typeof(website.categories.find(item=>item.name == keysObj.category)) !== 'undefined'){
                     window.popupPage.category = keysObj.category;
@@ -105,6 +121,7 @@ showPopupPage = function(popupPage,keysObj){
                 }
                 break;
             case 'create_category':
+                if(account.authorities[1] == false){reject(1);return;}
                 drawPopupPage_create_category();
                 resolve(true);
                 break;
@@ -159,10 +176,12 @@ showPopupPage = function(popupPage,keysObj){
                 resolve(true);
             break;
             case 'create_promo_code':
+                if(account.authorities[4] == false){reject(1);return;}
                 drawPopupPage_create_promo_code();
                 resolve(true);
             break;
             case 'manage_promo_code':
+                if(account.authorities[4] == false){reject(1);return;}
                 drawPopupPage_manage_promo_code_loading();
                 getPromocodes(function(){
                     let editPromocodeCheck = null;
@@ -183,10 +202,12 @@ showPopupPage = function(popupPage,keysObj){
 
             break;
             case 'create_delivery_account':
+                if(account.is_master == false){reject(1);return;}
                 drawPopupPage_create_delivery_account();
                 resolve(true);
             break;
             case 'create_sub_account':
+                if(account.is_master == false){reject(1);return;}
                 drawPopupPage_create_sub_account();
                 resolve(true);
             break;
@@ -231,8 +252,9 @@ showPopupPage = function(popupPage,keysObj){
 
 
         $('#popupPage').css('max-width',$(window).width() - ( $('#helpWindow').width() + 30))
+        closePopup();
         setTimeout(function(){
-            fixPageTabsArrows();
+            fixpopupPageTabsArrows();
             resolve();
         },300)
         $('#popupPageBody').scrollTop(0)

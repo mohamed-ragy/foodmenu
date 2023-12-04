@@ -66,7 +66,7 @@ require("./cpanel/links.js"); //(need to finsih click to take to renew event)
 require("./cpanel/guideAlerts.js")
 require("./cpanel/notifications.js");
 require("./cpanel/globalChannel.js");
-require("./cpanel/liveChat.js");//need to redesign order msg
+require("./cpanel/liveChat.js");//done
 require("./cpanel/menu");
 require("./cpanel/popupPage.js");
 require("./cpanel/nav");
@@ -78,8 +78,10 @@ require("./tools/reportBug");
 require("./tools/loading");
 require("./tools/popup");
 require("./tools/popupId.js");
-require("./tools/sharePopup");
+require("./tools/sharePopup");//done
 require("./tools/pageTabs.js");
+require("./tools/popupPageTabs.js");
+require("./tools/tooltip.js");
 
 
 
@@ -93,12 +95,22 @@ require("./pages/security/email.js");
 require("./pages/security/password.js");
 require("./pages/security/phone.js");
 
-require("./pages/orders/orders.js");
-require("./pages/orders/orderActions.js");
-require("./pages/orders/orderHistory.js");
-require("./pages/orders/addItem.js");
-require("./pages/orders/order.js");
-require("./pages/orders/newOrder.js");
+require("./pages/orders/functions.js");
+require("./pages/orders/addItem.js");//done
+require("./pages/orders/placeNewOrder.js");//done
+require("./pages/orders/orderHistory.js");//done
+require("./pages/orders/incompleteOrders.js");//done
+require("./pages/orders/orderActions.js");//done
+require("./pages/orders/orderActivities.js");//done
+
+// require("./pages/orders_old/orderHistory.js");
+
+// require("./pages/orders_old/orders.js");
+// require("./pages/orders_old/orderActions.js");
+// require("./pages/orders_old/order.js");
+
+// require("./pages/orders_old/addItem.js");
+// require("./pages/orders_old/newOrder.js");
 
 require("./pages/products/createNewProduct.js");//done
 require("./pages/products/manageProducts.js");//done
@@ -118,7 +130,7 @@ require("./pages/categories/createNewCategory.js");//done
 require("./pages/design/templates.js");
 require("./pages/design/websiteColors");
 require("./pages/design/homePageSections");
-require("./pages/design/images.js");
+require("./pages/design/images.js");//done
 
 require("./pages/settings/system.js");//done(need to move website switch and url to home)
 require("./pages/settings/restaurantInfo.js");//done
@@ -206,6 +218,23 @@ params.get('page') != null ? pageParam = params.get('page') : null;
 params.get('tab') != null ? pageTabParam = params.get('tab') : null;
 let keysObj = {};
 switch(pageParam){
+    case 'order_history':
+        keysObj.orderHistory_page = params.get('orderHistory_page')
+        keysObj.orderBy = params.get('orderBy')
+        keysObj.sort = params.get('sort')
+        keysObj.orderNumber = params.get('orderNumber')
+        keysObj.dinedIn = params.get('dinedIn')
+        keysObj.pickedUp = params.get('pickedUp')
+        keysObj.delivered = params.get('delivered')
+        keysObj.canceled = params.get('canceled')
+        keysObj.user = params.get('user')
+        keysObj.byUsers = params.get('byUsers')
+        keysObj.byGuests = params.get('byGuests')
+    break;
+    case 'incomplete_orders':
+        keysObj.order_by = params.get('order_by') ?? 'placed_at';
+        keysObj.sort = params.get('sort') ?? 'desc';
+    break;
     case 'manage_users':
         keysObj.user = params.get('user')
     break;
@@ -225,8 +254,8 @@ switch(pageParam){
     break;
 }
 showPage(pageParam,pageTabParam,keysObj).then(()=>{
-    params.get('tab') != null ? $(`.pageTab[tab="${params.get('tab')}"]`).trigger('click') : null;
     pushHistory(false);
+    params.get('tab') != null ? $(`.pageTab[tab="${params.get('tab')}"]`).trigger('click') : null;
     closePopup();
     authorities();
     // switch(window.page.page){
@@ -419,7 +448,9 @@ showPage(pageParam,pageTabParam,keysObj).then(()=>{
     // }
 },(error)=>{
     if(error == 1){
-        showPopup($('#accessDenied-popup'));
+        setTimeout(function(){
+            showPopup('accessDenied');
+        },1000);
     }else if(error == 2){
         pushHistory(false);
     }
@@ -474,6 +505,9 @@ if(params.get('popupPage') != null){
         case 'review':
             keysObj.review = params.get('review');
         break;
+        case 'order':
+            keysObj.order = params.get('order')
+        break;
     }
     showPopupPage(params.get('popupPage'),keysObj).then(()=>{
         // window.popupPage.popupPage = params.get('popupPage')
@@ -485,7 +519,10 @@ if(params.get('popupPage') != null){
     },(error)=>{
         if(error == 1){
             popupPageClose(true);
-            showPopup($('#accessDenied-popup'));
+            setTimeout(function(){
+                showPopup('accessDenied');
+                popupPageClose(true);
+            },1000)
         }else if(error == 2){
 
         }else if(error == 3){
@@ -672,11 +709,6 @@ if(params.get('popupPage') != null){
     // }
 }
 if(params.get('previewImg') != null){
-    if(account.authorities[3] == true){
-        window.previewImg.previewImg = params.get('previewImg')
-        pushHistory(false);
-        for(const key in imgs){
-            if(imgs[key].name == params.get('previewImg')){setImgPreview(key)}
-        }
-    }
+    window.previewImg.previewImg = params.get('previewImg');
+    setImgPreview(params.get('previewImg'));
 }

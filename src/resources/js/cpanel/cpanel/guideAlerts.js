@@ -3212,6 +3212,7 @@ class guideHintsClass {
     }
 
     all(){
+        return;
         window.guideHints.emailVerification(false);
         window.guideHints.phoneRegister(false);
         window.guideHints.phoneVerification(false);

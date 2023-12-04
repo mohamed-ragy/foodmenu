@@ -1,127 +1,180 @@
-.orderPage-windowClass{
-    @media (min-width:1024px) {
-        min-width:600px;
-    }
-}
-.orderPageTab{
-    padding:5px 0;
-    margin: 0 10px;
-    cursor: pointer;
-    display:flex;
-    align-items: baseline;
-    justify-content: center;
-    border-radius: 2px;
-    border-bottom:2px solid transparent;
-    color:var(--placeholder2);
-    min-width:0;
-    font-size: 1.1em;
-}
-.orderPageTab_selected{
-    border-bottom:2px solid var(--c5);
-    color:var(--c1txt);
-}
-.orderPage-orderDetailsElem_loading{
-    border-radius: 2px;
-    padding:10px 5px;
-    width:calc(100% - 10px);
-    background-color: var(--c1);
-    display:flex;
-    align-items: center;
+.orderDetailsElem{
+    display: flex;
     justify-content: space-between;
-    border-top:1px solid var(--brlight)
-}
-.orderPage-orderDetailsElem{
-    border-radius: 2px;
-    padding:10px 5px;
+    align-items: flex-start;
     width:calc(100% - 10px);
-    background-color: var(--c1);
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top:1px solid var(--brlight);
+    user-select:none;
+    padding: 10px 5px;
+    border-top:1px solid var(--white-2);
+    font-size: .9em;
 }
-.orderPage-orderDetailsElem:hover{background-color: var(--c2);}
-//////////
+.orderDetailsElem:hover{
+    background-color: var(--white-2);
+}
+//
 .orderTypeTag{
-    border-radius: 3px;
-    padding:3px 6px;
-    display:flex;
-    align-items: baseline;
-    justify-content: center;
-    background-color: var(--c1);
-    box-shadow: inset 0 0 1px 1px var(--shdw-5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2px 5px;
+    border: 1px solid var(--white-4);
     width: fit-content;
+    border-radius: 5px;
 }
+//
 #changeOrderType{
-    background-color: var(--ttbg);
-    color:var(--c1txt);
-    border-radius: 2px;
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    border-radius: 3px;
     position: fixed;
-    display: none;
     z-index: 249;
     transition-duration: 0s;
-    box-shadow: 0 0 10px 3px var(--shdw-20);
+    box-shadow: 0 0 10px 3px var(--shdw-10);
+    overflow: hidden;
 }
-.order-changeOrderType{
+.changeOrderTypeElem{
     padding:10px;
     border-radius: 2px;
     cursor: pointer;
     min-width:150px;
+    font-size: .8em;
 }
-.order-changeOrderType:hover{
-    background-color: var(--c2);
-}
-//////////
-.orderLifecycleContainer{
-    width:100%;
-    display:flex;
-    align-items: stretch;
-    justify-content: flex-start;
-    padding:0;
-}
-.orderLifecycleLeft{
+.changeOrderTypeElem:hover{background-color: var(--white-2);}
+////
+.order-original_item{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: flex-start;
-    margin:0 5px;
+    align-items: flex-start;
+    width:calc(100% - 10px);
+    user-select:none;
+    padding: 10px 5px;
+    padding-top:15px;
+    border-top:1px solid var(--white-2);
+    position: relative;
 }
-.orderLifecycleIcon{
-    border-radius: 50%;
-    padding:9px;
-    border:.5px solid var(--placeholder2);
-    width:10px;
-    height:10px;
-    display:flex;
+.order-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width:calc(100% - 10px);
+    user-select:none;
+    padding: 10px 5px;
+    padding-top:15px;
+    border-top:1px solid var(--white-2);
+    position: relative;
+}
+.order-item:hover{
+    background-color: var(--white-2);
+    .order-deleteItem{
+        display: block;
+    }
+}
+.order-deleteItem{
+    display: none;
+    position: absolute;
+    top:5px;
+    right:5px;
+    color:var(--red);
+    cursor: pointer;
+}
+.order-itemNotice{
+    all: unset;
+    width:100%;
+    font-size: .8em;
+    margin-inline-start:5px;
+    color:var(--white-6)
+}
+.order-itemNotice:focus{color:var(--txt-1)}
+.order-selection{
+    border:1px solid var(--white-3);
+    margin:3px;
+    padding:2px 5px;
+    border-radius: 5px;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
-.orderLifecycleLine{
-    min-height:70px;
-    padding:0 1px;
-    background-color: var(--placeholder2);
-}
-.orderLifecycleinfo{
-    height: fit-content;
-    padding: 5px 2px;
-    border-radius: 8px;
-    position: relative;
+////////
+.order-receiptElem{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width:calc(100% - 10px);
+    user-select:none;
+    padding: 10px 5px;
+    border-top:1px solid var(--white-2);
+    position: relative;
+}
+.order-receiptElem:hover{
+    background-color: var(--white-2);
+}
+/// ////
+.printReceiptLogo{
+    height:60px;
+    width:auto;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+.printReceiptItems{
+    border-top:1px dashed rgb(79, 79, 79);
+    border-bottom:1px dashed rgb(79, 79, 79);
+}
+.printReceiptQrCode{
+    border-top:1px dashed rgb(79, 79, 79);
+    padding-top:20px;
+    margin:0 30px;
+    width:calc(100% - 60px);
+}
+.printReceiptQtyW{
+    width:40px;
+    margin:0 5px;
+}
+.printReceiptItemW{
+    width:calc(100% - 150px);
+    margin:0 5px;
+}
+.printReceiptPriceW{
+    width:80px;
+    margin:0 3px;
+}
+////
+.orderActivity_container{
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding:0;
+    margin:0;
+    width:100%;
+    position: relative;
+}
+.orderActivity_left{
+    height:100%;
+    text-align: end;
+    margin:5px 10px;
+    margin-bottom: 50px;
+}
+.orderActivity_right{
+    margin: 5px;
+    margin-inline-start: 25px;
+    font-size: .9em;
+    margin-bottom: 50px;
+}
+.orderActivity_iconContainer{
+    border-right: 1px solid var(--white-10);
+    align-self: stretch;
+    display: flex;
     align-items: flex-start;
     justify-content: flex-start;
 }
-/////////
-.orderPage-orderActionElem{
-    border-radius: 2px;
-    padding:10px 5px;
-    width:calc(100% - 10px);
-    background-color: var(--c1);
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top:1px solid var(--brlight);
-    cursor: pointer;
+.orderActivity_iconContainer_last{border:none;}
+.orderActivity_icon{
+    font-size: 1.3em;
+    margin-inline-end:-16px;
+    background-color: var(--white);
+    padding:5px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px var(--shdw-30);
 }
-.orderPage-orderActionElem:hover{background-color: var(--c2);}
-///////
+//

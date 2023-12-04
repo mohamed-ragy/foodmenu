@@ -67,3 +67,68 @@
 #popupPageClose:hover{
     background-color: var(--white-3);
 }
+//
+.popupPageTabs{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: flex-start;
+    margin-top:20px;
+    margin-bottom:40px;
+}
+.popupPageTabsContainer{
+    overflow-x: hidden;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: flex-start;
+    border-bottom:1px solid var(--white-2);
+}
+.popupPageTab{
+    font-size:.85em;
+    margin-inline-end:20px;
+    cursor: pointer;
+    padding-bottom:5px;
+    white-space: nowrap;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.popupPageTab_selected{
+    border-bottom:1px solid var(--green);
+    color:var(--green);
+    font-weight: 700;
+}
+.popupPageTab:last-child{margin-inline-end:0;}
+.popupPageTabContainer{
+    width:calc(100% - 10px);
+    padding:0 5px;
+    height:0px;
+    overflow: hidden;
+    opacity:0;
+    transition-duration: 300ms;
+}
+.popupPageTabContainer_selected{
+    height:auto;
+    opacity:1;
+    overflow: visible;
+}
+.popupPageTabArrow{
+    font-size:.85em;
+    padding:7px;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: var(--white-2);
+    border-radius: 4px;
+}
+.popupPageTabArrow:hover{
+    background-color: var(--white-3);
+}
+.popupPageTabArrowLeft{
+    margin-inline-end:10px;
+}
+.popupPageTabArrowRight{
+    margin-inline-start:10px;
+}

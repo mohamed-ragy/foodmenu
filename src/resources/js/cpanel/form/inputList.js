@@ -1,7 +1,3 @@
-inputListNoSaveCheck = function(inputList){
-    // manage_products_unsave_check();
-    system_unsave_check();
-}
 drawInputList = function(autoHelp,icon,iconFlag,tooltip,id,placeholder,maxlength,listId,listLoading,containerClass='',listClass='',inputClass=''){
     let iconElem; let listContainer = $('<div/>',{class:'listContainer',id:listId});
     if(iconFlag == ''){
@@ -35,7 +31,6 @@ drawInputList = function(autoHelp,icon,iconFlag,tooltip,id,placeholder,maxlength
         listContainer,
     )
 }
-//add to input list function in general functions file
 $('html,body').on('click','.inputListElement',function(e){
     e.stopImmediatePropagation();
     $(this).closest('.inputListContainer').find('.inputList').val($(this).text()).attr('key',$(this).attr('key'));
@@ -44,7 +39,6 @@ $('html,body').on('click','.inputListElement',function(e){
     $(this).closest('.inputListContainer').find('.inputListElement').css('display','flex');
     $(this).closest('.inputListContainer').find('.inputListElement').removeClass('selectedinputListElement')
     $(this).addClass('selectedinputListElement');
-    inputListNoSaveCheck($(this).closest('.inputListContainer').find('.inputList').attr('id'));
 
 })
 
@@ -153,7 +147,6 @@ $('html,body').on('keydown','.inputList',function(e){
         })
     }
 
-    inputListNoSaveCheck($(this).closest('.inputListContainer').find('.inputList').attr('id'));
 })
 
 $('html,body').on('input','.inputList',function(e){
@@ -172,7 +165,6 @@ $('html,body').on('input','.inputList',function(e){
             }
 
         });
-        inputListNoSaveCheck($(this).closest('.inputListContainer').find('.inputList').attr('id'));
     // },200)
 
 });

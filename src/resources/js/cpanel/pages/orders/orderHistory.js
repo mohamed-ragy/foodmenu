@@ -1,125 +1,119 @@
-require('./orderHistory/findEvents.js')
-let getMoreOrders = true;
-let noMoreOrders = false;
-setOrderHistoryFilters = function(clearOrdersTable = true){
-    noMoreOrders = false;
-    let filters = window.orderHistoryFilters;
-    window.page.dineIn = window.orderHistoryFilters.dineIn;
-    window.page.delivered = window.orderHistoryFilters.delivered;
-    window.page.pickedUp = window.orderHistoryFilters.pickedUp;
-    window.page.canceled = window.orderHistoryFilters.canceled;
-    window.page.users = window.orderHistoryFilters.users;
-    window.page.guests = window.orderHistoryFilters.guests;
-    window.page.userName = window.orderHistoryFilters.userName;
-    window.page.userId = window.orderHistoryFilters.userId;
-    window.page.orderNumber = window.orderHistoryFilters.orderNumber;
+require('./orderHistory/filters.js')
+require('./orderHistory/tableEvents.js')
 
-    clearOrdersTable ? new orders().emptyOrderHistoryTable() : null;
-    filters.dineIn == 1 ? $('.orderHistoryFilterCheck[filter="dineIn"]').children().first().removeClass('ico-check0').addClass('ico-check1')
-    : $('.orderHistoryFilterCheck[filter="dineIn"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-    filters.delivered == 1 ? $('.orderHistoryFilterCheck[filter="delivered"]').children().first().removeClass('ico-check0').addClass('ico-check1')
-    : $('.orderHistoryFilterCheck[filter="delivered"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-    filters.pickedUp == 1 ? $('.orderHistoryFilterCheck[filter="pickedUp"]').children().first().removeClass('ico-check0').addClass('ico-check1')
-    : $('.orderHistoryFilterCheck[filter="pickedUp"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-    filters.canceled == 1 ? $('.orderHistoryFilterCheck[filter="canceled"]').children().first().removeClass('ico-check0').addClass('ico-check1')
-    : $('.orderHistoryFilterCheck[filter="canceled"]').children().first().removeClass('ico-check1').addClass('ico-check0');
+//
+getOrderHistory = function(){
+    $('#orderHistoryTable').text('')
+    showBtnLoading($('#orderHistory_findOrdersBtn'))
+    drawOrderHistoryTable_loading()
+    $('.orderHistoryNext').addClass('orderHistoryArrow_dump')
+    $('.orderHistoryPrev').addClass('orderHistoryArrow_dump')
+    $('.orderHistoryCountContainer').text('')
+    let orderHistoryTRArrow_id = '';
+    let orderHistoryTRArrow_type = '';
+    let orderHistoryTRArrow_placed_at = '';
+    let orderHistoryTRArrow_status = '';
+    // let orderHistoryTRArrow_items = '';
+    let orderHistoryTRArrow_customer = '';
+    let orderHistoryTRArrow_Price = '';
+    if(window.history.state.orderBy == 'id'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_id = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_id = 'ico-up' : null;}
+    if(window.history.state.orderBy == 'type'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_type = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_type = 'ico-up' : null;}
+    if(window.history.state.orderBy == 'placed_at'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_placed_at = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_placed_at = 'ico-up' : null;}
+    if(window.history.state.orderBy == 'status'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_status = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_status = 'ico-up' : null;}
+    // if(window.history.state.orderBy == 'items'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_items = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_items = 'ico-up' : null;}
+    if(window.history.state.orderBy == 'customer'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_customer = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_customer = 'ico-up' : null;}
+    if(window.history.state.orderBy == 'price'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_Price = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_Price = 'ico-up' : null;}
+    $('#orderHistoryTable').text('').append(
+        $('<tr/>',{class:'trHead'}).append(
+            $('<th/>',{class:'orderHistoryTR m0',order_by:'id'}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.order,class:'mie-10'}),
+                    $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_id}`})
+                )
+            ),
+            $('<th/>',{class:'orderHistoryTR m0',order_by:'type'}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.type,class:'mie-10'}),
+                    $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_type}`})
+                )
+            ),
+            $('<th/>',{class:'orderHistoryTR m0',order_by:'placed_at'}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.placed,class:'mie-10'}),
+                    $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_placed_at}`})
+                )
+            ),
+            $('<th/>',{class:'orderHistoryTR m0',order_by:'status'}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.status,class:'mie-10'}),
+                    $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_status}`})
+                )
+            ),
+            $('<th/>',{class:' m0',}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.items,class:'mie-10'}),
+                    // $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_items}`})
+                )
+            ),
+            $('<th/>',{class:'orderHistoryTR m0',order_by:'customer'}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.customer,class:'mie-10'}),
+                    $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_customer}`})
+                )
+            ),
+            $('<th/>',{class:'orderHistoryTR m0',order_by:'price'}).append(
+                $('<div/>',{class:'w100p row alnC jstfySB',}).append(
+                    $('<span/>',{text:texts.orders.price,class:'mie-10'}),
+                    $('<span/>',{class:`orderHistoryTRArrow fs08 ${orderHistoryTRArrow_Price}`})
+                )
+            ),
+            $('<td/>',{}),
+        )
+    )
 
-    if(filters.userId == null || filters.userId == ''){
-        filters.users == 1 ? $('.orderHistoryFilterCheck[filter="users"]').children().first().removeClass('ico-check0').addClass('ico-check1')
-        : $('.orderHistoryFilterCheck[filter="users"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-        filters.guests == 1 ? $('.orderHistoryFilterCheck[filter="guests"]').children().first().removeClass('ico-check0').addClass('ico-check1')
-        : $('.orderHistoryFilterCheck[filter="guests"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-    }else{
-        $('.orderHistoryMoreFiltersContainer').addClass('orderHistoryMoreFiltersContainer_expand')
-        $('#orderHistoryMoreFilters').text(texts.orders.lessFilters)
-        $('#orderHistory-selectUser').val(filters.userName).attr('key',filters.userId);
-        $('.orderHistoryFilterCheck[filter="guests"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-        $('.orderHistoryFilterCheck[filter="users"]').children().first().removeClass('ico-check1').addClass('ico-check0');
-    }
-    if(filters.orderNumber != null && filters.orderNumber != ''){
-        $('#orderHistory-selectUser').val('').attr('key',null);
-        $('.orderHistoryMoreFiltersContainer').addClass('orderHistoryMoreFiltersContainer_expand')
-        $('#orderHistoryMoreFilters').text(texts.orders.lessFilters)
-        $('#orderHistory-orderNumber').val(filters.orderNumber)
-    }
-}
-
-
-findOrders = function(){
-    getMoreOrders = false;
-    $('#orderHistory-orderListContainer_loading').removeClass('none');
-    let findOrderStatuses = [];
-    let users; let guests;
-    let userId = null;
-    let orderNumber = null;
-    window.orderHistoryFilters.dineIn == 1  ? findOrderStatuses.push(7) : null;
-    window.orderHistoryFilters.delivered == 1  ? findOrderStatuses.push(5) : null;
-    window.orderHistoryFilters.pickedUp == 1  ? findOrderStatuses.push(6) : null;
-    window.orderHistoryFilters.canceled == 1  ? findOrderStatuses.push(2) : null;
-
-    let findOrdersAfter = '';
-    if($('#orderHistory-orderListContainer').children().first().children().length > 0){findOrdersAfter = $('#orderHistory-orderListContainer').children().first().children().last().attr('placed_at')}
-
-    showBtnLoading($('#orderHistory-FindBtn'));
+    let skip = (window.history.state.orderHistory_page - 1) * 10;
+    let statuses = [];
+    window.history.state.dinedIn == 1 ? statuses.push(7) : null;
+    window.history.state.pickedUp == 1 ? statuses.push(6) : null;
+    window.history.state.delivered == 1 ? statuses.push(5) : null;
+    window.history.state.canceled == 1 ? statuses.push(2) : null;
     $.ajax({
         url:'orders',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             findOrders:true,
-            findOrdersAfter:findOrdersAfter,
-            findOrderStatuses:findOrderStatuses,
-            users:window.orderHistoryFilters.users,
-            guests:window.orderHistoryFilters.guests,
-            userId:window.orderHistoryFilters.userId,
-            orderNumber:window.orderHistoryFilters.orderNumber,
+            skip:skip,
+            sort:window.history.state.sort,
+            orderBy:window.history.state.orderBy,
+            orderNumber:window.history.state.orderNumber,
+            statuses:statuses,
+            byUsers:window.history.state.byUsers,
+            byGuests:window.history.state.byGuests,
+            user:window.history.state.user,
         },success:function(r){
-            console.log(r)
-            hideBtnLoading($('#orderHistory-FindBtn'));
-            $('#orderHistory-orderListContainer_loading').addClass('none');
+            hideBtnLoading($('#orderHistory_findOrdersBtn'))
             if(r.orders.length == 0){
-                noMoreOrders = true;
-
+                $('#orderHistoryTableArrowsContainer').addClass('none')
+                $('#orderHistoryTable').text('').append(
+                    $('<div/>',{class:'m10',text:texts.orders.noOrders})
+                )
             }else{
-                noMoreOrders = false;
+
+                $('#orderHistoryTableArrowsContainer').removeClass('none')
+                $('.orderHistoryCountContainer').text('').text(`${skip + 1}-${skip + r.orders.length} ${texts.cpanel.public.of} ${r.count}`);
+                window.history.state.orderHistory_page == 1 ? $('.orderHistoryPrev').addClass('orderHistoryArrow_dump') : $('.orderHistoryPrev').removeClass('orderHistoryArrow_dump');
+                (skip + r.orders.length) >=  r.count ? $('.orderHistoryNext').addClass('orderHistoryArrow_dump') : $('.orderHistoryNext').removeClass('orderHistoryArrow_dump');
+
                 for(const key in r.orders){
-                    new orders().drawOrderHistoryRow(r.orders[key]);
+                    if(typeof(website.orderHistory.find(item=>item._id == r.orders[key]._id)) === 'undefined'){
+                        website.orderHistory.push(r.orders[key])
+                    }
+                    $('#orderHistoryTable').append(drawOrdersTableRow(r.orders[key]))
                 }
             }
-            if($('#orderHistory-orderListContainer').children().first().children().length == 1){
-                $('#orderHistory-orderListContainer').addClass('none')
-                $('#orderHistory-orderListNoOrders').removeClass('none');
-            }else{
-                $('#orderHistory-orderListContainer').removeClass('none')
-                $('#orderHistory-orderListNoOrders').addClass('none');
             }
 
-        }
-    }).done(function(){
-        getMoreOrders = true;
     })
 }
-$('#bodyPage').on('scroll',function(){
-    if(window.history.state.page == 'order_history' && getMoreOrders && !noMoreOrders && window.orderHistoryFilters.orderNumber == ''){
-        if($('#bodyPage')[0].scrollHeight - $('#bodyPage').scrollTop() < $('#bodyPage').innerHeight() + 100){
-            findOrders();
-        }
-    }
-})
-
-$('#orderHistory-FindBtn').on('click',function(){
-
-    $('.orderHistoryFilterCheck[filter="dineIn"]').children().first().hasClass('ico-check1') ? window.orderHistoryFilters.dineIn = 1 : window.orderHistoryFilters.dineIn = 0;
-    $('.orderHistoryFilterCheck[filter="delivered"]').children().first().hasClass('ico-check1') ? window.orderHistoryFilters.delivered = 1 : window.orderHistoryFilters.delivered = 0;
-    $('.orderHistoryFilterCheck[filter="pickedUp"]').children().first().hasClass('ico-check1') ? window.orderHistoryFilters.pickedUp = 1: window.orderHistoryFilters.pickedUp = 0;
-    $('.orderHistoryFilterCheck[filter="canceled"]').children().first().hasClass('ico-check1') ? window.orderHistoryFilters.canceled = 1: window.orderHistoryFilters.canceled = 0;
-
-    $('.orderHistoryFilterCheck[filter="users"]').children().first().hasClass('ico-check1') ?  window.orderHistoryFilters.users = 1 : window.orderHistoryFilters.users = 0;
-    $('.orderHistoryFilterCheck[filter="guests"]').children().first().hasClass('ico-check1') ?  window.orderHistoryFilters.guests = 1 : window.orderHistoryFilters.guests = 0;
-    $('#orderHistory-selectUser').attr('key') == '' ? window.orderHistoryFilters.userId = '' : window.orderHistoryFilters.userId = $('#orderHistory-selectUser').attr('key') ?? '';
-    $('#orderHistory-selectUser').attr('key') == '' ? window.orderHistoryFilters.userName = '' : window.orderHistoryFilters.userName = $('#orderHistory-selectUser').val() ?? '';
-    $('#orderHistory-orderNumber').val() == '' ? window.orderHistoryFilters.orderNumber = '' : window.orderHistoryFilters.orderNumber = $('#orderHistory-orderNumber').val() ?? '';
-    setOrderHistoryFilters();
-    pushHistory(false);
-    findOrders();
-})
+//

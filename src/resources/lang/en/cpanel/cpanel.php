@@ -83,7 +83,8 @@ return [
         'create_delivery_account' => 'Create a delivery account',
         'delivery_account' => 'Delivery account',
 
-        'order' => 'Order #:order:',
+        'place_new_order' => 'Place new order',
+        'order' => 'Order',
 
         'create_sub_account' => 'Create new sub-account',
         'sub_account' => 'Sub-account',
@@ -176,6 +177,9 @@ return [
         'of' => 'of',
         'yes' => 'Yes',
         'no' => 'No',
+        'error' => 'Error',
+        'gotIt' => 'Got it!',
+        'loadMore' => 'Load more',
         'am' => 'AM',
         'pm' => 'PM',
         'swap'=> 'Drag and Drop',
@@ -223,6 +227,9 @@ return [
         'whatsapp' =>'Whatsapp',
         'telegram' =>'Telegram',
         'selectShareLang' => 'Select Share Language',
+        //new/
+        'errorSelectSareLang' => 'Please select share language.',
+        //new
         'shareLinkCopied' => 'The link was copied successfully.',
         'valueCopied' => 'The value was copied successfully.',
         //new

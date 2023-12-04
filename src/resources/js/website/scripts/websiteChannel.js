@@ -6,6 +6,54 @@ window.websiteChannel.listen('websiteChannel',function(r){
     let n = r.notification.notification;
     console.log(n)
     switch(r.notification.code){
+        case 'order_item_selectionChanged':
+
+        break;
+        case 'order_item_qtyChanged':
+
+        break;
+        case 'order_item_removed':
+
+        break;
+        case 'order_item_added':
+
+        break;
+        case 'order_deliveryCost_change':
+
+        break;
+        case 'order_discount_change':
+
+        break;
+        case 'order_type_change':
+
+        break;
+        case 'new_order_account':
+            console.log(n.order)
+        break;
+        case 'order_accepted':
+
+        break;
+        case 'order_canceled':
+
+        break;
+        case 'order_ready_for_pickup':
+
+        break;
+        case 'order_picked_up':
+
+        break;
+        case 'order_out_for_delivery':
+
+        break;
+        case 'order_delivered':
+
+        break;
+        case 'order_diningin':
+
+        break;
+        case 'order_dinedin':
+
+        break;
         case 'liveChat.msg_deleted_by_account':
             let msgId = n.msgId;
             for(const key in chatmsgs){

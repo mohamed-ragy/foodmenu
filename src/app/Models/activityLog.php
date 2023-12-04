@@ -25,7 +25,7 @@ class activityLog extends Model
 
     }
     protected $fillable = [
-        'code','website_id','user_id','account_id','product_id','category_id','delivery_id','order_id','product_review_id','reviewsSum','img_id','promocode_id','subaccount_id',
+        'code','website_id','user_id','account_id','product_id','category_id','delivery_id','order_id','order_number','product_review_id','reviewsSum','img_id','promocode_id','subaccount_id',
         'user_name','account_name','product_name','category_name','delivery_name','qty','component_name','img_name','promocode_name','subaccount_name',
 
         'option_id','selection_id',

@@ -12,15 +12,15 @@ class promocode extends Model
     public $timestamps = false;
     protected static function boot() {
         parent::boot();
-    
+
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
         });
-    
+
         static::updating(function ($post) {
             $post->updated_at = Carbon::now()->timestamp;
         });
-    
+
     }
     protected $fillable = [
         'website_id',
@@ -41,6 +41,7 @@ class promocode extends Model
         return $this->belongsTo(website::class,'websites_id','id');
     }
     public function users(){
-        return $this->belongsToMany(User::class,'users_promocodes','promocode_id','user_id')->withTimestamps();
+        return $this->belongsToMany(User::class,'users_promocodes','promocode_id','user_id');
+        // return $this->belongsToMany(User::class,'users_promocodes','promocode_id','user_id')->withTimestamps();
     }
 }

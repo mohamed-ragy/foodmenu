@@ -129,22 +129,13 @@ $('html,body').on('click','.navMenu-element',function(){
 
 showPage = function(pageId,tab,keysObj){
     return new Promise(function(resolve, reject){
-        for(const key in window.menu){
-            for(const key2 in window.menu[key].pages){
-                if(window.menu[key].pages[key2].name == pageId){
-                    drawMenuItemsPages(window.menu[key].name)
-                    if(tab != null){
-                        $(`.pageTab[tab="${tab}"]`).trigger('click');
-                    }else if(window.menu[key].pages[key2].lastTab != null){
-                        $(`.pageTab[tab="${window.menu[key].pages[key2].lastTab}"]`).trigger('click');
-                    }
-                }
-            }
-        }
+        //
+        $(`.sideMenu-mainItem[menuId="${$(`.side-menuItem[cpPage="${pageId}"]`).attr('menucat')}"]`).trigger('click')
         $('.side-menuItem').removeClass('side-menuItemSelected');
         $(`.side-menuItem[cpPage="${pageId}"]`).addClass('side-menuItemSelected');
         $('.sideMenu-itemArrow').css('visibility','hidden');
         $('.side-menuItem[cpPage="'+pageId+'"]').find('.sideMenu-itemArrow').css('visibility','visible');
+
         // console.log(window.history.state.page)
         let pushHistory = true;
         if(pageId == window.page.page){pushHistory = false;}else{
@@ -156,13 +147,38 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'order_history':
+                    if(account.authorities[0] == false){reject(1);return;}
+                    window.page.orderHistory_page = keysObj.orderHistory_page ?? '1';
+                    window.page.orderBy = keysObj.orderBy ?? 'placed_at';
+                    window.page.sort = keysObj.sort ?? 'desc';
+                    window.page.orderNumber = keysObj.orderNumber ?? '';
+                    window.page.dinedIn = keysObj.dinedIn ?? '1';
+                    window.page.pickedUp = keysObj.pickedUp ?? '1';
+                    window.page.delivered = keysObj.delivered ?? '1';
+                    window.page.canceled = keysObj.canceled ?? '1';
+                    window.page.user = keysObj.user ?? '';
+                    window.page.byUsers = keysObj.byUsers ?? '1';
+                    window.page.byGuests = keysObj.byGuests ?? '1';
+                    drawPage_order_history();
+                    resolve(pushHistory);
+                break;
+                case 'incomplete_orders':
+                    if(account.authorities[0] == false){reject(1);return;}
+                    tab == null ? tab = 'all_orders' : null;
+                    drawPage_incomplete_orders();
+                    window.page.sort = keysObj.sort;
+                    window.page.order_by = keysObj.order_by;
+                    drawIncompleteOrdersTable(tab ?? 'all_orders',window.page.order_by,window.page.sort);
+                    resolve(pushHistory);
+                break;
                 case 'images':
-                    if(account.authorities[3] == false){return;}
+                    if(account.authorities[3] == false){reject(1);return;}
                     drawPage_images();
                     resolve(pushHistory);
                 break;
                 case 'product_reviews':
-                    if(account.authorities[1] == false){return;}
+                    if(account.authorities[1] == false){reject(1);return;}
                         window.page.product = keysObj.product ?? 'allproducts';
                         window.page.user = keysObj.user ?? '';
                         window.page.byUsers = keysObj.byUsers ?? '1';
@@ -176,24 +192,24 @@ showPage = function(pageId,tab,keysObj){
                         resolve(pushHistory);
                 break;
                 case 'manage_products':
-                    if(account.authorities[1] == false){return;}
+                    if(account.authorities[1] == false){reject(1);return;}
                     window.page.category = keysObj.category;
                     if(typeof(window.page.category) === 'undefined' || window.page.category == null){window.page.category = 'allproducts'}
                     drawPage_manage_products();
                     resolve(pushHistory);
                 break;
                 case 'category_list':
-                    if(account.authorities[1] == false){return;}
+                    if(account.authorities[1] == false){reject(1);return;}
                     drawPage_category_list();
                     resolve(pushHistory);
                 break;
                 case 'create_new_user':
-                    if(account.authorities[2] == false){return;}
+                    if(account.authorities[2] == false){reject(1);return;}
                     drawPage_create_new_user();
                     resolve(pushHistory);
                 break;
                 case 'manage_users':
-                    if(account.authorities[2] == false){return;}
+                    if(account.authorities[2] == false){reject(1);return;}
                     drawPage_manage_users();
                     if(typeof(keysObj.user) !== 'undefined' && keysObj.user != null){
                         drawManageUserLoading();
@@ -205,7 +221,7 @@ showPage = function(pageId,tab,keysObj){
                     resolve(pushHistory);
                 break;
                 case 'online_users':
-                    if(account.authorities[2] == false){return;}
+                    if(account.authorities[2] == false){reject(1);return;}
                     drawPage_online_users();
                     resolve(pushHistory);
                 break;
@@ -220,42 +236,41 @@ showPage = function(pageId,tab,keysObj){
                     resolve(pushHistory);
                 break;
                 case 'system':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     drawPage_system();
                     resolve(pushHistory);
                 break;
                 case 'restaurant_information':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     drawPage_restaurant_information();
                     resolve(pushHistory);
                 break;
                 case 'languages':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     drawPage_languages();
                     resolve(pushHistory);
                 break;
                 case 'control_panel_settings':
-                    if(account.authorities[4] == false){return;}
                     drawPage_control_panel_settings();
                     resolve(pushHistory);
                 break;
                 case 'home_delivery_settings':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     drawPage_home_delivery_settings();
                     resolve(pushHistory);
                 break;
                 case 'order_pickup_settings':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     drawPage_order_pickup_settings();
                     resolve(pushHistory);
                 break;
                 case 'dine_in_settings':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     dine_in_settings_settings();
                     resolve(pushHistory);
                 break;
                 case 'promo_codes':
-                    if(account.authorities[4] == false){return;}
+                    if(account.authorities[4] == false){reject(1);return;}
                     drawPage_promo_codes();
                     resolve(pushHistory);
                 break;

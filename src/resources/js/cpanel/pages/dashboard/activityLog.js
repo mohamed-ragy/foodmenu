@@ -318,7 +318,7 @@ drawActivityLog = function(activity,live=false,append){
         break;
         case 42:
             activityLogIcon = 'ico-image';
-            activityLogTxt = `<span class="mie-3">${texts.activityLogs.activity42_1}</span><a class="previewImg mie-3" imgid="${activity.img_id}">${activity.img_name}</a><span class="mie-3">${texts.activityLogs.activity42_2} ${texts.activityLogs.by}</span><a class="popupPage" popupPage="Sub-Account" accountid="${activity.account_id}">${activity.account_name}</a><span>.</span>`;
+            activityLogTxt = `<span class="mie-3">${texts.activityLogs.activity42_1}</span><a class="previewImg mie-3" img="${activity.img_id}">${activity.img_name}</a><span class="mie-3">${texts.activityLogs.activity42_2} ${texts.activityLogs.by}</span><a class="popupPage" popupPage="Sub-Account" accountid="${activity.account_id}">${activity.account_name}</a><span>.</span>`;
             activityContainerClass = 'activityContainer_green';
         break;
         case 43:
@@ -326,7 +326,7 @@ drawActivityLog = function(activity,live=false,append){
         break;
         case 44:
             activityLogIcon = 'ico-image';
-            activityLogTxt = `<span class="mie-3">${texts.activityLogs.activity44_1}</span><a class="previewImg mie-3" imgid="${activity.img_id}">${activity.img_name}</a><span class="mie-3">${texts.activityLogs.activity44_2} ${texts.activityLogs.by}</span><a class="popupPage" popupPage="Sub-Account" accountid="${activity.account_id}">${activity.account_name}</a><span>.</span>`;
+            activityLogTxt = `<span class="mie-3">${texts.activityLogs.activity44_1}</span><a class="previewImg mie-3" img="${activity.img_id}">${activity.img_name}</a><span class="mie-3">${texts.activityLogs.activity44_2} ${texts.activityLogs.by}</span><a class="popupPage" popupPage="Sub-Account" accountid="${activity.account_id}">${activity.account_name}</a><span>.</span>`;
             activityContainerClass = 'activityContainer_red';
         break;
         case 45:

@@ -66,19 +66,19 @@ drawPage_order_pickup_settings = function(){
                     $('<span/>',{class:'ico-help help-icon',helpId:'payment_methods'})
                 ),
                 $('<div/>',{class:'wFC'}).append(
-                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p brdrT0 mT20 cashOnPickup'}).append(
+                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p brdrT0 mT20 cash_at_restaurant'}).append(
                         $('<div/>',{class:'row alnC jstfyC mie-100'}).append(
                             $('<div/>',{class:'ico-money fs1 mie-5'}),
-                            $('<div/>',{class:'fs09',text:texts.settings.cashOnPickup})
+                            $('<div/>',{class:'fs09',text:texts.settings.cash_at_restaurant})
                         ),
-                        $('<div/>',{class:'fs09 cashOnPickupCheck ico-check0'})
+                        $('<div/>',{class:'fs09 cash_at_restaurant_check ico-check0'})
                     ),
-                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p cardOnPickup'}).append(
+                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p card_at_restaurant'}).append(
                         $('<div/>',{class:'row alnC jstfyC mie-100'}).append(
                             $('<div/>',{class:'ico-card fs1 mie-5'}),
-                            $('<div/>',{class:'fs09',text:texts.settings.cardOnPickup})
+                            $('<div/>',{class:'fs09',text:texts.settings.card_at_restaurant})
                         ),
-                        $('<div/>',{class:'fs09 cardOnPickupCheck ico-check0'})
+                        $('<div/>',{class:'fs09 card_at_restaurant_check ico-check0'})
                     ),
                 ),
                 drawSaveCancelBtns('pickupPaymentMethodsSaveBtn','pickupPaymentMethodsCancelBtn','mT40')
@@ -130,8 +130,8 @@ drawPage_order_pickup_settings = function(){
     if(website_temp.pickupMinimumChargeIncludes == 1){
         $('#pickupMinimumChargeIncludes').prop('checked',true);
     }
-    website_temp.cashOnPickup ? $('.cashOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : null;
-    website_temp.cardOnPickup ? $('.cardOnPickupCheck').removeClass('ico-check0').addClass('ico-check1') : null;
+    website_temp.cash_at_restaurant ? $('.cash_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : null;
+    website_temp.card_at_restaurant ? $('.card_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : null;
     drawWorkingDaysTable('pickup');
     resetPickupAvgTime();
     order_pickup_settings_unsave_check();

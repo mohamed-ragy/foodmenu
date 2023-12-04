@@ -1,0 +1,16 @@
+$('html,body').on('click','.popupPageTab_order_activites',function(e){
+    e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
+    draw_orderActivities_loading();
+    $.ajax({
+        url:'orders',
+        type:'put',
+        data:{
+            _token:$('meta[name="csrf-token"]').attr('content'),
+            getOrderActivities:true,
+            order_id:window.history.state.order
+        },success:function(r){
+            drawOrderActivities(r.activities);
+        }
+    })
+})

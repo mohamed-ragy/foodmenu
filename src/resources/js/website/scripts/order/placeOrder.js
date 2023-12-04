@@ -67,7 +67,7 @@ placeOrderValidation = function(){
     }
 
     if($('.placeOrder-orderType[orderType="delivery"]').hasClass('placeOrder-orderTypeSelected')){
-        if(website.cashOnDelivery || website.cardOnDelivery){
+        if(website.cash_on_delivery || website.card_on_delivery){
             let paymentMethodCheck = false;
             $('.paymentMethod').each(function(){
                 if($(this).hasClass('paymentMethodSelected')){
@@ -77,7 +77,7 @@ placeOrderValidation = function(){
             if(paymentMethodCheck == false){
                 validate = false;
                 $('#paymentMethodContainer').addClass('paymentMethodContainerError')
-                if(website.cashOnDelivery && website.cardOnDelivery){
+                if(website.cash_on_delivery && website.card_on_delivery){
                     $('#placeOrderFailPaymentMethod').text(texts.orders.paymentMethodValidation);
 
                 }else{
@@ -91,7 +91,7 @@ placeOrderValidation = function(){
         }
     }
     if($('.placeOrder-orderType[orderType="pickup"]').hasClass('placeOrder-orderTypeSelected')){
-        if(website.cashOnPickup || website.cardOnPickup){
+        if(website.cash_at_restaurant || website.card_at_restaurant){
             let paymentMethodCheck = false;
             $('.paymentMethod').each(function(){
                 if($(this).hasClass('paymentMethodSelected')){
@@ -101,7 +101,7 @@ placeOrderValidation = function(){
             if(paymentMethodCheck == false){
                 validate = false;
                 $('#paymentMethodContainer').addClass('paymentMethodContainerError')
-                if(website.cashOnPickup && website.cardOnPickup){
+                if(website.cash_at_restaurant && website.card_at_restaurant){
                     $('#placeOrderFailPaymentMethod').text(texts.orders.paymentMethodValidation);
 
                 }else{
@@ -225,16 +225,16 @@ $('html, body').on('click','.placeOrder-orderType',function(e){
     $('.placeOrder-orderType').removeClass('placeOrder-orderTypeSelected');
     $(this).addClass('placeOrder-orderTypeSelected');
     if($(this).attr('orderType') == 'delivery' ){
-        if(!website.cashOnDelivery && !website.cardOnDelivery){
+        if(!website.cash_on_delivery && !website.card_on_delivery){
             $('#paymentMethodContainer').addClass('none')
         }else{
             $('#paymentMethodContainer').removeClass('none')
-            if(!website.cashOnDelivery){
-                $('.paymentMethod[paymentMethod="cashOnDelivery"]').addClass('none')
-            }else{$('.paymentMethod[paymentMethod="cashOnDelivery"]').removeClass('none')}
-            if(!website.cardOnDelivery){
-                $('.paymentMethod[paymentMethod="cardOnDelivery"]').addClass('none')
-            }else{$('.paymentMethod[paymentMethod="cardOnDelivery"]').removeClass('none')}
+            if(!website.cash_on_delivery){
+                $('.paymentMethod[paymentMethod="cash_on_delivery"]').addClass('none')
+            }else{$('.paymentMethod[paymentMethod="cash_on_delivery"]').removeClass('none')}
+            if(!website.card_on_delivery){
+                $('.paymentMethod[paymentMethod="card_on_delivery"]').addClass('none')
+            }else{$('.paymentMethod[paymentMethod="card_on_delivery"]').removeClass('none')}
         }
         $('.deliveryElem').removeClass('none')
         $('.pickupElem').addClass('none')
@@ -253,16 +253,16 @@ $('html, body').on('click','.placeOrder-orderType',function(e){
         }
         window.userLocationMap2.invalidateSize();
     }else if($(this).attr('orderType') == 'pickup' ){
-        if(!website.cashOnPickup && !website.cardOnPickup){
+        if(!website.cash_at_restaurant && !website.card_at_restaurant){
             $('#paymentMethodContainer').addClass('none')
         }else{
             $('#paymentMethodContainer').removeClass('none')
-            if(!website.cashOnPickup){
-                $('.paymentMethod[paymentMethod="cashOnPickup"]').addClass('none')
-            }else{$('.paymentMethod[paymentMethod="cashOnPickup"]').removeClass('none')}
-            if(!website.cardOnPickup){
-                $('.paymentMethod[paymentMethod="cardOnPickup"]').addClass('none')
-            }else{$('.paymentMethod[paymentMethod="cardOnPickup"]').removeClass('none')}
+            if(!website.cash_at_restaurant){
+                $('.paymentMethod[paymentMethod="cash_at_restaurant"]').addClass('none')
+            }else{$('.paymentMethod[paymentMethod="cash_at_restaurant"]').removeClass('none')}
+            if(!website.card_at_restaurant){
+                $('.paymentMethod[paymentMethod="card_at_restaurant"]').addClass('none')
+            }else{$('.paymentMethod[paymentMethod="card_at_restaurant"]').removeClass('none')}
         }
         $('.pickupElem').removeClass('none')
         $('.deliveryElem').addClass('none')

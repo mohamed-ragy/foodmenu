@@ -1,0 +1,124 @@
+let toolTipDisabledCheck = false;
+if(settings_temp.tooltip == false){
+    toolTipDisabledCheck = true;
+}
+tooltip = function(tooltipMsg,x,y){
+    if(!window.matchMedia("(pointer: coarse)").matches && settings_temp.tooltip){
+        // console.log($(this).attr('tooltip'));
+        if(y < ($(window).height()/2) &&  x < ($(window).width()/2)){
+            $('#tooltipDiv').html(tooltipMsg);
+            $('#tooltipDiv').css({
+                'top':y + 15 ,
+                'left':x + 15,
+                'display':'block',
+            });
+            // console.log('up left')
+        }else if(y > ($(window).height()/2) &&  x < ($(window).width()/2)){
+            $('#tooltipDiv').html(tooltipMsg);
+            $('#tooltipDiv').css({
+                'top':y - $('#tooltipDiv').height() - 5,
+                'left':x + 5,
+                'display':'block',
+            });
+            // console.log('down left')
+        }else if(y < ($(window).height()/2) &&  x > ($(window).width()/2)){
+            $('#tooltipDiv').html(tooltipMsg);
+            $('#tooltipDiv').css({
+                'top':y + 15,
+                'left':x - $('#tooltipDiv').width() - 15,
+                'display':'block',
+            });
+            // console.log('up right')
+        }else if(y > ($(window).height()/2) &&  x > ($(window).width()/2)){
+            $('#tooltipDiv').html(tooltipMsg);
+            $('#tooltipDiv').css({
+                'left':x - $('#tooltipDiv').width() - 10,
+                'top':y - $('#tooltipDiv').height() - 10,
+                'display':'block',
+            });
+        }
+    }
+}
+updateToolTip = function(){
+    if(typeof(window.toolTipElem) === 'undefined'){return;}
+    $('#tooltipDiv').html(window.toolTipElem.attr('tooltip'));
+}
+///
+$('html,body').on('mouseleave','[tooltip]',function(e){
+    $('#tooltipDiv').text('');
+    $('#tooltipDiv').hide();
+});
+$('html,body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
+    // e.stopImmediatePropagation();
+    if(toolTipDisabledCheck == true){
+        showAlert('warning',texts.settings.tooltipWarnginMsg,8000,true)
+    }
+    toolTipDisabledCheck = false;
+    if($(this).attr('tooltip') == ''){return;}
+    window.toolTipElem = $(this);
+    tooltip($(this).attr('tooltip'),e.pageX,e.pageY);
+
+
+    hotKeysToggle(settings_temp.hotKeys)
+});
+
+$('html,body').on('mouseenter mouseover mousemove','.confirm-btn',function(e){
+    // e.stopImmediatePropagation();
+    tooltip(texts.cpanel.public.clickToConfirm,e.pageX,e.pageY);
+});
+// $('html,body').on('touchstart','[tooltip]',function(e){
+//     // e.stopImmediatePropagation();
+//     if(toolTipDisabledCheck == true){
+//         showAlert('warning',texts.settings.tooltipWarnginMsg,8000,true)
+//     }
+//     toolTipDisabledCheck = false;
+//     if($(this).attr('tooltip') == ''){return;}
+//     if( settings_temp.tooltip == true){
+//         // console.log($(this).attr('tooltip'));
+//         window.toolTipElem = $(this);
+//         if(e.originalEvent.touches[0].pageY < ($(window).height()/2) &&  e.originalEvent.touches[0].pageX < ($(window).width()/2)){
+//             $('#tooltipDiv').html($(this).attr('tooltip') ?? $(this).attr('tooltip'));
+//             $('#tooltipDiv').css({
+//                 'top':e.originalEvent.touches[0].pageY + 15 ,
+//                 'left':e.originalEvent.touches[0].pageX + 15,
+//                 'display':'block',
+//             });
+//             // console.log('up left')
+//         }else if(e.originalEvent.touches[0].pageY > ($(window).height()/2) && e.originalEvent.touches[0].pageX < ($(window).width()/2)){
+//             $('#tooltipDiv').html($(this).attr('tooltip') ?? $(this).attr('tooltip'));
+//             $('#tooltipDiv').css({
+//                 'top':e.originalEvent.touches[0].pageY - $('#tooltipDiv').height() - 5,
+//                 'left':e.originalEvent.touches[0].pageX + 5,
+//                 'display':'block',
+//             });
+//             // console.log('down left')
+//         }else if(e.originalEvent.touches[0].pageY < ($(window).height()/2) &&  e.originalEvent.touches[0].pageX > ($(window).width()/2)){
+//             $('#tooltipDiv').html($(this).attr('tooltip') ?? $(this).attr('tooltip'));
+//             $('#tooltipDiv').css({
+//                 'top':e.originalEvent.touches[0].pageY + 15,
+//                 'left':e.originalEvent.touches[0].pageX - $('#tooltipDiv').width() - 15,
+//                 'display':'block',
+//             });
+//             // console.log('up right')
+//         }else if(e.originalEvent.touches[0].pageY > ($(window).height()/2) &&  e.originalEvent.touches[0].pageX > ($(window).width()/2)){
+//             $('#tooltipDiv').html($(this).attr('tooltip') ?? $(this).attr('tooltip'));
+//             $('#tooltipDiv').css({
+//                 'left':e.originalEvent.touches[0].pageX - $('#tooltipDiv').width() - 10,
+//                 'top':e.originalEvent.touches[0].pageY - $('#tooltipDiv').height() - 10,
+//                 'display':'block',
+//             });
+//             // console.log('down right')
+//         }
+//     }
+// });
+$('html,body').on('mousemove',function(e){
+    if($('[tooltip]:hover').length == 0 && $('.confirm-btn:hover').length == 0){
+        $('#tooltipDiv').text('');
+        $('#tooltipDiv').hide();
+    }
+});
+// $('html,body').on('touchend',function(e){
+//     // e.stopImmediatePropagation();
+//     $('#tooltipDiv').text('');
+//     $('#tooltipDiv').hide();
+// });

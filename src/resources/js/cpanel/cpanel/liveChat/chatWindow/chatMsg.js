@@ -253,23 +253,46 @@ setChatWindowBodyDates =function(type,id,msg,append){
     }
 }
 
+
+
 drawChatOrderMsg =function(txt){
     let orderNumber = txt.replace('o@','');
-    new orders(orderNumber).redrawChatOrder();
-    return $('<div/>',{userId:this.userId,class:'chatOrderContainer chatOrderContainer-'+orderNumber}).append(
-        $('<div/>',{class:'chatOrderHead'}).append(
-            $('<div/>',{
-                class:' bold',
-                text:texts.orders.order+' #'+orderNumber
-            })
-        ),
+    let elem =  $('<div/>',{userId:this.userId,class:`chatOrderContainer chatOrderContainer-${orderNumber}`}).append(
         $('<div/>',{class:'chatOrderBody'}).append(
-            $('<div/>',{class:'cardLoading br10 h10w50 mX5 mY3'}),
-            $('<div/>',{class:'cardLoading br10 h10w150 mX5 mY3'}),
-            $('<div/>',{class:'cardLoading br10 h10w50 mX5 mY3'}),
-            $('<div/>',{class:'cardLoading br10 h10w100 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10 w150 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
+            $('<div/>',{class:'cardLoading br10 h10 w100 mX5 mY3'}),
         )
     )
+    getOrder(orderNumber).then(function(order){
+        order_data = orderRow_data(order);
+        $(`.chatOrderContainer-${orderNumber}`).text('').append(
+            $('<a/>',{order:order._id,popupPage:'order',class:'popupPage bold500 mB2 fs101',text:`${texts.orders.order} #${order.id}`}),
+            $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.orderPlaced}: `}),
+                $('<div/>',{class:'fs09 diffTimeCalc',time:order.placed_at,})
+            ),
+            $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.type}: `}),
+                $('<div/>',{class:'fs09',text:order_data.typeTxt})
+            ),
+            $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.status}: `}),
+                $('<div/>',{class:`${order_data.statusColor} fs09`,text:texts.orders[order_data.status]})
+            ),
+            $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.customer}: `}),
+                $('<div/>',{class:'fs09',html:order_data.user})
+            ),
+            $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.price}: `}),
+                $('<div/>',{class:'fs09',text:`${website.currency}${parseFloat(order.total).toFixed(2)}`})
+            ),
+        )
+    })
+    return elem;
+
 }
 
 

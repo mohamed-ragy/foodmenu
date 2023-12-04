@@ -8,9 +8,10 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class order extends Model
 {
     use HasFactory;
-    // protected $dates = ['placed_at','received_at','withDelivery_at','readyToPickup_at','canceled_at','delivered_at','pickedUp_at','diningin_at','dinein_at'];
+    // protected $dates = ['placed_at','accepted_at','out_for_delivery_at','ready_for_pickup_at','canceled_at','delivered_at','pickedUp_at','diningin_at','dinedin_at'];
     protected $collection = 'orders';
     protected  $connection = 'mongodb_orders';
+    public $timestamps = false;
     protected $fillable = [
 
         'website_id','id',
@@ -31,16 +32,16 @@ class order extends Model
 
 
         'placed_at','placed_by','placed_account_name','placed_account_id',
-        'received_at','received_account_name','received_account_id',
+        'accepted_at','accepted_account_name','accepted_account_id',
 
-        'withDelivery_at','withDelivery_account_name','withDelivery_account_id',
+        'out_for_delivery_at','out_for_delivery_account_name','out_for_delivery_account_id',
         'delivered_at','delivered_by','delivered_account_name','delivered_account_id','delivered_delivery_name','delivered_delivery_id',
 
-        'readyToPickup_at','readyToPickup_account_name','readyToPickup_account_id',
+        'ready_for_pickup_at','ready_for_pickup_account_name','ready_for_pickup_account_id',
         'pickedUp_at','pickedUp_account_name','pickedUp_account_id',
 
         'diningin_at','diningin_account_name','diningin_account_id',
-        'dinein_at','dinein_account_name','dinein_account_id',
+        'dinedin_at','dinedin_account_name','dinedin_account_id',
 
         'canceled_at','canceled_by','canceled_account_name','canceled_account_id',
 
@@ -73,3 +74,43 @@ class order extends Model
         return $this->belongsTo(delivery::class,'delivery_id','id');
     }
 }
+            //status
+            //0 => pending(Pending)
+            //1 => accepted(accepted)
+            //3 => out_for_delivery(On the way to you)
+            //4 => ready_for_pickup(Ready for pickup)
+            //8 => diningin(Dining in)
+
+            //5 => delivered(Delivered)
+            //6 => pickedUp(Picked Up)
+            //7 => dinedIn(Dined in)
+            //2 => canceled(Canceled)
+
+            // ('type');
+            //0 => delivery
+            //1 => pickup
+            //2 => dineIn
+
+            //placed_by
+            //0->account,
+            //1->user,
+
+            //delivered by
+            //0->account
+            //1->delivery man
+
+            //canceledby
+            //0->account
+            //1->user
+
+            //discountby
+            //0->no discount
+            //1->account
+            //2->happy hour
+            //3->promocode
+
+            //payment methods
+            //"cash_on_delivery"
+            //"card_on_delivery"
+            //"cash_at_restaurant"
+            //"card_at_restaurant"

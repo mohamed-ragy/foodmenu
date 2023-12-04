@@ -187,3 +187,19 @@ services:
     networks:
       - foodmenu
 
+  schedule:
+    build:
+      context: ./Dockerfiles/
+      dockerfile: php.dockerfile
+      args:
+          user: muha
+          uid: 1000
+    command: ['php','artisan', 'schedule:work' ]
+    container_name: foodmenu_schedule
+    restart: always
+    volumes:
+      - ./src:/var/www/foodmenu:delegated
+    depends_on:
+      - php
+    networks:
+      - foodmenu

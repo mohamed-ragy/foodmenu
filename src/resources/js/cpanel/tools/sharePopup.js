@@ -1,97 +1,89 @@
 
-share = function(type,item){
-    if(!$('#share-popup').hasClass('none')){return}
-    showPopup($('#share-popup'),function(){
-        if(type == 'product' ){
-            if(item.category_id == null){return;}
-            $('#share-inputHidden').val(website.categories.find(cat => cat.id == item.category_id).name+'/'+item.name);
-        }else if(type == 'category'){
-            $('#share-inputHidden').val(item.name);
+share = function(){
+    let item = window.share.item;
+    let type = window.share.type;
+    showPopup('share-popup',function(){
+        $('.popupBody').append(
+            $('<div/>',{class:''}).append(
+                $('<img/>',{src:window.share.item.thumbnail,class:'w400 mxw100p h100 br3 ofCover'}),
+                $('<div/>',{class:'fs102 bold500',text:item.name})
+            ),
+            $('<div/>',{class:'pageSection_brdrB mY10'}),
+            $('<div/>',{class:''}).append(
+                $('<div/>',{class:'fs09',text:texts.cpanel.public.selectShareLang}),
+                drawInputList('','ico-languages ','',texts.cpanel.public.selectShareLang,'shareLangInputList',texts.cpanel.public.selectShareLang,200,'shareLangInputList_list',false,'','','')
+            ),
+            $('<div/>',{class:'pageSection_brdrB mY10'}),
+            $('<div/>',{class:''}).append(
+                $('<div/>',{class:'fs09',text:texts.cpanel.public.shareOn}),
+                $('<div/>',{class:'row wrap alnC jstfyC w100p mxw400'}).append(
+                    $('<button/>',{class:'shareBtn bgc_facebook',shareTo:'facebook'}).append(
+                        $('<div/>',{class:'c_txt2 shareBtnIcon ico-facebook'}),
+                        $('<div/>',{class:'c_txt2 shareBtnTxt',text:texts.cpanel.public.facebook})
+                    ),
+                    $('<button/>',{class:'shareBtn bgc_whatsapp',shareTo:'whatsapp'}).append(
+                        $('<div/>',{class:'c_txt2 shareBtnIcon ico-whatsapp'}),
+                        $('<div/>',{class:'c_txt2 shareBtnTxt',text:texts.cpanel.public.whatsapp})
+                    ),
+                    $('<button/>',{class:'shareBtn bgc_telegram',shareTo:'telegram'}).append(
+                        $('<div/>',{class:'c_txt2 shareBtnIcon ico-telegram'}),
+                        $('<div/>',{class:'c_txt2 shareBtnTxt',text:texts.cpanel.public.telegram})
+                    ),
+                    $('<button/>',{class:'shareBtn bgc_linkedin',shareTo:'linkedin'}).append(
+                        $('<div/>',{class:'c_txt2 shareBtnIcon ico-linkedin'}),
+                        $('<div/>',{class:'c_txt2 shareBtnTxt',text:texts.cpanel.public.linkedin})
+                    ),
+                    $('<button/>',{class:'shareBtn bgc_twitter',shareTo:'twitter'}).append(
+                        $('<div/>',{class:'c_txt2 shareBtnIcon ico-twitter'}),
+                        $('<div/>',{class:'c_txt2 shareBtnTxt',text:texts.cpanel.public.twitter})
+                    ),
+                    $('<button/>',{class:'shareBtn bgc_G',shareTo:'copy'}).append(
+                        $('<div/>',{class:'c_txt2 shareBtnIcon ico-copy'}),
+                        $('<div/>',{class:'c_txt2 shareBtnTxt',text:texts.cpanel.public.copyLink})
+                    ),
+                )
+            )
+        )
+        for(const key in website.languages){
+            addToInputList($('#shareLangInputList_list'),website.languages[key].name,website.languages[key].code)
         }
-        let shareImg;
-        let shareLink;
-        let customLangFlag = website.customLang_flag ?? 'USA';
-
-        $('.sharelangicon').removeClass('sharelangiconSelected');
-        $('.sharelangicon').each(function(){
-            if(website.defaultLanguage == $(this).attr('lang')){
-                $(this).addClass('sharelangiconSelected');
-                $(this).find('.ico-check0').addClass('ico-check1');
-            }
-        });
-        $('.shareIcon[shareTo="copy"]').trigger('click');
-        $('#share-img').attr('src',item.img);
-        $('#share-name').text(item.name);
-
     });
 }
-$(document).on('click','.shareCatButton',function(e){
-    e.stopImmediatePropagation();
-    share('category',website.categories.find(item=> item.id == $(this).attr('catId')));
-})
-$(document).on('click','.shareProdButton',function(e){
-    e.stopImmediatePropagation();
-    share('product',website.products.find(item=> item.id == $(this).attr('prodId')));
-})
 
-$('.sharelangicon').on('click',function(e){
-    e.stopImmediatePropagation();
-    $('.sharelangicon').removeClass('sharelangiconSelected');
-    $('.sharelangicon').find('.ico-check0').removeClass('ico-check1');
-    $(this).addClass('sharelangiconSelected');
-    $(this).find('.ico-check0').addClass('ico-check1');
-    $('.shareIcon').each(function(){
-        if($(this).hasClass('shareIconSelected')){
-            $(this).trigger('click');
-        }
-    })
-})
 
-$('.shareIcon').on('click',function(e){
+$('html,body').on('click','.shareBtn',function(e){
     e.stopImmediatePropagation();
-    thisLang = website.defaultLanguage;
-    $('.sharelangicon').each(function(){
-        if($(this).hasClass('sharelangiconSelected')){
-            thisLang = $(this).attr('lang');
-        }
-    });
-    if(thisLang == 'eg'){thisLang = website.customLang_code}
-    $('.shareIcon').removeClass('shareIconSelected');
-    $(this).addClass('shareIconSelected');
-    $('.shareIcon').find('.ico-check1').removeClass('ico-check1').addClass('ico-check0');
-    $(this).find('.ico-check0').removeClass('ico-check0').addClass('ico-check1');
-    $('.shareBtnContainer').hide();
-    $('.shareBtnContainer[shareTo="'+$(this).attr('shareTo')+'"]').css('display','flex');
-
+    if($('#shareLangInputList').val() == ''){
+        showAlert('error',texts.cpanel.public.errorSelectSareLang,4000,true)
+        inputListError($('#shareLangInputList'))
+        return;
+    }
+    let link;
+    if(window.share.type == 'product'){
+        link = encodeURI(`${website.url}/${$('#shareLangInputList').attr('key')}/${website.categories.find(item=>item.id == window.share.item.category_id).name}/${window.share.item.name}`);
+    }else if(window.share.type == 'category'){
+        link = encodeURI(`${website.url}/${$('#shareLangInputList').attr('key')}/${window.share.item.name}`);
+    }
     switch($(this).attr('shareTo')){
         case 'copy':
-            $('#share-copy').attr('link','https://'+website.url+'/'+thisLang+'/'+$('#share-inputHidden').val());
+            navigator.clipboard.writeText(link).then(function(){
+                showAlert('normal',texts.cpanel.public.shareLinkCopied,4000,true);
+            });
             break;
         case 'facebook':
-            $('#share-facebook').attr('link','https://www.facebook.com/sharer/sharer.php?display=popup&u='+website.url+'/'+thisLang+'/'+encodeURI($('#share-inputHidden').val().replace(/ /g,'%20')));
+            window.open(`https://www.facebook.com/sharer/sharer.php?display=popup&u=${link}`,'','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
             break;
         case 'twitter':
-            $('#share-twitter').attr('link','https://twitter.com/intent/tweet?url=https://'+website.url+'/'+thisLang+'/'+encodeURI($('#share-inputHidden').val().replace(/ /g,'%20')));
-            break;
+            window.open(`https://twitter.com/intent/tweet?url=https://${link}`,'','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
+        break;
         case 'linkedin':
-            $('#share-linkedin').attr('link','https://www.linkedin.com/sharing/share-offsite/?url=https://'+website.url+'/'+thisLang+'/'+encodeURI($('#share-inputHidden').val().replace(/ /g,'%20')));
-            break;
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=https://${link}`,'','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
+        break;
         case 'whatsapp':
-            $('#share-whatsapp').attr('link','https://api.whatsapp.com/send/?text=https://'+website.url+'/'+thisLang+'/'+encodeURI($('#share-inputHidden').val().replace(/ /g,'%20')));
-            break;
+            window.open(`https://api.whatsapp.com/send/?text=https://${link}`,'','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
+        break;
         case 'telegram':
-            $('#share-telegram').attr('link','https://t.me/share/url?url=https://'+website.url+'/'+thisLang+'/'+encodeURI($('#share-inputHidden').val().replace(/ /g,'%20')) );
-            break;
+            window.open(`https://t.me/share/url?url=https://${link}`,'','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
+        break;
     }
 })
-
-$('#share-copy').on('click',function(){
-    navigator.clipboard.writeText($(this).attr('link')).then(function(){
-        showAlert('normal',texts.cpanel.public.shareLinkCopied,4000,true);
-    });
-})
-$('#share-facebook, #share-twitter, #share-linkedin, #share-whatsapp, #share-telegram').on('click',function(){
-    window.open($(this).attr('link'),'','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
-
-})
-

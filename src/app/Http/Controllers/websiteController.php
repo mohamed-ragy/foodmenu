@@ -52,7 +52,7 @@ class websiteController extends Controller
             // dd(order::where(['website_id'=>1,'status'=>0])->get());
             // order::where('_id','652930ccd59a1063106a1ee6')->update([
             //     'delivery_id'=>1,
-            //     'withDelivery_at' => Carbon::now()->timestamp
+            //     'out_for_delivery_at' => Carbon::now()->timestamp
             // ]);
 
         $this->middleware(function ($request, $next) {
@@ -135,7 +135,7 @@ class websiteController extends Controller
                 'fastLoading',
 
                 'useDelivery',
-                'cashOnDelivery','cardOnDelivery',
+                'cash_on_delivery','card_on_delivery',
                 'acceptDeliveryOrders24',
                 'deliveryCost','showDeliveryCostChangable',
                 'deliveryTaxCost','deliveryTaxPercentage','useDeliveryTaxCost',
@@ -144,7 +144,7 @@ class websiteController extends Controller
                 'averageDeliveryTime',
 
                 'usePickup',
-                'cashOnPickup','cardOnPickup',
+                'cash_at_restaurant','card_at_restaurant',
                 'acceptPickupOrders24',
                 'pickupTaxCost','pickupTaxPercentage','usePickupTaxCost',
                 'pickupMinimumCharge','pickupMinimumChargeIncludes',
@@ -1041,21 +1041,21 @@ class websiteController extends Controller
                 // 'delivery_id' => null,
                 // 'deliveryName' => null,
 
-                'placed_at' => new UTCDateTime(),
+                'placed_at' => Carbon::now()->timestamp,
                 'placed_by' => 1,
                 // 'placed_account_name' => null,
                 // 'placed_account_id' => null,
 
-                'received_at' => null,
+                'accepted_at' => null,
 
-                'withDelivery_at' => null,
+                'out_for_delivery_at' => null,
                 'delivered_at' => null,
 
-                'readyToPickup_at' => null,
+                'ready_for_pickup_at' => null,
                 'pickedUp_at' => null,
 
                 'diningin_at' => null,
-                'dinein_at' => null,
+                'dinedin_at' => null,
 
                 'canceled_at' => null,
 
@@ -1092,24 +1092,37 @@ class websiteController extends Controller
                 }
 
                 $notification = notification::create([
-                    'code' => 1,
+                    'code' => 'orders.new_order_user',
                     'seen' => false,
                     'website_id'=>(int)$this->website_id ,
-                    'order_id' => $order->id,
+                    'order_id' => $order->_id,
+                    'order_number' => $order->id,
                     'user_id' => $user_id,
                     'userName' => $userName,
                 ]);
 
-                $notification->order = $order;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('orders.new_order_user',[
                     'website_id' =>(int)$this->website_id ,
-                    'code' => 8,
+                    'code' => 'order.new_order_by_user',
                     'user_id' => $user_id,
                     'user_name' => $userName,
-                    'order_id' => $order->id,
+                    'order_id' => $order->_id,
+                    'order_number' => $order->id,
+                ],[
+                    'order' => $order,
+                    'notification' => $notification,
                 ]);
 
-                broadcast(new cpanelNotification($notification))->toOthers();
+                // $notification->order = $order;
+                // $notification->activity = activityLog::create([
+                //     'website_id' =>(int)$this->website_id ,
+                //     'code' => 8,
+                //     'user_id' => $user_id,
+                //     'user_name' => $userName,
+                //     'order_id' => $order->id,
+                // ]);
+
+                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['placeOrderStat' => 1,'order' => $order]);
 
             }
@@ -1138,7 +1151,7 @@ class websiteController extends Controller
             $order = order::where(['id'=>(int)$request->cancelOrder,'website_id'=>$this->website_id])->first();
             if($order->isGuest == false && $order->user_id != Auth::guard('user')->user()->id){return;}
             if($order->status == 0){
-                $cancelOrder = $order->update(['status'=>2 , 'canceled_at' => Carbon::now(),'canceled_by'=>1]);
+                $cancelOrder = $order->update(['status'=>2 , 'canceled_at' => Carbon::now()->timestamp,'canceled_by'=>1]);
 
                 if($cancelOrder){
                     $order->status = 2;
@@ -1151,23 +1164,37 @@ class websiteController extends Controller
                         $user_id = null;
                     }
                     $notification = notification::create([
-                        'code' => 5,
+                        'code' => 'orders.canceled_by_user',
                         'seen' => false,
                         'website_id'=>(int)$this->website_id ,
-                        'order_id' => (int) $request->cancelOrder,
+                        'order_id' => $order->_id,
+                        'order_number' => $order->id,
                         'user_id' => $user_id,
                         'userName' => $userName,
                     ]);
-                    $notification->activity = activityLog::create([
+                    // $notification->activity = activityLog::create([
+                    //     'website_id' => (int)$this->website_id ,
+                    //     'code' => 6,
+                    //     'order_id' => (int) $request->cancelOrder,
+                    //     'user_id' => $user_id,
+                    //     'user_name' => $userName,
+                    // ]);
+                    // $orderId = (int) $request->cancelOrder;
+
+                    foodmenuFunctions::notification('orders.canceled_by_user',[
                         'website_id' => (int)$this->website_id ,
-                        'code' => 6,
-                        'order_id' => (int) $request->cancelOrder,
+                        'code' => 'order.canceled_by_user',
+                        'order_id' => $order->_id,
+                        'order_number' => $order->id,
                         'user_id' => $user_id,
                         'user_name' => $userName,
+                    ],[
+                        'order_id' => $order->_id,
+                        'canceled_at' => Carbon::now()->timestamp,
+                        'notification' => $notification,
                     ]);
-                    // $orderId = (int) $request->cancelOrder;
-                    $notification->order = $order;
-                    broadcast(new cpanelNotification($notification))->toOthers();
+                    // $notification->order = $order;
+                    // broadcast(new cpanelNotification($notification))->toOthers();
                     return response(['cancelOrderStatus' => 1,'order' => $order]);
                 }else{
                     return response(['cancelOrderStatus' =>0]);

@@ -30,7 +30,19 @@ drawPopupPage_create_custom_language = function(){
         drawInputText('','ico-langCode','',texts.settings.customLangCode,'lang-customLanguageCode','text',texts.settings.customLangCode,2,'clearVal','nmX0 w100p',''),
         drawInputList('','ico-flag','',texts.settings.customLangFlag,'lang-customLanguageFlag',texts.settings.customLangFlag,250,'lang-customLanguageFlag-list',true,'zx10'),
         drawInputList('','ico-languages','',texts.settings.textsPack,'lang-customLangTextsPack',texts.settings.textsPack,250,'lang-customLangTextsPack-list',false,'zx5'),
-        drawSwitchBtn('',texts.settings.customLangdirectionRTL,'lang-customLangDirection','checkboxlabel_100p '),
+        $('<div/>',{class:'mT30 area',}).append(
+            $('<div/>',{class:'fs09 areaTitle',text:texts.settings.textDirection}),
+            $('<div/>',{class:'column alnC jstfyC'}).append(
+                $('<div/>',{class:'checkboxlabel_100p createCustomLang-direction fs09',direction:'ltr',}).append(
+                    $('<div/>',{class:'',text:texts.settings.lang_ltr}),
+                    $('<div/>',{class:`createCustomLang-directionCheck ico-check1`})
+                ),
+                $('<div/>',{class:'checkboxlabel_100p createCustomLang-direction fs09',direction:'rtl',}).append(
+                    $('<div/>',{class:'',text:texts.settings.lang_rtl}),
+                    $('<div/>',{class:`createCustomLang-directionCheck ico-check0`})
+                ),
+            )
+        ),
         $('<div/>',{class:'btnContainer mT40'}).append(
             $('<button/>',{class:'btn',id:'lang-customLanguageSaveBtn'}).append(
                 $('<div/>',{class:'btnLoading'}),
@@ -54,7 +66,19 @@ drawPopupPage_edit_language_options = function(lang){
         drawInputText('','ico-langCode','',texts.settings.customLangCode,'langOptions-langCode','text',texts.settings.customLangCode,2,'copy','nmX0 w100p mT0',lang.code,true),
         drawInputText('','ico-title','',texts.settings.customLangName,'langOptions-langName','text',texts.settings.customLangName,50,'clearVal','nmX0 w100p',lang.name),
         drawInputList('','ico-flag','',texts.settings.customLangFlag,'langOptions-langFlag',texts.settings.customLangFlag,250,'langOptions-langFlag-list',true,'zx10'),
-        drawSwitchBtn('',texts.settings.customLangdirectionRTL,'langOptions-langDirection','checkboxlabel_100p'),
+        $('<div/>',{class:'mT30 area',}).append(
+            $('<div/>',{class:'fs09 areaTitle',text:texts.settings.textDirection}),
+            $('<div/>',{class:'column alnC jstfyC'}).append(
+                $('<div/>',{class:'checkboxlabel_100p langOptions-direction fs09',direction:'ltr',}).append(
+                    $('<div/>',{class:'',text:texts.settings.lang_ltr}),
+                    $('<div/>',{class:`langOptions-directionCheck ${lang.direction == 'ltr' ? 'ico-check1' : 'ico-check0'}`})
+                ),
+                $('<div/>',{class:'checkboxlabel_100p langOptions-direction fs09',direction:'rtl',}).append(
+                    $('<div/>',{class:'',text:texts.settings.lang_rtl}),
+                    $('<div/>',{class:`langOptions-directionCheck ${lang.direction == 'rtl' ? 'ico-check1' : 'ico-check0'}`})
+                ),
+            )
+        ),
         drawSaveCancelBtns('langOptions-saveBtn','langOptions-cancelBtn','mT40')
     )
     lang.direction == 'rtl' ? $('#langOptions-langDirection').prop('checked',true) : null;

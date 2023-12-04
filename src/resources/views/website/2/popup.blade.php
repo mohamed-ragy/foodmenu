@@ -209,22 +209,22 @@
                 <span class="placeOrder-orderDetailsTitle" showText="orders.paymentMethod"></span>
                 <div class="fs-08 mX-10 cE vH w-100-20 alnsC placeOrderFail" id="placeOrderFailPaymentMethod" >a</div>
                 <div class="w-100p row wrap alnC jstfyC deliveryElem">
-                    <div class="paymentMethod" paymentMethod="cashOnDelivery">
-                        <span showText="orders.cashOnDelivery"></span>
+                    <div class="paymentMethod" paymentMethod="cash_on_delivery">
+                        <span showText="orders.cash_on_delivery"></span>
                         <span class="ic-check0 paymentMethodIcoCheck"></span>
                     </div>
-                    <div class="paymentMethod" paymentMethod="cardOnDelivery">
-                        <span showText="orders.cardOnDelivery"></span>
+                    <div class="paymentMethod" paymentMethod="card_on_delivery">
+                        <span showText="orders.card_on_delivery"></span>
                         <span class="ic-check0 paymentMethodIcoCheck"></span>
                     </div>
                     </div>
                     <div class="w-100p row wrap alnC jstfyC pickupElem">
-                    <div class="paymentMethod" paymentMethod="cashOnPickup">
-                        <span showText="orders.cashOnPickup"></span>
+                    <div class="paymentMethod" paymentMethod="cash_at_restaurant">
+                        <span showText="orders.cash_at_restaurant"></span>
                         <span class="ic-check0 paymentMethodIcoCheck"></span>
                     </div>
-                    <div class="paymentMethod" paymentMethod="cardOnPickup">
-                        <span showText="orders.cardOnPickup"></span>
+                    <div class="paymentMethod" paymentMethod="card_at_restaurant">
+                        <span showText="orders.card_at_restaurant"></span>
                         <span class="ic-check0 paymentMethodIcoCheck"></span>
                     </div>
                 </div>

@@ -23,10 +23,15 @@ $('html,body').on('click','.hideParent3',function(e){
     $(this).parent().parent().parent().addClass('none')
 });
 $('html,body').on('click','.share',function(e){
+    e.stopImmediatePropagation();
     if($(this).attr('type') == 'category'){
-        share('category',website.categories.find(item=> item.id == $(this).attr('itemId')))
+        window.share.item = website.categories.find(item=> item.id == $(this).attr('itemId'));
+        window.share.type = 'category';
+        share()
     }else if($(this).attr('type') == 'product'){
-        share('product',website.products.find(item=> item.id == $(this).attr('itemId')))
+        window.share.item = website.products.find(item=> item.id == $(this).attr('itemId'));
+        window.share.type = 'product';
+        share()
     }
 })
 $('html,body').on('click','.copyVal',function(e){
@@ -37,53 +42,14 @@ $('html,body').on('click','.copyVal',function(e){
 /////////
 $('html,body').on('click','.previewImg',function(e){
     e.stopImmediatePropagation();
-    let isPushHistory =  false;
-    if(account.authorities[3] == true){
-        let imgId = $(this).attr('imgId');
-        let imgCheck = false;
-        for(const key in imgs){
-            if(imgs[key].id == imgId){
-                imgCheck = true;
-                setImgPreview(key);
-                window.previewImg.previewImg = img.name;
-                isPushHistory = true;
-            }
-        }
-        if(!imgCheck){showAlert('error',texts.imgs.imgNotFound,4000,true)}
-    }else{
-        showPopup($('#accessDenied-popup'));
-        isPushHistory = false;
-    }
-    if(isPushHistory){
-        pushHistory();
-    }
-
-
+    window.previewImg.previewImg = $(this).attr('img');
+    pushHistory(true)
+    setImgPreview($(this).attr('img'));
 });
-$('#imgs-imgPreviewNext').on('click',function(){
-    if(parseInt($('.imgs-imgPreviewimg').attr('imgKey')) + 1 == imgs.length){
-        setImgPreview(0);
-    }else{
-        setImgPreview(parseInt($('.imgs-imgPreviewimg').attr('imgKey')) + 1)
-    }
-    let imgName = imgs[$('.imgs-imgPreviewimg').attr('imgKey')].name;
-    window.previewImg.previewImg = imgName;
-    pushHistory(false);
-})
-$('#imgs-imgPreviewPrev').on('click',function(){
-    if(parseInt($('.imgs-imgPreviewimg').attr('imgKey')) == 0){
-        setImgPreview(imgs.length - 1)
-    }else{
-        setImgPreview(parseInt($('.imgs-imgPreviewimg').attr('imgKey')) - 1)
-    }
-    let imgName = imgs[$('.imgs-imgPreviewimg').attr('imgKey')].name;
-    window.previewImg.previewImg = imgName;
-    pushHistory(false);
-})
 $('#imgs-imgPreviewClose').on('click',function(){
     $('#imgs-imgPreview').addClass('none')
     window.previewImg = {};
-    pushHistory();
+    pushHistory(true);
 })
 ////////////////////pages
 $('html,body').on('click','.cpPage',function(e){
@@ -98,6 +64,23 @@ $('html,body').on('click','.cpPage',function(e){
     let selectElem = $(this).attr('selectElem');
     let keysObj = {};
     switch($(this).attr('cpPage')){
+        case 'order_history':
+            keysObj.orderHistory_page = '1'
+            keysObj.orderBy = 'placed_at'
+            keysObj.sort = 'desc'
+            keysObj.orderNumber = window.history.state.orderNumber;
+            keysObj.dinedIn = window.history.state.dinedIn;
+            keysObj.pickedUp = window.history.state.pickedUp;
+            keysObj.delivered = window.history.state.delivered;
+            keysObj.canceled = window.history.state.canceled;
+            keysObj.user = $(this).attr('user');
+            keysObj.byUsers = window.history.state.byUsers;
+            keysObj.byGuests = window.history.state.byGuests;
+        break;
+        case 'incomplete_orders':
+            keysObj.order_by = $(this).attr('order_by') ?? 'placed_at';
+            keysObj.sort = $(this).attr('sort_by') ?? 'desc';
+        break;
         case 'manage_users':
             keysObj.user = $(this).attr('user')
         break;
@@ -321,7 +304,7 @@ $('html,body').on('click','.cpPage',function(e){
         // }
     },(error)=>{
         if(error == 1){
-            showPopup($('#accessDenied-popup'));
+            showPopup('accessDenied');
         }else if(error == 2){
             // pushHistory(false);
         }
@@ -337,6 +320,9 @@ $('html,body').on('click','.popupPage',function(e){
     let selectElem = $(this).attr('selectElem');
     let keysObj = {};
     switch($(this).attr('popupPage')){
+        case 'order':
+            keysObj.order = $(this).attr('order')
+        break;
         case 'ticket_browser':
             keysObj.ticket = $(this).attr('ticket')
         break;
@@ -398,7 +384,7 @@ $('html,body').on('click','.popupPage',function(e){
     },(error)=>{
         if(error == 1){
             popupPageClose(true);
-            showPopup($('#accessDenied-popup'));
+            showPopup('accessDenied');
         }else if(error == 2){
             // pushHistory(false);
         }else if(error == 3){
@@ -638,11 +624,36 @@ $('html,body').on('click','.popupPage',function(e){
 
 })
 $(window).on('popstate',(e)=>{
+    console.log(window.history.state.previewImg)
+    if(typeof(window.history.state.previewImg) !== 'undefined'){
+        window.previewImg.previewImg = history.state.previewImg;
+        setImgPreview(history.state.previewImg)
+    }else{
+        $('#imgs-imgPreview').addClass('none')
+        window.previewImg = {};
+    }
     // if($('#'+window.history.state.page+'-page').css('display') == 'none' ){
 
         // window.page = {}
         let keysObj = {};
         switch(window.history.state.page){
+            case 'order_history':
+                keysObj.orderHistory_page = window.history.state.orderHistory_page;
+                keysObj.orderBy = window.history.state.orderBy;
+                keysObj.sort = window.history.state.sort;
+                keysObj.orderNumber = window.history.state.orderNumber;
+                keysObj.dinedIn = window.history.state.dinedIn;
+                keysObj.pickedUp = window.history.state.pickedUp;
+                keysObj.delivered = window.history.state.delivered;
+                keysObj.canceled = window.history.state.canceled;
+                keysObj.user = window.history.state.user;
+                keysObj.byUsers = window.history.state.byUsers;
+                keysObj.byGuests = window.history.state.byGuests;
+            break;
+            case 'incomplete_orders':
+                keysObj.order_by = window.history.state.order_by ?? 'placed_at';
+                keysObj.sort = window.history.state.sort ?? 'desc';
+            break;
             case 'manage_users':
                 keysObj.user = window.history.state.user;
             break;
@@ -668,7 +679,7 @@ $(window).on('popstate',(e)=>{
             pushHistory(false);
         },(error)=>{
             if(error == 1){
-                showPopup($('#accessDenied-popup'));
+                showPopup('accessDenied');
             }else if(error == 2){
                 // pushHistory(false);
             }else if(error == 3){
@@ -726,6 +737,9 @@ $(window).on('popstate',(e)=>{
     if(window.history.state.popupPage != null){
         let keysObj = {};
         switch(window.history.state.popupPage){
+            case 'order':
+                keysObj.order = window.history.state.order;
+            break;
             case 'ticket_browser':
                 keysObj.ticket = window.history.state.ticket
             break;
@@ -743,7 +757,7 @@ $(window).on('popstate',(e)=>{
                 keysObj.promocode = window.history.state.promocode;
             break;
             case 'user':
-            keysObj.user = window.history.state.user;
+                keysObj.user = window.history.state.user;
             break;
             case 'delivery_account':
                 keysObj.delivery = window.history.state.delivery;
@@ -782,7 +796,7 @@ $(window).on('popstate',(e)=>{
         },(error)=>{
             if(error == 1){
                 popupPageClose(true);
-                showPopup($('#accessDenied-popup'));
+                showPopup('accessDenied');
             }else if(error == 2){
                 // pushHistory(false);
             }else if(error == 3){
@@ -878,14 +892,14 @@ $(window).on('popstate',(e)=>{
     }
     // closePopup();
 
-
-    if(history.state.previewImg == null){
-        $('#imgs-imgPreview').addClass('none')
-        window.previewImg = {};
-    }else{
-        for(const key in imgs){if(history.state.previewImg == imgs[key].name){setImgPreview(key)}}
-        window.previewImg.previewImg = history.state.previewImg;
-    }
+    // if(history.state.previewImg == null){
+    //     $('#imgs-imgPreview').addClass('none')
+    //     window.previewImg = {};
+    // }else{
+    //     setImgPreview(history.state.previewImg,false)
+    //     // for(const key in imgs){if(history.state.previewImg == imgs[key].name){setImgPreview(key)}}
+    //     // window.previewImg.previewImg = history.state.previewImg;
+    // }
 });
 
 // $(window).on('popstate',(e)=>{

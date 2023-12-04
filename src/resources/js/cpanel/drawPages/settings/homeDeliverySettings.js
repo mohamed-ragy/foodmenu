@@ -82,19 +82,19 @@ drawPage_home_delivery_settings = function(){
                     $('<span/>',{class:'ico-help help-icon',helpId:'payment_methods'})
                 ),
                 $('<div/>',{class:'wFC'}).append(
-                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p brdrT0 mT20 cashOnDelivery'}).append(
+                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p brdrT0 mT20 cash_on_delivery'}).append(
                         $('<div/>',{class:'row alnC jstfyC mie-100'}).append(
                             $('<div/>',{class:'ico-money fs1 mie-5'}),
-                            $('<div/>',{class:'fs09',text:texts.settings.cashOnDelivery})
+                            $('<div/>',{class:'fs09',text:texts.settings.cash_on_delivery})
                         ),
-                        $('<div/>',{class:'fs09 cashOnDeliveryCheck ico-check0'})
+                        $('<div/>',{class:'fs09 cash_on_delivery_check ico-check0'})
                     ),
-                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p cardOnDelivery'}).append(
+                    $('<div/>',{class:'row alnC jstfySB checkboxlabel_100p card_on_delivery'}).append(
                         $('<div/>',{class:'row alnC jstfyC mie-100'}).append(
                             $('<div/>',{class:'ico-card fs1 mie-5'}),
-                            $('<div/>',{class:'fs09',text:texts.settings.cardOnDelivery})
+                            $('<div/>',{class:'fs09',text:texts.settings.card_on_delivery})
                         ),
-                        $('<div/>',{class:'fs09 cardOnDeliveryCheck ico-check0'})
+                        $('<div/>',{class:'fs09 card_on_delivery_check ico-check0'})
                     ),
                 ),
                 drawSaveCancelBtns('deliveryPaymentMethodsSaveBtn','deliveryPaymentMethodsCancelBtn','mT40')
@@ -151,8 +151,8 @@ drawPage_home_delivery_settings = function(){
     if(website_temp.deliveryMinimumChargeIncludes == 1){
         $('#deliveryMinimumChargeIncludes').prop('checked',true);
     }
-    website_temp.cashOnDelivery ? $('.cashOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : null;
-    website_temp.cardOnDelivery ? $('.cardOnDeliveryCheck').removeClass('ico-check0').addClass('ico-check1') : null;
+    website_temp.cash_on_delivery ? $('.cash_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : null;
+    website_temp.card_on_delivery ? $('.card_on_delivery_check').removeClass('ico-check0').addClass('ico-check1') : null;
     resetDeliverAvgTime();
     drawWorkingDaysTable('delivery')
     home_delivery_settings_unsave_check();

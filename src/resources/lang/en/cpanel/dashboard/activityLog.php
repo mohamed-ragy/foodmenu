@@ -40,8 +40,8 @@ return [
     'activity7_2' => 'review',
     'activity7_3' => 'has been posted on',
 
-    'activity8_1' => 'Order',
-    'activity8_2' => 'has been placed',
+    // 'activity8_1' => 'Order',
+    // 'activity8_2' => 'has been placed',
 
     'activity9_1' => 'category has been created',
 

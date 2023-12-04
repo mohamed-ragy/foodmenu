@@ -46,32 +46,3 @@
     border-bottom:1px solid var(--brlight);
 }
 .orderCheckElem:hover{background-color: var(--c2);}
-////////
-.printReceiptLogo{
-    height:60px;
-    width:auto;
-    margin-top: 5px;
-    box-sizing: border-box;
-}
-.printReceiptItems{
-    border-top:1px dashed rgb(79, 79, 79);
-    border-bottom:1px dashed rgb(79, 79, 79);
-}
-.printReceiptQrCode{
-    border-top:1px dashed rgb(79, 79, 79);
-    padding-top:20px;
-    margin:0 30px;
-    width:calc(100% - 60px);
-}
-.printReceiptQtyW{
-    width:40px;
-    margin:0 5px;
-}
-.printReceiptItemW{
-    width:calc(100% - 150px);
-    margin:0 5px;
-}
-.printReceiptPriceW{
-    width:80px;
-    margin:0 5px;
-}
