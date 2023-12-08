@@ -476,11 +476,11 @@ class cpanelController extends Controller
         if($request->has(['getNotifications'])){
             $notificationCodes =[];
             if(Auth::guard('account')->user()->is_master == true){
-                $notificationCodes = ['orders.new_order_user',2,3,4,'orders.canceled_by_user',22,74,80];
+                $notificationCodes = ['orders.new_order_user','orders.delivered_by_delivery',3,4,'orders.canceled_by_user',22,74,80];
             }else{
                 if(str_split(Auth::guard('account')->user()->authorities)[0] == true){
                     array_push($notificationCodes,'orders.new_order_user');
-                    array_push($notificationCodes,2);
+                    array_push($notificationCodes,'orders.delivered_by_delivery');
                     array_push($notificationCodes,'orders.canceled_by_user');
                 }
                 if(str_split(Auth::guard('account')->user()->authorities)[2] == true){
@@ -819,7 +819,7 @@ class cpanelController extends Controller
             // $todayOrders = [];
             if(Auth::guard('account')->user()->is_master == true){
                 $timezone =website::where('id',$this->website_id)->pluck('timeZone')->first();
-                $notificationCodes = ['orders.new_order_user',2,3,4,'orders.canceled_by_user',74,80];
+                $notificationCodes = ['orders.new_order_user','orders.delivered_by_delivery',3,4,'orders.canceled_by_user',74,80];
                 // $todayOrders = order::where('placed_at','>',Carbon::today($timezone))->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
 
 
@@ -840,7 +840,7 @@ class cpanelController extends Controller
                 $todayOrders = [];
                 if(str_split(Auth::guard('account')->user()->authorities)[0] == true){
                     array_push($notificationCodes,'orders.new_order_user');
-                    array_push($notificationCodes,2);
+                    array_push($notificationCodes,'orders.delivered_by_delivery');
                     array_push($notificationCodes,'orders.canceled_by_user');
                 }
                 if(str_split(Auth::guard('account')->user()->authorities)[2] == true){

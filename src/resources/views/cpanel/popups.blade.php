@@ -135,37 +135,7 @@
 
 
 
-{{-- /////////////////////////scheduled discount alert////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="scheduledDiscountAlert-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/orders/orders.scheduledDiscountAlert') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
 
-        </div>
-    </div>
-
-{{-- /////////////////////////change email confirm////////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="changeEmail-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/security/email.changeEmail') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="fs102 mY10">
-                <span>{{ trans('cpanel/security/email.changeEmailText') }}</span>
-                <span id="changeEmailPopup-email"></span>
-            </div>
-            <div class="btnContainer">
-                <button class="btn btn-cancel popupClose" >{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                <button class="btn" id="security-changeEmail-confirm">
-                    <div class="btnLoading"></div>
-                    <div class="btnTxt">{{ trans('cpanel/cpanel.public.yes') }}</div>
-                </button>
-            </div>
-        </div>
-    </div>
 {{-- /////////////////////////change password confirm/////////////////// --}}
     <div class="popupCard popupCard-400 none"  id="changePassword-popup">
         <div class="popupHead">
@@ -204,7 +174,7 @@
             </div>
         </div>
     </div>
-{{-- /////////////////////////change email confirm////////////////////// --}}
+{{-- /////////////////////////change phone confirm////////////////////// --}}
     <div class="popupCard popupCard-400 none"  id="changePhone-popup">
         <div class="popupHead">
             <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/security/phone.changePhone') }}</span></div>
@@ -224,7 +194,7 @@
             </div>
         </div>
     </div>
-{{-- /////////////////////////change email confirm////////////////////// --}}
+{{-- /////////////////////////statistics popup////////////////////// --}}
     <div class="popupCard none"  id="statistics-popup">
         <div class="popupHead">
             <div class="popupTitle"><span class="ico-email_address fs102"></span><span class="mX5 popupTitleTxt"></span></div>

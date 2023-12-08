@@ -25,16 +25,30 @@ class activityLog extends Model
 
     }
     protected $fillable = [
-        'code','website_id','user_id','account_id','product_id','category_id','delivery_id','order_id','order_number','product_review_id','reviewsSum','img_id','promocode_id','subaccount_id',
-        'user_name','account_name','product_name','category_name','delivery_name','qty','component_name','img_name','promocode_name','subaccount_name',
+        'code','website_id',
+        'user_id','user_name',
+        'account_id','account_name',
+        'product_id','product_name',
+        'category_id','category_name',
+        'delivery_id','delivery_name',
+        'product_review_id','reviewsSum',
+        'img_id','img_name',
+        'promocode_id','promocode_name',
+        'subaccount_id','subaccount_name',
 
-        'option_id','selection_id',
-        'option_name','old_selection_name','selection_name',
-
-        'oldEmail','newEmail',
-        'oldType','newType',
-        'deliveryCost','oldDeliveryCost',
-        'discount','oldDiscount',
+        //
+        'order_id','order_number',
+        'new_qty','old_qty',
+        'option_id','option_name',
+        'selection_id','selection_name',
+        'new_selection','old_selection',
+        'new_itemNotice','old_itemNotice',
+        'new_orderNotice','old_orderNotice',
+        'new_phoneNumber' ,'old_phoneNumber',
+        'new_address','old_address',
+        'new_type','old_type',
+        'new_deliveryCost','old_DeliveryCost',
+        'new_discount','old_discount',
     ];
 
     public function websites(){

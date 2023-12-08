@@ -49,7 +49,7 @@ drawPage_ticket_history = function(){
                 $('<div/>',{class:'ticketHistoryPrev ticketHistoryArrow_dump ico-left',tooltip:texts.cpanel.public.previous}),
                 $('<div/>',{class:'ticketHistoryNext ticketHistoryArrow_dump ico-right',tooltip:texts.cpanel.public.next}),
             ),
-            $('<div/>',{id:'support-ticketsHistoryContainer'}),
+            $('<div/>',{id:'support-ticketsHistoryContainer',class:'w100p overflowX-A'}),
             $('<table/>',{class:'ticketContainerLoadingContainer'}).append(
                 $('<tr/>',{class:'trHead'}).append(
                     $('<th/>',{text:texts.cpanel.public.noDot}),

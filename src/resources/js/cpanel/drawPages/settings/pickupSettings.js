@@ -39,7 +39,9 @@ drawPage_order_pickup_settings = function(){
                     $('<span/>',{text:texts.settings.workingDays}),
                     $('<span/>',{class:'ico-help help-icon',helpId:'setting_the_working_days'})
                 ),
-                $('<table/>',{id:'pickup-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
+                $('<div/>',{class:'w100p overflowX-A'}).append(
+                    $('<table/>',{id:'pickup-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
+                )
             ),
             $('<div/>',{class:'pageTabContainer',tab:'average_pickup_time'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(

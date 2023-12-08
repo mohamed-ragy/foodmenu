@@ -181,6 +181,15 @@ showPopup =function(popup,callback=()=>{}){
         case 'giveOrderToDeliveryMan':
             $('.popupTitle').text(texts.orders.giveOrderToDelivery);
         break;
+        case 'orderChanges':
+            //
+        break
+        case 'changeEmailConfirm':
+            $('.popupTitle').text(texts.security.changeEmail);
+        break;
+        case 'changePasswordConfirm':
+            $('.popupTitle').text(texts.security.changePassword);
+        break;
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){

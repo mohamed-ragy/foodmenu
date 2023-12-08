@@ -274,6 +274,16 @@ showPage = function(pageId,tab,keysObj){
                     drawPage_promo_codes();
                     resolve(pushHistory);
                 break;
+                case 'email_address':
+                    if(account.is_master == false){reject(1);return;}
+                    drawPage_email_address();
+                    resolve(pushHistory);
+                break;
+                case 'password':
+                    if(account.is_master == false){reject(1);return;}
+                    drawPage_password();
+                    resolve(pushHistory);
+                break;
                 case 'ticket_history':
                     if(account.is_master == false){reject(1);return;}
                     drawPage_ticket_history();

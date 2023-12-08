@@ -95,7 +95,7 @@ require("./pages/security/email.js");
 require("./pages/security/password.js");
 require("./pages/security/phone.js");
 
-require("./pages/orders/functions.js");
+require("./pages/orders/functions.js");//done
 require("./pages/orders/addItem.js");//done
 require("./pages/orders/placeNewOrder.js");//done
 require("./pages/orders/orderHistory.js");//done
@@ -103,18 +103,9 @@ require("./pages/orders/incompleteOrders.js");//done
 require("./pages/orders/orderActions.js");//done
 require("./pages/orders/orderActivities.js");//done
 
-// require("./pages/orders_old/orderHistory.js");
-
-// require("./pages/orders_old/orders.js");
-// require("./pages/orders_old/orderActions.js");
-// require("./pages/orders_old/order.js");
-
-// require("./pages/orders_old/addItem.js");
-// require("./pages/orders_old/newOrder.js");
-
 require("./pages/products/createNewProduct.js");//done
 require("./pages/products/manageProducts.js");//done
-require("./pages/products/productReviews.js");//
+require("./pages/products/productReviews.js");//done
 
 require("./pages/users/functions.js");//done
 require("./pages/users/manageUsers.js");//done

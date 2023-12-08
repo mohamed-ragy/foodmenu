@@ -3,13 +3,13 @@
 
 {{-- Security --}}
 @if (Auth::guard('account')->user()->is_master == true)
-    @include('cpanel.popupPage.security.Sub-Accounts')
+    {{-- @include('cpanel.popupPage.security.Sub-Accounts') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[0] == true)
     {{-- Orders --}}
-    @include('cpanel.popupPage.orders.New-Order')
-    @include('cpanel.popupPage.orders.Order')
+    {{-- @include('cpanel.popupPage.orders.New-Order') --}}
+    {{-- @include('cpanel.popupPage.orders.Order') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)
@@ -22,7 +22,7 @@
     {{-- products --}}
     {{-- @include('cpanel.popupPage.products.Create-New-Product') --}}
     {{-- @include('cpanel.popupPage.products.Manage-Products') --}}
-    @include('cpanel.popupPage.products.Product-Reviews')
+    {{-- @include('cpanel.popupPage.products.Product-Reviews') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[2] == true)

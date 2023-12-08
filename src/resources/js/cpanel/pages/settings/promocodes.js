@@ -59,7 +59,7 @@ drawPromocodes = function(){
         $(`<colgroup><col span="1" style="width: 100%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"></colgroup>`),
         $('<tr/>',{class:'trHead'}).append(
             $('<th/>',{class:'tnw taS vaM',text:texts.settings.code}),
-            $('<th/>',{class:'tnw taS none-720 vaM',text:texts.settings.created}),
+            $('<th/>',{class:'tnw taS vaM',text:texts.settings.created}),
             $('<th/>',{class:'tnw taC vaM',text:texts.settings.active}),
             $('<th/>',{class:'tnw taC vaM',text:''})
         )
@@ -76,7 +76,7 @@ drawPromoCodeRow = function(promocode){
                 $('<span/>',{class:'ico-promo_codes fs103 mie-5'}),
                 $('<span/>',{class:'fs103 mis-5',text:promocode.code})
             ),
-            $('<td/>',{class:'tnw vaM taS none-720'}).append($('<div/>',{text:getDate(promocode.created_at).date.local})),
+            $('<td/>',{class:'tnw vaM taS'}).append($('<div/>',{text:getDate(promocode.created_at).date.local})),
             $('<td/>',{class:'tnw vaM taC'}).append(
                 drawSwitchBtn('',null,null,`checkboxlabel checkboxlabel_noTxt`,`promocodeTableAvailability promocodeTableAvailability-${promocode.id}`)
             ),

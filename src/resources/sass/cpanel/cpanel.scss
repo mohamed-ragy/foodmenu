@@ -107,13 +107,10 @@ body{
 @import 'pages/security/phoneNumber';
 
 
-// @import 'pages/orders/orders';
-// @import 'pages/orders/order.scss';
-// @import 'pages/orders/ordersTable';
-@import 'pages/orders/placeOrder.scss';
-@import 'pages/orders/incompleteOrders.scss';
-@import 'pages/orders/orderHistory.scss';
-@import 'pages/orders/order.scss';
+@import 'pages/orders/placeOrder.scss';//done
+@import 'pages/orders/incompleteOrders.scss';//done
+@import 'pages/orders/orderHistory.scss';//done
+@import 'pages/orders/order.scss';//done
 
 @import 'pages/categories/categoriesList';//done
 
@@ -264,6 +261,18 @@ a:hover{
     border:1px solid var(--red);
     background-color: var(--red-5);
     color:var(--red);
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+}
+.msgBox_green{
+    padding:15px;
+    border:1px solid var(--green);
+    background-color: var(--green-5);
+    color:var(--green);
     border-radius: 5px;
     display:flex;
     flex-direction: column;

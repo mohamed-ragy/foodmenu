@@ -27,10 +27,10 @@ setWebsiteLangs = function(){
     $('#websiteLanguagesTable').text('').append(
         $(`<colgroup><col span="1" style="width: 1%;"><col span="1" style="width: 100%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"></colgroup>`),
         $('<tr/>',{class:'trHead'}).append(
-            $('<th/>',{class:'tnw',text:texts.settings.flag,class:'none-420'}),
+            $('<th/>',{class:'tnw',text:texts.settings.flag,class:''}),
             $('<th/>',{class:'tnw',text:texts.settings.name}),
-            $('<th/>',{class:'tnw none-720',text:texts.settings.code}),
-            $('<th/>',{class:'tnw none-720',text:texts.settings.textDirection}),
+            $('<th/>',{class:'tnw',text:texts.settings.code}),
+            $('<th/>',{class:'tnw',text:texts.settings.textDirection}),
             $('<th/>',{class:'tnw taC',text:texts.settings.default}),
             $('<th/>',{class:'tnw taC',text:texts.settings.receipt}),
             $('<th/>',{class:'tnw taC',}),
@@ -44,10 +44,10 @@ setWebsiteLangs = function(){
         lang.receiptDefault ? receiptClass = 'ico-check1' : null;
         $('#websiteLanguagesTable').append(
             $('<tr/>',{class:'websiteLangsTableRow'}).append(
-                $('<td/>',{class:'vaM tnw none-420'}).append($('<img/>',{class:'h20 br5 ',src:`./storage/imgs/flags/${lang.flag}.png`})),
+                $('<td/>',{class:'vaM tnw '}).append($('<img/>',{class:'h20 br5 ',src:`./storage/imgs/flags/${lang.flag}.png`})),
                 $('<td/>',{class:'vaM fs09 tnw',text:lang.name}),
-                $('<td/>',{class:'vaM taC fs09 tnw none-720',text:lang.code}),
-                $('<td/>',{class:'vaM fs08 tnw none-720',text:texts.settings[`lang_${lang.direction}`]}),
+                $('<td/>',{class:'vaM taC fs09 tnw',text:lang.code}),
+                $('<td/>',{class:'vaM fs08 tnw',text:texts.settings[`lang_${lang.direction}`]}),
                 $('<td/>',{class:'taC tnw vaM'}).append($('<span/>',{lang:lang.code,class:`setLangDefault ${defaultClass} fs101 pointer`,tooltip:texts.settings.setAsWebsiteDefault,}),$('<div/>',{class:'setLangDefault_loading loading_s none'})),
                 $('<td/>',{class:'taC tnw vaM'}).append($('<span/>',{lang:lang.code,class:`setReceiptLang ${receiptClass} fs101 pointer`,tooltip:texts.settings.setAsReceiptLang,}),$('<div/>',{class:'setReceiptLang_loading loading_s none'})),
                 $('<td/>',{class:'taC tnw vaM'}).append(

@@ -24,13 +24,13 @@ floatToTime = function(hour,minute){
 }
 drawWorkingDaysTable = function(service){
     let container;
-    let workingDays; 
+    let workingDays;
     if(service == 'delivery'){
         container = $('#delivery-WorkingDaysTable')
         workingDays = website_temp.workingDays_delivery
     }else if(service == 'pickup'){
         container = $('#pickup-WorkingDaysTable')
-        workingDays = website_temp.workingDays_pickup 
+        workingDays = website_temp.workingDays_pickup
     }else if(service == 'dinein'){
         container = $('#dinein-WorkingDaysTable')
         workingDays = website_temp.workingDays_dinein
@@ -49,11 +49,11 @@ drawWorkingDaysTable = function(service){
     }
     container.text('').append(
         $('<tr/>',{class:'trHead'}).append(
-            $('<th/>',{class:'vaM ',text:texts.settings.day}),
-            $('<th/>',{class:'vaM ',text:texts.settings.workingHours}),
-            $('<th/>',{class:'vaM none-720',text:texts.settings.happyHour}),
-            $('<th/>',{class:'vaM none-720',text:texts.settings.discount}),
-            $('<th/>',{class:'vaM ',text:''}),
+            $('<th/>',{class:'vaM tnw',text:texts.settings.day}),
+            $('<th/>',{class:'vaM tnw',text:texts.settings.workingHours}),
+            $('<th/>',{class:'vaM tnw',text:texts.settings.happyHour}),
+            $('<th/>',{class:'vaM tnw',text:texts.settings.discount}),
+            $('<th/>',{class:'vaM tnw',text:''}),
         ),
 
     )
@@ -70,22 +70,22 @@ drawWorkingDaysTable = function(service){
         dayData.working == 0 ? dayWorkingHours = texts.settings.dayOff : null;
         dayData.working == 0 ? dayStatusClass = 'dayRowStatus_off' : null;
 
-        let happyHourElem = $('<td/>',{class:'vaM none-720',text:`${Dfrom[0]}:${Dfrom[1]}${Dfrom[2]} ~ ${Dto[0]}:${Dto[1]}${Dto[2]}`});
-        dayData.discount == 0 ? happyHourElem = $('<td/>',{class:'vaM none-720',text:`--`}) : null;
-        dayData.working == 0 ? happyHourElem = $('<td/>',{class:'vaM none-720',text:`--`}) : null;
-        
-        let discountElem = $('<td/>',{class:'vaM none-720',text:`${dayData.discount}%`});
-        dayData.discount == 0 ? discountElem = $('<td/>',{class:'vaM none-720',text:`--`}) : null;
-        dayData.working == 0 ? discountElem = $('<td/>',{class:'vaM none-720',text:`--`}) : null;
+        let happyHourElem = $('<td/>',{class:'vaM tnw',text:`${Dfrom[0]}:${Dfrom[1]}${Dfrom[2]} ~ ${Dto[0]}:${Dto[1]}${Dto[2]}`});
+        dayData.discount == 0 ? happyHourElem = $('<td/>',{class:'vaM tnw',text:`--`}) : null;
+        dayData.working == 0 ? happyHourElem = $('<td/>',{class:'vaM tnw',text:`--`}) : null;
+
+        let discountElem = $('<td/>',{class:'vaM tnw',text:`${dayData.discount}%`});
+        dayData.discount == 0 ? discountElem = $('<td/>',{class:'vaM tnw',text:`--`}) : null;
+        dayData.working == 0 ? discountElem = $('<td/>',{class:'vaM tnw',text:`--`}) : null;
 
         let copyWorkingdayDumpClass ='';
         dayData.working == 0 ? copyWorkingdayDumpClass = 'copyWorkingdayDump' : null;
         container.append(
             $('<tr/>',{}).append(
-                $('<td/>',{class:'vaM ',text:texts.cpanel.public[day]}).append(
-    
+                $('<td/>',{class:'vaM tnw',text:texts.cpanel.public[day]}).append(
+
                 ),
-                $('<td/>',{class:'vaM '}).append(
+                $('<td/>',{class:'vaM tnw'}).append(
                     $('<div/>',{class:'row alnC jstfyS'}).append(
                         $('<span/>',{class:`dayRowStatus ${dayStatusClass}`}),
                         dayWorkingHours,
@@ -93,7 +93,7 @@ drawWorkingDaysTable = function(service){
                 ),
                 happyHourElem,
                 discountElem,
-                $('<td/>',{class:'vaM taC'}).append(
+                $('<td/>',{class:'vaM taC tnw'}).append(
                     $('<div/>',{class:'ico-settings btn_table popupPage',popupPage:'working_hours',day:day,service:service,tooltip:texts.cpanel.public.manage}).append($('<div/>',{class:`tableRow_unsaved none workingHoursNotSaved-${service}-${day}`})),
                     $('<div/>',{class:`ico-copy btn_table copyWorkingday ${copyWorkingdayDumpClass}`,day:day,service:service,tooltip:texts.settings.copyDay})
                 )

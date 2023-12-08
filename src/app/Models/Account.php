@@ -60,12 +60,18 @@ class Account extends Authenticatable
 
 
     protected $hidden = [
+        'register',
         'email_verification_code',
+
         'phone_verification_code',
+
         'password',
+        'password_changed_at',
+
         'remember_token',
         'account_unblock_code',
         'recover_password_code',
+        'recover_password_code_sent_at',
     ];
 
     protected $casts = [

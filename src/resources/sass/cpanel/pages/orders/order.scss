@@ -154,9 +154,10 @@
     text-align: end;
     margin:5px 10px;
     margin-bottom: 50px;
+    flex-shrink: 0;
 }
 .orderActivity_right{
-    margin: 5px;
+    margin:5px 10px;
     margin-inline-start: 25px;
     font-size: .9em;
     margin-bottom: 50px;
@@ -170,11 +171,17 @@
 }
 .orderActivity_iconContainer_last{border:none;}
 .orderActivity_icon{
-    font-size: 1.3em;
-    margin-inline-end:-16px;
+    font-size: 1.2em;
+    margin-inline-end:-18px;
     background-color: var(--white);
-    padding:5px;
+    padding:7px;
     border-radius: 50%;
     box-shadow: 0 0 3px var(--shdw-30);
+}
+.order-seeChanges{
+    font-size: .75em;
+    border-radius: 10px;
+    margin-top:5px;
+    display: inline-block;
 }
 //

@@ -11,7 +11,9 @@ drawPage_sub_accounts = function(){
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_sub_account',text:texts.staff.createSubAccount}),
             ),
-            $('<table/>',{id:'subAccountsTable',class:'w100p',autoHelp:'sub_accounts_list'})
+            $('<div/>',{class:'w100p overflowX-A'}).append(
+                $('<table/>',{id:'subAccountsTable',class:'',autoHelp:'sub_accounts_list'})
+            )
         )
     );
     drawSubAccountsTable();
@@ -28,7 +30,7 @@ drawSubAccountsTable = function(){
             $('<th/>',{class:'fs08 tnw taC vaM w5'}),
             $('<th/>',{class:'fs08 tnw taS vaM w50p',text:texts.staff.name}),
             $('<th/>',{class:'fs08 tnw taS vaM w50p',text:texts.staff.loginName}),
-            $('<th/>',{class:'fs08 tnw taS vaM none-720',text:texts.staff.lastSeen}),
+            $('<th/>',{class:'fs08 tnw taS vaM',text:texts.staff.lastSeen}),
             $('<th/>',{class:'fs08 tnw taE vaM '}),
         )
     )
@@ -48,7 +50,7 @@ drawSubAccountsTable = function(){
                     $('<td/>',{class:'fs08 tnw taS vaM mxw0 w50p pointer copyVal',copyVal:subaccount.email,tooltip:texts.cpanel.public.clickToCopy}).append(
                         $('<span/>',{class:'block ellipsis',text:subaccount.email}),
                     ),
-                    $('<td/>',{class:'fs08 tnw taS vaM none-720 '}).append(
+                    $('<td/>',{class:'fs08 tnw taS vaM '}).append(
                         $('<span/>',{class:`subaccountlastSeen-${subaccount.id} `,time:subaccount.lastSeen})
                     ),
                     $('<td/>',{class:'fs08 tnw taE vaM'}).append(

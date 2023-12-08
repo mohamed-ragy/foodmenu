@@ -14,6 +14,7 @@
         products:{!! json_encode(trans('cpanel/products/texts')) !!},
         design:{!! json_encode(trans('cpanel/design/texts')) !!},
         orders:{!! json_encode(trans('cpanel/orders/texts')) !!},
+        security:{!! json_encode(trans('cpanel/security/texts')) !!},
         activity_log:{!! json_encode(trans('cpanel/dashboard/activity_log')) !!},
         statistics:{
 
@@ -103,16 +104,16 @@
             "dayChangedNotSaved" : "{!! trans('cpanel/settings/dineIn.dayChangedNotSaved') !!}",
 
         },
-        security:{
-            "deleteConfirm1" : "{!! trans('cpanel/security/subAccounts.deleteConfirm1') !!}",
-            "deleteConfirm2" : "{!! trans('cpanel/security/subAccounts.deleteConfirm2') !!}",
-            "subAccountBlocked" : "{!! trans('cpanel/security/subAccounts.subAccountBlocked') !!}",
-            "unblockSubAccount" : "{!! trans('cpanel/security/subAccounts.unblockSubAccount') !!}",
-            "forceLogout":"{!! trans('cpanel/security/subAccounts.forceLogout') !!}",
-            "resendCode":"{!! trans('cpanel/security/email.resend') !!}",
-            "resendCode2":"{!! trans('cpanel/security/email.resend2') !!}",
-            "phoneRequired":"{!! trans('cpanel/security/phone.phoneRequired') !!}",
-        },
+        // security:{
+        //     "deleteConfirm1" : "{!! trans('cpanel/security/subAccounts.deleteConfirm1') !!}",
+        //     "deleteConfirm2" : "{!! trans('cpanel/security/subAccounts.deleteConfirm2') !!}",
+        //     "subAccountBlocked" : "{!! trans('cpanel/security/subAccounts.subAccountBlocked') !!}",
+        //     "unblockSubAccount" : "{!! trans('cpanel/security/subAccounts.unblockSubAccount') !!}",
+        //     "forceLogout":"{!! trans('cpanel/security/subAccounts.forceLogout') !!}",
+        //     "resendCode":"{!! trans('cpanel/security/email.resend') !!}",
+        //     "resendCode2":"{!! trans('cpanel/security/email.resend2') !!}",
+        //     "phoneRequired":"{!! trans('cpanel/security/phone.phoneRequired') !!}",
+        // },
         restaurantExpenses:{
             "expenseNameRequired":"{{ trans('cpanel/dashboard/restaurantExpenses.expenseNameRequired') }}",
             "expenseAmountRequired":"{{ trans('cpanel/dashboard/restaurantExpenses.expenseAmountRequired') }}",

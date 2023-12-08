@@ -304,9 +304,7 @@ class ordersController extends Controller
                 return response(['placeOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.placeNewOrderFaild')]);
             }
         }else if($request->has(['acceptOrder'])){
-            if(str_split($this->account->authorities)[0] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[0] == false){return;}
             $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
             if($order->status != 0){
                 return response(['acceptOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.acceptOrderSaveFaild')]);
@@ -320,8 +318,9 @@ class ordersController extends Controller
             if($updateOrder){
                 foodmenuFunctions::notification('orders.accepted',[
                     'website_id' => $this->website_id,
-                    'code' => 26,
+                    'code' => 'order.accepted',
                     'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -338,9 +337,7 @@ class ordersController extends Controller
                 return response(['acceptOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.acceptOrderSaveFaild')]);
             }
         }else if($request->has(['cancelOrder'])){
-            if(str_split($this->account->authorities)[0] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[0] == false){return;}
             $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
                 return response(['cancelOrderState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.cancelOrderSaveFaild')]);
@@ -355,8 +352,9 @@ class ordersController extends Controller
             if($cancelOrder){
                 foodmenuFunctions::notification('orders.canceled_by_account',[
                     'website_id' => $this->website_id,
-                    'code' => 25,
-                    'order_id'=> $request->orderId,
+                    'code' => 'order.canceled_by_account',
+                    'order_number' =>$order->id,
+                    'order_id'=> $order->_id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -375,9 +373,7 @@ class ordersController extends Controller
 
             }
         }else if($request->has(['markAsreadyForPickup'])){
-            if(str_split($this->account->authorities)[0] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[0] == false){return;}
             $order = order::where(['_id'=>$request->order_id,'website_id'=>$this->website_id])->first();
             if($order->status != 1){
                 return response(['markAsreadyForPickupState' => 0, 'msg'=>  Lang::get('cpanel/orders/responses.markAsReadyToPickupSaveFaild')]);
@@ -390,8 +386,9 @@ class ordersController extends Controller
                 ])){
                     foodmenuFunctions::notification('orders.ready_for_pickup',[
                         'website_id' => $this->website_id,
-                        'code' => 29,
-                        'order_id'=> $request->orderId,
+                        'code' => 'order.ready_for_pickup',
+                        'order_id'=> $order->_id,
+                        'order_number' => $order->id,
                         'account_id' => $this->account->id,
                         'account_name' => $this->account->name,
                     ],[
@@ -424,8 +421,9 @@ class ordersController extends Controller
                 ])){
                     foodmenuFunctions::notification('orders.picked_up',[
                         'website_id' => $this->website_id,
-                        'code' => 27,
-                        'order_id'=> $request->orderId,
+                        'code' => 'order.picked_up',
+                        'order_id'=> $order->_id,
+                        'order_number' => $order->id,
                         'account_id' => $this->account->id,
                         'account_name' => $this->account->name,
                     ],[
@@ -456,8 +454,9 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.out_for_delivery',[
                     'website_id' => $this->website_id,
-                    'code' => 30,
-                    'order_id'=> $request->orderId,
+                    'code' => 'order.out_for_delivery',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -492,8 +491,9 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.to_delivery_man',[
                     'website_id' => $this->website_id,
-                    'code' => 31,
-                    'order_id'=> $request->orderId,
+                    'code' => 'order.to_delivery_man',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                     'delivery_id'=>$deliveryMan->id,
@@ -528,8 +528,9 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.delivered_by_account',[
                     'website_id' => $this->website_id,
-                    'code' => 28,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.delivered_by_account',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -561,8 +562,9 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.diningin',[
                     'website_id' => $this->website_id,
-                    'code' => 25.5,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.diningin',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -592,8 +594,9 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.dinedin',[
                     'website_id' => $this->website_id,
-                    'code' => 25.6,
-                    'order_id'=> $request->orderId,
+                    'code' => 'order.dinedin',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -654,6 +657,7 @@ class ordersController extends Controller
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
                 return response(['changeOrderNoticeStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeOrderNoticeFail')]);
             }
+            $old_orderNotice = $order->notice;
             if($order->update([
                 'notice' => $request->newNotice,
                 'noticeEdit_account_id' => $this->account->id,
@@ -661,10 +665,13 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.update.notice',[
                     'website_id' => $this->website_id,
-                    'code' => 36.1,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.update.notice',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
+                    'new_orderNotice' => $order->notice,
+                    'old_orderNotice' => $old_orderNotice,
                 ],[
                     'order_id' => $request->order_id,
                     'notice' => $request->newNotice,
@@ -681,6 +688,7 @@ class ordersController extends Controller
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
                 return response(['changePhoneNumberStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changePhoneNumberFail')]);
             }
+            $old_phoneNumber = $order->phoneNumber;
             if($order->update([
                 'phoneNumber' => $request->phoneNumber,
                 'phoneEdit_account_id' => $this->account->id,
@@ -688,8 +696,11 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.update.phoneNumber',[
                     'website_id' => $this->website_id,
-                    'code' => 36.2,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.update.phoneNumber',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
+                    'old_phoneNumber' => $old_phoneNumber,
+                    'new_phoneNumber' => $order->phoneNumber,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -708,6 +719,7 @@ class ordersController extends Controller
             if($order->status != 0 && $order->status != 1 && $order->status != 3 && $order->status != 4 && $order->status != 8){
                 return response(['changeAddressStatus'=>0,'msg'=> Lang::get('cpanel/orders/responses.changeAddressFail')]);
             }
+            $old_address = $order->address;
             if($order->update([
                 'address' => $request->address,
                 'addressEdit_account_id' => $this->account->id,
@@ -715,8 +727,11 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.update.address',[
                     'website_id' => $this->website_id,
-                    'code' => 36.3,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.update.address',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
+                    'old_address' => $old_address,
+                    'new_address' => $order->address,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                 ],[
@@ -813,12 +828,13 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.update.type',[
                     'website_id' => $this->website_id,
-                    'code' => 36,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.update.type',
+                    'order_id'=> $order->_id,
+                    'order_number' => $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
-                    'newType' => $request->type,
-                    'oldType' => $oldType,
+                    'new_type' => $order->type,
+                    'old_type' => $oldType,
                 ],[
                     'order_id' => $request->order_id,
                     'type' => (int)$request->type,
@@ -901,12 +917,13 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.update.discount',[
                     'website_id' => $this->website_id,
-                    'code' => 33.6,
-                    'order_id'=> $order->id,
+                    'code' => 'order.update.discount',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
-                    'discount' => $discount,
-                    'oldDiscount' => $oldDiscount,
+                    'new_discount' => $order->discount,
+                    'old_discount' => $oldDiscount,
                 ],[
                     'order_id' => $request->order_id,
                     'discount' => (int)$discount,
@@ -974,12 +991,13 @@ class ordersController extends Controller
             ])){
                 foodmenuFunctions::notification('orders.update.deliveryCost',[
                     'website_id' => $this->website_id,
-                    'code' => 33.5,
-                    'order_id'=> $order->id,
+                    'code' => 'order.update.deliveryCost',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
-                    'deliveryCost' => $order->deliveryCost,
-                    'oldDeliveryCost' => $oldDeliveryCost,
+                    'new_deliveryCost' => $order->deliveryCost,
+                    'old_DeliveryCost' => $oldDeliveryCost,
                 ],[
                     'order_id' => $request->order_id,
                     'deliveryCost' => (double)$deliveryCost,
@@ -1097,17 +1115,14 @@ class ordersController extends Controller
                 }
                 foodmenuFunctions::notification('orders.update.addItem',[
                     'website_id' => $this->website_id,
-                    'code' => 33,
-                    'order_id'=> $request->order_id,
-                    'item' => $addItem,
-                    'itemsTotal' => (double)$itemsTotal,
-                    'discount_itemsTotal' => (double)$discount_itemsTotal,
-                    'tax' => (double)$tax,
-                    'service' => (double)$service,
-                    'total' => (double)$total,
-                    'itemsEdit_account_name'=> $this->account->name,
-                    'itemsEdit_account_id'=> $this->account->id,
-                    'order_items_original' => $order->order_items_original,
+                    'code' => 'order.update.addItem',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'new_qty' => $request->item['qty'],
+                    'product_name' => $product->name,
+                    'product_id' => $product->id,
                 ],[
                     'order_id' => $request->order_id,
                     'item' => $addItem,
@@ -1206,8 +1221,9 @@ class ordersController extends Controller
                 }
                 foodmenuFunctions::notification('orders.update.removeItem',[
                     'website_id' => $this->website_id,
-                    'code' => 32,
-                    'order_id'=> $order->id,
+                    'code' => 'order.update.removeItem',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                     'product_name' => $productName,
@@ -1286,17 +1302,21 @@ class ordersController extends Controller
                 return response(['changeItemNoticeStat' => 0,'msg' => Lang::get('cpanel/orders/responses.changeItemNoticeFail')]);
             }
             $item = $order->order_items()->find($request->item_id);
+            $old_itemNotice = $item->itemNotice;
             if($item->update([
                 'itemNotice' => $request->itemNotice
             ])){
                 foodmenuFunctions::notification('orders.update.itemNotice',[
                     'website_id' => $this->website_id,
-                    'code' => 36.6,
-                    'order_id'=> $request->order_id,
+                    'code' => 'order.update.itemNotice',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                     'product_name' => $item->productName,
                     'product_id' => $item->product_id,
+                    'new_itemNotice' => $item->itemNotice,
+                    'old_itemNotice' => $old_itemNotice,
                 ],[
                     'order_id' => $request->order_id,
                     'item_id' => $request->item_id,
@@ -1347,6 +1367,8 @@ class ordersController extends Controller
 
             $total = $discount_itemsTotal + $tax + $service + $deliveryCost;
 
+
+            $old_qty = $item->qty;
             if($item->update([
                 'qty' => $newQty,
                 'total' => $newItemTotal,
@@ -1377,13 +1399,15 @@ class ordersController extends Controller
 
                 foodmenuFunctions::notification('orders.update.qty',[
                     'website_id' => $this->website_id,
-                    'code' => 36.4,
-                    'order_id'=> $order->id,
+                    'code' => 'order.update.qty',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                     'product_name' => $item->productName,
                     'product_id' => $item->product_id,
-                    'qty' => $newQty,
+                    'old_qty' => $old_qty,
+                    'new_qty' => $newQty,
                 ],[
                     'order_id' => $request->order_id,
                     'item_id' => $request->item_id,
@@ -1516,15 +1540,16 @@ class ordersController extends Controller
                 }
                 foodmenuFunctions::notification('orders.update.selection',[
                     'website_id' => $this->website_id,
-                    'code' => 36.5,
-                    'order_id'=> $order->id,
+                    'code' => 'order.update.selection',
+                    'order_id'=> $order->_id,
+                    'order_number'=> $order->id,
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                     'product_name' => $item->productName,
                     'product_id' => $item->product_id,
                     'option_name' => $optionName,
-                    'old_selection_name' => $oldSelectionName,
-                    'selection_name' => $selection->name,
+                    'old_selection' => $oldSelectionName,
+                    'new_selection' => $selection->name,
                 ],[
                     'order_id' => $request->order_id,
                     'item_id' => $request->item_id,

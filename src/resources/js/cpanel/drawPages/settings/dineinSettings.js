@@ -31,7 +31,9 @@ dine_in_settings_settings = function(){
                     $('<span/>',{text:texts.settings.workingDays}),
                     $('<span/>',{class:'ico-help help-icon',helpId:'setting_the_working_days'})
                 ),
-                $('<table/>',{id:'dinein-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
+                $('<div/>',{class:'w100p overflowX-A'}).append(
+                    $('<table/>',{id:'dinein-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
+                )
             ),
             $('<div/>',{class:'pageTabContainer',tab:'dinein_service_charge_settings'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(

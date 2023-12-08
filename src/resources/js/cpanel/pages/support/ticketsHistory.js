@@ -90,7 +90,7 @@ getTickets = function(page=1,orderBy='created_at',order='desc'){
                 (skip + response.tickets.length) >=  response.ticketsCount ?  $('.ticketHistoryNext').addClass('ticketHistoryArrow_dump') : $('.ticketHistoryNext').removeClass('ticketHistoryArrow_dump');
 
                 $('#support-ticketsHistoryContainer').append(
-                    $('<table/>').append(
+                    $('<table/>',{class:'mnw800'}).append(
                         $('<tr/>',{class:'trHead'}).append(
                             $('<th/>',{class:'ticketHistoryTR',key:'id'}).append(
                                 $('<div/>',{class:'w100p row alnC jstfySB',}).append(
@@ -110,7 +110,7 @@ getTickets = function(page=1,orderBy='created_at',order='desc'){
                                     $('<span/>',{class:`ticketHistoryTRArrow fs08 ${ticketHistoryTRArrow_status}`})
                                 )
                             ),
-                            $('<th/>',{class:'ticketHistoryTR none-720',key:'created_at'}).append(
+                            $('<th/>',{class:'ticketHistoryTR',key:'created_at'}).append(
                                 $('<div/>',{class:'w100p row alnC jstfySB',}).append(
                                     $('<span/>',{text:texts.support.created,class:'mie-10'}),
                                     $('<span/>',{class:`ticketHistoryTRArrow fs08 ${ticketHistoryTRArrow_created}`})
@@ -138,7 +138,7 @@ getTickets = function(page=1,orderBy='created_at',order='desc'){
                             $('<td/>',{class:'',text:ticket.id}),
                             $('<td/>',{class:'',text:ticket.title}),
                             $('<td/>',{class:'tnw'}).append(ticketStatus),
-                            $('<td/>',{class:'tnw none-720',text:getDate(ticket.created_at).date.local})
+                            $('<td/>',{class:'tnw',text:getDate(ticket.created_at).date.local})
                         )
                     )
                 }

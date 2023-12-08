@@ -258,10 +258,15 @@ showPopupId = function(thisPopupIdElem){
             })
             if(parseFloat($('#popupId').offset().left) + parseFloat($('#popupId').width()) > $(window).width()){
                 $('#popupId').removeClass('none').css({
-                    'top':thisPopupIdElem.offset().top - $('#popupId').outerHeight(),
                     'left':$(window).width() - $('#popupId').width() - 10,
                 })
             }
+            if(parseFloat($('#popupId').offset().top) < 0){
+                $('#popupId').removeClass('none').css({
+                    'top':0
+                })
+            }
+
         }
     },500)
 

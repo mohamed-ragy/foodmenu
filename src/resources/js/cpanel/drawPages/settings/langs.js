@@ -12,7 +12,9 @@ drawPage_languages = function(){
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel',id:'langs-addNewLang',text:texts.settings.addNewLang,autoHelp:'install_new_language'}),
             ),
-            $('<table/>',{id:'websiteLanguagesTable',class:'fs08-400',autoHelp:'languages_table'}),
+            $('<div/>',{class:'w100p overflowX-A'}).append(
+                $('<table/>',{id:'websiteLanguagesTable',class:'',autoHelp:'languages_table'}),
+            )
         ),
 
     )

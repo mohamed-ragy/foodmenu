@@ -1,5 +1,7 @@
-$('#security-changePasswordBtn').on('click',function(){
-    showPopup($('#changePassword-popup'))
+$('html,body').on('click','#account-changePassword_btn',function(){
+    showPopup('changePasswordConfirm',function(){
+        
+    })
 })
 $('#security-changePassword-confirm').on('click',function(){
     showBtnLoading($('#security-changePassword-confirm'));

@@ -105,12 +105,11 @@
 
 
     <div id="changeOrderStatus" class="none"></div>
-    {{-- <div id="changeOrderStatusGiveToDelivery"></div> --}}
     <div id="changeOrderType"  class="none"></div>
     <div id="changeItemSelection" class="none"></div>
 
-    <div id="galleryImgOnMove"></div>
-    <div id="slideShowImgOnMove"></div>
+    {{-- <div id="galleryImgOnMove"></div> --}}
+    {{-- <div id="slideShowImgOnMove"></div> --}}
     {{-- <div id="categoryCardOnMove"></div> --}}
     {{-- <div id="manageProductCardOnMove"></div> --}}
     {{-- <div id="productOptionCardOnMove"></div> --}}

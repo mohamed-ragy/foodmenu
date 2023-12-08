@@ -61,7 +61,7 @@ drawNotification = function(notification,append,alert=false){
                 }
             }
         break;
-        case 2:
+        case 'orders.delivered_by_delivery':
             icon = 'ico-delivery_accounts';
             containerClass = 'popupPage';
             popupPage = 'Order';
@@ -1317,6 +1317,30 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+        break;
+        case 'orders.delivered_by_delivery':
+            console.log(n)
+            website.incompleteOrders.find(item=>item._id == n.order_id).status = 5;
+            website.incompleteOrders.find(item=>item._id == n.order_id).delivered_at = n.delivered_at;
+            website.incompleteOrders.find(item=>item._id == n.order_id).delivered_by = 1;
+            website.incompleteOrders.find(item=>item._id == n.order_id).delivered_delivery_name = n.delivered_delivery_name;
+            website.incompleteOrders.find(item=>item._id == n.order_id).delivered_delivery_id = n.delivered_delivery_id;
+            for(const key in website.incompleteOrders){
+                if(website.incompleteOrders[key]._id == n.order_id){
+                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.incompleteOrders.splice(key,1)
+                }
+            }
+            if(window.history.state.page == 'incomplete_orders'){
+                drawIncompleteOrdersTable(window.history.state.tab ?? 'all_orders',window.history.state.order_by ?? 'placed_at',window.history.state.sort ?? 'desc');
+            }
+            if(window.history.state.popupPage == 'order' && window.history.state.order == n.order_id){
+                drawPopupPage_order_fillData(n.order_id)
+            }
+            calcIncompleteOrders();
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.delivered1;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend',true);
         break;
         case 'orders.diningin':
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 8;

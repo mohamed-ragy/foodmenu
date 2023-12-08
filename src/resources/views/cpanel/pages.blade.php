@@ -19,14 +19,14 @@
 
 @if (str_split(Auth::guard('account')->user()->authorities)[0] == true)
     {{-- Orders --}}
-    @include('cpanel.pages.orders.Incomplete-Orders-page')
-    @include('cpanel.pages.orders.Order-History-page')
+    {{-- @include('cpanel.pages.orders.Incomplete-Orders-page') --}}
+    {{-- @include('cpanel.pages.orders.Order-History-page') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[1] == true)
     {{-- products --}}
     {{-- @include('cpanel.pages.products.Manage-Products-page') --}}
-    @include('cpanel.pages.products.Product-Reviews-page')
+    {{-- @include('cpanel.pages.products.Product-Reviews-page') --}}
 @endif
 
 @if (str_split(Auth::guard('account')->user()->authorities)[2] == true)

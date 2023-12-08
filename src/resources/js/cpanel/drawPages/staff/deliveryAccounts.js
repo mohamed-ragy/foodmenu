@@ -11,7 +11,9 @@ drawPage_delivery_accounts = function(){
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_delivery_account',text:texts.staff.createDeliveryAccount}),
             ),
-            $('<table/>',{id:'deliveryAccountsTable',class:'w100p',autoHelp:'delivery_account_list'})
+            $('<div/>',{class:'w100p overflowX-A'}).append(
+                $('<table/>',{id:'deliveryAccountsTable',class:'w100p',autoHelp:'delivery_account_list'})
+            )
         )
     );
     drawDeliveryAccountsTable();
@@ -28,7 +30,7 @@ drawDeliveryAccountsTable = function(){
             $('<th/>',{class:'fs08 tnw taC vaM w5'}),
             $('<th/>',{class:'fs08 tnw taS vaM w50p',text:texts.staff.name}),
             $('<th/>',{class:'fs08 tnw taS vaM w50p',text:texts.staff.loginName}),
-            $('<th/>',{class:'fs08 tnw taS vaM none-720',text:texts.staff.lastSeen}),
+            $('<th/>',{class:'fs08 tnw taS vaM',text:texts.staff.lastSeen}),
             $('<th/>',{class:'fs08 tnw taE vaM'}),
         )
     )
@@ -45,7 +47,7 @@ drawDeliveryAccountsTable = function(){
                 $('<td/>',{class:'fs08 tnw taS vaM mxw0 w50p copyVal pointer',copyVal:delivery.deliveryName,tooltip:texts.cpanel.public.clickToCopy}).append(
                     $('<span/>',{class:'block ellipsis',text:delivery.deliveryName}),
                 ),
-                $('<td/>',{class:'fs08 tnw taS vaM w100p none-720 '}).append(
+                $('<td/>',{class:'fs08 tnw taS vaM w100p '}).append(
                     $('<span/>',{class:`deliverylastSeen-${delivery.id} `,time:delivery.lastSeen})
                 ),
                 $('<td/>',{class:'fs08 tnw taE vaM'}).append(

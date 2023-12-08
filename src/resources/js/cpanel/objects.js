@@ -163,16 +163,6 @@ window.menu = [
         ]
     },
     {
-        name:'security',
-        authority:'authority_master',
-        position:'top',
-        pages:[
-            {name:'email_address',authority:'authority_master',lastTab:null},
-            {name:'password',authority:'authority_master',lastTab:null},
-            {name:'phone_number',authority:'authority_master',lastTab:null},
-        ],
-    },
-    {
         name:'orders',
         authority:'authority_0',
         position:'top',
@@ -181,13 +171,6 @@ window.menu = [
             {name:'order_history',authority:'authority_0',lastTab:null},
         ],
     },
-    // {
-    //     name:'categories',
-    //     authority:'authority_1',
-    //     position:'top',
-    //     pages:[
-    //     ],
-    // },
     {
         name:'products',
         authority:'authority_1',
@@ -206,6 +189,15 @@ window.menu = [
             {name:'create_new_user',authority:'authority_2',lastTab:null},
             {name:'manage_users',authority:'authority_2',lastTab:null},
             {name:'online_users',authority:'authority_2',lastTab:null},
+        ],
+    },
+    {
+        name:'my_staff',
+        authority:'authority_master',
+        position:'top',
+        pages:[
+            {name:'sub_accounts',authority:'authority_master',lastTab:null},
+            {name:'delivery_accounts',authority:'authority_master',lastTab:null},
         ],
     },
     {
@@ -234,13 +226,15 @@ window.menu = [
             {name:'promo_codes',authority:'authority_4',lastTab:null},
         ],
     },
+
     {
-        name:'my_staff',
+        name:'security',
         authority:'authority_master',
         position:'bottom',
         pages:[
-            {name:'sub_accounts',authority:'authority_master',lastTab:null},
-            {name:'delivery_accounts',authority:'authority_master',lastTab:null},
+            {name:'email_address',authority:'authority_master',lastTab:null},
+            {name:'password',authority:'authority_master',lastTab:null},
+            {name:'phone_number',authority:'authority_master',lastTab:null},
         ],
     },
     {

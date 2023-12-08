@@ -12,22 +12,25 @@ drawPage_promo_codes = function(){
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_promo_code',text:texts.settings.createPromocode})
             ),
             $('<div/>',{class:'m10 fs1 none',id:'noPromocodes',text:texts.settings.noPromocodes}),
-            $('<table/>',{id:'promocodesTable',class:'fs08-400',autoHelp:'promo_codes_list'}).append(
-                $(`<colgroup><col span="1" style="width: 100%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"></colgroup>`),
-                $('<tr/>',{class:'trHead'}).append(
-                    $('<th/>',{class:'tnw taS vaM',text:texts.settings.code}),
-                    $('<th/>',{class:'tnw taS none-720 vaM',text:texts.settings.created}),
-                    $('<th/>',{class:'tnw taC vaM',text:texts.settings.active}),
-                    $('<th/>',{class:'tnw taC vaM',text:''})
-                )
-            ),
+            $('<div/>',{class:'w100p overflowX-A'}).append(
+                $('<table/>',{id:'promocodesTable',class:'',autoHelp:'promo_codes_list'}).append(
+                    $(`<colgroup><col span="1" style="width: 100%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"><col span="1" style="width: 1%;"></colgroup>`),
+                    $('<tr/>',{class:'trHead'}).append(
+                        $('<th/>',{class:'tnw taS vaM',text:texts.settings.code}),
+                        $('<th/>',{class:'tnw taS vaM',text:texts.settings.created}),
+                        $('<th/>',{class:'tnw taC vaM',text:texts.settings.active}),
+                        $('<th/>',{class:'tnw taC vaM',text:''})
+                    )
+                ),
+            )
+
         )
     )
     for(i=1;i<=5;i++){
         $('#promocodesTable').append(
             $('<tr/>',{class:''}).append(
                 $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w400 w150-720'})),
-                $('<td/>',{class:'taS none-720'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
+                $('<td/>',{class:'taS'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
                 $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
                 $('<td/>',{class:'taC'}).append($('<div/>',{class:'cardLoading h10 mY5 br5 w50'})),
             )

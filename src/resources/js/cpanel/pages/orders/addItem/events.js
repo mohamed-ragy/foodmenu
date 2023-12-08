@@ -1,5 +1,7 @@
 $('html,body').on('click','#addItemProductList-list .inputListElement',function(e){
     let product = website.products.find(item=>item.id == $(this).attr('key'));
+    console.log(product)
+    !product.availability ? showAlert('warning',texts.orders.addItemUnavailable,4000,true) : null;
     drawAddItemPopupProduct(product)
     setTimeout(()=>{
         calcAddOrderItemTotal();

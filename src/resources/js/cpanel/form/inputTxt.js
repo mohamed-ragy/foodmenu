@@ -16,7 +16,7 @@ drawInputText = function(autoHelp,icon,iconFlag,tooltip,id,type,placeholder,maxl
     if(icon2 == 'clearVal'){
         icon2Elem = $('<div/>',{class:'inputText-clearVal ico-close fs08',tooltip:texts.cpanel.public.clear})
     }else if(icon2 == 'password'){
-        icon2Elem = $('<div/>',{class:'inputText-showPassword ico-showPassword fs1',tooltip:texts.cpanel.public.showPassword})
+        icon2Elem = $('<div/>',{class:'inputText-showPassword ico-showPassword fs1 pX3',tooltip:texts.cpanel.public.showPassword})
     }else if(icon2 == 'copy'){
         icon2Elem = $('<div/>',{class:'inputText-copyVal ico-copy fs1',tooltip:texts.cpanel.public.copy})
     }

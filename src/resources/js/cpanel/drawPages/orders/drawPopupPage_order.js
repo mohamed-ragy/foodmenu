@@ -5,7 +5,7 @@ drawPopupPage_order = function(order_id){
             $('<span/>',{class:'ellipsis',text:texts.orders.orderHashNumber.replace(':order:',order.id)}),
             $('<span/>',{class:'ico-help help-icon',helpId:''})
         );
-        $('#popupPageBody').text('').addClass('mxw100p-40 w500 p20').append(
+        $('#popupPageBody').text('').addClass('mxw100p-40 w600 p20').append(
             $('<div/>',{class:'popupPageTabs'}).append(
                 $('<div/>',{class:'popupPageTabArrow popupPageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'popupPageTabsContainer'}).append(
@@ -424,22 +424,163 @@ drawPoupPage_order_receipt = function(order){
 //
 draw_orderActivities_loading = function(){
     $('.order_popupPage_orderActivities').text('').append(
-
+        $('<div/>',{class:'orderActivity_container'}).append(
+            $('<div/>',{class:`orderActivity_left`}).append(
+                $('<div/>',{class:'w50 h10 cardLoading br5 mT5',}),
+            ),
+            $('<div/>',{class:`orderActivity_iconContainer`}).append($('<div/>',{class:`orderActivity_icon bgc_white-1 cardLoading h20 w20 br50p`})),
+            $('<div/>',{class:`orderActivity_right`}).append(
+                $('<div/>',{class:'cardLoading w250 h10 br5 mT5'}),
+            ),
+        ),
+        $('<div/>',{class:'orderActivity_container'}).append(
+            $('<div/>',{class:`orderActivity_left`}).append(
+                $('<div/>',{class:'w50 h10 cardLoading br5 mT5',}),
+            ),
+            $('<div/>',{class:`orderActivity_iconContainer`}).append($('<div/>',{class:`orderActivity_icon bgc_white-1 cardLoading h20 w20 br50p`})),
+            $('<div/>',{class:`orderActivity_right`}).append(
+                $('<div/>',{class:'cardLoading w300 h10 br5 mT5'}),
+            ),
+        ),
+        $('<div/>',{class:'orderActivity_container'}).append(
+            $('<div/>',{class:`orderActivity_left`}).append(
+                $('<div/>',{class:'w50 h10 cardLoading br5 mT5',}),
+            ),
+            $('<div/>',{class:`orderActivity_iconContainer`}).append($('<div/>',{class:`orderActivity_icon bgc_white-1 cardLoading h20 w20 br50p`})),
+            $('<div/>',{class:`orderActivity_right`}).append(
+                $('<div/>',{class:'cardLoading w250 h10 br5 mT5'}),
+            ),
+        ),
+        $('<div/>',{class:'orderActivity_container'}).append(
+            $('<div/>',{class:`orderActivity_left`}).append(
+                $('<div/>',{class:'w50 h10 cardLoading br5 mT5',}),
+            ),
+            $('<div/>',{class:`orderActivity_iconContainer`}).append($('<div/>',{class:`orderActivity_icon bgc_white-1 cardLoading h20 w20 br50p`})),
+            $('<div/>',{class:`orderActivity_right`}).append(
+                $('<div/>',{class:'cardLoading w200 h10 br5 mT5'}),
+            ),
+        ),
+        $('<div/>',{class:'orderActivity_container'}).append(
+            $('<div/>',{class:`orderActivity_left`}).append(
+                $('<div/>',{class:'w50 h10 cardLoading br5 mT5',}),
+            ),
+            $('<div/>',{class:`orderActivity_iconContainer_last`}).append($('<div/>',{class:`orderActivity_icon bgc_white-1 cardLoading h20 w20 br50p`})),
+            $('<div/>',{class:`orderActivity_right`}).append(
+                $('<div/>',{class:'cardLoading w300 h10 br5 mT5'}),
+            ),
+        ),
     )
 }
 drawOrderActivities = function(activities){
+    $('.order_popupPage_orderActivities').text('')
     for(const key in activities){
         let activity  = activities[key];
         let icon = '';
         let date = getDate(activity.created_at).date.restaurant;
         let time = getDate(activity.created_at).time.restaurant;
-        let user = activity.user_id == null ? texts.cpanel.public.aGuest : `<a class="popupPage popupId" popupPage="user" popupId="user" user="${activity.user_id}">${activity.user_name}</a>`;
+        let delivery;let account; let user;
+        let seeChanges = '';
+        let text = ''
+        if(activity.user_id){
+            user = activity.user_id == null ? texts.cpanel.public.aGuest : `<a class="popupPage popupId" popupPage="user" popupId="user" user="${activity.user_id}">${activity.user_name}</a>`;
+            text = texts.orders[activity.code].replace(':user:',user);
+        }
+        if(activity.account_id){
+            account = `<a class="popupPage popupId" popupPage="sub_account" popupId="sub_account" subaccount="${activity.account_id}">${activity.account_name}</a>`;
+            text = texts.orders[activity.code].replace(':account:',account);
+        }
+        if(activity.delivery_id){
+            delivery = `<a class="popupPage popupId" popupPage="delivery_account" popupId="delivery" delivery="${activity.delivery_id}">${activity.delivery_name.split('@')[0]}</a>`;
+            text = texts.orders[activity.code].replace(':delivery:',delivery);
+        }
         switch(activity.code){
             case 'order.new_order_by_user':
                 icon = 'ico-pending c_white-10'
             break;
             case 'order.canceled_by_user':
-                icon = 'ico-no cRtxt bgc_R'
+                icon = 'ico-no cR'
+            break;
+            case 'order.new_order_by_account':
+                icon = 'ico-accepted cG'
+            break;
+            case 'order.accepted':
+                icon = 'ico-accepted cG'
+            break;
+            case 'order.canceled_by_account':
+                icon = 'ico-no cR'
+            break;
+            case 'order.ready_for_pickup':
+                icon = 'ico-pickup cO'
+            break;
+            case 'order.picked_up':
+                icon = 'ico-pickup cG'
+            break;
+            case 'order.out_for_delivery':
+                icon = 'ico-delivery cO'
+            break;
+            case 'order.to_delivery_man':
+                icon = 'ico-delivery cO'
+            break;
+            case 'order.delivered_by_account':
+                icon = 'ico-delivery cG'
+            break;
+            case 'order.delivered_by_delivery':
+                icon = 'ico-delivery cG'
+            break;
+            case 'order.diningin':
+                icon = 'ico-dineIn cO'
+            break;
+            case 'order.dinedin':
+                icon = 'ico-dineIn cG'
+            break;
+            case 'order.update.notice':
+                icon = 'ico-description c_white-10';
+                seeChanges = $('<a/>',{class:'order-seeChanges order-seeChanges-orderNotice',activity:activity._id,text:texts.orders.seeChanges})
+            break;
+            case 'order.update.phoneNumber':
+                icon = 'ico-phone_number c_white-10';
+                text = text.replace(':old_phone:',`<span class="cR">${activity.old_phoneNumber}</span>`).replace(':new_phone:',`<span class="cB">${activity.new_phoneNumber}</span>`)
+            break;
+            case 'order.update.address':
+                icon = 'ico-gps c_white-10';
+                seeChanges = $('<a/>',{class:'order-seeChanges order-seeChanges-address',activity:activity._id,text:texts.orders.seeChanges})
+            break;
+            case 'order.update.type':
+                icon = activity.new_type == 0 ? 'ico-delivery c_delivery' : activity.new_type == 1 ? 'ico-pickup c_pickup' : activity.new_type == 2  ? 'ico-dineIn c_dineIn' : null;
+                text = text.replace(':new_type:',`<span class="${activity.new_type == 0 ? 'c_delivery' : activity.new_type == 1 ? 'c_pickup' : activity.new_type == 2  ? 'c_dineIn' : ''}">${texts.orders[`type_${activity.new_type}`]}</span>`)
+                text = text.replace(':old_type:',`<span class="${activity.old_type == 0 ? 'c_delivery' : activity.old_type == 1 ? 'c_pickup' : activity.old_type == 2  ? 'c_dineIn' : ''}">${texts.orders[`type_${activity.old_type}`]}</span>`)
+            break;
+            case 'order.update.discount':
+                icon = 'ico-percent c_white-10';
+                text = text.replace(':old_discount:',`<span class="cR">${activity.old_discount}%</span>`).replace(':new_discount:',`<span class="cB">${activity.new_discount}%</span>`)
+            break;
+            case 'order.update.deliveryCost':
+                icon = 'ico-delivery c_white-10';
+                text = text.replace(':old_DeliveryCost:',`<span class="cR">${website.currency}${activity.old_DeliveryCost}</span>`).replace(':new_deliveryCost:',`<span class="cB">${website.currency}${activity.new_deliveryCost}</span>`)
+            break;
+            case 'order.update.addItem':
+                icon = 'ico-products cG';
+                text = text.replace(':qty:',activity.new_qty).replace(':product:',`<a class="popupPage popupId" product="${activity.product_name}" popupPage="product" popupId="product">${activity.product_name}</a>`)
+            break;
+            case 'order.update.removeItem':
+                icon = 'ico-products cR';
+                text = text.replace(':product:',`<a class="popupPage popupId" product="${activity.product_name}" popupPage="product" popupId="product">${activity.product_name}</a>`)
+            break;
+            case 'order.update.itemNotice':
+                icon = 'ico-description c_white-10';
+                text = text.replace(':product:',`<a class="popupPage popupId" product="${activity.product_name}" popupPage="product" popupId="product">${activity.product_name}</a>`)
+                seeChanges = $('<a/>',{class:'order-seeChanges order-seeChanges-itemNotice',activity:activity._id,text:texts.orders.seeChanges})
+            break;
+            case 'order.update.qty':
+                icon = 'ico-products c_white-10';
+                text = text.replace(':product:',`<a class="popupPage popupId" product="${activity.product_name}" popupPage="product" popupId="product">${activity.product_name}</a>`).replace(':old_qty:',`<span class="cR">${activity.old_qty}</span>`).replace(':new_qty:',`<span class="cB">${activity.new_qty}</span>`)
+            break;
+            case 'order.update.selection':
+                icon = 'ico-list c_white-10';
+                text = text.replace(':product:',`<a class="popupPage popupId" product="${activity.product_name}" popupPage="product" popupId="product">${activity.product_name}</a>`)
+                .replace(':option:',`<span class="bold">${activity.option_name}</span>`)
+                .replace(':old_selection:',`<span class="cR">${activity.old_selection}</span>`)
+                .replace(':new_selection:',`<span class="cB">${activity.new_selection}</span>`)
             break;
         }
         $('.order_popupPage_orderActivities').append(
@@ -450,7 +591,8 @@ drawOrderActivities = function(activities){
                 ),
                 $('<div/>',{class:`orderActivity_iconContainer ${key == activities.length - 1 ? 'orderActivity_iconContainer_last' : ''}`}).append($('<div/>',{class:`orderActivity_icon ${icon}`})),
                 $('<div/>',{class:`orderActivity_right`}).append(
-                    texts.orders[activity.code].replace(':user:',user)
+                    $('<div/>',{html:text}),
+                    seeChanges,
                 ),
             )
         )
