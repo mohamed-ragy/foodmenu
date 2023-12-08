@@ -51,7 +51,6 @@ calcIncompleteOrders = function(){
 
     cpanelTitle(false);
 }
-
 getDiscount = function(times){
     let hour = new Date(Date.parse(new Date().toLocaleString('en',{timeZone:website.timeZone}))).getHours();
     let minute = new Date(Date.parse(new Date().toLocaleString('en',{timeZone:website.timeZone}))).getMinutes();
@@ -95,7 +94,6 @@ getDiscount = function(times){
     }
     return 0;
 }
-
 orderRow_data = function(order){
     let data = {};
     //date tooltip

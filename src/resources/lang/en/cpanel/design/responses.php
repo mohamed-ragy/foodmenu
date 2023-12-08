@@ -6,4 +6,3 @@ return [
     'imgDeleted' => 'The image has been deleted successfully.',
     'imgDeleteError' => 'Unknown Error Occurred! failed to delete the image.',
 ];
-

@@ -60,7 +60,7 @@ drawPopupPage_order_details = function(order){
             $('<div/>',{class:'mie-40',text:texts.orders.paymentMethod}),
             $('<div/>',{class:'',text:texts.orders[order.paymentMethod]})
         ),
-        $('<div/>',{class:'orderDetailsElem'}).append(
+        $('<div/>',{class:`orderDetailsElem ${order.status == 0 || order.status == 1 || order.status == 3 || order.status == 4 || order.status == 8 ? 'none' : ''}`}).append(
             $('<div/>',{class:'mie-40',text:texts.orders.collectReviewsSeen}),
             $('<div/>',{class:'',text:order.collectReviewSeen ? texts.orders.seen : texts.orders.unSeen})
         ),
@@ -480,21 +480,26 @@ drawOrderActivities = function(activities){
         let time = getDate(activity.created_at).time.restaurant;
         let delivery;let account; let user;
         let seeChanges = '';
-        let text = ''
+        let text = texts.orders[activity.code]
         if(activity.user_id){
             user = activity.user_id == null ? texts.cpanel.public.aGuest : `<a class="popupPage popupId" popupPage="user" popupId="user" user="${activity.user_id}">${activity.user_name}</a>`;
-            text = texts.orders[activity.code].replace(':user:',user);
+            text = text.replace(':user:',user);
         }
         if(activity.account_id){
             account = `<a class="popupPage popupId" popupPage="sub_account" popupId="sub_account" subaccount="${activity.account_id}">${activity.account_name}</a>`;
-            text = texts.orders[activity.code].replace(':account:',account);
+            text = text.replace(':account:',account);
         }
         if(activity.delivery_id){
             delivery = `<a class="popupPage popupId" popupPage="delivery_account" popupId="delivery" delivery="${activity.delivery_id}">${activity.delivery_name.split('@')[0]}</a>`;
-            text = texts.orders[activity.code].replace(':delivery:',delivery);
+            text = text.replace(':delivery:',delivery);
         }
         switch(activity.code){
             case 'order.new_order_by_user':
+                if(activity.user_id){
+                    text = text.replace(':user:',user);
+                }else{
+                    text = text.replace(':user:',texts.cpanel.public.aGuest);
+                }
                 icon = 'ico-pending c_white-10'
             break;
             case 'order.canceled_by_user':
