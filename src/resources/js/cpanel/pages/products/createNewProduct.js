@@ -54,7 +54,7 @@ $('html,body').on('click','#createProductBtn',function(e){
                 if(window.history.state.page == 'manage_products'){
                     drawManageProductCards($('#manageProducts-selectCategory').attr('key'))
                 }
-                window.guideHints.products(website.products);
+                window.guideHints.products();
                 popupPageClose();
                 setTimeout(function(){
                     showPopupPage('product',{'product':r.product.name}).then(()=>{

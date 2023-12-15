@@ -56,7 +56,7 @@ $('html,body').on('click','#deleteProduct-confirmBtn',function(e){
                 }
                 closePopup();
                 showAlert('success',r.msg,4000,true);
-                window.guideHints.products(website.products);
+                window.guideHints.products();
             }else if(r.deleteProductStatus == 0){
                 showAlert('error',r.msg,4000,true);
             }

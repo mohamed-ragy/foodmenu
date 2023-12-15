@@ -54,6 +54,7 @@ diffTime = (time) => {
 }
 setInterval(function(){
     resendEmailVerifycodeBtnTimer();
+    resendPhoneVerifycodeBtnTimer();
     $('.diffTimeCalc').each(function(){
         $(this).find('.cardLoading').remove();
         if($(this).is('[timeText]')){

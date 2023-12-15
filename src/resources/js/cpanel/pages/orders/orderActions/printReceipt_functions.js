@@ -54,19 +54,19 @@ printOrderReceipt = function(order_id){
             if(parseFloat(order.discount) > 0){
                 discount = $('<div/>',{class:'w100p-10 mX3 mT3 row alnC jstfySB'}).append(
                     $('<div/>',{class:'fs08',text:receiptTxt.discount}),
-                    $('<div/>',{class:'fs08',text:parseInt(order.discount)+'%'})
+                    $('<div/>',{class:'fs08',text:bigInt(order.discount)+'%'})
                 );
                 itemsTotal = $('<div/>',{class:'w100p-10 mX3 mT3 bold row alnC jstfySB '}).append(
                     $('<div/>',{class:'fs08',text:receiptTxt.subTotal}),
                     $('<div/>',{class:'fs08 taE'}).append(
-                        $('<div/>',{text:parseFloat(order.itemsTotal).toFixed(2),class:'lThrough'}),
-                        $('<div/>',{text:parseFloat(order.discount_itemsTotal).toFixed(2)})
+                        $('<div/>',{text:bigFloat(order.itemsTotal),class:'lThrough'}),
+                        $('<div/>',{text:bigFloat(order.discount_itemsTotal)})
                     )
                 );
             }else{
                 itemsTotal = $('<div/>',{class:'w100p-10 mX3 mT3 bold row alnC jstfySB '}).append(
                     $('<div/>',{class:'fs08',text:receiptTxt.subTotal}),
-                    $('<div/>',{class:'fs08',text:parseFloat(order.discount_itemsTotal).toFixed(2)})
+                    $('<div/>',{class:'fs08',text:bigFloat(order.discount_itemsTotal)})
                 );
             }
             ///
@@ -74,14 +74,14 @@ printOrderReceipt = function(order_id){
             if(parseFloat(order.tax) > 0){
                 let taxPercentage = '';
                 if(parseFloat(order.taxPercent) > 0){
-                    taxPercentage = $('<span/>',{class:'fs07',text:' '+parseFloat(order.taxPercent).toFixed(2)+'%'})
+                    taxPercentage = $('<span/>',{class:'fs07',text:' '+bigFloat(order.taxPercent)+'%'})
                 }
                 orderTax = $('<div/>',{class:'w100p-10 mX3 mT3 row alnC jstfySB'}).append(
                     $('<div/>',{}).append(
                         $('<span/>',{class:'fs08',text:receiptTxt.tax}),
                         taxPercentage,
                     ),
-                    $('<div/>',{class:'fs08',text:parseFloat(order.tax).toFixed(2)})
+                    $('<div/>',{class:'fs08',text:bigFloat(order.tax)})
                 )
             }
             ////
@@ -89,14 +89,14 @@ printOrderReceipt = function(order_id){
             if(parseFloat(order.service) > 0){
                 let servicePercentage = '';
                 if(parseFloat(order.servicePercent) > 0){
-                    servicePercentage = $('<span/>',{class:'fs07',text:' '+parseFloat(order.servicePercent).toFixed(2)+'%'})
+                    servicePercentage = $('<span/>',{class:'fs07',text:' '+bigFloat(order.servicePercent)+'%'})
                 }
                 orderService = $('<div/>',{class:'w100p-10 mX3 mT3 row alnC jstfySB'}).append(
                     $('<div/>',{}).append(
                         $('<span/>',{class:'fs08',text:receiptTxt.service}),
                         servicePercentage,
                     ),
-                    $('<div/>',{class:'fs08',text:parseFloat(order.service).toFixed(2)})
+                    $('<div/>',{class:'fs08',text:bigFloat(order.service)})
                 )
             }
             ///
@@ -104,14 +104,14 @@ printOrderReceipt = function(order_id){
             if(parseFloat(order.deliveryCost) > 0){
                 deliveryCost = $('<div/>',{class:'w100p-10 mX3 mT3 row alnC jstfySB'}).append(
                     $('<div/>',{class:'fs08',text:receiptTxt.deliveryCost}),
-                    $('<div/>',{class:'fs08',text:parseFloat(order.deliveryCost).toFixed(2)})
+                    $('<div/>',{class:'fs08',text:bigFloat(order.deliveryCost)})
                 )
             }
             ///
             let total = '';
             total = $('<div/>',{class:'w100p-10 mX3 mT3 fs1 bold row alnC jstfySB mB20'}).append(
                 $('<div/>',{class:'',text:receiptTxt.total}),
-                $('<div/>',{class:'',text:receiptCurrency+parseFloat(order.total).toFixed(2)})
+                $('<div/>',{class:'',text:receiptCurrency+bigFloat(order.total)})
             );
             ///
             $('#printDiv').text('').css({
@@ -172,7 +172,7 @@ printOrderReceipt = function(order_id){
                             $('<div/>',{class:'fs08 bold500',text:itemName}),
                             thisItemOptions = $('<div/>',{class:'fs06 w100p taS'})
                         ),
-                        $('<div/>',{class:'printReceiptPriceW taE fs08 bold500',text:parseFloat(item.total).toFixed(2)}),
+                        $('<div/>',{class:'printReceiptPriceW taE fs08 bold500',text:bigFloat(item.total)}),
                     ),
 
                 )

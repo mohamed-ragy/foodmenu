@@ -20,7 +20,7 @@ $('html,body').on('change input','#order-deliveryCost',function(e){
 $('html,body').on('click','.cancelChangeOrderDeliveryCostBtn',function(e){
     e.stopImmediatePropagation();
     getOrder(window.history.state.order).then((order)=>{
-        $('#order-deliveryCost').val(parseFloat(order.deliveryCost).toFixed(2))
+        $('#order-deliveryCost').val(bigFloat(order.deliveryCost))
         orderDeliveryCost_nosave();
     });
 })

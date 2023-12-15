@@ -93,7 +93,7 @@ drawPopupPage_edit_category = function(categroyName){
         $('<span/>',{class:'ico-help help-icon',helpId:'edit_product_category'})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40  p20').append(
-        $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(
+        $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative',id:'editCategory_img_container'}).append(
             $('<div/>',{text:texts.products.categoryImg,class:'c_white-8 fs08 mB3'}),
             $('<span/>',{class:'ico-edit imgCardIcon'}),
             $('<img/>',{class:'imgCard g150 w150',imgId:category.img_id ?? '',id:'editCategory_img',src:category.thumbnail})

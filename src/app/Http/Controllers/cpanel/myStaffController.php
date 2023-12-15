@@ -165,7 +165,7 @@ class myStaffController extends Controller
             $validation = Validator::make(['email'=>$request->email,'password'=>$request->password,'name'=>$request->name],[
                 'email' => 'required|email|unique:accounts,email',
                 'name' => 'required|regex:/^[a-zA-Z0-9_]+$/',
-                'password' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                'password' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ],[
                 'email.required' => Lang::get('cpanel/staff/responses.nameRequired'),
                 'email.email' => Lang::get('cpanel/staff/responses.nameRegex'),
@@ -180,12 +180,12 @@ class myStaffController extends Controller
 
             if(!$validation->fails()){
                 $authorities = '';
-                $request->authority0 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-                $request->authority1 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-                $request->authority2 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-                $request->authority3 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-                $request->authority4 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-                $request->authority5 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
+                $request->authority0 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+                $request->authority1 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+                $request->authority2 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+                $request->authority3 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+                $request->authority4 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+                $request->authority5 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
                 $createNewAccount = Account::create([
                     'authorities' => $authorities,
                     'register' => 3,
@@ -251,7 +251,7 @@ class myStaffController extends Controller
                 return;
             }
             $validation = Validator::make(['password'=>$request->password],[
-                'password' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                'password' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ],[
                 'password.required' => lang::get('cpanel/staff/responses.newPasswordRequired'),
                 'password.min' => lang::get('cpanel/staff/responses.newPasswordMin'),
@@ -284,12 +284,12 @@ class myStaffController extends Controller
                 return;
             }
             $authorities = '';
-            $request->authority0 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-            $request->authority1 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-            $request->authority2 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-            $request->authority3 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-            $request->authority4 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
-            $request->authority5 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0'; 
+            $request->authority0 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+            $request->authority1 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+            $request->authority2 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+            $request->authority3 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+            $request->authority4 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
+            $request->authority5 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
             $updateAccountAuthorities = Account::where(['id'=>$request->accountId,'website_id'=> $this->website_id])->update(['authorities'=> $authorities,'updated_at'=>Carbon::now()->timestamp]);
             if($updateAccountAuthorities){
                 foodmenuFunctions::notification('reload.update.account',[

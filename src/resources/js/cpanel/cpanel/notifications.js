@@ -302,11 +302,13 @@ handelCpanelChannel = function(n,code){
     if(code.split('.')[0] == 'review' && account.authorities[1] != 1){return;}
     if(code.split('.')[0] == 'img' && account.authorities[3] != 1){return;}
     if(code.split('.')[0] == 'orders' && account.authorities[0] != 1){return;}
-    console.log(code)
     switch(code){
         case '0':
             if(n.account_id == account.id){
-                $('#logoutForm').trigger('submit');
+                showPopup('loginDetected');
+                setTimeout(function(){
+                    $('#logoutForm').trigger('submit');
+                },5000)
             }
             break;
         case 'account.blocked':
@@ -659,6 +661,7 @@ handelCpanelChannel = function(n,code){
             website.languages[n.lang.code] = JSON.parse(JSON.stringify(n.lang));
             website_temp.languages[n.lang.code] = JSON.parse(JSON.stringify(n.lang));
             setWebsiteLangs();
+            window.guideHints.all();
         break;
         case 'settings.defaultLang':
             for(const key in website.languages){
@@ -687,6 +690,7 @@ handelCpanelChannel = function(n,code){
             delete website.languages[n.lang]
             delete website_temp.languages[n.lang]
             setWebsiteLangs();
+            window.guideHints.all();
         break;
         case 'settings.editLangOptions':
             website.languages[n.lang].name = n.name
@@ -878,7 +882,7 @@ handelCpanelChannel = function(n,code){
             website.categories.push(JSON.parse(JSON.stringify(n.category)))
             website_temp.categories.push(JSON.parse(JSON.stringify(n.category)))
             drawCategoryList();
-            window.guideHints.categories(website.categories);
+            window.guideHints.categories();
             break;
         case 'category.delete':
             for(const key in website.categories){
@@ -904,7 +908,7 @@ handelCpanelChannel = function(n,code){
                 }
             }
             drawCategoryList();
-            window.guideHints.categories(website.categories);
+            window.guideHints.categories();
             break;
         case 'category.edit':
             for(const key in website.categories){
@@ -921,7 +925,7 @@ handelCpanelChannel = function(n,code){
             if(window.history.state.popupPage == 'edit_category' && window.history.state.category == n.category.name){
                 drawPopupPage_edit_category(n.category.name)
             }
-            window.guideHints.categories(website.categories);
+            window.guideHints.categories();
             break;
         case 'product.create':
             website.products.push(JSON.parse(JSON.stringify(n.product)));
@@ -929,7 +933,7 @@ handelCpanelChannel = function(n,code){
             if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
                 drawManageProductCards(window.history.state.category);
             }
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             break;
         case 'product.delete':
             for(const key in website.products){
@@ -947,7 +951,7 @@ handelCpanelChannel = function(n,code){
             if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
                 drawManageProductCards(window.history.state.category);
             }
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             manage_products_unsave_check();
             break;
         case 'product.availability':
@@ -964,7 +968,7 @@ handelCpanelChannel = function(n,code){
             if(window.history.state.category != null && window.history.state.page == 'manage_products' ){
                 drawManageProductCards(window.history.state.category);
             }
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             manage_products_unsave_check();
             break;
         case 'product.sort':
@@ -1000,7 +1004,7 @@ handelCpanelChannel = function(n,code){
             if(window.history.state.popupPage == 'edit_product' && window.history.state.product == n.product.name){
                 drawPopupPage_edit_product(n.product.name)
             }
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             manage_products_unsave_check();
             break;
         case 'option.sort':
@@ -1015,7 +1019,7 @@ handelCpanelChannel = function(n,code){
         case 'option.create':
             website.products.find(item=>item.id == n.product_id).product_options.push(JSON.parse(JSON.stringify(n.option)));
             website_temp.products.find(item=>item.id == n.product_id).product_options.push(JSON.parse(JSON.stringify(n.option)));
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
                 drawPopupPage_manage_product_options(window.history.state.product)
             }
@@ -1039,7 +1043,7 @@ handelCpanelChannel = function(n,code){
                     }
                 }
             }
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
                 drawPopupPage_manage_product_options(window.history.state.product)
             }
@@ -1053,7 +1057,7 @@ handelCpanelChannel = function(n,code){
             if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
                 drawPopupPage_manage_product_options(window.history.state.product)
             }
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             break;
         case 'selection.set_default':
             for(const key in website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections){
@@ -1076,7 +1080,7 @@ handelCpanelChannel = function(n,code){
         case 'selection.create':
             website.products.find(item=>item.id == n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.push(JSON.parse(JSON.stringify(n.selection)))
             website_temp.products.find(item=>item.id == n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.push(JSON.parse(JSON.stringify(n.selection)))
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
                 drawPopupPage_manage_product_options(window.history.state.product)
             }
@@ -1086,7 +1090,7 @@ handelCpanelChannel = function(n,code){
             website.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).names = n.names;
             website_temp.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).price = n.price;
             website_temp.products.find(item=>item.id==n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).names = n.names;
-            window.guideHints.products(website.products);
+            window.guideHints.products();
             break;
         case 'selection.delete':
             for(const key in website.products){
@@ -1100,7 +1104,7 @@ handelCpanelChannel = function(n,code){
                                     if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
                                         drawPopupPage_manage_product_options(window.history.state.product)
                                     }
-                                    window.guideHints.products(website.products);
+                                    window.guideHints.products();
                                 }
                             }
                         }
@@ -1165,7 +1169,6 @@ handelCpanelChannel = function(n,code){
                 })
             }
         break;
-
         //orders
         case 'orders.new_order_user':
             website.incompleteOrders.push(n.order);

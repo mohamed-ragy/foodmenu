@@ -2723,12 +2723,7 @@ compareNums = function(num1,num2,reverseColor=false){
         return `<span style="color:var(--cs1);">(0%)<span class="ico-right fs08 mis-2"></span></span>`;
     }
 }
-bigInt = function(num){
-    return num.toLocaleString(undefined,{minimumFractionDigits: 0,maximumFractionDigits: 0})
-}
-bigFloat = function(num){
-    return num.toLocaleString(undefined,{minimumFractionDigits: 2,maximumFractionDigits: 2})
-}
+
 //////////////
 collectYearsData = function(data){
     let months = {};

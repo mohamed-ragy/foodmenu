@@ -48,7 +48,7 @@ $('html,body').on('click','#security-verifyEmail-btn',function(e){
                 checkEmailVerification();
                 email_address_unsave_check();
                 showAlert('success',r.msg,4000,true);
-                $('#security-verifyEmail').val('')
+                $('#account-emailVerificationCode').val('')
             }else if(r.emailVerifyStats == 0){
                 showAlert('error',r.msg,4000,true);
             }
@@ -107,7 +107,7 @@ $('html,body').on('click','#account-changeEmailBtn',function(e){
                 $('<button/>',{class:'btn btn-cancel popupClose mie-5',text:texts.cpanel.public.cancel}),
                 $('<button/>',{class:'btn',id:'account-newEmailBtn-confirm'}).append(
                     $('<div/>',{class:'btnLoading'}),
-                    $('<div/>',{class:'btnTxt',text:texts.security.changeMyEmail})
+                    $('<div/>',{class:'btnTxt',text:texts.cpanel.public.yes})
                 )
             )
         )
@@ -142,6 +142,7 @@ $('html,body').on('click','#account-newEmailBtn-confirm',function(e){
                 $('#account-newEmail').val('');
                 $('#account-newEmail_password').val('');
                 showAlert('success',r.msg,4000,true);
+                window.Cookies.set('CpanelLoginEmail',account.email, { expires: 365 })
             }else if(r.changeEmailStats == 0){
                 showAlert('error',r.errors.newEmail[0],4000,true);
                 $('#account-newEmail_password').val('');

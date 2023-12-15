@@ -20,7 +20,7 @@
         </tr>
     </table>
 
-    <table class="fs09">
+    <table class="fs09 w100p">
         <tr class="brdrB1">
             <td class="pR20">{{ trans('billing.invoice.invoiceNumber') }}</td>
             <td class="pL20">{{ $invoice->foodmenu_id }}</td>

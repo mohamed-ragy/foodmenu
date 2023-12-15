@@ -73,7 +73,7 @@ return [
     'enable_guest_orders' => [
         'title' => 'Accept guest orders',
         'content' => <<<string
-        <p>- By enabling the <b>Accept guest orders</b> switch button, you allow unregistered website visitors to place orders. You can also disable this feature by switching off the button and limiting placing orders to registered users only.</p>        
+        <p>- By enabling the <b>Accept guest orders</b> switch button, you allow unregistered website visitors to place orders. You can also disable this feature by switching off the button and limiting placing orders to registered users only.</p>
         string,
     ],
     'accept_delivery_orders24' => [
@@ -477,7 +477,7 @@ return [
         <p>- If you switch on the <b>Alert me when a user logs in</b> button, you will be notified whenever a user logs in to your website.</p>
         string,
     ],
-    'browsing_guests_alert' => [ 
+    'browsing_guests_alert' => [
         'title' => 'Browsing guests alert',
         'content' => <<<string
         <p>By switching on the <b> Alert me when a guest browses the website</b> button, you will be notified whenever an unregistered website visitor starts browsing your website. Or, you can turn off the button to disable this feature.</p>
@@ -510,7 +510,7 @@ return [
         <p>- By switching on the <b>Include tax and delivery cost</b> button, the total order's amount that is compared to the minimum charge will include the order's items, tax amount, and delivery cost on the order. </p>
         <p>- If you switch off the button, only the order's item amount will be compared to the minimum charge you have set.</p>
         string,
-    ],    
+    ],
     'tax_settings' => [
         'title' => 'Tax settings',
         'content' => <<<string
@@ -518,13 +518,13 @@ return [
         <p>- You can either set a fixed tax cost on all of your orders by checking the <b>Fixed cost</b> box and entering the amount in the provided input box. </p>
         <p>-Alternatively, you can set a tax rate by checking the <b>Percentage</b> box and entering the percentage in the input box.</p>
         string,
-    ],    
+    ],
     'average_time_to_prepare_an_order' => [
         'title' => 'Average time to prepare an order',
         'content' => <<<string
         <p>You can set a fixed duration of time as the average time it takes to prepare a pickup order, so your customers will be informed when they place their order. The time can be set using the time picker provided.</p>
         string,
-    ],  
+    ],
     'order_pickup_minimum_charge' => [
         'title' => 'Order pickup minimum charge',
         'content' => <<<string
@@ -532,7 +532,7 @@ return [
         <p>- By switching on the <b>Include tax</b> button, the total order's amount that is compared to the minimum charge will include the order's items and tax amount on the order. </p>
         <p>- If you switch off the button, only the order's item amount will be compared to the minimum charge you have set.</p>
         string,
-    ],      
+    ],
     'service_charge' => [
         'title' => 'Service charge',
         'content' => <<<string
@@ -540,16 +540,16 @@ return [
         <p>- You can either apply a fixed cost to all orders, regardless of the order's total or items, by checking the <b>Fixed cost</b> box and entering the amount in the provided input box.</p>
         <p>- Alternatively, you can set a percentage to be calculated from the sum of the order items by checking the <b>Percentage</b> box and entering the percentage in the provided input box.</p>
         string,
-    ],    
+    ],
     'setting_the_working_days' => [
         ////Working days help icon
         'title' => 'Setting the working days',
         'content' => <<<string
         <p>- Here, you can specify the service's working days and manage other settings such as each day's working hours, happy hours, and more. This is used to inform your website visitors about the availability of the service.</p>
         <p>- A green icon next to a weekday indicates that it has been designated as a working day. If the icon is gray, it means that this day is not marked as a working day.</p>
-       
+
         string,
-    ],    
+    ],
     'working_days_list' => [
         ///working days table
         'title' => 'Working days list',
@@ -557,21 +557,21 @@ return [
         <p>- You can find each weekday listed in a row. Each row includes a day's working hours, happy hour details (if any), a manage button, and a button to copy the working day details.</p>
         <p>- When you click on the <b>Copy working day details</b> button, a popup window will appear, allowing you to copy the same working hours from the selected day to other weekdays.</p>
         string,
-    ],    
+    ],
     'set_as_working_day' => [
         'title' => 'Set as working day',
         'content' => <<<string
         <p>- When you switch on the <b>Set as working day</b> button, you enable the selected day to be marked as a working day. </p>
         <p>- Alternatively, if you want it to be a non-working day, switch off the button.</p>
         string,
-    ],    
+    ],
     'working_hours' => [
         'title' => 'Working hours',
         'content' => <<<string
         <p>- Here, you can set your service's working hours for the selected day. When you switch on the <b>24-hour availability</b> button, you let your website visitors know that the service is available for the whole day. That is, if you enable this feature, the service will be available from 0:00 to 23:59 based on the time zone you have selected.</p>
         <p>- To set a specific start and end time, use the provided <b>Starts at</b> and <b>Ends at</b> time pickers to set your working hours. If your working hours are set after midnight (in the following calendar day), you can still set the end time in the time picker as after midnight, and our system will treat it as the working hours of the day the start time was on.</p>
         string,
-    ],    
+    ],
     'happy_hour' => [
         'title' => 'Happy hour',
         'content' => <<<string
@@ -579,34 +579,34 @@ return [
         <p>- You can set the discount percentage using the <b>Discount</b> number picker. When the discount is set to 0%, it means no happy hour is scheduled. If you want to unset a day's scheduled discount, you can modify the discount to be 0%.</p>
         <p>- To set the start and end time of the happy hour, use the provided <b>Starts at</b> and <b>Ends at</b> time pickers. </p>
         string,
-    ],    
+    ],
     'promo_codes' => [
         'title' => 'Promo codes',
         'content' => <<<string
         <p>- Here, you can find a list of all the promo codes that have been created.</p>
         <p>- You will be able to create a new promo code by clicking on the <b>Create new promo code</b> button.</p>
         string,
-    ],    
+    ],
     'promo_codes_list' => [
         'title' => 'Promo codes list',
         'content' => <<<string
         <p>- Each promo code is listed in its own row. Each row contains:</p>
         <ul>
-            <li><b>The promo code name</b> </li> 
+            <li><b>The promo code name</b> </li>
             <li><b>Date of creation</b> </li>
             <li><b>Active button:</b> by switching it on, you enable the promo code to be activated and valid for use. When you switch off the button, the opposite occurs.</li>
             <li><b>Manage button:</b> when you click on it, a window appears with all of the promo code details that can be changed.</li>
             <li><b>Delete button:</b> when you click on it, you will be able to permanently delete the selected promo code.</li>
-        </ul>         
+        </ul>
         string,
-    ],    
+    ],
     'create_promo_code_basic_info' => [
         'title' => 'Create promo code info',
         'content' => <<<string
         <p>- In the <b>Code</b> input box, you can enter the promo code's identification, which your customers will enter to redeem the code. Note that you can't change it once it has been created.</p>
         <p>- You can set the promo code's discount percentage through the <b>Discount</b> number picker.</p>
         string,
-    ],    
+    ],
 
     'manage_promo_code_basic_info' => [
         'title' => 'Manage promo code info',
@@ -614,14 +614,14 @@ return [
         <p>- Here, You can adjust the promo code's discount percentage through the <b>Discount</b> number picker.</p>
         <p>- You will not be able to change the identification of the promo code because it has already been created.</p>
         string,
-    ],    
+    ],
 
     'promo_code_expiration' => [
         'title' => 'Promo code expiration',
         'content' => <<<string
         <p>- If you're planning to set an expiration date for your promo code, switch on the <b>Has expiration date</b> button and select the expiration date from the date picker. Alternatively, you can leave the promo code valid indefinitely until you set an expiration date.</p>
         string,
-    ],    
+    ],
     'promo_code_limitations' => [
         'title' => 'Promo code limitations',
         'content' => <<<string
@@ -629,7 +629,7 @@ return [
         <p>- In the <b>Discount value cap</b> input box, you can enter the maximum amount of discounted value allowed in promo code consumption.
         </p>
         string,
-    ],    
+    ],
     'promo_code_settings' => [
         'title' => 'Promo code settings',
         'content' => <<<string
@@ -639,7 +639,7 @@ return [
         <p>- You can allow your website visitors to apply the promo code to home delivery orders by switching on the <b>Apply for delivery orders</b> button. When you switch off the button, the opposite happens.</p>
         <p>- By switching on the <b>Apply for pickup orders</b> button, you allow the promo code to be used on pickup orders. The opposite happens when you switch off the button.</p>
         string,
-    ],    
+    ],
     ///// my staff
     ///////Help icon
     'delivery_accounts' => [
@@ -648,8 +648,8 @@ return [
         <p>- Delivery accounts are accounts that you can set up for your delivery personnel in order to assign them orders to deliver.</p>
         <p>- To create a delivery account, click on the <b>Create new delivery account</b> button.</p>
         string,
-    ], 
-    //////Auto help   
+    ],
+    //////Auto help
     'delivery_account_list' => [
         'title' => 'Delivery account list',
         'content' => <<<string
@@ -662,8 +662,8 @@ return [
         <li><b>Delete button:</b> By clicking on it, you can permanently delete the delivery account.</li>
         </ul></p>
         string,
-    ],   
-    //////Help icon 
+    ],
+    //////Help icon
     'create_delivery_account' => [
         'title' => 'Create a delivery account',
         'content' => <<<string
@@ -672,15 +672,15 @@ return [
         <p>- In the <b>Password</b> input box, enter the login password for the delivery account.</p>
         <p>- In the <b>Login name</b> input box, enter the login name for the delivery account that is used to log in to the account. The login name is made up of the name you entered, followed by @ the identifier for your restaurant.</p>
         string,
-    ], 
-    ////////Help icon   
+    ],
+    ////////Help icon
     'sub_accounts' => [
         'title' => 'Sub-Accounts',
         'content' => <<<string
         <p>- Here, you can create and find all your sub-accounts. Sub-accounts are secondary accounts to your main one that you can use for your staff.</p>
         <p>- To create a sub-account, click on the <b>Create new sub-account</b> button.</p>
         string,
-    ],    
+    ],
     /////////Auto help
     'sub_accounts_list' => [
         'title' => 'Sub-accounts list',
@@ -696,7 +696,7 @@ return [
         <li><b>Delete button:</b> By clicking on it, you can permanently delete the delivery account.</li>
         </ul></p>
         string,
-    ],    
+    ],
     'create_new_sub_account' => [
         'title' => 'Create new sub-account',
         'content' => <<<string
@@ -705,7 +705,7 @@ return [
         <p>- In the <b>Password</b> input box, enter the login password for the sub-account.</p>
         <p>- In the <b>Login name</b> input box, enter the login name for the subaccount. The login name is made up of the name you entered, followed by @ the identifier for your restaurant.</p>
         string,
-    ],    
+    ],
     'manage_permissions' => [
         'title' => 'Manage permissions',
         'content' => <<<string
@@ -733,7 +733,7 @@ return [
         <li>Website privacy policy</li>
         </ul></p>
         string,
-    ],    
+    ],
     'create_new_user_account' => [
         'title' => 'Create new user account',
         'content' => <<<string
@@ -746,7 +746,7 @@ return [
         <li>Address</li>
         </ul></p>
         string,
-    ],    
+    ],
     'user_location' => [
         'title' => 'User location',
         'content' => <<<string
@@ -754,13 +754,13 @@ return [
         <p>- To set the user's location, you can zoom and pan around the map until you find the desired location, then click on it and drop the pin.</p>
         <p>- To reset the location, click on <b>Unset location</b> <span class="ico-no fs101"></span> and select the new location.</p>
         string,
-    ],    
+    ],
     'find_users' => [
         'title' => 'Find users',
         'content' => <<<string
         <p>- Here, you can find all of the users registered on your website from the provided input list.</p>
         <p>- To search for a user, type in the user's name or phone number, then the drop-down list will be filtered to match what you have entered.</p>
-    
+
         string,
     ],
     'manage_users' => [
@@ -776,13 +776,13 @@ return [
         </ul></p>
         <p>-  You can also find a few icons below the user's name that you can use to manage a user and view their important actions. To disallow a user from using their account, click on the <b>Ban user</b> <span class="ico-userBlock"></span> icon.</p>
         string,
-    ],    
+    ],
     'online_users_and_guests' => [
         'title' => 'Online users and guests',
         'content' => <<<string
         <p>- Here, you can find and live-track all the online users and guests browsing your website through the provided list.</p>
         string,
-    ],   
+    ],
     'online_visitors_list' => [
         'title' => 'Online visitors list',
         'content' => <<<string
@@ -795,7 +795,7 @@ return [
         <li>Red marks that the visitor has logged out or is no longer connected to your website.</li>
         </ul></p>
         string,
-    ],    
+    ],
     'product_categories' => [
         'title' => 'Product categories',
         'content' => <<<string
@@ -825,7 +825,7 @@ return [
         <p>-In the <b>Category name</b> input boxes, enter a category name for each language you've selected for your website.</p>
         <p>- A category description will be used as the meta description of the category page. In the <b>Category description</b> input boxes, you can enter a category description in each of the languages you have set for your website.</p>
         string,
-    ],    
+    ],
     'edit_product_category' => [
         'title' => 'Edit product category',
         'content' => <<<string
@@ -834,15 +834,15 @@ return [
         <p>- You can modify the category name in the different languages you've selected for your website from the <b>Category name</b> input boxes.</p>
         <p>- In the <b>Category description</b> input boxes, you can modify the category description in each of the languages you have set for your website, which is also used as the meta description for the category page.</p>
         string,
-    ],  
-    /////////Help icon  
+    ],
+    /////////Help icon
     'manage_products' => [
         'title' => 'Manage products',
         'content' => <<<string
         <p>- Here, you can find all the products you created on your account. To add a new product, click on the <b>Create new product</b> button.</p>
         <p>- To search for products within a specific category, click on the input list, then select the category. Alternatively, you can select <b>Uncategorized products</b> to view all products that are yet to be categorized, or select <b>All products</b> to view all products on your account.</p>
         string,
-    ],    
+    ],
     /////////auto help
     'product_cards' => [
         'title' => 'Product cards',
@@ -853,13 +853,13 @@ return [
         <li><b>Product availability:</b> By switching on the <b>Product availability</b> button, your product will be marked as available on your website. If you switch off the button, the product remains visible on your website but is marked as unavailable.</li>
         <li><b>Reviews <span class="ico-product_reviews"></span> :</b> When you click this button, you will be taken to the rating and reviews page, where you can find and manage reviews for the selected product.</li>
         <li><b>Manage product variants <span class="ico-list"></span> :</b> When you click on this button, you will be able to create or edit the selected product variants.</li>
-        <li><b>Edit product <span class="ico-edit"></span> :</b> By clicking on this button, you will be able to edit the selected product details.</li> 
+        <li><b>Edit product <span class="ico-edit"></span> :</b> By clicking on this button, you will be able to edit the selected product details.</li>
         <li><b>Share <span class="ico-share"></span> :</b> You can share the product page on your social media platforms by clicking on this button.</li>
         <li><b>Delete <span class="ico-delete"></span> :</b> You can permanently delete the selected product from your website when you click on this button.</li>
         </ul></p>
         <p>- To change the order of products within the selected category, click on the <b>Drag and drop</b> icon <span class="ico-move"></span> and sort the products into the desired order you want on your website.</p>
         string,
-    ],    
+    ],
     ////////help icon
     'manage_product_variants' => [
         'title' => 'Manage product variants',
@@ -901,10 +901,118 @@ return [
         'title' => 'Product rating and reviews',
         'content' => <<<string
         <p>- Here, you can find and manage all the product ratings and reviews made by visitors to your website.</p>
-        <p>- To search for reviews on a specific product, click on the input list provided, or you can search for reviews on all of your products by selecting "All products". 
-        Alternatively, you can click on the <b>More Filters</b> button to be presented with additional filters from which you can narrow your search for reviews.</p>
+        <p>- To search for reviews on a specific product, click on the input list provided, or you can search for reviews on all of your products by selecting "All products".
+        Alternatively, you can click on the <b>More filters</b> button to be presented with additional filters from which you can narrow your search for reviews.</p>
         <p>- After selecting the product(s) you want to review, click on the <b>Find</b> button, to view the results in the form of cards.</p>
         <p>- Each review card includes all the details about the added review. To permanently delete a review from your website click on the <b>Delete</b> button <span class="ico-delete"></span>.</p>
+        string,
+    ],
+    //////////help icon//////////
+    'incomplete_orders' => [
+        'title' => 'Incomplete orders',
+        'content' => <<<string
+        <p>- Here, you'll find a list of orders that haven't been completed yet. All orders displayed were placed through your website or the control panel. These orders have varying statuses, but they are all actively being processed and need your attention to reach completion.</p>
+        <p>- At the top of the orders list, there are six tabs that you can click on. Each tab corresponds to a specific order status and contains the orders that fall under that status. </p>
+        <p>- By selecting a tab, you will be able to view orders exclusively categorized under that particular status. Alternatively, you can select the "All" option to see all orders that are currently in progress.</p>
+        <p>- To create a new order from your end, click on the <b>Place new order</b> button.</p>
+        string,
+    ],
+    'incomplete_orders_list' => [
+        'title' => 'Incomplete orders list',
+        'content' => <<<string
+        <p>- Here, you'll find a list of orders displayed in rows, where each row represents an incomplete order and provides key information about it.</p>
+        <p>- Each order has a status, which can be pending, accepted, out for delivery, ready for pickup, or dining in. You can change the order status by using the status drop-down menu. Simply click twice on the desired new status to confirm the action.</p>
+        <p>- On the right side of each order row, you'll see two important buttons: <b>View order</b> *icon* and <b>Print receipt</b> *insert icon*. By clicking on <b>View order</b>, you'll be able to access all the details of the order and make any necessary modifications. Clicking on <b>Print receipt</b> enables you to print the order receipt.</p>
+        string,
+    ],
+    //////////////help icon/////////
+    'placing_new_order' => [
+        'title' => 'Placing a new order',
+        'content' => <<<string
+        <p>- Here, you can enter all the necessary information for the new order.</p>
+        <p>- The <b>Place new order</b> window is divided into two sections: <b>Order details</b> and <b>Order items</b>. In the <b>Order details</b> section, provide essential information about the order and customer details. In the <b>Order items</b> section, you'll be able to select the desired products and their details.</p>
+        <p>- Once you've filled in all the new order details and chosen the items, click <b>Place order</b> to successfully submit the order, or click <b>Cancel</b> to discard the changes.</p>
+        string,
+    ],
+    'new_order_type' => [
+        'title' => 'New order type',
+        'content' => <<<string
+        <p>- Here, you can select the order type between dine-in, home delivery, and pickup. Keep in mind that dine-in orders can only be placed through the control panel and are not available to place through the website.</p>
+        <p>- To learn more about the order types, click (hc: here).</p>
+        string,
+    ],
+    'new_order_payment_method' => [
+        'title' => 'New order payment method',
+        'content' => <<<string
+        <p>- Here, you will be able to select the preferred payment method that the customer will use for payment.</p>
+        string,
+    ],
+    'new_order_customer_information' => [
+        'title' => 'New order customer information',
+        'content' => <<<string
+        <p>- In this section, you can choose whether the order is for a <b>Guest</b> or a <b>User</b> by checking the respective box. If you select <b>User</b>, you can enter their name or phone number in the field to choose them from a list.</p>
+        <p>- If you're placing an order for a new guest, you can enter the customer's phone number in the provided box. You will also be prompted to enter the delivery address in the designated entry box if the selected order type is "Home delivery". Additionally, you can add the customer's location to the map by clicking on <b>Add location</b>.</p>
+        string,
+    ],
+    ////////additional comment for both new and incomplete orders///////
+    'order_additional_comment' => [
+        'title' => 'Order additional comment',
+        'content' => <<<string
+        <p>- Here, you can include any additional information or instructions related to the order's delivery details rather than the order items.</p>
+        string,
+    ],
+    'new_order_items' => [
+        'title' => 'New order items',
+        'content' => <<<string
+        <p>- Here, you will be able to add products to the order by clicking on the "Add item" button. A popup window will open where you can select a product of your choice, specify the quantity, and select any preferred variants. You can also add a special request regarding your order items.</p>
+        <p>- After adding a product, you will have the option to modify the product's quantity and variants. Additionally, you can change the special request as well.</p>
+        string,
+    ],
+    /////////order receipt for both new and incomplete orders//////
+    'order_receipt' => [
+        'title' => 'Order receipt',
+        'content' => <<<string
+        <p>- In the <b>Order receipt</b> subsection, the value of the order items appears as the subtotal.</p>
+        <p>- The tax amount, delivery fees (for delivery orders), or service fees (for dine-in orders) shown on the receipt are based on what you set in the control panel. However, you can modify the delivery or service fees for each individual order.</p>
+        <p>- To apply a discount to the order, you can add or adjust the discount percentage using the <b>Discount</b> number picker.</p>
+        string,
+    ],
+    /////////autohelp for all of the order details tab in the incomplete orders
+    'incomplete_order_details' => [
+        'title' => 'Incomplete order details',
+        'content' => <<<string
+        <p>- Here, you have the option to modify the order type from the <b>Type</b> drop-down menu list as long as the order is still pending or accepted.</p>
+        <p>- You can also change the order status from the <b>Status</b> drop-down menu list.</p>
+        <p>- In the <b>Customer</b> subsection, you can modify the customer's phone number and delivery address.</p>
+        string,
+    ],
+    'incomplete_order_items' => [
+        'title' => 'Incomplete order items',
+        'content' => <<<string
+        <p>- Here, you can find the list of products included in this order. You can adjust each item's quantity, product variants, and add special requests. To remove an item from the order, simply hover over the item's row and click on the <b>Remove</b> *insert icon* button.</p>
+        <p>- Additionally, you can add a new item to the order by clicking on the <b>Add item</b> button.</p>
+        string,
+    ],
+    'order_activities' => [
+        'title' => 'Order activities',
+        'content' => <<<string
+        <p>- Here, you can track the order's progress through a timeline format, with the most recent activity displayed at the top. The timeline includes changes in order status and any modifications that have been made. Each change is timestamped, indicating when it occurred and which staff member (if any) made the change.</p>
+        string,
+    ],
+    /////////help icon
+    'order_history' => [
+        'title' => 'Order history',
+        'content' => <<<string
+        <p>- Here, you will be able to find all completed orders on your account. To search for a specific order, you can use the <b>Order number</b> input box.</p>
+        string,
+    ],
+    'find_orders' => [
+        'title' => 'Find orders',
+        'content' => <<<string
+        <p>- Here, you can search for all completed orders. If you're searching for a specific order, type in the order number in the <b>Order number</b> input box. Alternatively, you can use the provided filters to narrow down your search results.</p>
+        <p>- By using the <b>Order status</b> filter, you can select which order types to include in your search by marking the checkbox next to the desired order type.</p>
+        <p>- To specify the customer type, you can use the <b>Placed for<b> filter. If you are searching for orders made by a specific user, check the <b>User<b> box and enter the user's name or phone number in the search box.</p>
+        <p>- Once you have applied your desired filters, click on the <b>Find</b> button to display the list of orders, arranged from the most recent to the oldest.</p>
         string,
     ],
     '' => [
@@ -1076,4 +1184,3 @@ return [
         string,
     ],
 ];
-    

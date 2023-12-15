@@ -1,7 +1,16 @@
 $('html,body').on('click','.productOptionEdit',function(e){
     e.stopImmediatePropagation();
-    let product = website.products.find(item=>item.name == window.history.state.product);
-    let option = product.product_options.find(item=>item.id == $(this).closest('.productOptionContainer').attr('option'));
+    showEditProductOptionPopup(window.history.state.product,$(this).closest('.productOptionContainer').attr('option'))
+});
+$('html,body').on('click','.productOptionEdit_guideAlert',function(e){
+    e.stopImmediatePropagation();
+    showEditProductOptionPopup($(this).attr('product'),$(this).attr('option'));
+    $(`#editOption_name-${$(this).attr('lang')}`).focus();
+    highlightElem($(`#editOption_name-${$(this).attr('lang')}`))
+});
+showEditProductOptionPopup = function(product_name,option_id){
+    let product = website.products.find(item=>item.name == product_name);
+    let option = product.product_options.find(item=>item.id == option_id);
     showPopup('editProductOption',function(){
         $('.popupBody').addClass('m0 p10 w100p-20').append(
             $('<div/>',{class:'row alnC jstfyS mB20'}).append(
@@ -9,7 +18,7 @@ $('html,body').on('click','.productOptionEdit',function(e){
                 $('<div/>',{class:'fs102 bold500 mis-5',text:product.name}),
                 $('<div/>',{tooltip:texts.cpanel.public.unsaved,class:`editOptionNoSave_${product.name}_${option.id} ico-warning unsaved none mie-5 mis-5 fs1 `}),
             ),
-            $('<div/>',{class:'',id:'editOptionInputsContainer',option:option.id}).append(
+            $('<div/>',{class:'',id:'editOptionInputsContainer',option:option.id,product:product.id}).append(
                 drawInputText('','ico-edit','',texts.products.optionIdentifier,'createOption_identifier','text',texts.products.optionIdentifier,200,'copy','',option.name,true,'')
             ),
             drawSaveCancelBtns('editOption_saveBtn','editOption_cancelBtn','mT20')
@@ -21,8 +30,7 @@ $('html,body').on('click','.productOptionEdit',function(e){
             )
         }
     })
-});
-
+}
 
 $('html,body').on('click','#editOption_cancelBtn',function(e){
     e.stopImmediatePropagation();
@@ -31,7 +39,7 @@ $('html,body').on('click','#editOption_cancelBtn',function(e){
 
 $('html,body').on('click','#editOption_saveBtn',function(e){
     e.stopImmediatePropagation();
-    let product = website.products.find(item=>item.name == window.history.state.product);
+    let product = website.products.find(item=>item.id == $('#editOptionInputsContainer').attr('product'));
     let option_id = $('#editOptionInputsContainer').attr('option')
     let option = product.product_options.find(item=> item.id == option_id);
     let names ={};
@@ -58,7 +66,7 @@ $('html,body').on('click','#editOption_saveBtn',function(e){
                     website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).names[lang.code] = names[lang.code];
                     website_temp.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).names[lang.code] = names[lang.code];
                 }
-                window.guideHints.products(website.products);
+                window.guideHints.products();
                 showAlert('success',r.msg,4000,true);
                 closePopup();
                 if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){

@@ -10,7 +10,6 @@ return [
     'verify' => 'Verify',
     'resendCode' => 'Resend Code',
     'resendCode2' => 'Resend Code in :time:',
-    'emailVerificationCodeWait' => 'Please wait until the timer runs out.',
     'newEmail' => 'New email address',
     'password' => 'password',
     'changeMyEmail' => 'Change My Email',
@@ -20,4 +19,20 @@ return [
     'currentpassword' => 'Current password',
     'newPassword' => 'New password',
     'newPasswordConfirm' => 'Confirm new password',
+    'newPasswordConfirmText' => 'Are you sure you want to change your password?',
+    /////
+    'phoneNumber' => 'My Phone Number',
+    'changePhone' => 'Change My Phone Number',
+    'noPhoneNumberTxt' => "You haven't added your phone number to your account yet.",
+    'noPhoneNumberTxt2' => "To secure your account, it is highly recommended that you add your phone number. The phone number must be typed correctly. You can find or type your country code, followed by your mobile phone number, as in this example +1012345678.",
+    'phoneNumberNoVerifyTxt' => 'Your phone number has not been verified yet.',
+    'phoneNotVerified' => 'Your phone number has not been verified yet. Please enter the verification code sent via SMS, then click on Verify.',
+    'phoneVerified' => 'Your phone number is verified.',
+    'addPhone' => 'Add my phone number',
+    'phoneVerification' => 'Phone Number Verification',
+    'phoneVerificationCode' => 'Verification code',
+    'newPhone' => 'New phone number',
+    'changeMyPhone' => 'Change My Phone Number',
+    'changePhoneConfirmText' => 'Are you sure you want to change your account phone number from :oldPhone: to :newPhone:?',
+
 ];

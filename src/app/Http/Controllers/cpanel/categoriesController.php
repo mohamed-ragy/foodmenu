@@ -71,7 +71,7 @@ class categoriesController extends Controller
                         $planCategoriesLimit = foodmenuFunctions::plans()[website::where('id',$this->website_id)->pluck('plan')->first()]['categories'];
 
                         if($planCategoriesLimit <= $categoriesCount){
-                            return response(['createNewCategoryStatus' => 3,'msg'=> Lang::get('cpanel/products/responses.createFailPlanLimit')]);
+                            return response(['createNewCategoryStatus' => 3,'msg'=> Lang::get('cpanel/products/responses.createFailPlanLimit_cat')]);
                         }else{
                             $newCatSort = categories::where('website_id', $this->website_id)->max('sort');
                             $names = [];

@@ -79,7 +79,7 @@ calcPlaceOrderItemsTotel = function(){
             itemTotal = itemTotal + parseFloat(selection.price);
         })
         itemTotal = itemTotal * qty
-        $(this).find('.placeOrderItem-itemTotal').text(`${website.currency}${itemTotal.toFixed(2)}`);
+        $(this).find('.placeOrderItem-itemTotal').text(`${website.currency}${bigFloat(itemTotal)}`);
         itemsTotal = itemsTotal + itemTotal;
     });
     return itemsTotal;

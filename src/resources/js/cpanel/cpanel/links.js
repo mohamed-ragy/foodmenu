@@ -100,10 +100,11 @@ $('html,body').on('click','.cpPage',function(e){
         break;
     }
     showPage($(this).attr('cpPage'),openTab,keysObj).then((is_pushHistory)=>{
-        // openTab != null ? $(`.pageTab[tab="${openTab}"]`).trigger('click') : null;
+        openTab != null ? $(`.pageTab[tab="${openTab}"]`).trigger('click') : null;
         setTimeout(()=>{
             scrollToElem != null ?scrollToDiv($('#bodyPage'),$(`#`+scrollToElem)) : null;
             selectElem != null ? $('#'+selectElem).focus() : null ;
+            highlightElem($('#'+selectElem))
         },300)
         closePopup();
         authorities();
@@ -372,12 +373,18 @@ $('html,body').on('click','.popupPage',function(e){
     }
     showPopupPage($(this).attr('popupPage'),keysObj).then((is_pushHistory)=>{
         // window.popupPage.popupPage = $(this).attr('popupPage');
-        if(scrollToElem != null){
-            scrollToDiv($('#popupPageBody'),$(`#`+scrollToElem))
-        }
-        if(selectElem != null){
-            $('#'+selectElem).focus();
-        }
+        setTimeout(()=>{
+            scrollToElem != null ? scrollToDiv($('#popupPageBody'),$(`#`+scrollToElem)) : null;
+            selectElem != null ? $('#'+selectElem).focus() : null ;
+            highlightElem($('#'+selectElem))
+        },300)
+        // if(scrollToElem != null){
+        //     scrollToDiv($('#popupPageBody'),$(`#`+scrollToElem))
+        // }
+        // if(selectElem != null){
+        //     $('#'+selectElem).focus().addClass('selectElem');
+        //     selectElemTimeout = setTimeout(()=>{$('.selectElem').removeClass('selectElem')},3000)
+        // }
         pushHistory(is_pushHistory);
         closePopup();
         authorities();

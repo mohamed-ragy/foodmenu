@@ -37,7 +37,7 @@ $('html,body').on('click','.manageProductCardProductAvailability',function(e){
                     }
                 }
                 manage_products_unsave_check();
-                window.guideHints.products(website.products);
+                window.guideHints.products();
             }else if(response.changeProductAvailabiltyStatus = 0){
                 showAlert('error',response.msg,4000,true);
             }

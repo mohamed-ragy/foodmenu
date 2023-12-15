@@ -54,8 +54,8 @@ class CreateWebsitesTable extends Migration
             $table->string('instagramLink')->default('');
             $table->string('restaurantEmail')->default('');
 
-            $table->json('expenses')->nullable();
-            $table->json('month_expenses')->nullable();
+            $table->json('expenses');
+            $table->json('month_expenses');
             $table->json('trendingProducts')->nullable();
 
 

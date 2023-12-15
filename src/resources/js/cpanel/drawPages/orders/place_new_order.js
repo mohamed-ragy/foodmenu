@@ -1,7 +1,7 @@
 drawPopupPage_place_new_order = function(){
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.place_new_order}),
-        $('<span/>',{class:'ico-help help-icon',helpId:''})
+        $('<span/>',{class:'ico-help help-icon',helpId:'placing_new_order'})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40 w500 p20').append(
         $('<div/>',{class:'popupPageTabs'}).append(
@@ -13,7 +13,7 @@ drawPopupPage_place_new_order = function(){
             $('<div/>',{class:'popupPageTabArrow popupPageTabArrowRight ico-right'}),
         ),
         $('<div/>',{class:'popupPageTabContainer popupPageTabContainer_selected',tab:'order_details'}).append(
-            $('<div/>',{class:'column w100p alnS jstfyS brdrB1'}).append(
+            $('<div/>',{class:'column w100p alnS jstfyS brdrB1',autoHelp:'new_order_type'}).append(
                 $('<div/>',{class:'fs09 pY10 w100p bold',text:texts.orders.orderType}),
                 $('<div/>',{class:'placeOrderDetailsElem placeOrderTypeElem',type:'2'}).append(
                     $('<div/>',{class:'row alnC jstfyS mie-10'}).append(
@@ -37,7 +37,7 @@ drawPopupPage_place_new_order = function(){
                     $('<div/>',{class:'ico-check0 placeOrderTypeElemCheck'})
                 ),
             ),
-            $('<div/>',{class:'column w100p alnS jstfyS brdrB1 mT20 placeOrderPaymentMethodsContainer'}).append(
+            $('<div/>',{class:'column w100p alnS jstfyS brdrB1 mT20 placeOrderPaymentMethodsContainer',autoHelp:'new_order_payment_method'}).append(
                 $('<div/>',{class:'fs09 pY10 w100p bold',text:texts.orders.paymentMethod}),
                 $('<div/>',{class:'placeOrderDetailsElem placeOrderPaymentMethodElem',method:'cash_on_delivery'}).append(
                     $('<div/>',{class:'row alnC jstfyS mie-10'}).append(
@@ -68,7 +68,7 @@ drawPopupPage_place_new_order = function(){
                     $('<div/>',{class:'ico-check0 placeOrderPaymentMethodElemCheck'})
                 ),
             ),
-            $('<div/>',{class:'column w100p alnS jstfyS mT20'}).append(
+            $('<div/>',{class:'column w100p alnS jstfyS mT20',autoHelp:'new_order_customer_information'}).append(
                 $('<div/>',{class:'fs09 pY10 w100p bold',text:texts.orders.placeOrderFor}),
                 $('<div/>',{class:'placeOrderDetailsElem placeOrderForElem',type:'user'}).append(
                     $('<div/>',{class:'row alnC jstfyS mie-10'}).append(
@@ -90,14 +90,14 @@ drawPopupPage_place_new_order = function(){
                 $('<div/>',{class:'w100p h200 none',id:'placeOrder-userLocation'}),
                 $('<div/>',{class:'w100p-20 mX10 mT5 row alnC jstfyE fs09'}).append($('<a/>',{id:'placeOrder-locationToggle',action:'show'})),
             ),
-            $('<div/>',{class:'column w100p alnS jstfyS brdrB1 mT20'}).append(
+            $('<div/>',{class:'column w100p alnS jstfyS brdrB1 mT20',autoHelp:'order_additional_comment'}).append(
                 drawTextArea('','ico-description','',texts.orders.orderComment,'placeOrder-comment','1000','','','')
             )
         ),
         $('<div/>',{class:'popupPageTabContainer ',tab:'order_items'}).append(
             $('<div/>',{class:'btnContainer mY20'}).append($('<button/>',{class:'btn btn-cancel',id:'placeOrder-addItemBtn',text:texts.orders.addItem})),
-            $('<div/>',{class:'brdrB1 mY30',id:'placeOrder-itemsContainer'}),
-            $('<div/>',{class:'brdrB1 mY30',id:'placeOrder-receipt'}),
+            $('<div/>',{class:'brdrB1 mY30',id:'placeOrder-itemsContainer',autoHelp:'new_order_items'}),
+            $('<div/>',{class:'area mY30 pT40',id:'placeOrder-receipt',autoHelp:'order_receipt'}),
         ),
         $('<div/>',{class:'btnContainer mY20'}).append(
             $('<button/>',{class:'btn btn-cancel mie-10',id:'placeOrder-cancelBtn',text:texts.cpanel.public.cancel}),

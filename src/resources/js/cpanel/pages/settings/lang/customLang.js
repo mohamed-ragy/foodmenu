@@ -83,6 +83,7 @@ $('html,body').on('click','#lang-customLanguageSaveBtn',function(e){
                 website_temp.languages[r.lang.code] = JSON.parse(JSON.stringify(r.lang));
                 setWebsiteLangs();
                 popupPageClose(true);
+                window.guideHints.all();
             }else if(r.createCustomLangStatus == 0){
                 showAlert('error',r.msg,4000,true);
             }

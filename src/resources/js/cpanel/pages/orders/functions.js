@@ -285,7 +285,7 @@ drawOrdersTableRow = function(order){
             data.user
         ),
         $('<td/>',{class:''}).append(
-            $('<div/>',{class:'',text:`${website.currency}${parseFloat(order.total).toFixed(2)}`})
+            $('<div/>',{class:'',text:`${website.currency}${bigFloat(order.total)}`})
         ),
         $('<td/>',{class:''}).append(
             $('<button/>',{class:'btn_table ico-open popupPage',popupPage:'order',order:order._id,tooltip:texts.orders.viewOrder}),

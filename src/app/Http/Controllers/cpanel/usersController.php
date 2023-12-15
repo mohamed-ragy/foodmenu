@@ -67,7 +67,7 @@ class usersController extends Controller
 
 
             $passwordValidate = Validator::make(['password'=> $request->password],[
-                'password' => 'required|min:8|max:20',
+                'password' => 'required|min:8|max:100',
             ],[
                 'password.required' => Lang::get('cpanel/users/responses.passwordRequired'),
                 'password.min' => Lang::get('cpanel/users/responses.passwordMin'),
@@ -79,7 +79,7 @@ class usersController extends Controller
 
 
             $nameValidate = Validator::make(['name' => $request->name],[
-                'name'=> 'required|min:5|max:20',
+                'name'=> 'required|min:5|max:100',
             ],[
                 'name.required' => Lang::get('cpanel/users/responses.nameRequired'),
                 'name.min' => Lang::get('cpanel/users/responses.nameMin'),
@@ -157,7 +157,7 @@ class usersController extends Controller
             // if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
             //     return;
             // }
-            
+
             $guests = guest::where('website_id',$this->website_id)->whereIn('id',$request->guestsIds)
                 ->with('last_msg')
                 ->get();
@@ -171,7 +171,7 @@ class usersController extends Controller
                $banUserAction = true;
                $activityCode =22;
             }else if($request->action == 0){
-                $banUserAction = false; 
+                $banUserAction = false;
                 $activityCode =23;
             }
             $banUser = User::where(['id'=>$request->banUser,'website_id'=>$this->website_id])->update([
@@ -229,7 +229,7 @@ class usersController extends Controller
 
             if($request->changePassword == 1){
                 $passwordValidate = Validator::make(['password'=> $request->password],[
-                    'password' => 'min:8|max:20',
+                    'password' => 'min:8|max:100',
                 ],[
                     'password.min' => Lang::get('cpanel/users/responses.passwordMin'),
                     'password.max' => Lang::get('cpanel/users/responses.passwordMax'),
@@ -240,7 +240,7 @@ class usersController extends Controller
             }
 
             $nameValidate = Validator::make(['name' => $request->name],[
-                'name'=> 'required|min:5|max:20',
+                'name'=> 'required|min:5|max:100',
             ],[
                 'name.required' => Lang::get('cpanel/users/responses.nameRequired'),
                 'name.min' => Lang::get('cpanel/users/responses.nameMin'),

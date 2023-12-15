@@ -9,7 +9,7 @@ drawPopupPage_edit_product = function(product_name){
         $('<div/>',{class:'btnContainer'}).append(
             $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'manage_product_options',product:product.name,text:texts.products.manageOptions}),
         ),
-        $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative'}).append(
+        $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative',id:'editProduct_img_container'}).append(
             $('<div/>',{text:texts.products.productImg,class:'c_white-8 fs08 mB3'}),
             $('<span/>',{class:'ico-edit imgCardIcon'}),
             $('<img/>',{class:'imgCard g150 w150',id:'editProduct_img',src:product.thumbnail})
@@ -17,7 +17,9 @@ drawPopupPage_edit_product = function(product_name){
         drawInputText('','ico-edit','',texts.products.productIdentifier,'editProduct_productName','text',texts.products.productIdentifier,150,'copy','',product.name,true),
         drawInputText('','ico-money','',texts.products.productPrice,'editProduct_productPrice','number',texts.products.productPrice,150,'clearVal','',product.price,false),
         drawInputList('','ico-category_list','',texts.products.productCategory,'editProduct_productCategory',texts.products.findCategory,150,'editProduct_productCategoryList',false,'','',''),
-        drawSwitchBtn('',texts.products.productAvailability,'editProduct_productAvailability','checkboxlabel_100p mT40 ','','',product.availability==1?true:false,null),
+        $('<div/>',{id:'editProduct_productAvailability_container'}).append(
+            drawSwitchBtn('',texts.products.productAvailability,'editProduct_productAvailability','checkboxlabel_100p mT40 ','','',product.availability==1?true:false,null),
+        ),
         $('<div/>',{class:'area mY40 editProduct_names'}).append(
             $('<div/>',{class:'areaTitle',text:texts.products.productName})
         ),

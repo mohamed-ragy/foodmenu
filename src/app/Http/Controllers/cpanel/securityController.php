@@ -68,10 +68,10 @@ class securityController extends Controller
                 Account::where('id',$this->account->id)
                     ->update(['email_verification_code_sent_at' => Carbon::now()->timestamp ] );
                     account_verifications::create(['account_id'=> $this->account->id,'email_verification_code_sent_at'=>Carbon::now()->timestamp]);
-                return response(['verifyEmailResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.emailVerificationCodeWait')]);
+                return response(['verifyEmailResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.verificationCodeWait')]);
             }else{
                 if($emailVerificationsToday > 4){
-                    return response(['verifyEmailResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.emailVerificationCodeTryTomorrow')]);
+                    return response(['verifyEmailResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.verificationCodeTryTomorrow')]);
                 }else{
                     //replace 1+1=2 with send mail with verification code
                     if(1 + 1 == 2){
@@ -152,124 +152,115 @@ class securityController extends Controller
         //////
 
         else if ($request->has(['createPhone'])){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            if(Auth::guard('account')->user()->phone != null){return;}
+            if($this->account->is_master == false){return;}
+            if($this->account->phone != null){return;}
             $validator = Validator::make(['createPhone' => $request->createPhone],[
                 'createPhone' => 'required|regex:/^\+\d+$/|unique:accounts,phone|min:7'
             ],[
-                'createPhone.required' => Lang::get('cpanel/security/phone.phoneRequired'),
-                'createPhone.regex' => Lang::get('cpanel/security/phone.phoneRegex'),
-                'createPhone.min' => Lang::get('cpanel/security/phone.phoneRegex'),
-                'createPhone.unique' => Lang::get('cpanel/security/phone.newPhoneUnique'),
+                'createPhone.required' => Lang::get('cpanel/security/responses.phoneRequired'),
+                'createPhone.regex' => Lang::get('cpanel/security/responses.phoneRegex'),
+                'createPhone.min' => Lang::get('cpanel/security/responses.phoneRegex'),
+                'createPhone.unique' => Lang::get('cpanel/security/responses.newPhoneUnique'),
             ]);
             if($validator->fails()){
                 return response(['createPhoneStatus'=>0, 'errors' => $validator->errors() ]);
             }else{
                 $newCode = strtolower(Str::random(6));
-                if( foodmenuFunctions::sendVeryficationSMS($request->createPhone,$newCode,1) ){
-                    $addPhoneNumber = Account::where('id',Auth::guard('account')->user()->id)
+                if( foodmenuFunctions::sendVeryficationSMS(strip_tags($request->createPhone),$newCode,1) ){
+                    $addPhoneNumber = Account::where('id',$this->account->id)
                         ->update(['phone' => strip_tags($request->createPhone),'phone_verified_at'=> Null ,'phone_verification_code'=> $newCode,'phone_verification_code_sent_at' => Carbon::now()->timestamp]);
                     if($addPhoneNumber){
-                        return response(['createPhoneStatus'=>1, 'msg' => Lang::get('cpanel/security/phone.newPhoneCreated') ]);
+                        return response(['createPhoneStatus'=>1, 'msg' => Lang::get('cpanel/security/responses.newPhoneCreated'), 'now' => Carbon::now()->timestamp ]);
                     }else{
-                    return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/phone.unknownError') ]);
+                    return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
 
                     }
                 }else{
-                    return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/phone.unknownError') ]);
+                    return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
 
                 }
             }
         }
         else if($request->has(['verifyPhone'])){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            if(Auth::guard('account')->user()->phone_verification_code == $request->verifyPhone){
-                Account::where('id',Auth::guard('account')->user()->id)
+            if($this->account->is_master == false){return;}
+            if($this->account->phone_verification_code == $request->verifyPhone){
+                Account::where('id',$this->account->id)
                                 ->update([
                                     'phone_verified_at' => Carbon::now()->timestamp,
                                     'phone_verification_code' => null,
                             ]);
-                return response(['phoneVerifyStats' => 1,'msg' => Lang::get('cpanel/security/phone.phoneVerified')]);
+                return response(['phoneVerifyStats' => 1,'msg' => Lang::get('cpanel/security/responses.phoneVerified'),'phone_verified_at'=>Carbon::now()->timestamp]);
             }else{
-                return response(['phoneVerifyStats' => 0,'msg' => Lang::get('cpanel/security/phone.wrongVerificationCode')]);
+                return response(['phoneVerifyStats' => 0,'msg' => Lang::get('cpanel/security/responses.wrongVerificationCode')]);
             }
         }
         else if($request->has(['verifyPhoneResendCode'])){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $lastSetCode = Auth::guard('account')->user()->phone_verification_code_sent_at ?? 0 + (60 *10);
-            $emailVerificationsToday = account_verifications::where(['account_id'=> Auth::guard('account')->user()->id ])->where('phone_verification_code_sent_at','>',Carbon::now()->subday(1)->timestamp)->count();
+            if($this->account->is_master == false){return;}
+            $lastSetCode = ($this->account->phone_verification_code_sent_at ?? 0 ) + (60*10);
+            $phoneVerificationsToday = account_verifications::where(['account_id'=> $this->account->id  ])->where('phone_verification_code_sent_at','>',Carbon::now()->subday(1)->timestamp)->count();
 
-            if ( Carbon::now() < $lastSetCode ){
-                Account::where('id',Auth::guard('account')->user()->id)
-                    ->update(['phone_verification_code_sent_at' => Carbon::now()->timestamp] );
-                account_verifications::create(['account_id'=> Auth::guard('account')->user()->id,'phone_verification_code_sent_at'=>Carbon::now()->timestamp ]);
-                return response(['verifyPhoneResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/phone.wait')]);
+            if ( Carbon::now()->timestamp < $lastSetCode ){
+                Account::where('id',$this->account->id)
+                    ->update(['phone_verification_code_sent_at' => Carbon::now()->timestamp ] );
+                    account_verifications::create(['account_id'=> $this->account->id,'phone_verification_code_sent_at'=>Carbon::now()->timestamp]);
+                return response(['verifyPhoneResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.verificationCodeWait')]);
             }
             else{
                 if($phoneVerificationsToday > 3){
-                    return response(['verifyPhoneResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/phone.tryTomorrow')]);
+                    return response(['verifyPhoneResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.verificationCodeTryTomorrow')]);
                 }else{
-                    $code = Auth::guard('account')->user()->phone_verification_code;
-                    $phone = Auth::guard('account')->user()->phone;
+                    $code = $this->account->phone_verification_code;
+                    $phone = $this->account->phone;
                     if(foodmenuFunctions::sendVeryficationSMS($phone,$code)){
-                        Account::where('id',Auth::guard('account')->user()->id)
+                        Account::where('id',$this->account->id)
                             ->update(['phone_verification_code_sent_at' => Carbon::now()->timestamp ] );
-                        account_verifications::create(['account_id'=> Auth::guard('account')->user()->id,'phone_verification_code_sent_at' => Carbon::now()->timestamp ]);
-                        return response(['verifyPhoneResendCodeStats' => 1, 'msg' => Lang::get('cpanel/security/phone.phoneVirifyCodeResent')]);
+                        account_verifications::create(['account_id'=> $this->account->id,'phone_verification_code_sent_at' => Carbon::now()->timestamp ]);
+                        return response(['verifyPhoneResendCodeStats' => 1, 'msg' => Lang::get('cpanel/security/responses.phoneVirifyCodeResent'),'now'=>Carbon::now()->timestamp]);
                     }else{
-                        return response(['verifyPhoneResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/phone.responseError')]);
+                        return response(['verifyPhoneResendCodeStats' => 0, 'msg' => Lang::get('cpanel/security/responses.responseError')]);
                     }
                 }
             }
         }
         else if($request->has('changePhone')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            /////////////
-            if(Auth::guard('account')->user()->password_fails > 10){
+            if($this->account->is_master == false){return;}
+            if($this->account->password_fails > 10){
                 foodmenuFunctions::notification('0',null,[
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'password_fails' => Auth::guard('account')->user()->password_fails,
-                ],Auth::guard('account')->user()->website_id);
+                    'account_id' => $this->account->id,
+                    'password_fails' => $this->account->password_fails,
+                ],$this->account->website_id);
 
-                Account::where('id',Auth::guard('account')->user()->id)->update(['account_unblock_code' => Str::random(100)]);
+                Account::where('id',$this->account->id)->update(['account_unblock_code' => Str::random(100)]);
                 ///send email with the unblock link
             }
             /////////
-            $emailsChangedLast3Days = emails::whereDate('created_at','>',Carbon::now()->subDay(3)->timestamp)->where('account_id', Auth::guard('account')->user()->id )->count();
+            $emailsChangedLast3Days = emails::whereDate('created_at','>',Carbon::now()->subDay(3)->timestamp)->where('account_id', $this->account->id )->count();
             if($emailsChangedLast3Days > 0){
                 ///send sms inform email trying to change
-                return response(['newPhoneStats' => 4, 'msg' => Lang::get('cpanel/security/phone.changePhoneEmailChanged3daysBefore') ]);
+                return response(['newPhoneStats' => 4, 'msg' => Lang::get('cpanel/security/responses.changePhoneEmailChanged3daysBefore') ]);
             }
             ///////////
-            $phonesChangedToday = phones::where('created_at','>',Carbon::now()->subHours(24)->timestamp)->where('account_id' , Auth::guard('account')->user()->id )->count();
+            $phonesChangedToday = phones::where('created_at','>',Carbon::now()->subHours(24)->timestamp)->where('account_id' , $this->account->id )->count();
 
             if($phonesChangedToday > 2){
-                return response(['newPhoneStats' => 2, 'msg' => Lang::get('cpanel/security/phone.phoneChangeMaxNum') ]);
+                return response(['newPhoneStats' => 2, 'msg' => Lang::get('cpanel/security/responses.phoneChangeMaxNum') ]);
             }
             ////////
             $validate = Validator::make(['newPhone' => $request->newPhone],[
                 'newPhone' => 'required|unique:accounts,phone|min:7|regex:/^\+\d+$/',
             ],[
-                'newPhone.required' => Lang::get('cpanel/security/phone.changePhoneRequired'),
-                'newPhone.regex' => Lang::get('cpanel/security/phone.phoneRegex'),
-                'newPhone.min' => Lang::get('cpanel/security/phone.phoneRegex'),
-                'newPhone.unique' => Lang::get('cpanel/security/phone.newPhoneUnique'),
+                'newPhone.required' => Lang::get('cpanel/security/responses.phoneRequired'),
+                'newPhone.regex' => Lang::get('cpanel/security/responses.phoneRegex'),
+                'newPhone.min' => Lang::get('cpanel/security/responses.phoneRegex'),
+                'newPhone.unique' => Lang::get('cpanel/security/responses.newPhoneUnique'),
             ]);
             if($validate->fails()){
                 return response(['newPhoneStats' => 0, 'errors' => $validate->errors() ]);
             }
-            if(Hash::check($request->password, Auth::guard('account')->user()->password)){
+            if(Hash::check($request->password, $this->account->password)){
                 $newCode = strtolower(Str::random(6));
                 if(foodmenuFunctions::sendVeryficationSMS($request->newPhone,$newCode)){
-                    Account::where('id',Auth::guard('account')->user()->id)
+                    Account::where('id',$this->account->id)
                     ->update(([
                         'phone' => strip_tags($request->newPhone),
                         'phone_verified_at'=> Null ,
@@ -278,21 +269,22 @@ class securityController extends Controller
                         'password_fails' => 0,
                     ]));
                     $phones = new phones();
-                    $phones->account_id = Auth::guard('account')->user()->id;
-                    $phones->old_phone = Auth::guard('account')->user()->phone;
+                    $phones->account_id = $this->account->id;
+                    $phones->old_phone = $this->account->phone;
                     $phones->new_phone = $request->newPhone;
                     $phones->save();
                     //send email that phone number changed and tell him if its not him he can recover using email and email can'e change 3 days. advice to change password as well
                     return response([
                         'newPhoneStats'=> 1,
-                        'msg' => Lang::get('cpanel/security/phone.newPhoneChanged')
+                        'msg' => Lang::get('cpanel/security/responses.newPhoneChanged'),
+                        'now' => Carbon::now()->timestamp,
                     ]);
                 }else{
-                    return response(['newPhoneStats' => 2, 'msg' => Lang::get('cpanel/security/phone.unknownError') ]);
+                    return response(['newPhoneStats' => 2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
                 }
             }else{
-                Account::where('id',Auth::guard('account')->user()->id)->increment('password_fails');
-                return response(['newPhoneStats' => 3, 'msg' => Lang::get('cpanel/security/phone.wrongPassword') ]);
+                Account::where('id',$this->account->id)->increment('password_fails');
+                return response(['newPhoneStats' => 3, 'msg' => Lang::get('cpanel/security/responses.wrongPassword') ]);
             }
 
         }
@@ -309,10 +301,10 @@ class securityController extends Controller
                 return;
             }
 
-            // $passwordChangedAt = Auth::guard('account')->user()->password_changed_at;
-            // if($passwordChangedAt > Carbon::now()->addHours(-1)){
-            //     return response(['changePasswordState' => 3, 'msg' => lang::get('cpanel/security/password.passwordChangeMaxNum')]);
-            // }
+            $passwordChangedAt = $this->account->password_changed_at;
+            if($passwordChangedAt > Carbon::now()->addHours(-1)->timestamp){
+                return response(['changePasswordStat' => 4, 'msg' => lang::get('cpanel/security/responses.passwordChangeMaxNum')]);
+            }
 
 
             if(!Hash::check($request->oldPassword, $this->account->password) ){
@@ -324,8 +316,8 @@ class securityController extends Controller
             }
 
             $validate = Validator::make(['newPassword' => $request->newPassword,'newPasswordConfirm' => $request->newPasswordConfirm],[
-                'newPassword' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPasswordConfirm',
-                'newPasswordConfirm' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPassword',
+                'newPassword' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPasswordConfirm',
+                'newPasswordConfirm' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPassword',
             ],[
                 'newPassword.required' => lang::get('cpanel/security/responses.newPasswordRequired'),
                 'newPassword.min' => lang::get('cpanel/security/responses.newPasswordMin'),
@@ -363,72 +355,5 @@ class securityController extends Controller
 
 
         }
-        // else if($request->has(['oldPassword'])){
-        //     if(Auth::guard('account')->user()->is_master == false){
-        //         return;
-        //     }
-
-        //     // Account::where('id',Auth::guard('account')->user()->id)->update(['password_changed_at'=> Carbon::now()->subDay()]);
-        //     if($passwordChangedAt > Carbon::now()->addHours(-1)){
-        //         return response(['changePasswordState' => 3, 'msg' => lang::get('cpanel/security/password.passwordChangeMaxNum')]);
-        //     }else{
-        //         $validate = Validator::make(['newPassword' => $request->newPasswordChange,'newPasswordConfirm' => $request->newPasswordConfirmChange],[
-        //             'newPassword' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPasswordConfirm',
-        //             'newPasswordConfirm' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPassword',
-        //         ],[
-        //             'newPassword.required' => lang::get('cpanel/security/password.newPasswordRequired'),
-        //             'newPassword.min' => lang::get('cpanel/security/password.newPasswordMin'),
-        //             'newPassword.max' => lang::get('cpanel/security/password.newPasswordMax'),
-        //             'newPassword.regex' => lang::get('cpanel/security/password.newPasswordRegex'),
-        //             'newPassword.same' => lang::get('cpanel/security/password.newPasswordSame'),
-
-        //             'newPasswordConfirm.required' => lang::get('cpanel/security/password.newPasswordRequired'),
-        //             'newPasswordConfirm.min' => lang::get('cpanel/security/password.newPasswordMin'),
-        //             'newPasswordConfirm.max' => lang::get('cpanel/security/password.newPasswordMax'),
-        //             'newPasswordConfirm.regex' => lang::get('cpanel/security/password.newPasswordRegex'),
-        //             'newPasswordConfirm.same' => lang::get('cpanel/security/password.newPasswordSame'),
-        //         ]);
-        //         if ($validate->fails()) {
-        //             return response(['changePasswordState' => 0, 'msg' => lang::get('cpanel/security/password.unknownError')]);
-        //         }
-        //         if (!$validate->fails()) {
-        //             if($request->oldPassword == $request->newPasswordChange){
-        //                 return response(['changePasswordState' => 3, 'msg' => Lang::get('cpanel/security/password.passwordChangedSame')]);
-        //             }else if($request->oldPassword != $request->newPasswordChange){
-        //                 if( Hash::check($request->oldPassword, Auth::guard('account')->user()->password) ){
-        //                     Account::where('email',Auth::guard('account')->user()->email)->update([ 'password_fails' => 0 ]);
-        //                     $changePassword = Account::where('id',Auth::guard('account')->user()->id)
-        //                                         ->update(['password' => bcrypt($request->newPasswordChange),
-        //                                                     'password_changed_at' => now()->timestamp]);
-        //                     if($changePassword){
-        //                         //send email that password changed
-        //                         Auth::guard('account')->logout();
-        //                         $request->session()->invalidate();
-        //                         $request->session()->regenerateToken();
-        //                         $notification = new stdClass();
-        //                         $notification->code = 55;
-        //                         $notification->website_id = $this->website_id;
-        //                         broadcast(new cpanelNotification($notification))->toOthers();
-        //                         return response(['changePasswordState' => 1, 'msg' => Lang::get('cpanel/security/password.passwordChanged')]);
-        //                     }else{
-        //                         return response(['changePasswordState' => 0, 'msg' => lang::get('cpanel/security/password.unknownError')]);
-        //                     }
-        //                 }else{
-        //                     Account::where('email',Auth::guard('account')->user()->email)->increment('password_fails');
-        //                     return response(['changePasswordState' => 0, 'msg' => lang::get('cpanel/security/password.wrongOldPassword')]);
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        //////
-
-
-        ////////
-
-
-
-
     }
-
 }

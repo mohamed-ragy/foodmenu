@@ -136,64 +136,9 @@
 
 
 
-{{-- /////////////////////////change password confirm/////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="changePassword-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/security/password.changePassword') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="fs102 mY10">{{ trans('cpanel/security/password.changePasswordText-2') }}</div>
-            <div class="btnContainer">
-                <button class="btn btn-cancel popupClose" >{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                <button class="btn" id="security-changePassword-confirm">
-                    <div class="btnLoading"></div>
-                    <div class="btnTxt">{{ trans('cpanel/cpanel.public.yes') }}</div>
-                </button>
-            </div>
-        </div>
-    </div>
-{{-- /////////////////////////create phone confirm////////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="createPhone-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/security/phone.createPhoneNumber') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="fs102 mY10">
-                <span>{{ trans('cpanel/security/phone.changePhoneText6-1') }}</span>
-                <span class="mX2 bold" id="security-createPhone-PhoneNumber"></span>
-                <span>{{ trans('cpanel/security/phone.changePhoneText6-2') }}</span>
-            </div>
-            <div class="btnContainer">
-                <button class="btn btn-cancel popupClose" >{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                <button class="btn" id="security-createPhone-confirm">
-                    <div class="btnLoading"></div>
-                    <div class="btnTxt">{{ trans('cpanel/cpanel.public.yes') }}</div>
-                </button>
-            </div>
-        </div>
-    </div>
-{{-- /////////////////////////change phone confirm////////////////////// --}}
-    <div class="popupCard popupCard-400 none"  id="changePhone-popup">
-        <div class="popupHead">
-            <div class="popupTitle"><span class="ico-warning fs102"></span><span class="mX5">{{ trans('cpanel/security/phone.changePhone') }}</span></div>
-            <div class="popupClose popupCloseStyle ico-close" tooltip="{{ trans('cpanel/cpanel.public.close') }}"></div>
-        </div>
-        <div class="popupBody">
-            <div class="fs102 mY10">
-                <span>{{ trans('cpanel/security/phone.changePhoneText2') }}</span>
-                <span id="changePhonePopup-phone"></span>
-            </div>
-            <div class="btnContainer">
-                <button class="btn btn-cancel popupClose" >{{ trans('cpanel/cpanel.public.cancel') }}</button>
-                <button class="btn" id="security-changePhone-confirm">
-                    <div class="btnLoading"></div>
-                    <div class="btnTxt">{{ trans('cpanel/cpanel.public.yes') }}</div>
-                </button>
-            </div>
-        </div>
-    </div>
+
+
+
 {{-- /////////////////////////statistics popup////////////////////// --}}
     <div class="popupCard none"  id="statistics-popup">
         <div class="popupHead">

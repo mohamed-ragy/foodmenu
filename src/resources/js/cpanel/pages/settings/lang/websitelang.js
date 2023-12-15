@@ -126,6 +126,7 @@ $('html,body').on('click','.setReceiptLang',function(e){
                 }
                 setWebsiteLangs();
                 closePopup();
+                window.guideHints.websiteReceiptMsgs();
             }
             else if(r.setReceiptLangStats == 0){
                 showAlert('error',r.msg,4000,true);
@@ -186,6 +187,7 @@ $('html,body').on('click','#deleteLang-confirmBtn',function(e){
                 delete website_temp.languages[lang]
                 setWebsiteLangs();
                 closePopup();
+                window.guideHints.all();
             }
             else if(r.deleteLangStats == 0){
                 showAlert('error',r.msg,4000,true);
@@ -258,6 +260,7 @@ $('html,body').on('click','.addNewLangBtn',function(e){
                     website_temp.languages[r.lang.code] = JSON.parse(JSON.stringify(r.lang));
                     setWebsiteLangs();
                     closePopup();
+                    window.guideHints.all();
                 }
                 else if(r.addLangStats == 0){
                     showAlert('error',r.msg,4000,true);

@@ -64,7 +64,7 @@ $('html,body').on('click','#deleteOption-confirmBtn',function(e){
                     }
                 }
 
-                window.guideHints.products(website.products);
+                window.guideHints.products();
                 closePopup();
                 showAlert('success',r.msg,4000,true);
             }else if(r.deleteProductOptionStatus == 0){

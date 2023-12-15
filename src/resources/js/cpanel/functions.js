@@ -103,5 +103,18 @@ drawLoadMore = function(id,containeClass=''){
     )
 }
 
+bigInt = function(num){
+    return parseInt(num).toLocaleString(account.language,{minimumFractionDigits: 0,maximumFractionDigits: 0})
+}
+bigFloat = function(num){
+    return parseFloat(num).toLocaleString(account.language,{minimumFractionDigits: 0,maximumFractionDigits: 2})
+}
+//
+let selectElemTimeout ;
+highlightElem = function(elem){
+    clearTimeout(selectElemTimeout)
+    elem.addClass('highlightElem')
+    selectElemTimeout = setTimeout(()=>{$('.highlightElem').removeClass('highlightElem')},5000)
+}
 
 //

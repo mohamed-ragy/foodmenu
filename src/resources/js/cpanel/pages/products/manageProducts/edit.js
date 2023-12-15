@@ -137,7 +137,7 @@ $('html,body').on('click','#editProduct_save',function(e){
                 if(window.history.state.page == 'manage_products' && window.history.state.category != null){
                     drawManageProductCards(window.history.state.category)
                 }
-                window.guideHints.products(website.products);
+                window.guideHints.products();
                 showAlert('success',r.msg,4000,true);
                 popupPageClose(true);
                 manage_products_unsave_check();

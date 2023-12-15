@@ -42,7 +42,7 @@ $('html,body').on('click','#createCategoryBtn',function(e){
                 website_temp.categories.push(JSON.parse(JSON.stringify(response.category)));
                 drawCategoryList();
                 popupPageClose();
-                window.guideHints.categories(website.categories);
+                window.guideHints.categories();
             }else if(response.createNewCategoryStatus == 0){
                 showAlert('error',response.msg,4000,true);
             }else if(response.createNewCategoryStatus == 3){

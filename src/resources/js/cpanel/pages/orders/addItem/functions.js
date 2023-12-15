@@ -67,7 +67,7 @@ calcAddOrderItemTotal = function(){
         if(typeof(selection) === 'undefined'){return}
         itemTotal = itemTotal + parseFloat(selection.price);
     })
-    $('#addItembtn-itemTotal').text(`${website.currency}${(itemTotal * parseInt($('#addOrderItem-qty').text())).toFixed(2)}`)
+    $('#addItembtn-itemTotal').text(`${website.currency}${bigFloat(itemTotal * parseInt($('#addOrderItem-qty').text()))}`)
 }
 //
 

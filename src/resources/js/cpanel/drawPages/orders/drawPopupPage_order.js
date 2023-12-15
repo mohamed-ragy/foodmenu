@@ -15,20 +15,20 @@ drawPopupPage_order = function(order_id){
                 ),
                 $('<div/>',{class:'popupPageTabArrow popupPageTabArrowRight ico-right'}),
             ),
-            $('<div/>',{class:'popupPageTabContainer popupPageTabContainer_selected order_popupPage_orderDetails',tab:'order_details'}),
+            $('<div/>',{class:'popupPageTabContainer popupPageTabContainer_selected order_popupPage_orderDetails',tab:'order_details',autoHelp:order.status == 5 || order.status == 6 || order.status == 7 || order.status == 2 ? '' : 'incomplete_order_details'}),
             $('<div/>',{class:'popupPageTabContainer order_popupPage_orderItems',tab:'order_items'}).append(
                 $('<div/>',{class:`btnContainer mY20 ${order.status == 5 || order.status == 6 || order.status == 7 || order.status == 2 ? 'none' : ''}`}).append($('<button/>',{class:'btn btn-cancel',id:'order-addItemBtn',text:texts.orders.addItem})),
                 $('<div/>',{class:'brdrB1 mY50',id:'order-itemsContainer'}),
                 $('<div/>',{class:'area mY50'}).append(
                     $('<div/>',{class:'areaTitle',text:texts.orders.orderReceipt}),
-                    $('<div/>',{class:'',id:'order-receipt'}),
+                    $('<div/>',{class:'',id:'order-receipt',autoHelp:order.status == 5 || order.status == 6 || order.status == 7 || order.status == 2 ? '' : 'order_receipt'}),
                 ),
                 $('<div/>',{class:`area mY50 ${order.order_items_original == null ? 'none' : ''}`}).append(
                     $('<div/>',{class:'areaTitle',text:texts.orders.originalItems}),
                     $('<div/>',{class:'',id:'order-original_items'}),
                 )
             ),
-            $('<div/>',{class:'popupPageTabContainer order_popupPage_orderActivities',tab:'order_activites'}),
+            $('<div/>',{class:'popupPageTabContainer order_popupPage_orderActivities',tab:'order_activites',autoHelp:'order_activities'}),
 
         )
         drawPopupPage_order_fillData(order_id)
@@ -92,7 +92,7 @@ drawPopupPage_order_details_orderTypeElem = function(order){
 }
 drawPopupPage_order_details_orderNotice = function(order){
     if(order.status == 0 || order.status == 1 || order.status == 3 || order.status == 4 || order.status == 8){
-        return $('<div/>',{class:'orderDetailsElem br5 column alnS jstfyS'}).append(
+        return $('<div/>',{class:'orderDetailsElem br5 column alnS jstfyS',autoHelp:'order_additional_comment'}).append(
             $('<div/>',{class:'mie-50 row alnC jstfyS'}).append(
                 $('<div/>',{class:'none fs08 mie-5 ico-warning cO orderNoticeNoSave',tooltip:texts.cpanel.public.unsaved}),
                 $('<div/>',{text:texts.orders.orderComment,class:''}),
@@ -191,6 +191,7 @@ drawPoupPage_order_items = function(order){
     $('#order-itemsContainer').text('');
     let order_complete = false;
     order.status == 5 || order.status == 6 || order.status == 7 || order.status == 2 ? order_complete = true : null;
+    !order_complete ? $('#order-itemsContainer').attr('autoHelp','incomplete_order_items') : $('#order-itemsContainer').attr('autoHelp',null);
     for(const key in order.order_items){
         let item = order.order_items[key];
         let product = website.products.find(i=>i.id == item.product_id);
@@ -220,7 +221,7 @@ drawPoupPage_order_items = function(order){
                         ),
                         thisSelectionsContainer = $('<div/>',{class:'row wrap alnS jstfyS '}),
                     ),
-                    $('<div/>',{class:'fs09 mis-10',text:`${website.currency}${parseFloat(item.total).toFixed(2)}`})
+                    $('<div/>',{class:'fs09 mis-10',text:`${website.currency}${bigFloat(item.total)}`})
                 ),
                 $('<div/>',{class:`${order_complete ? 'none' : ''} order-itemNoticeContainer row alnC jstfyS w100p-10 m5 mT10`,tooltip:texts.orders.specialRequest}).append(
                     $('<span/>',{class:'ico-edit fs08 pointer order-editItemNotice'}),
@@ -273,7 +274,7 @@ drawPoupPage_order_items = function(order){
                         $('<div/>',{class:'column alnE jstfyS grow1 mX10'}).append(
                             thisSelectionsContainer = $('<div/>',{class:'row wrap alnS jstfyS '}),
                         ),
-                        $('<div/>',{class:'fs09 mis-10',text:`${website.currency}${parseFloat(item.total).toFixed(2)}`})
+                        $('<div/>',{class:'fs09 mis-10',text:`${website.currency}${bigFloat(item.total)}`})
                     )
                 )
             )
@@ -337,34 +338,34 @@ drawPoupPage_order_receipt = function(order){
                 $('<div/>',{class:'fs09',text:texts.orders.discount}),
                 discountBy_elem,
             ),
-            $('<div/>',{class:'fs09',text:`${parseFloat(order.discount).toFixed(2)}%`}),
+            $('<div/>',{class:'fs09',text:`${bigFloat(order.discount)}%`}),
         )
     }
     ////subtotal
     let subTotalElem_text = $('<div/>',{class:'fs09',text:texts.orders.subTotal});
-    let subTotalElem = $('<div/>',{class:'fs09',text:parseFloat(order.discount_itemsTotal).toFixed(2)});
+    let subTotalElem = $('<div/>',{class:'fs09',text:bigFloat(order.discount_itemsTotal)});
     if(order.discount > 0){
         subTotalElem = $('<div/>',{class:'column alnE jstfyS'}).append(
-            $('<div/>',{class:'lThrough',text:parseFloat(order.itemsTotal).toFixed(2)}),
-            $('<div/>',{class:'',text:parseFloat(order.discount_itemsTotal).toFixed(2)}),
+            $('<div/>',{class:'lThrough',text:bigFloat(order.itemsTotal)}),
+            $('<div/>',{class:'',text:bigFloat(order.discount_itemsTotal)}),
         );
     }
     ////tax
     let taxElem_text = $('<div/>',{class:'fs09',text:texts.orders.tax});
-    let taxElem = $('<div/>',{class:'fs09',text:parseFloat(order.tax).toFixed(2)});
+    let taxElem = $('<div/>',{class:'fs09',text:bigFloat(order.tax)});
     if(order.taxPercent > 0){
         taxElem_text = $('<div/>').append(
             $('<span/>',{class:'fs09 mie-3',text:texts.orders.tax}),
-            $('<span/>',{class:'fs07',text:`${parseFloat(order.taxPercent).toFixed(2)}%`}),
+            $('<span/>',{class:'fs07',text:`${bigFloat(order.taxPercent)}%`}),
         );
     }
     ////service
     let serviceElem_text = $('<div/>',{class:'fs09',text:texts.orders.service});
-    let serviceElem = $('<div/>',{class:'fs09',text:parseFloat(order.service).toFixed(2)});
+    let serviceElem = $('<div/>',{class:'fs09',text:bigFloat(order.service)});
     if(order.servicePercent > 0){
         serviceElem_text = $('<div/>').append(
             $('<span/>',{class:'fs09 mie-3',text:texts.orders.service}),
-            $('<span/>',{class:'fs07',text:`${parseFloat(order.servicePercent).toFixed(2)}%`}),
+            $('<span/>',{class:'fs07',text:`${bigFloat(order.servicePercent)}%`}),
         );
     }
     /////delivery cost
@@ -376,12 +377,12 @@ drawPoupPage_order_receipt = function(order){
         $('<div/>',{class:`fs08  ${order.deliveryEdit_account_id == null ? 'none' : ''}`,html:texts.orders.lastModified.replace(':account:',`<a class="popupPage popupId" popupId="sub_account" popupPage="sub_account" subaccount="${order.deliveryEdit_account_id}" >${order.deliveryEdit_account_name}</a>`)}),
     );
     let deliveryCostElem = $('<div/>',{class:'row alnC jstfyE'}).append(
-        $('<div/>',{class:'fs09 ',text:parseFloat(order.deliveryCost).toFixed(2)}),
+        $('<div/>',{class:'fs09 ',text:bigFloat(order.deliveryCost)}),
     )
     if(changeable && order.type == 0){
         deliveryCostElem = $('<div/>',{class:''}).append(
             $('<div/>',{class:'mB5 row alnC jstfyE'}).append(
-                $('<input/>',{class:'taE ordersReceipt_deliveryCost',id:'order-deliveryCost',value:parseFloat(order.deliveryCost).toFixed(2)}),
+                $('<input/>',{class:'taE ordersReceipt_deliveryCost',id:'order-deliveryCost',value:bigFloat(order.deliveryCost)}),
                 $('<div/>',{class:'ico-edit pointer fs09 mis-5',type:'number',id:'order-editDeliveryCost',tooltip:texts.cpanel.public.edit})
             ),
             $('<div/>',{class:'row alnC jstfyE w100p changeOrderDeliveryCostBtns none'}).append(
@@ -414,7 +415,7 @@ drawPoupPage_order_receipt = function(order){
         ),
         $('<div/>',{class:'order-receiptElem'}).append(
             $('<div/>',{class:'fs09',text:texts.orders.total}),
-            $('<div/>',{class:'fs09',text:`${website.currency}${parseFloat(order.total).toFixed(2)}`}),
+            $('<div/>',{class:'fs09',text:`${website.currency}${bigFloat(order.total)}`}),
         ),
     )
     // for(const key in order.order_items){
@@ -557,11 +558,11 @@ drawOrderActivities = function(activities){
             break;
             case 'order.update.discount':
                 icon = 'ico-percent c_white-10';
-                text = text.replace(':old_discount:',`<span class="cR">${activity.old_discount}%</span>`).replace(':new_discount:',`<span class="cB">${activity.new_discount}%</span>`)
+                text = text.replace(':old_discount:',`<span class="cR">${bigFloat(activity.old_discount)}%</span>`).replace(':new_discount:',`<span class="cB">${bigFloat(activity.new_discount)}%</span>`)
             break;
             case 'order.update.deliveryCost':
                 icon = 'ico-delivery c_white-10';
-                text = text.replace(':old_DeliveryCost:',`<span class="cR">${website.currency}${activity.old_DeliveryCost}</span>`).replace(':new_deliveryCost:',`<span class="cB">${website.currency}${activity.new_deliveryCost}</span>`)
+                text = text.replace(':old_DeliveryCost:',`<span class="cR">${website.currency}${bigFloat(activity.old_DeliveryCost)}</span>`).replace(':new_deliveryCost:',`<span class="cB">${website.currency}${bigFloat(activity.new_deliveryCost)}</span>`)
             break;
             case 'order.update.addItem':
                 icon = 'ico-products cG';

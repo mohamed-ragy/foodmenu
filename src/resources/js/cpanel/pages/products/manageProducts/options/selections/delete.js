@@ -55,7 +55,7 @@ $('html,body').on('click','#deleteSelection-confirmBtn',function(e){
                                         if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
                                             drawPopupPage_manage_product_options(window.history.state.product)
                                         }
-                                        window.guideHints.products(website.products);
+                                        window.guideHints.products();
                                     }
                                 }
                             }

@@ -147,6 +147,16 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'financial_reports':
+                    if(account.is_master == false){reject(1);return;}
+                    drawPage_financial_reports();
+                    resolve(pushHistory);
+                break;
+                case 'restaurant_expenses':
+                    if(account.is_master == false){reject(1);return;}
+                    drawPage_restaurant_expenses();
+                    resolve(pushHistory);
+                break;
                 case 'order_history':
                     if(account.authorities[0] == false){reject(1);return;}
                     window.page.orderHistory_page = keysObj.orderHistory_page ?? '1';
@@ -282,6 +292,11 @@ showPage = function(pageId,tab,keysObj){
                 case 'password':
                     if(account.is_master == false){reject(1);return;}
                     drawPage_password();
+                    resolve(pushHistory);
+                break;
+                case 'phone_number':
+                    if(account.is_master == false){reject(1);return;}
+                    drawPage_phone_number();
                     resolve(pushHistory);
                 break;
                 case 'ticket_history':

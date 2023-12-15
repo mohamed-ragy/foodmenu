@@ -1,53 +1,22 @@
-.finanialReportContainer_loading{
-    border-radius: 3px;
-    box-shadow: var(--shdw5);
-    background-color: var(--c2);
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    margin:10px 0;
-}
-.finanialReportContainer{
-    border-radius: 3px;
-    box-shadow: var(--shdw5);
-    background-color: var(--c2);
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    margin:10px 0;
-}
-.finanialReportBody{
-    flex-grow: 2;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-
-}
-.finanialReportIconsContainer{
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    margin:5px;
-}
-.finanialReportIcon{
-    padding: 10px;
-    border-radius:3px;
+.financialReportsNext, .financialReportsPrev{
+    padding:5px;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 1.5em;
-    margin: 3px 0;
-    box-shadow: none;
+    margin:0 7px;
+    font-size:.9em;
 }
-.finanialReportIcon:hover{
-    background-color: var(--c3);
-    box-shadow: 0 0 1px 0px var(--shdw-10);
+.financialReportsNext:hover, .financialReportsPrev:hover{
+    background-color: var(--white-2);
 }
-.deleteFinancialReportClass:hover{
-    color:var(--red);
+.financialReportsArrow_dump{
+    color:var(--white-6);
+    cursor: not-allowed;
 }
+.financialReportsArrow_dump:hover{
+    background-color: var(--white);
+}
+.financialReportsCountContainer{
+    font-size:.8em;
+    margin:0 7px;
+}
+.delete_financial_report:hover{color:var(--red)}

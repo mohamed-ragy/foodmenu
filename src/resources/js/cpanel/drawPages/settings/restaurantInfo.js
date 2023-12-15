@@ -132,7 +132,7 @@ drawPage_restaurant_information = function(){
                     $('<span/>',{text:texts.settings.restaurantLocation}),
                     $('<span/>',{class:'ico-help help-icon',helpId:'restaurant_location'})
                 ),
-                $('<div/>',{id:'setting-restaurantLocation_map'}),
+                $('<div/>',{class:'zx1',id:'setting-restaurantLocation_map'}),
                 drawSaveCancelBtns('setting-restaurantLocation_saveBtn','setting-restaurantLocation_cancelBtn','mT40')
             ),
             $('<div/>',{class:'pageTabContainer',tab:'currency_symbol'}).append(

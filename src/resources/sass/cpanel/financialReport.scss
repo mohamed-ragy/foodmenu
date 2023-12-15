@@ -1,21 +1,12 @@
-
-
-
 body{
     font-family: 'trebuchetms','sans', sans-serif;
-    color:#2f2513;
+    color:#464646;
 }
-#head{
-    border-bottom:.1em solid #2f2513;
-}
-
-.brdr-Bot{
-    border:.1em solid var(--brlight);
-    border-width: 0px 0px 1px 0px;
-}
-.brdr-top{
-    border:.1em solid var(--brlight);
-    border-width: 1px 0px 0px 0px;
+table{
+    border-collapse: collapse;
+    border-spacing:50px;
+    border-width: 1px 1px 1px 1px;
+    width:100%;
 }
 tr{
     display:table-row;
@@ -27,18 +18,18 @@ td{
     width:calc(50% - 10px);
     border:none;
     padding:3px 5px;
-
+    vertical-align: start;
 }
-table{
-    border-collapse: collapse;
-    border-spacing:50px;
-    width: 100%;
-    margin-top:2em;
-    border:.1em solid #d4d4d4;
-    border-width: 1px 1px 1px 1px;
-}
+.taS{text-align: left;}
+.taE{text-align: right;}
+.pL10{padding-left:10px;}
+.pR10{padding-right:10px;}
+.pL20{padding-left:20px;}
+.pR20{padding-right:20px;}
+.pY10{padding-top:10px;padding-bottom:10px;}
+.brdrT1{border-top:.1px solid #c1c1c1}
+.brdrB1{border-bottom:.1px solid #c1c1c1}
 
-.tHC{background-color:#bababa;}
 
 .fs103{font-size:1.3em;}
 .fs104{font-size:1.4em;}
@@ -49,7 +40,7 @@ table{
 .taC{text-align: center;}
 .mT10{margin-top:10px;}
 .mT30{margin-top:30px;}
-
+.mT80{margin-top:80px;}
 .c1{background-color: #ffffff;}
-.c2{background-color: #e8e8e8;}
+.c2{background-color: #eeeeee;}
 

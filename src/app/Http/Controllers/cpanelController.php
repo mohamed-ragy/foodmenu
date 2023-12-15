@@ -38,14 +38,14 @@ use PDF;
 class cpanelController extends Controller
 {
     protected $website_id;
-
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
-
         })->except(['dologin','login','resetPassword']);
 
         $this->middleware(function ($request, $next) {
@@ -145,8 +145,8 @@ class cpanelController extends Controller
                 if(Hash::check($request->changePasswordCode, $code->recover_password_code ) ){
                     if($code->recover_password_code_sent_at > Carbon::now()->subMinutes(10)->timestamp){
                         $validate = Validator::make(['newPassword' => $request->newPassword,'newPasswordConfirm' => $request->newPasswordConfirm],[
-                            'newPassword' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPasswordConfirm',
-                            'newPasswordConfirm' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPassword',
+                            'newPassword' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPasswordConfirm',
+                            'newPasswordConfirm' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPassword',
                         ],[
                             'newPassword.required' => lang::get('cpanel/security/password.newPasswordRequired'),
                             'newPassword.min' => lang::get('cpanel/security/password.newPasswordMin'),
@@ -398,9 +398,7 @@ class cpanelController extends Controller
 
     public function financialreport(Request $request)
     {
-        if(Auth::guard('account')->user()->is_master == false){
-            return;
-        }
+        if($this->account->is_master == false){return;}
         $report = financial_reports::where(['website_id'=>$this->website_id,'month'=>$request->month,'year'=>$request->year])
         ->with('websites:id,domainName')
         ->first();
@@ -436,10 +434,10 @@ class cpanelController extends Controller
         }
         $report->expensesTotal = $expensesTotal;
         if($report->total >= $report->expensesTotal){
-            $report->reportTotalTxt = Lang::get('cpanel/dashboard/financialReports.profits');
+            $report->reportTotalTxt = Lang::get('cpanel/financialReport.profits');
             $report->profits = number_format($report->total - $report->expensesTotal,2) ;
         }else{
-            $report->reportTotalTxt = Lang::get('cpanel/dashboard/financialReports.losses');
+            $report->reportTotalTxt = Lang::get('cpanel//financialReport.losses');
             $report->profits =number_format(($report->expensesTotal -  $report->total) * -1,2 );
         }
 
@@ -464,9 +462,9 @@ class cpanelController extends Controller
             ]
         );
         if($request->action == 'view'){
-            return $pdf->stream($report->websites->domainName.'-financialReport-'.$date->format('F-Y').'.pdf');
+            return $pdf->stream($report->websites->domainName.'_financial_report_'.$date->format('F_Y').'.pdf');
         }else if($request-> action == 'download'){
-            return $pdf->download($report->websites->domainName.'-financialReport-'.$date->format('F-Y').'.pdf');
+            return $pdf->download($report->websites->domainName.'_financial_report_'.$date->format('F_Y').'.pdf');
         }
 
     }
@@ -809,11 +807,9 @@ class cpanelController extends Controller
             if(str_split(Auth::guard('account')->user()->authorities)[5]){
                 $unSeenLiveChats = liveChat::where(['website_id'=>$this->website_id,'is_seen'=>false,'author'=>1])->get(['user_id','guest_id']);
             }
-            $notification = new stdClass();
-            $notification->code = 0;
-            $notification->accountId = Auth::guard('account')->user()->id;
-            $notification->website_id = $this->website_id;
-            broadcast(new cpanelNotification($notification))->toOthers();
+            foodmenuFunctions::notification('0',null,[
+                'account_id' => Auth::guard('account')->user()->id,
+            ],Auth::guard('account')->user()->website_id);
             /////////////
             $notificationCodes = [];
             // $todayOrders = [];
@@ -896,105 +892,7 @@ class cpanelController extends Controller
                 return response(['deleteActivityLogStat' => 0, 'msg' => Lang::get('cpanel/dashboard/activityLog.activityLogDeleteFail')]);
             }
         }
-        else if($request->has('addRestaurantExpenses')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $validation = Validator::make(['expensesName'=>strip_tags($request->expensesName),'expensesAmount'=>strip_tags($request->expensesAmount)],
-            [
-                'expensesName' => 'required|max:40',
-                'expensesAmount' => 'required|max:40',
-            ],[
-                'expensesName.required' => Lang::get('cpanel/dashboard/restaurantExpenses.expenseNameRequired'),
-                'expensesName.max' => Lang::get('cpanel/dashboard/restaurantExpenses.expensesNameMax'),
-                'expensesAmount.required' => Lang::get('cpanel/dashboard/restaurantExpenses.expenseAmountRequired'),
-                'expensesAmount.max' => Lang::get('cpanel/dashboard/restaurantExpenses.expenseAmountMax'),
-            ]);
-            if($validation->fails()){
-                return response(['addRestaurantExpensesStatus' => 0,'errors' => $validation->errors()]);
-            }else{
-                $websiteExpenses = website::where('id',$this->website_id)->pluck('expenses')->first();
-                array_push($websiteExpenses,['name'=>strip_tags($request->expensesName),'amount'=>strip_tags($request->expensesAmount)]);
-                $updateExpenses = website::where('id',$this->website_id)->update([
-                    'expenses' => $websiteExpenses,
-                ]);
-                if($updateExpenses){
-                    return response(['addRestaurantExpensesStatus' => 1,'msg'=> Lang::get('cpanel/dashboard/restaurantExpenses.addExpensesaddes'),'restaurantFixedExpenses' =>$websiteExpenses]);
-                }else{
-                    return response(['addRestaurantExpensesStatus' => 2 ,'msg'=> Lang::get('cpanel/dashboard/restaurantExpenses.addExpensesaddesFail')]);
-                }
-            }
-        }
-        else if($request->has('deleteRestaurantExpenses')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $restaurantExpenses = website::where('id',$this->website_id)->pluck('expenses')->first();
-            $restaurantExpensesNEW = [];
-            foreach($restaurantExpenses as $key => $expense){
-                if($expense['name'] == $request->expensesName && $expense['amount'] == $request->expensesAmount){
-
-                }else{
-                    array_push($restaurantExpensesNEW,['name'=>$expense['name'],'amount'=>$expense['amount']]);
-                }
-            }
-            if($restaurantExpensesNEW == null || $restaurantExpensesNEW== ''){$restaurantExpensesNEW = [];}
-            $updateFixedExpenses = website::where('id',$this->website_id)->update(['expenses'=>$restaurantExpensesNEW]);
-            if($updateFixedExpenses){
-                return response(['deleteRestaurantExpensesStatus' => 1,'msg' => Lang::get('cpanel/dashboard/restaurantExpenses.expensesDeleted'),'restaurantExpenses'=>$restaurantExpensesNEW]);
-            }else{
-                return response(['deleteRestaurantExpensesStatus' => 0,'msg' => Lang::get('cpanel/dashboard/restaurantExpenses.expensesDeleteFail')]);
-            }
-        }
-        else if($request->has('addRestaurantMonthExpenses')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $validation = Validator::make(['expensesName'=>strip_tags($request->expensesName),'expensesAmount'=>strip_tags($request->expensesAmount)],
-            [
-                'expensesName' => 'required|max:40',
-                'expensesAmount' => 'required|max:40',
-            ],[
-                'expensesName.required' => Lang::get('cpanel/dashboard/restaurantExpenses.expenseNameRequired'),
-                'expensesName.max' => Lang::get('cpanel/dashboard/restaurantExpenses.expensesNameMax'),
-                'expensesAmount.required' => Lang::get('cpanel/dashboard/restaurantExpenses.expenseAmountRequired'),
-                'expensesAmount.max' => Lang::get('cpanel/dashboard/restaurantExpenses.expenseAmountMax'),
-            ]);
-            if($validation->fails()){
-                return response(['addRestaurantMonthExpensesStatus' => 0,'errors' => $validation->errors()]);
-            }else{
-                $month_expenses = website::where('id',$this->website_id)->pluck('month_expenses')->first();
-                array_push($month_expenses,['name'=>strip_tags($request->expensesName),'amount'=>strip_tags($request->expensesAmount)]);
-                $updateMonthExpenses = website::where('id',$this->website_id)->update([
-                    'month_expenses' => $month_expenses,
-                ]);
-                if($updateMonthExpenses){
-                    return response(['addRestaurantMonthExpensesStatus' => 1,'msg'=> Lang::get('cpanel/dashboard/restaurantExpenses.addExpensesaddes'),'restaurantMonthExpenses' =>$month_expenses]);
-                }else{
-                    return response(['addRestaurantMonthExpensesStatus' => 2 ,'msg'=> Lang::get('cpanel/dashboard/restaurantExpenses.addExpensesaddesFail')]);
-                }
-            }
-        }
-        else if($request->has('deleteRestaurantMonthExpenses')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $restaurantMonthExpenses = website::where('id',$this->website_id)->pluck('month_expenses')->first();
-            $restaurantMonthExpensesNEW = [];
-            foreach($restaurantMonthExpenses as $key => $expense){
-                if($expense['name'] == $request->expensesName && $expense['amount'] == $request->expensesAmount){
-                }else{
-                    array_push($restaurantMonthExpensesNEW,['name'=>$expense['name'],'amount'=>$expense['amount']]);
-                }
-            }
-            if($restaurantMonthExpensesNEW == null || $restaurantMonthExpensesNEW == ''){$restaurantMonthExpensesNEW = [];}
-            $updateMonthExpenses = website::where('id',$this->website_id)->update(['month_expenses'=>$restaurantMonthExpensesNEW]);
-            if($updateMonthExpenses){
-                return response(['deleteRestaurantMonthExpensesStatus' => 1,'msg' => Lang::get('cpanel/dashboard/restaurantExpenses.expensesDeleted'),'rstaurantMonthExpenses'=>$restaurantMonthExpensesNEW]);
-            }else{
-                return response(['deleteRestaurantMonthExpensesStatus' => 0,'msg' => Lang::get('cpanel/dashboard/restaurantExpenses.expensesDeleteFail')]);
-            }
-        }
+        /////////
         else if($request->has('loadStatistics')){
             if($request->period == 'day'){
                 if($request->compare == 0){
@@ -1145,31 +1043,125 @@ class cpanelController extends Controller
                 }
             }
         }
+        //////////
+        else if($request->has('addNewExpenses_fixed')){
+            if($this->account->is_master == false){return;}
+            $validation = Validator::make(['name'=>strip_tags($request->name),'amount'=>strip_tags($request->amount)],
+            [
+                'name' => 'required|max:40',
+                'amount' => 'required|max:40',
+            ],[
+                'name.required' => Lang::get('cpanel/dashboard/responses.expenseNameRequired'),
+                'name.max' => Lang::get('cpanel/dashboard/responses.expensesNameMax'),
+                'amount.required' => Lang::get('cpanel/dashboard/responses.expenseAmountRequired'),
+                'amount.max' => Lang::get('cpanel/dashboard/responses.expenseAmountMax'),
+            ]);
+            if($validation->fails()){
+                return response(['addNewExpenses_fixedStatus' => 0,'errors' => $validation->errors()]);
+            }else{
+                $expenses = website::where('id',$this->website_id)->pluck('expenses')->first();
+                array_push($expenses,[
+                    'id' => count($expenses) + 1,
+                    'name'=>strip_tags($request->name),
+                    'amount'=>strip_tags($request->amount)
+                ]);
+                $updateExpenses = website::where('id',$this->website_id)->update([
+                    'expenses' => $expenses,
+                ]);
+                if($updateExpenses){
+                    return response(['addNewExpenses_fixedStatus' => 1,'msg'=> Lang::get('cpanel/dashboard/responses.addExpensesadded')]);
+                }else{
+                    return response(['addNewExpenses_fixedStatus' => 2 ,'msg'=> Lang::get('cpanel/dashboard/responses.addExpensesFail')]);
+                }
+            }
+        }
+        else if($request->has('delete_expense_fixed')){
+            if($this->account->is_master == false){return;}
+
+            $expenses = website::where('id',$this->website_id)->pluck('expenses')->first();
+            $expenses_new = [];
+            $expense_id = 0;
+            foreach($expenses as $expense){
+                if($expense['id'] != $request->expense_id){
+                    $expense_id++;
+                    array_push($expenses_new,['id' => $expense_id,'name'=>$expense['name'],'amount'=>$expense['amount']]);
+                }
+            }
+            $updateFixedExpenses = website::where('id',$this->website_id)->update(['expenses'=>$expenses_new]);
+            if($updateFixedExpenses){
+                return response(['delete_expense_fixedStatus' => 1,'msg' => Lang::get('cpanel/dashboard/responses.expensesDeleted')]);
+            }else{
+                return response(['delete_expense_fixedStatus' => 0,'msg' => Lang::get('cpanel/dashboard/responses.expensesDeleteFail')]);
+            }
+        }
+        else if($request->has('addNewExpenses_current')){
+            if($this->account->is_master == false){return;}
+            $validation = Validator::make(['name'=>strip_tags($request->name),'amount'=>strip_tags($request->amount)],
+            [
+                'name' => 'required|max:40',
+                'amount' => 'required|max:40',
+            ],[
+                'name.required' => Lang::get('cpanel/dashboard/responses.expenseNameRequired'),
+                'name.max' => Lang::get('cpanel/dashboard/responses.expensesNameMax'),
+                'amount.required' => Lang::get('cpanel/dashboard/responses.expenseAmountRequired'),
+                'amount.max' => Lang::get('cpanel/dashboard/responses.expenseAmountMax'),
+            ]);
+            if($validation->fails()){
+                return response(['addNewExpenses_currentStatus' => 0,'errors' => $validation->errors()]);
+            }else{
+                $expenses = website::where('id',$this->website_id)->pluck('month_expenses')->first();
+                array_push($expenses,[
+                    'id' => count($expenses) + 1,
+                    'name'=>strip_tags($request->name),
+                    'amount'=>strip_tags($request->amount)
+                ]);
+                $updateExpenses = website::where('id',$this->website_id)->update([
+                    'month_expenses' => $expenses,
+                ]);
+                if($updateExpenses){
+                    return response(['addNewExpenses_currentStatus' => 1,'msg'=> Lang::get('cpanel/dashboard/responses.addExpensesadded')]);
+                }else{
+                    return response(['addNewExpenses_currentStatus' => 2 ,'msg'=> Lang::get('cpanel/dashboard/responses.addExpensesFail')]);
+                }
+            }
+        }
+        else if($request->has('delete_expense_current')){
+            if($this->account->is_master == false){return;}
+
+            $expenses = website::where('id',$this->website_id)->pluck('month_expenses')->first();
+            $expenses_new = [];
+            $expense_id = 0;
+            foreach($expenses as $expense){
+                if($expense['id'] != $request->expense_id){
+                    $expense_id++;
+                    array_push($expenses_new,['id' => $expense_id,'name'=>$expense['name'],'amount'=>$expense['amount']]);
+                }
+            }
+            $updateFixedExpenses = website::where('id',$this->website_id)->update(['month_expenses'=>$expenses_new]);
+            if($updateFixedExpenses){
+                return response(['delete_expense_currentStatus' => 1,'msg' => Lang::get('cpanel/dashboard/responses.expensesDeleted')]);
+            }else{
+                return response(['delete_expense_currentStatus' => 0,'msg' => Lang::get('cpanel/dashboard/responses.expensesDeleteFail')]);
+            }
+        }
+        /////
+        else if($request->has('getFinancialReports')){
+            if($this->account->is_master == false){return;}
+            $reports = financial_reports::where(['website_id' => $this->website_id])
+            ->skip($request->skip)->take(10)->orderBy('created_at','desc')->select('id','created_at','year','month')->get();
+            $count = financial_reports::where(['website_id' => $this->website_id])->count();
+            return response(['reports' => $reports, 'count' => $count]);
+        }
         else if($request->has('deleteFinancialReport')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $deleteReport = financial_reports::where(['id'=>$request->deleteFinancialReport,'website_id'=>$this->website_id])->delete();
+            if($this->account->is_master == false){return;}
+            $deleteReport = financial_reports::where(['id'=>$request->report_id,'website_id'=>$this->website_id])->delete();
             if($deleteReport){
-                return response(['deleteFinancialReportStatus' => 1,'msg'=>Lang::get('cpanel/dashboard/financialReports.deleteReportDeleted')]);
+                return response(['deleteFinancialReportStatus' => 1,'msg'=>Lang::get('cpanel/dashboard/responses.deleteReportDeleted')]);
             }else{
-                return response(['deleteFinancialReportStatus' => 0,'msg'=>Lang::get('cpanel/dashboard/financialReports.deleteReportFaild')]);
+                return response(['deleteFinancialReportStatus' => 0,'msg'=>Lang::get('cpanel/dashboard/responses.deleteReportFaild')]);
             }
         }
-        else if($request->has('getfinancialReports')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            if($request->getMorefinancialReports == null){
-                $reports = financial_reports::where(['website_id' => $this->website_id])
-                ->take(30)->orderBy('created_at','desc')->select(['id','created_at','year','month'])->get();
-            }else{
-                $reports = financial_reports::where(['website_id' => $this->website_id])
-                ->where('created_at','<',$request->getMorefinancialReports)
-                ->take(30)->orderBy('created_at','desc')->select('id','created_at','year','month')->get();
-            }
-            return response(['reports' => $reports]);
-        }
+        ////
         else if($request->has('reportBug')){
             $reportBug = bug::create([
                 'website_id'=>$this->website_id,

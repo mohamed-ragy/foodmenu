@@ -1,192 +1,121 @@
-appendFinancialReport = function(report,append){
-    if(append == 'append'){
-        $('#financialReports-reportsContainer').append(
-            $('<div/>',{
-                class:'finanialReportContainer',
-                reportId:report.id,
-                created_at:report.created_at,
-                month:report.month,
-                year:report.year,
-                autoHelp:'196',
-            }).append(
-                $('<div/>',{
-                    class:'ico-financial_reports fs2 m10',
-                }),
-                $('<div/>',{
-                    class:'finanialReportBody',
-                }).append(
-                    $('<div/>',{
-                        text:getDateAndTime(new Date(report.year,report.month,0).toISOString(),'monthAndYear'),
-                        class:'fs102',
-                    }),
-                    $('<div/>',{class:'finanialReportIconsContainer'}).append(
-                        $('<span/>',{
-                            class:'ico-download finanialReportIcon downloadFinancialReportClass',
-                            tooltip:texts.cpanel.public.downloadPDF,
-                            reportId:report.id,
-                        }),
-                        $('<span/>',{
-                            class:'ico-pdf finanialReportIcon viewFinancialReportClass',
-                            tooltip:texts.cpanel.public.viewPDF,
-                            month:report.month,
-                            year:report.year,
-                            reportId:report.id,
-                            }),
-                        $('<span/>',{
-                            class:'ico-delete finanialReportIcon deleteFinancialReportClass',
-                            tooltip:texts.cpanel.public.delete,
-                        }),
-                    )
-                )
-            )
-        )
-    }else if(append == 'prepend'){
-        $('#financialReports-reportsContainer').prepend(
-            $('<div/>',{
-                class:'finanialReportContainer',
-                reportId:report.id,
-                created_at:report.created_at,
-                month:report.month,
-                year:report.year,
-                autoHelp:'196',
-            }).append(
-                $('<div/>',{
-                    class:'ico-financial_reports fs2 m10',
-                }),
-                $('<div/>',{
-                    class:'finanialReportBody',
-                }).append(
-                    $('<div/>',{
-                        text:getDateAndTime(new Date(report.year,report.month,0).toISOString(),'monthAndYear'),
-                        class:'fs102',
-                    }),
-                    $('<div/>',{class:'finanialReportIconsContainer'}).append(
-                        $('<span/>',{
-                            class:'ico-download finanialReportIcon downloadFinancialReportClass',
-                            tooltip:texts.cpanel.public.downloadPDF,
-                            reportId:report.id,
-                        }),
-                        $('<span/>',{
-                            class:'ico-pdf finanialReportIcon viewFinancialReportClass',
-                            tooltip:texts.cpanel.public.viewPDF,
-                            month:report.month,
-                            year:report.year,
-                            reportId:report.id,
-                            }),
-                        $('<span/>',{
-                            class:'ico-delete finanialReportIcon deleteFinancialReportClass',
-                            tooltip:texts.cpanel.public.delete,
-                        }),
-                    )
-                )
-            )
-        )
-    }
-
-}
-let getMorefinancialReportsCheck = true;
-let noMoreFinanchialReports = false;
-getfinancialReports = function(){
-    if(noMoreFinanchialReports){return;}
-    if(!getMorefinancialReportsCheck){return;}
-    window.financialReportsFirstLoad = true;
-    $('#financialReports-reportsContainer_loading').removeClass('none');
-    getMorefinancialReportsCheck = false;
-    let getMoreFinancialReports = null;
-    if($('#financialReports-reportsContainer').children().length > 0 ){
-        getMoreFinancialReports = $('#financialReports-reportsContainer').children().last().attr('created_at');
-    }
+getFinancialReports = function(page){
+    if(account.is_master == false){return}
+    drawPage_financial_reports_loading();
+    let skip = (page - 1) * 10;
+    $('.financialReportsNext').addClass('financialReportsArrow_dump')
+    $('.financialReportsPrev').addClass('financialReportsArrow_dump')
+    $('.financialReportsCountContainer').text('')
     $.ajax({
         url:'dashboard',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
-            getfinancialReports:true,
-            getMorefinancialReports:getMoreFinancialReports,
-        },success:function(response){
-            $('#financialReports-reportsContainer_loading').addClass('none');
-            if(response.reports.length == 0){
-                if(getMoreFinancialReports == null){
-                    $('#financialReports-reportsContainer').append(
-                        $('<div/>',{id:'financialReports-noReports',text:texts.financialReports.noReports,class:'m20'})
-                    )
-                }
-                noMoreFinanchialReports = true;
+            getFinancialReports:true,
+            skip:skip,
+        },success:function(r){
+            window.financialReports = r.reports;
+            $('#financialReportsTable').text('')
+            if(r.reports.length == 0){
+                $('#financialReportsTable').append(
+                    $('<div/>',{class:'m10',text:texts.dashboard.noFinancialReports})
+                )
             }else{
-                for(const key in response.reports){
-                    appendFinancialReport(response.reports[key],'append');
+                $('.financialReportsCountContainer').attr('page',page);
+                $('.financialReportsCountContainer').text('').text(`${skip + 1}-${skip + r.reports.length} ${texts.cpanel.public.of} ${r.count}`);
+                page == 1 ? $('.financialReportsPrev').addClass('financialReportsArrow_dump') : $('.financialReportsPrev').removeClass('financialReportsArrow_dump');
+                (skip + r.reports.length) >=  r.count ?  $('.financialReportsNext').addClass('financialReportsArrow_dump') : $('.financialReportsNext').removeClass('financialReportsArrow_dump');
+
+                for(const key in r.reports){
+                    let report = r.reports[key];
+                    console.log(report)
+                    let report_date = getDate(Date.parse(new Date(report.year,(parseInt(report.month) - 1),5)) / 1000);
+                    $('#financialReportsTable').append(
+                        $('<tr/>',{class:'financial_report_container',report:report.id}).append(
+                            $('<td/>',{class:'fs09',text:`${report_date.month_long.restaurant} ${report_date.year.restaurant}`}),
+                            $('<td/>',{class:''}).append(
+                                $('<div/>',{class:'row alnC jstfyE'}).append(
+                                    $('<div/>',{class:'btn_table ico-pdf open_financial_report',tooltip:texts.cpanel.public.viewPDF}),
+                                    $('<div/>',{class:'btn_table ico-download download_financial_report',tooltip:texts.cpanel.public.downloadPDF}),
+                                    $('<div/>',{class:'btn_table ico-delete delete_financial_report',tooltip:texts.cpanel.public.delete}),
+                                )
+                            )
+                        )
+                    )
                 }
             }
         }
-    }).done(function(){
-        getMorefinancialReportsCheck = true;
-        if(!noMoreFinanchialReports && $('#financialReports-reportsContainer').height() <= $('#bodyPage').height()){
-            getfinancialReports();
-        }
     })
 }
-///////////////evens
-$('#bodyPage').on('scroll',function(e){
-    // e.stopImmediatePropagation();
-    if($('#bodyPage')[0].scrollHeight - $('#bodyPage').scrollTop() < $('#bodyPage').innerHeight() + 100 && 'financial_reports' == window.history.state.page){
-        getfinancialReports();
-    }
-});
-
-$('html,body').on('click','.viewFinancialReportClass',function(e){
+$('html,body').on('click','.financialReportsNext',function(e){
     e.stopImmediatePropagation();
-    checkUseenNotifications([80],'financialReport_id',$(this).attr('reportId'))
-    window.open('/financialreport/view/'+$(this).attr('year')+'/'+$(this).attr('month')+'/'+account.language+'/'+website.currency, '_blank').focus();
-});
-
-$('#financialReports-reportsContainer').on('click','.downloadFinancialReportClass',function(e){
+    if($(this).hasClass('financialReportsArrow_dump')){return;}
+    getFinancialReports(parseInt($('.financialReportsCountContainer').attr('page')) + 1)
+})
+$('html,body').on('click','.financialReportsPrev',function(e){
     e.stopImmediatePropagation();
-    checkUseenNotifications([80],'financialReport_id',$(this).attr('reportId'))
-    window.open('/financialreport/download/'+$(this).closest('.finanialReportContainer').attr('year')+'/'+$(this).closest('.finanialReportContainer').attr('month')+'/'+account.language+'/'+website.currency, '_blank').focus();
-});
-
-
-$('#financialReports-reportsContainer').on('click','.deleteFinancialReportClass',function(e){
+    if($(this).hasClass('financialReportsArrow_dump')){return;}
+    getFinancialReports(parseInt($('.financialReportsCountContainer').attr('page')) - 1)
+})
+//
+$('html,body').on('click','.delete_financial_report',function(e){
     e.stopImmediatePropagation();
-    $('#delete-popup').find('.popupBody').text('').append(
-        $('<div/>',{}).append(
-            $('<div/>',{class:'fs105 m10',html:texts.financialReports.deleteConfirmMsg+' <b>'+getDateAndTime(new Date($(this).closest('.finanialReportContainer').attr('year'),$(this).closest('.finanialReportContainer').attr('month'),0).toISOString(),'monthAndYear')+'</b> '+texts.financialReports.financialReport+'?'}),
+    let report_id = $(this).closest('.financial_report_container').attr('report');
+    let report = window.financialReports.find(item=>item.id == report_id);
+    let report_date = getDate(Date.parse(new Date(report.year,(parseInt(report.month) - 1),5)) / 1000);
+
+    showPopup('delete-popup',function(){
+        $('.popupBody').append(
+            $('<div/>',{class:'msgBox_orange'}).append(
+                $('<span/>',{class:'ico-warning fs2 mB10'}),
+                $('<span/>',{class:'taC',html:texts.dashboard.deleteFinancialReport_confirmTxt.replace(':date:',`<b>${report_date.month_long.restaurant} ${report_date.year.restaurant}</b>`)})
+            ),
             $('<div/>',{
-                class:'btnContainer',
+                class:'btnContainer mT40',
             }).append(
-                $('<button/>',{class:'btn btn-cancel popupClose',text:texts.cpanel.public.cancel}),
-                $('<button/>',{id:'deletefinancialReport-confirmBtn',reportId:$(this).closest('.finanialReportContainer').attr('reportId'),class:'btn btn-delete'}).append(
+                $('<button/>',{class:'btn btn-cancel popupClose mie-5',text:texts.cpanel.public.cancel}),
+                $('<button/>',{id:'delete_financial_report-confirmBtn',report:report.id,class:'btn btn-delete'}).append(
                     $('<span/>',{class:'btnTxt',text:texts.cpanel.public.delete}),
                     $('<span/>',{class:'btnLoading'})
                 )
             )
         )
-    )
-    showPopup($('#delete-popup'))
+    })
 })
-
-$('html,body').on('click','#deletefinancialReport-confirmBtn',function(e){
+$('html,body').on('click','#delete_financial_report-confirmBtn',function(e){
     e.stopImmediatePropagation();
-    showBtnLoading($('#deletefinancialReport-confirmBtn'))
-    let reportId = $(this).attr('reportId');
+    let report_id = $(this).attr('report');
     $.ajax({
         url:'dashboard',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
-            deleteFinancialReport:reportId,
-        },
-        success:function(response){
-            hideBtnLoading($('#deletefinancialReport-confirmBtn'))
-            if(response.deleteFinancialReportStatus == 1){
-                showAlert('success',response.msg,4000,true);
+            deleteFinancialReport:true,
+            report_id:report_id,
+        },success:function(r){
+            if(r.deleteFinancialReportStatus == 1){
+                getFinancialReports(parseInt($('.financialReportsCountContainer').attr('page')));
                 closePopup();
-                $('.finanialReportContainer[reportId='+reportId+']').remove();
-            }else if(response.deleteFinancialReportStatus == 0){
-                showAlert('error',response.msg,4000,true);
+                showAlert('success',r.msg,4000,true);
+            }else if(r.deleteFinancialReportStatus == 0){
+                showAlert('error',r.msg,4000,true);
             }
         }
     })
 })
 
+$('html,body').on('click','.open_financial_report',function(e){
+    e.stopImmediatePropagation();
+    let report_id = $(this).closest('.financial_report_container').attr('report');
+    let report = window.financialReports.find(item=>item.id == report_id);
+    checkUseenNotifications([80],'financialReport_id',report_id)
+    window.open(`/financialreport/view/${report.year}/${report.month}/${account.language}/${website.currency}`, '_blank').focus();
+});
+
+$('html,body').on('click','.download_financial_report',function(e){
+    e.stopImmediatePropagation();
+    let report_id = $(this).closest('.financial_report_container').attr('report');
+    let report = window.financialReports.find(item=>item.id == report_id);
+    checkUseenNotifications([80],'financialReport_id',report_id)
+    window.open(`/financialreport/download/${report.year}/${report.month}/${account.language}/${website.currency}`, '_blank').focus();
+});
 

@@ -6,6 +6,7 @@ drawPage_incomplete_orders = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.incomplete_orders}),
+                $('<span/>',{class:'ico-help help-icon',helpId:'incomplete_orders'})
             ),
             $('<div/>',{class:'btnContainer mB20'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'place_new_order',text:texts.orders.place_new_order})
@@ -47,7 +48,7 @@ drawPage_incomplete_orders = function(){
                 $('<div/>',{class:'pageTabArrow pageTabArrowRight ico-right'}),
             ),
             $('<div/>',{class:'w100p overflowX-A'}).append(
-                $('<table/>',{class:'mnw800',id:'IncompleteOrdersTable'})
+                $('<table/>',{class:'mnw800',id:'IncompleteOrdersTable',autoHelp:'incomplete_orders_list'})
             )
         )
     )
@@ -84,7 +85,6 @@ drawIncompleteOrdersTable_loading = function(){
 }
 drawIncompleteOrdersTable = function(status_name,order_by,sort){
     if(window.waitFor_loadWebsiteOrdersAndChats){setTimeout(()=>{drawIncompleteOrdersTable(status_name,order_by,sort);},500);return;}
-
     let status = status_name == 'all_orders' ? 'all_orders' : status_name == 'pending' ? '0' : status_name == 'accepted' ? '1' : status_name == 'out_for_delivery' ? '3' : status_name == 'ready_for_pickup' ? '4' : status_name == 'dining_in' ? '8' : null;
     let orders = [];
     let incompleteOrdersTR_placed_at;let incompleteOrdersTR_status;let incompleteOrdersTR_items;let incompleteOrdersTR_customer;let incompleteOrdersTR_price;let incompleteOrdersTR_id; let incompleteOrdersTR_type;
@@ -230,6 +230,12 @@ drawIncompleteOrdersTable = function(status_name,order_by,sort){
             $('<td/>',{}),
         )
     )
+    if( orders.length == 0 ){
+        $('#IncompleteOrdersTable').text('').append(
+            $('<div/>',{class:'m10',text:texts.orders.noOrders})
+        )
+        return;
+    }
     for(const key in orders){
         $('#IncompleteOrdersTable').append(
             drawOrdersTableRow(orders[key])

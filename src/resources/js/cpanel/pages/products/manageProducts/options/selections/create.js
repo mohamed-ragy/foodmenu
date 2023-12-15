@@ -70,7 +70,7 @@ $('html,body').on('click','#createNewSelection_btn',function(e){
                 }
                 closePopup();
                 showAlert('success',r.msg,4000,true)
-                window.guideHints.products(website.products);
+                window.guideHints.products();
             }else if(r.createProductSelectionStatus == 0){
                 inputTextError($('#createSelection_identifier'));
                 showAlert('error',r.msg,4000,true)

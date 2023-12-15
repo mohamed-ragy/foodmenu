@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
             'role' => 1,
         ]);
         $this->call([
-            // demoAccount::class,
-            help_en_tuts::class,
-            // emptyWebsite::class,
+            // help_en_tuts::class,
             demo::class,
+            // tickets::class,
+            // liveChats::class,
         ]);
 
     }

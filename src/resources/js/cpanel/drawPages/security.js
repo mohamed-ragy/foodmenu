@@ -36,7 +36,6 @@ drawPage_email_address = function(){
                                 $('<div>',{class:'btnLoading'})
                             )
                         )
-
                     )
                 )
             ),
@@ -48,11 +47,11 @@ drawPage_email_address = function(){
                         $('<button/>',{class:'btn',id:'account-changeEmailBtn',text:texts.security.changeMyEmail})
                     )
                 )
-
             ),
         )
     )
     resendEmailVerifycodeBtnTimer();
+    email_address_unsave_check();
     checkEmailVerification();
 }
 drawPage_password = function(){
@@ -76,4 +75,56 @@ drawPage_password = function(){
             )
         )
     )
+}
+drawPage_phone_number = function(){
+    $('#pageWrapper').addClass('mxw800')
+    $('#pageWrapper').append(
+        $('<div/>',{
+            class:'pageSection pT10',
+        }).append(
+            $('<div/>',{class:'pageSectionTitle'}).append(
+                $('<span/>',{text:texts.cpanel.menu.phone_number}),
+                $('<span/>',{class:'ico-help help-icon',helpId:''})
+            ),
+            $('<div/>',{class:'pageTabs'}).append(
+                $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
+                $('<div/>',{class:'pageTabsContainer'}).append(
+                    $('<div/>',{tab:'my_phone_number',class:'pageTab pageTab_selected'}).append(
+                        $('<span/>',{tooltip:texts.security.noPhoneNumberTxt,class:'phoneNumber_noSave ico-warning unsaved none mie-5 mis-2 fs1 '}),
+                        $('<span/>',{text:texts.security.phoneNumber})
+                    ),
+                    $('<div/>',{tab:'change_my_phone_number',class:'pageTab'}).append(
+                        $('<span/>',{text:texts.security.changePhone})
+                    ),
+                ),
+                $('<div/>',{class:'pageTabArrow pageTabArrowRight ico-right'}),
+            ),
+            $('<div/>',{class:'pageTabContainer pageTabContainer_selected',tab:'my_phone_number'}).append(
+                $('<div/>',{class:'wFC column alnC jstfyC'}).append(
+                    $('<div/>',{id:'phoneVerificationContainer',class:'mxw500'}),
+                    $('<div/>',{id:'phoneNumberContainer',class:'column alnS jstfyS w100p'})
+                )
+            ),
+            $('<div/>',{class:'pageTabContainer',tab:'change_my_phone_number'}).append(
+                $('<div/>',{class:'wFC'}).append(
+                    $('<div/>',{class:'accountPhoneSelectContainer',id:'accountPhoneSelectContainer-change'}).append(
+                        $('<div/>',{class:'ico-phone_number accountPhoneSelectFlagIcon fs103 mX12'}),
+                        $('<img/>',{class:'accountPhoneSelectFlag none'}),
+                        $('<div/>',{class:'mis-5 fs1 w10',text:'+'}),
+                        $('<input/>',{class:'accountPhoneSelectCountryCode',id:'account-newPhoneCountryCode',type:'number'}),
+                        $('<input/>',{class:'accountPhoneSelectPhoneNumber',id:'account-newPhoneNumber',type:'number'}),
+                        $('<div/>',{class:'accountPhoneSelectKeysListContainer none'})
+                    ),
+                    drawInputText('','ico-password','',texts.security.password,'account-newPhone_password','password',texts.security.password,200,'password','','',false,''),
+                    $('<div/>',{class:'btnContainer'}).append(
+                        $('<button/>',{class:'btn',id:'account-changePhoneBtn',text:texts.security.changeMyPhone})
+                    )
+                )
+            )
+        )
+    )
+    setPhoneNumberPage();
+    phone_number_unsave_check();
+    resendPhoneVerifycodeBtnTimer();
+    getCountriesTimezones();
 }

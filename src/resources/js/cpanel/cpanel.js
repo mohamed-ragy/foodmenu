@@ -63,7 +63,7 @@ require("./drawPages.js");
 require("./functions");
 require("./cpanel/links.js"); //(need to finsih click to take to renew event)
 
-require("./cpanel/guideAlerts.js")
+require("./cpanel/guideAlerts.js");// website switch need to be done -- logo and icon if it will be null after editor
 require("./cpanel/notifications.js");
 require("./cpanel/globalChannel.js");
 require("./cpanel/liveChat.js");//done
@@ -88,12 +88,12 @@ require("./tools/tooltip.js");
 require("./pages/dashboard/home.js");
 require("./pages/dashboard/activityLog.js");
 require("./pages/dashboard/statistics.js");
-require("./pages/dashboard/restaurantExpenses.js");
-require("./pages/dashboard/financialReports.js");
+require("./pages/dashboard/restaurantExpenses.js");//done
+require("./pages/dashboard/financialReports.js");//done
 
-require("./pages/security/email.js");
-require("./pages/security/password.js");
-require("./pages/security/phone.js");
+require("./pages/security/email.js");//done
+require("./pages/security/password.js");//done
+require("./pages/security/phone.js");//done
 
 require("./pages/orders/functions.js");//done
 require("./pages/orders/addItem.js");//done

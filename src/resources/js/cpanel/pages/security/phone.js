@@ -1,17 +1,85 @@
-checkPhoneNumberFirstTime = false;
-checkPhoneNumber = function(){
-    if(!account.is_master){return;}
-    if(account.phone == '' || account.phone == null){
-        $('#security-addPhoneContainer').removeClass('none');
-        $('#security-phoneContainer').addClass('none')
+setPhoneNumberPage = function(){
+    if(account.phone == null){
+        $('.pageTab[tab="change_my_phone_number"]').addClass('none');
+        $('.phoneNumber_noSave').attr('tooltip',texts.security.noPhoneNumberTxt)
+        $('#phoneVerificationContainer').text('').append(
+            $('<div/>',{class:'msgBox_orange mX0 wFC'}).append(
+                $('<div/>',{class:'ico-warning fs2 mB10'}),
+                $('<div/>',{class:'taC',text:texts.security.noPhoneNumberTxt}),
+                $('<div/>',{class:'taC',text:texts.security.noPhoneNumberTxt2})
+            ),
+        );
+        $('#phoneNumberContainer').text('').append(
+            $('<div/>',{class:'accountPhoneSelectContainer',id:'accountPhoneSelectContainer-create'}).append(
+                $('<div/>',{class:'ico-phone_number accountPhoneSelectFlagIcon fs103 mX12'}),
+                $('<img/>',{class:'accountPhoneSelectFlag none'}),
+                $('<div/>',{class:'mis-5 fs1 w10',text:'+'}),
+                $('<input/>',{class:'accountPhoneSelectCountryCode',id:'account-phoneCountryCode',type:'number'}),
+                $('<input/>',{class:'accountPhoneSelectPhoneNumber',id:'account-phoneNumber',type:'number'}),
+                $('<div/>',{class:'accountPhoneSelectKeysListContainer none'})
+            ),
+            $('<div/>',{class:'btnContainer'}).append(
+                $('<button/>',{class:'btn',id:'account-createPhoneBtn'}).append(
+                    $('<div/>',{class:'btnTxt',text:texts.security.addPhone}),
+                    $('<div/>',{class:'btnLoading'})
+                )
+            )
+        )
     }else{
-        $('#security-addPhoneContainer').addClass('none');
-        $('#security-phoneContainer').removeClass('none')
+        if(account.phone_verified_at == null){
+            $('#phoneVerificationContainer').text('').append(
+                $('<div/>',{class:'msgBox_orange mX0 wFC'}).append(
+                    $('<span/>',{class:'ico-warning fs2 mB10'}),
+                    $('<span/>',{class:'taC',text:texts.security.phoneNotVerified})
+                ),
+            )
+            $('#phoneNumberContainer').text('').append(
+                drawInputText('','ico-phone_number','',texts.security.phoneNumber,'account-phone','text',texts.security.phoneNumber,200,'copy','',account.phone,true,''),
+                $('<div/>',{class:'area mT40 wFC'}).append(
+                    $('<div/>',{class:'areaTitle',text:texts.security.phoneVerification}),
+                    drawInputText('','ico-phone_number','',texts.security.phoneVerificationCode,'account-phoneVerificationCode','text',texts.security.phoneVerificationCode,200,'clearVal','','',false,''),
+                    $('<div/>',{class:'btnContainer'}).append(
+                        $('<button/>',{class:'btn btn-cancel mie-10',id:'security-resendPhoneVerifycode',text:texts.security.resendCode}),
+                        $('<button/>',{class:'btn',id:'security-verifyPhone-btn'}).append(
+                            $('<div/>',{class:'btnTxt',text:texts.security.verify}),
+                            $('<div>',{class:'btnLoading'})
+                        )
+                    )
+                )
+
+            )
+        }else{
+            $('#phoneVerificationContainer').text('').append(
+                $('<div/>',{class:'msgBox_green mX0 wFC'}).append(
+                    $('<span/>',{class:'ico-success fs2 mB10'}),
+                    $('<span/>',{class:'taC',text:texts.security.phoneVerified})
+                ),
+            )
+            $('#phoneNumberContainer').text('').append(
+                drawInputText('','ico-phone_number','',texts.security.phoneNumber,'account-phone','text',texts.security.phoneNumber,200,'copy','',account.phone,true,''),
+            )
+        }
+        $('.pageTab[tab="change_my_phone_number"]').removeClass('none');
+        $('.phoneNumber_noSave').attr('tooltip',texts.security.phoneNumberNoVerifyTxt);
     }
-    window.guideHints.phoneRegister(checkPhoneNumberFirstTime);
-    window.guideHints.phoneVerification(checkPhoneNumberFirstTime);
-    !checkPhoneNumberFirstTime ? checkPhoneNumberFirstTime = true : null;
+    window.guideHints.phoneRegister();
+    window.guideHints.phoneVerification();
 }
+phoneNumberVerification_NoSave = function(){
+    if(account.phone == null){
+        $('.phoneNumber_noSave').removeClass('none');
+        return false;
+    }else{
+        if(account.phone_verified_at == null){
+            $('.phoneNumber_noSave').removeClass('none');
+            return false;
+        }else{
+            $('.phoneNumber_noSave').addClass('none');
+            return true;
+        }
+    }
+}
+phone_number_unsave_check();
 getBrowserDialCode = function(){
     let browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     let browserDialCode;
@@ -27,7 +95,7 @@ getBrowserDialCode = function(){
     $('.accountPhoneSelectKeysListContainer').text('');
     for(const key in window.countries){
         $('.accountPhoneSelectKeysListContainer').append(
-            $('<div/>',{class:'row alnC jstfySB p5 pointer hvr-bg2 accountPhoneSelectKeysElem accountPhoneSelectKeysElem-'+window.countries[key].code,key:window.countries[key].code}).append(
+            $('<div/>',{class:'accountPhoneSelectKeysElem accountPhoneSelectKeysElem-'+window.countries[key].code,key:window.countries[key].code}).append(
                 $('<img/>',{class:'w20 h20 br50p ofCover',src:`./storage/imgs/flags/${window.countries[key].code}.png`}),
                 $('<div/>',{class:'mis-5',text:window.countries[key].dialCode})
             )
@@ -39,38 +107,9 @@ getBrowserDialCode = function(){
         }
     }
 }
-checkPhoneVerificationFirstTime = false;
-
-checkPhoneVerification = function(){
-    if(!account.is_master){return;}
-    account.phone_verified_at == null ? $('#security-phoneVerified').addClass('none') : $('#security-phoneVerified').removeClass('none')
-    account.phone_verified_at == null ? $('#security-phoneNotVerified').removeClass('none') : $('#security-phoneNotVerified').addClass('none')
-    window.guideHints.phoneVerification(checkPhoneVerificationFirstTime);
-    !checkPhoneVerificationFirstTime ? checkPhoneVerificationFirstTime = true : null;
-}
-let PhoneVerificationResendTimer;
-checkPhoneVerificationResend = function(){
-    if(!account.is_master){return;}
-    $('#security-resendVerifyPhone-btn').prop('disabled',true)
-    clearInterval(PhoneVerificationResendTimer);
-    PhoneVerificationResendTimer = setInterval(function(){
-        let lastVerficationSendAt_e = new Date(account.phone_verification_code_sent_at).toLocaleString();
-        let lastVerficationSendAtUnformated_e = Date.parse(lastVerficationSendAt_e) + 600000;
-        if((Date.parse(new Date().toLocaleString('en-US', { timeZone: 'UTC' })) ) < lastVerficationSendAtUnformated_e){
-            timeLeft_e = lastVerficationSendAtUnformated_e  - (Date.parse(new Date().toLocaleString('en-US', { timeZone: 'UTC' })) );
-            minuts_e = (timeLeft_e / 60000);
-            mins_e = ('0' + Math.floor(minuts_e).toFixed(0)).slice(-2);
-            seconds_e = ('0' + Math.floor((((timeLeft_e - minuts_e)/1000)+1) %60).toFixed(0)).slice(-2);
-            $('#security-resendVerifyPhone-btn').prop('disabled',true).find('.btnTxt').text(`${texts.security.resendCode2} ${mins_e}:${seconds_e}`)
-        }else{
-            clearInterval(PhoneVerificationResendTimer);
-            $('#security-resendVerifyPhone-btn').prop('disabled',false).find('.btnTxt').text(texts.security.resendCode)
-        }
-
-    },1000);
-}
-///////////
-$('.accountPhoneSelectCountryCode').on('focus select click',function(){
+// ///////////
+$('html,body').on('focus select click','.accountPhoneSelectCountryCode',function(e){
+    e.stopImmediatePropagation();
     $('.accountPhoneSelectKeysListContainer').scrollTop(0).removeClass('none').css({
         'left':$(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlag').position().left
     })
@@ -79,7 +118,8 @@ $('html,body').on('click',function(){
     if($('.accountPhoneSelectKeysListContainer:hover').length > 0 || $('.accountPhoneSelectCountryCode:hover').length > 0){return}
     $('.accountPhoneSelectKeysListContainer').addClass('none')
 })
-$('html,body').on('click','.accountPhoneSelectKeysElem',function(){
+$('html,body').on('click','.accountPhoneSelectKeysElem',function(e){
+    e.stopImmediatePropagation();
     $(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlag').addClass('none').attr('src',null)
     $(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlagIcon').removeClass('none');
     for(const key in window.countries){
@@ -91,7 +131,8 @@ $('html,body').on('click','.accountPhoneSelectKeysElem',function(){
         }
     }
 })
-$('.accountPhoneSelectCountryCode').on('input change',function(){
+$('html,body').on('input change','.accountPhoneSelectCountryCode',function(e){
+    e.stopImmediatePropagation();
     $(this).val($(this).val().replace(/[^0-9]/g, ''));
     let codeVal = null;
     $('.accountPhoneSelectKeysElem').addClass('none');
@@ -111,26 +152,13 @@ $('.accountPhoneSelectCountryCode').on('input change',function(){
         $(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlagIcon').addClass('none');
     }
 })
-$('#security-createPhone-btn').on('click',function(){
-    $('#security-createPhone-PhoneNumber').text(`+${$('#accountPhoneSelectContainer-create').find('.accountPhoneSelectCountryCode').val()}${$('#accountPhoneSelectContainer-create').find('.accountPhoneSelectPhoneNumber').val()}`)
-    showPopup($('#createPhone-popup'))
-})
-$('#security-createPhone-confirm').on('click',function(){
-    if($('#accountPhoneSelectContainer-create').find('.accountPhoneSelectCountryCode').val() == ''){
-        showAlert('error',texts.security.phoneRequired,4000,true)
-        closePopup();
-        $('#accountPhoneSelectContainer-create').find('.accountPhoneSelectCountryCode').select();
-        return;
-    }
-    if($('#accountPhoneSelectContainer-create').find('.accountPhoneSelectPhoneNumber').val() == ''){
-        showAlert('error',texts.security.phoneRequired,4000,true)
-        closePopup();
-        $('#accountPhoneSelectContainer-create').find('.accountPhoneSelectPhoneNumber').select();
-        return;
-    }
-    showBtnLoading($('#security-createPhone-btn'))
-    showBtnLoading($('#security-createPhone-confirm'))
-    let phoneNumber = `+${$('#accountPhoneSelectContainer-create').find('.accountPhoneSelectCountryCode').val()}${$('#accountPhoneSelectContainer-create').find('.accountPhoneSelectPhoneNumber').val()}`;
+///////
+$('html,body').on('click','#account-createPhoneBtn',function(e){
+    e.stopImmediatePropagation();
+    if($('#account-phoneCountryCode').val() == '' || $('#account-phoneNumber').val() == ''){return;}
+    showBtnLoading($('#account-createPhoneBtn'))
+    let phoneNumber = `+${$('#account-phoneCountryCode').val()}${$('#account-phoneNumber').val()}`;
+
     $.ajax({
         url:'security',
         type:'put',
@@ -138,28 +166,65 @@ $('#security-createPhone-confirm').on('click',function(){
             _token:$('meta[name="csrf-token"]').attr('content'),
             createPhone:phoneNumber,
         },success:function(r){
-            hideBtnLoading($('#security-createPhone-btn'))
-            hideBtnLoading($('#security-createPhone-confirm'))
-            closePopup();
+            hideBtnLoading($('#account-createPhoneBtn'))
             if (r.createPhoneStatus == 0){
                 showAlert('error',r.errors.createPhone[0],6000,true);
-                $('#accountPhoneSelectContainer-create').find('.accountPhoneSelectPhoneNumber').select();
             }else if (r.createPhoneStatus == 2){
                 showAlert('error',r.msg,6000,true);
             }else if (r.createPhoneStatus == 1){
                 showAlert('success',r.msg,6000,true);
                 account.phone = phoneNumber;
                 account.phone_verified_at = null;
-                account.phone_verification_code_sent_at = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-                checkPhoneNumber();
-                $('#security-phone').val(phoneNumber)
+                account.phone_verification_code_sent_at = r.now;
+                setPhoneNumberPage();
             }
         }
     })
 })
-//////////////////////////
-$('#security-resendVerifyPhone-btn').on('click',function(){
-    showBtnLoading($('#security-resendVerifyPhone-btn'))
+//////
+$('html,body').on('click','#security-verifyPhone-btn',function(e){
+    e.stopImmediatePropagation();
+    showBtnLoading($('#security-verifyPhone-btn'))
+    $.ajax({
+        url:'security',
+        type:'put',
+        data:{
+            _token:$('meta[name="csrf-token"]').attr('content'),
+            verifyPhone:$('#account-phoneVerificationCode').val(),
+        },success:function(r){
+            hideBtnLoading($('#security-verifyPhone-btn'))
+            if(r.phoneVerifyStats == 1){
+                account.phone_verified_at = r.phone_verified_at
+                setPhoneNumberPage();
+                phone_number_unsave_check();
+                showAlert('success',r.msg,4000,true);
+                $('#account-phoneVerificationCode').val('')
+            }else if(r.phoneVerifyStats == 0){
+                showAlert('error',r.msg,4000,true);
+            }
+        }
+    })
+});
+/////////////////////////////////////////
+////this interval in the difftime file///
+/////////////////////////////////////////
+resendPhoneVerifycodeBtnTimer = function(){
+    let phone_verification_code_sent_at = account.phone_verification_code_sent_at == null ? 0 + (60*10*1000) : account.phone_verification_code_sent_at *1000 ;
+    if(Date.parse(new Date()) < parseInt(phone_verification_code_sent_at) + 600000){
+        $('#security-resendPhoneVerifycode').prop('disabled',true)
+        let seconds_total = ((parseInt(phone_verification_code_sent_at)  + 600000) - Date.parse(new Date()))/ 1000;
+        let minutes = Math.floor(seconds_total / 60);
+        let seconds = seconds_total - minutes * 60;
+
+        $('#security-resendPhoneVerifycode').text(texts.security.resendCode2.replace(':time:',`${minutes.toLocaleString(account.language, {minimumIntegerDigits: 2,useGrouping: false})}:${seconds.toLocaleString(account.language, {minimumIntegerDigits: 2,useGrouping: false})}`))
+    }else{
+        $('#security-resendPhoneVerifycode').prop('disabled',false)
+        $('#security-resendPhoneVerifycode').text(texts.security.resendCode)
+    }
+}
+$('html,body').on('click','#security-resendPhoneVerifycode',function(e){
+    e.stopImmediatePropagation();
+    showBtnLoading($('#security-resendPhoneVerifycode'))
     $.ajax({
         url:'security',
         type:'put',
@@ -167,10 +232,10 @@ $('#security-resendVerifyPhone-btn').on('click',function(){
             _token:$('meta[name="csrf-token"]').attr('content'),
             verifyPhoneResendCode:true,
         },success:function(r){
-            hideBtnLoading($('#security-resendVerifyPhone-btn'))
+            hideBtnLoading($('#security-resendPhoneVerifycode'))
             if(r.verifyPhoneResendCodeStats == 1){
-                account.phone_verification_code_sent_at = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-                checkPhoneVerificationResend();
+                account.phone_verification_code_sent_at = r.now
+                resendPhoneVerifycodeBtnTimer();
                 showAlert('success',r.msg,4000,true);
             }else if(r.verifyPhoneResendCodeStats == 0){
                 showAlert('error',r.msg,4000,true);
@@ -178,38 +243,33 @@ $('#security-resendVerifyPhone-btn').on('click',function(){
         }
     })
 });
-$('#security-verifyPhone-btn').on('click',function(){
-    showBtnLoading($('#security-verifyPhone-btn'))
-    $.ajax({
-        url:'security',
-        type:'put',
-        data:{
-            _token:$('meta[name="csrf-token"]').attr('content'),
-            verifyPhone:$('#security-verifyPhone').val(),
-        },success:function(r){
-            hideBtnLoading($('#security-verifyPhone-btn'))
-            if(r.phoneVerifyStats == 1){
-                account.phone_verification_code = null;
-                account.phone_verified_at = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-                checkPhoneVerification();
-                showAlert('success',r.msg,4000,true);
-                $('#security-verifyPhone').val('')
-            }else if(r.phoneVerifyStats == 0){
-                showAlert('error',r.msg,4000,true);
-            }
-        }
+
+$('html,body').on('click','#account-changePhoneBtn',function(e){
+    e.stopImmediatePropagation();
+    if($('#account-newPhone').val() == '' || $('#account-newPhone_password').val() == ''){return;}
+    showPopup('changePhoneConfirm',function(){
+        let newPhone = `+${$('#account-newPhoneCountryCode').val()}${$('#account-newPhoneNumber').val()}`;
+        $('.popupBody').append(
+            $('<div/>',{class:'msgBox_orange mxw400'}).append(
+                $('<span/>',{class:'ico-warning fs2 mB10'}),
+                $('<span/>',{class:'taC',html:texts.security.changePhoneConfirmText.replace(':oldPhone:',`<B>${account.phone}</B>`).replace(':newPhone:',`<b>${newPhone}</b>`)})
+            ),
+            $('<div/>',{class:'btnContainer'}).append(
+                $('<button/>',{class:'btn btn-cancel popupClose mie-5',text:texts.cpanel.public.cancel}),
+                $('<button/>',{class:'btn',id:'account-newPhoneBtn-confirm'}).append(
+                    $('<div/>',{class:'btnLoading'}),
+                    $('<div/>',{class:'btnTxt',text:texts.cpanel.public.yes})
+                )
+            )
+        )
     })
 });
-/////////////////////////
-$('#security-changePhone-btn').on('click',function(){
-    $('#changePhonePopup-phone').text(`+${$('#accountPhoneSelectContainer-change').find('.accountPhoneSelectCountryCode').val()}${$('#accountPhoneSelectContainer-change').find('.accountPhoneSelectPhoneNumber').val()}?`)
-    showPopup($('#changePhone-popup'));
-});
-$('#security-changePhone-confirm').on('click',function(){
-    showBtnLoading($('#security-changePhone-btn'));
-    showBtnLoading($('#security-changePhone-confirm'));
-    let newPhone = `+${$('#accountPhoneSelectContainer-change').find('.accountPhoneSelectCountryCode').val()}${$('#accountPhoneSelectContainer-change').find('.accountPhoneSelectPhoneNumber').val()}`;
-    let password = $('#security-changePhone-password').val();
+$('html,body').on('click','#account-newPhoneBtn-confirm',function(e){
+    e.stopImmediatePropagation();
+    showBtnLoading($('#account-newPhoneBtn-confirm'));
+    showBtnLoading($('#account-newPhoneBtn'));
+    let newPhone = `+${$('#account-newPhoneCountryCode').val()}${$('#account-newPhoneNumber').val()}`;
+    let password = $('#account-newPhone_password').val();
     $.ajax({
         url:'security',
         type:'put',
@@ -219,40 +279,33 @@ $('#security-changePhone-confirm').on('click',function(){
             newPhone:newPhone,
             password:password,
         },success:function(r){
-            hideBtnLoading($('#security-changePhone-btn'))
-            hideBtnLoading($('#security-changePhone-confirm'))
+            hideBtnLoading($('#account-newPhoneBtn-confirm'));
+            hideBtnLoading($('#account-newPhoneBtn'));
             closePopup();
             if(r.newPhoneStats == 1){
                 account.phone = newPhone;
                 account.phone_verified_at = null;
-                account.phone_verification_code_sent_at = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-                checkPhoneVerificationResend();
-                checkPhoneVerification();
-                $('#security-phone').val(newPhone)
-                $('#security-verifyPhone').val('')
-                $('#accountPhoneSelectContainer-change').find('.accountPhoneSelectPhoneNumber').val('');
-                $('#security-changePhone-password').val('');
+                account.phone_verification_code_sent_at = r.now;
+                phone_number_unsave_check();
+                setPhoneNumberPage();
+                $('#account-newPhoneNumber').val('');
+                $('#account-newPhone_password').val('');
                 showAlert('success',r.msg,4000,true);
             }else if(r.newPhoneStats == 0){
                 showAlert('error',r.errors.newPhone[0],4000,true);
-                $('#security-changePhone-password').val('');
-                inputTextError($('#accountPhoneSelectContainer-change').find('.accountPhoneSelectPhoneNumber'))
+                $('#account-newPhone_password').val('');
+                inputTextError($('#security-newPhone'))
             }else if(r.newPhoneStats == 2){
-                $('#security-changePhone-password').val('');
+                $('#account-newPhone_password').val('');
                 showAlert('error',r.msg,4000,true);
             }else if(r.newPhoneStats == 3){
-                inputTextError($('#security-changePhone-password'))
-                $('#security-changePhone-password').val('');
+                inputTextError($('#account-newPhone_password'))
+                $('#account-newPhone_password').val('');
                 showAlert('error',r.msg,4000,true);
             }else if(r.newPhoneStats == 4){
-                $('#security-changePhone-password').val('');
+                $('#account-newPhone_password').val('');
                 showAlert('error',r.msg,4000,true);
             }
         }
     })
 })
-
-////////////////////////////////
-checkPhoneNumber();
-checkPhoneVerification();
-checkPhoneVerificationResend();

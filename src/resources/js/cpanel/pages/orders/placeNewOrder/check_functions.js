@@ -50,14 +50,14 @@ calcPlaceOrderReceipt = function(){
     return {
         orderType:orderType,
         discount:window.placeOrder.discount,
-        discount_itemsTotal:parseFloat(discount_itemsTotal).toFixed(2),
-        itemsTotal:itemsTotal.toFixed(2),
-        taxPercent:taxPercent.toFixed(2),
-        tax:tax.toFixed(2),
-        servicePercent:servicePercent.toFixed(2),
-        service:service.toFixed(2),
-        deliveryCost:deliveryCost.toFixed(2),
-        total:parseFloat(total).toFixed(2),
+        discount_itemsTotal:parseFloat(discount_itemsTotal),
+        itemsTotal:parseFloat(itemsTotal),
+        taxPercent:parseFloat(taxPercent),
+        tax:parseFloat(tax),
+        servicePercent:parseFloat(servicePercent),
+        service:parseFloat(service),
+        deliveryCost:parseFloat(deliveryCost),
+        total:parseFloat(total),
     }
 }
 drawPlaceOrderCheck = function(){
@@ -76,38 +76,42 @@ drawPlaceOrderCheck = function(){
     }
     ////subtotal
     let subTotalElem_text = $('<div/>',{class:'fs09',text:texts.orders.subTotal});
-    let subTotalElem = $('<div/>',{class:'fs09',text:receipt.discount_itemsTotal});
+    let subTotalElem = $('<div/>',{class:'fs09',text:bigFloat(receipt.discount_itemsTotal)});
     if(receipt.discount > 0){
         subTotalElem = $('<div/>',{class:'column alnE jstfyS'}).append(
-            $('<div/>',{class:'lThrough',text:receipt.itemsTotal}),
-            $('<div/>',{class:'',text:receipt.discount_itemsTotal}),
+            $('<div/>',{class:'lThrough',text:bigFloat(receipt.itemsTotal)}),
+            $('<div/>',{class:'',text:bigFloat(receipt.discount_itemsTotal)}),
         );
     }
     ////tax
     let taxElem_text = $('<div/>',{class:'fs09',text:texts.orders.tax});
-    let taxElem = $('<div/>',{class:'fs09',text:receipt.tax});
+    let taxElem = $('<div/>',{class:'fs09',text:bigFloat(receipt.tax)});
     if(receipt.taxPercent > 0){
         taxElem_text = $('<div/>').append(
             $('<span/>',{class:'fs09 mie-3',text:texts.orders.tax}),
-            $('<span/>',{class:'fs07',text:`${receipt.taxPercent}%`}),
+            $('<span/>',{class:'fs07',text:`${bigFloat(receipt.taxPercent)}%`}),
         );
     }
     ////service
     let serviceElem_text = $('<div/>',{class:'fs09',text:texts.orders.service});
-    let serviceElem = $('<div/>',{class:'fs09',text:receipt.service});
+    let serviceElem = $('<div/>',{class:'fs09',text:bigFloat(receipt.service)});
     if(receipt.servicePercent > 0){
         serviceElem_text = $('<div/>').append(
             $('<span/>',{class:'fs09 mie-3',text:texts.orders.service}),
-            $('<span/>',{class:'fs07',text:`${receipt.servicePercent}%`}),
+            $('<span/>',{class:'fs07',text:`${bigFloat(receipt.servicePercent)}%`}),
         );
     }
     $('#placeOrder-receipt').text('').append(
+        $('<div/>',{class:'areaTitle',text:texts.orders.orderReceipt}),
         happyHourElem,
         $('<div/>',{class:'placeOrder-receiptElem'}).append(
             $('<div/>',{class:'fs09',text:texts.orders.discount}),
             $('<div/>',{class:'numberPickerControls mB5 mX5'}).append(
                 $('<span/>',{class:'numberPickerArrow fs08 ico-left',id:'placeOrder-discountD'}),
-                $('<span/>',{class:'numberPickerValue fs08 wFC mnw50',id:'placeOrder-discount',text:receipt.discount}),
+                $('<span/>',{class:'numberPickerValue fs08 wFC mnw50'}).append(
+                    $('<span/>',{class:'',id:'placeOrder-discount',text:bigFloat(receipt.discount)}),
+                    $('<span/>',{class:'',text:'%'})
+                ),
                 $('<span/>',{class:'numberPickerArrow fs08 ico-right',id:'placeOrder-discountU'}),
             ),
         ),
@@ -126,13 +130,13 @@ drawPlaceOrderCheck = function(){
         $('<div/>',{class:`placeOrder-receiptElem ${receipt.deliveryCost == 0 ? 'none' : null}`}).append(
             $('<div/>',{class:'fs09',text:texts.orders.deliveryCost}),
             $('<div/>',{class:'row alnC jstfyE'}).append(
-                $('<input/>',{class:'taE ordersReceipt_deliveryCost',id:'placeOrder-deliveryCost',value:receipt.deliveryCost}),
+                $('<input/>',{class:'taE ordersReceipt_deliveryCost',id:'placeOrder-deliveryCost',value:bigFloat(receipt.deliveryCost)}),
                 $('<div/>',{class:'ico-edit pointer fs09 mis-5',type:'number',id:'placeOrder-editDeliveryCost'})
             )
         ),
         $('<div/>',{class:'placeOrder-receiptElem'}).append(
             $('<div/>',{class:'fs09',text:texts.orders.total}),
-            $('<div/>',{class:'fs09',text:`${website.currency}${receipt.total}`}),
+            $('<div/>',{class:'fs09',text:`${website.currency}${bigFloat(receipt.total)}`}),
         ),
     )
 }

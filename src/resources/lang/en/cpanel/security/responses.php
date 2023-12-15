@@ -2,8 +2,8 @@
 return [
     'emailVerified' => 'Your email has been verified successfully.',
     'wrongVerificationCode' => 'You have entered a wrong verification code.',
-    'emailVerificationCodeTryTomorrow' => 'This service has been temporarily blocked because many verification codes have been requested. Please try again later.',
-    'emailVerificationCodeWait' => 'Please wait until the timer runs out.',
+    'verificationCodeTryTomorrow' => 'This service has been temporarily blocked because many verification codes have been requested. Please try again later.',
+    'verificationCodeWait' => 'Please wait until the timer runs out.',
     'emailVirifyCodeResent' => 'The email verification code has been sent successfully.',
     'responseError' => 'Something went wrong; please try again.',
     'changeEmailPhoneChanged3daysBefore' => 'Failed to change your email. Please try again later.',
@@ -23,4 +23,15 @@ return [
     'newPasswordRegex' => 'The new password must contain at least a lowercase letter, an uppercase letter, and a number.',
     'newPasswordSame' => 'The password you just entered doesn’t match the new password you created.',
     'passwordChanged' => 'Your password has been changed successfully.',
+    'passwordChangeMaxNum' => "You have just changed your password. Try again later.",
+    ///
+    'phoneRequired' => 'Please enter a valid phone number.',
+    'phoneRegex' => 'The phone number you entered is incorrect.',
+    'newPhoneUnique' => 'This phone number is already in use on another existing account.',
+    'newPhoneCreated' => 'Your phone number has been added to your account successfully.',
+    'phoneVerified' => 'Your phone number has been verified successfully.',
+    'phoneVirifyCodeResent' => 'The phone number verification code has been sent successfully.',
+    'changePhoneEmailChanged3daysBefore' => 'Failed to change your phone number. Please try again later.',
+    'phoneChangeMaxNum' => "You have just changed your phone number; please try again later.",
+    'newPhoneChanged' => 'Your phone number has been changed successfully. A Verification code has been sent to your new phone number via SMS.',
 ];

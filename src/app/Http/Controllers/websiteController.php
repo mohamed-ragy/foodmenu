@@ -388,8 +388,8 @@ class websiteController extends Controller
     {
         $validation = Validator::make($request->all(),[
             'email'=>'required|email',
-            'name'=>'required|min:5|max:20',
-            'password' => 'required|min:8|max:20',
+            'name'=>'required|min:5|max:100',
+            'password' => 'required|min:8|max:100',
             'phoneNumber' => 'required|regex:/^[+0-9]+$/|min:5|',
             'address' => 'required',
         ],[
@@ -521,7 +521,7 @@ class websiteController extends Controller
                 }else{
 
                     $validation = Validator::make($request->all(),[
-                        'newPassword' => 'required|min:8|max:20',
+                        'newPassword' => 'required|min:8|max:100',
                     ],[
                         'newPassword.required' => 'passwordRequired' ,
                         'newPassword.min' => 'passwordMin' ,
@@ -559,7 +559,7 @@ class websiteController extends Controller
                     return response(['saveProfileStatus'=>1]);
                 }
             $validate = Validator::make($request->all(),[
-                'name'=>'required|min:5|max:20',
+                'name'=>'required|min:5|max:100',
                 'phoneNumber' => 'required|regex:/^[+0-9]+$/|min:5',
                 'address' => 'required',
             ],[
@@ -640,7 +640,7 @@ class websiteController extends Controller
         }
         else if($request->has(['changePassword'])){
             $validation = Validator::make($request->all(),[
-                'newPassword' => 'required|min:8|max:20',
+                'newPassword' => 'required|min:8|max:100',
             ],[
                 'newPassword.required' => 'passwordRequired',
                 'newPassword.min' => 'passwordMin',

@@ -101,10 +101,10 @@ body{
 @import 'pages/dashboard/home';
 @import 'pages/dashboard/activityLog';
 @import 'pages/dashboard/statistics';
-@import 'pages/dashboard/restaurantExpenses';
-@import 'pages/dashboard/financialReports';
+@import 'pages/dashboard/restaurantExpenses';//done
+@import 'pages/dashboard/financialReports';//done
 
-@import 'pages/security/phoneNumber';
+@import 'pages/security/phoneNumber';//done
 
 
 @import 'pages/orders/placeOrder.scss';//done
@@ -334,7 +334,7 @@ td{
 
 ///
 .cardLoading{
-    background: linear-gradient(-90deg,  var(--shdw-5), var(--shdw-10));
+    background: linear-gradient(-90deg,  var(--shdw-5), var(--shdw-20));
     background-size: 400% 400%;
     animation: cardLoadingAnimation 2s ease-in-out infinite;
     position: relative;
@@ -425,7 +425,9 @@ td{
     color:var(--orange-txt) !important;
 }
 /////////////
-
+.highlightElem{color:var(--orange-50) !important;background-color: var(--orange-10) !important;transition-duration: 500ms}
+.highlightElem::placeholder{color: var(--orange-50) !important;}
+//////
 @import 'tools/icons';
 @import '../style/style.scss';
 

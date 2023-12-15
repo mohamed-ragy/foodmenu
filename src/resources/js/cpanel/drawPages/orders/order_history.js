@@ -6,59 +6,62 @@ drawPage_order_history = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.order_history}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'order_history'})
             ),
             $('<div/>',{class:'w100p mT40'}).append(
-                $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.orderNumber}),
-                $('<div/>',{class:'row wrap alnC jstfyS'}).append(
-                    drawInputText('','ico-hashtag','',texts.orders.orderNumber,'orderHistory-orderNumber','number',texts.orders.orderNumber,200,'clearVal','','',false,'')
-                ),
-                $('<div/>',{class:'orderHistoryFiltersContainer'}).append(
-                    $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.orderStatus}),
+                $('<div/>',{class:'',autoHelp:'find_orders'}).append(
+                    $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.orderNumber}),
                     $('<div/>',{class:'row wrap alnC jstfyS'}).append(
-                        $('<div/>',{orderHistoryStatusBy:'dinedIn',class:'orderHistoryStatusBy pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.orders.dinedIn}),
+                        drawInputText('','ico-hashtag','',texts.orders.orderNumber,'orderHistory-orderNumber','number',texts.orders.orderNumber,200,'clearVal','','',false,'')
+                    ),
+                    $('<div/>',{class:'orderHistoryFiltersContainer'}).append(
+                        $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.orderStatus}),
+                        $('<div/>',{class:'row wrap alnC jstfyS'}).append(
+                            $('<div/>',{orderHistoryStatusBy:'dinedIn',class:'orderHistoryStatusBy pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.orders.dinedIn}),
+                            ),
+                            $('<div/>',{orderHistoryStatusBy:'pickedUp',class:'orderHistoryStatusBy pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.orders.pickedUp}),
+                            ),
+                            $('<div/>',{orderHistoryStatusBy:'delivered',class:'orderHistoryStatusBy pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.orders.delivered}),
+                            ),
+                            $('<div/>',{orderHistoryStatusBy:'canceled',class:'orderHistoryStatusBy pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.orders.canceled}),
+                            ),
                         ),
-                        $('<div/>',{orderHistoryStatusBy:'pickedUp',class:'orderHistoryStatusBy pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.orders.pickedUp}),
+                        $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.placedFor}),
+                        $('<div/>',{class:'row wrap alnC jstfyS'}).append(
+                            $('<div/>',{orderHistoryFor:'users',class:'orderHistoryFor pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryForCheck ico-check1 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.cpanel.public.users}),
+                            ),
+                            $('<div/>',{orderHistoryFor:'guests',class:'orderHistoryFor pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryForCheck ico-check1 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.cpanel.public.guests}),
+                            ),
+                            $('<div/>',{orderHistoryFor:'user',class:'orderHistoryFor pointer mX20'}).append(
+                                $('<span/>',{class:'orderHistoryForCheck ico-check0 mie-5 fs08'}),
+                                $('<span/>',{class:'fs09',text:texts.cpanel.public.user}),
+                            ),
                         ),
-                        $('<div/>',{orderHistoryStatusBy:'delivered',class:'orderHistoryStatusBy pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.orders.delivered}),
-                        ),
-                        $('<div/>',{orderHistoryStatusBy:'canceled',class:'orderHistoryStatusBy pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.orders.canceled}),
+                        $('<div/>',{class:'orderHistoryFor_findUserContainer none'}).append(
+                            drawInputList('','ico-users','',texts.users.findUser,'orderHistoryFor_findUser',texts.users.findUserPlaceholder,250,'orderHistoryFor_findUserList',false,'mX10','findUserList','findUser'),
                         ),
                     ),
-                    $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.placedFor}),
-                    $('<div/>',{class:'row wrap alnC jstfyS'}).append(
-                        $('<div/>',{orderHistoryFor:'users',class:'orderHistoryFor pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryForCheck ico-check1 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.cpanel.public.users}),
-                        ),
-                        $('<div/>',{orderHistoryFor:'guests',class:'orderHistoryFor pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryForCheck ico-check1 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.cpanel.public.guests}),
-                        ),
-                        $('<div/>',{orderHistoryFor:'user',class:'orderHistoryFor pointer mX20'}).append(
-                            $('<span/>',{class:'orderHistoryForCheck ico-check0 mie-5 fs08'}),
-                            $('<span/>',{class:'fs09',text:texts.cpanel.public.user}),
-                        ),
-                    ),
-                    $('<div/>',{class:'orderHistoryFor_findUserContainer none'}).append(
-                        drawInputList('','ico-users','',texts.users.findUser,'orderHistoryFor_findUser',texts.users.findUserPlaceholder,250,'orderHistoryFor_findUserList',false,'mX10','findUserList','findUser'),
+                    $('<a/>',{class:'orderHistoryMoreFiltersSwitch mT10 block fs08',text:texts.products.moreFilters}),
+                    $('<div/>',{class:'btnContainer mT20'}).append(
+                        $('<button/>',{class:'btn',id:'orderHistory_findOrdersBtn'}).append(
+                            $('<div/>',{class:'btnLoading'}),
+                            $('<div/>',{class:'btnTxt',text:texts.orders.findOrders})
+                        )
                     ),
                 ),
-                $('<a/>',{class:'orderHistoryMoreFiltersSwitch mT10 block fs08',text:texts.products.moreFilters}),
-                $('<div/>',{class:'btnContainer mT20'}).append(
-                    $('<button/>',{class:'btn',id:'orderHistory_findOrdersBtn'}).append(
-                        $('<div/>',{class:'btnLoading'}),
-                        $('<div/>',{class:'btnTxt',text:texts.orders.findOrders})
-                    )
-                ),
+
                 $('<div/>',{class:'w100p mT50 mB10 row alnC jstfyE',id:'orderHistoryTableArrowsContainer'}).append(
                     $('<div/>',{class:'orderHistoryCountContainer'}),
                     $('<div/>',{class:'orderHistoryPrev orderHistoryArrow_dump ico-left',tooltip:texts.cpanel.public.previous}),

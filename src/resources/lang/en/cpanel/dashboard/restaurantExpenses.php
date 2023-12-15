@@ -3,24 +3,12 @@ return [
 
     ////////////////////tools////////////////
     'title' => 'Restaurant Expenses',
-    'fixedExpenses' => 'Monthly Fixed Expenses',
-    'monthExpenses' => 'Current Month Variable Expenses',
-    'addNewExpenses' => 'Add New Expenses',
-    'expensesName' => 'Expense name',
-    'expensesAmount' => 'Expense Amount',
+
     'fixedExpensesList' => 'Fixed Expenses List',
     'monthExpensesList' => 'Current Month Expenses List',
-    'noExpenses' => 'You havn\'t added any expenses yet.',
-    'total' => 'Total',
     ///////////////////responses///////////////
-    'expenseNameRequired' => 'Please enter an expense name.',
-    'expenseAmountRequired' => 'Please enter the amount of the expense.',
-    'expensesNameMax' => 'The expense name can\'t be more than 20 characters.',
-    'expenseAmountMax' => 'The expense amount can\'t be more than 20 characters.',
-    'addExpensesaddes' => 'The expense has been added successfully.',
-    'addExpensesaddesFail' => 'Unknown Error Occurred! Failed to add the expense.',
-    'expensesDeleted' => 'The expense has been deleted successfully.',
-    'expensesDeleteFail' => 'Unknown Error Occurred! Failed to delete the expense.',
+
+
     //////////////autoHelp/////////////////////
     'autoHelp-fixedExpensesWindow' => 'Monthly Fixed Expenses Window',
     'autoHelp-fixedExpensesWindow-1' => '- In this window, you can add your restaurant\'s monthly fixed expenses, which are the types of expenses you pay every month on a regular basis, such as salaries.',

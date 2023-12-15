@@ -86,7 +86,7 @@ class foodmenuController extends Controller
             ],[
                 'email' => 'required|email|unique:accounts,email',
                 'name' => 'required|regex:/^[a-zA-Z ]*$/ ',
-                'password' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:passwordConfirm',
+                'password' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:passwordConfirm',
                 'passwordConfirm' => 'required|same:password',
                 'agree1' => 'required|accepted',
                 'agree2' => 'required|accepted',

@@ -61,7 +61,7 @@ $('html,body').on('click','#deleteCategory-confirmBtn',function(e){
                 drawCategoryList();
                 closePopup();
                 showAlert('success',r.msg,4000,true);
-                window.guideHints.categories(website.categories);
+                window.guideHints.categories();
             }else if(r.deleteCategoryStatus == 0){
                 showAlert('error',r.msg,4000,true);
             }

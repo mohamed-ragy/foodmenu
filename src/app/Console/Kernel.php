@@ -42,30 +42,34 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
             $jobs = cron_jobs::where('type','0')->get();
             foreach($jobs as $job){
-                $now = new DateTime('now',new DateTimeZone($job->timeZone));
-                if($now->format('G') == 0){
-                    $yesterday = new DateTime('now',new DateTimeZone($job->timeZone));
-                    $yesterday->modify('-1 day');
+                // $now = new DateTime('now',new DateTimeZone($job->timeZone));
+                $now = Carbon::now($job->timeZone);
+                if($now->hour == 0){
+                    // $yesterday = Carbon::yesterday($job->timeZone);
+                    // $yesterday->modify('-1 day');
+                    $yesterday_start = Carbon::yesterday($job->timeZone)->setTimezone('UTC');
+                    $yesterday_end = Carbon::yesterday($job->timeZone)->addHours(23)->addMinutes(59)->addSeconds(59)->setTimezone('UTC');
                     $thisDayOrders = order::
                     where(function($q) use ($yesterday, $job){
-                        $q->where('website_id',$job->website_id)->whereBetween('dinedin_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);
+                        $q->where('website_id',$job->website_id)->whereBetween('dinedin_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
                     ->orWhere(function($q) use ($yesterday, $job){
-                        $q->where('website_id',$job->website_id)->whereBetween('canceled_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);
+                        $q->where('website_id',$job->website_id)->whereBetween('canceled_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
                     ->orWhere(function($q) use ($yesterday, $job){
-                        $q->where('website_id',$job->website_id)->whereBetween('delivered_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);
+                        $q->where('website_id',$job->website_id)->whereBetween('delivered_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
                     ->orWhere(function($q) use ($yesterday, $job){
-                        $q->where('website_id',$job->website_id)->whereBetween('pickedUp_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC'), Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')]);
+                        $q->where('website_id',$job->website_id)->whereBetween('pickedUp_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
                     ->whereIn('status',[2,5,6,7])
                     ->with('order_items')->get();
                     $reviews = product_review::
                     where('website_id',$job->website_id)
-                    ->whereBetween('posted_at',[Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 00:00:00',$job->timeZone)->setTimezone('UTC')->timestamp, Carbon::createFromFormat('Y-m-d H:i:s',$yesterday->format('Y').'-'.$yesterday->format('n').'-'.$yesterday->format('j').' 23:59:59',$job->timeZone)->setTimezone('UTC')->timestamp])
+                    ->whereBetween('posted_at',[$yesterday_start->timestamp, $yesterday_end->timestamp])
                     ->get();
-                    foodmenuFunctions::archiveStatistice($thisDayOrders,$reviews,(int)$job->website_id,(int)$yesterday->format('j'),(int)$yesterday->format('n'),(int)$yesterday->format('Y'),$job->timeZone);
+
+                    foodmenuFunctions::archiveStatistice($thisDayOrders,$reviews,(int)$job->website_id,(int)$yesterday_start->day,(int)$yesterday_start->month,(int)$yesterday_start->year,$job->timeZone);
                     //////////
                 }
                 $cart_lifeTime = website::where('id',$job->website_id)->pluck('cart_lifeTime')->first();
@@ -90,7 +94,7 @@ class Kernel extends ConsoleKernel
 
             $jobs = cron_jobs::where('type','1')->get();
             foreach($jobs as $job){
-                product_review::where(['website_id' => $job->website_id])->where('created_at','>',Carbon::now()->subDays(1))->delete();
+                product_review::where(['website_id' => $job->website_id])->where('created_at','>',Carbon::now()->subDays(1)->timestamp)->delete();
                 // order::where('website_id',$job->website_id)->delete();
                 // liveChat::where('website_id',$job->website_id)->delete();
                 // notification::where('website_id',$job->website_id)->delete();

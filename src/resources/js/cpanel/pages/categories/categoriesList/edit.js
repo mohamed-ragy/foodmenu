@@ -120,7 +120,7 @@ $('html,body').on('click','#editCategory_saveBtn',function(e){
                     }
                 }
                 drawCategoryList();
-                window.guideHints.categories(website.categories);
+                window.guideHints.categories();
                 showAlert('success',r.msg,4000,true);
                 popupPageClose(true);
                 category_list_unsave_check();

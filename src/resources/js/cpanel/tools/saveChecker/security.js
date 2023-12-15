@@ -8,6 +8,16 @@ email_address_unsave_check = function(){
     }
     security_unsave_check();
 }
+phone_number_unsave_check = function(){
+    if(
+        phoneNumberVerification_NoSave()
+    ){
+        $('.phone_number_unsaved').addClass('none');
+    }else{
+        $('.phone_number_unsaved').removeClass('none');
+    }
+    security_unsave_check();
+}
 
 //
 security_unsave_check = function(){

@@ -190,6 +190,15 @@ showPopup =function(popup,callback=()=>{}){
         case 'changePasswordConfirm':
             $('.popupTitle').text(texts.security.changePassword);
         break;
+        case 'changePhoneConfirm':
+            $('.popupTitle').text(texts.security.changePhone);
+        break;
+        case 'addNewExpenses':
+            //
+        break;
+        case 'deleteExpenses':
+            //
+        break;
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){
