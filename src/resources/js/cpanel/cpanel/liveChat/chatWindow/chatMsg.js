@@ -301,9 +301,7 @@ drawChatProductMsg = function(txt){
     let img = '/storage/imgs/noimg.png';
     for(const key in website.products){
         if(website.products[key].name == productName){
-            if(website.products[key].img_id != null){
-                img = '/storage/'+website.products[key].imgs.url;
-            }
+            img = website.products[key].thumbnail;
         }
     }
      return`<div class="chatProductContainer">

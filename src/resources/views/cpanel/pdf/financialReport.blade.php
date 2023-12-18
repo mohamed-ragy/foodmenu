@@ -66,7 +66,7 @@
 
             <tr class="{{ $color }}">
                 <td class="taS">{{ $expense['name'] }}</td>
-                <td class="taE">{{ $expense['amount'] }}</td>
+                <td class="taE">{{ number_format($expense['amount'],2) }}</td>
             </tr>
             @endforeach
             @php
@@ -84,7 +84,7 @@
             @endphp
             <tr class="{{ $color }}">
                 <td class="taS">{{ $expense['name'] }}</td>
-                <td class="taE">{{ $expense['amount'] }}</td>
+                <td class="taE">{{ number_format($expense['amount'],2) }}</td>
             </tr>
             @endforeach
             <tr class="{{ $report->expensesTotalColor }} brdr-top">

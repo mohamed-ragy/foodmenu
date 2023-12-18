@@ -304,12 +304,12 @@ handelCpanelChannel = function(n,code){
     if(code.split('.')[0] == 'orders' && account.authorities[0] != 1){return;}
     switch(code){
         case '0':
-            if(n.account_id == account.id){
-                showPopup('loginDetected');
-                setTimeout(function(){
-                    $('#logoutForm').trigger('submit');
-                },5000)
-            }
+            // if(n.account_id == account.id){
+            //     showPopup('loginDetected');
+            //     setTimeout(function(){
+            //         $('#logoutForm').trigger('submit');
+            //     },5000)
+            // }
             break;
         case 'account.blocked':
             let subaccount = website.accounts.find(i=> i.id == n.account_id);

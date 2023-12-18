@@ -74,7 +74,9 @@ drawPage_system = function(){
                 $('<div/>',{class:'area mT40'}).append(
                     $('<div/>',{class:'areaTitle',text:texts.settings.liveChatSystem}),
                     drawSwitchBtn('live_chat',texts.settings.liveChat,'systemSettings-liveChat','checkboxlabel_100p mT10 brdrT0'),
-                    drawSwitchBtn('guest_live_chat',texts.settings.guestLiveChat,'systemSettings-guestLiveChat'),
+                    $('<div/>',{id:'systemSettings-guestLiveChat_container'}).append(
+                        drawSwitchBtn('guest_live_chat',texts.settings.guestLiveChat,'systemSettings-guestLiveChat'),
+                    )
                 ),
                 $('<div/>',{class:'area mT40'}).append(
                     $('<div/>',{class:'areaTitle',text:texts.settings.otherSystem}),

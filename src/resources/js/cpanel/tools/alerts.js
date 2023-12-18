@@ -1,6 +1,6 @@
 
 showAlert = function(type,text,time=4000,sound=false){
-    $('#statusBar').text(text);
+    $('#statusBar').html(text);
     if(sound == true ){
         $('#alert_'+type).prop('muted',false);
         $('#alert_'+type)[0].currentTime = 0;
@@ -27,7 +27,7 @@ showAlert = function(type,text,time=4000,sound=false){
             ),
             $('<div/>',{
                 class:'alert_text',
-                text:text,
+                html:text,
             }),
             $('<span/>',{class:'ico-close closeAlert',randomId:randomId}),
         )

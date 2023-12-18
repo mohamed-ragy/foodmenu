@@ -3,7 +3,6 @@ drawPopupPage_order = function(order_id){
         console.log(order)
         $('#popupPageTitle').append(
             $('<span/>',{class:'ellipsis',text:texts.orders.orderHashNumber.replace(':order:',order.id)}),
-            $('<span/>',{class:'ico-help help-icon',helpId:''})
         );
         $('#popupPageBody').text('').addClass('mxw100p-40 w600 p20').append(
             $('<div/>',{class:'popupPageTabs'}).append(
@@ -92,7 +91,7 @@ drawPopupPage_order_details_orderTypeElem = function(order){
 }
 drawPopupPage_order_details_orderNotice = function(order){
     if(order.status == 0 || order.status == 1 || order.status == 3 || order.status == 4 || order.status == 8){
-        return $('<div/>',{class:'orderDetailsElem br5 column alnS jstfyS',autoHelp:'order_additional_comment'}).append(
+        return $('<div/>',{class:'orderDetailsElem br5 column alnS jstfyS'}).append(
             $('<div/>',{class:'mie-50 row alnC jstfyS'}).append(
                 $('<div/>',{class:'none fs08 mie-5 ico-warning cO orderNoticeNoSave',tooltip:texts.cpanel.public.unsaved}),
                 $('<div/>',{text:texts.orders.orderComment,class:''}),

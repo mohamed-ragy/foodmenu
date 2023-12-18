@@ -1,9 +1,9 @@
 <?php
 return [
-    'storageSize' => 'Storage Size',
+    'storageSize' => 'Storage size',
     'mb' => 'MB',
-    'uploadNew' => 'Upload New Image',
-    'imgTooBig' => 'The image you tried to upload is larger than 10MB.',
+    'uploadNew' => 'Upload new image',
+    'imgTooBig' => 'The image you tried to upload is larger than 10 MBs.',
     'imgWrongType' => 'The image file type you selected is not supported, we only accept (png, jpg, jpeg, gif, webp, and bmp).',
     'noUploads' => "You haven’t uploaded any images yet.",
     'imgName' => 'Name',
@@ -24,7 +24,8 @@ return [
     'deleteFailLogo' => 'the website logo',
     'deleteFailIcon' => 'the website icon',
     'imgDeleteConfirm' => 'Are you sure you want to delete this image?',
-    'noimg'=>'No Image',
+    'noimg'=>'No image',
     'copyed' => 'The image link has been copied to the clipboard.',
+    ///
 ];
 
