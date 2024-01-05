@@ -6,7 +6,7 @@ drawPage_financial_reports = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.financial_reports}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'financial_reports'})
             ),
             $('<div/>',{class:'w100p mB10 row alnC jstfyE'}).append(
                 $('<div/>',{class:'financialReportsCountContainer',page:1}),

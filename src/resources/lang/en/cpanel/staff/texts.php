@@ -18,10 +18,8 @@ return [
     'handedToDeliveryMan' => 'handed to :delivery:',
     'changeDeliveryPassword' => 'Change delivery account password',
     'newPassword' => 'New password',
-    //new//
     "deliveryNotFound" => "Delivery account not found!",
     "subaccountNotFound" => "Account not found!",
-    //new//
     ///
     'createSubAccount' => 'Create new sub-account',
     'noSubAccounts' => "You haven't created any sub-accounts yet.",

@@ -507,7 +507,7 @@ return [
     'langDirection' => 'Custom Language Text direction right to left switch button',
     'langDirection-1' => '- If your custom language is written from right to left, you can switch on this button. If it is the contrary, switch off the button.',
 
-    'customLang' => 'Custom Language Options Window',
+    'customLang' => 'Custom Language settings Window',
     'customLang-1' => '- If you want to add a language other than the languages we support for your website, you can create your own custom language.',
     'customLang-2' => 'The text of a custom language is set by default in English. However, you can modify the text in your own language through the <b>\'Edit Language Texts\'</b> window.',
     'customLang-3' => '- You will need to press the <b>\'Save\'</b> button to apply any changes to the Custom Language Settings.',

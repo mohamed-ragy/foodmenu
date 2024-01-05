@@ -6,7 +6,7 @@ drawPage_images = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.images}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'images'})
             ),
             $('<div/>',{class:'mX5 mB50'}).append(
                 $('<span/>',{text:texts.design.storageSize,class:'mie-5'}),

@@ -6,7 +6,7 @@ drawPage_activity_log = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.activity_log}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'activity_log'})
             ),
             $('<div/>',{class:'wFC'}).append(
                 $('<div/>',{class:'fs085 mT30',text:texts.dashboard.selectDay}),

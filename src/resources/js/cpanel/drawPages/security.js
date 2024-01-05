@@ -6,7 +6,7 @@ drawPage_email_address = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.email_address}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'your_account_email_address'})
             ),
 
             $('<div/>',{class:'pageTabs'}).append(
@@ -62,7 +62,7 @@ drawPage_password = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.password}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'changing_your_password'})
             ),
             $('<div/>',{class:'area wFC mT40'}).append(
                 $('<div/>',{class:'areaTitle',text:texts.security.changePassword}),
@@ -84,7 +84,7 @@ drawPage_phone_number = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.phone_number}),
-                $('<span/>',{class:'ico-help help-icon',helpId:''})
+                $('<span/>',{class:'ico-help help-icon',helpId:'your_account_phone_number'})
             ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),

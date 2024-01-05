@@ -774,7 +774,7 @@ class cpanelController extends Controller
                 ->take(30)
                 ->get();
             }else{
-                $end = (int)$request->lastActivity_created_at;
+                $end = (int)$request->lastActivity_created_at - 1;
                 $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 00:00:00',$timezone)->setTimezone('UTC')->timestamp;
                 $activities = activityLog::where('website_id',$this->website_id)
                 ->whereBetween('created_at',[$start,$end])

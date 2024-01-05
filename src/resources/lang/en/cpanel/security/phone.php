@@ -25,8 +25,6 @@ return [
     'wait' => 'Please wait until the timer runs out.',
     'tryTomorrow' => 'This service has been temporarily blocked because many verification codes have been requested. Please try again later!',
     'responseError' => 'Something went wrong; please try again.',
-    //new
-    //new
     /////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////auto help/////////////////////////////////////////
 

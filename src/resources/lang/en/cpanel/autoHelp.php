@@ -285,7 +285,7 @@
             <li>The <b>Receipt</b> check box allows you to mark a language as the default order receipt language.</li>
             </ul>
             </p>
-            <p>- You can adjust language details by clicking on the <b>Edit language options</b> icon.</p>
+            <p>- You can adjust language details by clicking on the <b>Edit language settings</b> icon.</p>
             <p>- By clicking on the <b>Edit language text</b> icon, you will be able to modify the selected language's basix text.</p>
             <p>- To remove a language from your website, click on the <b>Uninstall language</b> icon. Keep in mind that if you make any modifications to a language and uninstall it, all these changes are permanently lost, even if you reinstall the language again.</p>
             string,
@@ -305,7 +305,7 @@
             string,
         ],
         'edit_language_option' => [
-            'title' => 'Edit language options',
+            'title' => 'Edit language settings',
             'content' => <<<string
             <p>- Here you can modify a language's name, flag, and text direction. However, you will be unable to change the language code. </p>
             string,
@@ -922,7 +922,7 @@
             'content' => <<<string
             <p>- Here, you'll find a list of orders displayed in rows, where each row represents an incomplete order and provides key information about it.</p>
             <p>- Each order has a status, which can be pending, accepted, out for delivery, ready for pickup, or dining in. You can change the order status by using the status drop-down menu. Simply click twice on the desired new status to confirm the action.</p>
-            <p>- On the right side of each order row, you'll see two important buttons: <b>View order</b> <span class="ico-open"></span> and <b>Print receipt</b> <span class="ico-print"></span>.</p>
+            <p>- On the right side of each order row, you'll see two important buttons: <b>Manage order</b> <span class="ico-open"></span> and <b>Print receipt</b> <span class="ico-print"></span>.</p>
             <p>- By clicking on <b>View order</b>, you'll be able to access all the details of the order and make any necessary modifications. Clicking on <b>Print receipt</b> enables you to print the order receipt.</p>
             string,
         ],
@@ -1037,20 +1037,20 @@
             string,
         ],
         //////Help icon
-        '' => [
+        'restaurant_expenses' => [
             'title' => 'Restaurant expenses',
             'content' => <<<string
             <p>- In this section of the control panel, you can enter your restaurant expenses, which will be used to generate your monthly financial reports.</p>
             string,
         ],
-        '' => [
+        'monthly_fixed_expenses' => [
             'title' => 'Monthly fixed expenses',
             'content' => <<<string
             <p>- Here, you can input your restaurant's monthly fixed expenses. These are the expenses that you consistently pay every month, such as salaries. The fixed expenses will appear on your monthly financial reports until you choose to remove them.</p>
             <p>- You can manually enter these expenses by clicking on the <b>Add new expense</b> button. A window will appear where you can enter the expense name and value.</p>
             string,
         ],
-        '' => [
+        'current_month_variable_expenses' => [
             'title' => 'Current month variable expenses',
             'content' => <<<string
             <p>- Here, you can add variable expenses for the current month. Variable expenses are non-fixed costs that change on a monthly basis, requiring monthly input. The system automatically removes these expenses from the list at the beginning of each month.</p>
@@ -1059,7 +1059,7 @@
             string,
         ],
         ////////Help icon
-        '' => [
+        'financial_reports' => [
             'title' => 'Financial reports',
             'content' => <<<string
             <p>- Here, you can access your monthly financial reports showcasing your restaurant's financial performance. The data and expenses used for these reports are extracted from the information you provide in your account.</p>
@@ -1073,7 +1073,7 @@
             string,
         ],
         ///help icon
-        '' => [
+        'your_account_email_address' => [
             'title' => 'Your account email address',
             'content' => <<<string
             <p>- Here, you can find your main account's email address. Using this email address, you can log in to your account or recover your account if you have forgotten your password.</p>
@@ -1082,7 +1082,7 @@
             string,
         ],
         ///help icon
-        '' => [
+        'changing_your_password' => [
             'title' => 'Changing your password',
             'content' => <<<string
             <p>- Here, you can change your password by first entering your current password, then creating a new one.</p>
@@ -1090,7 +1090,7 @@
             string,
         ],
         ///help icon
-        '' => [
+        'your_account_phone_number' => [
             'title' => 'Your account phone number',
             'content' => <<<string
             <p>- Here, you can find and add a phone number to your main account.</p>
@@ -1100,10 +1100,12 @@
             <p>-  Note that only the main account can change and verify the phone number.</p>
             string,
         ],
-        '' => [
-            'title' => '',
+        'activity_log' => [
+            'title' => 'Activity log',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can view all the activities that have occurred on the control panel and your website. You will be provided with the time and date of each activity.</p>
+            <p>- By clicking on the 'See changes' *insert icon* button, you can access detailed information about the specific modifications that occurred. If you click on 'Delete'*insert icon*, you will permanently remove the activity log from your account.</p>
+            <p>- To narrow down the activity logs based on a specific timeframe, you can use the 'Select a day' date picker provided. Once you have chosen a date, click on 'Find activities' to view the activities within that timeframe.</p>
             string,
         ],
         '' => [

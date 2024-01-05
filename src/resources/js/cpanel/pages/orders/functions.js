@@ -265,6 +265,10 @@ orderRow_data = function(order){
 }
 drawOrdersTableRow = function(order){
     let data = orderRow_data(order);
+    let viewOrderTooltipTxt = texts.orders.manageOrder;
+    if(order.status == 5 || order.status == 6 || order.status == 7 || order.status == 2){
+        viewOrderTooltipTxt = texts.orders.viewOrder;
+    }
     let orderRow = $('<tr/>',{class:'orderRow'}).append(
         $('<td/>',{class:''}).append(
             $('<a/>',{class:'fs101 bold500 mis-5 popupId popupPage',popupPage:'order',popupId:'order',order:order._id,text:`#${order.id}`})
@@ -291,7 +295,7 @@ drawOrdersTableRow = function(order){
             $('<div/>',{class:'',text:`${website.currency}${bigFloat(order.total)}`})
         ),
         $('<td/>',{class:''}).append(
-            $('<button/>',{class:'btn_table ico-open popupPage',popupPage:'order',order:order._id,tooltip:texts.orders.viewOrder}),
+            $('<button/>',{class:'btn_table ico-open popupPage',popupPage:'order',order:order._id,tooltip:viewOrderTooltipTxt}),
             $('<button/>',{class:'btn_table ico-print fs104 printOrderReceipt',order:order._id,tooltip:texts.orders.printReceipt})
         ),
     )

@@ -6,6 +6,7 @@ drawPage_restaurant_expenses = function(){
         }).append(
             $('<div/>',{class:'pageSectionTitle'}).append(
                 $('<span/>',{text:texts.cpanel.menu.restaurant_expenses}),
+                $('<span/>',{class:'ico-help help-icon',helpId:'restaurant_expenses'})
             ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
@@ -24,7 +25,7 @@ drawPage_restaurant_expenses = function(){
                     $('<button/>',{class:'btn btn-cancel',id:'addNewExpenses_fixed',text:texts.dashboard.addNewExpenses})
                 ),
                 $('<div/>',{class:'w100p overflowX-A'}).append(
-                    $('<table/>',{class:'w100p',id:'monthly_fixed_expenses'})
+                    $('<table/>',{class:'w100p',id:'monthly_fixed_expenses',autoHelp:'monthly_fixed_expenses'})
                 )
             ),
             $('<div/>',{class:'pageTabContainer',tab:'current_month_expenses'}).append(
@@ -32,7 +33,7 @@ drawPage_restaurant_expenses = function(){
                     $('<button/>',{class:'btn btn-cancel',id:'addNewExpenses_current',text:texts.dashboard.addNewExpenses})
                 ),
                 $('<div/>',{class:'w100p overflowX-A'}).append(
-                    $('<table/>',{class:'w100p',id:'current_month_expenses'})
+                    $('<table/>',{class:'w100p',id:'current_month_expenses',autoHelp:'current_month_variable_expenses'})
                 )
             )
         )

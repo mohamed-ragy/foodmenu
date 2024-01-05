@@ -61,7 +61,7 @@ return [
         'ticket_browser' => 'Ticket browser',
 
         'create_custom_language' => 'Create custom language',
-        'edit_language_options' => 'Edit language options',
+        'edit_language_options' => 'Edit language settings',
         'edit_language_texts' => 'Edit language text',
 
         'create_promo_code' => 'Create new promo code',
@@ -227,14 +227,10 @@ return [
         'whatsapp' =>'Whatsapp',
         'telegram' =>'Telegram',
         'selectShareLang' => 'Select Share Language',
-        //new/
-        'errorSelectSareLang' => 'Please select share language.',
-        //new
+        'errorSelectSareLang' => 'Please select the language to share in.',
         'shareLinkCopied' => 'The link was copied successfully.',
         'valueCopied' => 'The value was copied successfully.',
-        //new
-        'clickToCopy' => 'Click to copy',
-        //new
+        'clickToCopy' => 'Copy to clipboard',
         'shareOn'=>'Share to',
         'January' => 'January',
         'February' => 'February',
@@ -305,40 +301,35 @@ return [
         'renewSoonNoPaymentMethod1' => 'Your subscription renewal date is on',
         'renewSoonNoPaymentMethod2' => 'Please add a payment method to avoid subscription deactivation.',
         'renewFailSiteOffSoon' => 'Your subscription renewal has failed. Please add a payment method or a valid payment card to avoid subscription deactivation.',
-        //new
         'noPaymentPlaceOrderMsg' => 'Failed to place the order due to a failed subscription renewal.',
-        //new
         "from" => "From",
         "to" => "To",
     ],
     'notifications' => [
         'notifications' => 'Notifications',
         'noNotifications' => 'There are no notifications.',
-        'financialReport_title' => 'New Financial Report Available',
+        'financialReport_title' => 'New financial report available',
         'financialReport_msg' => 'The financial report for :date: is now available.',
+        'helpTicket_title' => 'Help ticket notification',
         'helpTicket_msg' => 'A new reply has been submitted to your help ticket :ticket:.',
-        'helpTicket_title' => 'Help Ticket Notification',
         'review' => 'A new review',
         'reviews' => ':reviewsSum: new reviews',
+        'collectReviews_title' => 'New survey submitted',
         'collectReviews_msg' => ':txt: has been posted via post-purchase survey by :user:.',
-        'collectReviews_title' => 'A post-purchase survey has been submitted',
+        'newReview_title' => 'New review posted.',
         'newReview_msg' => ':review: of :product: has been posted by :user:.',
-        'newReview_title' => 'A new review has been posted.',
-        'newUser_title' => 'New User Registered',
+        'newUser_title' => 'New user registered',
         'newUser_msg' => 'A new user :user: has registered on your website.',
-        'newOrder_title' => 'New Order Placed',
+        'newOrder_title' => 'New order placed',
         'newOrder_msg' => 'A new order :order: has been placed by :user:.',
-        'orderCanceled_title' => 'Order Canceled',
+        'orderCanceled_title' => 'Order canceled',
         'orderCanceled_msg' => 'Order :order: has been canceled by :user:.',
-        'orderDelivered_title' => 'Order Delivered',
-        'orderDelivered_msg' => 'Order :order: has been delivered by the delivery person :delivery:.',
-        //new//
+        'orderDelivered_title' => 'Order delivered',
+        'orderDelivered_msg' => 'Order :order: has been delivered by :delivery:.',
         'subaccountBlocked_title' => 'Sub-account blocked!',
-        'subaccountBlocked_msg' => ":subaccount:'s account has been blocked due to password fails multiple times.",
-
+        'subaccountBlocked_msg' => ":subaccount:'s account is blocked due to multiple password failures",
         "statistics_day_created_title" => "Statistics archived",
-        "statistics_day_created_msg" => ":date: statistics and analytics has been calculated and archived."
-        //new//
+        "statistics_day_created_msg" => ":date: statistics and analytics has been archived.",
     ],
     'liveChat' => [
         'liveChat'=>'Live chat',
@@ -409,9 +400,7 @@ return [
         'websiteSwitch' => 'Your website is offline.',
         'websiteIcon' => "You haven't yet added a website icon.",
         'websiteLogo' => "You haven't yet added a website logo.",
-        //new//
-        'subaccountBlocked' => ":subaccount:'s account has been blocked due to password fails multiple times.",
-        //new//
+        'subaccountBlocked' => ":subaccount:'s account is blocked due to multiple password failures.",
         // 'slideShow' => "You haven't added any images for the slide Show.",
         // 'homePageLayout' => "Your website homepage is empty.",
         // 'gallery' => "You haven't added any images for the website gallery.",

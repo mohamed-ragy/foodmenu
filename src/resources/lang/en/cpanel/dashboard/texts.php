@@ -13,8 +13,8 @@ return [
     'noFinancialReports' => 'There is no available data to generate financial reports.',
     'deleteFinancialReport_confirmTxt' => 'Are you sure you want to permanently delete :date: report?',
     //
-    'selectDay' => 'Select a Day',
-    'findActivites' => 'Find Activites',
+    'selectDay' => 'Select a day',
+    'findActivites' => 'Find activites',
     'noActivities' => 'There are no activities found.',
     'moreRelatedActivity' => ':sum: more related activity',
     'moreRelatedActivitys' => ':sum: more related activities',

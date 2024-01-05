@@ -70,9 +70,7 @@ return [
     'NewReviewAlerts' => 'Alert me when a product is reviewed',
     'CanceledOrderAlerts' => 'Alert me when an order is canceled by a user',
     'onlineUserAlert' => 'Alert me when a user logs in',
-    //new///
     'onlineGuestAlert' => 'Alert me when a guest browses the website',
-    //new///
     'cantForScreenLessThan1360' => 'This option is not available for a screen less than 1360 pixels.',
     'cantForScreenLessThan1024' => 'This option is not available for screens less than 1024 pixels.',
     'guideModeNo' => 'This option is only available when the guide mode is activated.',
@@ -106,7 +104,6 @@ return [
     'instagramLink' => 'Instagram link',
     'socialMediaLinksNotice' => 'To enter the link correctly, please start with https://',
     ///lang
-    //new
     'flag' => 'Flag',
     'name' => 'Name',
     'code' => 'Code',
@@ -126,7 +123,7 @@ return [
     'planLangLimitError' => 'Failed to install a new language! You have reached the number of languages allowed in your subscription plan.',
     'textsPack' => 'Lnguage text',
     'customLangPackRequired' => 'Please select the language text.',
-    'EditLangOptions' => 'Edit language options',
+    'EditLangOptions' => 'Edit language settings',
     'langTextEditEmpty' => 'Some texts are missing.',
     'setAsWebsiteDefault' => 'Set as the default website language',
     'setAsReceiptLang' => 'Set as the receipt language',
@@ -147,14 +144,10 @@ return [
     'customLangNameRequired' => 'Please enter the language name.',
     'customLangCodeRequired' => 'Please enter the language code.',
     'customLangFlagRequired' => 'Please select the language flag.',
-    //new
     'langNotFound' => 'Language not found!',
-    //new
     //promocodes
-    //new
     'active' => 'Active',
-    'deletePromocodeConfirmMsg' => 'Are you sure you want to delete the promocode ":promocode:"?',
-    //new
+    'deletePromocodeConfirmMsg' => 'Are you sure you want to delete the promo code ":promocode:"?',
     'createPromocode' => 'Create new promo code',
     'created' => 'Created',
     'isDelivery' => 'Apply for delivery orders',
@@ -177,9 +170,7 @@ return [
     'codeRequired' => 'Please enter the promo code.',
     'promocodeLimitError' => 'Failed to create a new promo code! You have reached the number of promo codes allowed in your subscription plan.',
     'promocodeGuestNo' => 'It\'s not possible for guests to use a one-time-use promo code.',
-    //new//
-    "promocodeNotFound" => "Promocode not found!",
-    //new//
+    "promocodeNotFound" => "Promo code not found!",
     //services settings
     'workingDays' => 'Working days',
     'deliveryFees'=>'Delivery cost',
