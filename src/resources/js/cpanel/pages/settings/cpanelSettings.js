@@ -8,7 +8,9 @@ loadViewSettings();
 loadGuideModeSettings();
 
 $(window).on('resize',function(){
-    loadGuideModeSettings();
+    if(window.history.state.page != 'statistics_and_analytics'){
+        loadGuideModeSettings();
+    }
     loadViewSettings();
     control_panel_settings_unsave_check();
 })

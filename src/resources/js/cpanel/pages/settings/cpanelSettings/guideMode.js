@@ -4,7 +4,7 @@
 ////////////////////guid mode functions/////////////////
 
 guideModeNoSaveCheck = function(){
-    if($(window).width() < 1360 && settings_temp.guideHints == settings.guideHints){
+    if($(window).width() < 1360 && settings_temp.guideHints == settings.guideHints || window.page.page == 'statistics_and_analytics'){
         $('.guideModeNoSave').addClass('none');
         return true;
     }

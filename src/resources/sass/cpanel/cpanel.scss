@@ -75,7 +75,7 @@ body{
 
 @import 'cpanel/autoHelp';//done
 @import 'cpanel/sideMenu';//done
-@import 'cpanel/nav';//notifications and guidealerts need to be redesigned
+@import 'cpanel/nav';//done
 @import 'cpanel/statusBar';//done
 @import 'chat';//done
 
@@ -99,7 +99,7 @@ body{
 
 
 @import 'pages/dashboard/home';
-@import 'pages/dashboard/activityLog';
+@import 'pages/dashboard/activityLog';//need to finish live activitylog
 @import 'pages/dashboard/statistics';
 @import 'pages/dashboard/restaurantExpenses';//done
 @import 'pages/dashboard/financialReports';//done

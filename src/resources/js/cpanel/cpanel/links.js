@@ -64,6 +64,21 @@ $('html,body').on('click','.cpPage',function(e){
     let selectElem = $(this).attr('selectElem');
     let keysObj = {};
     switch($(this).attr('cpPage')){
+        case 'statistics_and_analytics':
+            keysObj.year1 = $(this).attr('year1')
+            keysObj.month1 = $(this).attr('month1')
+            keysObj.day1 = $(this).attr('day1')
+            keysObj.period = $(this).attr('period')
+            keysObj.compare = $(this).attr('compare')
+            keysObj.year2 = $(this).attr('year2')
+            keysObj.month2 = $(this).attr('month2')
+            keysObj.day2 = $(this).attr('day2')
+        break;
+        case 'activity_log':
+            keysObj.year = $(this).attr('year') ?? new Date().getFullYear();
+            keysObj.month = $(this).attr('month') ?? parseInt(new Date().getMonth() ) + 1;
+            keysObj.day = $(this).attr('day') ?? new Date().getDate();
+        break;
         case 'order_history':
             keysObj.orderHistory_page = '1'
             keysObj.orderBy = 'placed_at'
@@ -644,6 +659,21 @@ $(window).on('popstate',(e)=>{
         // window.page = {}
         let keysObj = {};
         switch(window.history.state.page){
+            case 'statistics_and_analytics':
+                keysObj.year1 = window.history.state.year1
+                keysObj.month1 = window.history.state.month1
+                keysObj.day1 = window.history.state.day1
+                keysObj.period = window.history.state.period
+                keysObj.compare = window.history.state.compare
+                keysObj.year2 = window.history.state.year2
+                keysObj.month2 = window.history.state.month2
+                keysObj.day2 = window.history.state.day2
+            break;
+            case 'activity_log':
+                keysObj.year = window.history.state.year ?? new Date().getFullYear();
+                keysObj.month = window.history.state.month ?? parseInt(new Date().getMonth() ) + 1;
+                keysObj.day = window.history.state.day ?? new Date().getDate();
+            break;
             case 'order_history':
                 keysObj.orderHistory_page = window.history.state.orderHistory_page;
                 keysObj.orderBy = window.history.state.orderBy;

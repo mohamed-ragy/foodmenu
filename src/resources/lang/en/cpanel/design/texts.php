@@ -26,6 +26,9 @@ return [
     'imgDeleteConfirm' => 'Are you sure you want to delete this image?',
     'noimg'=>'No image',
     'copyed' => 'The image link has been copied to the clipboard.',
+    //new//
+    'imgNotFound' => 'Image not found.',
+    //new//
     ///
 ];
 

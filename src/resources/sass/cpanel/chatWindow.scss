@@ -193,3 +193,7 @@
     0%{opacity:1;transform: translateY(50px) translateX(-20px) scale(.1);}
     100%{opacity:1;transform: translateY(0px) translateX(0px) scale(1);}
 }
+
+.chatMsgContaienr_deletedChatMsg{
+    color: var(--white-10);
+}

@@ -7,6 +7,30 @@ class guideHintsClass {
             }
         }
     }
+    subaccountsBlockCheck (drawAlerts=true){
+        this.deleteGuideAlert(37);
+        if(!account.is_master){return}
+        for(const key in website.accounts){
+            let subaccount = website.accounts[key];
+            if(subaccount.is_master == false && subaccount.password_fails > 10){
+                window.guideAlertsOBJ.push({
+                    code:37,
+                    priority:5,
+                    icon:'ico-warning c_txt2',
+                    img:null,
+                    lang:null,
+                    text:texts.cpanel.guideHints.subaccountBlocked.replace(':subaccount:',subaccount.name),
+                    cpPage:'sub_accounts',
+                    popupPage:null,
+                    popup:null,
+                    scrollToElem:`subaccount_table_row_${subaccount.id}`,
+                    selectElem:`subaccount_table_row_${subaccount.id}`,
+                    attrs:{},
+                });
+            }
+        }
+        this.guideHintsCounter(drawAlerts);
+    }
     subscriptionCheck (drawAlerts=true){
         this.deleteGuideAlert(36);
         if(!account.is_master){return}
@@ -1676,6 +1700,7 @@ class guideHintsClass {
         window.guideHints.restaurantLocation(false);//done
         window.guideHints.restaurantEmail(false);//done
         window.guideHints.subscriptionCheck(false);//done
+        window.guideHints.subaccountsBlockCheck(false)//done
         window.guideHints.drawGuideAlerts();
     }
 }

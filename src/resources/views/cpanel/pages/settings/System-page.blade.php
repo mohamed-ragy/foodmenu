@@ -55,7 +55,7 @@
                 <span class="mX5"></span>
             </label>
             <label class="checkboxlabel_100p" autoHelp="93">
-                <span class="mX5">{{ trans('cpanel/settings/generalSettings.enableGuestOrders') }}</span>
+                <span class="mX5">{{ trans('cpanel/settings/generalsettings.guestOrders') }}</span>
                 <input id="systemSettings-guestOrders" type="checkbox" class="checkbox" name="checkbox">
                 <span class="mX5"></span>
             </label>
@@ -78,12 +78,12 @@
         <div class="area">
             <span class="areaTitle">{{ trans('cpanel/settings/generalSettings.reviewsSystem') }}</span>
             <label class="checkboxlabel_100p" autoHelp="90">
-                <span class="mX5">{{ trans('cpanel/settings/generalSettings.enableProductReviews') }}</span>
+                <span class="mX5">{{ trans('cpanel/settings/generalsettings.productReviews') }}</span>
                 <input id="systemSettings-productReviews" type="checkbox" class="checkbox" name="checkbox">
                 <span class="mX5"></span>
             </label>
             <label class="checkboxlabel_100p" autoHelp="91">
-                <span class="mX5">{{ trans('cpanel/settings/generalSettings.enableGuestReviews') }}</span>
+                <span class="mX5">{{ trans('cpanel/settings/generalsettings.guestReviews') }}</span>
                 <input id="systemSettings-guestReviews" type="checkbox" class="checkbox" name="checkbox">
                 <span class="mX5"></span>
             </label>
@@ -130,13 +130,13 @@
                 <span class="mX5"></span>
             </label>
             <label class="checkboxlabel_100p" autoHelp="98">
-                <span class="mX5">{{ trans('cpanel/settings/generalSettings.cookiesMsg') }}</span>
+                <span class="mX5">{{ trans('cpanel/settings/generalsettings.cookies_msg') }}</span>
                 <input id="systemSettings-cookiesMsg" type="checkbox" class="checkbox" name="checkbox">
                 <span class="mX5"></span>
             </label>
 
             <div class="numberPickerContainer_100p"  autoHelp="100">
-                <span>{{ trans('cpanel/settings/generalSettings.cartLifeTime') }}</span>
+                <span>{{ trans('cpanel/settings/generalsettings.cart_lifeTime') }}</span>
                 <div class="numberPickerControls">
                     <span id="systemSettings-cartLifeTimeD" class="numberPickerArrow ico-left"></span>
                     <span class="numberPickerValue">

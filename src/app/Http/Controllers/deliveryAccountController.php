@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\activityLog;
 use App\Models\delivery;
 use App\Models\foodmenuFunctions;
 use Illuminate\Http\Request;
@@ -12,11 +11,9 @@ use App\Models\website;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 
-use DateTime;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
-use stdClass;
 
 class deliveryAccountController extends Controller
 {
@@ -103,6 +100,7 @@ class deliveryAccountController extends Controller
                     'code'=>'orders.delivered_by_delivery',
                     'seen' => false,
                     'order_id'=>$updateOrder->_id,
+                    'order_number'=>$updateOrder->id,
                     'delivery_id' => Auth::guard('delivery')->user()->id,
                     'deliveryName' => Auth::guard('delivery')->user()->deliveryName,
                 ]);
@@ -122,38 +120,9 @@ class deliveryAccountController extends Controller
                     'notification' => $notification,
                 ],Auth::guard('delivery')->user()->website_id);
 
-
-                ///////////////////////////
-                //send update to website //
-                ///////////////////////////
-
-                // $notification = notification::create([
-                //     'website_id'=>Auth::guard('delivery')->user()->website_id,
-                //     'code'=>2,
-                //     'seen' => false,
-                //     'order_id'=>$request->orderDelivered,
-                //     'delivery_id' => Auth::guard('delivery')->user()->id,
-                //     'deliveryName' => Auth::guard('delivery')->user()->deliveryName,
-                // ]);
-                // $notification->delivered_at = Carbon::now();
-                // $notification->delivered_by = 1;
-                // $notification->activity = activityLog::create([
-                //     'website_id' => Auth::guard('delivery')->user()->website_id,
-                //     'code' => 17,
-                //     'order_id' => $request->orderDelivered,
-                //     'delivery_id' => Auth::guard('delivery')->user()->id,
-                //     'delivery_name' => Auth::guard('delivery')->user()->deliveryName,
-                // ]);
-
-                // broadcast(new cpanelNotification($notification))->toOthers();
-                // $user = new stdClass();
-                // $updateOrder->user_id != null ? $user->id = $updateOrder->user_id : $user->id = 0;
-                // $user->code = 23;
-                // $user->status = 5;
-                // $user->orderId = $updateOrder->id;
-                // $user->website_id = Auth::guard('delivery')->user()->website_id;
-                // $user->userType = 'user';
-                // broadcast(new usersStatus($user))->toOthers();
+                if(!$updateOrder->isGuest){
+                    foodmenuFunctions::notification_website('order_delivered',Auth::guard('delivery')->user()->website_id,'user',$updateOrder->user_id,['order' => $updateOrder->_id]);
+                }
                 return response(['orderDeliveredStatus' => 1,'msg'=> Lang::get('deliveryAccount/deliveryAccount.orderDeliveredSuccess')]);
             }else{
                 return response(['orderDeliveredStatus' => 0,',msg'=> Lang::get('deliveryAccount/deliveryAccount.orderDeliveredFaild')]);

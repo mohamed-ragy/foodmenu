@@ -89,13 +89,13 @@ statusBarToggle = function(action){
     control_panel_settings_unsave_check();
 }
 showStatesBar = function(){
-    $('#statusBar').css('display','flex');
+    $('#statusBar').removeClass('none');
     $('#bodyContainer').css('height','calc(100% - 20px)');
     $('#cpanelSettings-statusBar').prop('checked',true);
     settings_temp.statusBar = true;
 }
 hideStatesBar = function(){
-    $('#statusBar').css('display','none');
+    $('#statusBar').addClass('none');
     $('#bodyContainer').css('height','calc(100%)');
     $('#cpanelSettings-statusBar').prop('checked',false);
     settings_temp.statusBar = false;

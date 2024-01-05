@@ -17,6 +17,7 @@ $('html,body').on('click','#addNewExpenses_fixed',function(e){
 })
 $('html,body').on('click','#addNewExpenses_fixed_btn',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     showBtnLoading($('#addNewExpenses_fixed_btn'))
     showBtnLoading($('#addNewExpenses_fixed'))
     let name = $('#addNewExpenses_fixed_name').val();
@@ -74,6 +75,7 @@ $('html,body').on('click','.delete_fixed_expense',function(e){
 })
 $('html,body').on('click','#delete_fixed_expense_confirm',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     showBtnLoading($('#delete_fixed_expense_confirm'))
     let expense_id = $(this).attr('expense');
     $.ajax({

@@ -38,6 +38,7 @@ getUsersData = function(usersIds){
         let showUserPopupPageInterval;
         for(const key in usersIds){
             if(typeof(website.users.find(item=>item.id == usersIds[key])) === 'undefined'){
+                checkUseenNotifications(['user.signup'],'user_id',usersIds[key])
                 usersIds2.push(usersIds[key])
             }
         }

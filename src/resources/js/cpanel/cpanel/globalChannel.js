@@ -60,7 +60,7 @@ window.globalChannel
             lastActivity:texts.users.user_online,
             is_pending:false,
         });
-        settings_temp.onlineUserAlert && user.type == 'user' ? showAlert('normal',texts.users.userOnline.replace(':name:',user.name),4000,true) : null;
+        settings_temp.onlineUserAlert && user.type == 'user' ? showAlert('normal',texts.users.userOnline.replace(':name:',`<span><a class="popupPage popupId" popupPage="user" popupId="user" user="${user.id}">${user.name}</a></span>`),4000,true) : null;
         settings_temp.onlineGuestAlert && user.type == 'guest' ? showAlert('normal',texts.users.guestOnline.replace(':name:',user.name),4000,true) : null;
         user.type == 'user' || user.type == 'guest' ? onlineUser(user.id,user.type) : null ;
     }else{

@@ -8,9 +8,16 @@ $('html,body').on('click','.productOptionEdit_guideAlert',function(e){
     $(`#editOption_name-${$(this).attr('lang')}`).focus();
     highlightElem($(`#editOption_name-${$(this).attr('lang')}`))
 });
+$('html,body').on('click','.productOptionEdit_activityLog',function(e){
+    e.stopImmediatePropagation();
+    showEditProductOptionPopup($(this).attr('product'),$(this).attr('option'));
+});
 showEditProductOptionPopup = function(product_name,option_id){
+    if(account.authorities[1] == false){showPopup('accessDenied');return;}
     let product = website.products.find(item=>item.name == product_name);
+    if(typeof(product) === 'undefined'){showPopup_notFound(texts.products.productNotFound);return;}
     let option = product.product_options.find(item=>item.id == option_id);
+    if(typeof(option) === 'undefined'){showPopup_notFound(texts.products.optionNotFound);return;}
     showPopup('editProductOption',function(){
         $('.popupBody').addClass('m0 p10 w100p-20').append(
             $('<div/>',{class:'row alnC jstfyS mB20'}).append(

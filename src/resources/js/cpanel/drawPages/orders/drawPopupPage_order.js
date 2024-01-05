@@ -1,6 +1,6 @@
 drawPopupPage_order = function(order_id){
     getOrder(order_id).then((order)=>{
-        console.log(order)
+        checkUseenNotifications(['orders.new_order_user','orders.canceled_by_user','orders.delivered_by_delivery'],'order_id',order_id)
         $('#popupPageTitle').append(
             $('<span/>',{class:'ellipsis',text:texts.orders.orderHashNumber.replace(':order:',order.id)}),
         );
@@ -31,6 +31,9 @@ drawPopupPage_order = function(order_id){
 
         )
         drawPopupPage_order_fillData(order_id)
+    },function(){
+        showPopup_notFound(texts.orders.orderNotFound)
+        popupPageClose(false);
     })
 }
 drawPopupPage_order_fillData = function(order_id){

@@ -12,6 +12,9 @@ getOrder = function(order_id){
                     _token:$('meta[name="csrf-token"]').attr('content'),
                     getOrder:order_id
                 },success:function(r){
+                    if(r.order == null){
+                        return reject();
+                    }
                     if(r.order != null){
                         website.orderHistory.push(r.order)
                     }

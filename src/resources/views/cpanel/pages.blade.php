@@ -3,7 +3,7 @@
 @include('cpanel.pages.dashboard.Home-page')
 
 @if (Auth::guard('account')->user()->is_master == true)
-    @include('cpanel.pages.dashboard.Activity-Log-page')
+    {{-- @include('cpanel.pages.dashboard.Activity-Log-page') --}}
     @include('cpanel.pages.dashboard.Statistics-page')
     {{-- @include('cpanel.pages.dashboard.restaurant-Expenses-page') --}}
     {{-- @include('cpanel.pages.dashboard.Financial-Reports-page') --}}

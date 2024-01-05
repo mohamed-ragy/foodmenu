@@ -1,5 +1,4 @@
 
-require('./productReviews/findEvents.js');//done
 require('./productReviews/delete.js');//done
 require('./productReviews/filters.js');//done
 
@@ -62,6 +61,9 @@ getProductReviews = function(){
             byRating:byRating,
             skip:window.getProductReviewsSkip,
         },success:function(r){
+            if(window.page.user != ''){
+                checkUseenNotifications(['review.posted_survey'],'user_id',window.page.user)
+            }
             window.getProductReviewsSkip = r.reviews.length + window.getProductReviewsSkip;
             $('#productReviewsContainer_loading').addClass('none')
             hideBtnLoading($('#productReviews_findReviewsBtn'));
@@ -84,7 +86,8 @@ getProductReviews = function(){
     })
 }
 drawProductReview = function(review,deleteIcon){
-    checkUseenNotifications([4],'product_review_id',review.id)
+    if(review == null){popupPageClose(false);return;}
+    checkUseenNotifications(['review.posted'],'product_review_id',review.id)
     let reviewCheck = window.product_reviews.find(item=>item.id == review.id);
     if(typeof(reviewCheck) === 'undefined'){
         window.product_reviews.push(review);

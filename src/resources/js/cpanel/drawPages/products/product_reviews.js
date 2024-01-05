@@ -120,12 +120,19 @@ drawPopupPage_review = function(reviewId){
                 _token:$('meta[name="csrf-token"]').attr('content'),
                 getReview:reviewId,
             },success:function(r){
-                $('#poupPageReviewContainer').text('').append(
-                    drawProductReview(r.review,false)
-                )
+                checkUseenNotifications(['review.posted'],'product_review_id',reviewId)
+                if(r.review == null){
+                    popupPageClose(false);
+                    showPopup_notFound(texts.products.reviewNotFound)
+                }else{
+                    $('#poupPageReviewContainer').text('').append(
+                        drawProductReview(r.review,false)
+                    )
+                }
             }
         })
     }else{
+        checkUseenNotifications(['review.posted'],'product_review_id',reviewId)
         $('#poupPageReviewContainer').text('').append(
             drawProductReview(window.product_reviews.find(item=>item.id == reviewId),false)
         )

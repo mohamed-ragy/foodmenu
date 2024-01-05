@@ -32,7 +32,7 @@ $('html,body').on('click','#deletePromocode-confirmBtn',function(e){
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             deletePromocode:promocode.id,
-            promocodeName:promocode.code,
+            promocode:promocode.code,
         },success:function(response){
             hideBtnLoading($('#deletePromocode-confirmBtn'));
             if(response.deletePromocodestats == 1){

@@ -68,7 +68,10 @@ showPopupPage = function(popupPage,keysObj){
                     resolve(true);
                     break;
                 }else{
+                    popupPageClose(false);
+                    showPopup_notFound(texts.products.productNotFound)
                     reject(3)
+                    return;
                 }
                 resolve(true);
                 break;
@@ -80,7 +83,10 @@ showPopupPage = function(popupPage,keysObj){
                     resolve(true);
                     break;
                 }else{
+                    popupPageClose(false);
+                    showPopup_notFound(texts.products.productNotFound)
                     reject(3)
+                    return;
                 }
                 resolve(true);
                 break;
@@ -91,7 +97,10 @@ showPopupPage = function(popupPage,keysObj){
                     resolve(true);
                     break;
                 }else{
+                    popupPageClose(false);
+                    showPopup_notFound(texts.products.productNotFound)
                     reject(3)
+                    return;
                 }
                 resolve(true);
             break;
@@ -108,6 +117,9 @@ showPopupPage = function(popupPage,keysObj){
                     resolve(true);
                     break;
                 }else{
+                    showPopup_notFound(texts.products.categoryNotFound)
+                    reject(3)
+                    return;
                     reject(3)
                 }
             break;
@@ -117,7 +129,9 @@ showPopupPage = function(popupPage,keysObj){
                     drawPopupPage_category(keysObj.category)
                     resolve(true)
                 }else{
+                    showPopup_notFound(texts.products.categoryNotFound)
                     reject(3)
+                    return;
                 }
                 break;
             case 'create_category':
@@ -151,7 +165,11 @@ showPopupPage = function(popupPage,keysObj){
                         resolve(true);
                     }
                 }
-                if(!langOptiosCheck){reject(3);return;}
+                if(!langOptiosCheck){
+                    showPopup_notFound(texts.settings.langNotFound)
+                    reject(3);
+                    return;
+                }
             break;
             case 'edit_language_texts':
                 if(account.authorities[4] == false){reject(1);return;}
@@ -193,6 +211,7 @@ showPopupPage = function(popupPage,keysObj){
                         }
                     }
                     if(editPromocodeCheck == null){
+                        showPopup_notFound(texts.settings.promocodeNotFound)
                         reject(3);return;
                     }else{
                         drawPopupPage_manage_promo_code(editPromocodeCheck);
@@ -217,7 +236,9 @@ showPopupPage = function(popupPage,keysObj){
                     drawPopupPage_sub_account(window.popupPage.subaccount);
                     resolve(true)
                 }else{
+                    showPopup_notFound(texts.staff.subaccountNotFound)
                     reject(3)
+                    return;
                 }
             break;
             case 'manage_sub_account':
@@ -227,7 +248,9 @@ showPopupPage = function(popupPage,keysObj){
                     drawPopupPage_manage_sub_account(window.popupPage.subaccount);
                     resolve(true)
                 }else{
+                    showPopup_notFound(texts.staff.subaccountNotFound)
                     reject(3)
+                    return;
                 }
             break;
             case 'delivery_account':
@@ -236,7 +259,9 @@ showPopupPage = function(popupPage,keysObj){
                     drawPopupPage_delivery_account(window.popupPage.delivery);
                     resolve(true)
                 }else{
+                    showPopup_notFound(texts.staff.deliveryNotFound)
                     reject(3)
+                    return;
                 }
             break;
             case 'ticket_browser':
@@ -252,7 +277,7 @@ showPopupPage = function(popupPage,keysObj){
 
 
         $('#popupPage').css('max-width',$(window).width() - ( $('#helpWindow').width() + 30))
-        closePopup();
+        // closePopup();
         setTimeout(function(){
             fixpopupPageTabsArrows();
             resolve();

@@ -16,12 +16,12 @@ manageSubaccount_unsavedCheck = function(){
 $('html,body').on('click',`#manageSubAccount_authority0,#manageSubAccount_authority1,#manageSubAccount_authority2,#manageSubAccount_authority3,#manageSubAccount_authority4,#manageSubAccount_authority5`,function(e){
     e.stopImmediatePropagation();
     let authorities = ''
-    let authority0 = $('#manageSubAccount_authority0').prop('checked') ? '1' : '0'; 
-    let authority1 = $('#manageSubAccount_authority1').prop('checked') ? '1' : '0'; 
-    let authority2 = $('#manageSubAccount_authority2').prop('checked') ? '1' : '0'; 
-    let authority3 = $('#manageSubAccount_authority3').prop('checked') ? '1' : '0'; 
-    let authority4 = $('#manageSubAccount_authority4').prop('checked') ? '1' : '0'; 
-    let authority5 = $('#manageSubAccount_authority5').prop('checked') ? '1' : '0'; 
+    let authority0 = $('#manageSubAccount_authority0').prop('checked') ? '1' : '0';
+    let authority1 = $('#manageSubAccount_authority1').prop('checked') ? '1' : '0';
+    let authority2 = $('#manageSubAccount_authority2').prop('checked') ? '1' : '0';
+    let authority3 = $('#manageSubAccount_authority3').prop('checked') ? '1' : '0';
+    let authority4 = $('#manageSubAccount_authority4').prop('checked') ? '1' : '0';
+    let authority5 = $('#manageSubAccount_authority5').prop('checked') ? '1' : '0';
     authorities = `${authority0}${authority1}${authority2}${authority3}${authority4}${authority5}`
     website_temp.accounts.find(item=>item.id == window.history.state.subaccount).authorities = authorities;
     sub_accounts_unsave_check();
@@ -70,7 +70,7 @@ $('html,body').on('click','#manageSubAccount_saveBtn',function(e){
             hideBtnLoading($('#manageSubAccount_saveBtn'));
             if(response.ChangeSubAccountAuthoritiesStatus == 1){
                 showAlert('success',response.msg,4000,true);
-                website.accounts.find(item=>item.id == window.history.state.subaccount).authorities = website_temp.accounts.find(item=>item.id == window.history.state.subaccount).authorities; 
+                website.accounts.find(item=>item.id == window.history.state.subaccount).authorities = website_temp.accounts.find(item=>item.id == window.history.state.subaccount).authorities;
                 sub_accounts_unsave_check();
                 popupPageClose(true);
             }else if(response.ChangeSubAccountAuthoritiesStatus == 0){

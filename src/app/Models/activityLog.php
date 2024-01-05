@@ -26,16 +26,45 @@ class activityLog extends Model
     }
     protected $fillable = [
         'code','website_id',
-        'user_id','user_name',
         'account_id','account_name',
-        'product_id','product_name',
-        'category_id','category_name',
         'delivery_id','delivery_name',
         'product_review_id','reviewsSum',
         'img_id','img_name',
-        'promocode_id','promocode_name',
+        //
+        'user_id','user_name',
+        'old_user','new_user',
+        //
+        'old_dinein_settings','new_dinein_settings',
+        'old_pickup_settings','new_pickup_settings',
+        'old_delivery_settings','new_delivery_settings',
+        'old_working_hours','new_working_hours','day','service',
+        //
+        'lang_code','lang_name',
+        'old_lang','new_lang',
+        //
+        'promocode_id','promocode_name','is_active',
+        'old_promocode','new_promocode',
+        //
+        'old_system_settings','new_system_settings',
+        'old_country','new_country',
+        'old_timeZone','new_timeZone',
+        'old_icon','new_icon',
+        'old_logo','new_logo',
+        //
+        'old_phone','new_phone',
+        'old_email','new_email',
+        //
         'subaccount_id','subaccount_name',
-
+        'new_authorities','old_authorities',
+        //
+        'category_id','category_name',
+        'product_id','product_name','availability',
+        'new_category','old_category',
+        'new_img','old_img',
+        'new_names','old_names',
+        'new_descriptions','old_descriptions',
+        'new_price','old_price',
+        'new_availability','old_availability',
         //
         'order_id','order_number',
         'new_qty','old_qty',
@@ -47,7 +76,7 @@ class activityLog extends Model
         'new_phoneNumber' ,'old_phoneNumber',
         'new_address','old_address',
         'new_type','old_type',
-        'new_deliveryCost','old_DeliveryCost',
+        'new_deliveryCost','old_deliveryCost',
         'new_discount','old_discount',
     ];
 

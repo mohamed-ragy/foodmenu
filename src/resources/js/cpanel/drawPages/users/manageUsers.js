@@ -44,6 +44,12 @@ drawManageUserLoading=function(){
 }
 drawManageUser = function(userId){
     let user = website.users.find(item=>item.id == userId);
+    if(typeof(user) === 'undefined'){
+        showPopup_notFound(texts.users.userNotFound);
+        $('#editUser-container').text('')
+        return;
+    }
+
     $('#manageUsers-usersInputList').val(user.name).attr('key',user.id)
     let userIconClass;let usericonTooltip;let blockBtnClass;
     user.isBanned ? userIconClass ='ico-userBlock cR fs102' : userIconClass = 'ico-user fs102';

@@ -165,7 +165,8 @@ $('html,body').on('click','#langTxts-editLangTextCancelBtn',function(){
 let savelangText = {};
 $('html,body').on('click','#langTxts-editLangTextSaveBtn',function(e){
     e.stopImmediatePropagation();
-    let editLangSave = $(this).attr('key')
+    let editLangSave = $(this).attr('key');
+    let langName = website.languages[editLangSave].name;
     let editTextsValidaion = true;
     $('.editLangTextInput').each(function(){
         if($(this).val() == ''){
@@ -213,7 +214,8 @@ $('html,body').on('click','#langTxts-editLangTextSaveBtn',function(e){
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             saveLangText:savelangText,
-            lang:editLangSave
+            lang:editLangSave,
+            langName:langName
         },
         success:function(response){
             hideBtnLoading($('#langTxts-editLangTextSaveBtn'))

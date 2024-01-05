@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\cpanel;
 
 use App\Events\admins;
-use App\Events\globalEvent;
 use App\Http\Controllers\Controller;
-use App\Models\cpanelSettings;
 use App\Models\ticket;
 use App\Models\ticket_msg;
-use App\Models\website;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -18,21 +14,24 @@ use stdClass;
 
 class supportController extends Controller
 {
+    protected $account;
+    protected $website_id;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            if(Auth::guard('account')->user()->is_master == false){
+            $this->account = Auth::guard('account')->user();
+            if($this->account->is_master == false){
                 return;
             }
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
 
         });
 
     }
     public function support(Request $request){
-        if(Auth::guard('account')->user()->is_master == false){
+        if($this->account->is_master == false){
             return;
         }
         if($request->has(['submitTicket'])){
@@ -64,15 +63,15 @@ class supportController extends Controller
             }
         }
         else if ($request->has('getTickets')){
-            $tickets = ticket::where('website_id',Auth::guard('account')->user()->website_id)
+            $tickets = ticket::where('website_id',$this->website_id)
             ->take(10)->skip($request->skip)->orderBy($request->orderBy,$request->order)->get();
-            $ticketsCount = ticket::where('website_id',Auth::guard('account')->user()->website_id)->count();
+            $ticketsCount = ticket::where('website_id',$this->website_id)->count();
 
             // if($request->lastTicketCard == ''){
-            //     $tickets = ticket::where('website_id',Auth::guard('account')->user()->website_id)
+            //     $tickets = ticket::where('website_id',$this->website_id)
             //     ->limit(20)->orderBy('created_at','desc')->get();
             // }else{
-            //     $tickets = ticket::where('website_id',Auth::guard('account')->user()->website_id)
+            //     $tickets = ticket::where('website_id',$this->website_id)
             //     ->where('created_at','<',$request->lastTicketCard)
             //     ->limit(20)->orderBy('created_at','desc')->get();
             // }

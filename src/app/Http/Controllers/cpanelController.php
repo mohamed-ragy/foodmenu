@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\cpanelNotification;
 use App\Events\globalChannel;
-use App\Events\usersStatus;
-use App\Events\websiteChannel;
 use App\Models\cpanelSettings;
 use App\Models\Account;
 use App\Models\activityLog;
@@ -21,7 +18,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use stdClass;
-use DateTime;
 use Illuminate\Support\Str;
 use App\Models\account_verifications;
 use App\Models\bug;
@@ -185,20 +181,29 @@ class cpanelController extends Controller
     public function dologin(Request $request)
     {
         if($request->has('cpLogin')){
-            $account = Account::where('email',$request->email)->select('id','website_id','password_fails','account_unblock_code','is_master')->first();
+            $account = Account::where('email',$request->email)->select('id','name','website_id','password_fails','account_unblock_code','is_master')->first();
             if($account){
                 if($account->password_fails > 10){
                     foodmenuFunctions::notification('0',null,[
                         'account_id' => $account->id,
                     ],$account->website_id);
                     if($account->account_unblock_code == null || $account->account_unblock_code == '' ){
-                        foodmenuFunctions::notification('account.blocked',null,[
-                                'account_id' => $account->id,
+                        if($account->is_master){
+                            Account::where('email',$request->email)->update(['account_unblock_code' => Str::random(100)]);
+                            ///send email with the unblock link if master
+                        }else{
+                            $notification = notification::create([
+                                'website_id' => $account->website_id,
+                                'code' => 'system.subaccount_blocked',
+                                'seen' => false,
+                                'subaccount_id' => $account->id,
+                                'subaccount_name' => $account->name,
+                            ]);
+                            foodmenuFunctions::notification('system.subaccount_blocked',null,[
+                                'notification' => $notification,
                                 'password_fails' => $account->password_fails,
-                        ],$account->website_id);
-                        Account::where('email',$request->email)->update(['account_unblock_code' => Str::random(100)]);
-                    }else{
-                        ///send email with the unblock link if master
+                            ],$account->website_id);
+                        }
                     }
                     if($account->is_master){
                         return response(['code' => 0, 'msg' => Lang::get('cpanel/login.accountBlocked') ]);
@@ -207,7 +212,8 @@ class cpanelController extends Controller
                     }
                 }else if (Auth::guard('account')->attempt(['email' => $request['email'] , 'password' => $request['password'] ])) {
                     Account::where('email',$request->email)->update([ 'password_fails' => 0 ]);
-                    $request->session()->regenerate();
+                    // $request->session()->regenerate();
+                    // Auth::guard('account')->logoutOtherDevices($request['password']);
                     return response(['code' => 1 ]);
                 }else{
                     Account::where('email',$request->email)->increment('password_fails');
@@ -473,26 +479,25 @@ class cpanelController extends Controller
     {
         if($request->has(['getNotifications'])){
             $notificationCodes =[];
-            if(Auth::guard('account')->user()->is_master == true){
-                $notificationCodes = ['orders.new_order_user','orders.delivered_by_delivery',3,4,'orders.canceled_by_user',22,74,80];
+            if($this->account->is_master == true){
+                $notificationCodes = ['system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
             }else{
-                if(str_split(Auth::guard('account')->user()->authorities)[0] == true){
+                if(str_split($this->account->authorities)[0] == true){
                     array_push($notificationCodes,'orders.new_order_user');
                     array_push($notificationCodes,'orders.delivered_by_delivery');
                     array_push($notificationCodes,'orders.canceled_by_user');
                 }
-                if(str_split(Auth::guard('account')->user()->authorities)[2] == true){
-                    array_push($notificationCodes,3);
+                if(str_split($this->account->authorities)[2] == true){
+                    array_push($notificationCodes,'user.signup');
                 }
-                if(str_split(Auth::guard('account')->user()->authorities)[1] == true){
-                    array_push($notificationCodes,4);
-                    array_push($notificationCodes,22);
+                if(str_split($this->account->authorities)[1] == true){
+                    array_push($notificationCodes,'review.posted');
+                    array_push($notificationCodes,'review.posted_survey');
                 }
             }
-
-
             $notifications = notification::where(['website_id' => $this->website_id,])
-            ->where('created_at','<',$request->getMoreNotificationsAfter ?? Carbon::now()->timestamp)
+            ->where('created_at','<=',(int)$request->lastNotification_created_at)
+            ->where('_id','!=',$request->lastNotification_id)
             ->whereIn('code',$notificationCodes)
             ->orderBy('created_at','desc')
             ->take(20)->get();
@@ -506,11 +511,9 @@ class cpanelController extends Controller
         }
         else if($request->has('lastSeen')){
             Account::where('id',Auth::guard('account')->user()->id)->update(['lastSeen' => Carbon::now()->timestamp]);
-            $notification = new stdClass();
-            $notification->code = 0;
-            $notification->accountId = Auth::guard('account')->user()->id;
-            $notification->website_id = $this->website_id;
-            // broadcast(new cpanelNotification($notification))->toOthers();
+            foodmenuFunctions::notification('0',null,[
+                'account_id' => Auth::guard('account')->user()->id,
+            ],$this->website_id);
         }
     }
 
@@ -672,81 +675,6 @@ class cpanelController extends Controller
                 return response(['sendChatMessage' => 0]);
             }
         }
-        // else if($request->has(['getLiveChats'])){
-        //     if(Auth::guard('account')->user()->isInvisible == false){
-        //         liveChat::where([
-        //             'website_id'=>$this->website_id,
-        //             'is_delivered'=> false,
-        //             'author' => 1,
-        //         ])
-        //         ->update(['is_delivered'=>true, 'delivered_at'=> new UTCDateTime()]);
-        //         $user = new stdClass();
-        //         $user->id = 0;
-        //         $user->website_id = $this->website_id;
-        //         $user->code = 3;
-        //         $user->now =  carbon::now();
-        //         $user->userType = 'user';
-        //         broadcast(new usersStatus($user))->toOthers();
-        //     }
-        //     if($request->getChatsFor == 'users'){
-        //         $liveChats = User::where('website_id', $this->website_id)
-        //         ->where('lastMsg_id','!=',null)
-        //         ->where('id','!=',$request->lastChatUserId)
-        //         ->where('lastChat','<',$request->getMoreLiveChatMsgsAfter)
-        //         ->with('last_msg')
-        //         ->orderBy('lastChat','desc')
-        //         ->take(15)
-        //         ->select('name','id','lastChat','lastMsg_id','lastSeen')
-        //         ->get();
-        //     }else if($request->getChatsFor == 'guests'){
-        //         $liveChats = guest::where('website_id', $this->website_id)
-        //         ->where('lastMsg_id','!=',null)
-        //         ->where('id','!=',$request->lastChatUserId)
-        //         ->where('lastChat','<',$request->getMoreLiveChatMsgsAfter)
-        //         ->with('last_msg')
-        //         ->orderBy('lastChat','desc')
-        //         ->take(15)
-        //         ->select('name','id','lastChat','lastMsg_id','lastSeen')
-        //         ->get();
-        //     }
-        //     return response(['liveChats' => $liveChats]);
-        // }
-
-        // else if($request->has(['getChatMessages'])){
-        //     if($request->userType == 'guest'){
-        //         if($request->getMoreChatMessagesBefore == ''){
-        //             $chatMessages = liveChat::where([
-        //                 'website_id' => $this->website_id,
-        //                 'guest_id' => (int)$request->user_id,
-        //             ])->orderBy('sent_at','desc')->limit(30)->get();
-        //         }else{
-        //             $chatMessages = liveChat::where([
-        //                 'website_id' => $this->website_id,
-        //                 'guest_id' => (int)$request->user_id,
-        //             ])
-        //             ->where('sent_at','<',new DateTime($request->getMoreChatMessagesBefore))
-        //             // ->where('_id','!=',$request->lastMsgId)
-        //             ->orderBy('sent_at','desc')->limit(30)->get();
-        //         }
-        //     }else if($request->userType == 'user'){
-        //         if($request->getMoreChatMessagesBefore == ''){
-        //             $chatMessages = liveChat::where([
-        //                 'website_id' => $this->website_id,
-        //                 'user_id' => (int)$request->user_id,
-        //             ])->orderBy('sent_at','desc')->limit(30)->get();
-        //         }else{
-        //             $chatMessages = liveChat::where([
-        //                 'website_id' => $this->website_id,
-        //                 'user_id' => (int)$request->user_id,
-        //             ])
-        //             ->where('sent_at','<',new DateTime($request->getMoreChatMessagesBefore))
-        //             // ->where('_id','!=',$request->lastMsgId)
-        //             ->orderBy('sent_at','desc')->limit(30)->get();
-        //         }
-        //     }
-
-        //     return response(['chatMessages' => $chatMessages]);
-        // }
         else if($request->has(['deleteChatMsg'])){
             $deleteMsg = liveChat::where(['_id'=>$request->msgId,'author' => 0,'website_id'=>$this->website_id])->first()
             ->update(['is_deleted'=>true,'deleted_at'=> Carbon::now()->timestamp,'message'=> '--','deleted_by'=>Auth::guard('account')->user()->id]);
@@ -763,24 +691,6 @@ class cpanelController extends Controller
                     'now' => Carbon::now()->timestamp,
 
                 ]);
-                // $user = new stdClass();
-                // $user->id =$request->userId;
-                // $user->website_id = $this->website_id;
-                // $user->code = 1;
-                // $user->msgId = $request->deleteChatMessage;
-                // $user->now =  carbon::now();
-                // $user->userType = $request->userType;
-                // broadcast(new usersStatus($user))->toOthers();
-
-                // $notification = new stdClass();
-                // $notification->userId = $request->userId;
-                // $notification->msgId = $request->deleteChatMessage;
-                // $notification->userType = $request->userType;
-                // $notification->website_id = $this->website_id;
-                // $notification->now =  carbon::now();
-                // $notification->code = 83;
-                // broadcast(new cpanelNotification($notification))->toOthers();
-
                 return response(['deleteChatMessage' => 1,'now' => Carbon::now()->timestamp]);
             }else{
                 return response(['deleteChatMessage' => 0]);
@@ -792,7 +702,7 @@ class cpanelController extends Controller
     {
         if($request->has('FirstLoad')){
             //////////
-            if(str_split(Auth::guard('account')->user()->authorities)[0] == false){
+            if(str_split($this->account->authorities)[0] == false){
                 $incompleteOrders = [];
             }else{
                 $incompleteOrders = order::where([
@@ -804,21 +714,19 @@ class cpanelController extends Controller
             }
             ////////
             $unSeenLiveChats = [];
-            if(str_split(Auth::guard('account')->user()->authorities)[5]){
+            if(str_split($this->account->authorities)[5]){
                 $unSeenLiveChats = liveChat::where(['website_id'=>$this->website_id,'is_seen'=>false,'author'=>1])->get(['user_id','guest_id']);
             }
             foodmenuFunctions::notification('0',null,[
-                'account_id' => Auth::guard('account')->user()->id,
-            ],Auth::guard('account')->user()->website_id);
+                'account_id' => $this->account->id,
+            ],$this->account->website_id);
             /////////////
             $notificationCodes = [];
             // $todayOrders = [];
-            if(Auth::guard('account')->user()->is_master == true){
+            if($this->account->is_master == true){
                 $timezone =website::where('id',$this->website_id)->pluck('timeZone')->first();
-                $notificationCodes = ['orders.new_order_user','orders.delivered_by_delivery',3,4,'orders.canceled_by_user',74,80];
+                $notificationCodes = ['system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
                 // $todayOrders = order::where('placed_at','>',Carbon::today($timezone))->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
-
-
                 $todayOrders = order::where(function($q) use ($timezone){
                     $q->where('dinedin_at','>',Carbon::today($timezone));
                 })->orWhere(function($q) use ($timezone){
@@ -830,23 +738,22 @@ class cpanelController extends Controller
                 })
                 ->where(['website_id'=>$this->website_id])
                 ->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
-
-
             }else{
-                $todayOrders = [];
-                if(str_split(Auth::guard('account')->user()->authorities)[0] == true){
+                if(str_split($this->account->authorities)[0] == true){
                     array_push($notificationCodes,'orders.new_order_user');
                     array_push($notificationCodes,'orders.delivered_by_delivery');
                     array_push($notificationCodes,'orders.canceled_by_user');
                 }
-                if(str_split(Auth::guard('account')->user()->authorities)[2] == true){
-                    array_push($notificationCodes,3);
+                if(str_split($this->account->authorities)[2] == true){
+                    array_push($notificationCodes,'user.signup');
                 }
-                if(str_split(Auth::guard('account')->user()->authorities)[1] == true){
-                    array_push($notificationCodes,4);
+                if(str_split($this->account->authorities)[1] == true){
+                    array_push($notificationCodes,'review.posted');
+                    array_push($notificationCodes,'review.posted_survey');
                 }
+                $todayOrders = [];
             }
-            $notifications = notification::where(['website_id'=>$this->website_id,'seen'=>false])->whereIn('code',$notificationCodes)->count();
+            $notifications = notification::where(['website_id'=>$this->website_id,'seen'=>false])->whereIn('code',$notificationCodes)->get();
 
             return response([
                 'notifications' => $notifications,
@@ -856,24 +763,22 @@ class cpanelController extends Controller
             ]);
         }
         else if($request->has('getActivityLog')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
+            if($this->account->is_master == false){return;}
             $timezone =website::where('id',$this->website_id)->pluck('timeZone')->first();
-            if($request->getMoreActivities == ''){
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 00:00:00',$timezone)->setTimezone('UTC');
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 23:59:59',$timezone)->setTimezone('UTC');
+            if($request->lastActivity_created_at == '0'){
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 00:00:00',$timezone)->setTimezone('UTC')->timestamp;
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 23:59:59',$timezone)->setTimezone('UTC')->timestamp;
                 $activities = activityLog::where('website_id',$this->website_id)
                 ->whereBetween('created_at',[$start,$end])
                 ->orderBy('created_at','desc')
                 ->take(30)
                 ->get();
             }else{
-                $end = new DateTime($request->getMoreActivities);
-                $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 00:00:00',$timezone)->setTimezone('UTC');
+                $end = (int)$request->lastActivity_created_at;
+                $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-'.$request->day.' 00:00:00',$timezone)->setTimezone('UTC')->timestamp;
                 $activities = activityLog::where('website_id',$this->website_id)
                 ->whereBetween('created_at',[$start,$end])
-                ->where('_id','!=',$request->lastActivityId)
+                ->where('_id','!=',$request->lastActivity_id)
                 ->orderBy('created_at','desc')
                 ->take(30)
                 ->get();
@@ -882,10 +787,8 @@ class cpanelController extends Controller
                 return response(['activities' => $activities]);
         }
         else if($request->has('deleteActivityLog')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $deleteActivity = activityLog::where(['website_id'=>$this->website_id,'_id'=>$request->deleteActivityLog])->delete();
+            if($this->account->is_master == false){return;}
+            $deleteActivity = activityLog::where(['website_id'=>$this->website_id,'_id'=>$request->activity_id])->delete();
             if($deleteActivity){
                 return response(['deleteActivityLogStat' => 1, 'msg' => Lang::get('cpanel/dashboard/activityLog.activityLogDeleted')]);
             }else{
@@ -893,32 +796,27 @@ class cpanelController extends Controller
             }
         }
         /////////
-        else if($request->has('loadStatistics')){
+        else if($request->has('load_statistics')){
             if($request->period == 'day'){
                 if($request->compare == 0){
-                    $statistics_hours = statistics_hour::where([
+                    $statistics1_hours = statistics_hour::where([
                         'website_id'=>$this->website_id,
                         'day' => (int)$request->day1,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
                     ])->orderBy('hour','asc')->get();
-                    $statistics_day = statistics_day::where([
+                    $statistics1_day = statistics_day::where([
                         'website_id'=>$this->website_id,
                         'day' => (int)$request->day1,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
-                    ])->get();
+                    ])->first();
                     return response([
-                        'period'=>'day',
-                        'compare'=>0,
-                        'day1' => $request->day1,
-                        'month1' => $request->month1,
-                        'year1' => $request->year1,
-                        'statistics1_hours'=>$statistics_hours,
-                        'statistics1_day'=>$statistics_day
+                        'statistics1_hours'=>$statistics1_hours,
+                        'statistics1_day'=>$statistics1_day
                     ]);
                 }else if($request->compare == 1){
-                    $statistics_hours = statistics_hour::where([
+                    $statistics1_hours = statistics_hour::where([
                         'website_id'=>$this->website_id,
                         'day' => (int)$request->day1,
                         'month' => (int)$request->month1,
@@ -930,64 +828,52 @@ class cpanelController extends Controller
                         'month' => (int)$request->month2,
                         'year' => (int)$request->year2,
                     ])->orderBy('hour','asc')->get();
-                    $statistics_day = statistics_day::where([
+                    $statistics1_day = statistics_day::where([
                         'website_id'=>$this->website_id,
                         'day' => (int)$request->day1,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
-                    ])->get();
+                    ])->first();
                     $statistics2_day = statistics_day::where([
                         'website_id'=>$this->website_id,
                         'day' => (int)$request->day2,
                         'month' => (int)$request->month2,
                         'year' => (int)$request->year2,
-                    ])->get();
+                    ])->first();
                     return response([
-                        'period'=>'day',
-                        'compare'=>1,
-                        'day1' => $request->day1,
-                        'month1' => $request->month1,
-                        'year1' => $request->year1,
-                        'day2' => $request->day2,
-                        'month2' => $request->month2,
-                        'year2' => $request->year2,
-                        'statistics1_hours'=>$statistics_hours,
-                        'statistics1_day'=>$statistics_day,
+                        'statistics1_hours'=>$statistics1_hours,
+                        'statistics1_day'=>$statistics1_day,
                         'statistics2_hours'=>$statistics2_hours,
                         'statistics2_day'=>$statistics2_day
                     ]);
                 }
             }else if($request->period == 'month'){
                 if($request->compare == 0){
-                    $statistics_days = statistics_day::where([
+                    $statistics1_days = statistics_day::where([
                         'website_id'=>$this->website_id,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
                     ])->orderBy('day','asc')->get();
-                    $statistics_month = statistics_month::where([
+                    $statistics1_month = statistics_month::where([
                         'website_id'=>$this->website_id,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
-                    ])->get();
+                    ])->first();
                     return response([
-                        'period'=>'month',
-                        'compare'=>0,
-                        'month1' => $request->month1,
-                        'year1' => $request->year1,
-                        'statistics1_days'=>$statistics_days,
-                        'statistics1_month'=>$statistics_month
+                        'statistics1_days'=>$statistics1_days,
+                        'statistics1_month'=>$statistics1_month
                     ]);
                 }else if($request->compare == 1){
-                    $statistics_days = statistics_day::where([
+                    $statistics1_days = statistics_day::where([
                         'website_id'=>$this->website_id,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
                     ])->orderBy('day','asc')->get();
-                    $statistics_month = statistics_month::where([
+                    $statistics1_month = statistics_month::where([
                         'website_id'=>$this->website_id,
                         'month' => (int)$request->month1,
                         'year' => (int)$request->year1,
-                    ])->get();
+                    ])->first();
                     $statistics2_days = statistics_day::where([
                         'website_id'=>$this->website_id,
                         'month' => (int)$request->month2,
@@ -997,34 +883,25 @@ class cpanelController extends Controller
                         'website_id'=>$this->website_id,
                         'month' => (int)$request->month2,
                         'year' => (int)$request->year2,
-                    ])->get();
+                    ])->first();
                     return response([
-                        'period'=>'month',
-                        'compare'=>1,
-                        'month1' => $request->month1,
-                        'year1' => $request->year1,
-                        'month2' => $request->month2,
-                        'year2' => $request->year2,
-                        'statistics1_days'=>$statistics_days,
-                        'statistics1_month'=>$statistics_month,
+                        'statistics1_days'=>$statistics1_days,
+                        'statistics1_month'=>$statistics1_month,
                         'statistics2_days'=>$statistics2_days,
                         'statistics2_month'=>$statistics2_month
                     ]);
                 }
             }else if($request->period == 'year'){
                 if($request->compare == 0){
-                    $statistics_months = statistics_month::where([
+                    $statistics1_months = statistics_month::where([
                         'website_id'=>$this->website_id,
                         'year' => (int)$request->year1,
                     ])->orderBy('month','asc')->get();
                     return response([
-                        'period'=>'year',
-                        'compare'=>0,
-                        'year1' => $request->year1,
-                        'statistics1_months'=>$statistics_months
+                        'statistics1_months'=>$statistics1_months
                     ]);
                 }else if($request->compare == 1){
-                    $statistics_months = statistics_month::where([
+                    $statistics1_months = statistics_month::where([
                         'website_id'=>$this->website_id,
                         'year' => (int)$request->year1,
                     ])->orderBy('month','asc')->get();
@@ -1033,11 +910,7 @@ class cpanelController extends Controller
                         'year' => (int)$request->year2,
                     ])->orderBy('month','asc')->get();
                     return response([
-                        'period'=>'year',
-                        'compare'=>1,
-                        'year1' => $request->year1,
-                        'year2' => $request->year2,
-                        'statistics1_months'=>$statistics_months,
+                        'statistics1_months'=>$statistics1_months,
                         'statistics2_months'=>$statistics2_months
                     ]);
                 }

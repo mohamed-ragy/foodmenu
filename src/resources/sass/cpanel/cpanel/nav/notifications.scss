@@ -50,16 +50,16 @@
     background-color:var(--white-2);
 }
 .notificationContainer_unseen:hover{
-    background-color:var(--white-2);
+    background-color:var(--white-3);
 }
 .notificationIcon{
-    margin-inline-end: 10px;
+    margin-inline-end: 15px;
     position: relative;
     margin-inline-start: 5px;
-    font-size:1.6em;
+    font-size:2em;
+    color:var(--white-10)
 }
 .notificationBody{
-    font-size:.75em;
     display: flex;
     flex-grow: 2;
     min-height: 30px;

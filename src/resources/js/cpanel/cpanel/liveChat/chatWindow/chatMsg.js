@@ -132,7 +132,7 @@ drawChatMsg_account = function(msg,type,id,msgClass=''){
                 deleteIcon,
             ),
             $('<div/>',{
-                class:'chatWindowMsg_account',
+                class:`chatWindowMsg_account ${msg.is_deleted ? 'chatMsgContaienr_deletedChatMsg' : ''}`,
             }).append(
                 $('<div/>',{
                     class:'chatWindowMsgText_account',
@@ -155,7 +155,7 @@ drawChatMsg_account = function(msg,type,id,msgClass=''){
 drawChatMsg_user = function(msg,type,id){
     return $('<div/>',{class:'ChatWindowMsgCard',msgId:msg._id}).append(
         $('<div/>',{class:'chatWindowMsgContainer_user'}).append(
-            $('<div/>',{class:'chatWindowMsg_user'}).append(
+            $('<div/>',{class:`chatWindowMsg_user ${msg.is_deleted ? 'chatMsgContaienr_deletedChatMsg' : ''}`}).append(
                 $('<div/>',{class:'chatWindowMsgText_user',html:msg.message}),
                 $('<div/>',{class:'chatWindowMsgInfo_user'}).append($('<div/>',{class:'fs07',text:getDate(msg.sent_at).time.local}))
             ),

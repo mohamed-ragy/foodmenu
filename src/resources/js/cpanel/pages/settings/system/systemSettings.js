@@ -59,6 +59,7 @@ calcCartLifeTime = function(action=null){
 
     $('#systemSettings-cartLifeTime').text(Math.round(cartLifeTimeFixed));
     $('#systemSettings-cartLifeTimeText').text(cartLifeTimeText);
+    return `${cartLifeTimeFixed} ${cartLifeTimeFixed}`
 }
 let cartLifeTimeUpInterval;
 let cartLifeTimeDownInterval;

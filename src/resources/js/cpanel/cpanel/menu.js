@@ -1,5 +1,12 @@
 console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 console.log(window.navigator.language)
+$(window).resize(function(){
+    if(window.page.page == 'statistics_and_analytics' && $(window).width() < 1366 || $(window).height() < 768){
+        $('#pageWrapper').removeClass().text('')
+        drawPage_statistics_and_analytics_smallScreen();
+
+    }
+})
 //////drawMenu
 drawMenuItemsPages = function(menuId){
     $('.sideMenu-itemsContainer').text('')
@@ -139,7 +146,7 @@ showPage = function(pageId,tab,keysObj){
         // console.log(window.history.state.page)
         let pushHistory = true;
         if(pageId == window.page.page){pushHistory = false;}else{
-            $('#bodyPage').find('#pageWrapper').css({'opacity':0});
+            $('#bodyPage').find('#pageWrapper').css({'opacity':0,'transform':'translateX(20px)'});
         }
 
         setTimeout(()=>{
@@ -147,6 +154,35 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'statistics_and_analytics':
+                    if(account.is_master == false){reject(1);return;}
+                    if($(window).width() < 1366 || $(window).height() < 768){
+                        drawPage_statistics_and_analytics_smallScreen();
+                        resolve(pushHistory);
+                    }else{
+                        let yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1)
+                        window.page.year1 = keysObj.year1 ?? yesterday.getFullYear();
+                        window.page.month1 = keysObj.month1 ?? parseInt(yesterday.getMonth() ) + 1;
+                        window.page.day1 = keysObj.day1 ?? yesterday.getDate();
+                        window.page.period = keysObj.period ?? 'day';
+                        window.page.compare = keysObj.compare ?? '0';
+                        window.page.year2 = keysObj.year2 ?? yesterday.getFullYear();
+                        window.page.month2 = keysObj.month2 ?? parseInt(yesterday.getMonth() ) + 1;
+                        window.page.day2 = keysObj.day2 ?? yesterday.getDate();
+                        drawPage_statistics_and_analytics();
+                        resolve(pushHistory);
+                    }
+
+                break;
+                case 'activity_log':
+                    if(account.is_master == false){reject(1);return;}
+                    window.page.year = keysObj.year ?? new Date().getFullYear();
+                    window.page.month = keysObj.month ?? parseInt(new Date().getMonth() ) + 1;
+                    window.page.day = keysObj.day ?? new Date().getDate();
+                    drawPage_activity_log();
+                    resolve(pushHistory);
+                break;
                 case 'financial_reports':
                     if(account.is_master == false){reject(1);return;}
                     drawPage_financial_reports();
@@ -318,7 +354,7 @@ showPage = function(pageId,tab,keysObj){
             cpanelTitle(false);
         },200)
         setTimeout(function(){
-            $('#bodyPage').find('#pageWrapper').css({'opacity':1});
+            $('#bodyPage').find('#pageWrapper').css({'opacity':1,'transform':'translateX(0px)'});
             helpIconsToggle(!settings_temp.guideMode ? false : settings_temp.helpIcons);
             fixPageTabsArrows();
             for(const key in window.menu){
@@ -333,18 +369,18 @@ showPage = function(pageId,tab,keysObj){
                 }
             }
         },400)
-        closePopup();
+        // closePopup();
         authorities();
         // if($('#'+pageId+'-page').css('display') == 'none'){
         //     $('#bodyPage').find('.pageWrapper').css({'opacity':0});
         //     setTimeout(function(){
         //         $('#bodyPage').find('.pageWrapper').css('display','none');
         //         $('#'+pageId+'-page').css({'display':'block'});
-        //         if(pageId == 'statistics_and_analytics'){
-        //             guideModeToggle(false,false)
-        //         }else{
-        //             guideModeToggle(settings_temp.guideMode)
-        //         }
+                if(pageId == 'statistics_and_analytics'){
+                    guideModeToggle(false,false)
+                }else{
+                    guideModeToggle(settings_temp.guideMode)
+                }
         //     },200);
         //     setTimeout(function(){
         //         $('#'+pageId+'-page').css({'opacity':1});

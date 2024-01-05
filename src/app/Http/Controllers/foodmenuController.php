@@ -6,7 +6,6 @@ use App\Models\Account;
 use App\Models\cpanelSettings;
 use App\Models\cron_jobs;
 use App\Models\foodmenuFunctions;
-use App\Models\invoice;
 use App\Models\website;
 use App\Models\websiteText;
 use Carbon\Carbon;
@@ -14,10 +13,8 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -415,19 +412,10 @@ class foodmenuController extends Controller
                                 'timeZone' => $website->timeZone,
                             ]);
                             websiteText::create(['website_id'=>$website->id,'lang'=>$websiteLang['code'],'text'=>foodmenuFunctions::defaultLanguageText($websiteLang['code'])]);
-
-                            // websiteText::create([
-                            //     'website_id' => $website->id,
-                            //     'en' => foodmenuFunctions::defaultLanguageText('en'),
-                            //     'ar' => foodmenuFunctions::defaultLanguageText('ar'),
-                            //     'eg' => foodmenuFunctions::defaultLanguageText('eg'),
-                            //     'fr' => foodmenuFunctions::defaultLanguageText('fr'),
-                            //     'de' => foodmenuFunctions::defaultLanguageText('de'),
-                            //     'es' => foodmenuFunctions::defaultLanguageText('es'),
-                            //     'it' => foodmenuFunctions::defaultLanguageText('it'),
-                            //     'ru' => foodmenuFunctions::defaultLanguageText('ru'),
-                            //     'ua' => foodmenuFunctions::defaultLanguageText('ua'),
-                            // ]);
+                            foodmenuFunctions::notification(null,[
+                                'website_id' => $website->id,
+                                'code' => 'website.installed'
+                            ],null);
                             return response(['installWebsiteState' => 1]);
                         }else{
                             //return unkown error try again

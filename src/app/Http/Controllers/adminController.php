@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Events\admins;
-use App\Events\cpanelNotification;
-use App\Models\Admin;
 use App\Models\admins_logs;
 use App\Models\bug;
+use App\Models\foodmenuFunctions;
 use App\Models\notification;
 use App\Models\ticket;
 use App\Models\ticket_msg;
 use App\Models\website;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use stdClass;
@@ -109,13 +107,17 @@ class adminController extends Controller
             if($postTicketMsg){
                 ticket::where('id',$request->postTicketMsg)->update(['status' => 2]);
                 $notification = notification::create([
-                    'code' => 74,
+                    'code' => 'system.ticket_reply',
                     'seen' => false,
                     'ticket_id' => (int)$request->postTicketMsg,
                     'website_id' => (int)$request->websiteId,
                 ]);
-                $notification->msg = $postTicketMsg;
-                broadcast(new cpanelNotification($notification));
+
+                foodmenuFunctions::notification('system.ticket_reply',null,[
+                    'notification' => $notification,
+                    'reply' => $postTicketMsg,
+                ],$request->websiteId);
+
                 $admin = new stdClass();
                 $admin->status = 1;
                 $admin->msg = $postTicketMsg;
@@ -137,11 +139,10 @@ class adminController extends Controller
                     $q->select('domainName','id','url');
                 }])->first();
             broadcast(new admins($admin));
-            $notification = new stdClass();
-            $notification->website_id = $request->websiteId;
-            $notification->code = 75;
-            $notification->ticketId = $request->ticketSolved;
-            broadcast(new cpanelNotification($notification));
+
+            foodmenuFunctions::notification('system.ticket_solved',null,[
+                'ticket_id' => $request->ticketSolved,
+            ],$request->websiteId);
         }
         else if($request->has('ticketClosed')){
             ticket::where('id',$request->ticketClosed)->update(['status'=>4]);
@@ -152,11 +153,9 @@ class adminController extends Controller
                     $q->select('domainName','id','url');
                 }])->first();
             broadcast(new admins($admin));
-            $notification = new stdClass();
-            $notification->website_id = $request->websiteId;
-            $notification->code = 75;
-            $notification->ticketId = $request->ticketClosed;
-            broadcast(new cpanelNotification($notification));
+            foodmenuFunctions::notification('system.ticket_solved',null,[
+                'ticket_id' => $request->ticketClosed,
+            ],$request->websiteId);
         }
     }
 }

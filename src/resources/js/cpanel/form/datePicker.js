@@ -32,6 +32,8 @@ datePicker = function (Cmonth,Cyear,nextPrev,selectPeriod){
             year = year + 1;
         }else if(nextPrev == 0){
             year = year - 1;
+        }else if(nextPrev == 2){
+            year = year;
         }
         return{
             monthName : [texts.cpanel.public.January,texts.cpanel.public.February,texts.cpanel.public.March,texts.cpanel.public.April,texts.cpanel.public.May,texts.cpanel.public.June,texts.cpanel.public.July,texts.cpanel.public.August,texts.cpanel.public.September,texts.cpanel.public.October,texts.cpanel.public.November,texts.cpanel.public.December][Cmonth - 1],
@@ -101,15 +103,15 @@ datePickerCalcDateAndTime = function(timeStamp,modify=''){
 
 setdatePicker = function(datePickerContainer,year,month,day){
     if(datePickerContainer.attr('selectPeriod') == 'year'){
-        datePickerContainer.find('.datePickerYear').attr('year',datePicker(month,year,1,'year').year);
-        datePickerContainer.find('.datePickerYear').text(datePicker(month,year,1,'year').year);
-        datePickerContainer.find('.datePickerMonth').attr('month',datePicker(month,year,1,'year').month);
-        datePickerContainer.find('.datePickerMonth').text(datePicker(month,year,1,'year').monthName);
+        datePickerContainer.find('.datePickerYear').attr('year',datePicker(month,year,2,'year').year);
+        datePickerContainer.find('.datePickerYear').text(datePicker(month,year,2,'year').year);
+        datePickerContainer.find('.datePickerMonth').attr('month',datePicker(month,year,2,'year').month);
+        datePickerContainer.find('.datePickerMonth').text(datePicker(month,year,2,'year').monthName);
     }else if(datePickerContainer.attr('selectPeriod') == 'month'){
-        datePickerContainer.find('.datePickerYear').attr('year',datePicker(month,year,1,'month').year);
-        datePickerContainer.find('.datePickerYear').text(datePicker(month,year,1,'month').year);
-        datePickerContainer.find('.datePickerMonth').attr('month',datePicker(month,year,1,'month').month);
-        datePickerContainer.find('.datePickerMonth').text(datePicker(month,year,1,'month').monthName);
+        datePickerContainer.find('.datePickerYear').attr('year',datePicker(month,year,2,'month').year);
+        datePickerContainer.find('.datePickerYear').text(datePicker(month,year,2,'month').year);
+        datePickerContainer.find('.datePickerMonth').attr('month',datePicker(month,year,2,'month').month);
+        datePickerContainer.find('.datePickerMonth').text(datePicker(month,year,2,'month').monthName);
     }
     let now = new Date();
     now.setHours(0,0,0,0);
@@ -117,16 +119,18 @@ setdatePicker = function(datePickerContainer,year,month,day){
         $(this).removeClass('datePickerDayDump');
         $(this).removeClass('datePickerSelectedDay');
         $(this).removeClass('datePickerDayNoSelect');
-        $(this).text(parseInt($(this).attr('dayNum')) - datePicker(month,year,1,'month').firstDayWeek);
+        $(this).text(parseInt($(this).attr('dayNum')) - datePicker(month,year,2,'month').firstDayWeek);
         if(parseInt($(this).text()) < 1){
             $(this).text('');
             $(this).addClass('datePickerDayDump');
         }
-        if(parseInt($(this).text()) > datePicker(month,year,1,'month').monthDays){
+
+        if(parseInt($(this).text()) > datePicker(month,year,2,'month').monthDays){
             $(this).text('');
             $(this).addClass('datePickerDayDump');
         }
-        if($(this).attr('dayNum') - datePicker(month,year,1,'month').firstDayWeek == day){
+
+        if($(this).attr('dayNum') - datePicker(month,year,2,'month').firstDayWeek == day){
             $(this).addClass('datePickerSelectedDay')
             $(this).trigger('click');
         }

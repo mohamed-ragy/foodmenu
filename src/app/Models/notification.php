@@ -19,20 +19,24 @@ class notification extends Model
             $post->created_at = Carbon::now()->timestamp;
         });
 
-        static::updating(function ($post) {
-            $post->updated_at = Carbon::now()->timestamp;
-        });
+        // static::updating(function ($post) {
+        //     $post->updated_at = Carbon::now()->timestamp;
+        // });
 
     }
     protected $fillable = [
-        'code','seen','website_id',
+        'website_id',
+        'code',
+        'seen',
         'financialReport_id','month','year',
+        'statistics_id','day',
         'ticket_id',
         'user_id','userName',
         'order_id','order_number',
         'product_review_id','reviewsSum',
         'product_id','productName',
         'delivery_id','deliveryName',
+        'subaccount_id','subaccount_name',
     ];
 
     public function websites(){

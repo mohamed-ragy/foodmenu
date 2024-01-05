@@ -308,46 +308,37 @@ return [
         //new
         'noPaymentPlaceOrderMsg' => 'Failed to place the order due to a failed subscription renewal.',
         //new
+        "from" => "From",
+        "to" => "To",
     ],
     'notifications' => [
         'notifications' => 'Notifications',
         'noNotifications' => 'There are no notifications.',
+        'financialReport_title' => 'New Financial Report Available',
+        'financialReport_msg' => 'The financial report for :date: is now available.',
+        'helpTicket_msg' => 'A new reply has been submitted to your help ticket :ticket:.',
+        'helpTicket_title' => 'Help Ticket Notification',
+        'review' => 'A new review',
+        'reviews' => ':reviewsSum: new reviews',
+        'collectReviews_msg' => ':txt: has been posted via post-purchase survey by :user:.',
+        'collectReviews_title' => 'A post-purchase survey has been submitted',
+        'newReview_msg' => ':review: of :product: has been posted by :user:.',
+        'newReview_title' => 'A new review has been posted.',
+        'newUser_title' => 'New User Registered',
+        'newUser_msg' => 'A new user :user: has registered on your website.',
+        'newOrder_title' => 'New Order Placed',
+        'newOrder_msg' => 'A new order :order: has been placed by :user:.',
+        'orderCanceled_title' => 'Order Canceled',
+        'orderCanceled_msg' => 'Order :order: has been canceled by :user:.',
+        'orderDelivered_title' => 'Order Delivered',
+        'orderDelivered_msg' => 'Order :order: has been delivered by the delivery person :delivery:.',
+        //new//
+        'subaccountBlocked_title' => 'Sub-account blocked!',
+        'subaccountBlocked_msg' => ":subaccount:'s account has been blocked due to password fails multiple times.",
 
-        'newOrderPlaced' => 'New Order Placed',
-        'newOrder2' => 'has been placed by',
-
-        'orderCanceled2' => 'has been canceled by',
-        'orderCanceled' => 'Order Canceled',
-
-        'aGuest' => 'a guest',
-        'order' => 'Order',
-        'delivered' => 'has been delivered by the delivery person',
-        'delivered1' => 'Order Delivered',
-
-        'newUser' => 'New User Registered',
-        'newUser1' => 'A new user',
-        'newUser2' => 'has registered on your website.',
-
-        'newReview' => 'New Review Posted',
-        'newReview22' => 'New Reviews Posted',
-        'newReviews' => 'New reviews has been posted.',
-        'newReview1' => 'A new review of',
-        'newReview2' => 'has been posted by',
-
-        'collectReviews1' => 'A new review',
-        'collectReviews2' => 'has been posted by',
-        'collectReviews22' => 'have been posted by',
-        'collectReviews3' => 'New reviews',
-        'collectReviews4' => 'via the post-purchase survey.',
-
-
-        'ticketMSg1' => 'A new reply has been submitted to your help ticket',
-        'ticketMSg' => 'Help Ticket Notification',
-
-        'financialReport' => 'New Financial Report Available',
-        'financialReport1' => 'The financial report for',
-        'financialReport2' => 'is now available.',
-
+        "statistics_day_created_title" => "Statistics archived",
+        "statistics_day_created_msg" => ":date: statistics and analytics has been calculated and archived."
+        //new//
     ],
     'liveChat' => [
         'liveChat'=>'Live chat',
@@ -418,6 +409,9 @@ return [
         'websiteSwitch' => 'Your website is offline.',
         'websiteIcon' => "You haven't yet added a website icon.",
         'websiteLogo' => "You haven't yet added a website logo.",
+        //new//
+        'subaccountBlocked' => ":subaccount:'s account has been blocked due to password fails multiple times.",
+        //new//
         // 'slideShow' => "You haven't added any images for the slide Show.",
         // 'homePageLayout' => "Your website homepage is empty.",
         // 'gallery' => "You haven't added any images for the website gallery.",

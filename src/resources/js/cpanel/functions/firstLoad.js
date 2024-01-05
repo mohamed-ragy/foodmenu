@@ -2,7 +2,8 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
     $('.loading_navIconNum').removeClass('none');
     window.waitFor_loadWebsiteOrdersAndChats = true;
     window.notificationsFirstLoad = false;
-    window.notifications = [];
+    website.notifications = [];
+    website.notifications_unseen = [];
     $('#notificationsListConainer').text('')
     hideList($('#notificationsList'),$('#notifications'))
     /////
@@ -51,8 +52,12 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
 
             drawTodayHomeOrders();
 
-
-            window.pageNotifications.notifications = response.notifications;
+            for(const key in response.notifications){
+                if(!response.notifications[key].seen){
+                    website.notifications_unseen.push(response.notifications[key])
+                }
+            }
+            window.pageNotifications.notifications = response.notifications.length;
             cpanelTitle(false);
         }
     }).done(function(){

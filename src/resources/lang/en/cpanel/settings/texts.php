@@ -16,21 +16,21 @@ return [
     'reviewsSystem' => 'Review system settings',
     'liveChatSystem' => 'Live chat system settings',
     'otherSystem' => 'Other system settings',
-    'enableProductReviews' => 'Enable product ratings and reviews',
-    'enableGuestReviews' => 'Accept guest reviews',
+    'productReviews' => 'Enable product ratings and reviews',
+    'guestReviews' => 'Accept guest reviews',
     'collectReviews' => 'Display post-purchase surveys for users',
-    'enableGuestOrders'=>'Accept guest orders',
+    'guestOrders'=>'Accept guest orders',
     'acceptDeliveryOrders24' =>'Accept delivery orders outside working hours',
     'acceptPickupOrders24' =>'Accept pickup orders outside working hours',
     'discountAnnouncement' => 'Show happy hour announcements',
     'cancelOrder' => 'Allow cancelation of pending orders',
     'liveChat' => 'Enable live chat',
     'guestLiveChat' => 'Enable live chat with guests',
-    'cookiesMsg' => 'Display cookies notification message',
+    'cookies_msg' => 'Display cookies notification message',
     'langPopup' => 'Display a select language message on the first visit',
     'showDineinWorkingHours' => 'Show dine-in working hours',
     'fastLoading' => 'Enable website quick load mode <span class="c_bg6 fs101">(not recommended)</span>',
-    'cartLifeTime' => 'Cart lifetime',
+    'cart_lifeTime' => 'Cart lifetime',
     'printerWidth' => 'Receipt width',
     'printerWidthmm' => 'mm',
     'receiptMsg' => 'Receipt footer message',
@@ -147,6 +147,9 @@ return [
     'customLangNameRequired' => 'Please enter the language name.',
     'customLangCodeRequired' => 'Please enter the language code.',
     'customLangFlagRequired' => 'Please select the language flag.',
+    //new
+    'langNotFound' => 'Language not found!',
+    //new
     //promocodes
     //new
     'active' => 'Active',
@@ -174,6 +177,9 @@ return [
     'codeRequired' => 'Please enter the promo code.',
     'promocodeLimitError' => 'Failed to create a new promo code! You have reached the number of promo codes allowed in your subscription plan.',
     'promocodeGuestNo' => 'It\'s not possible for guests to use a one-time-use promo code.',
+    //new//
+    "promocodeNotFound" => "Promocode not found!",
+    //new//
     //services settings
     'workingDays' => 'Working days',
     'deliveryFees'=>'Delivery cost',

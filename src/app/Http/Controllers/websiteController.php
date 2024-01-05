@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\activityLog;
 use App\Models\categories;
 use App\Models\foodmenuFunctions;
 use App\Models\liveChat;
@@ -49,12 +48,6 @@ class websiteController extends Controller
     // private $websiteLogo;
     public function __construct(Request $request)
     {
-            // dd(order::where(['website_id'=>1,'status'=>0])->get());
-            // order::where('_id','652930ccd59a1063106a1ee6')->update([
-            //     'delivery_id'=>1,
-            //     'out_for_delivery_at' => Carbon::now()->timestamp
-            // ]);
-
         $this->middleware(function ($request, $next) {
             $domain = explode('.', request()->getHost());
             $websiteCheck = website::where('url' , preg_replace('/^www./', '',request()->gethost()) )->orWhere('domainName' , $domain[0] )->select('id','languages','active','subscription_status')->first();
@@ -76,7 +69,6 @@ class websiteController extends Controller
                     return redirect('/');
                 }
             }
-
 
             if(Auth::guard('user')->check()){
                 if(Auth::guard('user')->user()->isBanned == true){
@@ -320,12 +312,9 @@ class websiteController extends Controller
                     // if(isset($lastCompleteOrder->order_items)){
                     if(isset($lastCompleteOrder->order_items) && $lastCompleteOrder->collectReviewSeen == false){
                         order::where('id',$lastCompleteOrder->id)->update(['collectReviewSeen'=>true]);
-                        $notification = new stdClass();
-                        $notification->website_id = $this->website_id;
-                        $notification->code = 6.5;
-                        $notification->order_id = $lastCompleteOrder->id;
-                        broadcast(new cpanelNotification($notification))->toOthers();
-
+                        foodmenuFunctions::notification('orders.collectReviewSeen',null,[
+                            'order_id' => $lastCompleteOrder->_id,
+                        ]);
                         $this->website->lastCompleteOrder = $lastCompleteOrder;
                     }
                 }
@@ -345,6 +334,7 @@ class websiteController extends Controller
                     guest::where('id',Auth::guard('guest')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
                 }
             }
+
             return $next($request);
         })->only(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
     }
@@ -440,32 +430,28 @@ class websiteController extends Controller
                 'phoneNumber' => strip_tags($request->phoneNumber),
                 'address' => strip_tags($request->address),
                 'website_id' => $this->website_id ,
-                'lastSeen' => Carbon::now()->timestamp,
+                'lastSeen' => null,
                 'cart' => '{}',
-                'cart_lastUpdate' => Carbon::now()->timestamp,
+                'cart_lastUpdate' => null,
+                'isBanned' => false,
             ]);
+
             $notification = notification::create([
                 'website_id'=>(int) $this->website_id ,
                 'seen' => false,
-                'code'=>3,
+                'code'=>'user.signup',
                 'user_id'=>(int) $user->id,
                 'userName'=>strip_tags($request->name),
             ]);
-            $user->isBanned = false;
-            $user->lat = 0;
-            $user->lng = 0;
-            $user->ordersSum = 0;
-            $user->reviewsSum = 0;
-            $notification->user = $user;
-            $notification->activity = activityLog::create([
+            foodmenuFunctions::notification('user.signup',[
                 'website_id'=>(int) $this->website_id ,
-                'code' => 0,
+                'code' => 'user.signed_up',
                 'user_id' => (int) $user->id,
                 'user_name' => $user->name,
+            ],[
+                'notification' => $notification,
             ]);
-            // broadcast(new cpanelNotification($notification))->toOthers();
             return response(['signupstats' => 1 ]);
-
         }
     }
     public function recoverpassword(Request $request)
@@ -573,6 +559,13 @@ class websiteController extends Controller
             if($validate->fails()){
                 return response(['saveProfileStatus'=>0,'error'=>$validate->errors()]);
             }else{
+                $old_user = [
+                    'name' => Auth::guard('user')->user()->name,
+                    'phoneNumber' => Auth::guard('user')->user()->phoneNumber,
+                    'address' => Auth::guard('user')->user()->address,
+                    'lat' => Auth::guard('user')->user()->lat,
+                    'lng' => Auth::guard('user')->user()->lng,
+                ];
                 $saveProfile = User::where('id',Auth::guard('user')->user()->id)
                 ->update([
                     'name'=>strip_tags($request->name),
@@ -582,17 +575,37 @@ class websiteController extends Controller
                     'lng' => $request->lng,
                 ]);
                 if($saveProfile){
-                    $notification = new stdClass();
-                    $notification->code = 20.3;
-                    $notification->user = User::where('id',Auth::guard('user')->user()->id)->first();
-                    $notification->website_id = (int) $this->website_id ;
-                    $notification->activity = activityLog::create([
-                        'website_id' =>(int) $this->website_id ,
+                    $activity = null;
+                    if(
+                        $old_user['name'] != strip_tags($request->name) ||
+                        $old_user['phoneNumber'] != strip_tags($request->phoneNumber) ||
+                        $old_user['address'] != strip_tags($request->address) ||
+                        $old_user['lat'] != strip_tags($request->lat) ||
+                        $old_user['lng'] != strip_tags($request->lng)
+                    ){
+                        $activity = [
+                            'website_id' =>(int) $this->website_id ,
+                            'code' => 'user.edited_by_user',
+                            'user_id' => Auth::guard('user')->user()->id,
+                            'user_name' => strip_tags($request->name),
+                            'old_user' => $old_user,
+                            'new_user' => [
+                                'name' => strip_tags($request->name),
+                                'phoneNumber' => strip_tags($request->phoneNumber),
+                                'address' => strip_tags($request->address),
+                                'lat' => strip_tags($request->lat),
+                                'lng' => strip_tags($request->lng),
+                            ]
+                        ];
+                    }
+                    foodmenuFunctions::notification('user.edited_by_user',$activity,[
                         'user_id' => Auth::guard('user')->user()->id,
-                        'user_name' => strip_tags($request->name),
-                        'code' => 1,
+                        'name'=>strip_tags($request->name),
+                        'phoneNumber'=>strip_tags($request->phoneNumber),
+                        'address' =>strip_tags($request->address),
+                        'lat' => $request->lat,
+                        'lng' => $request->lng,
                     ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
                     return response(['saveProfileStatus'=>1]);
                 }else{
                     return response(['saveProfileStatus'=>2]);
@@ -617,23 +630,24 @@ class websiteController extends Controller
                 $changeEmail = user::where('id',Auth::guard('user')->user()->id)
                     ->update(['email'=>strip_tags($request->newEmail)]);
                 if($changeEmail){
-                    $notification = new stdClass();
-                    $notification->website_id =(int) $this->website_id ;
-                    $notification->code = 20.3;
-                    $notification->user = User::where('id',Auth::guard('user')->user()->id)->first();
-                    $notification->activity = activityLog::create([
-                        'website_id' => (int) $this->website_id ,
+                    $activity = null;
+                    if($oldEmail != $request->newEmail){
+                        $activity = [
+                            'website_id' => (int) $this->website_id ,
+                            'user_id' => Auth::guard('user')->user()->id,
+                            'user_name' => Auth::guard('user')->user()->name,
+                            'code' => 'user.email_changed',
+                            'old_user' => $oldEmail,
+                            'new_user' => $request->newEmail,
+                        ];
+                    }
+                    foodmenuFunctions::notification('user.email_changed_by_user',$activity,[
                         'user_id' => Auth::guard('user')->user()->id,
-                        'user_name' => Auth::guard('user')->user()->name,
-                        'code' => 2,
-                        'oldEmail' => $oldEmail,
-                        'newEmail' => $request->newEmail,
+                        'email' =>strip_tags($request->newEmail)
                     ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
                     return response(['changeEmailStatus' => 1]);
                 }else{
                     return response(['changeEmailStatus' => 3]);
-
                 }
             }
 
@@ -652,19 +666,15 @@ class websiteController extends Controller
                 $changePassword = user::where('id',Auth::guard('user')->user()->id)
                     ->update(['password'=>bcrypt($request->newPassword)]);
                 if($changePassword){
-                    $notification = new stdClass();
-                    $notification->website_id =(int) $this->website_id ;
-                    $notification->activity = activityLog::create([
+                    foodmenuFunctions::notification('user.password_changed_by_user',[
                         'website_id' => (int) $this->website_id ,
                         'user_id' => Auth::guard('user')->user()->id,
                         'user_name' => Auth::guard('user')->user()->name,
-                        'code' => 3,
-                    ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
+                        'code' => 'user.password_changed',
+                    ],null);
                     return response(['changePasswordStatus' => 1]);
                 }else{
                     return response(['changePasswordStatus' => 2]);
-
                 }
             }
         }
@@ -812,21 +822,12 @@ class websiteController extends Controller
         if($request->has('setCart')){
             User::where(['website_id'=>$this->website_id,'id'=>Auth::guard('user')->user()->id])
                 ->update(['cart'=>$request->setCart,'cart_lastUpdate'=>Carbon::now()->timestamp]);
-                $notification = new stdClass();
-                $notification->code = 1.5;
-                $notification->website_id = $this->website_id;
-                $notification->user_id = Auth::guard('user')->user()->id;
-                $notification->cart = $request->setCart;
-                $notification->cart_lastUpdate = Carbon::now()->timestamp;
-
-                // $notification->activity = activityLog::create([
-                //     'website_id' => $this->website_id,
-                //     'code' => 4,
-                //     'user_id'=>  Auth::guard('user')->user()->id,
-                //     'user_name' => Auth::guard('user')->user()->name,
-                // ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
-
+                foodmenuFunctions::notification('user.cart_update',null,[
+                    'user_id'=>  Auth::guard('user')->user()->id,
+                    'user_oldCart' => Auth::guard('user')->user()->cart,
+                    'user_newCart' => $request->setCart,
+                    'now' => Carbon::now()->timestamp,
+                ]);
         }else if($request->has(['placeOrder'])){
             $website = website::where('id',$this->website_id)->select([
                 'timeZone','guestOrders',
@@ -1112,17 +1113,6 @@ class websiteController extends Controller
                     'order' => $order,
                     'notification' => $notification,
                 ]);
-
-                // $notification->order = $order;
-                // $notification->activity = activityLog::create([
-                //     'website_id' =>(int)$this->website_id ,
-                //     'code' => 8,
-                //     'user_id' => $user_id,
-                //     'user_name' => $userName,
-                //     'order_id' => $order->id,
-                // ]);
-
-                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['placeOrderStat' => 1,'order' => $order]);
 
             }
@@ -1172,15 +1162,6 @@ class websiteController extends Controller
                         'user_id' => $user_id,
                         'userName' => $userName,
                     ]);
-                    // $notification->activity = activityLog::create([
-                    //     'website_id' => (int)$this->website_id ,
-                    //     'code' => 6,
-                    //     'order_id' => (int) $request->cancelOrder,
-                    //     'user_id' => $user_id,
-                    //     'user_name' => $userName,
-                    // ]);
-                    // $orderId = (int) $request->cancelOrder;
-
                     foodmenuFunctions::notification('orders.canceled_by_user',[
                         'website_id' => (int)$this->website_id ,
                         'code' => 'order.canceled_by_user',
@@ -1193,8 +1174,6 @@ class websiteController extends Controller
                         'canceled_at' => Carbon::now()->timestamp,
                         'notification' => $notification,
                     ]);
-                    // $notification->order = $order;
-                    // broadcast(new cpanelNotification($notification))->toOthers();
                     return response(['cancelOrderStatus' => 1,'order' => $order]);
                 }else{
                     return response(['cancelOrderStatus' =>0]);
@@ -1276,7 +1255,7 @@ class websiteController extends Controller
 
                 if($postReview){
                     $notification = notification::create([
-                        'code' => 4,
+                        'code' => 'review.posted',
                         'seen' => false,
                         'website_id'=>(int) $this->website_id ,
                         'user_id' => $userId,
@@ -1284,16 +1263,17 @@ class websiteController extends Controller
                         'productName' => $request->productName,
                         'userName' => $userName,
                     ]);
-                    $notification->activity = activityLog::create([
+                    foodmenuFunctions::notification('review.posted',[
                         'website_id' => (int) $this->website_id ,
-                        'code' => 7,
+                        'code' => 'review.posted',
                         'user_id' => $userId,
                         'user_name' => $userName,
                         'product_id' => $postReview->product_id,
                         'product_name' => $request->productName,
                         'product_review_id' => $postReview->id,
+                    ],[
+                        'notification' => $notification,
                     ]);
-                    broadcast(new cpanelNotification($notification))->toOthers();
 
                     return response([
                         'postReviewStatus' => 1,
@@ -1328,26 +1308,29 @@ class websiteController extends Controller
                     'rate' => $review['reviewRate'],
                     'review' => strip_tags($review['reviewReview']),
                     'posted_at' => Carbon::now()->timestamp,
+                    'created_at' => Carbon::now()->timestamp,
                 ]);
             }
             $insertReviews = product_review::insert($reviews);
             if($insertReviews){
                 $notification = notification::create([
-                    'code' => 22,
+                    'code' => 'review.posted_survey',
                     'seen' => false,
                     'website_id'=>(int) $this->website_id ,
                     'reviewsSum' =>count($reviews),
                     'user_id' => $userId,
                     'userName' => $userName,
                 ]);
-                $notification->activity = activityLog::create([
+
+                foodmenuFunctions::notification('review.posted_survey',[
                     'website_id' => (int) $this->website_id ,
-                    'code' => 35,
+                    'code' => 'review.posted_survey',
                     'user_id' => $userId,
                     'user_name' => $userName,
                     'reviewsSum' =>count($reviews),
+                ],[
+                    'notification' => $notification,
                 ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['postCollectReviewsStats' => 1,'reviews' => $reviews ]);
             }else{
                 return response(['postCollectReviewsStats' => 0 ]);

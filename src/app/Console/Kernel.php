@@ -50,16 +50,16 @@ class Kernel extends ConsoleKernel
                     $yesterday_start = Carbon::yesterday($job->timeZone)->setTimezone('UTC');
                     $yesterday_end = Carbon::yesterday($job->timeZone)->addHours(23)->addMinutes(59)->addSeconds(59)->setTimezone('UTC');
                     $thisDayOrders = order::
-                    where(function($q) use ($yesterday, $job){
+                    where(function($q) use ($yesterday_start, $yesterday_end, $job){
                         $q->where('website_id',$job->website_id)->whereBetween('dinedin_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
-                    ->orWhere(function($q) use ($yesterday, $job){
+                    ->orWhere(function($q) use ($yesterday_start, $yesterday_end, $job){
                         $q->where('website_id',$job->website_id)->whereBetween('canceled_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
-                    ->orWhere(function($q) use ($yesterday, $job){
+                    ->orWhere(function($q) use ($yesterday_start, $yesterday_end, $job){
                         $q->where('website_id',$job->website_id)->whereBetween('delivered_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
-                    ->orWhere(function($q) use ($yesterday, $job){
+                    ->orWhere(function($q) use ($yesterday_start, $yesterday_end, $job){
                         $q->where('website_id',$job->website_id)->whereBetween('pickedUp_at',[$yesterday_start->timestamp, $yesterday_end->timestamp]);
                     })
                     ->whereIn('status',[2,5,6,7])

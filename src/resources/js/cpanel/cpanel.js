@@ -86,7 +86,7 @@ require("./tools/tooltip.js");
 
 
 require("./pages/dashboard/home.js");
-require("./pages/dashboard/activityLog.js");
+require("./pages/dashboard/activityLog.js");//need to finish the live activity log
 require("./pages/dashboard/statistics.js");
 require("./pages/dashboard/restaurantExpenses.js");//done
 require("./pages/dashboard/financialReports.js");//done
@@ -176,7 +176,7 @@ window.Echo.connector.pusher.connection.bind('state_change', (states) => {
             if(window.globalChannelCheck == true){
                 clearInterval(websocketConnectCheckIntrval);
                 loadWebsiteOrdersAndChats();
-                closePopup()
+                // closePopup()
             }
         },200)
     }
@@ -209,6 +209,21 @@ params.get('page') != null ? pageParam = params.get('page') : null;
 params.get('tab') != null ? pageTabParam = params.get('tab') : null;
 let keysObj = {};
 switch(pageParam){
+    case 'statistics_and_analytics':
+        keysObj.year1 = params.get('year1')
+        keysObj.month1 = params.get('month1')
+        keysObj.day1 = params.get('day1')
+        keysObj.period = params.get('period')
+        keysObj.compare = params.get('compare')
+        keysObj.year2 = params.get('year2')
+        keysObj.month2 = params.get('month2')
+        keysObj.day2 = params.get('day2')
+    break;
+    case 'activity_log':
+        keysObj.year = params.get('year') ?? new Date().getFullYear();
+        keysObj.month = params.get('month') ?? parseInt(new Date().getMonth() ) + 1;
+        keysObj.day = params.get('day') ?? new Date().getDate();
+    break;
     case 'order_history':
         keysObj.orderHistory_page = params.get('orderHistory_page')
         keysObj.orderBy = params.get('orderBy')
@@ -247,7 +262,7 @@ switch(pageParam){
 showPage(pageParam,pageTabParam,keysObj).then(()=>{
     pushHistory(false);
     params.get('tab') != null ? $(`.pageTab[tab="${params.get('tab')}"]`).trigger('click') : null;
-    closePopup();
+    // closePopup();
     authorities();
     // switch(window.page.page){
     //     case 'website_colors':
@@ -502,7 +517,7 @@ if(params.get('popupPage') != null){
     }
     showPopupPage(params.get('popupPage'),keysObj).then(()=>{
         // window.popupPage.popupPage = params.get('popupPage')
-        closePopup();
+        // closePopup();
         authorities();
         setTimeout(function(){
             pushHistory(false);

@@ -102,7 +102,7 @@ $('html,body').on('click','.promocodeTableAvailability',function(e){
             _token:$('meta[name="csrf-token"]').attr('content'),
             promoCodeActive:thisPromocode.id,
             is_active:is_active,
-            promocodeName:thisPromocode.name,
+            promocode:thisPromocode.code,
         },success:function(response){
             if(response.promoCodeActiveStat == 1){
                 showAlert('success',response.msg,4000,true);

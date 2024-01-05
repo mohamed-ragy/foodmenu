@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\foodmenuFunctions;
-use stdClass;
 use App\Models\activityLog;
 use App\Models\cpanelSettings;
 use Carbon\Carbon;
@@ -20,14 +19,14 @@ use Carbon\Carbon;
 class myStaffController extends Controller
 {
     protected $website_id;
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            if($this->account->is_master == false){return;}
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
 
         });
@@ -73,34 +72,34 @@ class myStaffController extends Controller
                 'lastSeen' => null,
             ]);
             if($createNewDelivery){
-                activityLog::create([
+                foodmenuFunctions::notification(null,[
                     'website_id' => $this->website_id,
-                    'code' => 18,
+                    'code' => 'delivery.created',
                     'delivery_id' => $createNewDelivery->id,
                     'delivery_name' => $deliveryName,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],null);
                 return response(['createNewDeliveryAccountStatus' => 1 ,'msg' => Lang::get('cpanel/staff/responses.deliveryAccountCreated'),'deliveryAccount' => $createNewDelivery]);
             }else{
                 return response(['createNewDeliveryAccountStatus' => 4 ,'msg' => Lang::get('cpanel/staff/responses.deliveryAccountCreateFail')]);
             }
         }
         else if($request->has(['deleteDeliveryAccount'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
+            if(str_split($this->account->authorities)[2] == false){
                 return;
             }
 
             $deleteDeliveryAccount = delivery::where(['id'=>$request->deleteDeliveryAccount,'website_id' => $this->website_id])->delete();
             if($deleteDeliveryAccount){
-                activityLog::create([
+                foodmenuFunctions::notification(null,[
                     'website_id' => $this->website_id,
-                    'code' => 19,
+                    'code' => 'delivery.deleted',
                     'delivery_id' => $request->deleteDeliveryAccount,
                     'delivery_name' => $request->deliveryName,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],null);
                 return response(['deleteDeliveryAccountStatus' => 1,'msg'=>Lang::get('cpanel/staff/responses.deliveryAccountDeleted')]);
             }else{
                 return response(['deleteDeliveryAccountStatus' => 0,'msg'=>Lang::get('cpanel/staff/responses.deliveryAccountDeletefaild')]);
@@ -118,14 +117,14 @@ class myStaffController extends Controller
                 'updated_at' => Carbon::now()->timestamp
             ]);
             if($updateDeliveryAccountPassword){
-                activityLog::create([
+                foodmenuFunctions::notification(null,[
                     'website_id' => $this->website_id,
-                    'code' => 20,
-                    'delivery_id' => $request->deliveryAccountId,
-                    'delivery_name' => delivery::where('id',$request->deliveryAccountId)->pluck('deliveryName')->first(),
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
+                    'code' => 'delivery.password_edited',
+                    'delivery_id' => $request->changeDeliveryPassword,
+                    'delivery_name' => delivery::where('id',$request->changeDeliveryPassword)->pluck('deliveryName')->first(),
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],null);
                 return response(['changeDeliveryPasswordStats' => 1 ,'msg' => Lang::get('cpanel/staff/responses.editDeliveryAccountPasswordSaved')]);
             }else{
                 return response(['changeDeliveryPasswordStats' => 2 ,'msg' => Lang::get('cpanel/staff/responses.editDeliveryAccountPasswordSavefaild')]);
@@ -133,27 +132,35 @@ class myStaffController extends Controller
 
         }
         else if($request->has('unblockSubAccount')){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
+            if($this->account->is_master == false){return;}
+            $subaccount = Account::where(['website_id' => $this->website_id,'id'=>$request->account_id])->select('name','id')->first();
             $updateAccount = Account::where(['website_id' => $this->website_id,'id'=>$request->account_id])->update(['password_fails' => 0,'account_unblock_code' => null,'updated_at' => Carbon::now()->timestamp]);
             if($updateAccount){
+                foodmenuFunctions::notification(null,[
+                    'website_id' => $this->website_id,
+                    'code' => 'subaccount.unblocked',
+                    'subaccount_id' => $subaccount->id,
+                    'subaccount_name' => $subaccount->name,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],null);
                 return response(['unblockSubAccountStatus' => 1,'msg'=> Lang::get('cpanel/staff/responses.unblockSubAccountSaved')]);
             }else{
                 return response(['unblockSubAccountStatus' => 0,'msg'=> Lang::get('cpanel/staff/responses.unblockSubAccountFail')]);
             }
         }
         else if($request->has(['forceLogout'])){
-            if(Auth::guard('account')->user()->is_master == false){
+            if($this->account->is_master == false){
                 return;
             }
-            foodmenuFunctions::notification('0',null,[
+            $thisAccount = Account::where(['website_id' => $this->website_id,'id'=>$request->forceLogout])->first();
+            foodmenuFunctions::notification('000',null,[
                 'account_id' => $request->forceLogout,
             ]);
             return response(['forceLogoutStatus' => 1,'msg'=> Lang::get('cpanel/staff/responses.forceLogoutSent')]);
         }
         else if($request->has(['newSubAccount'])){
-            if(Auth::guard('account')->user()->is_master == false){
+            if($this->account->is_master == false){
                 return;
             }
 
@@ -201,17 +208,18 @@ class myStaffController extends Controller
                 if($createNewAccount){
                     $createCpanelSettings = cpanelSettings::create([
                         'account_id' => $createNewAccount->id,
-                        'language' => Auth::guard('account')->user()->language,
+                        'language' => $this->account->language,
                     ]);
                     if($createCpanelSettings){
-                        activityLog::create([
+                        foodmenuFunctions::notification(null,[
                             'website_id' => $this->website_id,
-                            'code' => 67,
+                            'code' => 'subaccount.created',
                             'subaccount_id' => $createNewAccount->id,
                             'subaccount_name' => $createNewAccount->name,
-                            'account_id' => Auth::guard('account')->user()->id,
-                            'account_name' => Auth::guard('account')->user()->name,
-                        ]);
+                            'account_id' => $this->account->id,
+                            'account_name' => $this->account->name,
+                        ],null);
+
                         return response(['newSubAccountStatus' => 1,'msg' => Lang::get('cpanel/staff/responses.subAccountCreated'),'subaccount'=>$createNewAccount]);
                     }else{
                         Account::where('id',$createNewAccount->id)->delete();
@@ -225,18 +233,18 @@ class myStaffController extends Controller
             }
         }
         else if($request->has(['deleteSubAccount'])){
-            if(Auth::guard('account')->user()->is_master == false){
+            if($this->account->is_master == false){
                 return;
             }
             $deleteSubAccount = Account::where(['id'=>$request->deleteSubAccount,'website_id' => $this->website_id])->delete();
             if($deleteSubAccount){
-                foodmenuFunctions::notification('0',[
+                foodmenuFunctions::notification('000',[
                     'website_id' => $this->website_id,
-                    'code' => 68,
+                    'code' => 'subaccount.deleted',
                     'subaccount_id' => $request->deleteSubAccount,
                     'subaccount_name' => $request->subaccountName,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                 ],[
                     'account_id' => $request->deleteSubAccount,
                 ]);
@@ -247,7 +255,7 @@ class myStaffController extends Controller
 
         }
         else if($request->has(['updateSubAccountPassword'])){
-            if(Auth::guard('account')->user()->is_master == false){
+            if($this->account->is_master == false){
                 return;
             }
             $validation = Validator::make(['password'=>$request->password],[
@@ -263,14 +271,14 @@ class myStaffController extends Controller
                 $updateSubAccountPassword = Account::where(['id'=>$request->updateSubAccountPassword,'website_id' => $this->website_id])
                     ->update(['password'=>bcrypt($request->password),'updated_at'=>Carbon::now()->timestamp]);
                 if($updateSubAccountPassword){
-                    activityLog::create([
+                    foodmenuFunctions::notification(null,[
                         'website_id' => $this->website_id,
-                        'code' => 69,
+                        'code' => 'subaccount.password_changed',
                         'subaccount_id' => $request->updateSubAccountPassword,
                         'subaccount_name' => $request->subaccountName,
-                        'account_id' => Auth::guard('account')->user()->id,
-                        'account_name' => Auth::guard('account')->user()->name,
-                    ]);
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                    ],null);
                     return response(['updateSubAccountPasswordStatus' => 1,'msg'=>Lang::get('cpanel/staff/responses.subAccountPasswordUpdated')]);
                 }else{
                     return response(['updateSubAccountPasswordStatus' => 2,'msg'=>Lang::get('cpanel/staff/responses.subAccountPasswordUpdateFail')]);
@@ -280,9 +288,9 @@ class myStaffController extends Controller
             }
         }
         else if($request->has(['ChangeSubAccountAuthorities'])){
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
+            if($this->account->is_master == false){return;}
+            $updateAccount = Account::where(['id'=>$request->accountId,'website_id'=> $this->website_id])->first();
+            $old_authorities = $updateAccount->authorities;
             $authorities = '';
             $request->authority0 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
             $request->authority1 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
@@ -290,24 +298,28 @@ class myStaffController extends Controller
             $request->authority3 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
             $request->authority4 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
             $request->authority5 == '1' ? $authorities = $authorities.'1' : $authorities = $authorities.'0';
-            $updateAccountAuthorities = Account::where(['id'=>$request->accountId,'website_id'=> $this->website_id])->update(['authorities'=> $authorities,'updated_at'=>Carbon::now()->timestamp]);
+            $updateAccountAuthorities = $updateAccount->update(['authorities'=> $authorities,'updated_at'=>Carbon::now()->timestamp]);
             if($updateAccountAuthorities){
-                foodmenuFunctions::notification('reload.update.account',[
-                    'website_id' => $this->website_id,
-                    'code' => 70,
-                    'subaccount_id' => $request->accountId,
-                    'subaccount_name' => $request->subaccountName,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ],[
+                $activity = null;
+                if($authorities != $old_authorities){
+                    $activity = [
+                        'website_id' => $this->website_id,
+                        'code' => 'subaccount.authorities_changed',
+                        'subaccount_id' => $request->accountId,
+                        'subaccount_name' => $request->subaccountName,
+                        'new_authorities' => $authorities,
+                        'old_authorities' => $old_authorities,
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                    ];
+                }
+                foodmenuFunctions::notification('reload.update.account',$activity,[
                     'account_id' => $request->accountId,
                 ]);
                 return response(['ChangeSubAccountAuthoritiesStatus' => 1,'msg'=>Lang::get('cpanel/staff/responses.accountAuthoritiesUpdated')]);
             }else{
                 return response(['ChangeSubAccountAuthoritiesStatus' => 0,'msg'=>Lang::get('cpanel/staff/responses.accountAuthoritiesUpdateFail')]);
             }
-
         }
-
     }
 }

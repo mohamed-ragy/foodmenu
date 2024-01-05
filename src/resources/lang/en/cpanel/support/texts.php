@@ -37,4 +37,8 @@ return [
     'title' => 'Subject',
     'created' => 'Created',
     'status' => 'Status',
+
+    //new//
+    'ticketNotFound' => 'Help ticket not found',
+    //new//
 ];

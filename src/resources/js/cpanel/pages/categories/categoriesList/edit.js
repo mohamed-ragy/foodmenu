@@ -107,18 +107,18 @@ $('html,body').on('click','#editCategory_saveBtn',function(e){
         },success:function(r){
             hideBtnLoading($('#editCategory_saveBtn'));
             if(r.editCategoryStatus == 1){
-                for(const key in website.categories){
-                    if(website.categories[key].id == r.category.id){
-                        website.categories[key] = JSON.parse(JSON.stringify(r.category));
+                website.categories.find(item=>item.id == category.id).names = JSON.parse(JSON.stringify(categoryNames));
+                website.categories.find(item=>item.id == category.id).descriptions = JSON.parse(JSON.stringify(categoryDescriptions));
+                website.categories.find(item=>item.id == category.id).img_id = categoryImg;
+                website.categories.find(item=>item.id == category.id).img = r.img;
+                website.categories.find(item=>item.id == category.id).thumbnail = r.thumbnail;
 
-                    }
-                }
-                for(const key in website_temp.categories){
-                    if(website_temp.categories[key].id == r.category.id){
-                        website_temp.categories[key] = JSON.parse(JSON.stringify(r.category));
+                website_temp.categories.find(item=>item.id == category.id).names = JSON.parse(JSON.stringify(categoryNames));
+                website_temp.categories.find(item=>item.id == category.id).descriptions = JSON.parse(JSON.stringify(categoryDescriptions));
+                website_temp.categories.find(item=>item.id == category.id).img_id = categoryImg;
+                website_temp.categories.find(item=>item.id == category.id).img = r.img;
+                website_temp.categories.find(item=>item.id == category.id).thumbnail = r.thumbnail;
 
-                    }
-                }
                 drawCategoryList();
                 window.guideHints.categories();
                 showAlert('success',r.msg,4000,true);

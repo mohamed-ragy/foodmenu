@@ -19,15 +19,18 @@ $('html,body').on('mouseenter','.popupId',function(e){
                         _token:$('meta[name="csrf-token"]').attr('content'),
                         getReview:$(this).attr('review'),
                     },success:function(r){
-                        $('#popupIdReviewContainer').text(r.review.review)
-                        checkUseenNotifications([4],'product_review_id',r.review.id)
+                        if(r.review != null){
+                            $('#popupIdReviewContainer').text(r.review.review)
+                        }else{
+                            $('#popupId').text('').addClass('none')
+                        }
                     }
                 })
             }else{
                 $('#popupIdReviewContainer').text('').append(
                     window.product_reviews.find(item=>item.id == $(this).attr('review')).review
                 )
-                checkUseenNotifications([4],'product_review_id',window.product_reviews.find(item=>item.id == $(this).attr('review')).id)
+                // checkUseenNotifications([4],'product_review_id',window.product_reviews.find(item=>item.id == $(this).attr('review')).id)
             }
             showPopupId(thisPopupIdElem)
         break;
@@ -171,9 +174,9 @@ $('html,body').on('mouseenter','.popupId',function(e){
 
         break;
         case 'order':
-            $('#popupId').text('').addClass('p10').append(
+            $('#popupId').text('').append(
                 // $('<div/>',{class:'bold500 fs101',text:`${texts.orders.order} #${$(this).attr('order')}`}),
-                $('<div/>',{class:'chatOrderBody'}).append(
+                $('<div/>',{class:'chatOrderBody p10'}).append(
                     $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
                     $('<div/>',{class:'cardLoading br10 h10 w150 mX5 mY3'}),
                     $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
@@ -183,28 +186,30 @@ $('html,body').on('mouseenter','.popupId',function(e){
             showPopupId(thisPopupIdElem)
             getOrder($(this).attr('order')).then(function(order){
                 order_data = orderRow_data(order);
-                $('#popupId').text('').addClass('p10').append(
-                    $('<div/>',{class:'bold500 mB2 fs101',text:`${texts.orders.order} #${order.id}`}),
-                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
-                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.orderPlaced}: `}),
-                        $('<div/>',{class:'fs09 diffTimeCalc',time:order.placed_at,})
-                    ),
-                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
-                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.type}: `}),
-                        $('<div/>',{class:'fs09',text:order_data.typeTxt})
-                    ),
-                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
-                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.status}: `}),
-                        $('<div/>',{class:`${order_data.statusColor} fs09`,text:texts.orders[order_data.status]})
-                    ),
-                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
-                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.customer}: `}),
-                        $('<div/>',{class:'fs09',html:order_data.user})
-                    ),
-                    $('<div/>',{class:'m1 row alnC jstfyS'}).append(
-                        $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.price}: `}),
-                        $('<div/>',{class:'fs09',text:`${website.currency}${parseFloat(order.total).toFixed(2)}`})
-                    ),
+                $('#popupId').text('').append(
+                    $('<div/>',{class:'p10'}).append(
+                        $('<div/>',{class:'bold500 mB2 fs101',text:`${texts.orders.order} #${order.id}`}),
+                        $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                            $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.orderPlaced}: `}),
+                            $('<div/>',{class:'fs09 diffTimeCalc',time:order.placed_at,})
+                        ),
+                        $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                            $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.type}: `}),
+                            $('<div/>',{class:'fs09',text:order_data.typeTxt})
+                        ),
+                        $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                            $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.status}: `}),
+                            $('<div/>',{class:`${order_data.statusColor} fs09`,text:texts.orders[order_data.status]})
+                        ),
+                        $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                            $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.customer}: `}),
+                            $('<div/>',{class:'fs09',html:order_data.user})
+                        ),
+                        $('<div/>',{class:'m1 row alnC jstfyS'}).append(
+                            $('<div/>',{class:`fs09 mie-5`,text:`${texts.orders.price}: `}),
+                            $('<div/>',{class:'fs09',text:`${website.currency}${parseFloat(order.total).toFixed(2)}`})
+                        ),
+                    )
                 )
             })
 

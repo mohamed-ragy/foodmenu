@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\cpanel;
 
-use App\Events\cpanelNotification;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
 use Illuminate\Http\Request;
-use App\Models\cpanelSettings;
 use App\Models\foodmenuFunctions;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -14,23 +12,21 @@ use Illuminate\Support\Facades\Lang;
 use App\Models\website;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Models\plan;
 use App\Models\img;
-use App\Models\websiteColors;
 use Illuminate\Support\Facades\File;
 use Image;
 use Illuminate\Support\Facades\Storage;
-use stdClass;
 
 class designController extends Controller
 {
     protected $website_id;
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
 
         })->except(['dologin','login']);
@@ -38,7 +34,7 @@ class designController extends Controller
     public function design(Request $request)
     {
         if($request->has('applyTemplate')){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+            if(str_split($this->account->authorities)[3] == false){
                 return;
             }
             $template = foodmenuFunctions::templates()[$request->applyTemplate];
@@ -48,17 +44,17 @@ class designController extends Controller
                 'useCustomColors' => false,
             ]);
             if($updateTemplate){
-                $notification = new stdClass();
-                $notification->code = 23;
-                $notification->website_id = $this->website_id;
-                $notification->template = $template;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 39,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
+                // $notification = new stdClass();
+                // $notification->code = 23;
+                // $notification->website_id = $this->website_id;
+                // $notification->template = $template;
+                // $notification->activity = activityLog::create([
+                //     'website_id' => $this->website_id,
+                //     'code' => 39,
+                //     'account_id' => $this->account->id,
+                //     'account_name' => $this->account->name,
+                // ]);
+                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response([
                     'applyTemplateStatus' => 1,
                     'msg' => Lang::get('cpanel/design/Templates.applyTemplateSaved'),
@@ -70,7 +66,7 @@ class designController extends Controller
             }
         }
         else if($request->has(['loadTemplates'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+            if(str_split($this->account->authorities)[3] == false){
                 return;
             }
             $allTemplates = collect(foodmenuFunctions::templates());
@@ -81,31 +77,31 @@ class designController extends Controller
             return response(['colors' => foodmenuFunctions::websiteColors()]);
         }
         else if($request->has(['websiteColor'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+            if(str_split($this->account->authorities)[3] == false){
                 return;
             }
             $saveWebsiteColor = website::where('id',$this->website_id)->update([
                 'website_colors'=>$request->websiteColor,
             ]);
             if($saveWebsiteColor){
-                $notification = new stdClass();
-                $notification->code = 30;
-                $notification->website_id = $this->website_id;
-                $notification->websiteColor = $request->websiteColor;
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 37,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
+                // $notification = new stdClass();
+                // $notification->code = 30;
+                // $notification->website_id = $this->website_id;
+                // $notification->websiteColor = $request->websiteColor;
+                // $notification->activity = activityLog::create([
+                //     'website_id' => $this->website_id,
+                //     'code' => 37,
+                //     'account_id' => $this->account->id,
+                //     'account_name' => $this->account->name,
+                // ]);
+                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['saveWebsiteColorStatus' => 1,'msg'=> Lang::get('cpanel/design/websiteStyle.saveWebsiteColorSaved') ]);
             }else{
                 return response(['saveWebsiteColorStatus' => 0, 'msg'=> Lang::get('cpanel/design/websiteStyle.saveWebsiteColorSaveFail')]);
             }
         }
         else if($request->has(['saveCustomColors'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+            if(str_split($this->account->authorities)[3] == false){
                 return;
             }
             $saveCustomColors = website::where('id',$this->website_id)->update([
@@ -123,26 +119,26 @@ class designController extends Controller
                 ]
             ]);
             if($saveCustomColors){
-                $notification = new stdClass();
-                $notification->code = 29;
-                $notification->website_id = $this->website_id;
-                $notification->useCustomColors = $request->useCustomColors;
-                $notification->color1 = strip_tags($request->color1);
-                $notification->color2 = strip_tags($request->color2);
-                $notification->color3 = strip_tags($request->color3);
-                $notification->color4 = strip_tags($request->color4);
-                $notification->color5 = strip_tags($request->color5);
-                $notification->colorError = strip_tags($request->colorError);
-                $notification->colorSuccess = strip_tags($request->colorSuccess);
-                $notification->colorWarning = strip_tags($request->colorWarning);
-                $notification->colorStar = strip_tags($request->colorStar);
-                $notification->activity = activityLog::create([
-                    'website_id' => $this->website_id,
-                    'code' => 37,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
+                // $notification = new stdClass();
+                // $notification->code = 29;
+                // $notification->website_id = $this->website_id;
+                // $notification->useCustomColors = $request->useCustomColors;
+                // $notification->color1 = strip_tags($request->color1);
+                // $notification->color2 = strip_tags($request->color2);
+                // $notification->color3 = strip_tags($request->color3);
+                // $notification->color4 = strip_tags($request->color4);
+                // $notification->color5 = strip_tags($request->color5);
+                // $notification->colorError = strip_tags($request->colorError);
+                // $notification->colorSuccess = strip_tags($request->colorSuccess);
+                // $notification->colorWarning = strip_tags($request->colorWarning);
+                // $notification->colorStar = strip_tags($request->colorStar);
+                // $notification->activity = activityLog::create([
+                //     'website_id' => $this->website_id,
+                //     'code' => 37,
+                //     'account_id' => $this->account->id,
+                //     'account_name' => $this->account->name,
+                // ]);
+                // broadcast(new cpanelNotification($notification))->toOthers();
                 return response(['saveCustomColorsStatus' => 1,'msg'=> Lang::get('cpanel/design/websiteStyle.saveCustomColorsSaved') ]);
             }else{
                 return response(['saveCustomColorsStatus' => 0, 'msg'=> Lang::get('cpanel/design/websiteStyle.saveCustomColorsSaveFail')]);
@@ -150,7 +146,7 @@ class designController extends Controller
         }
         /////////////////
         else if($request->has(['saveComponent'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+            if(str_split($this->account->authorities)[3] == false){
                 return;
             }
             if($request->saveComponent == 'intro'){
@@ -179,36 +175,36 @@ class designController extends Controller
                         ],
                     ]);
                     if($saveComponent){
-                        $notification = new stdClass();
-                        $notification->code = 52;
-                        $notification->website_id = $this->website_id;
-                        $notification->title_en = strip_tags($request->title_en);
-                        $notification->title_es = strip_tags($request->title_es);
-                        $notification->title_fr = strip_tags($request->title_fr);
-                        $notification->title_de = strip_tags($request->title_de);
-                        $notification->title_it = strip_tags($request->title_it);
-                        $notification->title_eg = strip_tags($request->title_eg);
-                        $notification->title_ar = strip_tags($request->title_ar);
-                        $notification->title_ru = strip_tags($request->title_ru);
-                        $notification->title_ua = strip_tags($request->title_ua);
-                        $notification->des_en = strip_tags($request->des_en);
-                        $notification->des_es = strip_tags($request->des_es);
-                        $notification->des_fr = strip_tags($request->des_fr);
-                        $notification->des_de = strip_tags($request->des_de);
-                        $notification->des_it = strip_tags($request->des_it);
-                        $notification->des_eg = strip_tags($request->des_eg);
-                        $notification->des_ar = strip_tags($request->des_ar);
-                        $notification->des_ru = strip_tags($request->des_ru);
-                        $notification->des_ua = strip_tags($request->des_ua);
-                        $notification->introImg = $request->introImg;
-                        $notification->activity = activityLog::create([
-                            'website_id' => $this->website_id,
-                            'code' => 64,
-                            'account_id' => Auth::guard('account')->user()->id,
-                            'account_name' => Auth::guard('account')->user()->name,
-                            'component_name' => $request->saveComponent,
-                        ]);
-                        broadcast(new cpanelNotification($notification))->toOthers();
+                        // $notification = new stdClass();
+                        // $notification->code = 52;
+                        // $notification->website_id = $this->website_id;
+                        // $notification->title_en = strip_tags($request->title_en);
+                        // $notification->title_es = strip_tags($request->title_es);
+                        // $notification->title_fr = strip_tags($request->title_fr);
+                        // $notification->title_de = strip_tags($request->title_de);
+                        // $notification->title_it = strip_tags($request->title_it);
+                        // $notification->title_eg = strip_tags($request->title_eg);
+                        // $notification->title_ar = strip_tags($request->title_ar);
+                        // $notification->title_ru = strip_tags($request->title_ru);
+                        // $notification->title_ua = strip_tags($request->title_ua);
+                        // $notification->des_en = strip_tags($request->des_en);
+                        // $notification->des_es = strip_tags($request->des_es);
+                        // $notification->des_fr = strip_tags($request->des_fr);
+                        // $notification->des_de = strip_tags($request->des_de);
+                        // $notification->des_it = strip_tags($request->des_it);
+                        // $notification->des_eg = strip_tags($request->des_eg);
+                        // $notification->des_ar = strip_tags($request->des_ar);
+                        // $notification->des_ru = strip_tags($request->des_ru);
+                        // $notification->des_ua = strip_tags($request->des_ua);
+                        // $notification->introImg = $request->introImg;
+                        // $notification->activity = activityLog::create([
+                        //     'website_id' => $this->website_id,
+                        //     'code' => 64,
+                        //     'account_id' => $this->account->id,
+                        //     'account_name' => $this->account->name,
+                        //     'component_name' => $request->saveComponent,
+                        // ]);
+                        // broadcast(new cpanelNotification($notification))->toOthers();
                         return response(['saveComponentStatus' => 1,'msg'=>Lang::get('cpanel/design/homePageSections.changeIntroSaved')]);
 
                     }else{
@@ -262,18 +258,18 @@ class designController extends Controller
                         'slideShow' => $slideShow,
                     ]);
                     if($saveComponent){
-                        $notification = new stdClass();
-                        $notification->code = 45;
-                        $notification->website_id = $this->website_id;
-                        $notification->slideShow = $slideShow;
-                        $notification->activity = activityLog::create([
-                            'website_id' => $this->website_id,
-                            'code' => 64,
-                            'account_id' => Auth::guard('account')->user()->id,
-                            'account_name' => Auth::guard('account')->user()->name,
-                            'component_name' => $request->saveComponent,
-                        ]);
-                        broadcast(new cpanelNotification($notification))->toOthers();
+                        // $notification = new stdClass();
+                        // $notification->code = 45;
+                        // $notification->website_id = $this->website_id;
+                        // $notification->slideShow = $slideShow;
+                        // $notification->activity = activityLog::create([
+                        //     'website_id' => $this->website_id,
+                        //     'code' => 64,
+                        //     'account_id' => $this->account->id,
+                        //     'account_name' => $this->account->name,
+                        //     'component_name' => $request->saveComponent,
+                        // ]);
+                        // broadcast(new cpanelNotification($notification))->toOthers();
                         return response(['saveComponentStatus' => 1,'msg'=>Lang::get('cpanel/design/homePageSections.changeSlideShowSaved')]);
 
                     }else{
@@ -287,18 +283,18 @@ class designController extends Controller
                         'gallery' => $request->gallery,
                     ]);
                     if($saveComponent){
-                        $notification = new stdClass();
-                        $notification->code = 50;
-                        $notification->website_id = $this->website_id;
-                        $notification->gallery = $request->gallery;
-                        $notification->activity = activityLog::create([
-                            'website_id' => $this->website_id,
-                            'code' => 64,
-                            'account_id' => Auth::guard('account')->user()->id,
-                            'account_name' => Auth::guard('account')->user()->name,
-                            'component_name' => $request->saveComponent,
-                        ]);
-                        broadcast(new cpanelNotification($notification))->toOthers();
+                        // $notification = new stdClass();
+                        // $notification->code = 50;
+                        // $notification->website_id = $this->website_id;
+                        // $notification->gallery = $request->gallery;
+                        // $notification->activity = activityLog::create([
+                        //     'website_id' => $this->website_id,
+                        //     'code' => 64,
+                        //     'account_id' => $this->account->id,
+                        //     'account_name' => $this->account->name,
+                        //     'component_name' => $request->saveComponent,
+                        // ]);
+                        // broadcast(new cpanelNotification($notification))->toOthers();
                         return response(['saveComponentStatus' => 1,'msg'=>Lang::get('cpanel/design/homePageSections.changeGallerySaved')]);
 
                     }else{
@@ -331,36 +327,36 @@ class designController extends Controller
                         ],
                     ]);
                     if($saveComponent){
-                        $notification = new stdClass();
-                        $notification->code = 53;
-                        $notification->website_id = $this->website_id;
-                        $notification->title_en = strip_tags($request->title_en);
-                        $notification->title_es = strip_tags($request->title_es);
-                        $notification->title_fr = strip_tags($request->title_fr);
-                        $notification->title_de = strip_tags($request->title_de);
-                        $notification->title_it = strip_tags($request->title_it);
-                        $notification->title_eg = strip_tags($request->title_eg);
-                        $notification->title_ar = strip_tags($request->title_ar);
-                        $notification->title_ru = strip_tags($request->title_ru);
-                        $notification->title_ua = strip_tags($request->title_ua);
-                        $notification->des_en = strip_tags($request->des_en);
-                        $notification->des_es = strip_tags($request->des_es);
-                        $notification->des_fr = strip_tags($request->des_fr);
-                        $notification->des_de = strip_tags($request->des_de);
-                        $notification->des_it = strip_tags($request->des_it);
-                        $notification->des_eg = strip_tags($request->des_eg);
-                        $notification->des_ar = strip_tags($request->des_ar);
-                        $notification->des_ru = strip_tags($request->des_ru);
-                        $notification->des_ua = strip_tags($request->des_ua);
-                        $notification->infoImg = $request->infoImg;
-                        $notification->activity = activityLog::create([
-                            'website_id' => $this->website_id,
-                            'code' => 64,
-                            'account_id' => Auth::guard('account')->user()->id,
-                            'account_name' => Auth::guard('account')->user()->name,
-                            'component_name' => $request->saveComponent,
-                        ]);
-                        broadcast(new cpanelNotification($notification))->toOthers();
+                        // $notification = new stdClass();
+                        // $notification->code = 53;
+                        // $notification->website_id = $this->website_id;
+                        // $notification->title_en = strip_tags($request->title_en);
+                        // $notification->title_es = strip_tags($request->title_es);
+                        // $notification->title_fr = strip_tags($request->title_fr);
+                        // $notification->title_de = strip_tags($request->title_de);
+                        // $notification->title_it = strip_tags($request->title_it);
+                        // $notification->title_eg = strip_tags($request->title_eg);
+                        // $notification->title_ar = strip_tags($request->title_ar);
+                        // $notification->title_ru = strip_tags($request->title_ru);
+                        // $notification->title_ua = strip_tags($request->title_ua);
+                        // $notification->des_en = strip_tags($request->des_en);
+                        // $notification->des_es = strip_tags($request->des_es);
+                        // $notification->des_fr = strip_tags($request->des_fr);
+                        // $notification->des_de = strip_tags($request->des_de);
+                        // $notification->des_it = strip_tags($request->des_it);
+                        // $notification->des_eg = strip_tags($request->des_eg);
+                        // $notification->des_ar = strip_tags($request->des_ar);
+                        // $notification->des_ru = strip_tags($request->des_ru);
+                        // $notification->des_ua = strip_tags($request->des_ua);
+                        // $notification->infoImg = $request->infoImg;
+                        // $notification->activity = activityLog::create([
+                        //     'website_id' => $this->website_id,
+                        //     'code' => 64,
+                        //     'account_id' => $this->account->id,
+                        //     'account_name' => $this->account->name,
+                        //     'component_name' => $request->saveComponent,
+                        // ]);
+                        // broadcast(new cpanelNotification($notification))->toOthers();
                         return response(['saveComponentStatus' => 1,'msg'=>Lang::get('cpanel/design/homePageSections.changeInfoSaved')]);
 
                     }else{
@@ -394,36 +390,36 @@ class designController extends Controller
                         ],
                     ]);
                     if($saveComponent){
-                        $notification = new stdClass();
-                        $notification->code = 54;
-                        $notification->website_id = $this->website_id;
-                        $notification->title_en = strip_tags($request->title_en);
-                        $notification->title_es = strip_tags($request->title_es);
-                        $notification->title_fr = strip_tags($request->title_fr);
-                        $notification->title_de = strip_tags($request->title_de);
-                        $notification->title_it = strip_tags($request->title_it);
-                        $notification->title_eg = strip_tags($request->title_eg);
-                        $notification->title_ar = strip_tags($request->title_ar);
-                        $notification->title_ru = strip_tags($request->title_ru);
-                        $notification->title_ua = strip_tags($request->title_ua);
-                        $notification->des_en = strip_tags($request->des_en);
-                        $notification->des_es = strip_tags($request->des_es);
-                        $notification->des_fr = strip_tags($request->des_fr);
-                        $notification->des_de = strip_tags($request->des_de);
-                        $notification->des_it = strip_tags($request->des_it);
-                        $notification->des_eg = strip_tags($request->des_eg);
-                        $notification->des_ar = strip_tags($request->des_ar);
-                        $notification->des_ru = strip_tags($request->des_ru);
-                        $notification->des_ua = strip_tags($request->des_ua);
-                        $notification->ourStoryImg = $request->ourStoryImg;
-                        $notification->activity = activityLog::create([
-                            'website_id' => $this->website_id,
-                            'code' => 64,
-                            'account_id' => Auth::guard('account')->user()->id,
-                            'account_name' => Auth::guard('account')->user()->name,
-                            'component_name' => $request->saveComponent,
-                        ]);
-                        broadcast(new cpanelNotification($notification))->toOthers();
+                        // $notification = new stdClass();
+                        // $notification->code = 54;
+                        // $notification->website_id = $this->website_id;
+                        // $notification->title_en = strip_tags($request->title_en);
+                        // $notification->title_es = strip_tags($request->title_es);
+                        // $notification->title_fr = strip_tags($request->title_fr);
+                        // $notification->title_de = strip_tags($request->title_de);
+                        // $notification->title_it = strip_tags($request->title_it);
+                        // $notification->title_eg = strip_tags($request->title_eg);
+                        // $notification->title_ar = strip_tags($request->title_ar);
+                        // $notification->title_ru = strip_tags($request->title_ru);
+                        // $notification->title_ua = strip_tags($request->title_ua);
+                        // $notification->des_en = strip_tags($request->des_en);
+                        // $notification->des_es = strip_tags($request->des_es);
+                        // $notification->des_fr = strip_tags($request->des_fr);
+                        // $notification->des_de = strip_tags($request->des_de);
+                        // $notification->des_it = strip_tags($request->des_it);
+                        // $notification->des_eg = strip_tags($request->des_eg);
+                        // $notification->des_ar = strip_tags($request->des_ar);
+                        // $notification->des_ru = strip_tags($request->des_ru);
+                        // $notification->des_ua = strip_tags($request->des_ua);
+                        // $notification->ourStoryImg = $request->ourStoryImg;
+                        // $notification->activity = activityLog::create([
+                        //     'website_id' => $this->website_id,
+                        //     'code' => 64,
+                        //     'account_id' => $this->account->id,
+                        //     'account_name' => $this->account->name,
+                        //     'component_name' => $request->saveComponent,
+                        // ]);
+                        // broadcast(new cpanelNotification($notification))->toOthers();
                         return response(['saveComponentStatus' => 1,'msg'=>Lang::get('cpanel/design/homePageSections.changeOurStorySaved')]);
 
                     }else{
@@ -439,9 +435,8 @@ class designController extends Controller
     public function imgs(Request $request)
     {
         if($request->has('gitStorageSize')){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[3] == false){return;}
+
             return response(img::where(['website_id'=>$this->website_id])->sum('size'));
         }else if($request->has('getImgs')){
             $imgs = img::where(['website_id'=>$this->website_id])->orderBy('created_at','DESC')->skip($request->skip)->limit(10)->get();
@@ -449,7 +444,7 @@ class designController extends Controller
         }else if($request->has('getImg')){
             return response(['img' => img::where(['id'=>$request->getImg,'website_id'=>$this->website_id])->first()]);
         }else if($request->has(['designUploadImg'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){return;}
+            if(str_split($this->account->authorities)[3] == false){return;}
             $validate = Validator::make(['uploadImg'=> $request->designUploadImg ],
             [
                 'uploadImg' => 'required|mimes:webp,png,jpeg,gif,bmp,jpg,jpe|max:10240'
@@ -492,11 +487,11 @@ class designController extends Controller
 
                     foodmenuFunctions::notification('img.upload',[
                         'website_id' => $this->website_id,
-                        'code' => 42,
+                        'code' => 'img.uploaded',
                         'img_id' => $img->id,
                         'img_name' => $img->name,
-                        'account_id' => Auth::guard('account')->user()->id,
-                        'account_name' => Auth::guard('account')->user()->name,
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
                     ],[
                         'img'=>$img,
                     ]);
@@ -505,7 +500,7 @@ class designController extends Controller
             }
 
         }else if($request->has(['deleteImg'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[3] == false){
+            if(str_split($this->account->authorities)[3] == false){
                 return;
             }
             $img = img::where('id',$request->imgId)->select('url','thumbnailUrl','name')->first();
@@ -515,11 +510,11 @@ class designController extends Controller
                 if(img::where('id',$request->imgId)->delete()){
                     foodmenuFunctions::notification('img.delete',[
                         'website_id' => $this->website_id,
-                        'code' => 44,
+                        'code' => 'img.deleted',
                         'img_id' => $request->imgId,
                         'img_name' => $img->name,
-                        'account_id' => Auth::guard('account')->user()->id,
-                        'account_name' => Auth::guard('account')->user()->name,
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
                     ],[
                         'img_id'=>$request->imgId,
                     ]);
@@ -533,7 +528,7 @@ class designController extends Controller
         }
 
         else if($request->has(['ticketUploadImg'])){
-            if(Auth::guard('account')->user()->is_master == false){
+            if($this->account->is_master == false){
                 return;
             }
             $validate = Validator::make(['ticketUploadImg'=> $request->ticketUploadImg ],
@@ -551,7 +546,7 @@ class designController extends Controller
             }
         }
         else if($request->has(['deleteTicketAttachment'])){
-            if(Auth::guard('account')->user()->is_master == false){
+            if($this->account->is_master == false){
                 return;
             }
             $deleteAttachment = Storage::delete([$request->deleteTicketAttachment]);

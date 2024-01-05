@@ -222,6 +222,14 @@ setImgPreview = function(img_id){
         $('#imgs-imgPreviewZoomIn').removeClass('imgs-imgPreviewBtn_dump')
         $('#imgs-imgPreviewZoomOut').removeClass('imgs-imgPreviewBtn_dump')
 
+    },function(){
+        $('#imgs-imgPreview').addClass('none')
+        $('.imgPreviewLoading').addClass('none');
+        $('.imgs-imgPreviewimg').removeClass('none');
+        $('.imgs-imgPreveiwBtnsLeft').removeClass('vH')
+        showPopup_notFound(texts.design.imgNotFound)
+        delete window.previewImg.previewImg;
+        pushHistory(false)
     });
 }
 

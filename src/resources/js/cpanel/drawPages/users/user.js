@@ -34,7 +34,11 @@ drawPopupPage_user_loading = function(userId){
 }
 
 drawPopupPage_user =function(user){
-    if(typeof user === 'undefined'){popupPageClose(false);return;}
+    if(typeof user === 'undefined'){
+        showPopup_notFound(texts.users.userNotFound)
+        popupPageClose(false);
+        return;
+    }
     let userIconClass;let usericonTooltip;
     user.isBanned ? userIconClass ='ico-userBlock cR fs1' : userIconClass = 'ico-user fs1';
     user.isBanned ? usericonTooltip = texts.users.bannedUser : usericonTooltip = null;
@@ -88,6 +92,7 @@ drawPopupPage_user =function(user){
 drawUserPageCart = function(userId){
     let user = website.users.find(item=>item.id == userId);
     let userCart = JSON.parse(user.cart);
+    $(`.userPageCart-${userId}`).text('')
     if(Object.keys(userCart).length == 0){
         $(`.userPageCart-${userId}`).append(
             $('<div/>',{

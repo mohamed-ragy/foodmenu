@@ -9,17 +9,9 @@
     position: relative;
     z-index: 50;
     font-size: 0.8em;
-    overflow: auto;
     transition-duration: .5s;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
     text-align: start;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;text-overflow: ellipsis;overflow: hidden;
 }
 

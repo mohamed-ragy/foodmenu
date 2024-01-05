@@ -19,7 +19,9 @@ $('html,body').on('click','.pageTab',function(e){
     },300,'swing');
 
     window.page.tab = $(this).attr('tab');
-    pushHistory(false);
+    setTimeout(function(){
+        pushHistory(false);
+    },400)
 })
 
 fixPageTabsArrows = function(){

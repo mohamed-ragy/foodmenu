@@ -50,6 +50,7 @@ $('html,body').on('click','#account-newPassword-confirm',function(e){
                 }
             }else if(r.changePasswordStat == 1){
                 showAlert('success',r.msg,4000,true);
+                ReloadForUpdatePopup();
             }else if(r.changePasswordStat == 2){
                 showAlert('error',r.msg,4000,true);
                 inputTextError($('#account-new_password'));

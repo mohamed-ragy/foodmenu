@@ -2833,7 +2833,7 @@ class foodmenuFunctions
     public static function plans(){
         return [
             'small' => ['id' =>'prod_OIP4IZZBx8m5mK', 'monthlyId'=>'price_1NVoGgIYxD8tIsOHrDMmGqy4', 'yearlyId'=>'price_1NVoGhIYxD8tIsOHQ3RjuaaZ', 'monthlyCost'=>29, 'yearlyCost'=> 299, 'name'=>'small', 'subAccounts'=> 1, 'categories'=> 3, 'products'=> 15, 'productOptions'=>1, 'specialDomainName'=>false, 'storage'=>50, 'deliveryAccounts'=>2, 'websiteLangs' =>1, 'promocodes'=>1],
-            'standard' => ['id' =>'prod_OIPX9hjzTOzh4D', 'monthlyId'=>'price_1NVoieIYxD8tIsOHVI61xEFV', 'yearlyId'=>'price_1NVoieIYxD8tIsOHpW6c29T9', 'monthlyCost'=>39, 'yearlyCost'=> 399, 'name'=>'standard', 'subAccounts'=> 4, 'categories'=> 6, 'products'=> 40, 'productOptions'=>4, 'specialDomainName'=>false, 'storage'=>150, 'deliveryAccounts'=>5, 'websiteLangs' =>3, 'promocodes'=>3],
+            'standard' => ['id' =>'prod_OIPX9hjzTOzh4D', 'monthlyId'=>'price_1NVoieIYxD8tIsOHVI61xEFV', 'yearlyId'=>'price_1NVoieIYxD8tIsOHpW6c29T9', 'monthlyCost'=>39, 'yearlyCost'=> 399, 'name'=>'standard', 'subAccounts'=> 4, 'categories'=> 5, 'products'=> 40, 'productOptions'=>4, 'specialDomainName'=>false, 'storage'=>150, 'deliveryAccounts'=>5, 'websiteLangs' =>3, 'promocodes'=>3],
             'large' => ['id' =>'prod_OIPZFTbddjU1Rh', 'monthlyId'=>'price_1NVokBIYxD8tIsOHrpHzox0p', 'yearlyId'=>'price_1NVokBIYxD8tIsOHBmkjlma0', 'monthlyCost'=>69, 'yearlyCost'=> 699, 'name'=>'large', 'subAccounts'=> 6, 'categories'=> 8, 'products'=> 100, 'productOptions'=>8, 'specialDomainName'=>false, 'storage'=>200, 'deliveryAccounts'=>10, 'websiteLangs' =>8, 'promocodes'=>5],
             'premium' => ['id' =>'prod_OIPa2clUfeg7KN', 'monthlyId'=>'price_1NVolUIYxD8tIsOHh0EA2OB4', 'yearlyId'=>'price_1NVolUIYxD8tIsOHDI6Hx2E8', 'monthlyCost'=>99, 'yearlyCost'=> 999, 'name'=>'premium', 'subAccounts'=> 10, 'categories'=> 15, 'products'=> 300, 'productOptions'=>10, 'specialDomainName'=>true, 'storage'=>400, 'deliveryAccounts'=>20, 'websiteLangs' =>8, 'promocodes'=>10],
 
@@ -2841,17 +2841,12 @@ class foodmenuFunctions
     }
 
     public static function archiveStatistice($orders,$reviews,$website_id,$day,$month,$year,$timeZone){
-        // $notification = new stdClass();
-        // $notification->website_id  = 1;
-        // $notification->day = $year.'-'.$month.'-'.$day;
-        // broadcast(new cpanelNotification($notification));
 
-        // $website_id=(int) $website_id;$day=(int)$day;$month=(int)$month;$year=(int)$year;
         $successful_orders = 0;$so_items_total = 0;$so_delivery = 0;$so_tax = 0;$so_service = 0;$so_total = 0;$so_guestOrders = 0;$so_userOrders = 0;
         $delivered_orders = 0;$do_items_total = 0;$do_delivery = 0;$do_tax = 0;$do_total = 0;$do_guestOrders = 0;$do_userOrders = 0;
         $pickedup_orders = 0;$po_items_total = 0;$po_tax = 0;$po_total = 0;$po_guestOrders = 0;$po_userOrders = 0;
         $canceled_orders = 0;$co_items_total = 0;$co_delivery = 0;$co_tax = 0;$co_service = 0;$co_total = 0;$co_guestOrders = 0;$co_userOrders = 0;
-        $dineIn_orders = 0;$di_items_total = 0;$di_tax = 0;$di_service = 0;$di_total = 0;$di_guestOrders = 0;$di_userOrders = 0;
+        $dinedin_orders = 0;$di_items_total = 0;$di_tax = 0;$di_service = 0;$di_total = 0;$di_guestOrders = 0;$di_userOrders = 0;
         $users = [];
         $products = [];
         $deliveries = [];
@@ -2951,7 +2946,7 @@ class foodmenuFunctions
                     $users[$order->user_id]['co_total'] = $users[$order->user_id]['co_total'] + $order->total;
                 }
             }else if($order->status == 7){
-                $dineIn_orders = $dineIn_orders + 1;$di_items_total = $di_items_total + $order->discount_itemsTotal;$di_tax = $di_tax + $order->tax;$di_service = $di_service + $order->service;$di_total = $di_total + $order->total;
+                $dinedin_orders = $dinedin_orders + 1;$di_items_total = $di_items_total + $order->discount_itemsTotal;$di_tax = $di_tax + $order->tax;$di_service = $di_service + $order->service;$di_total = $di_total + $order->total;
                 if($order->isGuest){$di_guestOrders = $di_guestOrders + 1;}else{
                     $di_userOrders = $di_userOrders + 1;
                     $users[$order->user_id]['di'] = $users[$order->user_id]['di'] + 1;
@@ -3007,7 +3002,7 @@ class foodmenuFunctions
         $do = ['orders' => $delivered_orders,'items_total' => $do_items_total,'delivery' => $do_delivery,'tax' => $do_tax,'total' => $do_total,'guestOrders' => $do_guestOrders,'userOrders' =>$do_userOrders];
         $po = ['orders' => $pickedup_orders,'items_total' => $po_items_total,'tax' => $po_tax,'total' => $po_total,'guestOrders' => $po_guestOrders,'userOrders' =>$po_userOrders];
         $co = ['orders' => $canceled_orders,'items_total' => $co_items_total,'delivery' => $co_delivery,'tax' => $co_tax,'service' => $co_service,'total' => $co_total,'guestOrders' =>$co_guestOrders ,'userOrders' =>$co_userOrders];
-        $di = ['orders' => $dineIn_orders,'items_total' => $di_items_total,'tax' => $di_tax,'service' => $di_service,'total' => $di_total,'guestOrders' => $di_guestOrders ,'userOrders' =>$di_userOrders];
+        $di = ['orders' => $dinedin_orders,'items_total' => $di_items_total,'tax' => $di_tax,'service' => $di_service,'total' => $di_total,'guestOrders' => $di_guestOrders ,'userOrders' =>$di_userOrders];
 
         if(statistics_day::where(['website_id'=>$website_id,'day'=>$day,'month'=>$month,'year'=>$year])->count() == 0){
             if(!empty($products)){
@@ -3021,7 +3016,21 @@ class foodmenuFunctions
                 }
             }
 
-            statistics_day::create(['website_id' => $website_id,'day' => $day,'month' => $month,'year' => $year,'so' => $so,'co' => $co,'do' => $do,'po' => $po,'di' => $di,'users'=>$users,'products'=>$products,'deliveries'=>$deliveries]);
+            $createstatistics_day = statistics_day::create(['website_id' => $website_id,'day' => $day,'month' => $month,'year' => $year,'so' => $so,'co' => $co,'do' => $do,'po' => $po,'di' => $di,'users'=>$users,'products'=>$products,'deliveries'=>$deliveries]);
+            $notification = notification::create([
+                'website_id'=>$website_id,
+                'code'=>'system.statistics_day.created',
+                'seen' => false,
+                'statistics_id'=>$createstatistics_day->_id,
+                'day'=>$day,
+                'month'=>$month,
+                'year'=>$year
+            ]);
+            if($createstatistics_day){
+                foodmenuFunctions::notification('system.statistics_day.created',null,[
+                    'notification' => $notification
+                ],$website_id);
+            }
             $last10DaysStatistics = statistics_day::where(['website_id'=>$website_id])->where('created_at','>',new DateTime('-10 days',new DateTimeZone($timeZone)))->get();
             $trendingProducts = [];
             foreach($last10DaysStatistics as $thisDay){
@@ -3046,7 +3055,7 @@ class foodmenuFunctions
             $delivered_orders = 0;$do_items_total = 0;$do_delivery = 0;$do_tax = 0;$do_total = 0;$do_guestOrders = 0;$do_userOrders = 0;
             $pickedup_orders = 0;$po_items_total = 0;$po_tax = 0;$po_total = 0;$po_guestOrders = 0;$po_userOrders = 0;
             $canceled_orders = 0;$co_items_total = 0;$co_delivery = 0;$co_tax = 0;$co_service = 0;$co_total = 0;$co_guestOrders = 0;$co_userOrders = 0;
-            $dineIn_orders = 0;$di_items_total = 0;$di_tax = 0;$di_service = 0;$di_total = 0;$di_guestOrders = 0;$di_userOrders = 0;
+            $dinedin_orders = 0;$di_items_total = 0;$di_tax = 0;$di_service = 0;$di_total = 0;$di_guestOrders = 0;$di_userOrders = 0;
             $users = [];
             $products = [];
             $deliveries = [];
@@ -3148,7 +3157,7 @@ class foodmenuFunctions
                             $users[$order->user_id]['co_total'] = $users[$order->user_id]['co_total'] + $order->total;
                         }
                     }else if($order->status == 7){
-                        $dineIn_orders = $dineIn_orders + 1;$di_items_total = $di_items_total + $order->discount_itemsTotal;$di_tax = $di_tax + $order->tax;$di_service = $di_service + $order->service;$di_total = $di_total + $order->total;
+                        $dinedin_orders = $dinedin_orders + 1;$di_items_total = $di_items_total + $order->discount_itemsTotal;$di_tax = $di_tax + $order->tax;$di_service = $di_service + $order->service;$di_total = $di_total + $order->total;
                         if($order->isGuest){$di_guestOrders = $di_guestOrders + 1;}else{
                             $di_userOrders = $di_userOrders + 1;
                             $users[$order->user_id]['di'] = $users[$order->user_id]['di'] + 1;
@@ -3207,7 +3216,7 @@ class foodmenuFunctions
             $do = ['orders' => $delivered_orders,'items_total' => $do_items_total,'delivery' => $do_delivery,'tax' => $do_tax,'total' => $do_total,'guestOrders' => $do_guestOrders,'userOrders' =>$do_userOrders];
             $po = ['orders' => $pickedup_orders,'items_total' => $po_items_total,'tax' => $po_tax,'total' => $po_total,'guestOrders' => $po_guestOrders,'userOrders' =>$po_userOrders];
             $co = ['orders' => $canceled_orders,'items_total' => $co_items_total,'delivery' => $co_delivery,'tax' => $co_tax,'service' => $co_service,'total' => $co_total,'guestOrders' =>$co_guestOrders ,'userOrders' =>$co_userOrders];
-            $di = ['orders' => $dineIn_orders,'items_total' => $di_items_total,'tax' => $di_tax,'service' => $di_service,'total' => $di_total,'guestOrders' => $di_guestOrders ,'userOrders' =>$di_userOrders];
+            $di = ['orders' => $dinedin_orders,'items_total' => $di_items_total,'tax' => $di_tax,'service' => $di_service,'total' => $di_total,'guestOrders' => $di_guestOrders ,'userOrders' =>$di_userOrders];
             if(statistics_hour::where(['website_id'=>$website_id,'hour'=>$h,'day'=>$day,'month'=>$month,'year'=>$year])->count() == 0){
 
                 statistics_hour::create(['website_id' => $website_id,'hour'=>$h, 'day' => $day,'month' => $month,'year' => $year,'so' => $so,'co' => $co,'do' => $do,'po' => $po,'di' => $di,'users'=>$users,'products'=>$products,'deliveries'=>$deliveries]);
@@ -3395,7 +3404,7 @@ class foodmenuFunctions
                     'year' =>$year,
                 ]);
                 $notification = notification::create([
-                    'code' => 80,
+                    'code' => 'system.financial_report',
                     'seen' => false,
                     'month' => $month,
                     'year' => $year,
@@ -3403,12 +3412,11 @@ class foodmenuFunctions
                     'financialReport_id' => $thisFinancialReport->id,
                     'website_id'=> $website_id,
                 ]);
-                // $notification = new stdClass();
-                // $notification->website_id  = $website_id;
-                // $notification->report = $thisFinancialReport->month;
-                broadcast(new cpanelNotification($notification));
                 //send monthly report email
 
+                self::notification('system.financial_report',null,[
+                    'notification' => $notification,
+                ],$website_id);
                 website::where('id',$website_id)->update(['month_expenses' => []]);
 
             }
@@ -3508,7 +3516,9 @@ class foodmenuFunctions
             if($activity != null){
                 $cpanel->activity = activityLog::create($activity);
             }
-            broadcast(new cpanelChannel($cpanel))->toOthers();
+            if($code != null){
+                broadcast(new cpanelChannel($cpanel))->toOthers();
+            }
         }catch(\Exception $e){}
     }
     public static function notification_website($code,$website_id,$user_type,$user_id,$notification){

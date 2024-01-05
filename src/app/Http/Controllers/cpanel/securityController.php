@@ -25,20 +25,20 @@ class securityController extends Controller
     protected $account;
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            if(Auth::guard('account')->user()->is_master == false){
-                return;
-            }
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
-            return $next($request);
 
-        })->except(['dologin','login']);
-        // Carbon::setLocale('en');
         $this->middleware(function ($request, $next) {
             $this->account = Auth::guard('account')->user();
             return $next($request);
         });
+        $this->middleware(function ($request, $next) {
+            if($this->account->is_master == false){return;}
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
+            return $next($request);
+
+        })->except(['dologin','login']);
+        // Carbon::setLocale('en');
+
     }
     public function security(Request $request)
     {
@@ -46,12 +46,16 @@ class securityController extends Controller
         if($request->has(['verifyEmail'])){
             if($this->account->is_master == false){return;}
             if($this->account->email_verification_code == $request->verifyEmail){
-                $verifyEmail = Account::where('id',Auth::guard('account')->user()->id)
+                $verifyEmail = Account::where('id',$this->account ->id)
                                 ->update([
                                     'email_verified_at' => Carbon::now()->timestamp,
                                     'email_verification_code' => null,
                                 ]);
                 if($verifyEmail){
+                    foodmenuFunctions::notification(null,[
+                        'website_id' => $this->website_id,
+                        'code' => 'security.email.verified'
+                    ],null);
                     return response(['emailVerifyStats' => 1,'msg' => Lang::get('cpanel/security/responses.emailVerified'),'email_verified_at' => Carbon::now()->timestamp]);
                 }
 
@@ -128,6 +132,12 @@ class securityController extends Controller
                                         'password_fails' => 0,
                                     ]));
                     if($doChangeEmail){
+                        foodmenuFunctions::notification(null,[
+                            'website_id' => $this->website_id,
+                            'code' => 'security.email.changed',
+                            'old_email' => $this->account->email,
+                            'new_email' => strip_tags($request->newEmail)
+                        ],null);
                         ///send email to the new email address with the new verifiction code
                         $emails = new emails();
                         $emails->account_id = $this->account->id;
@@ -170,6 +180,10 @@ class securityController extends Controller
                     $addPhoneNumber = Account::where('id',$this->account->id)
                         ->update(['phone' => strip_tags($request->createPhone),'phone_verified_at'=> Null ,'phone_verification_code'=> $newCode,'phone_verification_code_sent_at' => Carbon::now()->timestamp]);
                     if($addPhoneNumber){
+                        foodmenuFunctions::notification(null,[
+                            'website_id' => $this->website_id,
+                            'code' => 'security.phone.created'
+                        ],null);
                         return response(['createPhoneStatus'=>1, 'msg' => Lang::get('cpanel/security/responses.newPhoneCreated'), 'now' => Carbon::now()->timestamp ]);
                     }else{
                     return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
@@ -184,6 +198,10 @@ class securityController extends Controller
         else if($request->has(['verifyPhone'])){
             if($this->account->is_master == false){return;}
             if($this->account->phone_verification_code == $request->verifyPhone){
+                foodmenuFunctions::notification(null,[
+                    'website_id' => $this->website_id,
+                    'code' => 'security.phone.verified'
+                ],null);
                 Account::where('id',$this->account->id)
                                 ->update([
                                     'phone_verified_at' => Carbon::now()->timestamp,
@@ -260,6 +278,12 @@ class securityController extends Controller
             if(Hash::check($request->password, $this->account->password)){
                 $newCode = strtolower(Str::random(6));
                 if(foodmenuFunctions::sendVeryficationSMS($request->newPhone,$newCode)){
+                    foodmenuFunctions::notification(null,[
+                        'website_id' => $this->website_id,
+                        'code' => 'security.phone.changed',
+                        'old_phone' => $this->account->phone,
+                        'new_phone' => $request->newPhone,
+                    ],null);
                     Account::where('id',$this->account->id)
                     ->update(([
                         'phone' => strip_tags($request->newPhone),
@@ -343,10 +367,14 @@ class securityController extends Controller
                                         'password_fails' => 0,
                                     ]);
                 if($changePassword){
+                    foodmenuFunctions::notification(null,[
+                        'website_id' => $this->website_id,
+                        'code' => 'security.password.changed'
+                    ],null);
                     //send email that password changed
-                    // Auth::guard('account')->logout();
-                    // $request->session()->invalidate();
-                    // $request->session()->regenerateToken();
+                    Auth::guard('account')->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
                     return response(['changePasswordStat' => 1, 'msg' => Lang::get('cpanel/security/responses.passwordChanged')]);
                 }else{
                     return response(['changePasswordStat' => 4, 'msg' => lang::get('cpanel/security/responses.unknownError')]);

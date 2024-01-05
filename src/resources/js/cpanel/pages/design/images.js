@@ -15,7 +15,13 @@ getImg = function(img_id){
                     getImg:img_id,
                 },
                 success:function(r){
-                    resolve(r.img);
+                    if(r.img == null){
+                        reject();
+                        return;
+                    }else{
+                        resolve(r.img);
+                        return;
+                    }
                 }
             })
         }else{

@@ -17,6 +17,7 @@ $('html,body').on('click','#addNewExpenses_current',function(e){
 })
 $('html,body').on('click','#addNewExpenses_current_btn',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     showBtnLoading($('#addNewExpenses_current_btn'))
     showBtnLoading($('#addNewExpenses_current'))
     let name = $('#addNewExpenses_current_name').val();
@@ -74,6 +75,7 @@ $('html,body').on('click','.delete_current_expense',function(e){
 })
 $('html,body').on('click','#delete_current_expense_confirm',function(e){
     e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
     showBtnLoading($('#delete_current_expense_confirm'))
     let expense_id = $(this).attr('expense');
     $.ajax({

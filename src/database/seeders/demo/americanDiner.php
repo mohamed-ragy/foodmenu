@@ -1159,7 +1159,7 @@ class americanDiner extends Seeder
             ],
         ];
 
-        demo::website($americanDiner,$categories,100);
+        demo::website($americanDiner,$categories,900);
 
     }
 }

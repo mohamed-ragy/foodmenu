@@ -967,7 +967,7 @@ class demo
                     'rate' => explode('.',$review)[0],
                     'review' => explode('.',$review)[1],
                     'posted_at' => $posted_at->subHours(rand(0,150))->subMinutes(rand(0,60))->timestamp,
-                    'created_at' => Carbon::now()->timestamp
+                    'created_at' => Carbon::now()->subdays(2)->timestamp
                 ]);
             }
         }

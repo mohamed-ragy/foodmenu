@@ -4,19 +4,14 @@ namespace App\Http\Controllers\cpanel;
 
 use App\Events\globalChannel;
 use App\Http\Controllers\Controller;
-use App\Models\activityLog;
 use App\Models\categories;
 use Illuminate\Http\Request;
-use App\Models\cpanelSettings;
 use App\Models\foodmenuFunctions;
 use App\Models\img;
-use App\Models\notification;
-use App\Models\plan;
 use App\Models\product;
 use App\Models\product_option;
 use App\Models\product_option_selection;
 use App\Models\product_review;
-use App\Models\User;
 use App\Models\website;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
@@ -28,22 +23,20 @@ use Illuminate\Support\Facades\Validator;
 class productsController extends Controller
 {
     protected $website_id;
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
-
         })->except(['dologin','login']);
 
     }
     public function products(Request $request){
         if($request->has(['createNewProduct'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
             if($request->productName == ''){
                 return response(['createNewProductStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.productNameRequired') ]);
             }
@@ -108,9 +101,9 @@ class productsController extends Controller
                 $createNewProduct->product_options = [];
                 foodmenuFunctions::notification('product.create',[
                     'website_id' => $this->website_id,
-                    'code' => 12,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.created',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $createNewProduct->id,
                     'product_name' => $createNewProduct->name,
                 ],[
@@ -122,16 +115,15 @@ class productsController extends Controller
             }
         }
         else if($request->has(['deleteProduct'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $deleteProduct = product::where(['id'=>$request->productId ,'website_id' => $this->website_id])->delete();
             if($deleteProduct){
-                foodmenuFunctions::notification('product.delete',[
+                foodmenuFunctions::notification('product.deleted',[
                     'website_id' => $this->website_id,
-                    'code' => 14,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.deleted',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->productId,
                     'product_name' => $request->productName,
                 ],[
@@ -148,18 +140,18 @@ class productsController extends Controller
             }
         }
         else if($request->has(['changeProductAvailabilty'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $editProductAvailability = product::where(['id'=>$request->changeProductAvailabilty,'website_id'=>$this->website_id])->update(['availability'=>$request->productAvailability]);
             if($editProductAvailability){
                 foodmenuFunctions::notification('product.availability',[
                     'website_id' => $this->website_id,
-                    'code' => 13,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.availability',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->changeProductAvailabilty,
                     'product_name' => $request->productName,
+                    'availability'=>$request->productAvailability
                 ],[
                     'product_id' => $request->changeProductAvailabilty,
                     'availability' => $request->productAvailability,
@@ -176,9 +168,8 @@ class productsController extends Controller
             }
         }
         else if($request->has(['sortProducts'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $sortProductFrom = product::where(['website_id'=>$this->website_id,'id'=>$request->fromId])->update(['sort'=>$request->fromSort]);
             $sortProductTo = product::where(['website_id'=>$this->website_id,'id'=>$request->toId])->update(['sort'=>$request->toSort]);
             if($sortProductFrom && $sortProductTo){
@@ -195,10 +186,18 @@ class productsController extends Controller
 
         }
         else if($request->has(['editProduct'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $product = product::where(['id'=> $request->id,'website_id'=>$this->website_id])->first();
+
+            $old_names = $product->names;
+            $old_descriptions = $product->descriptions;
+            $old_price = $product->price;
+            $old_availability = $product->availability;
+            $old_img = $product->thumbnail;
+            $old_category = $product->category_id == null ? '0' : categories::where(['website_id'=>$this->website_id,'id'=>$product->category_id])->pluck('name')->first();
+            $new_category = $request->category_id == null ? '0' : categories::where(['website_id'=>$this->website_id,'id'=>$request->category_id])->pluck('name')->first();
+
             $sort = $product->sort;
             if($product->category_id != $request->category_id && $request->category_id != null){
                 $sort = product::where(['website_id'=>$this->website_id,'category_id'=>$request->category_id])->max('sort') + 1;
@@ -235,14 +234,37 @@ class productsController extends Controller
                 'descriptions' => $descriptions,
                 'updated_at' => Carbon::now()->timestamp
             ])){
-                foodmenuFunctions::notification('product.edit',[
-                    'website_id' => $this->website_id,
-                    'code' => 12,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'product_id' => $product->id,
-                    'product_name' => $product->name,
-                ],[
+                $activity = null;
+                if(
+                    $old_category != $new_category ||
+                    $old_img != $thumbnail_url ||
+                    $old_names != $names ||
+                    $old_descriptions != $descriptions ||
+                    (double)$old_price != (double)$request->price ||
+                    $old_availability != $request->availability
+                ){
+                    $activity = [
+                        'website_id' => $this->website_id,
+                        'code' => 'product.edited',
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                        'product_id' => $product->id,
+                        'product_name' => $product->name,
+                        'old_category' => $old_category,
+                        'new_category'=> $new_category,
+                        'old_img' => $old_img,
+                        'new_img' => $thumbnail_url,
+                        'old_names' => $old_names,
+                        'new_names' => $names,
+                        'old_descriptions' => $old_descriptions,
+                        'new_descriptions' => $descriptions,
+                        'old_price' => $old_price,
+                        'new_price' => $request->price,
+                        'old_availability' => $old_availability,
+                        'new_availability' => $request->availability,
+                    ];
+                }
+                foodmenuFunctions::notification('product.edit',$activity,[
                     'product' => $product
                 ]);
                 $notification = new stdClass();
@@ -257,9 +279,8 @@ class productsController extends Controller
             }
         }
         else if($request->has(['sortProductOptions'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $optionSortFrom = product_option::where(['website_id'=>$this->website_id,'id'=>$request->fromId])->update(['sort'=>$request->fromSort]);
             $optionSortTo = product_option::where(['website_id'=>$this->website_id,'id'=>$request->toId])->update(['sort'=>$request->toSort]);
             if($optionSortFrom && $optionSortTo){
@@ -276,9 +297,8 @@ class productsController extends Controller
             }
         }
         else if($request->has(['createProductOption'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             if($request->option_identifier == ''){
                 return response(['createProductOptionStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.optionNameRequired') ]);
             }
@@ -313,9 +333,9 @@ class productsController extends Controller
                 $createProductOption->product_option_selections = [];
                 foodmenuFunctions::notification('option.create',[
                     'website_id' => $this->website_id,
-                    'code' => 15,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.option.created',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->product_id,
                     'product_name' => $request->product_name,
                     'option_id' => $createProductOption->id,
@@ -331,9 +351,8 @@ class productsController extends Controller
             }
         }
         else if($request->has(['deleteProductOption'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $deleteProductOption = product_option::where([
                 'website_id' => $this->website_id,
                 'id' => $request->option_id,
@@ -341,9 +360,9 @@ class productsController extends Controller
             if($deleteProductOption){
                 foodmenuFunctions::notification('option.delete',[
                     'website_id' => $this->website_id,
-                    'code' => 15.1,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.option.deleted',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->product_id,
                     'product_name' => $request->product_name,
                     'option_id' => $request->option_id,
@@ -365,29 +384,35 @@ class productsController extends Controller
             }
         }
         else if($request->has('editProductOption')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $names = [];
             foreach($request->names as $lang => $name){
                 $names[$lang] = strip_tags($name);
             }
-            $editOption = product_option::where(['website_id' => $this->website_id,'id' => $request->option_id])
-                ->update([
+            $option = product_option::where(['website_id' => $this->website_id,'id' => $request->option_id])->first();
+            $old_names = $option->names;
+            $editOption = $option->update([
                     'names' => $names,
                     'updated_at' => Carbon::now()->timestamp
                 ]);
                 if($editOption){
-                    foodmenuFunctions::notification('option.edit',[
-                        'website_id' => $this->website_id,
-                        'code' => 15.2,
-                        'account_id' => Auth::guard('account')->user()->id,
-                        'account_name' => Auth::guard('account')->user()->name,
-                        'product_id' => $request->product_id,
-                        'product_name' => $request->product_name,
-                        'option_id' => $request->option_id,
-                        'option_name' => $request->option_name,
-                    ],[
+                    $activity = null;
+                    if($old_names != $names){
+                        $activity = [
+                            'website_id' => $this->website_id,
+                            'code' => 'product.option.edited',
+                            'account_id' => $this->account->id,
+                            'account_name' => $this->account->name,
+                            'product_id' => $request->product_id,
+                            'product_name' => $request->product_name,
+                            'option_id' => $request->option_id,
+                            'option_name' => $request->option_name,
+                            'old_names' => $old_names,
+                            'new_names' => $names,
+                        ];
+                    }
+                    foodmenuFunctions::notification('option.edit',$activity,[
                         'product_name' => $request->product_name,
                         'option_id' => $request->option_id,
                         'product_id' => $request->product_id,
@@ -399,17 +424,16 @@ class productsController extends Controller
                 }
         }
         else if($request->has('setDefaultSelection')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $removeDefault = product_option_selection::where(['website_id' => $this->website_id,'product_option_id' => $request->option_id])->update(['isDefault'=>false]);
             $setDefault = product_option_selection::where(['website_id' => $this->website_id,'id' => $request->selection_id])->update(['isDefault' => true]);
             if($removeDefault && $setDefault){
                 foodmenuFunctions::notification('selection.set_default',[
                     'website_id' => $this->website_id,
-                    'code' => 15.4,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.selection.set_default',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->product_id,
                     'product_name' => $request->product_name,
                     'option_id' => $request->option_id,
@@ -428,9 +452,8 @@ class productsController extends Controller
             }
         }
         else if($request->has(['sortProductSelections'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $selectionSortFrom = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->fromId])->update(['sort'=>$request->fromSort]);
             $selectionSortTo = product_option_selection::where(['website_id'=>$this->website_id,'id'=>$request->toId])->update(['sort'=>$request->toSort]);
             if($selectionSortFrom && $selectionSortTo){
@@ -448,9 +471,8 @@ class productsController extends Controller
             }
         }
         else if($request->has('createProductSelection')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             if($request->selection_name == ''){
                 return response(['createProductSelectionStatus' => 0,'msg'=> Lang::get('cpanel/products/responses.selectionNameRequired') ]);
             }
@@ -485,9 +507,9 @@ class productsController extends Controller
             if($createNewSelection){
                 foodmenuFunctions::notification('selection.create',[
                     'website_id' => $this->website_id,
-                    'code' => 15.3,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.selection.create',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->product_id,
                     'product_name' => $request->product_name,
                     'option_id' => $request->option_id,
@@ -506,9 +528,8 @@ class productsController extends Controller
             }
         }
         else if($request->has('deleteProductSelection')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $selection = product_option_selection::where([
                 'website_id' => $this->website_id,
                 'id' => $request->selection_id,
@@ -519,9 +540,9 @@ class productsController extends Controller
             if($selection->delete()){
                 foodmenuFunctions::notification('selection.delete',[
                     'website_id' => $this->website_id,
-                    'code' => 15.5,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'product.selection.deleted',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $request->product_id,
                     'product_name' => $request->product_name,
                     'option_id' => $request->option_id,
@@ -541,68 +562,47 @@ class productsController extends Controller
                 $notification->option_id = $request->option_id;
                 $notification->selection_id = $request->selection_id;
                 broadcast(new globalChannel($notification))->toOthers();
-                // $notification = new stdClass();
-                // $notification->code = 33;
-                // $notification->website_id = $this->website_id;
-                // $notification->product_id = $request->product_id;
-                // $notification->option_id = $request->option_id;
-                // $notification->selection_id = $request->selection_id;
-                // $notification->activity = activityLog::create([
-                    // 'website_id' => $this->website_id,
-                    // 'code' => 15.5,
-                    // 'account_id' => Auth::guard('account')->user()->id,
-                    // 'account_name' => Auth::guard('account')->user()->name,
-                    // 'product_id' => $request->product_id,
-                    // 'product_name' => $request->product_name,
-                    // 'option_id' => $request->option_id,
-                    // 'option_name' => $request->option_name,
-                    // 'selection_id' => $request->selection_id,
-                    // 'selection_name' => $request->selection_name,
-                // ]);
-                // broadcast(new cpanelNotification($notification))->toOthers();
-                // $user = new stdClass();
-                // $user->id = 0;
-                // $user->website_id = $this->website_id;
-                // $user->code = 20;
-                // $user->product_id = $request->product_id;
-                // $user->option_id = $request->option_id;
-                // $user->selection_id = $request->selection_id;
-                // $user->userType = 'user';
-                // broadcast(new usersStatus($user));
                 return response(['delteProductSelectionStat' => 1,'msg'=>Lang::get('cpanel/products/responses.deleteProductSelectionDeleted')]);
             }else{
                 return response(['delteProductSelectionStat' => 0,'msg'=>Lang::get('cpanel/products/responses.deleteProductSelectionFaild')]);
             }
         }
         else if($request->has('editProductSelection')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $names = [];
             foreach($request->selection_names as $lang => $name){
                 $names[$lang] = strip_tags($name);
             }
-            $editSelection = product_option_selection::where([
-                'website_id' => $this->website_id,
-                'id' => $request->selection_id,
-            ])->update([
+            $selection = product_option_selection::where(['website_id' => $this->website_id,'id' => $request->selection_id,])->first();
+            $old_names = $selection->names;
+            $old_price = $selection->price;
+            $editSelection = $selection->update([
                 'price' => $request->price,
                 'names' => $names,
                 'updated_at' => Carbon::now()->timestamp
             ]);
             if($editSelection){
-                foodmenuFunctions::notification('selection.edit',[
-                    'website_id' => $this->website_id,
-                    'code' => 15.6,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                    'product_id' => $request->product_id,
-                    'product_name' => $request->product_name,
-                    'option_id' => $request->option_id,
-                    'option_name' => $request->option_name,
-                    'selection_id' => $request->selection_id,
-                    'selection_name' => $request->selection_name,
-                ],[
+                $activity = null;
+                if($old_names != $names || (double)$old_price != (double)$request->price){
+                    $activity = [
+                        'website_id' => $this->website_id,
+                        'code' => 'product.selection.edited',
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                        'product_id' => $request->product_id,
+                        'product_name' => $request->product_name,
+                        'option_id' => $request->option_id,
+                        'option_name' => $request->option_name,
+                        'selection_id' => $request->selection_id,
+                        'selection_name' => $request->selection_name,
+                        'old_names' => $old_names,
+                        'new_names' => $names,
+                        'old_price' => $old_price,
+                        'new_price' => $request->price,
+                    ];
+                }
+                foodmenuFunctions::notification('selection.edit',$activity,[
                     'product_name' => $request->product_name,
                     'product_id' => $request->product_id,
                     'option_id' => $request->option_id,
@@ -626,9 +626,8 @@ class productsController extends Controller
         }
 
         else if($request->has('findReviews')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $findReview = product_review::where('website_id',$this->website_id);
             if($request->findReviewsAfter != '' || $request->findReviewsAfter != null){
                 $findReview = $findReview->where('posted_at','<',$request->findReviewsAfter);
@@ -653,18 +652,16 @@ class productsController extends Controller
             return response(['reviews' => $reviews]);
         }
         else if($request->has(['deleteReview'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $review = product_review::where(['id'=>$request->reviewId,'website_id'=>$this->website_id])->first();
             $deleteReview = product_review::where(['id'=>$request->reviewId,'website_id' => $this->website_id])->delete();
             if($deleteReview){
-                notification::where(['product_review_id'=>(int)$request->reviewId,'website_id' => (int)$this->website_id])->delete();
                 foodmenuFunctions::notification('review.delete',[
                     'website_id' => $this->website_id,
-                    'code' => 16,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'review.deleted',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'product_id' => $review->product_id,
                     'product_name' => $review->product_name,
                 ],[
@@ -674,15 +671,14 @@ class productsController extends Controller
                 $notification->code = 'review.delete';
                 $notification->website_id = $this->website_id;
                 $notification->review_id = $request->reviewId;
+                broadcast(new globalChannel($notification))->toOthers();
                 return response(['deleteReviewStatus' => 1,'msg'=>Lang::get('cpanel/products/responses.deleteReviewDeleted')]);
             }else{
                 return response(['deleteReviewStatus' => 0,'msg'=>Lang::get('cpanel/products/responses.deleteReviewFaild')]);
             }
         }
         else if($request->has('getReview')){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+
             $review = product_review::where(['website_id' => $this->website_id,'id'=>$request->getReview])->first();
             return response(['review' => $review]);
         }

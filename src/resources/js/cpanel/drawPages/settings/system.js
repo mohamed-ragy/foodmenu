@@ -60,15 +60,15 @@ drawPage_system = function(){
                     $('<div/>',{class:'areaTitle',text:texts.settings.orderingSystem}),
                     drawSwitchBtn('enable_home_delivery',texts.settings.useDelivery,'systemSettings-useDelivery','checkboxlabel_100p mT10 brdrT0'),
                     drawSwitchBtn('enable_order_pickup',texts.settings.usePickup,'systemSettings-usePickup'),
-                    drawSwitchBtn('enable_guest_orders',texts.settings.enableGuestOrders,'systemSettings-guestOrders'),
+                    drawSwitchBtn('enable_guest_orders',texts.settings.guestOrders,'systemSettings-guestOrders'),
                     drawSwitchBtn('accept_delivery_orders24',texts.settings.acceptDeliveryOrders24,'systemSettings-acceptDeliveryOrders24'),
                     drawSwitchBtn('accept_pickup_orders24',texts.settings.acceptPickupOrders24,'systemSettings-acceptPickupOrders24'),
                     drawSwitchBtn('cancel_order',texts.settings.cancelOrder,'systemSettings-cancelOrder'),
                 ),
                 $('<div/>',{class:'area mT40'}).append(
                     $('<div/>',{class:'areaTitle',text:texts.settings.reviewsSystem}),
-                    drawSwitchBtn('enable_reviews',texts.settings.enableProductReviews,'systemSettings-productReviews','checkboxlabel_100p mT10 brdrT0'),
-                    drawSwitchBtn('enable_guest_Reviews',texts.settings.enableGuestReviews,'systemSettings-guestReviews'),
+                    drawSwitchBtn('enable_reviews',texts.settings.productReviews,'systemSettings-productReviews','checkboxlabel_100p mT10 brdrT0'),
+                    drawSwitchBtn('enable_guest_Reviews',texts.settings.guestReviews,'systemSettings-guestReviews'),
                     drawSwitchBtn('collect_reviews',texts.settings.collectReviews,'systemSettings-collectReviews'),
                 ),
                 $('<div/>',{class:'area mT40'}).append(
@@ -84,9 +84,9 @@ drawPage_system = function(){
                     drawSwitchBtn('show_dinein_working_hours',texts.settings.showDineinWorkingHours,'systemSettings-dineinWorkingHours'),
                     drawSwitchBtn('display_select_language_message',texts.settings.langPopup,'systemSettings-langPopup'),
                     drawSwitchBtn('show_scheduled_discounts_announcement',texts.settings.discountAnnouncement,'systemSettings-discountAnnouncement'),
-                    drawSwitchBtn('display_cookies_notification_message',texts.settings.cookiesMsg,'systemSettings-cookiesMsg'),
+                    drawSwitchBtn('display_cookies_notification_message',texts.settings.cookies_msg,'systemSettings-cookiesMsg'),
                     $('<div/>',{class:'numberPickerContainer_100p',autoHelp:'cart_lifetime'}).append(
-                        $('<span/>',{text:texts.settings.cartLifeTime}),
+                        $('<span/>',{text:texts.settings.cart_lifeTime}),
                         $('<div/>',{class:'numberPickerControls'}).append(
                             $('<span/>',{id:'systemSettings-cartLifeTimeD',class:'numberPickerArrow ico-left'}),
                             $('<span/>',{class:'numberPickerValue',}).append(

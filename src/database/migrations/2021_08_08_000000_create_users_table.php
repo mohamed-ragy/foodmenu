@@ -26,9 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('phoneNumber');
             $table->text('cart');
-            $table->integer('cart_lastUpdate');
+            $table->integer('cart_lastUpdate')->nullable();
             $table->boolean('isBanned')->default(false);
-            $table->integer('lastSeen');
+            $table->integer('lastSeen')->nullable();
             $table->integer('lastChat')->nullable();
             $table->string('lastMsg_id')->nullable();
             $table->string('lat')->default('0');

@@ -1020,7 +1020,7 @@
             <p>- Once you have applied your desired filters, click on the <b>Find</b> button to display the list of orders, arranged from the most recent to the oldest.</p>
             string,
         ],
-        '' => [
+        'images' => [
             'title' => 'Images',
             'content' => <<<string
             <p>- Here, you can access all the images you have uploaded to your account. They are displayed as image cards.</p>
@@ -1036,46 +1036,68 @@
             <p>- Note that attempting to delete an image that is already being used on your website will result in a failure to delete the image.</p>
             string,
         ],
+        //////Help icon
         '' => [
-            'title' => '',
+            'title' => 'Restaurant expenses',
             'content' => <<<string
-            <p></p>
+            <p>- In this section of the control panel, you can enter your restaurant expenses, which will be used to generate your monthly financial reports.</p>
             string,
         ],
         '' => [
-            'title' => '',
+            'title' => 'Monthly fixed expenses',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can input your restaurant's monthly fixed expenses. These are the expenses that you consistently pay every month, such as salaries. The fixed expenses will appear on your monthly financial reports until you choose to remove them.</p>
+            <p>- You can manually enter these expenses by clicking on the <b>Add new expense</b> button. A window will appear where you can enter the expense name and value.</p>
             string,
         ],
         '' => [
-            'title' => '',
+            'title' => 'Current month variable expenses',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can add variable expenses for the current month. Variable expenses are non-fixed costs that change on a monthly basis, requiring monthly input. The system automatically removes these expenses from the list at the beginning of each month.</p>
+            <p>- To add a new expense to the current month, click on the 'Add new expense' button.</p>
+            <p>You can enter variable expenses at any time during the month, and they will be included in your monthly financial reports./p>
             string,
         ],
+        ////////Help icon
         '' => [
-            'title' => '',
+            'title' => 'Financial reports',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can access your monthly financial reports showcasing your restaurant's financial performance. The data and expenses used for these reports are extracted from the information you provide in your account.</p>
+            <p>- Every monthly financial report is organized in a row and labeled with the respective month and year. Each row features three action buttons:
+            <ul>
+                <li> The <b>View PDF file</b> button allows you to open the report in a separate browsing tab.</li>
+                <li> The <b>Download PDF file</b> button enables you to save the report to your device.</li>
+                <li> The <b>Delete</b> button removes the report permanently from your account along with its associated data.</li>
+             </ul>
+            </p>
             string,
         ],
+        ///help icon
         '' => [
-            'title' => '',
+            'title' => 'Your account email address',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can find your main account's email address. Using this email address, you can log in to your account or recover your account if you have forgotten your password.</p>
+            <p> - You can also change your email address by entering your current password and the new email address, which you will then be prompted to verify.</p>
+            <p>- Please keep in mind that only the main account can view and change the email address.</p>
             string,
         ],
+        ///help icon
         '' => [
-            'title' => '',
+            'title' => 'Changing your password',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can change your password by first entering your current password, then creating a new one.</p>
+            <p>- A new valid password must contain a minimum of 8 characters, a maximum of 20 characters, a lowercase, an uppercase, and a number. The new password and its confirmation must match.</p>
             string,
         ],
+        ///help icon
         '' => [
-            'title' => '',
+            'title' => 'Your account phone number',
             'content' => <<<string
-            <p></p>
+            <p>- Here, you can find and add a phone number to your main account.</p>
+            <p>- Adding a phone number is important for account recovery in case you forget your password or lose access to your email.</p>
+            <p>- You also have the option to change your main account's phone number by adding a new one, choosing the country code, and entering your current password.</p>
+            <p>- You will then be prompted to verify your phone number through the code that has been sent to it via SMS.</p>
+            <p>-  Note that only the main account can change and verify the phone number.</p>
             string,
         ],
         '' => [

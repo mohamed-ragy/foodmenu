@@ -48,6 +48,7 @@ $('html,body').on('click','.subAccount-unblock',function(e){
                     }
                 }
                 showAlert('success',r.msg,4000,true);
+                window.guideHints.subaccountsBlockCheck()
             }else if(r.unblockSubAccountStatus == 0){
                 showAlert('error',r.msg,4000,true);
             }

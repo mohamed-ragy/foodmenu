@@ -123,7 +123,7 @@ getTickets = function(page=1,orderBy='created_at',order='desc'){
                     const ticket = response.tickets[key];
                     let ticketStatus;
                     if(ticket.status == 0 || ticket.status == 1){
-                        ticketStatus = $('<div/>',{class:`ticketStatusTag`,text:texts.support.ticketOpen})
+                        ticketStatus = $('<div/>',{class:`ticketStatus-${ticket.id} ticketStatusTag`,text:texts.support.ticketOpen})
                     }else if(ticket.status == 3 || ticket.status == 4){
                         ticketStatus = $('<div/>',{class:`ticketStatus-${ticket.id} ticketStatusTag ticketStatusTag_solved`,text:texts.support.ticketSolved})
                     }else if(ticket.status == 2){
@@ -200,10 +200,11 @@ openHelpTicket = function(ticketNumber){
             ticket = response.ticket;
             $('#ticketBrowserLoading').addClass('none');
             if(ticket == null){
+                showPopup_notFound(texts.support.ticketNotFound)
                 popupPageClose(false);
                 return;
             }
-            checkUseenNotifications([74],'ticket_id',ticketNumber)
+            checkUseenNotifications(['system.ticket_reply'],'ticket_id',ticketNumber)
             if(ticket.status == 0 || ticket.status == 1){ticketStatus = texts.support.ticketOpen;ticketStatusClass = ''}
             if(ticket.status == 2){ticketStatus = texts.support.ticketPending;ticketStatusClass = 'ticketStatusTag_pending'}
             if(ticket.status == 3 || ticket.status == 4){ticketStatus = texts.support.ticketSolved;ticketStatusClass = 'ticketStatusTag_solved'}

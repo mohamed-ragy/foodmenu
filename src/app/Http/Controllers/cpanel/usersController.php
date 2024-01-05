@@ -3,30 +3,26 @@
 namespace App\Http\Controllers\cpanel;
 
 use App\Http\Controllers\Controller;
-use App\Models\activityLog;
 use App\Models\User;
 use App\Models\foodmenuFunctions;
 use App\Models\guest;
-// use App\Models\order;
-// use App\Models\product_review;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
-// use App\Models\website;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use stdClass;
 
 class usersController extends Controller
 {
     protected $website_id;
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
 
         });
@@ -45,7 +41,7 @@ class usersController extends Controller
             return response(['users'=>$users]);
         }
         else if($request->has(['createNewUser'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
+            if(str_split($this->account->authorities)[2] == false){
                 return;
             }
 
@@ -119,33 +115,28 @@ class usersController extends Controller
                 'name'=>strip_tags($request->name),
                 'phoneNumber'=>strip_tags($request->phoneNumber),
                 'address'=>strip_tags($request->address),
-                'lastSeen'=> Carbon::now()->timestamp,
+                'lastSeen'=> null,
                 'cart' => '[]',
-                'cart_lastUpdate' => Carbon::now()->timestamp,
+                'cart_lastUpdate' => null,
                 'lat' => $request->lat,
                 'lng' => $request->lng,
             ]);
             if($createNewuser){
-                $notification = new stdClass();
-                $notification->code = 20.1;
-                $notification->website_id = $this->website_id;
-                $notification->user = $createNewuser;
-                $notification->activity = activityLog::create([
+                foodmenuFunctions::notification('user.created_by_cpanel',[
                     'website_id' => $this->website_id,
-                    'code' => 21,
+                    'code' => 'user.created',
                     'user_id' => $createNewuser->id,
                     'user_name' => $request->name,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ]);
-                broadcast(new cpanelNotification($notification))->toOthers();
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],null);
                 return response(['createNewUserStatus' => 1, 'msg' => Lang::get('cpanel/users/responses.createNewUserCreated'),'user' => $createNewuser]);
             }else{
                 return response(['createNewUserStatus' => 0, 'msg' => Lang::get('cpanel/users/responses.createNewUserFailed')]);
             }
         }
         else if($request->has('getUsers')){
-            // if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
+            // if(str_split($this->account->authorities)[2] == false){
             //     return;
             // }
             $users = User::where('website_id',$this->website_id)->whereIn('id',$request->userIds)
@@ -154,7 +145,7 @@ class usersController extends Controller
                 return response(['users'=>$users]);
         }
         else if($request->has('getGuests')){
-            // if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
+            // if(str_split($this->account->authorities)[2] == false){
             //     return;
             // }
 
@@ -164,15 +155,15 @@ class usersController extends Controller
                 return response(['guests'=>$guests]);
         }
         else if($request->has('banUser')){
-            if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
+            if(str_split($this->account->authorities)[2] == false){
                 return;
             }
             if($request->action == 1){
                $banUserAction = true;
-               $activityCode =22;
+               $activityCode = 'user.banned';
             }else if($request->action == 0){
                 $banUserAction = false;
-                $activityCode =23;
+                $activityCode = 'user.ban_removed';
             }
             $banUser = User::where(['id'=>$request->banUser,'website_id'=>$this->website_id])->update([
                 'isBanned'=> $banUserAction,
@@ -184,8 +175,8 @@ class usersController extends Controller
                     'code' => $activityCode,
                     'user_id' => $request->banUser,
                     'user_name' => $request->userName,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                 ],[
                     'userId' => $request->banUser,
                     'isBan' => $banUserAction,
@@ -209,7 +200,7 @@ class usersController extends Controller
 
         }
         else if($request->has('editUser')){
-            if(str_split(Auth::guard('account')->user()->authorities)[2] == false){
+            if(str_split($this->account->authorities)[2] == false){
                 return;
             }
             $emailUniqeuCheck = user::where(['website_id' => $this->website_id,'email' => $request->email])->where('id','!=',$request->userId)->count();
@@ -271,7 +262,7 @@ class usersController extends Controller
             if($phoneValidate->fails()){
                 return response(['editUserStatus' => 7,'msg'=>$phoneValidate->errors()]);
             }
-
+            $old_user = User::where(['website_id'=>$this->website_id,'id'=>$request->userId])->first();
             if($request->changePassword == 1){
                 $updateUser = User::where(['website_id'=>$this->website_id,'id'=>$request->userId])
                     ->update([
@@ -298,14 +289,43 @@ class usersController extends Controller
             }
 
             if($updateUser){
-                foodmenuFunctions::notification('user.edited',[
-                    'website_id' => $this->website_id,
-                    'code' => 24,
-                    'user_id' => $request->userId,
-                    'user_name' => $request->name,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
-                ],[
+                $activity = null;
+                if(
+                    $old_user->email != strip_tags($request->email) ||
+                    $old_user->name != strip_tags($request->name) ||
+                    $old_user->phoneNumber != strip_tags($request->phoneNumber) ||
+                    $old_user->address != strip_tags($request->address) ||
+                    $old_user->lat != strip_tags($request->lat) ||
+                    $old_user->lng != strip_tags($request->lng) ||
+                    $request->changePassword == 1
+                ){
+                    $activity = [
+                        'website_id' => $this->website_id,
+                        'code' => 'user.edited_by_account',
+                        'user_id' => $request->userId,
+                        'user_name' => $request->name,
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                        'old_user' => [
+                            'email' => $old_user->email,
+                            'name' => $old_user->name,
+                            'phoneNumber' => $old_user->phoneNumber,
+                            'address' => $old_user->address,
+                            'lat' => $old_user->lat,
+                            'lng' => $old_user->lng,
+                        ],
+                        'new_user' => [
+                            'email' => strip_tags($request->email),
+                            'name' => strip_tags($request->name),
+                            'phoneNumber' => strip_tags($request->phoneNumber),
+                            'address' => strip_tags($request->address),
+                            'lat' => strip_tags($request->lat),
+                            'lng' => strip_tags($request->lng),
+                            'password_changed' => $request->changePassword
+                        ]
+                    ];
+                }
+                foodmenuFunctions::notification('user.edited_by_account',$activity,[
                     'user_id' => $request->userId,
                     'email' => $request->email,
                     'name' => $request->name,

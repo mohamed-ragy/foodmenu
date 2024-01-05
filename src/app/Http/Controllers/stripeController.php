@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\cpanelNotification;
-use App\Models\Account;
 use App\Models\foodmenuFunctions;
 use App\Models\invoice;
 use App\Models\invoice_item;
 use App\Models\payment_method;
 use App\Models\website;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use stdClass;
+
 
 class stripeController extends Controller
 {
@@ -225,10 +221,9 @@ class stripeController extends Controller
                         'is_default'=>true,
                     ]);
 
-                    $notification = new stdClass();
-                    $notification->code = 55;
-                    $notification->website_id = $website->id;
-                    broadcast(new cpanelNotification($notification));
+                    foodmenuFunctions::notification('00',null,[
+                        'website_id' => $website->id,
+                    ]);
                     return response('', 200);
                 }
             }else{
@@ -242,10 +237,9 @@ class stripeController extends Controller
                     'subscription_status' => $data->status,
                 ])){
                     payment_method::where('website_id',$website->id)->update(['is_default'=>false]);
-                    $notification = new stdClass();
-                    $notification->code = 55;
-                    $notification->website_id = $website->id;
-                    broadcast(new cpanelNotification($notification));
+                    foodmenuFunctions::notification('00',null,[
+                        'website_id' => $website->id,
+                    ]);
                     return response('', 200);
                 }
             }else{
@@ -301,11 +295,10 @@ class stripeController extends Controller
             ]);
             if($createPaymentMethod){
                 $paymentmethodsCount = payment_method::where('website_id',$website->id)->count();
-                $notification = new stdClass();
-                $notification->code = 36;
-                $notification->paymentmethodsCount = $paymentmethodsCount;
-                $notification->website_id = $website->id;
-                broadcast(new cpanelNotification($notification));
+                foodmenuFunctions::notification('system.paymentMethod_update',null,[
+                    'website_id' => $website->id,
+                    'paymentmethodsCount' => $paymentmethodsCount,
+                ]);
                 return response('', 200);
             }else{
                 return response('', 200);
@@ -316,11 +309,10 @@ class stripeController extends Controller
             $deletePaymentMethod = payment_method::where(['paymentMethod_id'=>$data->id])->delete();
             if($deletePaymentMethod){
                 $paymentmethodsCount = payment_method::where('website_id',$website_id)->count();
-                $notification = new stdClass();
-                $notification->code = 36;
-                $notification->paymentmethodsCount = $paymentmethodsCount;
-                $notification->website_id = $website_id;
-                broadcast(new cpanelNotification($notification));
+                foodmenuFunctions::notification('system.paymentMethod_update',null,[
+                    'website_id' => $website->id,
+                    'paymentmethodsCount' => $paymentmethodsCount,
+                ]);
                 return response('', 200);
             }else{
                 return response('', 400);

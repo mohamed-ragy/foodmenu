@@ -117,6 +117,9 @@ return [
     'originalItems' => 'Original order items',
     'orderReceipt' => 'Order receipt',
     'cantRemoveLastItem' => 'This item cannot be removed; the order must have at least one item.',
+    //new//
+    "orderNotFound" => "Order not found!",
+    //new//
     ///activites
     "seeChanges" => "See changes",
     "from" => "From",

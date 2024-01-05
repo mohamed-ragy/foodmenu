@@ -2,44 +2,36 @@
 
 namespace App\Http\Controllers\cpanel;
 
-use App\Events\cpanelNotification;
 use App\Http\Controllers\Controller;
-use App\Models\activityLog;
 use Illuminate\Http\Request;
 use App\Models\website;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
-use App\Models\cpanelSettings;
 use App\Models\categories;
 use App\Models\foodmenuFunctions;
 use App\Models\img;
-use App\Models\plan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
-use stdClass;
 
 class categoriesController extends Controller
 {
     protected $website_id;
+    protected $account;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
-            $this->website_id = Auth::guard('account')->user()->website_id;
-            App::setlocale(Auth::guard('account')->user()->language);
+            $this->account = Auth::guard('account')->user();
+            $this->website_id = $this->account->website_id;
+            App::setlocale($this->account->language);
             return $next($request);
-
         })->except(['dologin','login']);
-        // Carbon::setLocale('en');
-
     }
     public function categories(Request $request)
     {
         if($request->has(['createNewCategory'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+
             $validate = Validator::make($request->all(),[
                 'categoryName' => 'required|regex:/^[a-z0-9_-]+$/',
             ],[
@@ -105,9 +97,9 @@ class categoriesController extends Controller
                             if($createNewCategory){
                                 foodmenuFunctions::notification('category.create',[
                                     'website_id' => $this->website_id,
-                                    'code' => 9,
-                                    'account_id' => Auth::guard('account')->user()->id,
-                                    'account_name' => Auth::guard('account')->user()->name,
+                                    'code' => 'category.created',
+                                    'account_id' => $this->account->id,
+                                    'account_name' => $this->account->name,
                                     'category_id' => $createNewCategory->id,
                                     'category_name' => $createNewCategory->name,
                                 ],[
@@ -123,9 +115,7 @@ class categoriesController extends Controller
             }
         }
         else if($request->has(['sortCategories'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
 
             $sortCat1 = categories::where(['website_id'=>$this->website_id, 'id' => $request->fromId])->update(['sort'=>$request->fromSort]);
             $sortCat2 = categories::where(['website_id'=>$this->website_id, 'id' => $request->toId])->update(['sort'=>$request->toSort]);
@@ -144,17 +134,16 @@ class categoriesController extends Controller
             }
         }
         else if($request->has(['deleteCategory'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
             $deleteCategory = categories::where(['id'=>$request->categoryId,'website_id'=>$this->website_id])->delete();
             if($deleteCategory){
                 foodmenuFunctions::notification('category.delete',[
                     'website_id' => $this->website_id,
-                    'code' => 10,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                    'code' => 'category.deleted',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
                     'category_name' => $request->categoryName,
+                    'category_id'=>$request->categoryId
                 ],[
                     'category_id' => $request->categoryId,
                 ]);
@@ -164,9 +153,14 @@ class categoriesController extends Controller
             }
         }
         else if($request->has(['editCategory'])){
-            if(str_split(Auth::guard('account')->user()->authorities)[1] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[1] == false){return;}
+            $category = categories::where(['name'=>$request->categoryName , 'website_id'=>$this->website_id])->first();
+            $old_names = $category->names;
+            $old_descriptions = $category->descriptions;
+            $old_img_id = $category->img_id;
+            $old_img = $category->img;
+            $old_thumbnail = $category->thumbnail;
+
             $names = [];
             $descriptions = [];
             foreach($request->categoryNames as $lang => $name){
@@ -194,19 +188,32 @@ class categoriesController extends Controller
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($editCategory){
-                $category = categories::where(['name'=>$request->categoryName , 'website_id'=>$this->website_id])->first();
-                foodmenuFunctions::notification('category.edit',[
-                    'website_id' => $this->website_id,
-                    'code' => 11,
-                    'account_id' => Auth::guard('account')->user()->id,
-                    'account_name' => Auth::guard('account')->user()->name,
+                $activity = null;
+                if($names != $old_names || $descriptions != $old_descriptions || $thumbnail_url != $old_thumbnail){
+                    $activity = [
+                        'website_id' => $this->website_id,
+                        'code' => 'category.edited',
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                        'category_id' => $request->editCategory,
+                        'category_name' => $request->categoryName,
+                        'new_names' => $names,
+                        'old_names' => $old_names,
+                        'new_descriptions' => $descriptions,
+                        'old_descriptions' => $old_descriptions,
+                        'new_img' => $thumbnail_url,
+                        'old_img' => $old_thumbnail,
+                    ];
+                }
+                foodmenuFunctions::notification('category.edit',$activity,[
                     'category_id' => $request->editCategory,
-                    'category_name' => $request->categoryName,
-                ],[
-                    'category' => $category,
-
+                    'img_id'=>$request->categoryImg,
+                    'img' => $img_url,
+                    'thumbnail' => $thumbnail_url,
+                    'names' => $names,
+                    'descriptions' => $descriptions,
                 ]);
-                return response(['editCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEdited'), 'category' => $category ]);
+                return response(['editCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEdited'),'thumbnail'=>$thumbnail_url,'img' => $img_url ]);
             }else{
                 return response(['editCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEditeFail') ]);
             }

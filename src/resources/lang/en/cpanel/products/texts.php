@@ -12,6 +12,13 @@ return [
     'categoryDescriptions'=>'Category description',
     'categoryDescription'=>'Description',
     'selectCategoryImg'=>'Select category image',
+    //new//
+    'categoryNotFound' => 'Category not found!',
+    "productNotFound" => 'Product not found!',
+    "optionNotFound" => "Variant not found!",
+    "selectionNotFound" => "Selection not found!",
+    "reviewNotFound" => 'Review not found!',
+    //new//
 
     'created' => 'Created :date:',
     'productOrderedTime' => 'Ordered :sum: time',

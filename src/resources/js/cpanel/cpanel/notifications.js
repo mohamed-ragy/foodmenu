@@ -1,8 +1,8 @@
 checkUseenNotifications = function(codes,notificationKey,val){
     let seenIds = [];
-    for(const key in window.notifications){
-        if(!window.notifications[key].seen && codes.includes(window.notifications[key].code) && window.notifications[key][notificationKey] == val){
-            seenIds.push(window.notifications[key]._id)
+    for(const key in website.notifications_unseen){
+        if(codes.includes(website.notifications_unseen[key].code) && website.notifications_unseen[key][notificationKey] == val){
+            seenIds.push(website.notifications_unseen[key]._id)
         }
     }
     if(seenIds.length > 0){
@@ -15,13 +15,16 @@ checkUseenNotifications = function(codes,notificationKey,val){
                 seenIds:seenIds,
             },success:function(r){
                 if(r.notificationsSeenStat == 1){
-                    for(const key in window.notifications){
-                        if(seenIds.includes(window.notifications[key]._id)){
-                            window.notifications[key].seen = true;
+                    for(const key in website.notifications){
+                        if(seenIds.includes(website.notifications[key]._id)){
+                            website.notifications[key].seen = true;
                         }
                     }
                     for(const key in seenIds){
-                        $(`.notificationContainer[notificationId=${seenIds[key]}]`).removeClass('notificationContainer_unseen').find('.unSeenNotificationDot').addClass('none');
+                        for(const key2 in website.notifications_unseen){
+                            if(website.notifications_unseen[key2] == seenIds[key]){website.notifications_unseen.splice(key2,1)}
+                        }
+                        $(`.notificationContainer[notification=${seenIds[key]}]`).removeClass('notificationContainer_unseen').find('.unSeenNotificationDot').addClass('none');
                         window.pageNotifications.notifications = window.pageNotifications.notifications - 1;
                         cpanelTitle(false);
                     }
@@ -30,222 +33,149 @@ checkUseenNotifications = function(codes,notificationKey,val){
         })
     }
 }
-drawNotification = function(notification,append,alert=false){
-    // need to remove the cpaneltitle from here and add in the switch
-    $('#noNotifications').addClass('none');
-
-    window.notifications.push(notification)
+drawNotification = function(notification,append){
+    $('.notificationContainer_loading').remove();
     let thisNotification;
-    let icon = '';
     let containerClass = '';
+    let icon = '';
+    let notificationsMsg = '';
+    let unseenDotClass = 'vH';
+    let attrs = {};
     let cpPage = null;
     let popupPage = null;
-    let attrs = {};
-    let unseenDotClass = 'vH';
-    let notificationsMsg = '';
-    let user = texts.cpanel.notifications.aGuest;
+    let user = texts.cpanel.public.aGuest;
+    notification.user_id != null ? user = `<span>${notification.userName}</span>` : null;
     switch(notification.code){
         case 'orders.new_order_user':
             icon = 'ico-orders';
             containerClass = 'popupPage';
-            popupPage = 'Order';
-            attrs.orderid = notification.order_id;
-            notification.user_id != null ? user = notification.userName : null;
-            notificationsMsg = `${texts.cpanel.notifications.order} #${notification.order_number} ${texts.cpanel.notifications.newOrder2} ${user}.`;
-            if(alert){
-                // window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                // window.pageNotifications.titleAlert = texts.cpanel.notifications.newOrderPlaced;
-                // cpanelTitle(true);
-                if(settings_temp.NewOrderAlerts == true){
-                    showAlert('normal',notificationsMsg,4000,true);
-                }
-            }
+            popupPage = 'order';
+            attrs.order = notification.order_id;
+            notificationsMsg = texts.cpanel.notifications.newOrder_msg.replace(':order:',`#${notification.order_number}`).replace(':user:',user);
         break;
         case 'orders.delivered_by_delivery':
             icon = 'ico-delivery_accounts';
             containerClass = 'popupPage';
-            popupPage = 'Order';
-            attrs.orderid = notification.order_id;
-            // notification.user_id != null ? user = notification.userName : null;
-            notificationsMsg = `${texts.cpanel.notifications.order} #${notification.order_id} ${texts.cpanel.notifications.delivered} ${notification.deliveryName.split('@')[0]}.`;
-            if(alert){
-                window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                window.pageNotifications.titleAlert = texts.cpanel.notifications.delivered1;
-                cpanelTitle(true);
-                if(settings_temp.DeliveredOrderAlerts == true){
-                    showAlert('normal',notificationsMsg,4000,true);
-                }
-            }
+            popupPage = 'order';
+            attrs.order = notification.order_id;
+            notificationsMsg = texts.cpanel.notifications.orderDelivered_msg.replace(':order:',`#${notification.order_number}`).replace(':delivery:',notification.deliveryName.split('@')[0]);
         break;
         case 'orders.canceled_by_user':
-            console.log(notification)
             icon = 'ico-no';
             containerClass = 'popupPage';
-            popupPage = 'Order';
-            attrs.orderid = notification.order_id;
+            popupPage = 'order';
+            attrs.order = notification.order_id;
             notification.user_id != null ? user = notification.userName : null;
-            notificationsMsg = `${texts.cpanel.notifications.order} #${notification.order_number} ${texts.cpanel.notifications.orderCanceled2} ${user}.`;
-            if(alert){
-                window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                window.pageNotifications.titleAlert = texts.cpanel.notifications.orderCanceled;
-                cpanelTitle(true);
-                if(settings_temp.CanceledOrderAlerts == true){
-                    showAlert('normal',notificationsMsg,4000,true);
-                }
-            }
+            notificationsMsg = texts.cpanel.notifications.orderCanceled_msg.replace(':order:',`#${notification.order_number}`).replace(':user:',user);
         break;
-        case 3:
+        case 'user.signup':
             icon = 'ico-user';
             containerClass = 'popupPage';
-            popupPage = 'User';
-            attrs.userId = notification.user_id;
-            notificationsMsg = `${texts.cpanel.notifications.newUser1} ${notification.userName} ${texts.cpanel.notifications.newUser2}`;
-            if(alert){
-                window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                window.pageNotifications.titleAlert = texts.cpanel.notifications.newUser;
-                cpanelTitle(true);
-                if(settings_temp.NewUserAlerts == true){
-                    showAlert('normal',notificationsMsg,4000,true);
-                }
-            }
-
+            popupPage = 'user';
+            attrs.user = notification.user_id;
+            notificationsMsg = texts.cpanel.notifications.newUser_msg.replace(':user:',notification.userName)
         break;
-        case 4:
+        case 'review.posted':
             icon = 'ico-product_reviews';
             containerClass = 'popupPage';
             popupPage = 'review';
             attrs.review = notification.product_review_id;
-            notification.user_id != null ? user = notification.userName : null;
-            notificationsMsg = `${texts.cpanel.notifications.newReview1} ${notification.productName} ${texts.cpanel.notifications.newReview2} ${user}.`;
-            if(alert){
-                window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                window.pageNotifications.titleAlert = texts.cpanel.notifications.newReview;
-                cpanelTitle(true);
-                if(settings_temp.NewReviewAlerts == true){
-                    showAlert('normal',notificationsMsg,4000,true);
-                }
-            }
+            notificationsMsg = texts.cpanel.notifications.newReview_msg.replace(':user:',user).replace(':product:',`<span>${notification.productName}</span>`).replace(':review:',`<span>${texts.cpanel.notifications.review}</span>`)
         break;
-        case 22:
+        case 'review.posted_survey':
             icon = 'ico-product_reviews'
             containerClass = 'cpPage';
             cpPage = 'product_reviews';
-            attrs.userId = notification.user_id;
-            attrs.userName = notification.userName;
+            attrs.user = notification.user_id;
             if(notification.reviewsSum > 1){
-                notificationsMsg = `${texts.cpanel.notifications.collectReviews3} ${texts.cpanel.notifications.collectReviews22} ${notification.userName} ${texts.cpanel.notifications.collectReviews4}`;
-                if(alert){
-                    window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                    window.pageNotifications.titleAlert = texts.cpanel.notifications.newReview22;
-                    cpanelTitle(true);
-                    if(settings_temp.NewReviewAlerts == true){
-                        showAlert('normal',notificationsMsg,4000,true);
-                    }
-                }
-            }else{
-                notificationsMsg = `${texts.cpanel.notifications.collectReviews1} ${texts.cpanel.notifications.collectReviews2} ${notification.userName} ${texts.cpanel.notifications.collectReviews4}`;
-                if(alert){
-                    window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                    window.pageNotifications.titleAlert = texts.cpanel.notifications.newReview;
-                    cpanelTitle(true);
-                    if(settings_temp.NewReviewAlerts == true){
-                        showAlert('normal',notificationsMsg,4000,true);
-                    }
-                }
+                notificationsMsg = texts.cpanel.notifications.collectReviews_msg.replace(':user:',notification.userName).replace(':txt:',texts.cpanel.notifications.reviews.replace(':reviewsSum:',notification.reviewsSum));
+            }else if(notification.reviewsSum == 1){
+                notificationsMsg = texts.cpanel.notifications.collectReviews_msg.replace(':user:',notification.userName).replace(':txt:',texts.cpanel.notifications.review);
             }
         break;
-        case 74:
-            icon = 'ico-ticket';
+        case 'system.ticket_reply':
+            icon = 'ico-support';
             containerClass = 'popupPage';
             popupPage = 'ticket_browser';
-            attrs.ticketid = notification.ticket_id;
-            notificationsMsg = `${texts.cpanel.notifications.ticketMSg1} #${notification.ticket_id}.`;
-            if(alert){
-                window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                window.pageNotifications.titleAlert = texts.cpanel.notifications.ticketMSg;
-                cpanelTitle(true);
-                showAlert('normal',notificationsMsg,4000,true);
-            }
+            attrs.ticket = notification.ticket_id;
+            notificationsMsg = texts.cpanel.notifications.helpTicket_msg.replace(':ticket:',notification.ticket_id)
         break;
-        case 80:
-            icon = 'ico-financial_reports';
-            containerClass = 'viewFinancialReportClass';
-            attrs.month = notification.month;
+        case 'system.financial_report':
+            icon = 'ico-money';
+            containerClass = 'open_financial_report';
+            attrs.report = notification.financialReport_id;
             attrs.year = notification.year;
-            attrs.reportId = notification.financialReport_id;
+            attrs.month = notification.month;
             let reportDate = getDate(Date.parse(new Date(notification.year,notification.month,0)) / 1000);
-            notificationsMsg =`${texts.cpanel.notifications.financialReport1} ${reportDate.month_short.restaurant} ${reportDate.year.restaurant} ${texts.cpanel.notifications.financialReport2}`
-            if(alert){
-                window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-                window.pageNotifications.titleAlert = texts.cpanel.notifications.financialReport;
-                cpanelTitle(true);
-                showAlert('normal',notificationsMsg,4000,true);
-                $('#financialReports-noReports').addClass('none');
-            }
+            notificationsMsg = texts.cpanel.notifications.financialReport_msg.replace(':date:',`<B>${reportDate.month_short.restaurant} ${reportDate.year.restaurant}</B>`)
+        break;
+        case 'system.subaccount_blocked':
+            icon = 'ico-warning cO';
+            containerClass = 'cpPage';
+            cpPage = 'sub_accounts'
+            attrs.scrollToElem = `subaccount_table_row_${notification.subaccount_id}`;
+            attrs.selectElem = `subaccount_table_row_${notification.subaccount_id}`;
+            notificationsMsg = texts.cpanel.notifications.subaccountBlocked_msg.replace(':subaccount:',`<span>  ${notification.subaccount_name}</span>`)
+        break;
+        case 'system.statistics_day.created':
+            icon = 'ico-statistics_and_analytics';
+            containerClass = 'cpPage';
+            cpPage = 'statistics_and_analytics'
+            attrs.day1 = notification.day;
+            attrs.month1 = notification.month;
+            attrs.year1 = notification.year;
+            notificationsMsg = texts.cpanel.notifications.statistics_day_created_msg.replace(':date:',`<span>${getDate(Date.parse(new Date(notification.year,notification.month - 1,notification.day,10,10)) / 1000).date.restaurant}</span>`)
         break;
 
     }
-    !notification.seen ? unseenDotClass = '' : null;
+    !notification.seen ? unseenDotClass = '' : 'none';
     !notification.seen ? containerClass = `${containerClass} notificationContainer_unseen` : null;
-    if(append == 'append'){
-        $('#notificationsListConainer').append(
-            thisNotification = $('<div/>',{
-                class:`notificationContainer ${containerClass}`,
-                popupPage:popupPage,
-                cpPage:cpPage,
-                notificationId:notification._id,
-                created_at:notification.created_at
-            }).append(
+    thisNotification = $('<div/>',{
+        notification:notification._id,
+        class:`notificationContainer ${containerClass}`,
+        popupPage:popupPage,
+        cpPage:cpPage,
+    }).append(
                 $('<div/>',{class:`notificationIcon ${icon}`}),
                 $('<div/>',{class:'notificationBody'}).append(
-                    $('<div/>',{class:'mB10 fs101',text:notificationsMsg}),
-                    $('<div/>',{class:'c-placeholder2 fs09 alnsE diffTimeCalc',time:notification.created_at})
+                    $('<div/>',{class:'mB10 fs085',html:notificationsMsg}),
+                    $('<div/>',{class:'c_white-10 fs07 alnsE diffTimeCalc',time:notification.created_at})
                 ),
                 $('<div/>',{class:`${unseenDotClass} unSeenNotificationDot`})
-
-            )
-        )
-    }else if(append == 'prepend'){
-        $('#notificationsListConainer').prepend(
-            thisNotification = $('<div/>',{
-                class:`notificationContainer ${containerClass}`,
-                popupPage:popupPage,
-                cpPage:cpPage,
-                notificationId:notification._id,
-                created_at:notification.created_at
-            }).append(
-                $('<div/>',{class:`notificationIcon ${icon}`}),
-                $('<div/>',{class:'notificationBody'}).append(
-                    $('<div/>',{class:'mB10 fs101',text:notificationsMsg}),
-                    $('<div/>',{class:'c-placeholder2 fs09 alnsE diffTimeCalc',time:notification.created_at})
-                ),
-                $('<div/>',{class:`${unseenDotClass} unSeenNotificationDot`})
-
-            )
-        )
-    }
-
-    for(const key in attrs){
-        thisNotification.attr(key,attrs[key])
-    }
+    )
+    append == 'append' ? $('#notificationsListConainer').append(thisNotification) :append == 'prepend' ? $('#notificationsListConainer').prepend(thisNotification) : null ;
+    for(const key in attrs){thisNotification.attr(key,attrs[key])}
 
 }
 
 let getMoreNotificationsCheck = true;
 let noMoreNotifications = false;
-$('#notifications').on('click',function(){
+
+$('#notificationsList').on('scroll',function(e){
+    e.stopImmediatePropagation();
+    if($('#notificationsList')[0].scrollHeight - $('#notificationsList').scrollTop() < $('#notificationsList').innerHeight() + 1){
+        getNotifications();
+    }
+});
+/////
+$('#notifications').on('click',function(e){
+    // e.stopImmediatePropagation();
     if(window.waitFor_loadWebsiteOrdersAndChats){return;}
     if(!window.notificationsFirstLoad){
         $('#notificationsListConainer').text('')
         getNotifications();
     }
 })
-$('#notificationsList').on('scroll',function(e){
-    e.stopImmediatePropagation();
-    if($('#notificationsList')[0].scrollHeight - $('#notificationsList').scrollTop() < $('#notificationsList').innerHeight() + 1){
-        getNotifications(true);
+drawNotifications_loading = function(){
+    for(i=0;i<5;i++){
+        $('#notificationsListConainer').append(
+            $('<div/>',{class:'notificationContainer_loading'}).append(
+                $('<div/>',{class:'cardLoading h30 w30 br50p'}),
+                $('<div/>',{class:'cardLoading h10 w200 mX10 br10'}),
+            )
+        )
     }
-});
+}
 getNotifications = function(){
     if(!window.notificationsFirstLoad){
         getMoreNotificationsCheck = true;
@@ -253,38 +183,39 @@ getNotifications = function(){
     }
     if(!getMoreNotificationsCheck || noMoreNotifications){return;}
     getMoreNotificationsCheck = false;
-    $('#notificationsListConainer_loading').removeClass('none')
-    let getMoreNotificationsAfter = $('#notificationsListConainer').children().last().attr('created_at');
+    drawNotifications_loading();
+    let lastNotification_id = 0;
+    let lastNotification_created_at = Date.parse(new Date()) / 1000;
+    if(website.notifications.length > 0){
+        lastNotification_id = website.notifications[website.notifications.length - 1]._id;
+        lastNotification_created_at = website.notifications[website.notifications.length - 1].created_at;
+    }
     $.ajax({
         url:'notifications',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             getNotifications:true,
-            getMoreNotificationsAfter:getMoreNotificationsAfter,
+            lastNotification_id:lastNotification_id,
+            lastNotification_created_at:lastNotification_created_at,
         },
-        success:function(response){
-            if(response.notifications.length == 0){noMoreNotifications = true;}
-            $('#notificationsListConainer_loading').addClass('none')
+        success:function(r){
             window.notificationsFirstLoad = true;
-            for(const key in response.notifications){
-                const notification = response.notifications[key];
-                drawNotification(notification,'append');
+            if(r.notifications.length == 0){noMoreNotifications = true;$('.notificationContainer_loading').remove();}
+            if(r.notifications.length == 0 && website.notifications == 0){
+                $('#notificationsListConainer').text('').append($('<div/>',{class:'notificationContainer_loading fs085 mX10 w100p-20',text:texts.cpanel.notifications.noNotifications}))
             }
-            if($('#notificationsListConainer').children().length == 0 && noMoreNotifications == true){
-                $('#noNotifications').removeClass('none');
+            for(const key in r.notifications){
+                website.notifications.push(r.notifications[key])
+                const notification = r.notifications[key];
+                drawNotification(r.notifications[key],'append');
             }
-
         }
     }).done(function(){
         getMoreNotificationsCheck = true;
-        if(!noMoreNotifications && $('#notificationsList').height() >= $('#notificationsListConainer').height()){
-            getNotifications();
-        }
     })
 
 }
-
 window.cpanelChannel.listen(`cpanelChannel`,function(r){
     console.log(r)
     if('activity' in r.notification){drawActivityLog(r.notification.activity,true,'prepend')}
@@ -292,6 +223,7 @@ window.cpanelChannel.listen(`cpanelChannel`,function(r){
 })
 
 handelCpanelChannel = function(n,code){
+    if(code.split('.')[0] == 'system' && account.is_master != 1){return;}
     if(code.split('.')[0] == 'settings' && account.authorities[4] != 1){return;}
     if(code.split('.')[0] == 'user' && account.authorities[2] != 1){return;}
     if(code.split('.')[0] == 'liveChat' && account.authorities[5] != 1){return;}
@@ -302,6 +234,8 @@ handelCpanelChannel = function(n,code){
     if(code.split('.')[0] == 'review' && account.authorities[1] != 1){return;}
     if(code.split('.')[0] == 'img' && account.authorities[3] != 1){return;}
     if(code.split('.')[0] == 'orders' && account.authorities[0] != 1){return;}
+    let notificationsMsg = '';
+    console.log(n)
     switch(code){
         case '0':
             // if(n.account_id == account.id){
@@ -310,21 +244,92 @@ handelCpanelChannel = function(n,code){
             //         $('#logoutForm').trigger('submit');
             //     },5000)
             // }
-            break;
-        case 'account.blocked':
-            let subaccount = website.accounts.find(i=> i.id == n.account_id);
+        break;
+        case '00':
+            //reload after 10 sec
+            ReloadForUpdatePopup();
+        break;
+        case '000':
+            $('#logoutForm').trigger('submit');
+        break;
+        case 'reload.update':
+            //reload after 2 min
+            ReloadForUpdate();
+        break;
+        case 'reload.update.account':
+            //reload after 10 sec
+            if(account.id == n.account_id){
+                ReloadForUpdatePopup();
+            }
+        break;
+        case 'website.offline':
+
+        break;
+        case 'website.online':
+
+        break;
+        /////system
+        case 'system.subaccount_blocked':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.subaccountBlocked_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            notificationsMsg = texts.cpanel.notifications.subaccountBlocked_msg.replace(':subaccount:',`<span><a class="popupPage popupId" popupPage="sub_account" popupId="sub_account" subaccount="${n.notification.subaccount_id}">${n.notification.subaccount_name}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+
+            let subaccount = website.accounts.find(i=> i.id == n.notification.subaccount_id);
             if(typeof(subaccount) !== 'undefined'){
                 subaccount.password_fails = n.password_fails;
                 drawSubAccountsTable();
             }
+            website.notifications_unseen.push(n.notification)
+            window.guideHints.subaccountsBlockCheck()
         break;
-        case 'reload.update':
-            ReloadForUpdate();
+        case 'system.paymentMethod_update':
+            website.payment_methods_count = n.paymentmethodsCount;
+            window.guideHints.subscriptionCheck();
         break;
-        case 'reload.update.account':
-            if(account.id == n.account_id){
-                ReloadForUpdatePopup();
+        case 'system.financial_report':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.financialReport_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            let reportDate = getDate(Date.parse(new Date(n.notification.year,n.notification.month,0)) / 1000);
+            notificationsMsg = texts.cpanel.notifications.financialReport_msg.replace(':date:',`<span><a class="open_financial_report" year="${n.notification.year}" month="${n.notification.month}" report="${n.notification.financialReport_id}">${reportDate.month_short.restaurant} ${reportDate.year.restaurant}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+            if(window.history.state.page == 'financial_reports'){
+                getFinancialReports(1)
             }
+            website.notifications_unseen.push(n.notification)
+        break;
+        case 'system.ticket_reply':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.helpTicket_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            notificationsMsg = texts.cpanel.notifications.helpTicket_msg.replace(':ticket:',`<span><a class="popupPage" popupPage="ticket_browser" ticket="${n.notification.ticket_id}">${n.notification.ticket_id}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+            $(`.ticketStatus-${n.notification.ticket_id}`).text(texts.support.ticketPending).addClass('ticketStatusTag_pending')
+            if(window.history.state.popupPage == 'ticket_browser' && window.history.state.ticket == n.notification.ticket_id){
+                appendNewTicketMsg(n.reply,'append');
+                scrollToDiv($('#popupPageBody'),$('#ticketBrowserInputContainer'))
+            }
+            website.notifications_unseen.push(n.notification)
+        break;
+        case 'system.ticket_solved':
+            $(`.ticketStatus-${n.ticket_id}`).text(texts.support.ticketSolved).removeClass('ticketStatusTag_pending').addClass('ticketStatusTag_solved')
+            if(window.history.state.popupPage == 'ticket_browser' && window.history.state.ticket == n.ticket_id){
+                $('#ticketBrowserInputContainer').text('');
+            }
+        break;
+        case 'system.statistics_day.created':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.statistics_day_created_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            notificationsMsg = texts.cpanel.notifications.statistics_day_created_msg.replace(':date:',`<span><a class="cpPage" cpPage="statistics_and_analytics" day1="${n.notification.day}" month1="${n.notification.month}" year1="${n.notification.year}">${getDate(Date.parse(new Date(n.notification.year,n.notification.month - 1,n.notification.day,10,10)) / 1000).date.restaurant}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
         break;
         /////live chat
         case 'liveChat.typing':
@@ -375,6 +380,7 @@ handelCpanelChannel = function(n,code){
             }
         break;
         case 'liveChat.msg_deleted_by_account':
+            if(typeof(window.chatMsgs[`${n.type}-${n.id}`]) === 'undefined'){return;}
             if(typeof(window.chatMsgs[`${n.type}-${n.id}`].find(item=>item._id == n.msgId)) !== 'undefined'){
                 window.chatMsgs[`${n.type}-${n.id}`].find(item=>item._id == n.msgId).is_deleted = true;
                 window.chatMsgs[`${n.type}-${n.id}`].find(item=>item._id == n.msgId).deleted_at = n.now;
@@ -834,6 +840,18 @@ handelCpanelChannel = function(n,code){
             }
         break;
         ////users
+        case 'user.signup':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.newUser_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            notificationsMsg = texts.cpanel.notifications.newUser_msg.replace(':user:',`<span><a class="popupPage popupId" popupPage="user" popupId="user" user="${n.notification.user_id}">${n.notification.userName}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
+        break;
+        case 'user.created_by_cpanel':
+            //for activity only
+        break;
         case 'user.ban' :
             if(typeof(website.users.find(item=>item.id == n.userId)) !== 'undefined'){
                 n.isBan == 1 ? website.users.find(item=>item.id == n.userId).isBanned = 1 : n.isBan == 0 ? website.users.find(item=>item.id == n.userId).isBanned = 0 : null;
@@ -842,7 +860,7 @@ handelCpanelChannel = function(n,code){
                 drawManageUser(n.userId);
             }
             break;
-        case 'user.edited':
+        case 'user.edited_by_account':
             for(const key in website.users){
                 if(website.users[key].id == n.user_id){
                     website.users[key].email = n.email;
@@ -863,6 +881,32 @@ handelCpanelChannel = function(n,code){
             break;
         case 'user.activity':
             chandelUserActivity(n)
+        break;
+        case 'user.edited_by_user':
+            if(typeof(website.users.find(item=>item.id == n.user_id)) !== 'undefined'){
+                website.users.find(item=>item.id == n.user_id).name = n.name;
+                website.users.find(item=>item.id == n.user_id).phoneNumber = n.phoneNumber;
+                website.users.find(item=>item.id == n.user_id).address = n.address;
+                website.users.find(item=>item.id == n.user_id).lat = n.lat;
+                website.users.find(item=>item.id == n.user_id).lng = n.lng;
+            }
+        break;
+        case 'user.email_changed_by_user':
+            if(typeof(website.users.find(item=>item.id == n.user_id)) !== 'undefined'){
+                website.users.find(item=>item.id == n.user_id).email = n.email;
+            }
+        break;
+        case 'user.password_changed_by_user':
+            //for activity only
+        break;
+        case 'user.cart_update':
+            if(typeof(website.users.find(item=>item.id == n.user_id)) !== 'undefined'){
+                website.users.find(item=>item.id == n.user_id).cart = n.user_newCart;
+                website.users.find(item=>item.id == n.user_id).cart_lastUpdate = n.now;
+                if(window.history.state.popupPage == 'user' && window.history.state.user == n.user_id){
+                    drawUserPageCart(n.user_id)
+                }
+            }
             break;
         //products
         case 'category.sort':
@@ -911,16 +955,17 @@ handelCpanelChannel = function(n,code){
             window.guideHints.categories();
             break;
         case 'category.edit':
-            for(const key in website.categories){
-                if(website.categories[key].id == n.category.id){
-                    website.categories[key] = JSON.parse(JSON.stringify(n.category));
-                }
-            }
-            for(const key in website_temp.categories){
-                if(website_temp.categories[key].id == n.category.id){
-                    website_temp.categories[key] = JSON.parse(JSON.stringify(n.category));
-                }
-            }
+            website.categories.find(item=>item.id == n.category_id).img_id = n.img_id;
+            website.categories.find(item=>item.id == n.category_id).img = n.img;
+            website.categories.find(item=>item.id == n.category_id).thumbnail = n.thumbnail;
+            website.categories.find(item=>item.id == n.category_id).names = n.names;
+            website.categories.find(item=>item.id == n.category_id).descriptions = n.descriptions;
+
+            website_temp.categories.find(item=>item.id == n.category_id).img_id = n.img_id;
+            website_temp.categories.find(item=>item.id == n.category_id).img = n.img;
+            website_temp.categories.find(item=>item.id == n.category_id).thumbnail = n.thumbnail;
+            website_temp.categories.find(item=>item.id == n.category_id).names = n.names;
+            website_temp.categories.find(item=>item.id == n.category_id).descriptions = n.descriptions;
             drawCategoryList();
             if(window.history.state.popupPage == 'edit_category' && window.history.state.category == n.category.name){
                 drawPopupPage_edit_category(n.category.name)
@@ -1129,6 +1174,31 @@ handelCpanelChannel = function(n,code){
             checkUseenNotifications([4],'product_review_id',n.review_id)
             $('.productReviewContainer[review="'+n.review_id+'"').remove();
         break;
+        case 'review.posted':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.newReview_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            let review_user = texts.cpanel.notifications.aGuest;
+            n.notification.user_id != null ? review_user = `<span><a class="popupPage popupId" popupPage="user" popupId="user" user="${n.notification.user_id}" >${n.notification.userName}</a></span>` : null;
+            notificationsMsg = texts.cpanel.notifications.newReview_msg.replace(':user:',review_user).replace(':product:',`<span><a class="popupPage popupId" popupPage="product" popupId="product" product="${n.notification.productName}">${n.notification.productName}</a></span>`).replace(':review:',`<span><a class="popupPage popupId" popupPage="review" popupId="review" review="${n.notification.product_review_id}">${texts.cpanel.notifications.review}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
+        break;
+        case 'review.posted_survey':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.collectReviews_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            if(n.notification.reviewsSum > 1){
+                notificationsMsg = texts.cpanel.notifications.collectReviews_msg.replace(':txt:',`<span><a class="cpPage" cpPage="product_reviews" user="${n.notification.user_id}">${texts.cpanel.notifications.reviews.replace(':reviewsSum:',n.notification.reviewsSum)}</a></span>`);
+            }else if(n.notification.reviewsSum == 1){
+                notificationsMsg = texts.cpanel.notifications.collectReviews_msg.replace(':txt:',`<span><a class="cpPage" cpPage="product_reviews" user="${n.notification.user_id}">${texts.cpanel.notifications.review}</a></span>`);
+            }
+            notificationsMsg = notificationsMsg.replace(':user:',`<span><a class="popupPage popupId" popupId="user" popupPage="user" user="${n.notification.user_id}">${n.notification.userName}</a></span>`);
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
+        break;
         //design
         case 'img.upload':
             website.imgs.push(n.img)
@@ -1171,14 +1241,20 @@ handelCpanelChannel = function(n,code){
         break;
         //orders
         case 'orders.new_order_user':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.newOrder_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
             website.incompleteOrders.push(n.order);
+            calcIncompleteOrders();
             if(window.history.state.page == 'incomplete_orders'){
                 drawIncompleteOrdersTable(window.history.state.tab ?? 'all_orders',window.history.state.order_by ?? 'placed_at',window.history.state.sort ?? 'desc');
             }
-            calcIncompleteOrders();
-            window.pageNotifications.titleAlert = texts.cpanel.notifications.newOrderPlaced;
-            cpanelTitle(true);
-            drawNotification(n.notification,'prepend',true);
+            let newOrder_user = texts.cpanel.notifications.aGuest;
+            n.notification.user_id != null ? newOrder_user = `<span><a class="popupPage popupId" popupPage="user" popupId="user" user="${n.notification.user_id}" >${n.notification.userName}</a></span>` : null;
+            notificationsMsg = texts.cpanel.notifications.newOrder_msg.replace(':order:',`<span><a class="popupId popupPage" popupPage="order" popupId="order" order="${n.notification.order_id}">#${n.notification.order_number}</a></span>`).replace(':user:',newOrder_user);
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
         break;
         case 'orders.new_order_account':
             website.incompleteOrders.push(n.order);
@@ -1222,11 +1298,13 @@ handelCpanelChannel = function(n,code){
             calcIncompleteOrders();
         break;
         case 'orders.canceled_by_user':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.orderCanceled_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 2;
             website.incompleteOrders.find(item=>item._id == n.order_id).canceled_at = n.canceled_at;
             website.incompleteOrders.find(item=>item._id == n.order_id).canceled_by = 1;
-            // website.incompleteOrders.find(item=>item._id == n.order_id).canceled_account_name = n.canceled_account_name;
-            // website.incompleteOrders.find(item=>item._id == n.order_id).canceled_account_id = n.canceled_account_id;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
                     website.orderHistory.push(website.incompleteOrders[key])
@@ -1240,6 +1318,11 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            let canceledOrder_user = texts.cpanel.notifications.aGuest;
+            n.notification.user_id != null ? canceledOrder_user = `<span><a class="popupPage popupId" popupPage="user" popupId="user" user="${n.notification.user_id}" >${n.notification.userName}</a></span>` : null;
+            notificationsMsg = texts.cpanel.notifications.orderCanceled_msg.replace(':order:',`<span><a class="popupId popupPage" popupPage="order" popupId="order" order="${n.notification.order_id}">#${n.notification.order_number}</a></span>`).replace(':user:',canceledOrder_user);
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
         break;
         case 'orders.ready_for_pickup':
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 4;
@@ -1322,7 +1405,10 @@ handelCpanelChannel = function(n,code){
             calcIncompleteOrders();
         break;
         case 'orders.delivered_by_delivery':
-            console.log(n)
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.orderDelivered_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 5;
             website.incompleteOrders.find(item=>item._id == n.order_id).delivered_at = n.delivered_at;
             website.incompleteOrders.find(item=>item._id == n.order_id).delivered_by = 1;
@@ -1341,9 +1427,9 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
-            window.pageNotifications.titleAlert = texts.cpanel.notifications.delivered1;
-            cpanelTitle(true);
-            drawNotification(n.notification,'prepend',true);
+            notificationsMsg = texts.cpanel.notifications.orderDelivered_msg.replace(':order:',`<span><a class="popupId popupPage" popupPage="order" popupId="order" order="${n.notification.order_id}">#${n.notification.order_number}</a></span>`).replace(':delivery:',`<span><a class="popupPage popupId" popupPage="delivery_account" popupId="delivery" delivery="${n.notification.delivery_id}">${n.notification.deliveryName.split('@')[0]}</a></span>`);
+            showAlert('normal',notificationsMsg,4000,true);
+            website.notifications_unseen.push(n.notification)
         break;
         case 'orders.diningin':
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 8;
@@ -1538,682 +1624,14 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
         break;
+        case 'orders.collectReviewSeen':
+            if(window.history.state.popupPage == 'order' && window.history.state.order == n.order_id){
+                website.orderHistory.find(item=>item._id == n.order_id).collectReviewSeen = true;
+                console.log(website.orderHistory.find(item=>item._id == n.order_id))
+                drawPopupPage_order_fillData(n.order_id)
+            }
+        break;
     }
 
 
 }
-let n =[];
-    if(n.code == 0.2){
-        ReloadForUpdate();
-    }else if(n.code == 0.3){
-        let account = website.accounts.find(i=> i.id == n.account_id);
-        if(typeof(account) !== 'undefined'){
-            account.password_fails = n.password_fails;
-            drawSubAccounts();
-        }
-    }else if(n.code == 0){
-        if(n.accountId == account.id){
-            // setTimeout(function(){
-            //     showPopup('loginDetected');
-            //     setTimeout(function(){
-            //         $('#logoutForm').trigger('submit');
-            //     },5000)
-            // },5000)
-        }
-    }else if(n.code == 1 && account.authorities[0] == 1){
-        website.incompleteOrders.push(n.order);
-        new orders().incompleteOrders();
-        drawNotification(n,'prepend',true);
-    }else if(n.code == 1.5 && account.authorities[2] == 1){
-        for(const key in website.users){
-            if(website.users[key].id == n.user_id){
-                website.users[key].cart = n.cart;
-                website.users[key].cart_lastUpdate = n.cart_lastUpdate;
-                if(window.history.state.popupPage == 'User' && window.history.state.user == n.user_id){
-                    // showUserPopupPage(n.user_id);
-
-                }
-            }
-        }
-    }else if(n.code == 2 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.order_id){
-                website.incompleteOrders[key].status = 5;
-                website.incompleteOrders[key].delivered_at = n.delivered_at;
-                website.incompleteOrders[key].delivered_by = n.delivered_by;
-                website.incompleteOrders[key].delivery_id = n.delivery_id;
-                website.incompleteOrders[key].deliveryName = n.deliveryName;
-                if(account.is_master == true){
-                    todayOrders.push(website.incompleteOrders[key])
-                    drawTodayHomeOrders()
-                }
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                let orderId = website.incompleteOrders[key].id;
-                website.incompleteOrders.splice(key,1)
-                new orders(orderId).redrawChatOrder();
-                new orders().incompleteOrders();
-            }
-        }
-        drawNotification(n,'prepend',true);
-    }else if(n.code == 3 && account.authorities[2] == 1){
-        website.users.push(n.user);
-        drawNotification(n,'prepend',true);
-    }else if(n.code == 4 && account.authorities[1] == 1){
-        drawNotification(n,'prepend',true);
-        $('#manageUsers-usersInputList').trigger('input');
-    }else if(n.code == 5 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.order.id){
-                website.incompleteOrders[key] = n.order;
-                if(account.is_master == true){
-                    todayOrders.push(website.incompleteOrders[key])
-                    drawTodayHomeOrders()
-                }
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                let orderId = website.incompleteOrders[key].id;
-                website.incompleteOrders.splice(key,1);
-                new orders(orderId).redrawChatOrder();
-            }
-        }
-        new orders().incompleteOrders();
-        drawNotification(n,'prepend',true);
-        // if(settings_temp.CanceledOrderAlerts  == true && account.authorities[0] == 1){
-        //     showAlert('normal',texts.cpanel.notifications.orderCanceled1+n.order_id+' '+texts.cpanel.notifications.orderCanceled2+' '+notificationUserName+'.',20000,true);
-        // }
-
-        // window.pageNotifications.titleAlert = texts.cpanel.notifications.orderCanceled;
-        // cpanelTitle(true);
-    }else if(n.code == 6.5 && account.authorities[0] == 1){
-        for(const key in website.orderHistory){
-            if(website.orderHistory[key].id == n.order_id){
-                website.orderHistory[key].collectReviewSeen = 1;
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.orderHistory[key].id){
-                    new orders(website.orderHistory[key].id).drawOrder()
-                }
-            }
-        }
-
-    }else if(n.code == 6.6  && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 7;
-                website.incompleteOrders[key].dinedin_at = n.dinedin_at;
-                website.incompleteOrders[key].dinedin_account_name = n.dinedin_account_name;
-                website.incompleteOrders[key].dinedin_account_id = n.dinedin_account_id;
-                if(account.is_master == true){
-                    todayOrders.push(website.incompleteOrders[key])
-                    drawTodayHomeOrders()
-                }
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                let orderId = website.incompleteOrders[key].id;
-                website.incompleteOrders.splice(key,1)
-                new orders(orderId).redrawChatOrder();
-                new orders().incompleteOrders();
-            }
-        }
-    }else if(n.code == 6.7 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 8;
-                website.incompleteOrders[key].diningin_at = n.diningin_at;
-                website.incompleteOrders[key].diningin_account_name = n.diningin_account_name;
-                website.incompleteOrders[key].diningin_account_id = n.diningin_account_id;
-                new orders().incompleteOrders();
-                let orderId = website.incompleteOrders[key].id;
-                new orders(orderId).redrawChatOrder();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-            }
-        }
-    }else if(n.code == 7.1 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].type = n.newType;
-                website.incompleteOrders[key].typeEdit_account_name = n.typeEdit_account_name;
-                website.incompleteOrders[key].typeEdit_account_id = n.typeEdit_account_id;
-                website.incompleteOrders[key].tax = n.tax;
-                website.incompleteOrders[key].taxPercent = n.taxPercent;
-                website.incompleteOrders[key].service = n.service;
-                website.incompleteOrders[key].servicePercent = n.servicePercent;
-                website.incompleteOrders[key].deliveryCost = n.deliveryCost;
-                website.incompleteOrders[key].total = n.total;
-                website.incompleteOrders[key].deliveryEdit_account_name = null;
-                website.incompleteOrders[key].deliveryEdit_account_id = null;
-                website.incompleteOrders[key].paymentMethod = null;
-                new orders().incompleteOrders();
-                new orders(website.incompleteOrders[key].id).redrawChatOrder();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-            }
-        }
-    }else if(n.code == 7.2 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].notice = n.newNotice;
-                website.incompleteOrders[key].noticeEdit_account_name = n.noticeEdit_account_name;
-                website.incompleteOrders[key].noticeEdit_account_id = n.noticeEdit_account_id;
-                new orders().incompleteOrders();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-            }
-        }
-    }else if(n.code == 7.3 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].phoneNumber = n.newPhoneNumber;
-                website.incompleteOrders[key].phoneEdit_account_name = n.phoneEdit_account_name;
-                website.incompleteOrders[key].phoneEdit_account_id = n.phoneEdit_account_id;
-                new orders().incompleteOrders();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder();
-                }
-            }
-        }
-    }else if(n.code == 7.4 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].address = n.newAddress;
-                website.incompleteOrders[key].addressEdit_account_name = n.addressEdit_account_name;
-                website.incompleteOrders[key].addressEdit_account_id = n.addressEdit_account_id;
-                new orders().incompleteOrders();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder();
-                }
-            }
-        }
-    }else if(n.code == 8 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 2;
-                website.incompleteOrders[key].canceled_by = n.canceled_by;
-                website.incompleteOrders[key].canceled_at = n.canceled_at;
-                website.incompleteOrders[key].canceled_account_name = n.canceled_account_name;
-                website.incompleteOrders[key].canceled_account_id = n.canceled_account_id;
-                if(account.is_master == true){
-                    todayOrders.push(website.incompleteOrders[key])
-                    drawTodayHomeOrders()
-                }
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                let orderId = website.incompleteOrders[key].id;
-                website.incompleteOrders.splice(key,1)
-                new orders(orderId).redrawChatOrder();
-                new orders().incompleteOrders();
-            }
-        }
-
-    }else if(n.code == 9 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 3;
-                website.incompleteOrders[key].out_for_delivery_at = n.out_for_delivery_at;
-                website.incompleteOrders[key].out_for_delivery_account_name = n.out_for_delivery_account_name;
-                website.incompleteOrders[key].out_for_delivery_account_id = n.out_for_delivery_account_id;
-                new orders().incompleteOrders();
-                let orderId = website.incompleteOrders[key].id;
-                new orders(orderId).redrawChatOrder();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-            }
-        }
-    }else if(n.code == 9.1 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 3;
-                website.incompleteOrders[key].delivery_id = n.delivery_id;
-                website.incompleteOrders[key].deliveryName = n.deliveryName;
-                website.incompleteOrders[key].out_for_delivery_at = n.out_for_delivery_at;
-                website.incompleteOrders[key].out_for_delivery_account_name = n.out_for_delivery_account_name;
-                website.incompleteOrders[key].out_for_delivery_account_id = n.out_for_delivery_account_id;
-                new orders().incompleteOrders();
-                let orderId = website.incompleteOrders[key].id;
-                new orders(orderId).redrawChatOrder();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-            }
-        }
-    }else if(n.code == 10 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 5;
-                website.incompleteOrders[key].delivered_at = n.delivered_at;
-                website.incompleteOrders[key].delivered_by = n.delivered_by;
-                website.incompleteOrders[key].delivered_account_name = n.delivered_account_name;
-                website.incompleteOrders[key].delivered_account_id = n.delivered_account_id;
-                if(account.is_master == true){
-                    todayOrders.push(website.incompleteOrders[key])
-                    drawTodayHomeOrders()
-                }
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                let orderId = website.incompleteOrders[key].id;
-                website.incompleteOrders.splice(key,1)
-                new orders(orderId).redrawChatOrder();
-                new orders().incompleteOrders();
-            }
-        }
-    }else if(n.code == 11 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 4;
-                website.incompleteOrders[key].ready_for_pickup_at = n.ready_for_pickup_at;
-                website.incompleteOrders[key].ready_for_pickup_account_name = n.ready_for_pickup_account_name;
-                website.incompleteOrders[key].ready_for_pickup_account_id = n.ready_for_pickup_account_id;
-                new orders(website.incompleteOrders[key].id).redrawChatOrder();
-                new orders().incompleteOrders();
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-            }
-        }
-    }else if(n.code == 12 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].status = 6;
-                website.incompleteOrders[key].pickedUp_at = n.pickedUp_at;
-                website.incompleteOrders[key].pickedUp_account_name = n.pickedUp_account_name;
-                website.incompleteOrders[key].pickedUp_account_id = n.pickedUp_account_id;
-                if(account.is_master == true){
-                    todayOrders.push(website.incompleteOrders[key])
-                    drawTodayHomeOrders()
-                }
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                let orderId = website.incompleteOrders[key].id;
-                website.incompleteOrders.splice(key,1)
-                new orders(orderId).redrawChatOrder();
-                new orders().incompleteOrders();
-            }
-        }
-    }else if(n.code == 13 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.order.id){
-                website.incompleteOrders[key] = n.order;
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                new orders(website.incompleteOrders[key].id).redrawChatOrder();
-                new orders().incompleteOrders();
-            }
-        }
-    }else if(n.code == 13.1 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                for(const key2 in website.incompleteOrders[key].order_items){
-                    if(website.incompleteOrders[key].order_items[key2]._id == n.itemId){
-                        website.incompleteOrders[key].order_items[key2].itemNotice = n.itemNotice;
-                        if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                            new orders(website.incompleteOrders[key].id).drawOrder()
-                        }
-                        new orders().incompleteOrders();
-                    }
-                }
-            }
-        }
-    }else if(n.code == 13.2 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].deliveryCost = n.deliveryCost;
-                website.incompleteOrders[key].total = n.total;
-                website.incompleteOrders[key].deliveryEdit_account_name = n.deliveryEdit_account_name;
-                website.incompleteOrders[key].deliveryEdit_account_id = n.deliveryEdit_account_id;
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                new orders().incompleteOrders();
-                new orders(website.incompleteOrders[key].id).redrawChatOrder();
-            }
-        }
-    }else if(n.code == 13.3 && account.authorities[0] == 1){
-        for(const key in website.incompleteOrders){
-            if(website.incompleteOrders[key].id == n.orderId){
-                website.incompleteOrders[key].discount = n.discount;
-                website.incompleteOrders[key].discount_itemsTotal = n.discount_itemsTotal;
-                website.incompleteOrders[key].tax = n.tax;
-                website.incompleteOrders[key].service = n.service;
-                website.incompleteOrders[key].total = n.total;
-                website.incompleteOrders[key].discount_by = 1;
-                website.incompleteOrders[key].discount_promocode = null;
-                website.incompleteOrders[key].discount_promocode_id = null;
-                website.incompleteOrders[key].discount_account_name = n.discount_account_name;
-                website.incompleteOrders[key].discount_account_id = n.discount_account_id;
-                if(window.popupPage.popupPage == 'Order' && window.popupPage.order == website.incompleteOrders[key].id){
-                    new orders(website.incompleteOrders[key].id).drawOrder()
-                }
-                new orders().incompleteOrders();
-                new orders(website.incompleteOrders[key].id).redrawChatOrder();
-            }
-        }
-    }else if(n.code == 14.4 && account.authorities[1] == 1){
-        n.category.imgUrl = '/storage/imgs/cpanel/noimg.png';
-        n.category.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == n.category.img_id){
-                n.category.imgs = imgs[k];
-                n.category.imgUrl = '/storage/'+imgs[k].url;
-                n.category.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-            }
-        });
-        for(const key in website.categories){
-            if(website.categories[key].id == n.category.id){
-                website.categories[key] = n.category;
-
-            }
-        }
-        drawCategoryList();
-        $("#editCategory-editCategoryCancelBtn").trigger('click');
-        window.guideHints.categories(website.categories);
-    }else if(n.code == 17 && account.authorities[1] == 1){
-        n.product.imgUrl = '/storage/imgs/cpanel/noimg.png';
-        n.product.imgUrl_thumbnail = '/storage/imgs/cpanel/noimg.png';
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == n.product.img_id){
-                n.product.imgs = imgs[k];
-                n.product.imgUrl = '/storage/'+imgs[k].url;
-                n.product.imgUrl_thumbnail = '/storage/'+imgs[k].thumbnailUrl;
-            }
-        });
-        for(const key in website.products){
-            if(website.products[key].id == n.product.id){
-                website.products[key] = n.product;
-            }
-        }
-        if(window.history.state.page == 'manage_products'){
-            if(window.history.state.category != null){
-                drawManageProductCards(window.history.state.category)
-            }
-        }
-        window.guideHints.products(website.products);
-        drawTodayHomeProducts();
-    }else if(n.code == 22 && account.authorities[1] == 1){
-        drawNotification(n,'prepend',true);
-    }else if(n.code == 23 && account.authorities[3] == 1){
-        website.template = n.template.id;
-        website.templateData = n.template;
-        drawCurrentTemplate(website.templateData)
-        website.website_colors = n.template.colors;
-        $('.colorCard').each(function(){
-            if($(this).attr('colorId') == website.website_colors){
-                $(this).trigger('click');
-            }
-        });
-        website.useCustomColors = false;
-        $('#websiteColors-useCustomColors').prop('checked',false);
-
-        let websiteLogo;let websiteIcon;
-        if(website.logo == null){
-            websiteLogo = 'imgs/templates/'+website.template+'/logo.webp';
-        }else{
-            websiteLogo = website.logo;
-        }
-        $('#settings-websiteLogoImg').attr('src','/storage/'+websiteLogo);
-        if(website.icon == null){
-            websiteIcon = 'imgs/templates/'+website.template+'/icon.webp';
-        }else{
-            websiteIcon = website.icon;
-        }
-        $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
-
-
-        $('#homePageSections-introCancelBtn').trigger('click');
-        $('#design-homePageSections-infoCancelBtn').trigger('click');
-        $('#design-homePageSections-ourStoryCancelBtn').trigger('click');
-        window.guideHints.gallery();
-        window.guideHints.homePageIntro();
-        if(website.logo == null){
-            websiteLogo = 'imgs/templates/'+website.template+'/logo.webp';
-        }else{
-            websiteLogo = website.logo;
-        }
-        $('#settings-websiteLogoImg').attr('src','/storage/'+websiteLogo);
-        if(website.icon == null){
-            websiteIcon = 'imgs/templates/'+website.template+'/icon.webp';
-        }else{
-            websiteIcon = website.icon;
-        }
-        $('#settings-websiteIconImg').attr('src','/storage/'+websiteIcon);
-    }else if(n.code == 26 && account.authorities[1] == 1){
-        for(const key in website.products){
-            if(website.products[key].id == n.product_id){
-                for(const key2 in website.products[key].product_options){
-                    if(website.products[key].product_options[key2].id == n.option_id){
-                        website.products[key].product_options.splice(key2,1);
-                        window.guideHints.products(website.products);
-                        if(window.history.state.popupPage == 'Product-Options' && window.history.state.editProductOptions == website.products[key].name){
-                            setEditProductOptions(website.products[key].name)
-                            closePopup();
-                        }
-                    }
-                }
-            }
-        }
-    }else if(n.code == 29 && account.authorities[3] == 1){
-        if(n.useCustomColors == true){
-            website.useCustomColors = true;
-        }else{
-            website.useCustomColors = false;
-        }
-        website.customColors.color1 = n.color1;
-        website.customColors.color2 = n.color2;
-        website.customColors.color3 = n.color3;
-        website.customColors.color4 = n.color4;
-        website.customColors.color5 = n.color5;
-        website.customColors.colorError = n.colorError;
-        website.customColors.colorSuccess = n.colorSuccess;
-        website.customColors.colorWarning = n.colorWarning;
-        website.customColors.colorStar = n.colorStar;
-        $('#websiteColors-customColorCancelBtn').trigger('click');
-    }else if(n.code == 30 && account.authorities[3] == 1){
-        if(window.colorsFirstLoad){
-            website.website_colors = n.websiteColor;
-            $('#websiteColors-colorCancelBtn').trigger('click');
-        }
-
-    }else if(n.code == 36){
-        website.payment_methods_count = n.paymentmethodsCount;
-        window.guideHints.subscriptionCheck();
-    }else if(n.code == 45 && account.authorities[3] == 1){
-        website.slideShow = JSON.parse(JSON.stringify(n.slideShow))
-        website.slideShow_contentTemp = JSON.parse(JSON.stringify(website.slideShow.content));
-        window.guideHints.slideShow();
-        $('#homePageSections-slideShowCancelBtn').trigger('click');
-    }else if(n.code == 50 && account.authorities[3] == 1){
-        website.gallery = n.gallery;
-        window.guideHints.gallery();
-        $('#homePageSections-galleryCancelBtn').trigger('click');
-    }else if(n.code == 52 && account.authorities[3] == 1){
-        website.intro.img = n.introImg;
-        website.introImgUrl = `/storage/imgs/templates/${website.template}/intro.webp`
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == website.intro.img){
-                website.imgs_introImg = imgs[k];
-                website.introImgUrl = `/storage/${imgs[k].url}`
-            }
-        })
-        website.intro.title_en = n.title_en;
-        website.intro.title_es = n.title_es;
-        website.intro.title_fr = n.title_fr;
-        website.intro.title_de = n.title_de;
-        website.intro.title_it = n.title_it;
-        website.intro.title_eg = n.title_eg;
-        website.intro.title_ar = n.title_ar;
-        website.intro.title_ru = n.title_ru;
-        website.intro.title_ua = n.title_ua;
-        website.intro.des_en = n.des_en;
-        website.intro.des_es = n.des_es;
-        website.intro.des_fr = n.des_fr;
-        website.intro.des_de = n.des_de;
-        website.intro.des_it = n.des_it;
-        website.intro.des_eg = n.des_eg;
-        website.intro.des_ar = n.des_ar;
-        website.intro.des_ru = n.des_ru;
-        website.intro.des_ua = n.des_ua;
-        $('#homePageSections-introCancelBtn').trigger('click');
-        homePageIntroNoSaveCheck();
-        window.guideHints.homePageIntro();
-    }else if(n.code == 53 && account.authorities[3] == 1){
-        website.info.img = n.infoImg;
-        website.infoImgUrl = `/storage/imgs/templates/${website.template}/info.webp`
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == website.info.img){
-                website.imgs_infoImg = imgs[k];
-                website.infoImgUrl = `/storage/${imgs[k].url}`
-            }
-        })
-        website.info.title_en = n.title_en;
-        website.info.title_es = n.title_es;
-        website.info.title_fr = n.title_fr;
-        website.info.title_de = n.title_de;
-        website.info.title_it = n.title_it;
-        website.info.title_eg = n.title_eg;
-        website.info.title_ar = n.title_ar;
-        website.info.title_ru = n.title_ru;
-        website.info.title_ua = n.title_ua;
-        website.info.des_en = n.des_en;
-        website.info.des_es = n.des_es;
-        website.info.des_fr = n.des_fr;
-        website.info.des_de = n.des_de;
-        website.info.des_it = n.des_it;
-        website.info.des_eg = n.des_eg;
-        website.info.des_ar = n.des_ar;
-        website.info.des_ru = n.des_ru;
-        website.info.des_ua = n.des_ua;
-        $('#homePageSections-infoCancelBtn').trigger('click');
-        homePageInfoNoSaveCheck();
-        window.guideHints.homePageInfo();
-    }else if(n.code == 54 && account.authorities[3] == 1){
-        website.ourStory.img = n.ourStoryImg;
-        website.ourStoryImgUrl = `/storage/imgs/templates/${website.template}/ourStory.webp`
-        Object.keys(imgs).some(function(k) {
-            if(imgs[k].id == website.ourStory.img){
-                website.imgs_ourStoryImg = imgs[k];
-                website.ourStoryImgUrl = `/storage/${imgs[k].url}`
-            }
-        })
-        website.ourStory.title_en = n.title_en;
-        website.ourStory.title_es = n.title_es;
-        website.ourStory.title_fr = n.title_fr;
-        website.ourStory.title_de = n.title_de;
-        website.ourStory.title_it = n.title_it;
-        website.ourStory.title_eg = n.title_eg;
-        website.ourStory.title_ar = n.title_ar;
-        website.ourStory.title_ru = n.title_ru;
-        website.ourStory.title_ua = n.title_ua;
-        website.ourStory.des_en = n.des_en;
-        website.ourStory.des_es = n.des_es;
-        website.ourStory.des_fr = n.des_fr;
-        website.ourStory.des_de = n.des_de;
-        website.ourStory.des_it = n.des_it;
-        website.ourStory.des_eg = n.des_eg;
-        website.ourStory.des_ar = n.des_ar;
-        website.ourStory.des_ru = n.des_ru;
-        website.ourStory.des_ua = n.des_ua;
-        $('#homePageSections-ourStoryCancelBtn').trigger('click');
-        homePageOurStoryNoSaveCheck();
-        window.guideHints.homePageOurStory();
-    }else if(n.code == 55){
-        // if(account.is_master == true){
-            window.Echo.leave('cpanelNotification.'+website.id);
-            ReloadForUpdate();
-        // }
-    }else if(n.code == 69 && account.authorities[4] == 1){
-        setTimeout(function(){
-            if(n.websiteStatus == 1){
-                website.active = true;
-                window.guideHints.websiteSwitch();
-                checkWebsiteStatus();
-            }else if(n.websiteStatus == 2){
-                website.active = false;
-                window.guideHints.websiteSwitch();
-                checkWebsiteStatus();
-            }
-        },1000);
-    }else if(n.code == 74 && account.is_master == 1){
-        if(account.is_master == 1){
-            $('.ticketStatus-'+n.msg.ticket_id).text(texts.support.ticketPending)
-            $('.ticketStatus-'+n.msg.ticket_id).addClass('ticketStatusTag_pending')
-            if(window.history.state.popupPage == 'ticket_browser' && window.history.state.ticket == n.msg.ticket_id){
-                appendNewTicketMsg(n.msg,'append');
-                $('#popupPageBody').animate({
-                    scrollTop:$('#popupPageBody').height() + $('#popupPageBody')[0].scrollHeight,
-                },500)
-            }
-            drawNotification(n,'prepend',true);
-        }
-    }else if(n.code == 75 && account.is_master == 1){
-        if(account.is_master == 1){
-            $('.ticketStatus-'+n.ticketId).text(texts.support.ticketSolved)
-            $('.ticketStatus-'+n.ticketId).removeClass('ticketStatusTag_pending').addClass('ticketStatusTag_solved')
-            if(window.history.state.popupPage == 'ticket_browser' && window.history.state.ticket == n.ticketId){
-                $('#ticketBrowserInputContainer').text('');
-            }
-        }
-
-    }else if(n.code == 76 && account.authorities[4] == 1){
-        website.customLang_name = n.customLang_name;
-        website.customLang_code = n.customLang_code;
-        website.customLang_flag = n.customLang_flag;
-        if(n.customLang_rtl == 1){
-            website.customLang_rtl = true;
-        }else{
-            website.customLang_rtl = false;
-        }
-        $('#lang-customLanguageCancelBtn').trigger('click');
-        if(website.customLang_code != ''){
-            $('#langs-websiteLangsContainer').find('.langCard[lang="eg"]').removeClass('none');
-        }else{
-            $('#langs-websiteLangsContainer').find('.langCard[lang="eg"]').addClass('none');
-        }
-
-    }else if(n.code == 80 && account.is_master == 1){
-        report = {
-            id:n.financialReport_id,
-            month:n.month,
-            year:n.year,
-            created_at:n.created_at,
-        }
-        appendFinancialReport(report,'prepend');
-        drawNotification(n,'prepend',true)
-    }else if(n.code == 81 && account.authorities[5] == 1){
-        let userId = n.userId;
-        n.userType == 'guest' ? userId = 'guest_'+n.userId : null;
-        if(userId in liveChats){
-            liveChats[userId].msgs[n.msg._id] = n.msg;
-            liveChats[userId].lastMsg = n.msg;
-            new chatWindow(userId).drawMsg(n.msg,'prepend')
-        }
-    }else if(n.code == 82 && account.authorities[5] == 1){
-        let userId = n.userId;
-        n.userType == 'guest' ? userId = 'guest_'+n.userId : null;
-        unSeenChats(userId,'out');
-        if(userId in liveChats){
-            delete liveChats[userId];
-            $('#liveChatMessageContainer-'+userId).remove();
-            $('#chatWindow-'+userId).remove();
-            $('#confirmDelete-Popup').css('display','none');
-        }
-    }else if(n.code == 83 && account.authorities[5] == 1){
-        let userId = n.userId;
-        n.userType == 'guest' ? userId = 'guest_'+n.userId : null;
-        if(userId in liveChats){
-            new chatWindow(userId).deleteMsg(n.msgId,n.now)
-        }
-    }
-
-
-
-

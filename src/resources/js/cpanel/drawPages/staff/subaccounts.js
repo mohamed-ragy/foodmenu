@@ -37,10 +37,11 @@ drawSubAccountsTable = function(){
     for(const key in website.accounts){
         let subaccount = website.accounts[key];
         if(!subaccount.is_master){
+            checkUseenNotifications(['system.subaccount_blocked'],'subaccount_id',subaccount.id)
             let accountBlockedClass;
             subaccount.password_fails > 10 ? accountBlockedClass = '' : accountBlockedClass =  'none';
             $('#subAccountsTable').append(
-                $('<tr/>',{class:''}).append(
+                $('<tr/>',{id:`subaccount_table_row_${subaccount.id}`,}).append(
                     $('<td/>',{class:'fs08 tnw taC vaM'}).append(
                         $('<span/>',{class:`subaccountOnlineIcon-${subaccount.id}`})
                     ),

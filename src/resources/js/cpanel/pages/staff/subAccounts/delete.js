@@ -42,7 +42,7 @@ $('html,body').on('click','#deleteSubaccount-confirmBtn',function(e){
                 showAlert('error',response.msg,4000,true);
             }else if(response.deleteSubAccountStatus == 1){
                 showAlert('success',response.msg,4000,true);
-                for(const key in website.deliveries){
+                for(const key in website.accounts){
                     if(website.accounts[key].id == subaccount.id){
                         website.accounts.splice(key,1);
                         website_temp.accounts.splice(key,1);

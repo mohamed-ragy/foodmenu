@@ -11,16 +11,13 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use App\Models\foodmenuFunctions;
-use App\Models\notification;
 use App\Models\order;
 use App\Models\order_item;
 use App\Models\product;
 use App\Models\product_option_selection;
 use Carbon\Carbon;
-use stdClass;
 use DateTime;
 use DateTimeZone;
-use MongoDB\BSON\UTCDateTime;
 
 class ordersController extends Controller
 {
@@ -997,7 +994,7 @@ class ordersController extends Controller
                     'account_id' => $this->account->id,
                     'account_name' => $this->account->name,
                     'new_deliveryCost' => $order->deliveryCost,
-                    'old_DeliveryCost' => $oldDeliveryCost,
+                    'old_deliveryCost' => $oldDeliveryCost,
                 ],[
                     'order_id' => $request->order_id,
                     'deliveryCost' => (double)$deliveryCost,
@@ -1263,32 +1260,6 @@ class ordersController extends Controller
                     // 'itemsEdit_account_id'=> $this->account->id,
                     'order_items_original' => $order->order_items_original,
                 ]);
-
-
-                // $notification = new stdClass();
-                // $notification->code = 13;
-                // $notification->website_id = $this->website_id;
-                // $notification->order = $editedOrder;
-                // $notification->activity = activityLog::create([
-                    // 'website_id' => $this->website_id,
-                    // 'code' => 32,
-                    // 'order_id'=> $editedOrder->id,
-                    // 'account_id' => $this->account->id,
-                    // 'account_name' => $this->account->name,
-                    // 'product_name' => $productName,
-                    // 'product_id' => $productId,
-                // ]);
-                // broadcast(new cpanelNotification($notification))->toOthers();
-
-                // $user = new stdClass();
-                // $editedOrder->user_id != null ? $user->id = $editedOrder->user_id : $user->id = 0;
-                // $user->code = 16;
-                // $user->order = $editedOrder;
-                // $user->website_id = $this->website_id;
-                // $user->userType = 'user';
-                // broadcast(new usersStatus($user))->toOthers();
-
-
             }else{
                 return response(['removeItemFromOrderStat' => 0,'msg' => Lang::get('cpanel/orders/responses.removeItemToOrderFail')]);
             }
@@ -1601,8 +1572,5 @@ class ordersController extends Controller
                 'activities' => $activities,
             ]);
         }
-
-
-
     }
 }

@@ -164,6 +164,7 @@ showPopup =function(popup,callback=()=>{}){
             $('.popupTitle').text(texts.products.editSelection);
         break;
         case 'error-popup':
+            $('.popupCard').addClass('popupCard-400')
             $('.popupTitle').text(texts.cpanel.public.error);
         break;
         case 'accessDenied':
@@ -199,6 +200,12 @@ showPopup =function(popup,callback=()=>{}){
         case 'deleteExpenses':
             //
         break;
+        case 'activityLog-seeChanges':
+            //
+        break;
+        case 'statistics_select_period':
+            $('.popupTitle').text(texts.cpanel.menu.statistics_and_analytics);
+        break;
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){
@@ -214,3 +221,17 @@ drawf1Popup_shortcut = function(text,keys){
         )
     )
 }
+//
+showPopup_notFound = function(txt){
+    $('.popupContainer').removeClass('none');
+    showPopup('error-popup',function(){
+        $('.popupBody').append(
+            $('<div/>',{class:'msgBox_red'}).append(
+                $('<span/>',{class:'ico-warning fs2 mB10'}),
+                $('<span/>',{class:'taC',text:txt})
+            ),
+            $('<div/>',{class:'btnContainer mT30'}).append($('<button/>',{class:'btn btn-cancel popupClose',text:texts.cpanel.public.gotIt}))
+        )},
+    )
+}
+//

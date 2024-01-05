@@ -8,10 +8,18 @@ $('html,body').on('click','.productOptionSelectionEdit_guideAlert',function(e){
     $(`#editSelection_name-${$(this).attr('lang')}`).focus();
     highlightElem($(`#editSelection_name-${$(this).attr('lang')}`))
 })
+$('html,body').on('click','.productOptionSelectionEdit_activityLog',function(e){
+    e.stopImmediatePropagation();
+    drawEditProductSelectionPopup($(this).attr('product'),$(this).attr('option'),$(this).attr('selection'))
+})
 drawEditProductSelectionPopup = function(product_name,option_id,selection_id){
+    if(account.authorities[1] == false){showPopup('accessDenied');return;}
     let product = website.products.find(item=>item.name == product_name);
+    if(typeof(product) === 'undefined'){showPopup_notFound(texts.products.productNotFound);return;}
     let option = product.product_options.find(item=>item.id == option_id);
+    if(typeof(option) === 'undefined'){showPopup_notFound(texts.products.optionNotFound);return;}
     let selection = option.product_option_selections.find(item=>item.id == selection_id);
+    if(typeof(selection) === 'undefined'){showPopup_notFound(texts.products.selectionNotFound);return;}
     showPopup('editProductSelection',function(){
         $('.popupBody').addClass('m0 p10 w100p-20').append(
             $('<div/>',{class:'row alnC jstfyS mB20'}).append(

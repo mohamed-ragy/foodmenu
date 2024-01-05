@@ -43,6 +43,7 @@ window.getMoreProductsReviews = true;
 window.noMoreProductReviews = false;
 window.product_reviews = [];
 //
+window.activity_log = [];
 // window.onlineGuests = [];
 // window.onlineUsers = [];
 // window.listeningTo = [];
@@ -50,7 +51,6 @@ window.guideAlertsOBJ = [];
 window.todayOrders = [];
 // window.liveChats ={};
 
-window.notifications = [];
 window.receiptTxt = null;
 window.placeOrder = {
     isGuest:false,
@@ -98,6 +98,8 @@ window.globalChannelCheck = false;
 // window.noMoreOrderHistory = false;
 website.orderHistory = [];
 website.incompleteOrders = [];
+website.notifications = [];
+website.notifications_unseen = [];
 
 for(const key in website.languages){
     if(website.languages[key].receiptDefault){
@@ -141,7 +143,6 @@ for(const key in account.helpTips){
 window.colorsFirstLoad = false;
 window.promocodesFirstLoad = false;
 window.countriesAndTimezonesFirstLoad = false;
-window.financialReportsFirstLoad = false;
 window.activityLogFirstLoad = false;
 window.yesterdayStatisticsFirstLoad = false;
 window.notificationsFirstLoad = false;

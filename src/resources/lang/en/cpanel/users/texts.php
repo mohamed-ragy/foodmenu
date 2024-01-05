@@ -9,7 +9,7 @@ return [
     'userLocation' => 'User location',
     'userUnsetLocation' => 'Unset location',
     'bannedUser' => 'Banned user',
-    
+
     ////
     'chatWith' => 'Chat with :name:',
     'seePlacedOrders' => 'See orders placed by :name:',
@@ -62,4 +62,7 @@ return [
     'selectManageUser' => 'Please select a user.',
     'noUsers' => 'No users found.',
     'editPassowrdNote' => 'To keep the user’s password unchanged, leave this input box empty.',
+    //new//
+    "userNotFound" => "User not found!",
+    //new//
 ];

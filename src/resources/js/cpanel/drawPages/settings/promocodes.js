@@ -236,7 +236,7 @@ drawPopupPage_manage_promo_code=function(promocode){
         $('#datePicker-editPromocodesContainer').parent().removeClass('none');
         setdatePicker(
             $('#datePicker-editPromocodes'),
-            promocode.year,promocode.month - 1,promocode.day
+            promocode.year,promocode.month,promocode.day
         )
     }
     promocode.is_oneUse == 1 ? $('#editPromocode-isOneUse').prop('checked',true) : null;

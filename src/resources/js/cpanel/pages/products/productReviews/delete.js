@@ -38,6 +38,11 @@ $('html,body').on('click','#deleteReview-confirmBtn',function(){
             hideBtnLoading($('#deleteReview-confirmBtn'))
             if(r.deleteReviewStatus == 1){
                 showAlert('success',r.msg,4000,true);
+                for(const key in window.product_reviews){
+                    if(window.product_reviews[key].id == reviewId){
+                        window.product_reviews.splice(key,1)
+                    }
+                }
                 $('.productReviewContainer[review="'+reviewId+'"').remove();
                 closePopup();
                 checkUseenNotifications([4],'product_review_id',reviewId)
