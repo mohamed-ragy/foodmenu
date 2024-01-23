@@ -812,8 +812,8 @@ class cpanelController extends Controller
                         'year' => (int)$request->year1,
                     ])->first();
                     return response([
-                        'statistics1_hours'=>$statistics1_hours,
-                        'statistics1_day'=>$statistics1_day
+                        'statistics1'=>$statistics1_day,
+                        'statistics1_'=>$statistics1_hours,
                     ]);
                 }else if($request->compare == 1){
                     $statistics1_hours = statistics_hour::where([
@@ -841,10 +841,10 @@ class cpanelController extends Controller
                         'year' => (int)$request->year2,
                     ])->first();
                     return response([
-                        'statistics1_hours'=>$statistics1_hours,
-                        'statistics1_day'=>$statistics1_day,
-                        'statistics2_hours'=>$statistics2_hours,
-                        'statistics2_day'=>$statistics2_day
+                        'statistics1'=>$statistics1_day,
+                        'statistics1_'=>$statistics1_hours,
+                        'statistics2'=>$statistics2_day,
+                        'statistics2_'=>$statistics2_hours,
                     ]);
                 }
             }else if($request->period == 'month'){
@@ -860,8 +860,8 @@ class cpanelController extends Controller
                         'year' => (int)$request->year1,
                     ])->first();
                     return response([
-                        'statistics1_days'=>$statistics1_days,
-                        'statistics1_month'=>$statistics1_month
+                        'statistics1'=>$statistics1_month,
+                        'statistics1_'=>$statistics1_days,
                     ]);
                 }else if($request->compare == 1){
                     $statistics1_days = statistics_day::where([
@@ -885,10 +885,10 @@ class cpanelController extends Controller
                         'year' => (int)$request->year2,
                     ])->first();
                     return response([
-                        'statistics1_days'=>$statistics1_days,
-                        'statistics1_month'=>$statistics1_month,
-                        'statistics2_days'=>$statistics2_days,
-                        'statistics2_month'=>$statistics2_month
+                        'statistics1'=>$statistics1_month,
+                        'statistics1_'=>$statistics1_days,
+                        'statistics2'=>$statistics2_month,
+                        'statistics2_'=>$statistics2_days,
                     ]);
                 }
             }else if($request->period == 'year'){
@@ -897,8 +897,9 @@ class cpanelController extends Controller
                         'website_id'=>$this->website_id,
                         'year' => (int)$request->year1,
                     ])->orderBy('month','asc')->get();
+                    if($statistics1_months->count() == 0){$statistics1_months = null;}
                     return response([
-                        'statistics1_months'=>$statistics1_months
+                        'statistics1'=>$statistics1_months
                     ]);
                 }else if($request->compare == 1){
                     $statistics1_months = statistics_month::where([
@@ -909,9 +910,11 @@ class cpanelController extends Controller
                         'website_id'=>$this->website_id,
                         'year' => (int)$request->year2,
                     ])->orderBy('month','asc')->get();
+                    if($statistics1_months->count() == 0){$statistics1_months = null;}
+                    if($statistics2_months->count() == 0){$statistics2_months = null;}
                     return response([
-                        'statistics1_months'=>$statistics1_months,
-                        'statistics2_months'=>$statistics2_months
+                        'statistics1'=>$statistics1_months,
+                        'statistics2'=>$statistics2_months
                     ]);
                 }
             }

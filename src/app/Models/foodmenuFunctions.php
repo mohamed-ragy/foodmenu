@@ -2885,10 +2885,11 @@ class foodmenuFunctions
                 }
             }
             if($order->delivered_by == 1){
-                if(!isset($deliveries[$order->deliveryName])){$deliveries[$order->deliveryName] = ['orders'=>0,'time'=>0];}
+                if(!isset($deliveries[$order->deliveryName])){$deliveries[$order->deliveryName] = ['id'=>$order->delivery_id,'orders'=>0,'time'=>0,'avgPerOrder'=>0];}
                 $deliveries[$order->deliveryName]['orders'] = $deliveries[$order->deliveryName]['orders'] + 1;
                 $time = $order->delivered_at - $order->out_for_delivery_at;
                 $deliveries[$order->deliveryName]['time'] = $deliveries[$order->deliveryName]['time'] + $time;
+                $deliveries[$order->deliveryName]['avgPerOrder'] = $deliveries[$order->deliveryName]['time'] / $deliveries[$order->deliveryName]['orders'];
                 // $time = date_diff(new DateTime($order->out_for_delivery_at),new DateTime($order->delivered_at));
                 // $deliveries[$order->deliveryName]['time'] = $deliveries[$order->deliveryName]['time'] + ($time->y * 525948 ) + ($time->m * 43829 ) + ($time->d * 1440 ) + ($time->h * 60 ) + $time->i;
             }
@@ -3096,10 +3097,11 @@ class foodmenuFunctions
                         }
                     }
                     if($order->delivered_by == 1){
-                        if(!isset($deliveries[$order->deliveryName])){$deliveries[$order->deliveryName] = ['orders'=>0,'time'=>0];}
+                    if(!isset($deliveries[$order->deliveryName])){$deliveries[$order->deliveryName] = ['id'=>$order->delivery_id,'orders'=>0,'time'=>0,'avgPerOrder'=>0];}
                         $deliveries[$order->deliveryName]['orders'] = $deliveries[$order->deliveryName]['orders'] + 1;
                         $time = $order->delivered_at - $order->out_for_delivery_at;
                         $deliveries[$order->deliveryName]['time'] = $deliveries[$order->deliveryName]['time'] + $time;
+                        $deliveries[$order->deliveryName]['avgPerOrder'] = $deliveries[$order->deliveryName]['time'] / $deliveries[$order->deliveryName]['orders'];
                         // $time = date_diff(new DateTime($order->out_for_delivery_at),new DateTime($order->delivered_at));
                         // $deliveries[$order->deliveryName]['time'] = $deliveries[$order->deliveryName]['time'] + ($time->y * 525948 ) + ($time->m * 43829 ) + ($time->d * 1440 )+ ($time->h * 60 ) + $time->i;
                     }
@@ -3377,10 +3379,11 @@ class foodmenuFunctions
                 if(!empty($thisDay->deliveries)){
                     foreach($thisDay->deliveries as $key => $delivery){
                         if(!isset($deliveries[$key])){
-                            $deliveries[$key] = ['orders'=>0,'time'=>0];
+                            $deliveries[$key] = ['id'=>$delivery['id'],'orders'=>0,'time'=>0,'avgPerOrder'=>0];
                         }
                         $deliveries[$key]['orders'] = $deliveries[$key]['orders'] + $delivery['orders'];
                         $deliveries[$key]['time'] = $deliveries[$key]['time'] + $delivery['time'];
+                        $deliveries[$key]['avgPerOrder'] = $deliveries[$key]['time'] / $deliveries[$key]['orders'];
                     }
                 }
 

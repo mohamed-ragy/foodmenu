@@ -317,7 +317,8 @@
 .mnw1800{min-width:1800px}
 
 ////
-
+.mxw1366{max-width:1366px;}
+///
 .mxw100p-40{max-width:calc(100% - 40px)}
 ////
 .w100p-1024{@media(max-width:1024px){width:100%}}
@@ -326,3 +327,6 @@
 .w150-720{@media(max-width:720px){width:150px}}
 
 ///
+.w50p-40{width:calc(50% - 40px)}
+.w50p-80{width:calc(50% - 80px)}
+//

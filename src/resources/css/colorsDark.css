@@ -87,6 +87,20 @@
     --cdineIn:#7a68cc;
     --cdineInTxt:#ffffff;
 
+
+    --cs1:rgb(203, 70, 60);
+    --cs1-70:rgba(203, 70, 60,.7);
+    --cs1-30:rgba(203, 70, 60,.3);
+    --cs2:rgb(38, 105, 193);
+    --cs2-70:rgba(38, 105, 193,.7);
+    --cs2-30:rgba(38, 105, 193,.3);
+
+    /* --s-itemsTotal:#4d7f64;
+    --s-tax:#df6b62;
+    --s-deliveryCost:#006d77;
+    --s-service:#f5c396; */
+
+
     /* ///// */
     /* --bbg:rgb(26, 26, 26);
     --bg:rgb(31, 31, 31);

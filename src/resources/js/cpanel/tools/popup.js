@@ -206,6 +206,9 @@ showPopup =function(popup,callback=()=>{}){
         case 'statistics_select_period':
             $('.popupTitle').text(texts.cpanel.menu.statistics_and_analytics);
         break;
+        case 'statistics':
+            $('.popupTitle').text(texts.cpanel.menu.statistics_and_analytics);
+        break;
     }
     $('.popupContainer').removeClass('none');
     // setTimeout(function(){

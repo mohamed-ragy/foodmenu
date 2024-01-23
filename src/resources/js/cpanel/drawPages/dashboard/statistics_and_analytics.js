@@ -15,7 +15,7 @@ drawPage_statistics_and_analytics_smallScreen = function(){
     )
 }
 drawPage_statistics_and_analytics = function(){
-    $('#pageWrapper').addClass('mxw1800 column alnS jstfyS h100p')
+    $('#pageWrapper').addClass('mxw1366 column alnS jstfyS')
     $('#pageWrapper').append(
         $('<div/>',{
             class:'pageSection mB0 pB0 pT10',
@@ -33,16 +33,28 @@ draw_statistics_selected_period = function(){
     let statistics_Dates = get_statistics_Dates();
     $('#statistics_select_period').text('').append(
         $('<span/>',{class:'fs085 c_white-10',text:texts.dashboard.showingDataFor}),
-        $('<span/>',{id:'statistics_selected_period',class:'mX5 fs085',html:`${statistics_Dates.date1} ${window.page.compare == 1 ? `<span class="c_white-10">${texts.dashboard.vs}</span>` :''} ${statistics_Dates.date2}`} ),
+        $('<span/>',{id:'statistics_selected_period',class:'mX5 fs085',html:`<span class="c_statistics1 bold">${statistics_Dates.date1}</span> ${window.page.compare == 1 ? `<span class="">${texts.dashboard.vs}</span>` :''} <span class="c_statistics2 bold">${statistics_Dates.date2}</span>`} ),
         $('<span/>',{id:'statistics_selected_period_edit',class:'ico-edit fs08'})
     )
 }
 draw_statistics_loading = function(){
-    //
+    $('#statistics_container').text('')
 }
-draw_statistics_loaded = function(s){
+draw_statistics_loaded_notFound = function(text){
     $('#statistics_container').text('').append(
-        $('<div/>',{class:'pageTabs'}).append(
+        $('<div/>',{class:'m10',text:text})
+    )
+}
+
+require('./statistics/overview.js')
+require('./statistics/orders.js')
+require('./statistics/products.js')
+require('./statistics/users.js')
+require('./statistics/deliveries.js')
+
+draw_statistics_loaded = function(){
+    $('#statistics_container').text('').append(
+        $('<div/>',{class:'pageTabs mB0'}).append(
             $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
             $('<div/>',{class:'pageTabsContainer'}).append(
                 $('<div/>',{tab:'overview',class:'pageTab pageTab_selected'}).append(
@@ -51,23 +63,30 @@ draw_statistics_loaded = function(s){
                 $('<div/>',{tab:'orders',class:'pageTab'}).append(
                     $('<span/>',{text:texts.dashboard.orders})
                 ),
-                $('<div/>',{tab:'products',class:'pageTab'}).append(
+                $('<div/>',{tab:'products',class:'pageTab statistics_products_list_showList'}).append(
                     $('<span/>',{text:texts.dashboard.products})
                 ),
-                $('<div/>',{tab:'users',class:'pageTab'}).append(
+                $('<div/>',{tab:'users',class:'pageTab statistics_users_list_showList'}).append(
                     $('<span/>',{text:texts.dashboard.users})
                 ),
-                $('<div/>',{tab:'deliveryMan',class:'pageTab'}).append(
+                $('<div/>',{tab:'deliveries',class:'pageTab statistics_deliveries_list_showList'}).append(
                     $('<span/>',{text:texts.dashboard.deliveryMan})
                 ),
             ),
             $('<div/>',{class:'pageTabArrow pageTabArrowRight ico-right'}),
         ),
-        $('<div/>',{class:'pageTabContainer pageTabContainer_selected',tab:'overview'}).append(
-
-        )
+        $('<div/>',{id:'statistics_overview',class:'pageTabContainer pageTabContainer_selected',tab:'overview'}),
+        $('<div/>',{id:'statistics_orders',class:'pageTabContainer',tab:'orders'}),
+        $('<div/>',{id:'statistics_products',class:'pageTabContainer',tab:'products'}),
+        $('<div/>',{id:'statistics_users',class:'pageTabContainer',tab:'users'}),
+        $('<div/>',{id:'statistics_deliveries',class:'pageTabContainer',tab:'deliveries'}),
     )
 
     fixPageTabsArrows();
+    draw_statistics_overview()
+    draw_statistics_orders()
+    draw_statistics_products()
+    draw_statistics_users()
+    draw_statistics_deliveries()
 
 }

@@ -64,7 +64,12 @@ getDate = function(timeStamp){
             restaurant:time.toLocaleString(TimeLang,{ month: 'short',year: 'numeric',hour12 :hour12,timeZone:website.timeZone}),
             UTC:time.toLocaleString(TimeLang,{ month: 'short',year: 'numeric',hour12 :hour12,timeZone:'UTC'}),
             local:time.toLocaleString(TimeLang,{ month: 'short',year: 'numeric',hour12 :hour12}),
-        }
+        },
+        month_day_short:{
+            restaurant:time.toLocaleString(TimeLang,{month: 'short', day: 'numeric',hour12 :hour12,timeZone:website.timeZone}),
+            UTC:time.toLocaleString(TimeLang,{ month: 'short', day: 'numeric',hour12 :hour12,timeZone:'UTC'}),
+            local:time.toLocaleString(TimeLang,{ month: 'short', day: 'numeric',hour12 :hour12}),
+        },
 
     }
 }

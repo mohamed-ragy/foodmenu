@@ -164,7 +164,6 @@ drawIncompleteOrdersTable = function(status_name,order_by,sort){
             })
         }else if(sort == 'desc'){
             orders.sort((a,b)=>{
-
                 let nameA = a.userName != null ? a.userName.toLowerCase() : 'zz';
                 let nameB = b.userName != null ? b.userName.toLowerCase() : 'zz';
                 return nameB.localeCompare(nameA);

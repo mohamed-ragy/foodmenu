@@ -1,5 +1,8 @@
 require("./statistics/functions.js")
+require("./statistics/statisticspopup.js")
 require("./statistics/period_selection.js")
+require("./statistics/dounts.js")
+require("./statistics/graph.js")
 
 
 //
@@ -8,6 +11,8 @@ load_statistics = function(){
     // make ajax call
     draw_statistics_loading();
     draw_statistics_selected_period();
+    window.statistics = [];
+    window.statisticspopup = [];
     $.ajax({
         url:'dashboard',
         type:'put',
@@ -23,12 +28,26 @@ load_statistics = function(){
             month2:window.page.month2,
             year2:window.page.year2,
         },success:function(r){
-            console.log(r.statistics1_day)
-            if(window.page.period == 'day'){
-                checkUseenNotifications(['system.statistics_day.created'],'statistics_id',r.statistics1_day._id)
+            calc_statistics(r);
+
+            if(window.page.compare == 0){
+                if(r.statistics1 == null){
+                    draw_statistics_loaded_notFound(texts.dashboard.statisticsNotFound);
+                }else{
+                    checkUseenNotifications(['system.statistics_day.created'],'statistics_id',r.statistics1._id)
+                    draw_statistics_loaded();
+                }
+            }else if(window.page.compare == 1){
+                if(r.statistics1 == null && r.statistics2 == null){
+                    draw_statistics_loaded_notFound(texts.dashboard.statisticsNotFound_compare2);
+                }else if(r.statistics1 == null || r.statistics2 == null){
+                    draw_statistics_loaded_notFound(texts.dashboard.statisticsNotFound_compare);
+                }else{
+                    checkUseenNotifications(['system.statistics_day.created'],'statistics_id',r.statistics1._id)
+                    checkUseenNotifications(['system.statistics_day.created'],'statistics_id',r.statistics2._id)
+                    draw_statistics_loaded();
+                }
             }
-            console.log(r)
-            draw_statistics_loaded(r);
         }
     })
 

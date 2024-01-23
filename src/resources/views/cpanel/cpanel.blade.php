@@ -84,7 +84,7 @@
     <div id="onMove" class=""></div>
 
     <div id="website_QRcodeDownload"></div>
-    <div id="statisticsPopupDiv"></div>
+    <div id="statisticspopupDiv"></div>
     <div id="printDiv"></div>
     <div id="imgs-imgPreview" class="none">
         <div id="imgs-imgPreviewBtns">

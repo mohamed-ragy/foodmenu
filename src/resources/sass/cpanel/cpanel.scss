@@ -220,27 +220,19 @@ a:hover{
     100%{transform: translateY(0px);opacity:1;}
 }
 ///////////
-#statisticsPopupDiv{
+#statisticspopupDiv{
     background-color: var(--white-1);
     color:var(--txt-1);
-    box-shadow: 0 0 1px 1px var(--shdw-10);
-    border-radius: 3px;
+    box-shadow: 0 0 6px 1px var(--shdw-20);
+    border-radius: 5px;
+    // padding: 3px;
     position: fixed;
-    display:flex;
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-wrap: nowrap;
-    z-index: 250;
+    z-index: 5250;
     transition-duration: 0s;
+    max-width:400px;
     font-size: .85em;
-    max-width:50vw;
-    @media (max-width:1023px) {
-        font-size: .8em;
-    }
     animation:400ms tooltipAnimation 0s 1 ease;
-
 }
 
 /////////////

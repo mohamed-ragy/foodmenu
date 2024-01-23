@@ -288,12 +288,12 @@ statistics = class  {
                 if(this.isCompare){
                     if(typeof(this.data2.products[this.products1_total[key].id]) !== 'undefined'){compare2Total = this.data2.products[this.products1_total[key].id].total}
                     compare = compareNums(this.products1_total[key].total,compare2Total)
-                    window.statisticsPopups[this.products1_total[key].id] = this.productCard(1,this.data1.products[this.products1_total[key].id],this.data2.products[this.products1_total[key].id] ?? null,this.date1,this.date2)
+                    window.statisticspopups[this.products1_total[key].id] = this.productCard(1,this.data1.products[this.products1_total[key].id],this.data2.products[this.products1_total[key].id] ?? null,this.date1,this.date2)
                 }else{
-                    window.statisticsPopups[this.products1_total[key].id] = this.productCard(0,this.data1.products[this.products1_total[key].id],null,this.date1,this.date2)
+                    window.statisticspopups[this.products1_total[key].id] = this.productCard(0,this.data1.products[this.products1_total[key].id],null,this.date1,this.date2)
                 }
                 $('.topProfitableProductsContainer').append(
-                    $('<div/>',{class:'p10 row alnC jstfySB w100p-20 hvr-bgc-c2',key:this.products1_total[key].id,statisticsPopup:this.products1_total[key].id,statisticsPopupTitle:this.products1_total[key].id}).append(
+                    $('<div/>',{class:'p10 row alnC jstfySB w100p-20 hvr-bgc-c2',key:this.products1_total[key].id,statisticspopup:this.products1_total[key].id,statisticspopupTitle:this.products1_total[key].id}).append(
                         $('<div/>',{class:'ellipsis mie-40',text:this.products1_total[key].id,}),
                         $('<div/>',{class:'taE tnw',html:website.currency+bigFloat(this.products1_total[key].total)+' '+compare})
                     )
@@ -320,13 +320,13 @@ statistics = class  {
                         user2Data = this.data2.users[this.users1_total[key].id];
                     }
                     compare = compareNums(this.users1_total[key].so_total,compare2Total)
-                    statisticsPopupUsers(1,this.users1_total[key].id,'user-'+this.users1_total[key].userName,this.users1_total[key],user2Data,this.date1,this.date2)
+                    statisticspopupUsers(1,this.users1_total[key].id,'user-'+this.users1_total[key].userName,this.users1_total[key],user2Data,this.date1,this.date2)
 
                 }else{
-                    statisticsPopupUsers(0,this.users1_total[key].id,'user-'+this.users1_total[key].userName,this.users1_total[key],null,this.date1,null)
+                    statisticspopupUsers(0,this.users1_total[key].id,'user-'+this.users1_total[key].userName,this.users1_total[key],null,this.date1,null)
                 }
                 $('.topProfitableUsersContainer').append(
-                    $('<div/>',{class:'p10 row alnC jstfySB w100p-20 hvr-bgc-c2',key:this.users1_total[key].userName,statisticsPopup:'user-'+this.users1_total[key].userName,statisticsPopupTitle:this.users1_total[key].userName}).append(
+                    $('<div/>',{class:'p10 row alnC jstfySB w100p-20 hvr-bgc-c2',key:this.users1_total[key].userName,statisticspopup:'user-'+this.users1_total[key].userName,statisticspopupTitle:this.users1_total[key].userName}).append(
                         $('<div/>',{class:'ellipsis mie-40',text:this.users1_total[key].userName,}),
                         $('<div/>',{class:'taE tnw',html:website.currency+bigFloat(this.users1_total[key].so_total)+' '+compare})
                     )
@@ -340,13 +340,13 @@ statistics = class  {
                     user2Data = this.data2.users[this.users1_total[0].id];
                 }
                 compare = compareNums(this.users1_total[0].so_total,compare2Total)
-                statisticsPopupUsers(1,this.users1_total[0].id,'user-topProfitableUser',this.users1_total[0],user2Data,this.date1,this.date2)
+                statisticspopupUsers(1,this.users1_total[0].id,'user-topProfitableUser',this.users1_total[0],user2Data,this.date1,this.date2)
 
             }else{
-                statisticsPopupUsers(0,this.users1_total[0].id,'user-topProfitableUser',this.users1_total[0],null,this.date1,null)
+                statisticspopupUsers(0,this.users1_total[0].id,'user-topProfitableUser',this.users1_total[0],null,this.date1,null)
             }
             $('.topProfitableUserContainer').html(
-                window.statisticsPopups['user-topProfitableUser']
+                window.statisticspopups['user-topProfitableUser']
             )
         }
 
@@ -354,19 +354,19 @@ statistics = class  {
     ///////////
     orders(){
         if(this.isCompare){
-            statisticsPopup_so(this.isCompare,'so',this.data1.so,this.data2.so,this.date1,this.date2)
-            statisticsPopup_co(this.isCompare,'co',this.data1.co,this.data2.co,this.date1,this.date2)
-            statisticsPopup_income(this.isCompare,'so-',this.data1.so,this.data2.so,this.date1,this.date2)
-            statisticsPopup_do(this.isCompare,'do',this.data1.do,this.data2.do,this.date1,this.date2)
-            statisticsPopup_po(this.isCompare,'po',this.data1.po,this.data2.po,this.date1,this.date2)
-            statisticsPopup_di(this.isCompare,'di',this.data1.di,this.data2.di,this.date1,this.date2)
+            statisticspopup_so(this.isCompare,'so',this.data1.so,this.data2.so,this.date1,this.date2)
+            statisticspopup_co(this.isCompare,'co',this.data1.co,this.data2.co,this.date1,this.date2)
+            statisticspopup_income(this.isCompare,'so-',this.data1.so,this.data2.so,this.date1,this.date2)
+            statisticspopup_do(this.isCompare,'do',this.data1.do,this.data2.do,this.date1,this.date2)
+            statisticspopup_po(this.isCompare,'po',this.data1.po,this.data2.po,this.date1,this.date2)
+            statisticspopup_di(this.isCompare,'di',this.data1.di,this.data2.di,this.date1,this.date2)
         }else{
-            statisticsPopup_so(this.isCompare,'so',this.data1.so,null,this.date1,null)
-            statisticsPopup_co(this.isCompare,'co',this.data1.co,null,this.date1,null)
-            statisticsPopup_income(this.isCompare,'so-',this.data1.so,null,this.date1,null)
-            statisticsPopup_do(this.isCompare,'do',this.data1.do,null,this.date1,null)
-            statisticsPopup_po(this.isCompare,'po',this.data1.po,null,this.date1,null)
-            statisticsPopup_di(this.isCompare,'di',this.data1.di,null,this.date1,null)
+            statisticspopup_so(this.isCompare,'so',this.data1.so,null,this.date1,null)
+            statisticspopup_co(this.isCompare,'co',this.data1.co,null,this.date1,null)
+            statisticspopup_income(this.isCompare,'so-',this.data1.so,null,this.date1,null)
+            statisticspopup_do(this.isCompare,'do',this.data1.do,null,this.date1,null)
+            statisticspopup_po(this.isCompare,'po',this.data1.po,null,this.date1,null)
+            statisticspopup_di(this.isCompare,'di',this.data1.di,null,this.date1,null)
         }
         $('.statisticsContainer[statisticsTab="orders"]').append(
             $('<div/>',{class:'none block-1024 fs102 m20',text:texts.statistics.smallScreen}),
@@ -541,7 +541,7 @@ statistics = class  {
     }
     ////////////
     /////orders
-    SoCoDonut(container,so,co,statisticsPopup_so,statisticsPopup_co){
+    SoCoDonut(container,so,co,statisticspopup_so,statisticspopup_co){
         fullPercent = so + co;
         if(fullPercent == 0){
             percent1 = 0;
@@ -578,18 +578,18 @@ statistics = class  {
                 </div>
             `}),
             $('<div/>',{class:'column alnS jstfyS'}).append(
-                $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:statisticsPopup_so,statisticsPopupTitle:texts.statistics.successfulOrders}).append(
+                $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:statisticspopup_so,statisticspopupTitle:texts.statistics.successfulOrders}).append(
                     $('<div/>',{class:'p6 bg-csso br3 mie-5'}),
                     $('<div/>',{class:'mie-10 fs102',text:texts.statistics.successfulOrders}),
                 ),
-                $('<div/>',{class:'row alnC jstfyS',statisticsPopup:statisticsPopup_co,statisticsPopupTitle:texts.statistics.canceledOrders}).append(
+                $('<div/>',{class:'row alnC jstfyS',statisticspopup:statisticspopup_co,statisticspopupTitle:texts.statistics.canceledOrders}).append(
                     $('<div/>',{class:'p6 bg-csco br3 mie-5'}),
                     $('<div/>',{class:'mie-10 fs102',text:texts.statistics.canceledOrders}),
                 )
             ),
         )
-        container.find('.statisticsDonutStroke-so').attr('statisticsPopup',statisticsPopup_so).attr('statisticsPopupTitle',texts.statistics.successfulOrders);
-        container.find('.statisticsDonutStroke-co').attr('statisticsPopup',statisticsPopup_co).attr('statisticsPopupTitle',texts.statistics.canceledOrders);
+        container.find('.statisticsDonutStroke-so').attr('statisticspopup',statisticspopup_so).attr('statisticspopupTitle',texts.statistics.successfulOrders);
+        container.find('.statisticsDonutStroke-co').attr('statisticspopup',statisticspopup_co).attr('statisticspopupTitle',texts.statistics.canceledOrders);
     }
     incomeDonut(container,total,items_total,tax,deliveryCost,service){
         fullPercent = items_total + tax + deliveryCost + service;
@@ -668,21 +668,21 @@ statistics = class  {
             `}),
             $('<div/>',{class:'row alnS jstfySH'}).append(
                 $('<div/>',{class:'column alnS jstfyS w100p'}).append(
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:'so-itemsTotal',statisticsPopupTitle:texts.statistics.itemsTotal}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:'so-itemsTotal',statisticspopupTitle:texts.statistics.itemsTotal}).append(
                         $('<div/>',{class:'p6 bg-itemsTotal br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.itemsTotal}),
                     ),
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:'so-tax',statisticsPopupTitle:texts.statistics.tax}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:'so-tax',statisticspopupTitle:texts.statistics.tax}).append(
                         $('<div/>',{class:'p6 bg-tax br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.tax}),
                     ),
                 ),
                 $('<div/>',{class:'column alnS jstfyS w100p'}).append(
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:'so-deliveryCost',statisticsPopupTitle:texts.statistics.deliveryCost}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:'so-deliveryCost',statisticspopupTitle:texts.statistics.deliveryCost}).append(
                         $('<div/>',{class:'p6 bg-deliveryCost br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.deliveryCost}),
                     ),
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:'so-service',statisticsPopupTitle:texts.statistics.service}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:'so-service',statisticspopupTitle:texts.statistics.service}).append(
                         $('<div/>',{class:'p6 bg-service br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.service}),
                     ),
@@ -690,12 +690,12 @@ statistics = class  {
             ),
 
         )
-        container.find('.statisticsDonutStroke-itemsTotal').attr('statisticsPopup','so-itemsTotal').attr('statisticsPopupTitle',texts.statistics.itemsTotal);
-        container.find('.statisticsDonutStroke-tax').attr('statisticsPopup','so-tax').attr('statisticsPopupTitle',texts.statistics.tax);
-        container.find('.statisticsDonutStroke-deliveryCost').attr('statisticsPopup','so-deliveryCost').attr('statisticsPopupTitle',texts.statistics.deliveryCost);
-        container.find('.statisticsDonutStroke-service').attr('statisticsPopup','so-service').attr('statisticsPopupTitle',texts.statistics.service);
+        container.find('.statisticsDonutStroke-itemsTotal').attr('statisticspopup','so-itemsTotal').attr('statisticspopupTitle',texts.statistics.itemsTotal);
+        container.find('.statisticsDonutStroke-tax').attr('statisticspopup','so-tax').attr('statisticspopupTitle',texts.statistics.tax);
+        container.find('.statisticsDonutStroke-deliveryCost').attr('statisticspopup','so-deliveryCost').attr('statisticspopupTitle',texts.statistics.deliveryCost);
+        container.find('.statisticsDonutStroke-service').attr('statisticspopup','so-service').attr('statisticspopupTitle',texts.statistics.service);
     }
-    servicesDonut(container,doo,po,di,statisticsPopup_do,statisticsPopup_po,statisticsPopup_di){
+    servicesDonut(container,doo,po,di,statisticspopup_do,statisticspopup_po,statisticspopup_di){
         fullPercent = doo + po + di;
         let percentCircles = []
         if(fullPercent == 0){
@@ -754,19 +754,19 @@ statistics = class  {
             `}),
             $('<div/>',{class:'column alnS jstfySH'}).append(
                 $('<div/>',{class:'column alnS jstfyS w100p'}).append(
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:statisticsPopup_do,statisticsPopupTitle:texts.statistics.deliveryOrders}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:statisticspopup_do,statisticspopupTitle:texts.statistics.deliveryOrders}).append(
                         $('<div/>',{class:'p6 bgc-delivery br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.deliveryOrders}),
                     ),
                 ),
                 $('<div/>',{class:'column alnS jstfyS w100p'}).append(
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:statisticsPopup_po,statisticsPopupTitle:texts.statistics.pickupOrders}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:statisticspopup_po,statisticspopupTitle:texts.statistics.pickupOrders}).append(
                         $('<div/>',{class:'p6 bgc-pickup br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.pickupOrders}),
                     ),
                 ),
                 $('<div/>',{class:'column alnS jstfyS w100p'}).append(
-                    $('<div/>',{class:'row alnC jstfyS mB5',statisticsPopup:statisticsPopup_di,statisticsPopupTitle:texts.statistics.dineInOrders}).append(
+                    $('<div/>',{class:'row alnC jstfyS mB5',statisticspopup:statisticspopup_di,statisticspopupTitle:texts.statistics.dineInOrders}).append(
                         $('<div/>',{class:'p6 bgc-dineIn br3 mie-5'}),
                         $('<div/>',{class:'mie-10 fs102 tnw',text:texts.statistics.dineInOrders}),
                     ),
@@ -774,9 +774,9 @@ statistics = class  {
             ),
 
         )
-        container.find('.statisticsDonutStroke-delivery').attr('statisticsPopup',statisticsPopup_do).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-        container.find('.statisticsDonutStroke-pickup').attr('statisticsPopup',statisticsPopup_po).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-        container.find('.statisticsDonutStroke-dineIn').attr('statisticsPopup',statisticsPopup_di).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
+        container.find('.statisticsDonutStroke-delivery').attr('statisticspopup',statisticspopup_do).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+        container.find('.statisticsDonutStroke-pickup').attr('statisticspopup',statisticspopup_po).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+        container.find('.statisticsDonutStroke-dineIn').attr('statisticspopup',statisticspopup_di).attr('statisticspopupTitle',texts.statistics.dineInOrders)
     }
     /////orders
     fillOrdersGraph_day(dataKey,dataKey2,symbol){
@@ -801,14 +801,14 @@ statistics = class  {
         $('.statisticsGrapOrders').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapOrders').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapOrders').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
         for(const key in this._data1){
             let hour = this._data1[key].hour;
             let total = this._data1[key][dataKey][dataKey2];
-            $('.statisticsGrapOrders').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`${dataKey}-${dataKey2}-${hour}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+            $('.statisticsGrapOrders').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`${dataKey}-${dataKey2}-${hour}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
             if(dataKey == 'so'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                statisticsPopup_so(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                statisticspopup_so(
                     false,
                     `${dataKey}-${dataKey2}-${hour}`,
                     this._data1[key].so,
@@ -817,8 +817,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'co'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                statisticsPopup_co(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                statisticspopup_co(
                     false,
                     `${dataKey}-${dataKey2}-${hour}`,
                     this._data1[key].co,
@@ -827,8 +827,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'do'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                statisticsPopup_do(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                statisticspopup_do(
                     false,
                     `${dataKey}-${dataKey2}-${hour}`,
                     this._data1[key].do,
@@ -837,8 +837,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'po'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                statisticsPopup_po(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                statisticspopup_po(
                     false,
                     `${dataKey}-${dataKey2}-${hour}`,
                     this._data1[key].po,
@@ -847,8 +847,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'di'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                statisticsPopup_di(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                statisticspopup_di(
                     false,
                     `${dataKey}-${dataKey2}-${hour}`,
                     this._data1[key].di,
@@ -865,8 +865,8 @@ statistics = class  {
                 let total = this._data2[key][dataKey][dataKey2];
                 $('.statisticsGrapOrders').find(`.statisticsGraphBlock[hour="${hour}"]`).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%')
                 if(dataKey == 'so'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                    statisticsPopup_so(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                    statisticspopup_so(
                         true,
                         `${dataKey}-${dataKey2}-${hour}`,
                         this._data1[key].so,
@@ -875,8 +875,8 @@ statistics = class  {
                         `<div><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`,
                         );
                 }else if(dataKey == 'co'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                    statisticsPopup_co(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                    statisticspopup_co(
                         true,
                         `${dataKey}-${dataKey2}-${hour}`,
                         this._data1[key].co,
@@ -885,8 +885,8 @@ statistics = class  {
                         `<div><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`,
                         );
                 }else if(dataKey == 'do'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                    statisticsPopup_do(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                    statisticspopup_do(
                         true,
                         `${dataKey}-${dataKey2}-${hour}`,
                         this._data1[key].do,
@@ -895,8 +895,8 @@ statistics = class  {
                         `<div><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`,
                         );
                 }else if(dataKey == 'po'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                    statisticsPopup_po(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                    statisticspopup_po(
                         true,
                         `${dataKey}-${dataKey2}-${hour}`,
                         this._data1[key].po,
@@ -905,8 +905,8 @@ statistics = class  {
                         `<div><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`,
                         );
                 }else if(dataKey == 'di'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                    statisticsPopup_di(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                    statisticspopup_di(
                         true,
                         `${dataKey}-${dataKey2}-${hour}`,
                         this._data1[key].di,
@@ -943,16 +943,16 @@ statistics = class  {
         $('.statisticsGrapOrders').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapOrders').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapOrders').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         if(this.isCompare){
             for(const key in this._data2){
                 let day = this._data2[key].day;
                 let total = this._data2[key][dataKey][dataKey2];
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`${dataKey}-${dataKey2}-${day}`).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`${dataKey}-${dataKey2}-${day}`).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%')
                 if(dataKey == 'so'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                    statisticsPopup_so(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                    statisticspopup_so(
                         false,
                         `${dataKey}-${dataKey2}-${day}`,
                         this._data2[key].so,
@@ -962,8 +962,8 @@ statistics = class  {
                         'cs2','cs1'
                     );
                 }else if(dataKey == 'co'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                    statisticsPopup_co(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                    statisticspopup_co(
                         false,
                         `${dataKey}-${dataKey2}-${day}`,
                         this._data2[key].co,
@@ -974,8 +974,8 @@ statistics = class  {
 
                     );
                 }else if(dataKey == 'do'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                    statisticsPopup_do(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                    statisticspopup_do(
                         false,
                         `${dataKey}-${dataKey2}-${day}`,
                         this._data2[key].do,
@@ -986,8 +986,8 @@ statistics = class  {
 
                     );
                 }else if(dataKey == 'po'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                    statisticsPopup_po(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                    statisticspopup_po(
                         false,
                         `${dataKey}-${dataKey2}-${day}`,
                         this._data2[key].po,
@@ -998,8 +998,8 @@ statistics = class  {
 
                     );
                 }else if(dataKey == 'di'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                    statisticsPopup_di(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                    statisticspopup_di(
                         false,
                         `${dataKey}-${dataKey2}-${day}`,
                         this._data2[key].di,
@@ -1016,10 +1016,10 @@ statistics = class  {
         for(const key in this._data1){
             let day = this._data1[key].day;
             let total = this._data1[key][dataKey][dataKey2];
-            $('.statisticsGrapOrders').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`${dataKey}-${dataKey2}-${day}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+            $('.statisticsGrapOrders').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`${dataKey}-${dataKey2}-${day}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
             if(dataKey == 'so'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                statisticsPopup_so(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                statisticspopup_so(
                     false,
                     `${dataKey}-${dataKey2}-${day}`,
                     this._data1[key].so,
@@ -1028,8 +1028,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'co'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                statisticsPopup_co(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                statisticspopup_co(
                     false,
                     `${dataKey}-${dataKey2}-${day}`,
                     this._data1[key].co,
@@ -1038,8 +1038,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'do'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                statisticsPopup_do(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                statisticspopup_do(
                     false,
                     `${dataKey}-${dataKey2}-${day}`,
                     this._data1[key].do,
@@ -1048,8 +1048,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'po'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                statisticsPopup_po(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                statisticspopup_po(
                     false,
                     `${dataKey}-${dataKey2}-${day}`,
                     this._data1[key].po,
@@ -1058,8 +1058,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'di'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                statisticsPopup_di(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                statisticspopup_di(
                     false,
                     `${dataKey}-${dataKey2}-${day}`,
                     this._data1[key].di,
@@ -1076,8 +1076,8 @@ statistics = class  {
                         let total2 = this._data2[key2][dataKey][dataKey2];
                         $('.statisticsGrapOrders').find(`.statisticsGraphBlock[day="${day2}"]`).find('.statisticsGraphBlock_line2').css('height',((total2/heighestNum)*100)+'%');
                         if(dataKey == 'so'){
-                        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                            statisticsPopup_so(
+                        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                            statisticspopup_so(
                                 true,
                                 `${dataKey}-${dataKey2}-${day}`,
                                 this._data1[key].so,
@@ -1086,8 +1086,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,(parseInt(this._data2[key2].day)+1),0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'co'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                            statisticsPopup_co(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                            statisticspopup_co(
                                 true,
                                 `${dataKey}-${dataKey2}-${day}`,
                                 this._data1[key].co,
@@ -1096,8 +1096,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,(parseInt(this._data2[key2].day)+1),0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'do'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                            statisticsPopup_do(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                            statisticspopup_do(
                                 true,
                                 `${dataKey}-${dataKey2}-${day}`,
                                 this._data1[key].do,
@@ -1106,8 +1106,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,(parseInt(this._data2[key2].day)+1),0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'po'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                            statisticsPopup_po(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                            statisticspopup_po(
                                 true,
                                 `${dataKey}-${dataKey2}-${day}`,
                                 this._data1[key].po,
@@ -1116,8 +1116,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,(parseInt(this._data2[key2].day)+1),0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'di'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                            statisticsPopup_di(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                            statisticspopup_di(
                                 true,
                                 `${dataKey}-${dataKey2}-${day}`,
                                 this._data1[key].di,
@@ -1162,16 +1162,16 @@ statistics = class  {
         $('.statisticsGrapOrders').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapOrders').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapOrders').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         if(this.isCompare){
             for(const key in this._data2){
                 let month = this._data2[key].month;
                 let total = this._data2[key][dataKey][dataKey2];
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`${dataKey}-${dataKey2}-${month}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`${dataKey}-${dataKey2}-${month}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 if(dataKey == 'so'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                    statisticsPopup_so(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                    statisticspopup_so(
                         false,
                         `${dataKey}-${dataKey2}-${month}`,
                         this._data2[key].so,
@@ -1180,8 +1180,8 @@ statistics = class  {
                         null
                     );
                 }else if(dataKey == 'co'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                    statisticsPopup_co(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                    statisticspopup_co(
                         false,
                         `${dataKey}-${dataKey2}-${month}`,
                         this._data2[key].co,
@@ -1190,8 +1190,8 @@ statistics = class  {
                         null
                     );
                 }else if(dataKey == 'do'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                    statisticsPopup_do(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                    statisticspopup_do(
                         false,
                         `${dataKey}-${dataKey2}-${month}`,
                         this._data2[key].do,
@@ -1200,8 +1200,8 @@ statistics = class  {
                         null
                     );
                 }else if(dataKey == 'po'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                    statisticsPopup_po(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                    statisticspopup_po(
                         false,
                         `${dataKey}-${dataKey2}-${month}`,
                         this._data2[key].po,
@@ -1210,8 +1210,8 @@ statistics = class  {
                         null
                     );
                 }else if(dataKey == 'di'){
-                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                    statisticsPopup_di(
+                    $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                    statisticspopup_di(
                         false,
                         `${dataKey}-${dataKey2}-${month}`,
                         this._data2[key].di,
@@ -1226,10 +1226,10 @@ statistics = class  {
         for(const key in this._data1){
             let month = this._data1[key].month;
             let total = this._data1[key][dataKey][dataKey2];
-            $('.statisticsGrapOrders').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`${dataKey}-${dataKey2}-${month}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+            $('.statisticsGrapOrders').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`${dataKey}-${dataKey2}-${month}`).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
             if(dataKey == 'so'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                statisticsPopup_so(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                statisticspopup_so(
                     false,
                     `${dataKey}-${dataKey2}-${month}`,
                     this._data1[key].so,
@@ -1238,8 +1238,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'co'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                statisticsPopup_co(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                statisticspopup_co(
                     false,
                     `${dataKey}-${dataKey2}-${month}`,
                     this._data1[key].co,
@@ -1248,8 +1248,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'do'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                statisticsPopup_do(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                statisticspopup_do(
                     false,
                     `${dataKey}-${dataKey2}-${month}`,
                     this._data1[key].do,
@@ -1258,8 +1258,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'po'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                statisticsPopup_po(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                statisticspopup_po(
                     false,
                     `${dataKey}-${dataKey2}-${month}`,
                     this._data1[key].po,
@@ -1268,8 +1268,8 @@ statistics = class  {
                     null
                 );
             }else if(dataKey == 'di'){
-                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                statisticsPopup_di(
+                $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                statisticspopup_di(
                     false,
                     `${dataKey}-${dataKey2}-${month}`,
                     this._data1[key].di,
@@ -1286,8 +1286,8 @@ statistics = class  {
                         let total2 = this._data2[key2][dataKey][dataKey2];
                         $('.statisticsGrapOrders').find(`.statisticsGraphBlock[month="${month2}"]`).find('.statisticsGraphBlock_line2').css('height',((total2/heighestNum)*100)+'%');
                         if(dataKey == 'so'){
-                        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.successfulOrders)
-                            statisticsPopup_so(
+                        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.successfulOrders)
+                            statisticspopup_so(
                                 true,
                                 `${dataKey}-${dataKey2}-${month}`,
                                 this._data1[key].so,
@@ -1296,8 +1296,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'co'){
-                        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.canceledOrders)
-                            statisticsPopup_co(
+                        $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.canceledOrders)
+                            statisticspopup_co(
                                 true,
                                 `${dataKey}-${dataKey2}-${month}`,
                                 this._data1[key].co,
@@ -1306,8 +1306,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'do'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.deliveryOrders)
-                            statisticsPopup_do(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.deliveryOrders)
+                            statisticspopup_do(
                                 true,
                                 `${dataKey}-${dataKey2}-${month}`,
                                 this._data1[key].do,
@@ -1316,8 +1316,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'po'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.pickupOrders)
-                            statisticsPopup_po(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.pickupOrders)
+                            statisticspopup_po(
                                 true,
                                 `${dataKey}-${dataKey2}-${month}`,
                                 this._data1[key].po,
@@ -1326,8 +1326,8 @@ statistics = class  {
                                 `<div><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`,
                             );
                         }else if(dataKey == 'di'){
-                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticsPopupTitle',texts.statistics.dineInOrders)
-                            statisticsPopup_di(
+                            $('.statisticsGrapOrders').find(`.statisticsGraphBlock`).attr('statisticspopupTitle',texts.statistics.dineInOrders)
+                            statisticspopup_di(
                                 true,
                                 `${dataKey}-${dataKey2}-${month}`,
                                 this._data1[key].di,
@@ -1392,7 +1392,7 @@ statistics = class  {
                 $('<div/>',{class:`${icon} statisticsOrderTypeTag`}),
                 $('<div/>',{class:'column alnS jstfyS'}).append(
                     $('<div/>',{class:'fs2 bold ',html:number+' '+compare}),
-                    $('<a/>',{text:title,class:'fs105',statisticsPopup:dataKey,statisticsPopupTitle:title}),
+                    $('<a/>',{text:title,class:'fs105',statisticspopup:dataKey,statisticspopupTitle:title}),
                 ),
             )
 
@@ -1699,9 +1699,9 @@ statistics = class  {
     }
     setProductGraph(productName){
         if(this.isCompare){
-            window.statisticsPopups[productName] = this.productCard(1,this.data1.products[productName],this.data2.products[productName] ?? null,this.date1,this.date2)
+            window.statisticspopups[productName] = this.productCard(1,this.data1.products[productName],this.data2.products[productName] ?? null,this.date1,this.date2)
         }else{
-            window.statisticsPopups[productName] = this.productCard(0,this.data1.products[productName],null,this.date1,this.date2)
+            window.statisticspopups[productName] = this.productCard(0,this.data1.products[productName],null,this.date1,this.date2)
         }
         if(this.period == 'day'){
             this.fillProductGraph_day(productName)
@@ -1739,7 +1739,7 @@ statistics = class  {
                 $('<img/>',{class:'w50 h50 ofCover shdw1 br3',src:productImg}),
                 $('<div/>',{class:'column alnS jstfyS mX10'}).append(
                     $('<div/>',{class:'fs2 bold ',html:number}),
-                    $('<a/>',{statisticsPopup:productName,statisticsPopupTitle:productName,text:productName,class:'fs105'})
+                    $('<a/>',{statisticspopup:productName,statisticspopupTitle:productName,text:productName,class:'fs105'})
                 )
 
             )
@@ -1774,19 +1774,19 @@ statistics = class  {
         $('.statisticsGrapProducts').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapProducts').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapProducts').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapProducts').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapProducts').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         for(const key in this._data1){
             if(this._data1[key].products.hasOwnProperty(productName)){
                 let hour = this._data1[key].hour;
                 let total = this._data1[key].products[productName][dataKey];
-                $('.statisticsGrapProducts').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`${productName}-${hour}`).attr('statisticsPopupTitle',productName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapProducts').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`${productName}-${hour}`).attr('statisticspopupTitle',productName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date1}</div></div>`
                 if(this.isCompare){
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`
-                    window.statisticsPopups[`${productName}-${hour}`] = this.productCard(1,this._data1[key].products[productName],null,date1,date2)
+                    window.statisticspopups[`${productName}-${hour}`] = this.productCard(1,this._data1[key].products[productName],null,date1,date2)
                 }else{
-                    window.statisticsPopups[`${productName}-${hour}`] = this.productCard(0,this._data1[key].products[productName],null,date1)
+                    window.statisticspopups[`${productName}-${hour}`] = this.productCard(0,this._data1[key].products[productName],null,date1)
                 }
             }
         }
@@ -1797,10 +1797,10 @@ statistics = class  {
                 if(this._data2[key].products.hasOwnProperty(productName)){
                     let hour = this._data2[key].hour;
                     let total = this._data2[key].products[productName][dataKey];
-                    $('.statisticsGrapProducts').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`${productName}-${hour}`).attr('statisticsPopupTitle',productName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    $('.statisticsGrapProducts').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`${productName}-${hour}`).attr('statisticspopupTitle',productName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
                     let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date1}</div></div>`
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`
-                    window.statisticsPopups[`${productName}-${hour}`] = this.productCard(1,this._data1[key].products[productName],this._data2[key].products[productName],date1,date2)
+                    window.statisticspopups[`${productName}-${hour}`] = this.productCard(1,this._data1[key].products[productName],this._data2[key].products[productName],date1,date2)
                 }
             }
         }else{
@@ -1837,7 +1837,7 @@ statistics = class  {
         $('.statisticsGrapProducts').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapProducts').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapProducts').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapProducts').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapProducts').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
 
         if(this.isCompare){
@@ -1847,8 +1847,8 @@ statistics = class  {
                     let day = this._data2[key].day;
                     let total = this._data2[key].products[productName][dataKey];
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,this.data2.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                    $('.statisticsGrapProducts').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`${productName}-${day}`).attr('statisticsPopupTitle',productName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
-                    window.statisticsPopups[`${productName}-${day}`] = this.productCard(0,this._data2[key].products[productName],null,date2,null,'cs2','cs1')
+                    $('.statisticsGrapProducts').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`${productName}-${day}`).attr('statisticspopupTitle',productName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    window.statisticspopups[`${productName}-${day}`] = this.productCard(0,this._data2[key].products[productName],null,date2,null,'cs2','cs1')
                 }
             }
         }else{
@@ -1860,14 +1860,14 @@ statistics = class  {
             if(this._data1[key].products.hasOwnProperty(productName)){
                 let day = this._data1[key].day;
                 let total = this._data1[key].products[productName][dataKey];
-                $('.statisticsGrapProducts').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`${productName}-${day}`).attr('statisticsPopupTitle',productName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapProducts').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`${productName}-${day}`).attr('statisticspopupTitle',productName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data1.year,this.data1.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                window.statisticsPopups[`${productName}-${day}`] = this.productCard(0,this._data1[key].products[productName],null,date1,null)
+                window.statisticspopups[`${productName}-${day}`] = this.productCard(0,this._data1[key].products[productName],null,date1,null)
                 if(this.isCompare){
                     for(const key2 in this._data2){
                         if(this._data2[key2].day == day && this._data2[key2].products.hasOwnProperty(productName)){
                             let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,this.data2.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                            window.statisticsPopups[`${productName}-${day}`] = this.productCard(1,this._data1[key].products[productName],this._data2[key2].products[productName],date1,date2)
+                            window.statisticspopups[`${productName}-${day}`] = this.productCard(1,this._data1[key].products[productName],this._data2[key2].products[productName],date1,date2)
                         }
                     }
                 }
@@ -1904,7 +1904,7 @@ statistics = class  {
         $('.statisticsGrapProducts').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapProducts').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapProducts').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapProducts').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapProducts').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         if(this.isCompare){
             $('.statisticsGrapProducts').find('.statisticsGraphBlock_line2').removeClass('none')
@@ -1913,8 +1913,8 @@ statistics = class  {
                     let month = this._data2[key].month;
                     let total = this._data2[key].products[productName][dataKey];
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                    $('.statisticsGrapProducts').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`${productName}-${month}`).attr('statisticsPopupTitle',productName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
-                    window.statisticsPopups[`${productName}-${month}`] = this.productCard(0,this._data2[key].products[productName],null,date2,null,'cs2','cs1')
+                    $('.statisticsGrapProducts').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`${productName}-${month}`).attr('statisticspopupTitle',productName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    window.statisticspopups[`${productName}-${month}`] = this.productCard(0,this._data2[key].products[productName],null,date2,null,'cs2','cs1')
                 }
             }
         }else{
@@ -1925,14 +1925,14 @@ statistics = class  {
             if(this._data1[key].products.hasOwnProperty(productName)){
                 let month = this._data1[key].month;
                 let total = this._data1[key].products[productName][dataKey];
-                $('.statisticsGrapProducts').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`${productName}-${month}`).attr('statisticsPopupTitle',productName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapProducts').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`${productName}-${month}`).attr('statisticspopupTitle',productName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data1.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                window.statisticsPopups[`${productName}-${month}`] = this.productCard(0,this._data1[key].products[productName],null,date1,null)
+                window.statisticspopups[`${productName}-${month}`] = this.productCard(0,this._data1[key].products[productName],null,date1,null)
                 if(this.isCompare){
                     for(const key2 in this._data2){
                         if(this._data2[key2].month == month && this._data2[key2].products.hasOwnProperty(productName)){
                             let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                            window.statisticsPopups[`${productName}-${month}`] = this.productCard(1,this._data1[key].products[productName],this._data2[key2].products[productName],date1,date2)
+                            window.statisticspopups[`${productName}-${month}`] = this.productCard(1,this._data1[key].products[productName],this._data2[key2].products[productName],date1,date2)
                         }
                     }
                 }
@@ -1997,11 +1997,11 @@ statistics = class  {
                 }
             }
             $('.usersGraphsCatElem[cat="profites"]').hasClass('usersGraphsCatElem_selected') ? $('.statisticsUsers_userNum').text('').append(`<span class="mie-5">${website.currency} ${bigFloat(userData.so_total)}</span><span>${compareNums(userData.so_total,user2Data.so_total)}</span>`) : $('.statisticsUsers_userNum').text('').append(`<span class="mie-5">${bigInt(userData.so)}</span><span>${compareNums(userData.so,user2Data.so)}</span>`);
-            statisticsPopupUsers_so(this.isCompare,`user-${userData.id}-so`,userData,user2Data,this.date1,this.date2)
-            statisticsPopupUsers_co(this.isCompare,`user-${userData.id}-co`,userData,user2Data,this.date1,this.date2)
-            statisticsPopupUsers_do(this.isCompare,`user-${userData.id}-do`,userData,user2Data,this.date1,this.date2)
-            statisticsPopupUsers_po(this.isCompare,`user-${userData.id}-po`,userData,user2Data,this.date1,this.date2)
-            statisticsPopupUsers_di(this.isCompare,`user-${userData.id}-di`,userData,user2Data,this.date1,this.date2)
+            statisticspopupUsers_so(this.isCompare,`user-${userData.id}-so`,userData,user2Data,this.date1,this.date2)
+            statisticspopupUsers_co(this.isCompare,`user-${userData.id}-co`,userData,user2Data,this.date1,this.date2)
+            statisticspopupUsers_do(this.isCompare,`user-${userData.id}-do`,userData,user2Data,this.date1,this.date2)
+            statisticspopupUsers_po(this.isCompare,`user-${userData.id}-po`,userData,user2Data,this.date1,this.date2)
+            statisticspopupUsers_di(this.isCompare,`user-${userData.id}-di`,userData,user2Data,this.date1,this.date2)
             $('.statisticsUsers_userReviews').text('').append(
                 $('<div/>',{class:'fs103 bold mY10 pX10',html:`<span>${bigInt(userData.rv)}</span><span class="mX3">${texts.statistics.reviews}</span><span>${compareNums(userData.rv,user2Data.rv)}</span>`}),
                 $('<div/>',{class:'w100p-20 row alnC jstfySB pY10 pX10'}).append(
@@ -2048,11 +2048,11 @@ statistics = class  {
             )
         }else{
             $('.usersGraphsCatElem[cat="profites"]').hasClass('usersGraphsCatElem_selected') ? $('.statisticsUsers_userNum').text(website.currency+bigFloat(userData.so_total)) : $('.statisticsUsers_userNum').text(bigInt(userData.so));
-            statisticsPopupUsers_so(this.isCompare,`user-${userData.id}-so`,userData,null,this.date1,null)
-            statisticsPopupUsers_co(this.isCompare,`user-${userData.id}-co`,userData,null,this.date1,null)
-            statisticsPopupUsers_do(this.isCompare,`user-${userData.id}-do`,userData,null,this.date1,null)
-            statisticsPopupUsers_po(this.isCompare,`user-${userData.id}-po`,userData,null,this.date1,null)
-            statisticsPopupUsers_di(this.isCompare,`user-${userData.id}-di`,userData,null,this.date1,null)
+            statisticspopupUsers_so(this.isCompare,`user-${userData.id}-so`,userData,null,this.date1,null)
+            statisticspopupUsers_co(this.isCompare,`user-${userData.id}-co`,userData,null,this.date1,null)
+            statisticspopupUsers_do(this.isCompare,`user-${userData.id}-do`,userData,null,this.date1,null)
+            statisticspopupUsers_po(this.isCompare,`user-${userData.id}-po`,userData,null,this.date1,null)
+            statisticspopupUsers_di(this.isCompare,`user-${userData.id}-di`,userData,null,this.date1,null)
             $('.statisticsUsers_userReviews').text('').append(
                 $('<div/>',{class:'fs103 bold mY10 pX10',text:texts.statistics.reviews}),
                 $('<div/>',{class:'w100p-20 row alnC jstfySB pY10 pX10'}).append(
@@ -2109,9 +2109,9 @@ statistics = class  {
             this.fillUserGraph_year(userData,user2Data);
         }
 
-        statisticsPopupUsers(this.isCompare,userData.id,`user-${userData.id}`,userData,user2Data,this.date1,this.date2)
+        statisticspopupUsers(this.isCompare,userData.id,`user-${userData.id}`,userData,user2Data,this.date1,this.date2)
 
-        $('.statisticsUsers_userName').attr('statisticsPopup',`user-${userData.id}`).attr('statisticsPopupTitle',userData.userName).text(userData.userName);
+        $('.statisticsUsers_userName').attr('statisticspopup',`user-${userData.id}`).attr('statisticspopupTitle',userData.userName).text(userData.userName);
         $('.statisticsContainer[statisticsTab="users"]').find('.ico-user').attr('userId',userData.id)
     }
     fillUserGraph_day(userData,user2Data){
@@ -2152,19 +2152,19 @@ statistics = class  {
         $('.statisticsGrapUsers').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapUsers').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapUsers').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapUsers').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapUsers').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         for(const key in this._data1){
             if(this._data1[key].users.hasOwnProperty(userData.id)){
                 let hour = this._data1[key].hour;
                 let total = this._data1[key].users[userData.id][dataKey];
-                $('.statisticsGrapUsers').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`user-${userData.id}-${hour}`).attr('statisticsPopupTitle',userData.userName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapUsers').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`user-${userData.id}-${hour}`).attr('statisticspopupTitle',userData.userName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date1}</div></div>`
                 if(this.isCompare){
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`
-                    statisticsPopupUsers(1,userData.id,`user-${userData.id}-${hour}`,this._data1[key].users[userData.id],this._data2[key].users[userData.id] ?? emptyUser,date1,date2)
+                    statisticspopupUsers(1,userData.id,`user-${userData.id}-${hour}`,this._data1[key].users[userData.id],this._data2[key].users[userData.id] ?? emptyUser,date1,date2)
                 }else{
-                    statisticsPopupUsers(0,userData.id,`user-${userData.id}-${hour}`,this._data1[key].users[userData.id],null,date1,null)
+                    statisticspopupUsers(0,userData.id,`user-${userData.id}-${hour}`,this._data1[key].users[userData.id],null,date1,null)
                 }
             }
         }
@@ -2175,10 +2175,10 @@ statistics = class  {
                 if(this._data2[key].users.hasOwnProperty(userData.id)){
                     let hour = this._data2[key].hour;
                     let total = this._data2[key].users[userData.id][dataKey];
-                    $('.statisticsGrapUsers').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`user-${userData.id}-${hour}`).attr('statisticsPopupTitle',userData.userName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    $('.statisticsGrapUsers').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`user-${userData.id}-${hour}`).attr('statisticspopupTitle',userData.userName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
                     let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date1}</div></div>`
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`
-                    statisticsPopupUsers(1,userData.id,`user-${userData.id}-${hour}`,this._data1[key].users[userData.id]  ?? emptyUser,this._data2[key].users[userData.id] ?? emptyUser,date1,date2)
+                    statisticspopupUsers(1,userData.id,`user-${userData.id}-${hour}`,this._data1[key].users[userData.id]  ?? emptyUser,this._data2[key].users[userData.id] ?? emptyUser,date1,date2)
                 }
             }
         }else{
@@ -2225,7 +2225,7 @@ statistics = class  {
         $('.statisticsGrapUsers').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapUsers').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapUsers').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapUsers').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapUsers').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         if(this.isCompare){
             $('.statisticsGrapUsers').find('.statisticsGraphBlock_line2').removeClass('none')
@@ -2234,8 +2234,8 @@ statistics = class  {
                     let day = this._data2[key].day;
                     let total = this._data2[key].users[userData.id][dataKey];
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,this.data2.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                    $('.statisticsGrapUsers').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`user-${userData.id}-${day}`).attr('statisticsPopupTitle',userData.userName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
-                    statisticsPopupUsers(0,userData.id,`user-${userData.id}-${day}`,this._data2[key].users[userData.id],null,date2,null,'cs2','cs1')
+                    $('.statisticsGrapUsers').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`user-${userData.id}-${day}`).attr('statisticspopupTitle',userData.userName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    statisticspopupUsers(0,userData.id,`user-${userData.id}-${day}`,this._data2[key].users[userData.id],null,date2,null,'cs2','cs1')
                 }
             }
         }else{
@@ -2246,15 +2246,15 @@ statistics = class  {
             if(this._data1[key].users.hasOwnProperty(userData.id)){
                 let day = this._data1[key].day;
                 let total = this._data1[key].users[userData.id][dataKey];
-                $('.statisticsGrapUsers').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`user-${userData.id}-${day}`).attr('statisticsPopupTitle',userData.userName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapUsers').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`user-${userData.id}-${day}`).attr('statisticspopupTitle',userData.userName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data1.year,this.data1.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                statisticsPopupUsers(0,userData.id,`user-${userData.id}-${day}`,this._data1[key].users[userData.id],null,date1,null)
+                statisticspopupUsers(0,userData.id,`user-${userData.id}-${day}`,this._data1[key].users[userData.id],null,date1,null)
 
                 if(this.isCompare){
                     for(const key2 in this._data2){
                         let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,this.data2.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
                         if(this._data2[key2].day == day && this._data2[key2].users.hasOwnProperty(userData.id)){
-                            statisticsPopupUsers(1,userData.id,`user-${userData.id}-${day}`,this._data1[key].users[userData.id],this._data2[key2].users[userData.id],date1,date2)
+                            statisticspopupUsers(1,userData.id,`user-${userData.id}-${day}`,this._data1[key].users[userData.id],this._data2[key2].users[userData.id],date1,date2)
                         }
                     }
                 }
@@ -2299,7 +2299,7 @@ statistics = class  {
         $('.statisticsGrapUsers').find('.statisticsGraphLeftContainer').children().eq(2).text(symbol+bigInt(heighestNum / 3))
         $('.statisticsGrapUsers').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapUsers').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapUsers').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapUsers').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
         if(this.isCompare){
             $('.statisticsGrapUsers').find('.statisticsGraphBlock_line2').removeClass('none')
             for(const key in this._data2){
@@ -2307,8 +2307,8 @@ statistics = class  {
                     let month = this._data2[key].month;
                     let total = this._data2[key].users[userData.id][dataKey];
                     let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                    $('.statisticsGrapUsers').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`user-${userData.id}-${month}`).attr('statisticsPopupTitle',userData.userName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
-                    statisticsPopupUsers(0,userData.id,`user-${userData.id}-${month}`,this._data2[key].users[userData.id],null,date2,null,'cs2','cs1')
+                    $('.statisticsGrapUsers').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`user-${userData.id}-${month}`).attr('statisticspopupTitle',userData.userName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    statisticspopupUsers(0,userData.id,`user-${userData.id}-${month}`,this._data2[key].users[userData.id],null,date2,null,'cs2','cs1')
                 }
             }
         }else{
@@ -2319,15 +2319,15 @@ statistics = class  {
             if(this._data1[key].users.hasOwnProperty(userData.id)){
                 let month = this._data1[key].month;
                 let total = this._data1[key].users[userData.id][dataKey];
-                $('.statisticsGrapUsers').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`user-${userData.id}-${month}`).attr('statisticsPopupTitle',userData.userName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapUsers').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`user-${userData.id}-${month}`).attr('statisticspopupTitle',userData.userName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data1.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                statisticsPopupUsers(0,userData.id,`user-${userData.id}-${month}`,this._data1[key].users[userData.id],null,date1,null)
+                statisticspopupUsers(0,userData.id,`user-${userData.id}-${month}`,this._data1[key].users[userData.id],null,date1,null)
 
                 if(this.isCompare){
                     for(const key2 in this._data2){
                         if(this._data2[key2].month == month && this._data2[key2].users.hasOwnProperty(userData.id)){
                             let date2 = `<div class="taE"><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                            statisticsPopupUsers(1,userData.id,`user-${userData.id}-${month}`,this._data1[key].users[userData.id],this._data2[key2].users[userData.id],date1,date2)
+                            statisticspopupUsers(1,userData.id,`user-${userData.id}-${month}`,this._data1[key].users[userData.id],this._data2[key2].users[userData.id],date1,date2)
                         }
                     }
                 }
@@ -2359,7 +2359,7 @@ statistics = class  {
             $('<div/>',{class:'row alnC jstfyS pX20 mY20'}).append(
                 $('<div/>',{class:'statisticsOrderTypeTag pointer popupPage ico-delivery_accounts',popupPage:'Edit-Delivery-Account',deliveryaccount:deliveryName}),
                 $('<div/>',{class:'column alnS jstfyS'}).append(
-                    $('<a/>',{class:'fs104',text:deliveryName,statisticsPopup:`delivery-${deliveryName.split('@')[0]}`,statisticsPopupTitle:deliveryName.split('@')[0]}),
+                    $('<a/>',{class:'fs104',text:deliveryName,statisticspopup:`delivery-${deliveryName.split('@')[0]}`,statisticspopupTitle:deliveryName.split('@')[0]}),
                     $('<div/>',{class:'fs09',text:text11}),
                     $('<div/>',{class:'fs09',text:text12}),
                 ),
@@ -2367,9 +2367,9 @@ statistics = class  {
         )
 
         if(this.isCompare){
-            statisticsPopupDeliveries(1,`delivery-${deliveryName.split('@')[0]}`,data1,data2,this.date1,this.date2)
+            statisticspopupDeliveries(1,`delivery-${deliveryName.split('@')[0]}`,data1,data2,this.date1,this.date2)
         }else{
-            statisticsPopupDeliveries(0,`delivery-${deliveryName.split('@')[0]}`,data1,null,this.date1,null)
+            statisticspopupDeliveries(0,`delivery-${deliveryName.split('@')[0]}`,data1,null,this.date1,null)
         }
 
         if(this.period == 'day'){
@@ -2412,19 +2412,19 @@ statistics = class  {
         $('.statisticsGrapDeliveries').find('.statisticsGraphLeftContainer').children().eq(2).text(bigInt(heighestNum / 3))
         $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         for(const key in this._data1){
             if(this._data1[key].deliveries.hasOwnProperty(data1.deliveryName)){
                 let hour = this._data1[key].hour;
                 let total = this._data1[key].deliveries[data1.deliveryName].orders;
-                $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`delivery-${data1.deliveryName.split('@')[0]}-${hour}`).attr('statisticsPopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`delivery-${data1.deliveryName.split('@')[0]}-${hour}`).attr('statisticspopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class=""><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date1}</div></div>`
                 if(this.isCompare){
                     let date2 = `<div class=""><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,parseInt(this._data1[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`
-                    statisticsPopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${hour}`,this._data1[key].deliveries[data1.deliveryName],this._data2[key].deliveries[data1.deliveryName] ?? emptyData,date1,date2)
+                    statisticspopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${hour}`,this._data1[key].deliveries[data1.deliveryName],this._data2[key].deliveries[data1.deliveryName] ?? emptyData,date1,date2)
                 }else{
-                    statisticsPopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${hour}`,this._data1[key].deliveries[data1.deliveryName],null,date1,null)
+                    statisticspopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${hour}`,this._data1[key].deliveries[data1.deliveryName],null,date1,null)
                 }
             }
         }
@@ -2436,10 +2436,10 @@ statistics = class  {
                 if(this._data2[key].deliveries.hasOwnProperty(data1.deliveryName)){
                     let hour = this._data2[key].hour;
                     let total = this._data2[key].deliveries[data1.deliveryName].orders;
-                    $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticsPopup',`delivery-${data1.deliveryName.split('@')[0]}-${hour}`).attr('statisticsPopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[hour="${hour}"]`).attr('statisticspopup',`delivery-${data1.deliveryName.split('@')[0]}-${hour}`).attr('statisticspopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
                     let date1 = `<div class=""><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date1}</div></div>`
                     let date2 = `<div class=""><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour),0,0).toISOString(),'onlyTime')} - ${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,parseInt(this._data2[key].hour)+1,0,0).toISOString(),'onlyTime')}</div><div class="fs08">${this.date2}</div></div>`
-                    statisticsPopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${hour}`,this._data1[key].deliveries[data1.deliveryName] ?? emptyData,this._data2[key].deliveries[data1.deliveryName],date1,date2)
+                    statisticspopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${hour}`,this._data1[key].deliveries[data1.deliveryName] ?? emptyData,this._data2[key].deliveries[data1.deliveryName],date1,date2)
                 }
             }
         }else{
@@ -2479,7 +2479,7 @@ statistics = class  {
         $('.statisticsGrapDeliveries').find('.statisticsGraphLeftContainer').children().eq(2).text(bigInt(heighestNum / 3))
         $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
 
         if(this.isCompare){
             $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line2').removeClass('none')
@@ -2488,8 +2488,8 @@ statistics = class  {
                     let day = this._data2[key].day;
                     let total = this._data2[key].deliveries[data1.deliveryName].orders;
                     let date2 = `<div class=""><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,this._data2[key].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,this.data2.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                    $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`delivery-${data1.deliveryName.split('@')[0]}-${day}`).attr('statisticsPopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
-                    statisticsPopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${day}`,this._data2[key].deliveries[data1.deliveryName],null,date2,null,'cs2','cs1')
+                    $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`delivery-${data1.deliveryName.split('@')[0]}-${day}`).attr('statisticspopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    statisticspopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${day}`,this._data2[key].deliveries[data1.deliveryName],null,date2,null,'cs2','cs1')
                 }
             }
         }else{
@@ -2500,15 +2500,15 @@ statistics = class  {
             if(this._data1[key].deliveries.hasOwnProperty(data1.deliveryName)){
                 let day = this._data1[key].day;
                 let total = this._data1[key].deliveries[data1.deliveryName].orders;
-                $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticsPopup',`delivery-${data1.deliveryName.split('@')[0]}-${day}`).attr('statisticsPopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[day="${day}"]`).attr('statisticspopup',`delivery-${data1.deliveryName.split('@')[0]}-${day}`).attr('statisticspopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class=""><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,this._data1[key].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data1.year,this.data1.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                statisticsPopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${day}`,this._data1[key].deliveries[data1.deliveryName],null,date1,null)
+                statisticspopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${day}`,this._data1[key].deliveries[data1.deliveryName],null,date1,null)
 
                 if(this.isCompare){
                     for(const key2 in this._data2){
                         let date2 = `<div class=""><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,this._data2[key2].day,0,0,0).toISOString(),'dayAndMonthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,this.data2.month - 1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
                         if(this._data2[key2].day == day && this._data2[key2].deliveries.hasOwnProperty(data1.deliveryName)){
-                            statisticsPopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${day}`,this._data1[key].deliveries[data1.deliveryName],this._data2[key2].deliveries[data1.deliveryName],date1,date2)
+                            statisticspopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${day}`,this._data1[key].deliveries[data1.deliveryName],this._data2[key2].deliveries[data1.deliveryName],date1,date2)
 
                         }
                     }
@@ -2549,7 +2549,7 @@ statistics = class  {
         $('.statisticsGrapDeliveries').find('.statisticsGraphLeftContainer').children().eq(2).text(bigInt(heighestNum / 3))
         $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line1').css('height',0)
         $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line2').css('height',0)
-        $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock`).attr('statisticsPopup',null)
+        $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock`).attr('statisticspopup',null)
         if(this.isCompare){
             $('.statisticsGrapDeliveries').find('.statisticsGraphBlock_line2').removeClass('none')
             for(const key in this._data2){
@@ -2557,8 +2557,8 @@ statistics = class  {
                     let month = this._data2[key].month;
                     let total = this._data2[key].deliveries[data1.deliveryName].orders;
                     let date2 = `<div class=""><div>${getDateAndTime2(new Date(this._data2[key].year,this._data2[key].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                    $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`delivery-${data1.deliveryName.split('@')[0]}-${month}`).attr('statisticsPopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
-                    statisticsPopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${month}`,this._data2[key].deliveries[data1.deliveryName],null,date2,null,'cs2','cs1')
+                    $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`delivery-${data1.deliveryName.split('@')[0]}-${month}`).attr('statisticspopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line2').css('height',((total/heighestNum)*100)+'%');
+                    statisticspopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${month}`,this._data2[key].deliveries[data1.deliveryName],null,date2,null,'cs2','cs1')
                 }
             }
         }else{
@@ -2569,15 +2569,15 @@ statistics = class  {
             if(this._data1[key].deliveries.hasOwnProperty(data1.deliveryName)){
                 let month = this._data1[key].month;
                 let total = this._data1[key].deliveries[data1.deliveryName].orders;
-                $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticsPopup',`delivery-${data1.deliveryName.split('@')[0]}-${month}`).attr('statisticsPopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
+                $('.statisticsGrapDeliveries').find(`.statisticsGraphBlock[month="${month}"]`).attr('statisticspopup',`delivery-${data1.deliveryName.split('@')[0]}-${month}`).attr('statisticspopupTitle',data1.deliveryName).find('.statisticsGraphBlock_line1').css('height',((total/heighestNum)*100)+'%')
                 let date1 = `<div class=""><div>${getDateAndTime2(new Date(this._data1[key].year,this._data1[key].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data1.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                statisticsPopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${month}`,this._data1[key].deliveries[data1.deliveryName],null,date1,null)
+                statisticspopupDeliveries(0,`delivery-${data1.deliveryName.split('@')[0]}-${month}`,this._data1[key].deliveries[data1.deliveryName],null,date1,null)
 
                 if(this.isCompare){
                     for(const key2 in this._data2){
                         if(this._data2[key2].month == month && this._data2[key2].deliveries.hasOwnProperty(data1.deliveryName)){
                             let date2 = `<div class=""><div>${getDateAndTime2(new Date(this._data2[key2].year,this._data2[key2].month - 1,1,0,0,0).toISOString(),'monthShort')}</div><div class="fs08">${getDateAndTime2(new Date(this.data2.year,1,1,0,0,0).toISOString(),'onlyYear')}</div></div>`
-                            statisticsPopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${month}`,this._data1[key].deliveries[data1.deliveryName],this._data2[key2].deliveries[data1.deliveryName],date1,date2)
+                            statisticspopupDeliveries(1,`delivery-${data1.deliveryName.split('@')[0]}-${month}`,this._data1[key].deliveries[data1.deliveryName],this._data2[key2].deliveries[data1.deliveryName],date1,date2)
                         }
                     }
                 }
@@ -2914,9 +2914,9 @@ collectYearsData = function(data){
 
 }
 ///////////
-statisticsPopup_income = function(isCompare,key,data1,data2,date1,date2){
+statisticspopup_income = function(isCompare,key,data1,data2,date1,date2){
     if(isCompare){
-        window.statisticsPopups[`${key}itemsTotal`] = $('<div/>',{class:'row alnS jstfyS'}).append(
+        window.statisticspopups[`${key}itemsTotal`] = $('<div/>',{class:'row alnS jstfyS'}).append(
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1 brdrR1'}).append(
                 $('<div/>',{class:'cs1 mie-10 fs101 mY5 bold fs101',text:date1}),
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.itemsTotal}),
@@ -2928,7 +2928,7 @@ statisticsPopup_income = function(isCompare,key,data1,data2,date1,date2){
                 $('<div/>',{class:'fs103 bold',text:website.currency+bigFloat(data2.items_total)})
             ),
         )
-        window.statisticsPopups[`${key}tax`] = $('<div/>',{class:'row alnS jstfyS'}).append(
+        window.statisticspopups[`${key}tax`] = $('<div/>',{class:'row alnS jstfyS'}).append(
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1 brdrR1'}).append(
                 $('<div/>',{class:'cs1 mie-10 fs101 mY5 bold fs101',text:date1}),
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.tax}),
@@ -2940,7 +2940,7 @@ statisticsPopup_income = function(isCompare,key,data1,data2,date1,date2){
                 $('<div/>',{class:'fs103 bold',text:website.currency+bigFloat(data2.tax)})
             ),
         )
-        window.statisticsPopups[`${key}deliveryCost`] = $('<div/>',{class:'row alnS jstfyS'}).append(
+        window.statisticspopups[`${key}deliveryCost`] = $('<div/>',{class:'row alnS jstfyS'}).append(
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1 brdrR1'}).append(
                 $('<div/>',{class:'cs1 mie-10 fs101 mY5 bold fs101',text:date1}),
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.deliveryCost}),
@@ -2952,7 +2952,7 @@ statisticsPopup_income = function(isCompare,key,data1,data2,date1,date2){
                 $('<div/>',{class:'fs103 bold',text:website.currency+bigFloat(data2.delivery)})
             ),
         )
-        window.statisticsPopups[`${key}service`] = $('<div/>',{class:'row alnS jstfyS'}).append(
+        window.statisticspopups[`${key}service`] = $('<div/>',{class:'row alnS jstfyS'}).append(
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1 brdrR1'}).append(
                 $('<div/>',{class:'cs1 mie-10 fs101 mY5 bold fs101',text:date1}),
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.service}),
@@ -2965,28 +2965,28 @@ statisticsPopup_income = function(isCompare,key,data1,data2,date1,date2){
             ),
         )
     }else{
-        window.statisticsPopups[`${key}itemsTotal`] = $('<div/>',{class:''}).append(
+        window.statisticspopups[`${key}itemsTotal`] = $('<div/>',{class:''}).append(
             $('<div/>',{class:'cs1 fs101 m5 bold fs101',text:date1}),
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1'}).append(
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.itemsTotal}),
                 $('<div/>',{class:'fs103 bold',text:website.currency+bigFloat(data1.items_total)})
             ),
         )
-        window.statisticsPopups[`${key}tax`] = $('<div/>',{class:''}).append(
+        window.statisticspopups[`${key}tax`] = $('<div/>',{class:''}).append(
             $('<div/>',{class:'cs1 fs101 m5 bold fs101',text:date1}),
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1'}).append(
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.tax}),
                 $('<div/>',{class:'fs103 bold',text:website.currency+bigFloat(data1.tax)})
             ),
         )
-        window.statisticsPopups[`${key}deliveryCost`] = $('<div/>',{class:''}).append(
+        window.statisticspopups[`${key}deliveryCost`] = $('<div/>',{class:''}).append(
             $('<div/>',{class:'cs1 fs101 m5 bold fs101',text:date1}),
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1'}).append(
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.deliveryCost}),
                 $('<div/>',{class:'fs103 bold',text:website.currency+bigFloat(data1.delivery)})
             ),
         )
-        window.statisticsPopups[`${key}service`] = $('<div/>',{class:''}).append(
+        window.statisticspopups[`${key}service`] = $('<div/>',{class:''}).append(
             $('<div/>',{class:'cs1 fs101 m5 bold fs101',text:date1}),
             $('<div/>',{class:'column alnS jstfyS p5 bgc-c1'}).append(
                 $('<div/>',{class:'mie-20 fs101 mB3',text:texts.statistics.service}),
@@ -2996,9 +2996,9 @@ statisticsPopup_income = function(isCompare,key,data1,data2,date1,date2){
     }
 }
 
-statisticsPopup_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopup_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3039,7 +3039,7 @@ statisticsPopup_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
             ),
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3071,9 +3071,9 @@ statisticsPopup_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
     }
 }
 
-statisticsPopup_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopup_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3113,7 +3113,7 @@ statisticsPopup_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
         )
 
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3144,9 +3144,9 @@ statisticsPopup_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
 
 
 }
-statisticsPopup_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopup_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3183,7 +3183,7 @@ statisticsPopup_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
         )
 
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3210,9 +3210,9 @@ statisticsPopup_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
 
     }
 }
-statisticsPopup_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopup_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3246,7 +3246,7 @@ statisticsPopup_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
         )
 
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3271,9 +3271,9 @@ statisticsPopup_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
 
     }
 }
-statisticsPopup_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopup_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3311,7 +3311,7 @@ statisticsPopup_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
         )
 
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
                     $('<div/>',{class:'h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1 pB10',text:''}),
@@ -3339,9 +3339,9 @@ statisticsPopup_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs
     }
 }
 /////////////
-statisticsPopupUsers_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupUsers_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3377,7 +3377,7 @@ statisticsPopupUsers_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs
             ),
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3405,9 +3405,9 @@ statisticsPopupUsers_so = function(isCompare,key,data1,data2,date1,date2,cs1='cs
 
     }
 }
-statisticsPopupUsers_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupUsers_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3443,7 +3443,7 @@ statisticsPopupUsers_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs
             ),
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3471,9 +3471,9 @@ statisticsPopupUsers_co = function(isCompare,key,data1,data2,date1,date2,cs1='cs
 
     }
 }
-statisticsPopupUsers_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupUsers_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3506,7 +3506,7 @@ statisticsPopupUsers_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs
             ),
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3532,9 +3532,9 @@ statisticsPopupUsers_do = function(isCompare,key,data1,data2,date1,date2,cs1='cs
 
     }
 }
-statisticsPopupUsers_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupUsers_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3564,7 +3564,7 @@ statisticsPopupUsers_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs
             ),
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3588,9 +3588,9 @@ statisticsPopupUsers_po = function(isCompare,key,data1,data2,date1,date2,cs1='cs
 
     }
 }
-statisticsPopupUsers_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupUsers_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3623,7 +3623,7 @@ statisticsPopupUsers_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs
             ),
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:data1.id,text:data1.userName}),
             $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                 $('<div/>',{class:'column alnS jstfyS grow1'}).append(
@@ -3649,9 +3649,9 @@ statisticsPopupUsers_di = function(isCompare,key,data1,data2,date1,date2,cs1='cs
 
     }
 }
-statisticsPopupUsers = function(isCompare,userId,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupUsers = function(isCompare,userId,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:userId,text:data1.userName}),
 
             $('<div/>',{class:'row alnS jstfyS'}).append(
@@ -3833,7 +3833,7 @@ statisticsPopupUsers = function(isCompare,userId,key,data1,data2,date1,date2,cs1
 
         )
     }else{
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer'}).append(
             $('<a/>',{class:'fs103 bold mX5 popupPage',popupPage:'User',userId:userId,text:data1.userName}),
 
             $('<div/>',{class:'row alnS jstfyS'}).append(
@@ -3961,7 +3961,7 @@ statisticsPopupUsers = function(isCompare,userId,key,data1,data2,date1,date2,cs1
     }
 }
 ////////
-statisticsPopupDeliveries = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
+statisticspopupDeliveries = function(isCompare,key,data1,data2,date1,date2,cs1='cs1',cs2='cs2'){
     if(isCompare){
         let text11;let text12 = '';let text21; let text22 = '';
         if(data1.orders == 1){
@@ -3983,7 +3983,7 @@ statisticsPopupDeliveries = function(isCompare,key,data1,data2,date1,date2,cs1='
         }
 
 
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer pX5'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer pX5'}).append(
             $('<div/>',{html:date1,class:`${cs1} m5 bold fs103`}),
             $('<div/>',{html:text11,class:'fs102 mX5'}),
             $('<div/>',{html:text12,class:'fs102 mX5'}),
@@ -4002,7 +4002,7 @@ statisticsPopupDeliveries = function(isCompare,key,data1,data2,date1,date2,cs1='
             text12 = `${texts.statistics.avg} ${clacDeliveryTime(data1.time / data1.orders)} ${texts.statistics.perOrder}`
         }
 
-        window.statisticsPopups[key] = $('<div/>',{class:'statisticsInfoContainer pX5'}).append(
+        window.statisticspopups[key] = $('<div/>',{class:'statisticsInfoContainer pX5'}).append(
             $('<div/>',{html:date1,class:`${cs1} m5 bold fs103`}),
             $('<div/>',{text:text11,class:'fs102 mX5'}),
             $('<div/>',{text:text12,class:'fs102 mX5 mB10'}),

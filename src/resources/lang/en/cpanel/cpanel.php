@@ -177,6 +177,7 @@ return [
         'of' => 'of',
         'yes' => 'Yes',
         'no' => 'No',
+        'and' => 'and',
         'error' => 'Error',
         'gotIt' => 'Got it!',
         'loadMore' => 'Load more',

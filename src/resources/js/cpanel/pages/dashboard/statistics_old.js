@@ -1,6 +1,6 @@
 
 require("./statistics_old/class.js")//done
-require("./statistics_old/statisticsPopup.js")//done
+require("./statistics_old/statisticspopup.js")//done
 
 $('.statisticsPeriodTypeCard').on('click',function(e){
     e.stopImmediatePropagation();
@@ -97,7 +97,7 @@ loadStatistics = function(){
             year2:year2,
         },success:function(response){
             hideBtnLoading($('#statistics-loadStatisticsBtn'))
-            window.statisticsPopups = [];
+            window.statisticspopups = [];
             if(response.period == 'day'){
                 if(response.compare == 0){
                     if(response.statistics1_day.length == 0 || response.statistics1_hours == 0){

@@ -17,88 +17,88 @@
         security:{!! json_encode(trans('cpanel/security/texts')) !!},
         dashboard:{!! json_encode(trans('cpanel/dashboard/texts')) !!},
         activity_log:{!! json_encode(trans('cpanel/dashboard/activity_log')) !!},
-        statistics:{
+        // statistics:{
 
-            "noAvailableData":"{!! trans('cpanel/dashboard/statistics.noAvailableData') !!}",
-            "smallScreen":"{!! trans('cpanel/dashboard/statistics.smallScreen') !!}",
+        //     "noAvailableData":"{!! trans('cpanel/dashboard/statistics.noAvailableData') !!}",
+        //     "smallScreen":"{!! trans('cpanel/dashboard/statistics.smallScreen') !!}",
 
-            "deliveredOrders":"{!! trans('cpanel/dashboard/statistics.deliveredOrders') !!}",
-            "deliveredOrder":"{!! trans('cpanel/dashboard/statistics.deliveredOrder') !!}",
-            "minute":"{!! trans('cpanel/dashboard/statistics.minute') !!}",
-            "minutes":"{!! trans('cpanel/dashboard/statistics.minutes') !!}",
-            "hour":"{!! trans('cpanel/dashboard/statistics.hour') !!}",
-            "hours":"{!! trans('cpanel/dashboard/statistics.hours') !!}",
-            "in":"{!! trans('cpanel/dashboard/statistics.in') !!}",
-            "and":"{!! trans('cpanel/dashboard/statistics.and') !!}",
-            "avg":"{!! trans('cpanel/dashboard/statistics.avg') !!}",
-            "perOrder":"{!! trans('cpanel/dashboard/statistics.perOrder') !!}",
-            ///////////////////
-            "periodSelectedHasNoArchive":"{!! trans('cpanel/dashboard/statistics.periodSelectedHasNoArchive') !!}",
-            "periodSelectedHasNoArchive2":"{!! trans('cpanel/dashboard/statistics.periodSelectedHasNoArchive2') !!}",
-            "dataloaded":"{!! trans('cpanel/dashboard/statistics.dataloaded') !!}",
+        //     "deliveredOrders":"{!! trans('cpanel/dashboard/statistics.deliveredOrders') !!}",
+        //     "deliveredOrder":"{!! trans('cpanel/dashboard/statistics.deliveredOrder') !!}",
+        //     "minute":"{!! trans('cpanel/dashboard/statistics.minute') !!}",
+        //     "minutes":"{!! trans('cpanel/dashboard/statistics.minutes') !!}",
+        //     "hour":"{!! trans('cpanel/dashboard/statistics.hour') !!}",
+        //     "hours":"{!! trans('cpanel/dashboard/statistics.hours') !!}",
+        //     "in":"{!! trans('cpanel/dashboard/statistics.in') !!}",
+        //     "and":"{!! trans('cpanel/dashboard/statistics.and') !!}",
+        //     "avg":"{!! trans('cpanel/dashboard/statistics.avg') !!}",
+        //     "perOrder":"{!! trans('cpanel/dashboard/statistics.perOrder') !!}",
+        //     ///////////////////
+        //     "periodSelectedHasNoArchive":"{!! trans('cpanel/dashboard/statistics.periodSelectedHasNoArchive') !!}",
+        //     "periodSelectedHasNoArchive2":"{!! trans('cpanel/dashboard/statistics.periodSelectedHasNoArchive2') !!}",
+        //     "dataloaded":"{!! trans('cpanel/dashboard/statistics.dataloaded') !!}",
 
-            "completeOrders":"{!! trans('cpanel/dashboard/statistics.completeOrders') !!}",
-            "successfulIncom":"{!! trans('cpanel/dashboard/statistics.successfulIncom') !!}",
-            "successfulOrders":"{!! trans('cpanel/dashboard/statistics.successfulOrders') !!}",
-            "canceledOrders":"{!! trans('cpanel/dashboard/statistics.canceledOrders') !!}",
-
-
-            "totalIncome":"{!! trans('cpanel/dashboard/statistics.totalIncome') !!}",
-            "itemsTotal":"{!! trans('cpanel/dashboard/statistics.itemsTotal') !!}",
-            "deliveryCost":"{!! trans('cpanel/dashboard/statistics.deliveryCost') !!}",
-            "tax":"{!! trans('cpanel/dashboard/statistics.tax') !!}",
-            "service":"{!! trans('cpanel/dashboard/statistics.service') !!}",
-            "total":"{!! trans('cpanel/dashboard/statistics.total') !!}",
-            "income":"{!! trans('cpanel/dashboard/statistics.income') !!}",
-            "orderedByUsers":"{!! trans('cpanel/dashboard/statistics.orderedByUsers') !!}",
-            "orderedByGuests":"{!! trans('cpanel/dashboard/statistics.orderedByGuests') !!}",
-
-            "delivery":"{!! trans('cpanel/dashboard/statistics.delivery') !!}",
-            "pickup":"{!! trans('cpanel/dashboard/statistics.pickup') !!}",
-            "dineIn":"{!! trans('cpanel/dashboard/statistics.dineIn') !!}",
-
-            "deliveryOrders":"{!! trans('cpanel/dashboard/statistics.deliveryOrders') !!}",
-            "pickupOrders":"{!! trans('cpanel/dashboard/statistics.pickupOrders') !!}",
-            "dineInOrders":"{!! trans('cpanel/dashboard/statistics.dineInOrders') !!}",
-
-            "successfulOrdersGraph":"{!! trans('cpanel/dashboard/statistics.successfulOrdersGraph') !!}",
-            "canceledOrdersGraph":"{!! trans('cpanel/dashboard/statistics.canceledOrdersGraph') !!}",
-            "deliveriedOrdersGraph":"{!! trans('cpanel/dashboard/statistics.deliveriedOrdersGraph') !!}",
-            "pickedupOrdersGraph":"{!! trans('cpanel/dashboard/statistics.pickedupOrdersGraph') !!}",
-            "dineinOrdersGraph":"{!! trans('cpanel/dashboard/statistics.dineinOrdersGraph') !!}",
-
-            "successfulOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.successfulOrdersIncomeGraph') !!}",
-            "canceledOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.canceledOrdersIncomeGraph') !!}",
-            "deliveriedOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.deliveriedOrdersIncomeGraph') !!}",
-            "pickedupOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.pickedupOrdersIncomeGraph') !!}",
-            "dineinOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.dineinOrdersIncomeGraph') !!}",
-
-            "successfulOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.successfulOrdersIncomeGraph_users') !!}",
-            "canceledOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.canceledOrdersIncomeGraph_users') !!}",
-            "deliveriedOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.deliveriedOrdersIncomeGraph_users') !!}",
-            "pickedupOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.pickedupOrdersIncomeGraph_users') !!}",
-            "dineinOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.dineinOrdersIncomeGraph_users') !!}",
-
-            "topOrderedProduct":"{!! trans('cpanel/dashboard/statistics.topOrderedProduct') !!}",
-            "topProfitableProduct":"{!! trans('cpanel/dashboard/statistics.topProfitableProduct') !!}",
-            "topProfitableProducts":"{!! trans('cpanel/dashboard/statistics.topProfitableProducts') !!}",
-            "topProfitableUser":"{!! trans('cpanel/dashboard/statistics.topProfitableUser') !!}",
-            "topProfitableUsers":"{!! trans('cpanel/dashboard/statistics.topProfitableUsers') !!}",
-            "topProfitableUser":"{!! trans('cpanel/dashboard/statistics.topProfitableUser') !!}",
-
-            "times":"{!! trans('cpanel/dashboard/statistics.times') !!}",
-            "time":"{!! trans('cpanel/dashboard/statistics.time') !!}",
-            "ordered":"{!! trans('cpanel/dashboard/statistics.ordered') !!}",
-            "profites":"{!! trans('cpanel/dashboard/statistics.profites') !!}",
-
-            "reviews":"{!! trans('cpanel/dashboard/statistics.reviews') !!}",
+        //     "completeOrders":"{!! trans('cpanel/dashboard/statistics.completeOrders') !!}",
+        //     "successfulIncom":"{!! trans('cpanel/dashboard/statistics.successfulIncom') !!}",
+        //     "successfulOrders":"{!! trans('cpanel/dashboard/statistics.successfulOrders') !!}",
+        //     "canceledOrders":"{!! trans('cpanel/dashboard/statistics.canceledOrders') !!}",
 
 
-            "orders":"{!! trans('cpanel/dashboard/statistics.orders') !!}",
-            "dataloaded":"{!! trans('cpanel/dashboard/statistics.dataloaded') !!}",
+        //     "totalIncome":"{!! trans('cpanel/dashboard/statistics.totalIncome') !!}",
+        //     "itemsTotal":"{!! trans('cpanel/dashboard/statistics.itemsTotal') !!}",
+        //     "deliveryCost":"{!! trans('cpanel/dashboard/statistics.deliveryCost') !!}",
+        //     "tax":"{!! trans('cpanel/dashboard/statistics.tax') !!}",
+        //     "service":"{!! trans('cpanel/dashboard/statistics.service') !!}",
+        //     "total":"{!! trans('cpanel/dashboard/statistics.total') !!}",
+        //     "income":"{!! trans('cpanel/dashboard/statistics.income') !!}",
+        //     "orderedByUsers":"{!! trans('cpanel/dashboard/statistics.orderedByUsers') !!}",
+        //     "orderedByGuests":"{!! trans('cpanel/dashboard/statistics.orderedByGuests') !!}",
+
+        //     "delivery":"{!! trans('cpanel/dashboard/statistics.delivery') !!}",
+        //     "pickup":"{!! trans('cpanel/dashboard/statistics.pickup') !!}",
+        //     "dineIn":"{!! trans('cpanel/dashboard/statistics.dineIn') !!}",
+
+        //     "deliveryOrders":"{!! trans('cpanel/dashboard/statistics.deliveryOrders') !!}",
+        //     "pickupOrders":"{!! trans('cpanel/dashboard/statistics.pickupOrders') !!}",
+        //     "dineInOrders":"{!! trans('cpanel/dashboard/statistics.dineInOrders') !!}",
+
+        //     "successfulOrdersGraph":"{!! trans('cpanel/dashboard/statistics.successfulOrdersGraph') !!}",
+        //     "canceledOrdersGraph":"{!! trans('cpanel/dashboard/statistics.canceledOrdersGraph') !!}",
+        //     "deliveriedOrdersGraph":"{!! trans('cpanel/dashboard/statistics.deliveriedOrdersGraph') !!}",
+        //     "pickedupOrdersGraph":"{!! trans('cpanel/dashboard/statistics.pickedupOrdersGraph') !!}",
+        //     "dineinOrdersGraph":"{!! trans('cpanel/dashboard/statistics.dineinOrdersGraph') !!}",
+
+        //     "successfulOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.successfulOrdersIncomeGraph') !!}",
+        //     "canceledOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.canceledOrdersIncomeGraph') !!}",
+        //     "deliveriedOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.deliveriedOrdersIncomeGraph') !!}",
+        //     "pickedupOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.pickedupOrdersIncomeGraph') !!}",
+        //     "dineinOrdersIncomeGraph":"{!! trans('cpanel/dashboard/statistics.dineinOrdersIncomeGraph') !!}",
+
+        //     "successfulOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.successfulOrdersIncomeGraph_users') !!}",
+        //     "canceledOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.canceledOrdersIncomeGraph_users') !!}",
+        //     "deliveriedOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.deliveriedOrdersIncomeGraph_users') !!}",
+        //     "pickedupOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.pickedupOrdersIncomeGraph_users') !!}",
+        //     "dineinOrdersIncomeGraph_users":"{!! trans('cpanel/dashboard/statistics.dineinOrdersIncomeGraph_users') !!}",
+
+        //     "topOrderedProduct":"{!! trans('cpanel/dashboard/statistics.topOrderedProduct') !!}",
+        //     "topProfitableProduct":"{!! trans('cpanel/dashboard/statistics.topProfitableProduct') !!}",
+        //     "topProfitableProducts":"{!! trans('cpanel/dashboard/statistics.topProfitableProducts') !!}",
+        //     "topProfitableUser":"{!! trans('cpanel/dashboard/statistics.topProfitableUser') !!}",
+        //     "topProfitableUsers":"{!! trans('cpanel/dashboard/statistics.topProfitableUsers') !!}",
+        //     "topProfitableUser":"{!! trans('cpanel/dashboard/statistics.topProfitableUser') !!}",
+
+        //     "times":"{!! trans('cpanel/dashboard/statistics.times') !!}",
+        //     "time":"{!! trans('cpanel/dashboard/statistics.time') !!}",
+        //     "ordered":"{!! trans('cpanel/dashboard/statistics.ordered') !!}",
+        //     "profites":"{!! trans('cpanel/dashboard/statistics.profites') !!}",
+
+        //     "reviews":"{!! trans('cpanel/dashboard/statistics.reviews') !!}",
 
 
-        },
+        //     "orders":"{!! trans('cpanel/dashboard/statistics.orders') !!}",
+        //     "dataloaded":"{!! trans('cpanel/dashboard/statistics.dataloaded') !!}",
+
+
+        // },
 
         home:{
             "welcome":"{!! trans('cpanel/dashboard/home.welcome') !!}",

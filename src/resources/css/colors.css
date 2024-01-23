@@ -81,12 +81,33 @@
 
     --star:#ffb700;
 
-    --cdelivery:#136fa4;
+    --cdelivery:#208bc9;
     --cdeliveryTxt:#ffffff;
-    --cpickup:#ab4c89;
+    --cpickup:#d769b1;
     --cpickupTxt:#ffffff;
-    --cdineIn:#7a68cc;
+    --cdineIn:#8b78e1;
     --cdineInTxt:#ffffff;
+
+
+    --cs1:rgb(3, 146, 194);
+    --cs1-70:rgba(3, 146, 194,.7);
+    --cs1-30:rgba(3, 146, 194,.3);
+    --cs2:rgb(248, 130, 117);
+    --cs2-70:rgba(248, 130, 117,.7);
+    --cs2-30:rgba(248, 130, 117,.3);
+
+
+    /* --cs1:rgb(218, 135, 147);
+    --cs1-70:rgba(218, 135, 147,.7);
+    --cs1-30:rgba(218, 135, 147,.3);
+    --cs2:rgb(38, 134, 193);
+    --cs2-70:rgba(38, 134, 193,.7);
+    --cs2-30:rgba(38, 134, 193,.3); */
+
+    /* --s-itemsTotal:#4d7f64;
+    --s-tax:rgb(223, 107, 98);
+    --s-deliveryCost:#006d77;
+    --s-service:#f5c396; */
 
     /* ///// */
     /* --bbg:rgb(249, 249, 249);

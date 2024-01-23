@@ -16,9 +16,11 @@ floatToTime = function(hour,minute){
         }
         // return fixedHour+':'+minute+' '+fixed12;
         if(fixedHour < 10){fixedHour = '0'+fixedHour}
+        if(minute < 10){minute = '0'+minute}
         return [fixedHour,minute,fixed12];
     }else if(website.hour12 == 0){
-
+        if(hour < 10){hour = '0'+hour}
+        if(minute < 10){minute = '0'+minute}
         return [hour,minute,''];
     }
 }

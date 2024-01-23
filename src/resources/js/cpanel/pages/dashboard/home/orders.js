@@ -105,126 +105,126 @@ calcTodayOrdersData = function(){
 
 
 homeStatistics_so = function(data){
-    return ` <div class="statisticsInfoContainer">
-            <div class="row alnS jstfyS w100p">
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.successfulOrders}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryCost}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.totalIncome}</div>
-                </div>
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.delivery)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
-                </div>
-            </div>
-        </div>`;
+    // return ` <div class="statisticsInfoContainer">
+    //         <div class="row alnS jstfyS w100p">
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.successfulOrders}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryCost}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.totalIncome}</div>
+    //             </div>
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.delivery)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
+    //             </div>
+    //         </div>
+    //     </div>`;
 }
 homeStatistics_co = function(data){
-    return ` <div class="statisticsInfoContainer">
-            <div class="row alnS jstfyS w100p">
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.canceledOrders}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryCost}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.total}</div>
-                </div>
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.delivery)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
-                </div>
-            </div>
-        </div>`;
+    // return ` <div class="statisticsInfoContainer">
+    //         <div class="row alnS jstfyS w100p">
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.canceledOrders}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryCost}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.total}</div>
+    //             </div>
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.delivery)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
+    //             </div>
+    //         </div>
+    //     </div>`;
 }
 homeStatistics_do = function(data){
-    return ` <div class="statisticsInfoContainer">
-            <div class="row alnS jstfyS w100p">
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryOrders}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.deliveryCost}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.totalIncome}</div>
-                </div>
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.delivery)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.total)}</div>
-                </div>
-            </div>
-        </div>`;
+    // return ` <div class="statisticsInfoContainer">
+    //         <div class="row alnS jstfyS w100p">
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryOrders}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.deliveryCost}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.totalIncome}</div>
+    //             </div>
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.delivery)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.total)}</div>
+    //             </div>
+    //         </div>
+    //     </div>`;
 }
 homeStatistics_po = function(data){
-    return ` <div class="statisticsInfoContainer">
-            <div class="row alnS jstfyS w100p">
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.pickupOrders}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.totalIncome}</div>
-                </div>
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
-                </div>
-            </div>
-        </div>`;
+    // return ` <div class="statisticsInfoContainer">
+    //         <div class="row alnS jstfyS w100p">
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.pickupOrders}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.totalIncome}</div>
+    //             </div>
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
+    //             </div>
+    //         </div>
+    //     </div>`;
 }
 homeStatistics_di = function(data){
-    return ` <div class="statisticsInfoContainer">
-            <div class="row alnS jstfyS w100p">
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.dineInOrders}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
-                    <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.totalIncome}</div>
-                </div>
-                <div class="column alnS jstfyS grow1">
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
-                    <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.total)}</div>
-                </div>
-            </div>
-        </div>`;
+    // return ` <div class="statisticsInfoContainer">
+    //         <div class="row alnS jstfyS w100p">
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.dineInOrders}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
+    //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.totalIncome}</div>
+    //             </div>
+    //             <div class="column alnS jstfyS grow1">
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
+    //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.total)}</div>
+    //             </div>
+    //         </div>
+    //     </div>`;
 }
 drawTodayHomeOrders = function(){
     if(!account.is_master){

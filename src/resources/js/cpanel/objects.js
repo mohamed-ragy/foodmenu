@@ -44,6 +44,7 @@ window.noMoreProductReviews = false;
 window.product_reviews = [];
 //
 window.activity_log = [];
+window.statistics = [];
 // window.onlineGuests = [];
 // window.onlineUsers = [];
 // window.listeningTo = [];

@@ -28,6 +28,7 @@
 
 .ofH{overflow: hidden;}
 .ofA{overflow: auto;}
+.ofV{overflow: visible;}
 
 .ltr{direction: ltr;}
 .rtl{direction: rtl;}
@@ -36,6 +37,8 @@
 .opacity1{opacity:1;}
 
 .overflowX-A{overflow-x: auto;}
+
+.td200{transition-duration: 200ms;}
 
 .ofCover{object-fit: cover;}
 .blackWhite{filter:grayscale(100%)}
@@ -48,6 +51,7 @@
 .none-720{@media (max-width:720px){display:none;}}
 .none-1024{@media (max-width:1023px){display:none;}}
 .none-1280{@media (max-width:1279px){display:none;}}
+.none-1600{@media (max-width:1600px){display:none;}}
 .none{display: none;}
 
 
