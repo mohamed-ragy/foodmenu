@@ -100,7 +100,7 @@ body{
 
 @import 'pages/dashboard/home';
 @import 'pages/dashboard/activityLog';//need to finish live activitylog
-@import 'pages/dashboard/statistics';
+@import 'pages/dashboard/statistics';//done
 @import 'pages/dashboard/restaurantExpenses';//done
 @import 'pages/dashboard/financialReports';//done
 
@@ -326,9 +326,9 @@ td{
 
 ///
 .cardLoading{
-    background: linear-gradient(-90deg,  var(--shdw-5), var(--shdw-20));
+    background: linear-gradient(-90deg,  var(--shdw-5), var(--shdw-15));
     background-size: 400% 400%;
-    animation: cardLoadingAnimation 2s ease-in-out infinite;
+    animation: cardLoadingAnimation 1.5s ease-in-out infinite;
     position: relative;
 }
 @keyframes cardLoadingAnimation {

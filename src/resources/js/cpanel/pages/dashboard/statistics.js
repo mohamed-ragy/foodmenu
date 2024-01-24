@@ -8,7 +8,6 @@ require("./statistics/graph.js")
 //
 //
 load_statistics = function(){
-    // make ajax call
     draw_statistics_loading();
     draw_statistics_selected_period();
     window.statistics = [];

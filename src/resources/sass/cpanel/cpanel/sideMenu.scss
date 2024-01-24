@@ -1,28 +1,27 @@
 #sideMenu-toggle{
-    font-size: 1em;
+    font-size: 1.2em;
     @media (min-width:720px) {
         display:block;
      }
      display:none;
      cursor: pointer;
      padding:5px;
-     border-radius: 50%;
-     margin-inline-end:5px;
+     border-radius: 5px;
+     margin-inline-end:10px;
+     color:var(--sm-c3);
 }
-#sideMenu-toggle:hover{
-    background-color: var(--white-2);
-}
+
 #sideMenu-toggle > div{
     transition-duration: .5s;
     font-size: 1em;
 }
 #sideMenu-logo{
     height:30px;
-    margin-inline-start:5px;
+    margin-bottom:10px;
+    margin-top: 10px;
     @media (max-width:520px) {
         display:none;
     }
-    margin-top:5px;
 }
 #sideMenu-Container{
     height:100%;
@@ -38,7 +37,6 @@
         display:flex;
      }
     display:none;
-    border-right:1px solid var(--white-2);
     z-index: 39;
 }
 .sideMenu-Container_small{
@@ -46,7 +44,7 @@
     .sideMenu-itemTitle{display:none;}
     .sideMenu-itemArrow{display:none;}
     .side-menuItem{justify-content:center;}
-    #sideMenu-itemsContainer{width:fit-content;max-width:50px}
+    #sideMenu-itemsContainer{width:fit-content;max-width:70px}
     #sideMenu-toggle div:first-child{transform:rotateZ(180deg)}
 }
 #sideMenu-mainContainer{
@@ -56,9 +54,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    background-color: var(--white);
-    border-right:1px solid var(--white-2);
     z-index: 2;
+    background-color: var(--sm-c);
 }
 .sideMenu-mainItem_billing{
     all: unset;
@@ -66,11 +63,13 @@
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt-1);
+    color:var(--sm-c3);
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 5px;
+    margin:2px 5px;
 }
 .sideMenu-mainItem_billing:hover{text-decoration: none;}
 
@@ -78,12 +77,14 @@
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt-1);
+    color:var(--sm-c3);
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    border-radius: 5px;
+    margin:2px 5px;
 }
 .sideMenu-mainItem_unsaved{
     position: absolute;
@@ -98,17 +99,21 @@
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt-1);
+    color:var(--sm-c3);
+    border-radius: 5px;
+    margin:2px 5px;
 }
 .Logout-sideMenu{
     font-size:1.3em;
     padding:10px;
     cursor: pointer;
-    color:var(--txt-1);
+    color:var(--sm-c3);
+    border-radius: 5px;
+    margin:2px 5px;
 }
 .sideMenu-mainItemSelected{
-    background-color: var(--green-50);
-    color:var(--green-txt);
+    background-color: var(--sm-c3);
+    color:var(--sm-c2);
 }
 #sideMenu-itemsContainer{
     height:calc(100%);
@@ -116,50 +121,54 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    background-color: var(--white);
     transition-duration: 1s;
     max-width:500px;
     width:fit-content;
+    background-color: var(--sm-c2);
 }
 
 .sideMenu-itemsContainerTitle{
-    align-self: flex-end;
     font-size:1.2em;
-    color: var(--txt-1);
+    color: var(--sm-c3);
     margin:0;
+    margin-inline-end: 5px;
     font-weight:600;
     font-family: 'inter','Nunito','Tajawal', sans-serif;
 }
 .side-menuItem{
-    color: var(--txt-1);
+    color: var(--sm-c3);
     padding: 10px 5px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% - 10px);
+    width: calc(100% - 30px);
     position: relative;
+    border-radius: 5px;
+    margin: 0px 10px;
+    overflow: hidden;
 }
 .sideMenu-itemArrow{
     margin-inline-end:10px;
-    font-size: .7em;
+    font-size: .9em;
     visibility: hidden;
     flex-shrink: 0;
 }
 .sideMenu-itemTitle{
-    font-size:.8em;
+    font-size:.85em;
     margin-inline-start:10px;
+    margin-inline-end:5px;
     font-family: 'inter','Nunito','Tajawal', sans-serif;
     white-space: nowrap;
     flex-grow: 1;
 }
 .sideMenu-itemIcon{
-    font-size:1.1em;
+    font-size:1.2em;
     margin:0 5px;
     flex-shrink: 0;
 }
 .side-menuItemSelected{
-    background-color: var(--green-50);
-    color:var(--green-txt)
+    background-color: var(--sm-c3);
+    color:var(--sm-c2);
 }

@@ -138,7 +138,7 @@ showPopup =function(popup,callback=()=>{}){
         case 'addNewLang':
             $('.popupCard').addClass('popupCard-500x300')
             $('.popupTitle').text(texts.settings.addNewLang);
-            $('.popupBody').addClass('m0 p0 w100p').append(
+            $('.popupBody').addClass('w100p').append(
                 $('<div/>',{class:'addNewLangList w100p mB20'})
             );
         break;

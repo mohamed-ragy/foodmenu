@@ -38,7 +38,14 @@ draw_statistics_selected_period = function(){
     )
 }
 draw_statistics_loading = function(){
-    $('#statistics_container').text('')
+    $('#statistics_container').text('').append(
+        $('<div/>',{class:'cardLoading w200 h20 br5 mX10 mY20'}),
+        $('<div/>',{class:'cardLoading w300 h20 br5 mX10 mY20'}),
+        $('<div/>',{class:'cardLoading w250 h20 br5 mX10 mY20'}),
+        $('<div/>',{class:'cardLoading w400 h20 br5 mX10 mY20'}),
+        $('<div/>',{class:'cardLoading w300 h20 br5 mX10 mY20'}),
+
+    )
 }
 draw_statistics_loaded_notFound = function(text){
     $('#statistics_container').text('').append(

@@ -1,9 +1,11 @@
 console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 console.log(window.navigator.language)
 $(window).resize(function(){
-    if(window.page.page == 'statistics_and_analytics' && $(window).width() < 1366 || $(window).height() < 768){
-        $('#pageWrapper').removeClass().text('')
-        drawPage_statistics_and_analytics_smallScreen();
+    if(window.history.state.page == 'statistics_and_analytics' ){
+        if($(window).width() < 1366 || $(window).height() < 768){
+            $('#pageWrapper').removeClass().text('')
+            drawPage_statistics_and_analytics_smallScreen();
+        }
 
     }
 })
@@ -28,7 +30,7 @@ $('#sideMenu-Container').append(
         ),
     ),
     $('<div/>',{id:'sideMenu-mainContainer'}).append(
-        $('<div/>').append(
+        $('<div/>',{class:'column alnC jstfyS'}).append(
             $('<img/>',{id:'sideMenu-logo',src:'./storage/logo/logo.png'}),
         ),
         $('<div/>'),

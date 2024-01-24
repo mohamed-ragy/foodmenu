@@ -87,7 +87,7 @@ require("./tools/tooltip.js");
 
 require("./pages/dashboard/home.js");
 require("./pages/dashboard/activityLog.js");//need to finish the live activity log
-require("./pages/dashboard/statistics.js");
+require("./pages/dashboard/statistics.js");//done
 require("./pages/dashboard/restaurantExpenses.js");//done
 require("./pages/dashboard/financialReports.js");//done
 

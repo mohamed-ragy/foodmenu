@@ -1,6 +1,8 @@
 .nav{
-    width:calc(100%);
+    // width:calc(100%);
     // padding:5px;
+    margin: 10px;
+    width: calc(100% - 20px);
     background-color: var(--white);
     color:var(--txt-1);
     display:flex;
@@ -13,7 +15,8 @@
      @media print {
         display:none;
     }
-    border-bottom: 1px solid var(--white-2);
+    // border-bottom: 1px solid var(--white-2);
+
     @media (max-width:520px) {
         justify-content: center;
     }
