@@ -1,14 +1,9 @@
 drawPage_sub_accounts = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.sub_accounts}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'sub_accounts'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_sub_account',text:texts.staff.createSubAccount}),
             ),
             $('<div/>',{class:'w100p overflowX-A'}).append(

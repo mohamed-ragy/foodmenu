@@ -16,7 +16,7 @@ draw_statistics_orders = function(){
     $('#statistics_orders').text('').append(
         $('<div/>',{class:'mT40 mB20',id:'statistics_orders_head'}),
         $('<div/>',{class:'mT100'}).append(
-            $('<div/>',{class:'w100p row alnS jstfyS'}).append(
+            $('<div/>',{class:'w100p row alnC jstfyC'}).append(
                 $('<div/>',{class:'mie-100 taC'}).append(
                     $('<div/>',{class:'taS mis-50 mB20 fs102 bold statistics_orders_ordersGraph_title',text:texts.dashboard.successfulOrders}),
                     drawStatisticsGraph('statistics_orders_ordersGraph',graph_height,graph_width,'orders',orders_highestNum)

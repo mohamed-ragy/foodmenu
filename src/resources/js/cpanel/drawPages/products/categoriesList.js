@@ -1,15 +1,9 @@
 drawPage_category_list = function(){
-    $('#pageWrapper').addClass('mxw1000')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'categoryListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
-                $('<span/>',{text:texts.cpanel.menu.category_list}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'product_categories'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_category',text:texts.products.createCategory})
             ),
             $('<div/>',{class:'categoriesListContainer w100p row wrap alnS jstfyC',autoHelp:'categories_list'})

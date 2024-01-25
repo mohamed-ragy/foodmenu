@@ -1,12 +1,8 @@
 drawPage_order_pickup_settings = function(){
-    $('#pageWrapper').addClass('mxw900')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.order_pickup_settings}),
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(
@@ -43,7 +39,7 @@ drawPage_order_pickup_settings = function(){
                     $('<table/>',{id:'pickup-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
                 )
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'average_pickup_time'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'average_pickup_time'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'average_pickup_time-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.averagePickupTime}),
@@ -61,7 +57,7 @@ drawPage_order_pickup_settings = function(){
                 ),
                 drawSaveCancelBtns('avgPickupTimeSaveBtn','avgPickupTimeCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'pickup_payment_methods'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'pickup_payment_methods'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'pickup_payment_methods-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.paymentMethods}),
@@ -85,7 +81,7 @@ drawPage_order_pickup_settings = function(){
                 ),
                 drawSaveCancelBtns('pickupPaymentMethodsSaveBtn','pickupPaymentMethodsCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'pickup_minimum_charge'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'pickup_minimum_charge'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'pickup_minimum_charge-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.minimumCharge}),
@@ -97,7 +93,7 @@ drawPage_order_pickup_settings = function(){
                 ),
                 drawSaveCancelBtns('pickupMinimumChargeSaveBtn','pickupMinimumChargeCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'pickup_tax_settings'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'pickup_tax_settings'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'pickup_tax_settings-noSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.taxSettings}),

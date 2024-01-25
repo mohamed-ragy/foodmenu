@@ -21,8 +21,6 @@
 
 <body>
     <div class="popupContainer none"></div>
-    {{-- @include('cpanel.popups') --}}
-
     <div id="bodyContainer">
         <div id="sideMenu-Container"></div>
         <div id="cp-body">
@@ -34,16 +32,14 @@
                         <span class="mX5" id="paymentFailAnnTxt">{{ trans('cpanel/settings/generalSettings.siteoffpaymentFail') }}</span>
                     </a>
                     <div id="pageWrapper"></div>
-                    {{-- @include('cpanel.pages') --}}
                 </div>
                 <div id="helpWindow" class="helpWindowNormal">
-                    <span id="helpWindowControls">
+                    <div id="helpWindowControls">
                         <span class="pointer ico-minimize" id="autoHelp-miniAll" tooltip="<div><span>{{ trans('cpanel/cpanel.public.minimizeAll') }} </span><span class='hotKeys'>{{ trans('cpanel/cpanel.hotKeys.miniAll') }}</span></div>" ></span>
                         <span class="pointer ico-maximize" id="autoHelp-maxAll" tooltip="<div><span>{{ trans('cpanel/cpanel.public.minimizeAll') }} </span><span class='hotKeys'>{{ trans('cpanel/cpanel.hotKeys.maxAll') }}</span></div>" ></span>
                         <span class="pointer ico-eraser " id="autoHelp-clearUnpinned" tooltip="<div><span>{{ trans('cpanel/cpanel.public.clearUnpinned') }} </span><span class='hotKeys'>{{ trans('cpanel/cpanel.hotKeys.clearUnpinned') }}</span></div>" ></span>
                         <span class="pointer ico-delete" id="autoHelp-clearAll" tooltip="<div><span>{{ trans('cpanel/cpanel.public.clearAll') }} </span><span class='hotKeys'>{{ trans('cpanel/cpanel.hotKeys.clearAll') }}</span></div>" ></span>
-                    </span>
-                    {{-- @include('cpanel.autoHelp') --}}
+                    </div>
                 </div>
             </div>
         </div>

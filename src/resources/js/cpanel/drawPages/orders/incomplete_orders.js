@@ -1,14 +1,9 @@
 drawPage_incomplete_orders = function(){
-    $('#pageWrapper').addClass('mxw1000')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.incomplete_orders}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'incomplete_orders'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'place_new_order',text:texts.orders.place_new_order})
             ),
             $('<div/>',{class:'pageTabs'}).append(

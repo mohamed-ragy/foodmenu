@@ -1,13 +1,8 @@
 drawPage_images = function(){
-    $('#pageWrapper').addClass('mxw1000')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.images}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'images'})
-            ),
             $('<div/>',{class:'mX5 mB50'}).append(
                 $('<span/>',{text:texts.design.storageSize,class:'mie-5'}),
                 $('<span/>',{}).append(

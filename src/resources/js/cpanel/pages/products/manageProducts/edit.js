@@ -29,9 +29,11 @@ editProductsNoSaveCheck = function(){
         $('#manageProducts-selectCategoryList').find(`.inputListElement[key="${unsavedProdsCats[key]}"]`).find('.inputListElement_unsaved').removeClass('none')
     }
     if(editProductsCheck){
+        $('.productsListNoSave').addClass('none')
         $('#manageProducts-selectCategory').closest('.inputListContainer').find('.inputList_unsaved').addClass('none')
         return true;
     }else{
+        $('.productsListNoSave').removeClass('none')
         $('#manageProducts-selectCategory').closest('.inputListContainer').find('.inputList_unsaved').removeClass('none')
         return false;
     }

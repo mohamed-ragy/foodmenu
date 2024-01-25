@@ -1,13 +1,8 @@
 drawPage_financial_reports = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.financial_reports}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'financial_reports'})
-            ),
             $('<div/>',{class:'w100p mB10 row alnC jstfyE'}).append(
                 $('<div/>',{class:'financialReportsCountContainer',page:1}),
                 $('<div/>',{class:'financialReportsPrev financialReportsArrow_dump ico-left',tooltip:texts.cpanel.public.previous}),

@@ -27,6 +27,11 @@ getOrder = function(order_id){
 calcIncompleteOrders = function(){
     let incomplete = website.incompleteOrders.length;
     let pending = 0; let accepted = 0; let our_for_delivery = 0; let ready_for_pickup = 0; let dinginin = 0;
+    if(website.incompleteOrders.length == 0){
+        $('#noMenuOrders').removeClass('none')
+    }else{
+        $('#noMenuOrders').addClass('none')
+    }
     for(const key in website.incompleteOrders){
         if(website.incompleteOrders[key].status == 0){pending++;}
         else if(website.incompleteOrders[key].status == 1){accepted++;}

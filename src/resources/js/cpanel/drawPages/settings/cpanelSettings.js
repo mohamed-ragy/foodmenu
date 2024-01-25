@@ -1,12 +1,8 @@
 drawPage_control_panel_settings = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.control_panel_settings}),
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(

@@ -138,6 +138,7 @@ $('html,body').on('click','.navMenu-element',function(){
 
 showPage = function(pageId,tab,keysObj){
     return new Promise(function(resolve, reject){
+        $('#navTitle').text('')
         //
         $(`.sideMenu-mainItem[menuId="${$(`.side-menuItem[cpPage="${pageId}"]`).attr('menucat')}"]`).trigger('click')
         $('.side-menuItem').removeClass('side-menuItemSelected');
@@ -158,6 +159,11 @@ showPage = function(pageId,tab,keysObj){
             switch(pageId){
                 case 'statistics_and_analytics':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.statistics_and_analytics}),
+                        ),
+                    )
                     if($(window).width() < 1366 || $(window).height() < 768){
                         drawPage_statistics_and_analytics_smallScreen();
                         resolve(pushHistory);
@@ -179,6 +185,12 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'activity_log':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.activity_log}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'activity_log'})
+                        ),
+                    )
                     window.page.year = keysObj.year ?? new Date().getFullYear();
                     window.page.month = keysObj.month ?? parseInt(new Date().getMonth() ) + 1;
                     window.page.day = keysObj.day ?? new Date().getDate();
@@ -187,16 +199,34 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'financial_reports':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.financial_reports}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'financial_reports'})
+                        ),
+                    )
                     drawPage_financial_reports();
                     resolve(pushHistory);
                 break;
                 case 'restaurant_expenses':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.restaurant_expenses}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'restaurant_expenses'})
+                        ),
+                    )
                     drawPage_restaurant_expenses();
                     resolve(pushHistory);
                 break;
                 case 'order_history':
                     if(account.authorities[0] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.order_history}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'order_history'})
+                        ),
+                    )
                     window.page.orderHistory_page = keysObj.orderHistory_page ?? '1';
                     window.page.orderBy = keysObj.orderBy ?? 'placed_at';
                     window.page.sort = keysObj.sort ?? 'desc';
@@ -213,6 +243,12 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'incomplete_orders':
                     if(account.authorities[0] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.incomplete_orders}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'incomplete_orders'})
+                        ),
+                    )
                     tab == null ? tab = 'all_orders' : null;
                     drawPage_incomplete_orders();
                     window.page.sort = keysObj.sort;
@@ -222,25 +258,44 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'images':
                     if(account.authorities[3] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.images}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'images'})
+                        ),
+                    )
                     drawPage_images();
                     resolve(pushHistory);
                 break;
                 case 'product_reviews':
                     if(account.authorities[1] == false){reject(1);return;}
-                        window.page.product = keysObj.product ?? 'allproducts';
-                        window.page.user = keysObj.user ?? '';
-                        window.page.byUsers = keysObj.byUsers ?? '1';
-                        window.page.byGuests = keysObj.byGuests ?? '1';
-                        window.page.star1 = keysObj.star1 ?? '1';
-                        window.page.star2 = keysObj.star2 ?? '1';
-                        window.page.star3 = keysObj.star3 ?? '1';
-                        window.page.star4 = keysObj.star4 ?? '1';
-                        window.page.star5 = keysObj.star5 ?? '1';
-                        draw_product_reviews();
-                        resolve(pushHistory);
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.product_reviews}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'product_rating_and_reviews'})
+                        ),
+                    )
+                    window.page.product = keysObj.product ?? 'allproducts';
+                    window.page.user = keysObj.user ?? '';
+                    window.page.byUsers = keysObj.byUsers ?? '1';
+                    window.page.byGuests = keysObj.byGuests ?? '1';
+                    window.page.star1 = keysObj.star1 ?? '1';
+                    window.page.star2 = keysObj.star2 ?? '1';
+                    window.page.star3 = keysObj.star3 ?? '1';
+                    window.page.star4 = keysObj.star4 ?? '1';
+                    window.page.star5 = keysObj.star5 ?? '1';
+                    draw_product_reviews();
+                    resolve(pushHistory);
                 break;
                 case 'manage_products':
                     if(account.authorities[1] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'productsListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
+                            $('<span/>',{text:texts.cpanel.menu.manage_products}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'manage_products'})
+                        ),
+                    )
                     window.page.category = keysObj.category;
                     if(typeof(window.page.category) === 'undefined' || window.page.category == null){window.page.category = 'allproducts'}
                     drawPage_manage_products();
@@ -248,16 +303,34 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'category_list':
                     if(account.authorities[1] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'categoryListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
+                            $('<span/>',{text:texts.cpanel.menu.category_list}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'product_categories'})
+                        ),
+                    )
                     drawPage_category_list();
                     resolve(pushHistory);
                 break;
                 case 'create_new_user':
                     if(account.authorities[2] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.create_new_user}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'create_new_user_account'})
+                        ),
+                    )
                     drawPage_create_new_user();
                     resolve(pushHistory);
                 break;
                 case 'manage_users':
                     if(account.authorities[2] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.manage_users}),
+                        ),
+                    )
                     drawPage_manage_users();
                     if(typeof(keysObj.user) !== 'undefined' && keysObj.user != null){
                         drawManageUserLoading();
@@ -270,80 +343,171 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'online_users':
                     if(account.authorities[2] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.online_users}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'online_users_and_guests'})
+                        ),
+                    )
                     drawPage_online_users();
                     resolve(pushHistory);
                 break;
                 case 'delivery_accounts':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.delivery_accounts}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'delivery_accounts'})
+                        ),
+                    )
                     drawPage_delivery_accounts();
                     resolve(pushHistory);
                 break;
                 case 'sub_accounts':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.sub_accounts}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'sub_accounts'})
+                        ),
+                    )
                     drawPage_sub_accounts();
                     resolve(pushHistory);
                 break;
                 case 'system':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.system}),
+                        ),
+                    )
                     drawPage_system();
                     resolve(pushHistory);
                 break;
                 case 'restaurant_information':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.restaurant_information}),
+                        ),
+                    )
                     drawPage_restaurant_information();
                     resolve(pushHistory);
                 break;
                 case 'languages':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'websiteLangsNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
+                            $('<span/>',{text:texts.cpanel.menu.languages}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'languages'})
+                        ),
+                    )
                     drawPage_languages();
                     resolve(pushHistory);
                 break;
                 case 'control_panel_settings':
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.control_panel_settings}),
+                        ),
+                    )
                     drawPage_control_panel_settings();
                     resolve(pushHistory);
                 break;
                 case 'home_delivery_settings':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.home_delivery_settings}),
+                            ),
+                    )
                     drawPage_home_delivery_settings();
                     resolve(pushHistory);
                 break;
                 case 'order_pickup_settings':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.order_pickup_settings}),
+                            ),
+                    )
                     drawPage_order_pickup_settings();
                     resolve(pushHistory);
                 break;
                 case 'dine_in_settings':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.dine_in_settings}),
+                            ),
+                    )
                     dine_in_settings_settings();
                     resolve(pushHistory);
                 break;
                 case 'promo_codes':
                     if(account.authorities[4] == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.promo_codes}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'promo_codes'})
+                        ),
+                    )
                     drawPage_promo_codes();
                     resolve(pushHistory);
                 break;
                 case 'email_address':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.email_address}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'your_account_email_address'})
+                        ),
+                    )
                     drawPage_email_address();
                     resolve(pushHistory);
                 break;
                 case 'password':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.password}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'changing_your_password'})
+                        ),
+                    )
                     drawPage_password();
                     resolve(pushHistory);
                 break;
                 case 'phone_number':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.phone_number}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'your_account_phone_number'})
+                        ),
+                    )
                     drawPage_phone_number();
                     resolve(pushHistory);
                 break;
                 case 'ticket_history':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.submit_a_help_ticket}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'submit_ticket'})
+                        ),
+                    )
                     drawPage_ticket_history();
                     resolve(pushHistory);
                 break;
                 case 'submit_a_help_ticket':
                     if(account.is_master == false){reject(1);return;}
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.ticket_history}),
+                            $('<span/>',{class:'ico-help help-icon',helpId:'ticket_history'})
+                        ),
+                    )
                     drawPage_submit_a_help_ticket();
                     resolve(pushHistory);
                 break;

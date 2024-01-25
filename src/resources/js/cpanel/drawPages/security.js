@@ -1,14 +1,8 @@
 drawPage_email_address = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection ',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.email_address}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'your_account_email_address'})
-            ),
-
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(
@@ -55,15 +49,10 @@ drawPage_email_address = function(){
     checkEmailVerification();
 }
 drawPage_password = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.password}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'changing_your_password'})
-            ),
             $('<div/>',{class:'area wFC mT40'}).append(
                 $('<div/>',{class:'areaTitle',text:texts.security.changePassword}),
                 drawInputText('','ico-password','',texts.security.currentpassword,'account-current_password','password',texts.security.currentpassword,200,'password','','',false,''),
@@ -77,15 +66,10 @@ drawPage_password = function(){
     )
 }
 drawPage_phone_number = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.phone_number}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'your_account_phone_number'})
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(

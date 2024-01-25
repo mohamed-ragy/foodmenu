@@ -1,14 +1,9 @@
 drawPage_delivery_accounts = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
             class:'pageSection pT10',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.delivery_accounts}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'delivery_accounts'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_delivery_account',text:texts.staff.createDeliveryAccount}),
             ),
             $('<div/>',{class:'w100p overflowX-A'}).append(

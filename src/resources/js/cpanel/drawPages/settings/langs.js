@@ -1,15 +1,9 @@
 drawPage_languages = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'websiteLangsNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
-                $('<span/>',{text:texts.cpanel.menu.languages}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'languages'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel',id:'langs-addNewLang',text:texts.settings.addNewLang,autoHelp:'install_new_language'}),
             ),
             $('<div/>',{class:'w100p overflowX-A'}).append(
@@ -18,8 +12,6 @@ drawPage_languages = function(){
         ),
 
     )
-
-
     setWebsiteLangs();
 }
 drawPopupPage_create_custom_language = function(){

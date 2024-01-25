@@ -1,13 +1,8 @@
 drawPage_submit_a_help_ticket = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection mxw800',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.submit_a_help_ticket}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'submit_ticket'})
-            ),
             drawInputText('','ico-title','',texts.support.ticketTitle,'support-submitTicket-ticketTitle','text',texts.support.ticketTitle,100,'clearVal',),
             drawInputList('','ico-categories','',texts.support.ticketCode,'support-submitTicket-ticketCode',texts.support.selectTicketCode,100,'support-submitTicket-ticketCodeList',false),
             drawTextArea('','ico-description','',texts.support.ticketDescription,'support_submitTicket_ticketDescription',1000,''),
@@ -35,15 +30,10 @@ drawPage_submit_a_help_ticket = function(){
     setSubmitTicketInputList();
 }
 drawPage_ticket_history = function(){
-    $('#pageWrapper').addClass('mxw1300')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.ticket_history}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'ticket_history'})
-            ),
             $('<div/>',{class:'w100p mB10 row alnC jstfyE'}).append(
                 $('<div/>',{class:'ticketsCountContainer'}),
                 $('<div/>',{class:'ticketHistoryPrev ticketHistoryArrow_dump ico-left',tooltip:texts.cpanel.public.previous}),

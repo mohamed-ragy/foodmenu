@@ -1,13 +1,8 @@
 drawPage_restaurant_expenses = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.restaurant_expenses}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'restaurant_expenses'})
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(

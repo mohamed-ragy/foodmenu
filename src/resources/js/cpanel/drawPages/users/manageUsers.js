@@ -1,13 +1,8 @@
 drawPage_manage_users=function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection ',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.manage_users}),
-                // $('<span/>',{class:'ico-help help-icon',helpId:''})
-            ),
             $('<div/>',{class:'area mT40',autoHelp:'find_users'}).append(
                 $('<div/>',{class:'areaTitle',text:texts.users.findUser}),
                 drawInputList('','ico-users','',texts.users.findUser,'manageUsers-usersInputList',texts.users.findUserPlaceholder,250,'manageUsers-usersInputListList',false,'','findUserList','findUser'),
@@ -18,7 +13,7 @@ drawPage_manage_users=function(){
                     )
                 )
             ),
-            $('<div/>',{class:'',id:'editUser-container',autoHelp:'manage_users'})
+            $('<div/>',{class:'mxw800',id:'editUser-container',autoHelp:'manage_users'})
         )
     )
 }

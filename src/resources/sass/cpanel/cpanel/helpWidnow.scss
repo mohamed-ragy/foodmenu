@@ -3,38 +3,50 @@
     overflow-y: scroll;
     height:calc(100% - 60px);
     padding-top:60px;
-    width:20%;
     z-index: 1;
     color: var(--txt-1);
     background-color: var(--white);
-    transition-duration: .5s;
+    transition-duration: .2s;
+    width:500px;
+    @media (max-width:1600px) {
+        width:300px
+    }
 }
 .helpWindow_popupPage{
     overflow-x: hidden;
     overflow-y: scroll;
     height:calc(100% - 60px);
     padding-top:60px;
-    width:20%;
     z-index: 65;
     background-color: transparent;
-    transition-duration: .5s;
+    transition-duration: .2s;
+    width:500px;
+    @media (max-width:1600px) {
+        width:300px
+    }
 }
-.showHelpWindow{width:20%;}
+.showHelpWindow{
+    width:500px;
+    @media (max-width:1600px) {
+        width:300px
+    }
+}
 .hideHelpWindow{width:0%;}
 #helpWindowControls{
     position: absolute;
     margin-inline-start: 5px;
-    top:0px;
+    top:10px;
     right:7px;
     border-bottom: none;
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px 0 0 5px;
     height:fit-content;
     z-index: 43;
     background-color: var(--white);
     color:var(--txt-1);
     box-shadow: 0 0 3px var(--shdw-10);
     padding:10px 3px;
-    transition-duration: .5s;
+    transition-duration: .4s;
+    transition-delay: 200ms;
 }
 #helpWindowControls span{
     padding:5px;
@@ -47,6 +59,6 @@
     background-color: var(--white-2);
 }
 .helpWindowControls_hide{
-    transform: translateY(-50px);
+    transform: translateX(250px);
 }
 #autoHelp-clearAll:hover{color:var(--red)}

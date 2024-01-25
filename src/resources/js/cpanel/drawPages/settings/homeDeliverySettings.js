@@ -1,12 +1,8 @@
 drawPage_home_delivery_settings = function(){
-    $('#pageWrapper').addClass('mxw900')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.home_delivery_settings}),
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(
@@ -47,7 +43,7 @@ drawPage_home_delivery_settings = function(){
                     $('<table/>',{id:'delivery-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
                 )
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'delivery_fees'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'delivery_fees'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'deliveryFees-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.deliveryFees}),
@@ -59,7 +55,7 @@ drawPage_home_delivery_settings = function(){
                 ),
                 drawSaveCancelBtns('deliveryCostSaveBtn','deliveryCostCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'average_delivery_time'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'average_delivery_time'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'averageDeliveryTime-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.averageDeliveryTime}),
@@ -77,7 +73,7 @@ drawPage_home_delivery_settings = function(){
                 ),
                 drawSaveCancelBtns('avgDeliveryTimeSaveBtn','avgDeliveryTimeCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'delivery_payment_methods'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'delivery_payment_methods'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'delivery_payment_methods-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.paymentMethods}),
@@ -101,7 +97,7 @@ drawPage_home_delivery_settings = function(){
                 ),
                 drawSaveCancelBtns('deliveryPaymentMethodsSaveBtn','deliveryPaymentMethodsCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'delivery_minimum_charge'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'delivery_minimum_charge'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'delivery_minimum_charge-NoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.minimumCharge}),
@@ -113,7 +109,7 @@ drawPage_home_delivery_settings = function(){
                 ),
                 drawSaveCancelBtns('deliveryMinimumChargeSaveBtn','deliveryMinimumChargeCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'delivery_tax_settings'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'delivery_tax_settings'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'delivery_tax_settings-noSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.taxSettings}),

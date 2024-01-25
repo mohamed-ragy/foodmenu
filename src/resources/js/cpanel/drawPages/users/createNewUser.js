@@ -2,12 +2,8 @@ drawPage_create_new_user = function(){
     $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.create_new_user}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'create_new_user_account'})
-            ),
             $('<div/>',{class:'wFC'}).append(
                 drawInputText('','ico-email_address','',texts.users.email,'createNewUser-email','text',texts.users.email,'100','clearVal','inputTextContainer_100p','',false),
                 drawInputText('','ico-password','',texts.users.password,'createNewUser-password','password',texts.users.password,'100','password','inputTextContainer_100p','',false),

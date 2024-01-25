@@ -1,12 +1,8 @@
 drawPage_system = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.system}),
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(
@@ -26,7 +22,7 @@ drawPage_system = function(){
                 ),
                 $('<div/>',{class:'pageTabArrow pageTabArrowRight ico-right'}),
             ),
-            $('<div/>',{class:'pageTabContainer pageTabContainer_selected',tab:'region'}).append(
+            $('<div/>',{class:'pageTabContainer pageTabContainer_selected mxw1000',tab:'region'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'system-countrynoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.country}),
@@ -110,7 +106,7 @@ drawPage_system = function(){
                 ),
                 drawSaveCancelBtns('systemSettingsSaveBtn','systemSettingsCancelBtn','mT40'),
             ),
-            $('<div/>',{class:'pageTabContainer authority_master',tab:'privacy_policy'}).append(
+            $('<div/>',{class:'pageTabContainer authority_master mxw1000',tab:'privacy_policy'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'system-privacyPolicyNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.privacyPolicy}),
@@ -120,7 +116,7 @@ drawPage_system = function(){
                 drawSaveCancelBtns('system-privacyPolicySaveBtn','system-privacyPolicyCancelBtn','mT40'),
 
             ),
-            $('<div/>',{class:'pageTabContainer authority_master',tab:'delete_data'}).append(
+            $('<div/>',{class:'pageTabContainer authority_master mxw800',tab:'delete_data'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{text:texts.settings.deleteOrdersAndStatistics}),
                     $('<span/>',{class:'ico-help help-icon',helpId:'delete_data'})

@@ -1,12 +1,8 @@
 drawPage_statistics_and_analytics_smallScreen = function(){
-    $('#pageWrapper').addClass('mxw1800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection ',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.statistics_and_analytics}),
-            ),
             $('<div/>',{class:'msgBox_red wFC'}).append(
                 $('<span/>',{class:'ico-warning fs2 mB10'}),
                 $('<span/>',{class:'taC',text:texts.dashboard.statisticsSmallScreenMsg})
@@ -15,16 +11,9 @@ drawPage_statistics_and_analytics_smallScreen = function(){
     )
 }
 drawPage_statistics_and_analytics = function(){
-    $('#pageWrapper').addClass('mxw1366 column alnS jstfyS')
+    $('#pageWrapper').addClass('column alnS jstfyS')
     $('#pageWrapper').append(
-        $('<div/>',{
-            class:'pageSection mB0 pB0 pT10',
-        }).append(
-            $('<div/>',{class:'pageSectionTitle mB10'}).append(
-                $('<span/>',{text:texts.cpanel.menu.statistics_and_analytics}),
-            ),
-            $('<div/>',{id:'statistics_select_period',class:'pointer mis-10',})
-        ),
+        $('<div/>',{id:'statistics_select_period',class:'pointer mis-10',}),
         $('<div/>',{class:'w100p-40 m20 grow2',id:'statistics_container'})
     )
     load_statistics();

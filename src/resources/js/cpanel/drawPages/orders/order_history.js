@@ -1,15 +1,11 @@
 drawPage_order_history = function(){
-    $('#pageWrapper').addClass('mxw1000')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.order_history}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'order_history'})
-            ),
-            $('<div/>',{class:'w100p mT40'}).append(
-                $('<div/>',{class:'',autoHelp:'find_orders'}).append(
+            $('<div/>',{class:'w100p'}).append(
+                $('<div/>',{class:'area',autoHelp:'find_orders'}).append(
+                    $('<div/>',{class:'areaTitle',text:texts.orders.findOrders}),
                     $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.orderNumber}),
                     $('<div/>',{class:'row wrap alnC jstfyS'}).append(
                         drawInputText('','ico-hashtag','',texts.orders.orderNumber,'orderHistory-orderNumber','number',texts.orders.orderNumber,200,'clearVal','','',false,'')
@@ -17,34 +13,34 @@ drawPage_order_history = function(){
                     $('<div/>',{class:'orderHistoryFiltersContainer'}).append(
                         $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.orderStatus}),
                         $('<div/>',{class:'row wrap alnC jstfyS'}).append(
-                            $('<div/>',{orderHistoryStatusBy:'dinedIn',class:'orderHistoryStatusBy pointer mX20'}).append(
+                            $('<div/>',{orderHistoryStatusBy:'dinedIn',class:'orderHistoryStatusBy pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.orders.dinedIn}),
                             ),
-                            $('<div/>',{orderHistoryStatusBy:'pickedUp',class:'orderHistoryStatusBy pointer mX20'}).append(
+                            $('<div/>',{orderHistoryStatusBy:'pickedUp',class:'orderHistoryStatusBy pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.orders.pickedUp}),
                             ),
-                            $('<div/>',{orderHistoryStatusBy:'delivered',class:'orderHistoryStatusBy pointer mX20'}).append(
+                            $('<div/>',{orderHistoryStatusBy:'delivered',class:'orderHistoryStatusBy pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.orders.delivered}),
                             ),
-                            $('<div/>',{orderHistoryStatusBy:'canceled',class:'orderHistoryStatusBy pointer mX20'}).append(
+                            $('<div/>',{orderHistoryStatusBy:'canceled',class:'orderHistoryStatusBy pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryStatusByCheck ico-check1 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.orders.canceled}),
                             ),
                         ),
                         $('<div/>',{class:'fs08 mT20 mB5',text:texts.orders.placedFor}),
                         $('<div/>',{class:'row wrap alnC jstfyS'}).append(
-                            $('<div/>',{orderHistoryFor:'users',class:'orderHistoryFor pointer mX20'}).append(
+                            $('<div/>',{orderHistoryFor:'users',class:'orderHistoryFor pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryForCheck ico-check1 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.cpanel.public.users}),
                             ),
-                            $('<div/>',{orderHistoryFor:'guests',class:'orderHistoryFor pointer mX20'}).append(
+                            $('<div/>',{orderHistoryFor:'guests',class:'orderHistoryFor pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryForCheck ico-check1 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.cpanel.public.guests}),
                             ),
-                            $('<div/>',{orderHistoryFor:'user',class:'orderHistoryFor pointer mX20'}).append(
+                            $('<div/>',{orderHistoryFor:'user',class:'orderHistoryFor pointer mX20 mY5'}).append(
                                 $('<span/>',{class:'orderHistoryForCheck ico-check0 mie-5 fs08'}),
                                 $('<span/>',{class:'fs09',text:texts.cpanel.public.user}),
                             ),
@@ -57,7 +53,7 @@ drawPage_order_history = function(){
                     $('<div/>',{class:'btnContainer mT20'}).append(
                         $('<button/>',{class:'btn',id:'orderHistory_findOrdersBtn'}).append(
                             $('<div/>',{class:'btnLoading'}),
-                            $('<div/>',{class:'btnTxt',text:texts.orders.findOrders})
+                            $('<div/>',{class:'btnTxt',text:texts.cpanel.public.find})
                         )
                     ),
                 ),

@@ -58,8 +58,10 @@
 }
 .navElement{
     font-size: 1.3em;
-    padding: 10px 20px;
+    padding: 10px 10px;
+    margin:0 5px;
     cursor: pointer;
+    border-radius: 10px;;
     user-select: none;
     display: flex;
     align-items: center;
@@ -67,7 +69,9 @@
     position: relative;
     z-index: 10;
 }
-
+.navElement:hover{
+    background-color:var(--white-2);
+}
 .navElementSelected{
     background-color:var(--white-2);
 }
@@ -78,7 +82,7 @@
     min-width: 10px;
     min-height: 10px;
     padding: 2px;
-    left: 30px;
+    left: 20px;
     bottom: 5px;
     font-size: 0.6em;
     line-height: 0em;
@@ -104,14 +108,13 @@
     color:var(--txt-1);
     max-height: 70vh;
     padding:10px 0;
-    z-index: 39;
+    z-index: 40;
     display: none;
     user-select: none;
-    border-radius: 0 0  2px 2px;
+    border-radius: 5px;
     overflow-y: auto;
     box-shadow: 0 0 5px var(--shdw-20);
     animation: 150ms navListAnimation 0s 1 ease-in-out;
-    border-radius: 0 0 5px 5px;
     background-color: var(--white-1);
 }
 @keyframes navListAnimation {

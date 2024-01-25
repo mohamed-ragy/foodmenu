@@ -1,12 +1,8 @@
 drawPage_restaurant_information = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.restaurant_information}),
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(
@@ -56,7 +52,7 @@ drawPage_restaurant_information = function(){
                 ),
                 $('<div/>',{class:'pageTabArrow pageTabArrowRight ico-right'}),
             ),
-            $('<div/>',{class:'pageTabContainer pageTabContainer_selected',tab:'logo_and_icon'}).append(
+            $('<div/>',{class:'pageTabContainer pageTabContainer_selected mxw200',tab:'logo_and_icon'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5'}).append(
                     $('<span/>',{text:texts.settings.websiteIcon}),
                     $('<span/>',{class:'ico-help help-icon',helpId:'website_icon'})
@@ -77,7 +73,7 @@ drawPage_restaurant_information = function(){
                     $('<div/>',{class:'loading absolute',id:'settings-websiteLogoLoading'})
                 )
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'restaurant_name'}).append(
+            $('<div/>',{class:'pageTabContainer mxw350',tab:'restaurant_name'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'websiteNameNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.websiteNameTitle}),
@@ -86,7 +82,7 @@ drawPage_restaurant_information = function(){
                 $('<div/>',{id:'restaurant_name_inputBoxes'}),
                 drawSaveCancelBtns('setting-restaurantName-SaveBtn','setting-restaurantName-CancelBtn','mT40'),
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'restaurant_description'}).append(
+            $('<div/>',{class:'pageTabContainer mxw800',tab:'restaurant_description'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'websiteDescriptionNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.websiteDescription}),
@@ -95,7 +91,7 @@ drawPage_restaurant_information = function(){
                 $('<div/>',{id:'websiteDescriptionTextAreas'}),
                 drawSaveCancelBtns('settings-websiteDescriptionSaveBtn','settings-websiteDescriptionCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'restaurant_email'}).append(
+            $('<div/>',{class:'pageTabContainer mxw350',tab:'restaurant_email'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'restaurantEmailNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.restaurantEmail}),
@@ -104,7 +100,7 @@ drawPage_restaurant_information = function(){
                 drawInputText('','ico-email_address','',`${texts.settings.restaurantEmail}`,'settings-restaurantEmail','text',`${texts.settings.restaurantEmail}`,150,'clearVal',''),
                 drawSaveCancelBtns('settings-restaurantEmailSaveBtn','settings-restaurantEmailCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'restaurant_phone_numbers'}).append(
+            $('<div/>',{class:'pageTabContainer mxw350',tab:'restaurant_phone_numbers'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'websitePhoneNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.websitePhone}),
@@ -117,7 +113,7 @@ drawPage_restaurant_information = function(){
                 ),
                 drawSaveCancelBtns('setting-phoneNumberSaveBtn','setting-phoneNumberCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'restaurant_address'}).append(
+            $('<div/>',{class:'pageTabContainer mxw800',tab:'restaurant_address'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'websiteAddressNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.websiteAddressTitle}),
@@ -126,7 +122,7 @@ drawPage_restaurant_information = function(){
                 $('<div/>',{id:'restaurant_address_inputBoxes'}),
                 drawSaveCancelBtns('setting-websiteAddressSaveBtn','setting-websiteAddressCancelBtn','mT40'),
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'restaurant_location'}).append(
+            $('<div/>',{class:'pageTabContainer mxw800',tab:'restaurant_location'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'restaurantLocationNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.restaurantLocation}),
@@ -135,7 +131,7 @@ drawPage_restaurant_information = function(){
                 $('<div/>',{class:'zx1',id:'setting-restaurantLocation_map'}),
                 drawSaveCancelBtns('setting-restaurantLocation_saveBtn','setting-restaurantLocation_cancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'currency_symbol'}).append(
+            $('<div/>',{class:'pageTabContainer mxw350',tab:'currency_symbol'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'currencySymbolNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.currencySymbol}),
@@ -144,7 +140,7 @@ drawPage_restaurant_information = function(){
                 $('<div/>',{id:'currency_symbolInputBoxes'}),
                 drawSaveCancelBtns('settings-currencySaveBtn','settings-currencyCancelBtn','mT40'),
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'social_media_links'}).append(
+            $('<div/>',{class:'pageTabContainer mxw350',tab:'social_media_links'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'socialMediaLinksNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.socialMediaLinks}),
@@ -161,7 +157,7 @@ drawPage_restaurant_information = function(){
                 drawInputText('','ico-instagram c_instagram','',texts.settings.instagramLink,'settings-instagramLink','text',texts.settings.instagramLink,250,'clearVal',''),
                 drawSaveCancelBtns('settings-socialMediaLinksSaveBtn','settings-socialMediaLinksCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'website_announcement'}).append(
+            $('<div/>',{class:'pageTabContainer mxw800',tab:'website_announcement'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'websiteAnnouncementNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.websiteAnnouncementTitle}),
@@ -170,7 +166,7 @@ drawPage_restaurant_information = function(){
                 $('<div/>',{id:'website_announcement_textAreas'}),
                 drawSaveCancelBtns('settings-websiteAnnouncementSaveBtn','settings-websiteAnnouncementCancelBtn','mT40')
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'receipt_footer_message'}).append(
+            $('<div/>',{class:'pageTabContainer mxw800',tab:'receipt_footer_message'}).append(
                 $('<div/>',{class:'pageSectionTitle2 mX5 mB20'}).append(
                     $('<span/>',{class:'receiptMsgNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.receiptMsg}),

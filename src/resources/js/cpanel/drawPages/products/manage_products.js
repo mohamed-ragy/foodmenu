@@ -1,15 +1,9 @@
 drawPage_manage_products = function(){
-    $('#pageWrapper').addClass('mxw1000')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'productsListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
-                $('<span/>',{text:texts.cpanel.menu.manage_products}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'manage_products'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_product',text:texts.products.createNewProduct})
             ),
             $('<div/>',{class:'wFC ma'}).append(

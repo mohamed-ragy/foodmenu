@@ -1,7 +1,7 @@
 <div class="nav">
     <div id="navTitle" class="">
-        <img class="w25 h25 " />
-        <div class="mis-5 fs205 bold500 inter">{{ $website->domainName }}</div>
+        {{-- <img class="w25 h25 " /> --}}
+        {{-- <div class="mis-5 fs205 bold500 inter">{{ $website->domainName }}</div> --}}
     </div>
     <div class="navMenu">
         <div class="navElement ico-warning" id="guideHints" tooltip="{{ trans('cpanel/cpanel.guideHints.guideHints') }}"><div class="navElementNum" id="guideHintsNumber"></div></div>

@@ -6,7 +6,13 @@
     position: relative;
     transition-duration: .5s;
 }
-.bodyPage_helpWindow{width:80%;}
+.bodyPage_helpWindow{
+    width:calc(100% - 450px);
+    @media (max-width:1600px) {
+        width:calc(100% - 300px);
+
+    }
+}
 .bodyPage_noHelpWindow{width:100%}
 .paymentFailAnn{
     position: sticky;
@@ -33,12 +39,16 @@
 #pageWrapper{
     opacity: 0;
     transition-duration: .2s;
-    width:100%;
-    margin:0 auto;
+    margin:0  20px;
+    width:calc(100% - 40px);
+    @media (max-width:720px) {
+        margin:0;
+        width:calc(100%);
+    }
 }
 .pageSection{
-    padding:40px 0;
-    margin:10px 20px;
+    // padding:40px 0;
+    margin:20px;
     width:calc(100% - 40px);
     @media (max-width:720px) {
         margin:10px 10px;
@@ -57,7 +67,7 @@
     font-weight: 600;
     font-family: 'inter','Nunito','Tajawal', sans-serif;
     font-size: 1.2em;
-    margin-bottom:20px;
+    margin-bottom:30px;
 }
 .pageSectionTitle2{
     display: flex;

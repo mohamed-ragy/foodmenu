@@ -1,12 +1,8 @@
 dine_in_settings_settings = function(){
-    $('#pageWrapper').addClass('mxw900')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.dine_in_settings}),
-            ),
             $('<div/>',{class:'pageTabs'}).append(
                 $('<div/>',{class:'pageTabArrow pageTabArrowLeft ico-left'}),
                 $('<div/>',{class:'pageTabsContainer'}).append(
@@ -35,7 +31,7 @@ dine_in_settings_settings = function(){
                     $('<table/>',{id:'dinein-WorkingDaysTable',class:'w100p',autoHelp:'working_days_list'})
                 )
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'dinein_service_charge_settings'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'dinein_service_charge_settings'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'dinein_service_charge_settings-noSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.serviceCharge}),
@@ -54,7 +50,7 @@ dine_in_settings_settings = function(){
                 drawSaveCancelBtns('dineinServiceSaveBtn','dineinServiceCancelBtn','mT40')
 
             ),
-            $('<div/>',{class:'pageTabContainer',tab:'dinein_tax_settings'}).append(
+            $('<div/>',{class:'pageTabContainer w400',tab:'dinein_tax_settings'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'dinein_tax_settings-noSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
                     $('<span/>',{text:texts.settings.taxSettings}),

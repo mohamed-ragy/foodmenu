@@ -1,13 +1,8 @@
 drawPage_online_users = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.online_users}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'online_users_and_guests'})
-            ),
             $('<table/>',{id:'onlineUsersTable',class:'w100p',autoHelp:'online_visitors_list'})
         )
     )
@@ -50,7 +45,7 @@ drawOnlineUsersTable = function(){
                         $('<button/>',{class:`${hideGuestBtns} btn_table ico-product_reviews authority_1 cpPage`,cpPage:'product_reviews',user:online[key].id,tooltip:texts.users.seeReviewPosted.replace(':name:',online[key].name)}),
                         $('<button/>',{class:`${hideGuestBtns} btn_table ico-settings authority_2 cpPage`,cpPage:'manage_users',user:online[key].id,tooltip:texts.users.manageUserProfile.replace(':name:',online[key].name)}),
                     ),
-    
+
                 )
             )
             setUserOnlineStatus(online[key].id,online[key].type)

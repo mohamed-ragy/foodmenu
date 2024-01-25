@@ -1,14 +1,9 @@
 drawPage_promo_codes = function(){
-    $('#pageWrapper').addClass('mxw800')
     $('#pageWrapper').append(
         $('<div/>',{
-            class:'pageSection pT10',
+            class:'pageSection',
         }).append(
-            $('<div/>',{class:'pageSectionTitle'}).append(
-                $('<span/>',{text:texts.cpanel.menu.promo_codes}),
-                $('<span/>',{class:'ico-help help-icon',helpId:'promo_codes'})
-            ),
-            $('<div/>',{class:'btnContainer mB20'}).append(
+            $('<div/>',{class:'btnContainer mB40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'create_promo_code',text:texts.settings.createPromocode})
             ),
             $('<div/>',{class:'m10 fs1 none',id:'noPromocodes',text:texts.settings.noPromocodes}),
