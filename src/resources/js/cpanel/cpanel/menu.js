@@ -2,10 +2,10 @@ console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 console.log(window.navigator.language)
 $(window).resize(function(){
     if(window.history.state.page == 'statistics_and_analytics' ){
-        if($(window).width() < 1366 || $(window).height() < 768){
-            $('#pageWrapper').removeClass().text('')
-            drawPage_statistics_and_analytics_smallScreen();
-        }
+        // if($(window).width() < 1200){
+        //     $('#pageWrapper').removeClass().text('')
+        //     drawPage_statistics_and_analytics_smallScreen();
+        // }
 
     }
 })
@@ -164,10 +164,10 @@ showPage = function(pageId,tab,keysObj){
                             $('<span/>',{text:texts.cpanel.menu.statistics_and_analytics}),
                         ),
                     )
-                    if($(window).width() < 1366 || $(window).height() < 768){
-                        drawPage_statistics_and_analytics_smallScreen();
-                        resolve(pushHistory);
-                    }else{
+                    // if($(window).width() < 1200){
+                    //     drawPage_statistics_and_analytics_smallScreen();
+                    //     resolve(pushHistory);
+                    // }else{
                         let yesterday = new Date();
                         yesterday.setDate(yesterday.getDate() - 1)
                         window.page.year1 = keysObj.year1 ?? yesterday.getFullYear();
@@ -180,7 +180,7 @@ showPage = function(pageId,tab,keysObj){
                         window.page.day2 = keysObj.day2 ?? yesterday.getDate();
                         drawPage_statistics_and_analytics();
                         resolve(pushHistory);
-                    }
+                    // }
 
                 break;
                 case 'activity_log':

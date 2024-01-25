@@ -151,7 +151,7 @@ draw_statistics_overview_head_compare = function(){
 draw_statistics_overview_dounts = function(){
     $('#statistics_overview_orders').append(
         $('<div/>',{class:'bold fs103 mB20',text:texts.dashboard.successfulOrders}),
-        $('<div/>',{class:'row alnC jstfyS'}).append(
+        $('<div/>',{class:'row wrap alnC jstfyS'}).append(
             $('<div/>',{id:'overview_servicesDount'}),
             $('<div/>',{class:'mis-20'}).append(
                 $('<div/>',{class:'row alnC jstfySB'}).append(
@@ -181,7 +181,7 @@ draw_statistics_overview_dounts = function(){
 
     $('#statistics_overview_orders_income').append(
         $('<div/>',{class:'bold fs103 mB20',text:texts.dashboard.successfulOrdersIncome}),
-        $('<div/>',{class:'row alnC jstfyS'}).append(
+        $('<div/>',{class:'row wrap alnC jstfyS'}).append(
             $('<div/>',{id:'overview_servicesIncomeDount'}),
             $('<div/>',{class:'mis-20'}).append(
                 $('<div/>',{class:'row alnC jstfySB'}).append(
@@ -215,7 +215,7 @@ draw_statistics_overview_dounts = function(){
 draw_statistics_overview_dounts_compare = function(){
     $('#statistics_overview_orders').append(
         $('<div/>',{class:'bold fs103 mB20',text:texts.dashboard.successfulOrders}),
-        $('<div/>',{class:'row alnC jstfyS'}).append(
+        $('<div/>',{class:'row wrap alnC jstfyS'}).append(
             $('<div/>',{id:'overview_servicesDount'}),
             $('<div/>',{class:'mis-20'}).append(
                 $('<div/>',{class:'row alnC jstfySB'}).append(
@@ -244,7 +244,7 @@ draw_statistics_overview_dounts_compare = function(){
     )
     $('#statistics_overview_orders_income').append(
         $('<div/>',{class:'bold fs103 mB20',text:texts.dashboard.successfulOrdersIncome}),
-        $('<div/>',{class:'row alnC jstfyS'}).append(
+        $('<div/>',{class:'row wrap alnC jstfyS'}).append(
             $('<div/>',{id:'overview_servicesIncomeDount'}),
             $('<div/>',{class:'mis-20'}).append(
                 $('<div/>',{class:'row alnC jstfySB'}).append(
@@ -290,8 +290,13 @@ draw_statistics_overview_ordersGraph = function(){
     $('#overview_ordersGraph').remove();
     $('#overview_ordersIncomeGraph').remove();
     let graph_width = 600; let graph_height = 200;
-    $(window).width() < 1920 ? graph_width = 500 : null ;
-    $(window).width() < 1920 ? graph_height = 175 : null ;
+    // 
+    $(window).width() < 1600 ? graph_width = 500 :null; 
+    $(window).width() < 1300 ? graph_width = 375 :  null ;
+
+    $(window).width() < 1600 ? graph_height = 175 : null;
+    $(window).width() < 1300 ? graph_height = 150 : null ;
+
     $('#statistics_overview_orders').append(
         $('<div/>',{id:'overview_ordersGraph',class:'pT50 taC'}).append(
             drawStatisticsGraph('overviewStatisticsOrdersGraph',graph_height,graph_width,'orders',getGraphHighestNumber_orders('orders','so',window.statistics.s1_,window.statistics.s2_ ?? []))

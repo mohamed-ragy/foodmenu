@@ -4,7 +4,7 @@ $('#navTitle').children().eq(1).text(website.domainName.toUpperCase())
 showList = function(list,nav){
     if(window.waitFor_loadWebsiteOrdersAndChats && nav.attr('id') != 'Menu' && nav.attr('id') != 'guideHints' ){return;}
     list.css('display','flex');
-    list.css('top',$('.nav').outerHeight() + 15)
+    list.css('top',$('.nav').outerHeight())
     nav.addClass('navElementSelected');
 
 }
