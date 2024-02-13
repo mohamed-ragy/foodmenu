@@ -255,7 +255,6 @@ calc_statistics_year = function(data){
         }
 
     }
-
     return {year:year,months:months}
 }
 //

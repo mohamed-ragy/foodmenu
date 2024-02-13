@@ -1,7 +1,8 @@
 #bodyPage{
-    height: 100%;
+    padding-top:10px;
+    height: calc(100% - 10px);
     background-color: var(--white);
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: auto;
     position: relative;
     transition-duration: .5s;

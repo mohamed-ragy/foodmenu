@@ -17,6 +17,7 @@ draw_statistics_deliveries_list = function(order,sort){
     $('#statistics_deliveries_list').text('').append(
         $('<table/>',{class:'mT30',id:'statistics_deliveries_list_table'}).append(
             $('<tr/>',{class:'trHead'}).append(
+                $('<th/>',{class:'w5 taE',text:''}),
                 $('<th/>',{order:'name',class:'statistics_deliveries_list_th pointer'}).append(
                     $('<div/>',{class:'w100p row aonC jstfySB'}).append(
                         $('<span/>',{class:'tnw mie-10',text:texts.dashboard.name}),
@@ -41,7 +42,6 @@ draw_statistics_deliveries_list = function(order,sort){
                         $('<span/>',{class:`statistics_deliveries_list_thArrow fs09 ${order == 'avgPerOrder' && sort == 'desc' ? 'ico-down' : order == 'avgPerOrder' && sort == 'asc' ? 'ico-up' :  ''}`})
                     )
                 ),
-                $('<th/>',{class:'taE',text:''}),
             )
         )
     )
@@ -67,28 +67,29 @@ draw_statistics_deliveries_list = function(order,sort){
 
         $('#statistics_deliveries_list_table').append(
             $('<tr/>',{class:''}).append(
-                $('<td/>',{class:''}).append(
-                        $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'delivery_account',popupId:'delivery',delivery:top_deliveries[key].id,text:top_deliveries[key].name}),
-                ),
-                $('<td/>',{class:' pie-30'}).append(
-                    $('<span/>',{text:`${bigInt(top_deliveries[key].orders)}`}),
-                    orders_compare
-                ),
-                $('<td/>',{class:' pie-30'}).append(
-                    $('<span/>',{text:`${minsToTime(top_deliveries[key].time)}`}),
-                    time_compare
-                ),
-                $('<td/>',{class:' pie-30'}).append(
-                    $('<span/>',{text:`${minsToTime(top_deliveries[key].avgPerOrder)}`}),
-                    avg_compare
-                ),
                 $('<td/>',{class:'taE vaM'}).append(
                     $('<div/>',{class:'row alnC jstfyE'}).append(
                         $('<div/>',{class:'btn_table ico-info pointer statisticspopup',key1:'delivery',key2:top_deliveries[key].name,key3:window.statistics.s1._id,key4:key4,key5:window.statistics.date1,key6:window.page.compare == 1 ? window.statistics.date2 : ''}),
                         $('<div/>',{class:'btn_table ico-statistics_and_analytics pointer statistics_users_list_showDelivery',delivery:top_deliveries[key].name,tooltip:texts.dashboard.moreDetails})
 
                     )
-                )
+                ),
+                $('<td/>',{class:'vaM'}).append(
+                        $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'delivery_account',popupId:'delivery',delivery:top_deliveries[key].id,text:top_deliveries[key].name}),
+                ),
+                $('<td/>',{class:'vaM pie-30'}).append(
+                    $('<span/>',{text:`${bigInt(top_deliveries[key].orders)}`}),
+                    orders_compare
+                ),
+                $('<td/>',{class:'vaM pie-30'}).append(
+                    $('<span/>',{text:`${minsToTime(top_deliveries[key].time)}`}),
+                    time_compare
+                ),
+                $('<td/>',{class:'vaM pie-30'}).append(
+                    $('<span/>',{text:`${minsToTime(top_deliveries[key].avgPerOrder)}`}),
+                    avg_compare
+                ),
+
             )
         )
     }
@@ -129,8 +130,6 @@ $('html,body').on('click','.statistics_deliveries_list_showList',function(e){
 //
 statistics_deliveries_delivery = function(delivery_name){
     let graph_width = 600; let graph_height = 200;
-    $(window).width() < 1920 ? graph_width = 500 : null ;
-    $(window).width() < 1920 ? graph_height = 175 : null ;
     let heighestNum_orders = getGraphHighestNumber_delivery(delivery_name,'orders',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_time = getGraphHighestNumber_delivery(delivery_name,'time',window.statistics.s1_,window.statistics.s2_ ?? []);
     let delivery_s1 = window.statistics.s1.deliveries[delivery_name];

@@ -14,7 +14,7 @@ drawPage_statistics_and_analytics = function(){
     $('#pageWrapper').addClass('column alnS jstfyS')
     $('#pageWrapper').append(
         $('<div/>',{id:'statistics_select_period',class:'pointer mis-10',}),
-        $('<div/>',{class:'w100p-40 m20 grow2',id:'statistics_container'})
+        $('<div/>',{class:'w100p-40 m20 mnw1366',id:'statistics_container'})
     )
     load_statistics();
 }

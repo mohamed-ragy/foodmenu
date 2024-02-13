@@ -16,6 +16,7 @@ draw_statistics_users_list = function(order,sort){
     $('#statistics_users_list').text('').append(
         $('<table/>',{class:'mT30',id:'statistics_users_user_table'}).append(
             $('<tr/>',{class:'trHead'}).append(
+                $('<th/>',{class:'taE',text:''}),
                 $('<th/>',{order:'name',class:'statistics_users_list_th pointer'}).append(
                     $('<div/>',{class:'w100p row aonC jstfySB'}).append(
                         $('<span/>',{class:'tnw mie-10',text:texts.dashboard.name}),
@@ -46,7 +47,6 @@ draw_statistics_users_list = function(order,sort){
                         $('<span/>',{class:`statistics_users_list_thArrow fs09 ${order == 'rv' && sort == 'desc' ? 'ico-down' : order == 'rv' && sort == 'asc' ? 'ico-up' :  ''}`})
                     )
                 ),
-                $('<th/>',{class:'taE',text:''}),
             )
         )
     )
@@ -73,32 +73,33 @@ draw_statistics_users_list = function(order,sort){
 
         $('#statistics_users_user_table').append(
             $('<tr/>',{class:''}).append(
-                $('<td/>',{class:''}).append(
-                        $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'user',popupId:'user',user:top_users[key].id,text:top_users[key].name}),
-                ),
-                $('<td/>',{class:' pie-30'}).append(
-                    $('<span/>',{text:`${website.currency}${bigFloat(top_users[key].so_total)}`}),
-                    total_compare
-                ),
-                $('<td/>',{class:' pie-30'}).append(
-                    $('<span/>',{text:`${bigInt(top_users[key].so)}`}),
-                    so_compare
-                ),
-                $('<td/>',{class:' pie-30'}).append(
-                    $('<span/>',{text:`${bigInt(top_users[key].co)}`}),
-                    co_compare
-                ),
-                $('<td/>',{class:''}).append(
-                    $('<span/>',{text:`${bigInt(top_users[key].rv)}`}),
-                    reviews_compare
-                ),
-                $('<td/>',{class:'taE vaM'}).append(
+                $('<td/>',{class:'taE vaM w5'}).append(
                     $('<div/>',{class:'row alnC jstfyE'}).append(
                         $('<div/>',{class:'btn_table ico-info pointer statisticspopup',key1:'user',key2:top_users[key].id,key3:window.statistics.s1._id,key4:key4,key5:window.statistics.date1,key6:window.page.compare == 1 ? window.statistics.date2 : ''}),
                         $('<div/>',{class:'btn_table ico-statistics_and_analytics pointer statistics_users_list_showUser',user:top_users[key].id,tooltip:texts.dashboard.moreDetails})
 
                     )
-                )
+                ),
+                $('<td/>',{class:'vaM'}).append(
+                        $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'user',popupId:'user',user:top_users[key].id,text:top_users[key].name}),
+                ),
+                $('<td/>',{class:'vaM pie-30'}).append(
+                    $('<span/>',{text:`${website.currency}${bigFloat(top_users[key].so_total)}`}),
+                    total_compare
+                ),
+                $('<td/>',{class:'vaM pie-30'}).append(
+                    $('<span/>',{text:`${bigInt(top_users[key].so)}`}),
+                    so_compare
+                ),
+                $('<td/>',{class:'vaM pie-30'}).append(
+                    $('<span/>',{text:`${bigInt(top_users[key].co)}`}),
+                    co_compare
+                ),
+                $('<td/>',{class:'vaM'}).append(
+                    $('<span/>',{text:`${bigInt(top_users[key].rv)}`}),
+                    reviews_compare
+                ),
+
             )
         )
     }
@@ -138,9 +139,6 @@ $('html,body').on('click','.statistics_users_list_showList',function(e){
 
 draw_statistics_users_user = function(user_id){
     let graph_width = 600; let graph_height = 200;
-    $(window).width() < 1920 ? graph_width = 500 : null ;
-    $(window).width() < 1920 ? graph_height = 175 : null ;
-
     let heighestNum_so = getGraphHighestNumber_user(user_id,'so',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_co = getGraphHighestNumber_user(user_id,'co',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_total = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);
@@ -405,8 +403,6 @@ $('html,body').on('click','.statistics_userOrdersHeadElem',function(e){
 })
 fill_statistics_users_user = function(key,user_id){
     let graph_width = 600; let graph_height = 200;
-    $(window).width() < 1920 ? graph_width = 500 : null ;
-    $(window).width() < 1920 ? graph_height = 175 : null ;
 
     let heighestNum_so = getGraphHighestNumber_user(user_id,'so',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_co = getGraphHighestNumber_user(user_id,'co',window.statistics.s1_,window.statistics.s2_ ?? []);

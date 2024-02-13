@@ -8,6 +8,10 @@ guideModeNoSaveCheck = function(){
         $('.guideModeNoSave').addClass('none');
         return true;
     }
+    if($(window).width() < 1360 && settings_temp.guideHints == settings.guideHints || window.page.page == 'home'){
+        $('.guideModeNoSave').addClass('none');
+        return true;
+    }
     if(settings_temp.guideMode == false){
         if(settings_temp.guideMode == settings.guideMode && settings_temp.guideHints == settings.guideHints){
             $('.guideModeNoSave').addClass('none');
@@ -138,7 +142,7 @@ hotkeys = function(){
         ////guide mode
         if (e.ctrlKey && e.which == 71) {
             e.preventDefault();
-            if(window.history.state.page == 'statistics_and_analytics'){
+            if(window.history.state.page == 'statistics_and_analytics'  || window.history.state.page == 'home'){
                 return;
             }
             settings_temp.guideMode ?  guideModeToggle(false) : guideModeToggle(true);

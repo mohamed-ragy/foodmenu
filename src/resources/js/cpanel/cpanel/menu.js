@@ -1,7 +1,7 @@
 console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 console.log(window.navigator.language)
 $(window).resize(function(){
-    if(window.history.state.page == 'statistics_and_analytics' ){
+    if(window.history.state.page == 'statistics_and_analytics' || window.history.state.page == 'home'){
         // if($(window).width() < 1200){
         //     $('#pageWrapper').removeClass().text('')
         //     drawPage_statistics_and_analytics_smallScreen();
@@ -94,13 +94,6 @@ for(const key in window.menu){
     }
 }
 $('#sideMenu-mainContainer').children().last().append(
-    $('<a/>',{
-        menuId:'billing',
-        href:process.env.MIX_BILLING_CENTER_URL,
-        target:'_blank',
-        class:'sideMenu-mainItem_billing authority_master',
-        tooltip:texts.cpanel.menu.billing,
-    }).append($('<span/>',{class:'ico-billing'})),
     $('<div/>',{
         class:'reportBug reportBug-sideMenu',
         tooltip:texts.cpanel.reportBug.reportBug
@@ -112,14 +105,6 @@ $('#sideMenu-mainContainer').children().last().append(
 )
 $('#menuList').append(
     $('<div/>',{class:'mT40'}),
-    $('<a/>',{
-        class:`navMenu-element_billing navMenu-element authority_master`,
-        href:process.env.MIX_BILLING_CENTER_URL,
-        target:'_blank',
-    }).append(
-        $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-billing`})),
-        $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.menu.billing}))
-    ),
     $('<div/>',{class:'navMenu-element reportBug'}).append(
         $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-bug`})),
         $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.reportBug.reportBug}))
@@ -157,6 +142,15 @@ showPage = function(pageId,tab,keysObj){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
+                case 'home':
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.home}),
+                        ),
+                    )
+                    drawPage_home();
+                    resolve(pushHistory);
+                break;
                 case 'statistics_and_analytics':
                     if(account.is_master == false){reject(1);return;}
                     $('#navTitle').text('').append(
@@ -164,24 +158,18 @@ showPage = function(pageId,tab,keysObj){
                             $('<span/>',{text:texts.cpanel.menu.statistics_and_analytics}),
                         ),
                     )
-                    // if($(window).width() < 1200){
-                    //     drawPage_statistics_and_analytics_smallScreen();
-                    //     resolve(pushHistory);
-                    // }else{
-                        let yesterday = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1)
-                        window.page.year1 = keysObj.year1 ?? yesterday.getFullYear();
-                        window.page.month1 = keysObj.month1 ?? parseInt(yesterday.getMonth() ) + 1;
-                        window.page.day1 = keysObj.day1 ?? yesterday.getDate();
-                        window.page.period = keysObj.period ?? 'day';
-                        window.page.compare = keysObj.compare ?? '0';
-                        window.page.year2 = keysObj.year2 ?? yesterday.getFullYear();
-                        window.page.month2 = keysObj.month2 ?? parseInt(yesterday.getMonth() ) + 1;
-                        window.page.day2 = keysObj.day2 ?? yesterday.getDate();
-                        drawPage_statistics_and_analytics();
-                        resolve(pushHistory);
-                    // }
-
+                    let yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1)
+                    window.page.year1 = keysObj.year1 ?? yesterday.getFullYear();
+                    window.page.month1 = keysObj.month1 ?? parseInt(yesterday.getMonth() ) + 1;
+                    window.page.day1 = keysObj.day1 ?? yesterday.getDate();
+                    window.page.period = keysObj.period ?? 'day';
+                    window.page.compare = keysObj.compare ?? '0';
+                    window.page.year2 = keysObj.year2 ?? yesterday.getFullYear();
+                    window.page.month2 = keysObj.month2 ?? parseInt(yesterday.getMonth() ) + 1;
+                    window.page.day2 = keysObj.day2 ?? yesterday.getDate();
+                    drawPage_statistics_and_analytics();
+                    resolve(pushHistory);
                 break;
                 case 'activity_log':
                     if(account.is_master == false){reject(1);return;}
@@ -217,6 +205,15 @@ showPage = function(pageId,tab,keysObj){
                         ),
                     )
                     drawPage_restaurant_expenses();
+                    resolve(pushHistory);
+                break;
+                case 'quick_links':
+                    $('#navTitle').text('').append(
+                        $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
+                            $('<span/>',{text:texts.cpanel.menu.quick_links}),
+                        ),
+                    )
+                    drawPage_quick_links();
                     resolve(pushHistory);
                 break;
                 case 'order_history':
@@ -542,7 +539,7 @@ showPage = function(pageId,tab,keysObj){
         //     setTimeout(function(){
         //         $('#bodyPage').find('.pageWrapper').css('display','none');
         //         $('#'+pageId+'-page').css({'display':'block'});
-                if(pageId == 'statistics_and_analytics'){
+                if(pageId == 'statistics_and_analytics' || pageId == 'home'){
                     guideModeToggle(false,false)
                 }else{
                     guideModeToggle(settings_temp.guideMode)

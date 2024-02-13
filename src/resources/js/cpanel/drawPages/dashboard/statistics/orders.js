@@ -1,7 +1,5 @@
 draw_statistics_orders = function(){
     let graph_width = 600; let graph_height = 200;
-    $(window).width() < 1920 ? graph_width = 500 : null ;
-    $(window).width() < 1920 ? graph_height = 175 : null ;
 
     let orders_highestNum; let income_highestNum;
     let orders_highestNum_so = getGraphHighestNumber_orders('orders','so',window.statistics.s1_,window.statistics.s2_ ?? []);
@@ -34,8 +32,6 @@ draw_statistics_orders = function(){
 //
 fill_statistics_orders = function(key){
     let graph_width = 600; let graph_height = 200;
-    $(window).width() < 1920 ? graph_width = 500 : null ;
-    $(window).width() < 1920 ? graph_height = 175 : null ;
 
     let orders_highestNum; let income_highestNum;
     let orders_highestNum_so = getGraphHighestNumber_orders('orders','so',window.statistics.s1_,window.statistics.s2_ ?? []);

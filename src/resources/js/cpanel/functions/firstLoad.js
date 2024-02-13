@@ -45,12 +45,12 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
             // new orders().incompleteOrders();
 
             window.incompleteOrdersCheck = true;
-            window.todayOrders = response.todayOrders;
-
+            website.todayOrders = response.todayOrders;
+            drawTodayHomeOrders();
             $('.ordersHomePageInfoLoading').addClass('none');
             $('.ordersHomePageInfoIcon').removeClass('none')
 
-            drawTodayHomeOrders();
+            // drawTodayHomeOrders();
 
             for(const key in response.notifications){
                 if(!response.notifications[key].seen){

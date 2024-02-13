@@ -1277,7 +1277,6 @@ handelCpanelChannel = function(n,code){
             calcIncompleteOrders();
         break;
         case 'orders.canceled_by_account':
-            console.log(n)
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 2;
             website.incompleteOrders.find(item=>item._id == n.order_id).canceled_at = n.canceled_at;
             website.incompleteOrders.find(item=>item._id == n.order_id).canceled_by = 0;
@@ -1285,7 +1284,7 @@ handelCpanelChannel = function(n,code){
             website.incompleteOrders.find(item=>item._id == n.order_id).canceled_account_id = n.canceled_account_id;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
-                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.todayOrders.push(website.incompleteOrders[key])
                     website.incompleteOrders.splice(key,1)
                 }
             }
@@ -1296,6 +1295,7 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            drawTodayHomeOrders();
         break;
         case 'orders.canceled_by_user':
             window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
@@ -1307,7 +1307,7 @@ handelCpanelChannel = function(n,code){
             website.incompleteOrders.find(item=>item._id == n.order_id).canceled_by = 1;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
-                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.todayOrders.push(website.incompleteOrders[key])
                     website.incompleteOrders.splice(key,1)
                 }
             }
@@ -1318,6 +1318,7 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            drawTodayHomeOrders();
             let canceledOrder_user = texts.cpanel.notifications.aGuest;
             n.notification.user_id != null ? canceledOrder_user = `<span><a class="popupPage popupId" popupPage="user" popupId="user" user="${n.notification.user_id}" >${n.notification.userName}</a></span>` : null;
             notificationsMsg = texts.cpanel.notifications.orderCanceled_msg.replace(':order:',`<span><a class="popupId popupPage" popupPage="order" popupId="order" order="${n.notification.order_id}">#${n.notification.order_number}</a></span>`).replace(':user:',canceledOrder_user);
@@ -1344,7 +1345,7 @@ handelCpanelChannel = function(n,code){
             website.incompleteOrders.find(item=>item._id == n.order_id).pickedUp_account_id = n.pickedUp_account_id;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
-                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.todayOrders.push(website.incompleteOrders[key])
                     website.incompleteOrders.splice(key,1)
                 }
             }
@@ -1355,6 +1356,7 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            drawTodayHomeOrders();
         break;
         case 'orders.out_for_delivery':
             website.incompleteOrders.find(item=>item._id == n.order_id).status = 3;
@@ -1392,7 +1394,7 @@ handelCpanelChannel = function(n,code){
             website.incompleteOrders.find(item=>item._id == n.order_id).delivered_account_id = n.delivered_account_id;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
-                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.todayOrders.push(website.incompleteOrders[key])
                     website.incompleteOrders.splice(key,1)
                 }
             }
@@ -1403,6 +1405,7 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            drawTodayHomeOrders();
         break;
         case 'orders.delivered_by_delivery':
             window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
@@ -1416,7 +1419,7 @@ handelCpanelChannel = function(n,code){
             website.incompleteOrders.find(item=>item._id == n.order_id).delivered_delivery_id = n.delivered_delivery_id;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
-                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.todayOrders.push(website.incompleteOrders[key])
                     website.incompleteOrders.splice(key,1)
                 }
             }
@@ -1427,6 +1430,7 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            drawTodayHomeOrders();
             notificationsMsg = texts.cpanel.notifications.orderDelivered_msg.replace(':order:',`<span><a class="popupId popupPage" popupPage="order" popupId="order" order="${n.notification.order_id}">#${n.notification.order_number}</a></span>`).replace(':delivery:',`<span><a class="popupPage popupId" popupPage="delivery_account" popupId="delivery" delivery="${n.notification.delivery_id}">${n.notification.deliveryName.split('@')[0]}</a></span>`);
             showAlert('normal',notificationsMsg,4000,true);
             website.notifications_unseen.push(n.notification)
@@ -1451,7 +1455,7 @@ handelCpanelChannel = function(n,code){
             website.incompleteOrders.find(item=>item._id == n.order_id).dinedin_account_id = n.dinedin_account_id;
             for(const key in website.incompleteOrders){
                 if(website.incompleteOrders[key]._id == n.order_id){
-                    website.orderHistory.push(website.incompleteOrders[key])
+                    website.todayOrders.push(website.incompleteOrders[key])
                     website.incompleteOrders.splice(key,1)
                 }
             }
@@ -1462,6 +1466,7 @@ handelCpanelChannel = function(n,code){
                 drawPopupPage_order_fillData(n.order_id)
             }
             calcIncompleteOrders();
+            drawTodayHomeOrders();
         break;
         case 'orders.update.notice':
             website.incompleteOrders.find(item=>item._id == n.order_id).notice = n.notice;

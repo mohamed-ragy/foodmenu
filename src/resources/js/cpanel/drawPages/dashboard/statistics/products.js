@@ -17,31 +17,31 @@ draw_statistics_products_list = function(order,sort){
     $('#statistics_products_list').text('').append(
         $('<table/>',{class:'mT30',id:'statistics_products_product_table'}).append(
             $('<tr/>',{class:'trHead'}).append(
-                $('<th/>',{order:'name',class:' statistics_products_list_th pointer'}).append(
-                    $('<div/>',{class:'w100p row aonC jstfySB'}).append(
+                $('<th/>',{class:'taE vaM w5',text:''}),
+                $('<th/>',{order:'name',class:'statistics_products_list_th pointer'}).append(
+                    $('<div/>',{class:'w100p row alnC jstfySB'}).append(
                         $('<span/>',{class:'mie-10',text:texts.dashboard.name}),
                         $('<span/>',{class:`statistics_products_list_thArrow fs09 ${order == 'name' && sort == 'desc' ? 'ico-down' : order == 'name' && sort == 'asc' ? 'ico-up' :  ''}`})
                     )
                 ),
                 $('<th/>',{order:'sum',class:'statistics_products_list_th pointer  pie-30'}).append(
-                    $('<div/>',{class:'w100p row aonC jstfySB'}).append(
+                    $('<div/>',{class:'w100p row alnC jstfySB'}).append(
                         $('<span/>',{class:'mie-10',text:texts.dashboard.ordered}),
                         $('<span/>',{class:`statistics_products_list_thArrow fs09 ${order == 'sum' && sort == 'desc' ? 'ico-down' : order == 'sum' && sort == 'asc' ? 'ico-up' :  ''}`})
                     )
                 ),
                 $('<th/>',{order:'total',class:'statistics_products_list_th pointer '}).append(
-                    $('<div/>',{class:'w100p row aonC jstfySB'}).append(
+                    $('<div/>',{class:'w100p row alnC jstfySB'}).append(
                         $('<span/>',{class:'mie-10',text:texts.dashboard.income}),
                         $('<span/>',{class:`statistics_products_list_thArrow fs09 ${order == 'total' && sort == 'desc' ? 'ico-down' : order == 'total' && sort == 'asc' ? 'ico-up' :  ''}`})
                     )
                 ),
                 $('<th/>',{order:'reviews_sum',class:'statistics_products_list_th pointer '}).append(
-                    $('<div/>',{class:'w100p row aonC jstfySB'}).append(
+                    $('<div/>',{class:'w100p row alnC jstfySB'}).append(
                         $('<span/>',{class:'mie-10',text:texts.dashboard.Reviews}),
                         $('<span/>',{class:`statistics_products_list_thArrow fs09 ${order == 'reviews_sum' && sort == 'desc' ? 'ico-down' : order == 'reviews_sum' && sort == 'asc' ? 'ico-up' :  ''}`})
                     )
                 ),
-                $('<th/>',{class:'taE',text:''}),
             )
         )
     )
@@ -67,31 +67,32 @@ draw_statistics_products_list = function(order,sort){
 
             $('#statistics_products_product_table').append(
                 $('<tr/>',{class:''}).append(
-                    $('<td/>',{class:''}).append(
-                        $('<div/>',{class:'row alnC jstfyS mxw300'}).append(
-                            $('<img/>',{class:'br5 w30 h30 ofCover',src:product_img}),
-                            $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'product',popupId:'product',product:top_products[key].name,text:top_products[key].name}),
-                        )
-                    ),
-                    $('<td/>',{class:' pie-30'}).append(
-                        $('<span/>',{text:`${bigInt(top_products[key].sum)}`}),
-                        ordered_compare
-                    ),
-                    $('<td/>',{class:''}).append(
-                        $('<span/>',{text:`${website.currency}${bigFloat(top_products[key].total)}`}),
-                        total_compare
-                    ),
-                    $('<td/>',{class:''}).append(
-                        $('<span/>',{text:`${bigInt(top_products[key].reviews_sum)}`}),
-                        reviews_compare
-                    ),
                     $('<td/>',{class:'taE vaM'}).append(
                         $('<div/>',{class:'row alnC jstfyE'}).append(
                             $('<div/>',{class:'btn_table ico-info pointer statisticspopup',key1:'product',key2:top_products[key].name,key3:window.statistics.s1._id,key4:key4,key5:window.statistics.date1,key6:window.page.compare == 1 ? window.statistics.date2 : ''}),
                             $('<div/>',{class:'btn_table ico-statistics_and_analytics pointer statistics_products_list_showProduct',product:top_products[key].name,tooltip:texts.dashboard.moreDetails})
 
                         )
-                    )
+                    ),
+                    $('<td/>',{class:'vaM'}).append(
+                        $('<div/>',{class:'row alnC jstfyS mxw300'}).append(
+                            $('<img/>',{class:'br5 w30 h30 ofCover',src:product_img}),
+                            $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'product',popupId:'product',product:top_products[key].name,text:top_products[key].name}),
+                        )
+                    ),
+                    $('<td/>',{class:'vaM pie-30'}).append(
+                        $('<span/>',{text:`${bigInt(top_products[key].sum)}`}),
+                        ordered_compare
+                    ),
+                    $('<td/>',{class:'vaM'}).append(
+                        $('<span/>',{text:`${website.currency}${bigFloat(top_products[key].total)}`}),
+                        total_compare
+                    ),
+                    $('<td/>',{class:'vaM'}).append(
+                        $('<span/>',{text:`${bigInt(top_products[key].reviews_sum)}`}),
+                        reviews_compare
+                    ),
+
                 )
             )
     }

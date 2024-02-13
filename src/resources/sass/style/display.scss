@@ -6,6 +6,7 @@
 .rowR{display:flex;flex-direction: row-reverse;}
 .column{display:flex;flex-direction: column;}
 .column-400{@media (max-width:400px){flex-direction: column;}}
+.column-639{@media (max-width:639px) {flex-direction: column;}}
 
 .alnS{align-items:flex-start}
 .alnSH{align-items:stretch}

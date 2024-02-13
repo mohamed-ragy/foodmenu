@@ -280,23 +280,12 @@ draw_statistics_overview_dounts_compare = function(){
 
 }
 //
-$(window).resize(function(){
-    if(window.history.state.page == 'statistics_and_analytics'){
-        draw_statistics_overview_ordersGraph();
-        draw_statistics_orders();
-    }
-})
+
 draw_statistics_overview_ordersGraph = function(){
     $('#overview_ordersGraph').remove();
     $('#overview_ordersIncomeGraph').remove();
     let graph_width = 600; let graph_height = 200;
-    // 
-    $(window).width() < 1600 ? graph_width = 500 :null; 
-    $(window).width() < 1300 ? graph_width = 375 :  null ;
-
-    $(window).width() < 1600 ? graph_height = 175 : null;
-    $(window).width() < 1300 ? graph_height = 150 : null ;
-
+    //
     $('#statistics_overview_orders').append(
         $('<div/>',{id:'overview_ordersGraph',class:'pT50 taC'}).append(
             drawStatisticsGraph('overviewStatisticsOrdersGraph',graph_height,graph_width,'orders',getGraphHighestNumber_orders('orders','so',window.statistics.s1_,window.statistics.s2_ ?? []))

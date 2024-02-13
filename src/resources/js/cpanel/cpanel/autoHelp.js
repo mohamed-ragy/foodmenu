@@ -42,7 +42,8 @@ autoHelp = class {
     }
     show(force=false) {
         if(force){
-            this.helpElem.removeClass('none').prependTo('#helpWindow')
+            this.helpElem.removeClass('none')
+            // .prependTo('#helpWindow')
             $('#helpWindow').stop().animate({'scrollTop':'0'},250)
         }else{
             if(this.helpNum == null || this.helpNum == ''){return}

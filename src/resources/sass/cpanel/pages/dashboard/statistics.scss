@@ -96,6 +96,23 @@ text{fill:var(--txt-1)}
     background-color: var(--white-1);
     font-size: .9em;
 }
+.statistics_overview_graphs_container{
+    width:100%;
+    padding:40px 0;
+    border-bottom:1px solid var(--white-3);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.statistics_overview_orders_income{
+    border-left:1px solid var(--white-3);
+    padding-inline-start: 60px;
+}
+.statistics_overview_orders{
+    padding-inline-end: 60px;
+}
+//
 .statistics_ordersHeadElem{
     padding:20px;
     margin-inline-end:10px;

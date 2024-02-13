@@ -728,13 +728,13 @@ class cpanelController extends Controller
                 $notificationCodes = ['system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
                 // $todayOrders = order::where('placed_at','>',Carbon::today($timezone))->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
                 $todayOrders = order::where(function($q) use ($timezone){
-                    $q->where('dinedin_at','>',Carbon::today($timezone));
+                    $q->where('dinedin_at','>',Carbon::today($timezone)->timestamp);
                 })->orWhere(function($q) use ($timezone){
-                    $q->where('delivered_at','>',Carbon::today($timezone));
+                    $q->where('delivered_at','>',Carbon::today($timezone)->timestamp);
                 })->orWhere(function($q) use ($timezone){
-                    $q->where('pickedUp_at','>',Carbon::today($timezone));
+                    $q->where('pickedUp_at','>',Carbon::today($timezone)->timestamp);
                 })->orWhere(function($q) use ($timezone){
-                    $q->where('canceled_at','>',Carbon::today($timezone));
+                    $q->where('canceled_at','>',Carbon::today($timezone)->timestamp);
                 })
                 ->where(['website_id'=>$this->website_id])
                 ->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();

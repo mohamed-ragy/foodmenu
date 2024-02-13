@@ -105,7 +105,7 @@ cancelOrder = function(order_id){
                 website.incompleteOrders.find(item=>item._id == order_id).canceled_account_id = account.id;
                 for(const key in website.incompleteOrders){
                     if(website.incompleteOrders[key]._id == order_id){
-                        website.orderHistory.push(website.incompleteOrders[key])
+                        website.todayOrders.push(website.incompleteOrders[key])
                         website.incompleteOrders.splice(key,1)
                     }
                 }
@@ -116,6 +116,7 @@ cancelOrder = function(order_id){
                     drawPopupPage_order_fillData(order_id)
                 }
                 calcIncompleteOrders();
+                drawTodayHomeOrders();
                 showAlert('success',r.msg,4000,true)
             }else if(r.cancelOrderState == 0){
                 if(window.history.state.page == 'incomplete_orders'){
@@ -179,7 +180,7 @@ markAsPickedUp = function(order_id){
                 website.incompleteOrders.find(item=>item._id == order_id).pickedUp_account_id = account.id;
                 for(const key in website.incompleteOrders){
                     if(website.incompleteOrders[key]._id == order_id){
-                        website.orderHistory.push(website.incompleteOrders[key])
+                        website.todayOrders.push(website.incompleteOrders[key])
                         website.incompleteOrders.splice(key,1)
                     }
                 }
@@ -190,6 +191,7 @@ markAsPickedUp = function(order_id){
                     drawPopupPage_order_fillData(order_id)
                 }
                 calcIncompleteOrders();
+                drawTodayHomeOrders();
                 showAlert('success',r.msg,4000,true)
             }else if(r.setPickedUpOrderStatus == 0){
                 if(window.history.state.page == 'incomplete_orders'){
@@ -292,7 +294,7 @@ markAsDelivered = function(order_id){
                 website.incompleteOrders.find(item=>item._id == order_id).delivered_account_id = account.id;
                 for(const key in website.incompleteOrders){
                     if(website.incompleteOrders[key]._id == order_id){
-                        website.orderHistory.push(website.incompleteOrders[key])
+                        website.todayOrders.push(website.incompleteOrders[key])
                         website.incompleteOrders.splice(key,1)
                     }
                 }
@@ -303,6 +305,7 @@ markAsDelivered = function(order_id){
                     drawPopupPage_order_fillData(order_id)
                 }
                 calcIncompleteOrders();
+                drawTodayHomeOrders();
                 showAlert('success',r.msg,4000,true)
             }else if(r.setDeliveredStatus == 0){
                 if(window.history.state.page == 'incomplete_orders'){
@@ -366,7 +369,7 @@ markAsDinedin = function(order_id){
                 website.incompleteOrders.find(item=>item._id == order_id).dinedin_account_id = account.id;
                 for(const key in website.incompleteOrders){
                     if(website.incompleteOrders[key]._id == order_id){
-                        website.orderHistory.push(website.incompleteOrders[key])
+                        website.todayOrders.push(website.incompleteOrders[key])
                         website.incompleteOrders.splice(key,1)
                     }
                 }
@@ -377,6 +380,7 @@ markAsDinedin = function(order_id){
                     drawPopupPage_order_fillData(order_id)
                 }
                 calcIncompleteOrders();
+                drawTodayHomeOrders();
                 showAlert('success',r.msg,4000,true)
             }else if(r.setDinedInStatus == 0){
                 if(window.history.state.page == 'incomplete_orders'){

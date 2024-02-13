@@ -154,4 +154,13 @@ return [
     'avgPerOrder' => 'Average',
     'min' => 'm',
     'hour' => 'h',
+    //new
+    'fodmenuHome' => 'Foodmenu Home',
+    'helpCenter' => 'Help center',
+    'billingCenter' => 'Billing Center',
+    'deliveryGate' => 'Delivery Accounts Hub',
+    'serviceStatus' => 'Service Status',
+    'faq' => 'FAQs',
+    'contactus' => 'Contact us',
+    //new
 ];

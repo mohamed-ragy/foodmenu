@@ -49,7 +49,7 @@ window.statistics = [];
 // window.onlineUsers = [];
 // window.listeningTo = [];
 window.guideAlertsOBJ = [];
-window.todayOrders = [];
+website.todayOrders = [];
 // window.liveChats ={};
 
 window.receiptTxt = null;
@@ -162,6 +162,7 @@ window.menu = [
             {name:'statistics_and_analytics',authority:'authority_master',lastTab:null},
             {name:'restaurant_expenses',authority:'authority_master',lastTab:null},
             {name:'financial_reports',authority:'authority_master',lastTab:null},
+            {name:'quick_links',authority:'',lastTab:null},
         ]
     },
     {

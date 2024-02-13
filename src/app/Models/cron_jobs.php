@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class cron_jobs extends Model
 {
     use HasFactory;
-    
+
     public $timestamps = false;
     protected $fillable = [
         'website_id',

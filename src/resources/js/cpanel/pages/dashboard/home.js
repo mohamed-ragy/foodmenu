@@ -9,6 +9,8 @@ setInterval(() => {
     let minutes = timeNow.toLocaleTimeString(account.language, {minute:'numeric',hour12 :false,timeZone:website.timeZone });
     if(hours == 0 && minutes == 2 || hours == 24 && minutes == 2){
         console.log('new day')
+        website.todayOrders = [];
+        drawTodayHomeOrders();
     }
 }, 60000);
 

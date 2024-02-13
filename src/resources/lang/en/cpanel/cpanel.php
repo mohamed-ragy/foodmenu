@@ -3,6 +3,7 @@ return [
     'menu' => [
         'dashboard' => 'Dashboard',
         'home' => 'Home',
+        'quick_links' => 'Quick Links',
         'activity_log' => 'Activity Log',
         'statistics_and_analytics' => 'Statistics And Analytics',
         'restaurant_expenses' => 'Restaurant Expenses',
