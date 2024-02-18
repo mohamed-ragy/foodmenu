@@ -36,7 +36,7 @@ $('html,body').on('click','.home',(e)=>{
     hidePopup();
     if($('#home').hasClass('none')){
         switchPage($('#home'),showHomePage())
-        window.history.pushState({'page':'home'},``, `https://${website.url}/${urlLang}/home`);
+        window.history.pushState({'page':'home'},``, `https://${website.url}/${lang}/home`);
         document.title = website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
 
@@ -54,7 +54,7 @@ $('html,body').on('click','.aboutus',(e) =>{
     hidePopup();
     if($('#aboutus').hasClass('none')){
         switchPage($('#aboutus'),showAboutUsPage())
-        window.history.pushState({'page':'home'},``, `https://${website.url}/${urlLang}/aboutus`);
+        window.history.pushState({'page':'home'},``, `https://${website.url}/${lang}/aboutus`);
         document.title = texts.other.aboutUs+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
         drawMap();
@@ -74,7 +74,7 @@ $('html,body').on('click','.categoryLink',function(e){
     if(window.browsingCategory != $(this).attr('categoryId') || $('#category').hasClass('none')){
         switchPage($('#category'),showCategoryPage($(this).attr('categoryId')))
         let category = categories.find(item=> item.id == $(this).attr('categoryId'));
-        window.history.pushState({'page':'category','categoryId':category.id},``, `https://${website.url}/${urlLang}/${category.name}`);
+        window.history.pushState({'page':'category','categoryId':category.id},``, `https://${website.url}/${lang}/${category.name}`);
         document.title = category.nameLang+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',category.descriptionLang)
         userStatus({'status': 'user_browse_category','category':category.name});
@@ -90,7 +90,7 @@ $('html,body').on('click','.allProducts',function(e){
     navMobileClose()
     hidePopup();
     if(!$(this).hasClass('allProductsTagElem_selected') ){
-        window.history.pushState({'page':'allProducts','iconTag':null},``, `https://${website.url}/${urlLang}/allproducts`);
+        window.history.pushState({'page':'allProducts','iconTag':null},``, `https://${website.url}/${lang}/allproducts`);
         document.title = texts.other.allProducts+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
 
@@ -115,7 +115,7 @@ $('html,body').on('click','.productIcon',function(e){
     if(!$(this).hasClass('allProductsTagElem_selected')){
         showAllproductsPage($(this).attr('iconTag'));
         currentPage();
-        window.history.pushState({'page':'allProducts','iconTag':$(this).attr('iconTag')},``, `https://${website.url}/${urlLang}/allproducts?tag=${$(this).attr('iconTag')}`);
+        window.history.pushState({'page':'allProducts','iconTag':$(this).attr('iconTag')},``, `https://${website.url}/${lang}/allproducts?tag=${$(this).attr('iconTag')}`);
         document.title = texts.other[$(this).attr('iconTag')]+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
     }
@@ -134,7 +134,7 @@ $('html,body').on('click','.productLink',function(e){
     if(window.browsingProduct != $(this).attr('productId') || $('#product').hasClass('none')){
         switchPage($('#product'),showProductPage($(this).attr('productId')))
         let product = products.find(item=> item.id == $(this).attr('productId'));
-        window.history.pushState({'page':'product','productId':product.id},``, `https://${website.url}/${urlLang}/${product.catName}/${product.name}`);
+        window.history.pushState({'page':'product','productId':product.id},``, `https://${website.url}/${lang}/${product.catName}/${product.name}`);
         document.title = product.nameLang+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',product.descriptionLang)
         userStatus({'status': 'user_browse_product','product':product.name});
@@ -151,7 +151,7 @@ $('html,body').on('click','.privacyPolicy',(e)=>{
     hidePopup();
     if($('#privacypolicy').hasClass('none')){
         switchPage($('#privacypolicy'))
-        window.history.pushState({'page':'privacypolicy','iconTag':null},``, `https://${website.url}/${urlLang}/privacypolicy`);
+        window.history.pushState({'page':'privacypolicy','iconTag':null},``, `https://${website.url}/${lang}/privacypolicy`);
         document.title = texts.other.privacypolicy+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
     }else{

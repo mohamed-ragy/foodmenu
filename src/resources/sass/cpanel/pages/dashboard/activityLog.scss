@@ -1,17 +1,19 @@
 
 
 .activityContainer_live{
-    border-radius: 3px;
-    box-shadow: var(--shdw5);
-    background-color: var(--c1);
+    background-color: var(--white);
+    border-bottom:1px solid var(--white-3);
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    margin:20px 10px;
-    margin-bottom:5px;
-    width:calc(100% - 20px);
+    width:calc(100% );
+    overflow: hidden;
+    height:auto;
+    transition-duration: 500ms;
+    opacity: 1;
+    padding:5px 0;
     animation-name: liveActivityAnimation;
     animation-duration: 500ms;
     animation-timing-function: ease;

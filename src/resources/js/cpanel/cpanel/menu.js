@@ -1,7 +1,7 @@
 console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 console.log(window.navigator.language)
 $(window).resize(function(){
-    if(window.history.state.page == 'statistics_and_analytics' || window.history.state.page == 'home'){
+    if(window.history.state.page == 'statistics_and_analytics' || window.history.state.page == 'home' ){
         // if($(window).width() < 1200){
         //     $('#pageWrapper').removeClass().text('')
         //     drawPage_statistics_and_analytics_smallScreen();
@@ -123,26 +123,20 @@ $('html,body').on('click','.navMenu-element',function(){
 
 showPage = function(pageId,tab,keysObj){
     return new Promise(function(resolve, reject){
-        $('#navTitle').text('')
-        //
-        $(`.sideMenu-mainItem[menuId="${$(`.side-menuItem[cpPage="${pageId}"]`).attr('menucat')}"]`).trigger('click')
-        $('.side-menuItem').removeClass('side-menuItemSelected');
-        $(`.side-menuItem[cpPage="${pageId}"]`).addClass('side-menuItemSelected');
-        $('.sideMenu-itemArrow').css('visibility','hidden');
-        $('.side-menuItem[cpPage="'+pageId+'"]').find('.sideMenu-itemArrow').css('visibility','visible');
-
         // console.log(window.history.state.page)
         let pushHistory = true;
         if(pageId == window.page.page){pushHistory = false;}else{
             $('#bodyPage').find('#pageWrapper').css({'opacity':0,'transform':'translateX(20px)'});
+            setTimeout(function(){
+                $('#bodyPage').find('#pageWrapper').css({'opacity':1,'transform':'translateX(0px)'});
+            },400)
         }
-
-        setTimeout(()=>{
-            $('#pageWrapper').removeClass().text('')
+        setTimeout(function(){
             window.page = {};
             window.page.page = pageId;
             switch(pageId){
                 case 'home':
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.home}),
@@ -153,6 +147,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'statistics_and_analytics':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.statistics_and_analytics}),
@@ -173,6 +168,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'activity_log':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.activity_log}),
@@ -187,6 +183,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'financial_reports':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.financial_reports}),
@@ -198,6 +195,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'restaurant_expenses':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.restaurant_expenses}),
@@ -208,6 +206,7 @@ showPage = function(pageId,tab,keysObj){
                     resolve(pushHistory);
                 break;
                 case 'quick_links':
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.quick_links}),
@@ -218,6 +217,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'order_history':
                     if(account.authorities[0] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.order_history}),
@@ -240,6 +240,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'incomplete_orders':
                     if(account.authorities[0] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.incomplete_orders}),
@@ -255,6 +256,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'images':
                     if(account.authorities[3] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.images}),
@@ -266,6 +268,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'product_reviews':
                     if(account.authorities[1] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.product_reviews}),
@@ -286,6 +289,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'manage_products':
                     if(account.authorities[1] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'productsListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
@@ -300,6 +304,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'category_list':
                     if(account.authorities[1] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'categoryListNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
@@ -312,6 +317,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'create_new_user':
                     if(account.authorities[2] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.create_new_user}),
@@ -323,6 +329,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'manage_users':
                     if(account.authorities[2] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.manage_users}),
@@ -340,6 +347,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'online_users':
                     if(account.authorities[2] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.online_users}),
@@ -351,6 +359,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'delivery_accounts':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.delivery_accounts}),
@@ -362,6 +371,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'sub_accounts':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.sub_accounts}),
@@ -373,6 +383,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'system':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.system}),
@@ -383,6 +394,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'restaurant_information':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.restaurant_information}),
@@ -393,6 +405,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'languages':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'websiteLangsNoSave ico-warning unsaved none mie-5 mis-5 fs1 '}),
@@ -404,6 +417,7 @@ showPage = function(pageId,tab,keysObj){
                     resolve(pushHistory);
                 break;
                 case 'control_panel_settings':
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.control_panel_settings}),
@@ -414,6 +428,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'home_delivery_settings':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.home_delivery_settings}),
@@ -424,6 +439,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'order_pickup_settings':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.order_pickup_settings}),
@@ -434,6 +450,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'dine_in_settings':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.dine_in_settings}),
@@ -444,6 +461,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'promo_codes':
                     if(account.authorities[4] == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.promo_codes}),
@@ -455,6 +473,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'email_address':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.email_address}),
@@ -466,6 +485,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'password':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.password}),
@@ -477,6 +497,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'phone_number':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.phone_number}),
@@ -488,6 +509,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'ticket_history':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.submit_a_help_ticket}),
@@ -499,6 +521,7 @@ showPage = function(pageId,tab,keysObj){
                 break;
                 case 'submit_a_help_ticket':
                     if(account.is_master == false){reject(1);return;}
+                    clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
                             $('<span/>',{text:texts.cpanel.menu.ticket_history}),
@@ -513,11 +536,8 @@ showPage = function(pageId,tab,keysObj){
                 break;
             }
         },200)
-        setTimeout(()=>{
-            cpanelTitle(false);
-        },200)
+
         setTimeout(function(){
-            $('#bodyPage').find('#pageWrapper').css({'opacity':1,'transform':'translateX(0px)'});
             helpIconsToggle(!settings_temp.guideMode ? false : settings_temp.helpIcons);
             fixPageTabsArrows();
             for(const key in window.menu){
@@ -534,33 +554,29 @@ showPage = function(pageId,tab,keysObj){
         },400)
         // closePopup();
         authorities();
-        // if($('#'+pageId+'-page').css('display') == 'none'){
-        //     $('#bodyPage').find('.pageWrapper').css({'opacity':0});
-        //     setTimeout(function(){
-        //         $('#bodyPage').find('.pageWrapper').css('display','none');
-        //         $('#'+pageId+'-page').css({'display':'block'});
-                if(pageId == 'statistics_and_analytics' || pageId == 'home'){
-                    guideModeToggle(false,false)
-                }else{
-                    guideModeToggle(settings_temp.guideMode)
-                }
-        //     },200);
-        //     setTimeout(function(){
-        //         $('#'+pageId+'-page').css({'opacity':1});
-        //         // resolve();
-        //     },400);
-        // }else{
-        //     // resolve();
-        // }
-
-
-
-
-        // reject(1)
-
     })
 }
 
+clear_cpPage = function(pageId,pushHistory){
+    if(pushHistory == true){
+        $('#bodyPage').find('#pageWrapper').css({'opacity':0,'transform':'translateX(-20px)'});
+    }
+    $('#navTitle').text('')
+    $('#pageWrapper').removeClass().text('')
+    cpanelTitle(false);
+    if(pageId == 'statistics_and_analytics' || pageId == 'home'){
+        guideModeToggle(false,false)
+    }else{
+        guideModeToggle(settings_temp.guideMode)
+    }
+
+    $(`.sideMenu-mainItem[menuId="${$(`.side-menuItem[cpPage="${pageId}"]`).attr('menucat')}"]`).trigger('click')
+    $('.side-menuItem').removeClass('side-menuItemSelected');
+    $(`.side-menuItem[cpPage="${pageId}"]`).addClass('side-menuItemSelected');
+    $('.sideMenu-itemArrow').css('visibility','hidden');
+    $('.side-menuItem[cpPage="'+pageId+'"]').find('.sideMenu-itemArrow').css('visibility','visible');
+
+}
 $('html,body').on('click','.sideMenu-mainItem',function(e){
     e.stopImmediatePropagation();
     drawMenuItemsPages($(this).attr('menuId'))

@@ -414,7 +414,7 @@ $('html,body').on('click','.profile',(e) => {
     resetUserProfile();
     if($('#profilepage').hasClass('none')){
         switchPage($('#profilepage'),showProfilePage('profile'))
-        window.history.pushState({'page':'profile'},``, `https://${website.url}/${urlLang}/profile`);
+        window.history.pushState({'page':'profile'},``, `https://${website.url}/${lang}/profile`);
         document.title = user.name+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
     }else{
@@ -494,7 +494,7 @@ $('html,body').on('click','.changeEmail',(e) => {
     $('#changeEmailContainer').removeClass('none');
     if($('#profilepage').hasClass('none')){
         switchPage($('#profilepage'),showProfilePage('changeEmail'))
-        window.history.pushState({'page':'profile'},``, `https://${website.url}/${urlLang}/profile`);
+        window.history.pushState({'page':'profile'},``, `https://${website.url}/${lang}/profile`);
         document.title = user.name+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
 
@@ -574,7 +574,7 @@ $('html,body').on('click','.changePassword',(e) => {
     showProfilePage('changePassword')
     if($('#profilepage').hasClass('none')){
         switchPage($('#profilepage'),showProfilePage('changePassword'))
-        window.history.pushState({'page':'profile'},``, `https://${website.url}/${urlLang}/profile`);
+        window.history.pushState({'page':'profile'},``, `https://${website.url}/${lang}/profile`);
         document.title = user.name+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
         console.log(website.websiteDescriptions[lang])

@@ -38,14 +38,14 @@ drawCartItem = function(item,itemId){
                 class:'cartItem',
             }).append(
                 $('<div/>',{class:'cartItemRemove ic-close',itemId:itemId,tooltip:texts.orders.removeItem}),
-                $('<a/>',{href:`/${urlLang}/${product.catName}/${product.name}`, class:'productLink',productId:product.id}).append(
+                $('<a/>',{href:`/${lang}/${product.catName}/${product.name}`, class:'productLink',productId:product.id}).append(
                     $('<img/>',{class:'cartItemImg',src:product.thumbnailUrl,productId:product.id}),
                 ),
                 $('<div/>',{class:'cartItemNameContainer'}).append(
                     $('<a/>',{
                         class:'cartItemName productLink',
                         text:product.nameLang,
-                        href:`/${urlLang}/${product.catName}/${product.name}`,
+                        href:`/${lang}/${product.catName}/${product.name}`,
                         productId:product.id
                     }),
                     $('<div/>',{class:'cartItemSelectionsContainer'})
@@ -602,12 +602,12 @@ drawTrackOrder = function(order){
                     $('<a/>',{
                         class:'productLink',
                         productId:product.id,
-                        href:'/'+urlLang+'/'+product.catName+'/'+product.name,
+                        href:'/'+lang+'/'+product.catName+'/'+product.name,
                     }).append(
                         $('<img/>',{productId:product.id,class:'trackOrderItemImg',src:product.thumbnailUrl}),
                     ),
                     $('<div/>',{class:'column alnS jstfyS'}).append(
-                        $('<a/>',{productId:product.id,text:product.nameLang,class:'trackOrderItemName productLink',href:'/'+urlLang+'/'+product.catName+'/'+product.name}),
+                        $('<a/>',{productId:product.id,text:product.nameLang,class:'trackOrderItemName productLink',href:'/'+lang+'/'+product.catName+'/'+product.name}),
                         $('<div/>',{class:'fs-07 mX-10',text:texts.orders.quantity+': '+item.qty}),
                         itemOptionsC = $('<div/>',{class:'mX-5 fs-07 row wrap alnS jstfyS'})
                     )

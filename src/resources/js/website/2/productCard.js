@@ -6,7 +6,7 @@ drawProductCard = (product,container) => {
             $('<a/>',{
                 class:'productImgContainer productLink',
                 productId:product.id,
-                href:`/${urlLang}/${product.catName}/${product.name}`,
+                href:`/${lang}/${product.catName}/${product.name}`,
             }).append(
                 $('<img/>',{
                     class:'productCardImg',
@@ -17,7 +17,7 @@ drawProductCard = (product,container) => {
                 class:'productCardTitle productLink',
                 text:product.nameLang,
                 productId:product.id,
-                href:`/${urlLang}/${product.catName}/${product.name}`,
+                href:`/${lang}/${product.catName}/${product.name}`,
             }),
             $('<div/>',{
                 html:drawRatingStars(product.rating,product.ratings_sum),
@@ -31,28 +31,28 @@ drawProductCard = (product,container) => {
                     tooltip:texts.other.new,
                     class:`c1 productCardIcon productIcon ${productIcons(product.id).new}`,
                     iconTag:'new',
-                    href:`/${urlLang}/allproducts?tag=new`
+                    href:`/${lang}/allproducts?tag=new`
                 }),
                 $('<a/>',{
                     productId:product.id,
                     tooltip:texts.other.trending,
                     class:`cE productCardIcon productIcon ${productIcons(product.id).trending}`,
                     iconTag:'trending',
-                    href:`/${urlLang}/allproducts?tag=trending`,
+                    href:`/${lang}/allproducts?tag=trending`,
                 }),
                 $('<a/>',{
                     productId:product.id,
                     tooltip:texts.other.popular,
                     class:`cS productCardIcon productIcon ${productIcons(product.id).popular}`,
                     iconTag:'popular',
-                    href:`/${urlLang}/allproducts?tag=popular`
+                    href:`/${lang}/allproducts?tag=popular`
                 }),
                 $('<a/>',{
                     productId:product.id,
                     tooltip:texts.other.topRated,
                     class:`cR productCardIcon productIcon ${productIcons(product.id).topRated}`,
                     iconTag:'topRated',
-                    href:`/${urlLang}/allproducts?tag=topRated`
+                    href:`/${lang}/allproducts?tag=topRated`
                 }),
                 $('<span/>',{productName:product.name,tooltip:texts.other.productToChat,class:'productCardIcon pointer productToChat ic-chat '}),
             ),

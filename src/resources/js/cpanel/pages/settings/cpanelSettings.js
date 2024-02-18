@@ -8,7 +8,7 @@ loadViewSettings();
 loadGuideModeSettings();
 
 $(window).on('resize',function(){
-    if(window.history.state.page != 'statistics_and_analytics'){
+    if(window.history.state.page != 'statistics_and_analytics' && window.history.state.page != 'home'){
         loadGuideModeSettings();
     }
     loadViewSettings();

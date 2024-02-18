@@ -19,18 +19,19 @@
 // }
 window.globalChannel
 .here(function(users){
-    // for(const key in users){
-    //     if(users[key].type == 'account'){
-    //         if(users[key].liveChatAuthority == 1 && !users[key].isInvisible){
-    //             window.onlineAccounts.push(users[key].id)
-    //         }
-    //     }
-    // }
-    // checkRestaurantOnlineStatus();
+    console.log(users)
+    for(const key in users){
+        if(users[key].type == 'account'){
+            if(users[key].liveChatAuthority == 1 && users[key].isInvisible == 0){
+                window.onlineAccounts.push(users[key].id)
+            }
+        }
+    }
+    checkRestaurantOnlineStatus();
     // console.log(users)
 }).joining(function(user){
     if(user.type == 'account'){
-        if(user.liveChatAuthority == 1 && !user.isInvisible){
+        if(user.liveChatAuthority == 1 && user.isInvisible == 0){
             window.onlineAccounts.push(user.id)
         }
     }

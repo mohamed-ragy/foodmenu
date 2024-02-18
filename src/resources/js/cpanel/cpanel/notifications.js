@@ -263,11 +263,14 @@ handelCpanelChannel = function(n,code){
             }
         break;
         case 'website.offline':
-
+            website.active = false;
+            checkWebsiteStatus();
         break;
         case 'website.online':
-
+            website.active = true;
+            checkWebsiteStatus();
         break;
+
         /////system
         case 'system.subaccount_blocked':
             window.pageNotifications.notifications = window.pageNotifications.notifications + 1;

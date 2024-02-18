@@ -20,7 +20,7 @@ counter = function(div,number,prefix,after='',toFixed=0){
         checkNumber =  number - divnumber;
     }
 
-    let addToNumber = checkNumber / 50
+    let addToNumber = checkNumber / 30
 
     clearInterval(counterIntervals[prefix]);
 
@@ -32,7 +32,7 @@ counter = function(div,number,prefix,after='',toFixed=0){
                 div.text(after+number.toFixed(toFixed))
                 clearInterval(counterIntervals[prefix]);
             }
-        },50)
+        },30)
     }else if(divnumber < number){
         counterIntervals[prefix] = setInterval(function(){
             divnumber = divnumber + addToNumber;
@@ -41,7 +41,7 @@ counter = function(div,number,prefix,after='',toFixed=0){
                 div.text(after+number.toFixed(toFixed))
                 clearInterval(counterIntervals[prefix]);
             }
-        },50)
+        },30)
     }else{
         div.text(after+number.toFixed(toFixed))
     }

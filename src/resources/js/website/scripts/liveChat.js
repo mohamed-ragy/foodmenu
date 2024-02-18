@@ -35,27 +35,27 @@ getChatMsgInfo = function(msg){
     DateTimeformat = {  year: 'numeric', month: 'numeric', day: 'numeric', hour:'numeric', minute:'numeric',second:'numeric',hour12 :hour12,};
 
     msgTime = new Date((msg.sent_at));
-    msgTime = msgTime.toLocaleString(urlLang,Timeformat);
+    msgTime = msgTime.toLocaleString(lang,Timeformat);
     sentAt = new Date((msg.sent_at));
-    sentAt = sentAt.toLocaleString(urlLang,DateTimeformat);
+    sentAt = sentAt.toLocaleString(lang,DateTimeformat);
     msgIconClass = 'ic-msgSent msgSent';
     msgInfo = `<div style="margin-bottom:.1em;margin-top:.1em;" class="row alnC jstfyC"><span style="margin-inline-end:.5em;" class="ic-msgSent msgSent"></span><span>`+texts.liveChat.msgSent+` `+sentAt+`</span></div>`;
     // if(msg.is_delivered == true){
     //     deliveredAt = new Date((msg.delivered_at).replace(/ /g,"T"));
-    //     deliveredAt = deliveredAt.toLocaleString(urlLang,DateTimeformat);
+    //     deliveredAt = deliveredAt.toLocaleString(lang,DateTimeformat);
     //     msgIconClass = 'ic-msgDelivered msgDelivered';
     //     // msgInfo = msgInfo + `<div style="margin-bottom:.1em;margin-top:.1em;">`+texts.liveChat.msgDelivered+` `+deliveredAt+`</div>`;
     // }
     if(msg.is_seen == true){
         seenAt = new Date((msg.seen_at));
-        seenAt = seenAt.toLocaleString(urlLang,DateTimeformat);
+        seenAt = seenAt.toLocaleString(lang,DateTimeformat);
         msgIconClass = 'ic-msgSeen msgSeen';
         // msgInfo = msgInfo + `<div style="margin-bottom:.1em;margin-top:.1em;">`+texts.liveChat.msgSeen+` `+seenAt+`</div>`;
 
     }
     if(msg.is_deleted == true){
         deletedAt = new Date((msg.deleted_at));
-        deletedAt = deletedAt.toLocaleString(urlLang,DateTimeformat);
+        deletedAt = deletedAt.toLocaleString(lang,DateTimeformat);
         msgIconClass = '';
         // msgInfo = msgInfo + `<div style="margin-bottom:.1em;margin-top:.1em;">`+texts.liveChat.msgDeleted+` `+deletedAt+`</div>`;
     }
@@ -123,7 +123,7 @@ getChatMsgInfo = function(msg){
         today.getYear() == msgDate.getYear() ){
             msgDate = texts.liveChat.msgYesterday;
     }else{
-        msgDate = msgDate.toLocaleString(urlLang,DateFormat);
+        msgDate = msgDate.toLocaleString(lang,DateFormat);
     }
     return{
         msgDate:msgDate,
@@ -145,12 +145,12 @@ getChatMsgInfo = function(msg){
     // let deliveredAt = '';
     // let deliveredAtTxt = '';
     // let MsgSentAt = new Date((msg.sent_at).replace(/ /g,"T"));
-    // MsgSentAt = MsgSentAt.toLocaleString(urlLang,Timeformat);
+    // MsgSentAt = MsgSentAt.toLocaleString(lang,Timeformat);
 
-    // if(msg.is_seen == true){seenAt = new Date((msg.seen_at).replace(/ /g,"T"));seenAt = seenAt.toLocaleString(urlLang,DateTimeformat);}
-    // if(msg.is_delivered == true){deliveredAt = new Date((msg.delivered_at).replace(/ /g,"T")); deliveredAt = deliveredAt.toLocaleString(urlLang,DateTimeformat); deliveredAtTxt = texts.liveChat.msgDelivered}
+    // if(msg.is_seen == true){seenAt = new Date((msg.seen_at).replace(/ /g,"T"));seenAt = seenAt.toLocaleString(lang,DateTimeformat);}
+    // if(msg.is_delivered == true){deliveredAt = new Date((msg.delivered_at).replace(/ /g,"T")); deliveredAt = deliveredAt.toLocaleString(lang,DateTimeformat); deliveredAtTxt = texts.liveChat.msgDelivered}
     // sentAt = new Date((msg.sent_at).replace(/ /g,"T"));
-    // sentAt = sentAt.toLocaleString(urlLang,DateTimeformat);
+    // sentAt = sentAt.toLocaleString(lang,DateTimeformat);
 
     // if(msg.is_seen == true){msgIconClass = 'ic-msgSeen msgSeen';msgInfo = `<div>`+texts.liveChat.msgSent+` `+sentAt+`</div><div style="margin-bottom:.25em;margin-top:.25em;">`+deliveredAtTxt+` `+deliveredAt+`</div><div>`+texts.liveChat.msgSeen+` `+seenAt+`</div>`;}
     // else if(msg.is_delivered == true){msgIconClass = 'ic-msgDelivered msgDelivered';msgInfo = `<div style="margin-bottom:.25em">`+texts.liveChat.msgSent+` `+sentAt+`</div><div>`+deliveredAtTxt+` `+deliveredAt+`</div>`;}
@@ -158,7 +158,7 @@ getChatMsgInfo = function(msg){
 
     // let DateFormat = { year: 'numeric', month: 'short', day: '2-digit' }
     // msgDate = new Date((msg.sent_at).replace(/ /g,"T"));
-    // // msgDate = msgDate.toLocaleString(urlLang,DateFormat);
+    // // msgDate = msgDate.toLocaleString(lang,DateFormat);
     // let today = new Date();
 
     // if(today.getDate() == msgDate.getDate() &&
@@ -170,7 +170,7 @@ getChatMsgInfo = function(msg){
     //     today.getYear() == msgDate.getYear() ){
     //         msgDate = texts.liveChat.msgYesterday;
     // }else{
-    //     msgDate = msgDate.toLocaleString(urlLang,DateFormat);
+    //     msgDate = msgDate.toLocaleString(lang,DateFormat);
     // }
     // return {
     //     msgDate:msgDate,
@@ -204,10 +204,10 @@ drawChatProduct = function(txt){
     let product = products.find(item => item.name == txt.replace('p@',''))
     if(product == null){return;}
      return`<div class="chatProductContainer">
-        <a href="/`+urlLang+`/${product.catName}/`+product.name+`">
+        <a href="/`+lang+`/${product.catName}/`+product.name+`">
             <img class="chatProductImg product productLink" productId="${product.id}" productName="`+product.name+`" src="`+product.imgUrl+`" alt="" />
         </a>
-        <a href="/`+urlLang+`/${product.catName}/`+product.name+`" class="chatProductName productLink" productId="${product.id}">`+product.nameLang+`</a>
+        <a href="/`+lang+`/${product.catName}/`+product.name+`" class="chatProductName productLink" productId="${product.id}">`+product.nameLang+`</a>
         <div class="chatProductDes" tooltip="${product.descriptionLang}">`+product.descriptionLang+`</div>
         <div style="margin:5px;"><button  class="addToCart" productId="`+product.id+`">`+texts.orders.addToCart+`</button></div>
     </div>`
@@ -584,7 +584,7 @@ sendChatMsg = function(){
     $('#liveChatmsgInput').val('');
     let Timeformat =  { hour:'numeric', minute:'numeric',hour12 :hour12};
     let MsgSentAt = new Date();
-    MsgSentAt = MsgSentAt.toLocaleString(urlLang,Timeformat);
+    MsgSentAt = MsgSentAt.toLocaleString(lang,Timeformat);
     let msgIconClass = 'ic-msgSent msgSent';
     let msgInfo = `<div>`+texts.liveChat.msgSent+` `+MsgSentAt+`</div>`;
     tempMsgId = Math.round(Math.random()*100000000);
@@ -1237,11 +1237,11 @@ checkRestaurantOnlineStatus = function(){
 //     //             Timeformat =  { hour:'numeric', minute:'numeric',hour12 :hour12};
 //     //             DateTimeformat = {  year: 'numeric', month: 'numeric', day: 'numeric', hour:'numeric', minute:'numeric',second:'numeric',hour12 :hour12,};
 //     //             MsgSentAt = new Date(($(this).attr('sent_at')).replace(/ /g,"T"));
-//     //             MsgSentAt = MsgSentAt.toLocaleString(urlLang,Timeformat);
+//     //             MsgSentAt = MsgSentAt.toLocaleString(lang,Timeformat);
 //     //             deliveredAt = new Date( $(this).attr('delivered_at'));
-//     //             deliveredAt = deliveredAt.toLocaleString(urlLang,DateTimeformat);
+//     //             deliveredAt = deliveredAt.toLocaleString(lang,DateTimeformat);
 //     //             sentAt = new Date(($(this).attr('sent_at')).replace(/ /g,"T"));
-//     //             sentAt = sentAt.toLocaleString(urlLang,DateTimeformat);
+//     //             sentAt = sentAt.toLocaleString(lang,DateTimeformat);
 //     //             msgInfo = `<div style="margin-bottom:.25em">`+texts.liveChat.msgSent+` `+sentAt+`</div><div>`+texts.liveChat.msgDelivered+` `+deliveredAt+`</div>`;
 //     //             $(this).attr('msgInfo',msgInfo)
 //     //             // $(this).parent().parent().find('.ic-msgSent').removeClass('ic-msgSent').addClass('ic-msgDelivered');
@@ -1258,13 +1258,13 @@ checkRestaurantOnlineStatus = function(){
 //     //             Timeformat =  { hour:'numeric', minute:'numeric',hour12 :hour12};
 //     //             DateTimeformat = {  year: 'numeric', month: 'numeric', day: 'numeric', hour:'numeric', minute:'numeric',second:'numeric',hour12 :hour12,};
 //     //             MsgSentAt = new Date(($(this).attr('sent_at')).replace(/ /g,"T"));
-//     //             MsgSentAt = MsgSentAt.toLocaleString(urlLang,Timeformat);
+//     //             MsgSentAt = MsgSentAt.toLocaleString(lang,Timeformat);
 //     //             deliveredAt = new Date( $(this).attr('delivered_at'));
-//     //             deliveredAt = deliveredAt.toLocaleString(urlLang,DateTimeformat);
+//     //             deliveredAt = deliveredAt.toLocaleString(lang,DateTimeformat);
 //     //             sentAt = new Date(($(this).attr('sent_at')).replace(/ /g,"T"));
-//     //             sentAt = sentAt.toLocaleString(urlLang,DateTimeformat);
+//     //             sentAt = sentAt.toLocaleString(lang,DateTimeformat);
 //     //             seenAt = new Date(($(this).attr('seen_at')).replace(/ /g,"T"));
-//     //             seenAt = seenAt.toLocaleString(urlLang,DateTimeformat);
+//     //             seenAt = seenAt.toLocaleString(lang,DateTimeformat);
 //     //             msgInfo = `<div>`+texts.liveChat.msgSent+` `+sentAt+`</div><div style="margin-bottom:.25em;margin-top:.25em;">`+texts.liveChat.msgDelivered+` `+deliveredAt+`</div><div>`+texts.liveChat.msgSeen+` `+seenAt+`</div>`;
 //     //             $(this).attr('msgInfo',msgInfo)
 //     //             // $(this).parent().parent().find('.ic-msgSent').removeClass('ic-msgSent').addClass('ic-msgSeen');
@@ -1636,7 +1636,7 @@ $.ajax({
             typingCheckerTimeout = setTimeout(function(){
                 typingChecker = false;
             },3000);
-        }   
+        }
         // if(typingChecker == false){
         //     if(loginCheck){
         //         clearTimeout(typingCheckerTimeout);

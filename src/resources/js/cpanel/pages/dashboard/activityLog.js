@@ -330,7 +330,7 @@ drawActivityLog = function(activity,is_live){
     }
     lastActivity = activity;
 
-    activity_elem = $('<div/>',{class:`activityContainer`,activity:activity._id}).append(
+    activity_elem = $('<div/>',{class:`${is_live ? 'activityContainer_live' : 'activityContainer'}`,activity:activity._id}).append(
         $('<div/>',{
             class:activity_icon+' fs105 m10',
         }),
@@ -340,19 +340,25 @@ drawActivityLog = function(activity,is_live){
             $('<div/>',{class:'',html:activity_body}),
         ),
         $('<div/>',{class:'column alnE jstfySB alnsSH'}).append(
-            $('<div/>',{class:'row alnC jstfyE'}).append(
-                $('<div/>',{class:`${!show_seeChanges ? 'none' : ''} ico-showPassword seeChanges_activityLog fs1`,tooltip:texts.dashboard.seeChanges,activity:activity._id}),
-                $('<div/>',{class:'ico-close deleteActivityLog fs08',tooltip:texts.cpanel.public.delete}),
+            $('<div/>',{class:'row alnC jstfyE mnh20'}).append(
+                $('<div/>',{class:`${!show_seeChanges ? 'none' : ''}  ico-showPassword seeChanges_activityLog fs1`,tooltip:texts.dashboard.seeChanges,activity:activity._id}),
+                $('<div/>',{class:`${is_live ? 'none' : ''} ico-close deleteActivityLog fs08`,tooltip:texts.cpanel.public.delete}),
             ),
             $('<div/>',{
                 text:getDate(activity.created_at).time.restaurant,
-                class:'tnw fs07 taE m5 mT20',
+                class:'tnw fs07 taE m5 mT10',
             }),
         )
     )
 
     if(is_live){
-
+        if($('.liveActivityLogContainer').children().length >= 5){
+            $('#liveActivityLogContainer').children().last().addClass('liveActivityAnimation_exit')
+            setTimeout(function(){
+                $('.liveActivityLogContainer').find('.liveActivityAnimation_exit').remove();
+            },500)
+        }
+        $('.liveActivityLogContainer').prepend(activity_elem)
     }else{
         if(activity_group){
             $('.activityGroupContainer').last().append(activity_elem)
@@ -429,7 +435,11 @@ $('html,body').on('click','#deleteActivityLog-confirmBtn',function(e){
 //
 $('html,body').on('click','.seeChanges_activityLog',function(e){
     e.stopImmediatePropagation();
-    seeChanges_activityLog(window.activity_log.find(item=>item._id == $(this).attr('activity')))
+    let activity = window.activity_log.find(item=>item._id == $(this).attr('activity'));
+    if(typeof(activity) == 'undefined'){
+        activity = window.last_activites.find(item=>item._id == $(this).attr('activity'));
+    }
+    seeChanges_activityLog(activity)
 })
 seeChanges_activityLog = function(activity){
     console.log(activity)

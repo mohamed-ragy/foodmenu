@@ -92,7 +92,7 @@ showHomePage = () => {
                     $('<a/>',{
                         class:`homeCategoryTxt categoryLink`,
                         categoryId:category.id,
-                        href:`/${urlLang}/${category.name}`,
+                        href:`/${lang}/${category.name}`,
                     }).append(
                         $('<div/>',{
                             class:'homeCategoryName category fs-2 font2 mB-5 taC',

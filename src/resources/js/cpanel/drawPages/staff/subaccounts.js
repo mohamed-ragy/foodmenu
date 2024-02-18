@@ -14,7 +14,7 @@ drawPage_sub_accounts = function(){
     drawSubAccountsTable();
 }
 drawSubAccountsTable = function(){
-    if(website.accounts.length == 0){
+    if(website.accounts.length == 1){
         $('#subAccountsTable').text('').append(
             $('<div/>',{class:'mT10',text:texts.staff.noSubAccounts})
         );

@@ -25,28 +25,28 @@ showProductPage = (productId) => {
                 tooltip:texts.other.new,
                 class:`c1 productIcon a-unset fs-05 mX-2  ${productIcons(product.id).new}`,
                 iconTag:'new',
-                href:`/${urlLang}/allproducts?tag=new`
+                href:`/${lang}/allproducts?tag=new`
             }),
             $('<a/>',{
                 productId:product.id,
                 tooltip:texts.other.trending,
                 class:`cE productIcon a-unset fs-05 mX-2  ${productIcons(product.id).trending}`,
                 iconTag:'trending',
-                href:`/${urlLang}/allproducts?tag=trending`,
+                href:`/${lang}/allproducts?tag=trending`,
             }),
             $('<a/>',{
                 productId:product.id,
                 tooltip:texts.other.popular,
                 class:`cS productIcon a-unset fs-05 mX-2  ${productIcons(product.id).popular}`,
                 iconTag:'popular',
-                href:`/${urlLang}/allproducts?tag=popular`
+                href:`/${lang}/allproducts?tag=popular`
             }),
             $('<a/>',{
                 productId:product.id,
                 tooltip:texts.other.topRated,
                 class:`cR productIcon a-unset fs-05 mX-2  ${productIcons(product.id).topRated}`,
                 iconTag:'topRated',
-                href:`/${urlLang}/allproducts?tag=topRated`
+                href:`/${lang}/allproducts?tag=topRated`
             }),
         ),
         $('.productPageRating').html(drawRatingStars(product.rating,product.ratings_sum))
@@ -111,7 +111,7 @@ drawProductPageReview = (review,append='append') => {
                     $('<span/>',{class:'ic-quote-left fs-08 mX-5'}),
                     $('<span/>',{text:review.review}),
                     $('<span/>',{class:'ic-quote-right fs-08 mX-5'}),
-    
+
                 ),
                 $('<div/>',{text:reviewUserName,class:'mT-15 alnsE'}),
             )
@@ -129,7 +129,7 @@ drawProductPageReview = (review,append='append') => {
                     $('<span/>',{class:'ic-quote-left fs-08 mX-5'}),
                     $('<span/>',{text:review.review}),
                     $('<span/>',{class:'ic-quote-right fs-08 mX-5'}),
-    
+
                 ),
                 $('<div/>',{text:reviewUserName,class:'mT-15 alnsE'}),
             )

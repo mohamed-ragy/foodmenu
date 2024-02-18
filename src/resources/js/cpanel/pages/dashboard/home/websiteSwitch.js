@@ -1,5 +1,6 @@
 /////////websiteSwitch
 checkWebsiteStatus = function(){
+
     if(website.subscription_status != 'trialing' && website.subscription_status != 'incomplete' && website.subscription_status != 'active'){
         website.active == false;
         $('#system-websiteSwitch').prop('checked',false);
@@ -19,7 +20,6 @@ checkWebsiteStatus = function(){
         }
     }
 };
-checkWebsiteStatus();
 // if(account.is_master){
     if(website.subscription_status != 'trialing' && website.subscription_status != 'past_due' && website.subscription_status != 'active'){
         $('.paymentFailAnn').removeClass('none').addClass('paymentFailAnn_red');
@@ -38,7 +38,14 @@ checkWebsiteStatus();
     if(!account.is_master){$('.paymentFailAnn').hide();}
 // }
 
-$('#system-websiteSwitch').on('change',function(){
+$('html,body').on('change','#system-websiteSwitch',function(e){
+    e.stopImmediatePropagation();
+    if(!coolDownChecker()){
+        setTimeout(function(){
+            checkWebsiteStatus();
+        },100)
+        return;
+    }
     if(website.subscription_status != 'trialing' && website.subscription_status != 'incomplete' && website.subscription_status != 'active'){
         website.active == false;
         setTimeout(function(){
@@ -62,7 +69,7 @@ $('#system-websiteSwitch').on('change',function(){
                         showAlert('success',response.msg,4000,true);
                         hideLoading($('#websiteSwitchLoading'))
                         website.active = true;
-                        window.guideHints.websiteSwitch();
+                        // window.guideHints.websiteSwitch();
                         checkWebsiteStatus();
                     },1000);
                 }else if(response.websiteSwitchOnStatus == 0){
@@ -86,7 +93,7 @@ $('#system-websiteSwitch').on('change',function(){
                         showAlert('success',response.msg,4000,true);
                         hideLoading($('#websiteSwitchLoading'))
                         website.active = false;
-                        window.guideHints.websiteSwitch();
+                        // window.guideHints.websiteSwitch();
                         checkWebsiteStatus();
                     },1000);
                 }else if(response.websiteSwitchOffStatus == 0){

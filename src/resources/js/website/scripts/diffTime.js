@@ -74,7 +74,6 @@ getDateAndTime = (timeStamp,modify='') => {
     try{String(timeStamp).includes("-") ? timeStamp = timeStamp.replace(/-/g, "/") : timeStamp = timeStamp;}catch{timeStamp = timeStamp}
     timeStamp == 'now' ? time = new Date(new Date().toLocaleString('en-US',{timeZone:website.timeZone})) : time = new Date(timeStamp+' UTC');
     website.hour12 ? hour12 = 1 : hour12 = 0;
-    TimeLang = urlLang;
     switch(modify){
         case 'noYear':format =  { weekday: 'long', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric',hour12 :hour12,};break;
         case 'onlyTime':format =  { hour:'numeric', minute:'numeric',hour12 :hour12,};break;
@@ -92,5 +91,5 @@ getDateAndTime = (timeStamp,modify='') => {
         case 'weekday':format =  {weekday:'long',hour12 :0};break;
         default:format =  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric',hour12 :hour12,};
     }
-    return time.toLocaleString(TimeLang,format);
+    return time.toLocaleString(lang,format);
 }

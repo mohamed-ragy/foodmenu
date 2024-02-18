@@ -7,6 +7,7 @@ calcTodayOrdersData = function(){
         di:{orders:0,items_total:0,tax:0,service:0,total:0,guestOrders:0,userOrders:0,},
         // users:{},
         products:[],
+        solid_products:0,
         // deliveries:{},
     }
     if(!account.is_master){return todayOrdersData}
@@ -89,274 +90,241 @@ calcTodayOrdersData = function(){
             order.isGuest ? todayOrdersData.di.guestOrders = todayOrdersData.di.guestOrders + 1 : todayOrdersData.di.userOrders = todayOrdersData.di.userOrders + 1;
         }
     }
-    // for(const key in todayOrdersData.products){
-        // if(todayOrdersData.products[key].ordered > 0){
-        //     todayOrdersData.products_ordered.push(todayOrdersData.products[key])
-        // }
-        // if(todayOrdersData.products[key].ordered == 0){
-        //     todayOrdersData.products_notOrdered.push(todayOrdersData.products[key])
-        // }
-    // }
-    // todayOrdersData.products_ordered.sort((a,b)=>{return b.ordered - a.ordered || b.income - a.income;});
+    for(const key in todayOrdersData.products){
+        if(todayOrdersData.products[key].ordered > 0){
+            todayOrdersData.solid_products = todayOrdersData.solid_products + todayOrdersData.products[key].ordered
+        }
+    }
+    todayOrdersData.products.sort((a,b)=>{return b.ordered - a.ordered || b.income - a.income;});
     return todayOrdersData;
 }
-drawTodayHomeOrders = function(){
-    let todayOrdersData = calcTodayOrdersData();
-    console.log(todayOrdersData);
+drawHomeOnlineVisitors = function(){
+    if(account.authorities[2] == 0){
+        $('.h_online_visitors').removeClass('cardLoading br5 h10 m5 w50')
+        $('.h_online_guests').removeClass('cardLoading br5 h10 m5 w50')
+        $('.h_online_users').removeClass('cardLoading br5 h10 m5 w50')
+        $('.h_online_visitors').text(texts.cpanel.public.na)
+        $('.h_online_guests').text(texts.cpanel.public.na)
+        $('.h_online_users').text(texts.cpanel.public.na)
+        return;
+    }
+    let users = 0; let guests = 0; let x = 0;
+    for(const key in window.online){
+        if(window.online[key].type == 'user' || window.online[key].type == 'guest'){
+            x++;
+        }
+        if(window.online[key].type == 'user'){
+            users++;
+        }
+        if(window.online[key].type == 'guest'){
+            guests++;
+        }
+    }
+    $('.h_online_visitors').removeClass('cardLoading br5 h10 m5 w50')
+    counter($('.h_online_visitors'),x,'h_online_visitors','',0)
 
-    // return;
-    // if(!account.is_master){
-    //     drawTodayHomeProducts();
-    //     return;
-    // }
-    // $('#home-todaySuccessfullOrders').find('.homePrograssBarInfo').attr('toolTip',homeStatistics_so(todayOrdersData.so))
-    // $('#home-todaySuccessfullOrders').find('.homePrograssBarInside').css('width',`${(todayOrdersData.so.orders / (todayOrdersData.so.orders + todayOrdersData.co.orders)) * 100}%`)
-    // $('#home-todayCanceledOrders').find('.homePrograssBarInfo').attr('toolTip',homeStatistics_co(todayOrdersData.co))
-    // $('#home-todayCanceledOrders').find('.homePrograssBarInside').css('width',`${(todayOrdersData.co.orders / (todayOrdersData.so.orders + todayOrdersData.co.orders)) * 100}%`)
+    $('.h_online_users').removeClass('cardLoading br5 h10 m5 w50')
+    counter($('.h_online_users'),users,'h_online_users','',0)
 
-    // $('#home-todayDeliveredOrders').find('.homePrograssBarInfo').attr('toolTip',homeStatistics_do(todayOrdersData.do))
-    // $('#home-todayDeliveredOrders').find('.homePrograssBarInside').css('width',`${(todayOrdersData.do.orders / todayOrdersData.so.orders ) * 100}%`)
-
-    // $('#home-todayPickupedOrders').find('.homePrograssBarInfo').attr('toolTip',homeStatistics_po(todayOrdersData.po))
-    // $('#home-todayPickupedOrders').find('.homePrograssBarInside').css('width',`${(todayOrdersData.po.orders / todayOrdersData.so.orders ) * 100}%`)
-
-    // $('#home-todayDinedOrders').find('.homePrograssBarInfo').attr('toolTip',homeStatistics_di(todayOrdersData.di))
-    // $('#home-todayDinedOrders').find('.homePrograssBarInside').css('width',`${(todayOrdersData.di.orders / todayOrdersData.so.orders ) * 100}%`)
-    // // $('#home-todayCanceledOrders').text(todayOrdersData.co.orders)
-
-    // counter($('#home-todayIncome'),todayOrdersData.so.total,'homeTodayIncom',website.currency,2)
-    // counter($('#home-todayDeliveryuIncome'),todayOrdersData.do.total,'todayDeliveryuIncome',website.currency,2)
-    // counter($('#home-todayPickupuIncome'),todayOrdersData.po.total,'todayPickupuIncome',website.currency,2)
-    // counter($('#home-todayDineInIncome'),todayOrdersData.di.total,'todayDineInIncome',website.currency,2)
-
-    // drawTodayHomeProducts();
-    // setDeliverisHomeOrders();
+    $('.h_online_guests').removeClass('cardLoading br5 h10 m5 w50')
+    counter($('.h_online_guests'),guests,'h_online_guests','',0)
 }
+drawTodayHomeOrders = function(){
+    if(!account.is_master){
+        $('.h_so_total').removeClass('cardLoading br5 h10 m5 w50')
+        $('.h_products_solid').removeClass('cardLoading br5 h10 m5 w50')
+        $('.h_so_total').text(texts.cpanel.public.na)
+        $('.h_products_solid').text(texts.cpanel.public.na)
+        $('.successfulOrders_ordersPerformanceVal').text(texts.cpanel.public.na)
+        $('.canceledOrders_ordersPerformanceVal').text(texts.cpanel.public.na)
+        $('.deliveredOrders_ordersPerformanceVal').text(texts.cpanel.public.na)
+        $('.pickedupOrders_ordersPerformanceVal').text(texts.cpanel.public.na)
+        $('.dinedinOrders_ordersPerformanceVal').text(texts.cpanel.public.na)
+        return;
+    }
+    let todayOrdersData = calcTodayOrdersData();
+    $('.h_so_total').removeClass('cardLoading br5 h10 m5 w50')
+    counter($('.h_so_total'),todayOrdersData.so.total,'h_so_total',website.currency,2)
 
 
-// homeStatistics_so = function(data){
-//     // return ` <div class="statisticsInfoContainer">
-//     //         <div class="row alnS jstfyS w100p">
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.successfulOrders}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryCost}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.totalIncome}</div>
-//     //             </div>
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.delivery)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
-//     //             </div>
-//     //         </div>
-//     //     </div>`;
-// }
-// homeStatistics_co = function(data){
-//     // return ` <div class="statisticsInfoContainer">
-//     //         <div class="row alnS jstfyS w100p">
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.canceledOrders}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryCost}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.total}</div>
-//     //             </div>
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.delivery)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
-//     //             </div>
-//     //         </div>
-//     //     </div>`;
-// }
-// homeStatistics_do = function(data){
-//     // return ` <div class="statisticsInfoContainer">
-//     //         <div class="row alnS jstfyS w100p">
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.deliveryOrders}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.deliveryCost}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.totalIncome}</div>
-//     //             </div>
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.delivery)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.total)}</div>
-//     //             </div>
-//     //         </div>
-//     //     </div>`;
-// }
-// homeStatistics_po = function(data){
-//     // return ` <div class="statisticsInfoContainer">
-//     //         <div class="row alnS jstfyS w100p">
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.pickupOrders}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.totalIncome}</div>
-//     //             </div>
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.total)}</div>
-//     //             </div>
-//     //         </div>
-//     //     </div>`;
-// }
-// homeStatistics_di = function(data){
-//     // return ` <div class="statisticsInfoContainer">
-//     //         <div class="row alnS jstfyS w100p">
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.dineInOrders}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.orderedByUsers}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.orderedByGuests}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.itemsTotal}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.tax}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c3">${texts.statistics.service}</div>
-//     //                 <div class="h15 row alnC jstfyS w100p-25 p5 pie-20 bgc-c1">${texts.statistics.totalIncome}</div>
-//     //             </div>
-//     //             <div class="column alnS jstfyS grow1">
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.orders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${bigInt(data.userOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${bigInt(data.guestOrders)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.items_total)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.tax)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c3">${website.currency+bigFloat(data.service)}</div>
-//     //                 <div class="h15 row alnC jstfyE w100p-10 p5 bgc-c1">${website.currency+bigFloat(data.total)}</div>
-//     //             </div>
-//     //         </div>
-//     //     </div>`;
-// }
+    $('.h_products_solid').removeClass('cardLoading br5 h10 m5 w50')
+    counter($('.h_products_solid'),todayOrdersData.solid_products,'h_products_solid','',0)
 
-// setDeliverisHomeOrders = function(){
-//     if(account.authorities[2] == 0){return;}
-//     let todayOrdersData = calcTodayOrdersData();
-//     for(const key in todayOrdersData.deliveries){
-//         let text2 = texts.home.ordersToday;
-//         let delivery = todayOrdersData.deliveries[key];
-//         delivery.orders == 1 ? text2 = texts.home.orderToday : null;
-//         $(`.deliveryAccountCard_live[deliveryId="${delivery.id}"]`).find('.home-deliveryOrders').text(`${texts.home.delivered} ${delivery.orders} ${text2}`)
+    let so_percent = 0; let co_percent = 0; let do_percent = 0; let po_percent = 0; let di_percent = 0;
+    if(todayOrdersData.so.orders + todayOrdersData.co.orders > 0){
+        so_percent = (todayOrdersData.so.orders / (todayOrdersData.so.orders + todayOrdersData.co.orders)) * 100;
+        co_percent = (todayOrdersData.co.orders / (todayOrdersData.so.orders + todayOrdersData.co.orders)) * 100;
+    }
+    if(todayOrdersData.so.orders > 0){
+        do_percent = (todayOrdersData.do.orders / todayOrdersData.so.orders ) * 100;
+        po_percent = (todayOrdersData.po.orders / todayOrdersData.so.orders ) * 100;
+        di_percent = (todayOrdersData.di.orders / todayOrdersData.so.orders ) * 100;
 
-//     }
-// }
+    }
+    $('.successfulOrders_ordersPerformanceVal').text(`${BigInt(todayOrdersData.so.orders)} ${texts.dashboard.orders} (${bigFloat(so_percent)}%)`)
+    $('.successfulOrders_ordersPerformanceBar').css('width',`${so_percent}%`)
+    $('.canceledOrders_ordersPerformanceVal').text(`${BigInt(todayOrdersData.co.orders)} ${texts.dashboard.orders} (${bigFloat(co_percent)}%)`)
+    $('.canceledOrders_ordersPerformanceBar').css('width',`${co_percent}%`)
+    $('.deliveredOrders_ordersPerformanceVal').text(`${BigInt(todayOrdersData.do.orders)} ${texts.dashboard.orders} (${bigFloat(do_percent)}%)`)
+    $('.deliveredOrders_ordersPerformanceBar').css('width',`${do_percent}%`)
+    $('.pickedupOrders_ordersPerformanceVal').text(`${BigInt(todayOrdersData.po.orders)} ${texts.dashboard.orders} (${bigFloat(po_percent)}%)`)
+    $('.pickedupOrders_ordersPerformanceBar').css('width',`${di_percent}%`)
+    $('.dinedinOrders_ordersPerformanceVal').text(`${BigInt(todayOrdersData.di.orders)} ${texts.dashboard.orders} (${bigFloat(di_percent)}%)`)
+    $('.dinedinOrders_ordersPerformanceBar').css('width',`${di_percent}%`)
 
-// drawTodayHomeProducts = function(){
-//     let todayOrdersData = calcTodayOrdersData();
-//     if(todayOrdersData.products_ordered.length ==  0){
-//         $('#home-productsOrderedWindows').addClass('none');
-//         $('#home-shareYourProductsWindow').removeClass('none')
-//         drawHomeShareYoutProducts();
-//     }else{
-//         $('#home-productsOrderedWindows').removeClass('none');
-//         $('#home-shareYourProductsWindow').addClass('none');
-//         drawTodayOrderedProducts();
-//         drawTodayNotOrderedProducts();
 
-//     }
-// }
+    $('#products_sold_today_table').text('').append(
+        $('<tr/>',{class:'trHead'}).append(
+            $('<th/>',{class:'taS',text:texts.dashboard.name}),
+            $('<th/>',{class:'taE',text:texts.dashboard.sold}),
+            $('<th/>',{class:'taE',text:texts.dashboard.income}),
+        )
+    )
+    $('#todays_income_table').text('').append(
 
-// drawHomeShareYoutProducts = function(){
-//     if(account.authorities[1] == 0){return;}
-//     $('#home-shareYourProductsContainer').text('');
-//     if(website.products.length == 0){
-//         $('#home-shareYourProductsContainer').append(
-//             $('<div/>',{class:'m10 fs102'}).append(
-//                 $('<span>',{class:'mie-3',text:texts.home.noProducts1}),
-//                 $('<a/>',{class:'popupPage',popupPage:'Create-Product',text:texts.home.noProducts2})
-//             )
-//         )
-//     }else{
-//         for(const key in website.products){
-//             let product = website.products[key];
-//             $('#home-shareYourProductsContainer').append(
-//                 $('<div/>',{class:'homeShareProduct '}).append(
-//                     $('<img/>',{class:'w200 h100 br3 ofCover',src:product.thumbnail}),
-//                     $('<div/>',{class:'w100p-10 pY5 fs101 row alnC jstfySB'}).append(
-//                         $('<a/>',{text:product.name,class:'mX5 ellipsis w60p popupPage',popupPage:'Product',product:product.name}),
-//                         $('<span/>',{class:'ico-share share pointer',tooltip:texts.cpanel.public.share,type:'product',itemId:product.id}),
-//                     )
-//                 )
-//             )
-//         }
-//     }
-// }
-// drawTodayOrderedProducts=function(){
-//     if(!account.is_master){return;}
-//     let todayOrdersData = calcTodayOrdersData();
-//     $('.home-productsOrderedTable').find('tbody').text('').append(
-//         $('<tr/>',{class:'home-productsOrderedTable_TR bgc-c3 sticky t0'}).append(
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS bold',text:texts.dashboard.successfulOrders}),
+            $('<td/>',{class:'pY5 taE',text:todayOrdersData.so.orders}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.itemsTotal}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.so.items_total)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.deliveryCost}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.so.delivery)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.tax}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.so.tax)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.service}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.so.service)}`}),
+        ),
+        $('<tr/>',{class:'bold'}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.total}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.so.total)}`}),
+        ),
 
-//             $('<th/>',{class:'taS p3 pX5',text:texts.home.product}),
-//             $('<th/>',{class:'taE p3 pX5',text:texts.home.ordered}),
-//             $('<th/>',{class:'taE p3 pX5',text:texts.home.income}),
-//         )
-//     )
-//     for(const key in todayOrdersData.products_ordered){
-//         $('.home-productsOrderedTable').find('tbody').append(
-//             $('<tr/>',{class:'home-productsOrderedTable_TR'}).append(
-//                 $('<td/>',{class:'taS p3 pX5 mxw200 ellipsis'}).append(
-//                     $('<a/>',{class:'w100p ellipsis popupPage',popupPage:'Product',product:todayOrdersData.products_ordered[key].name,text:todayOrdersData.products_ordered[key].name})
-//                 ),
-//                 $('<td/>',{class:'taE p3 pX5',text:todayOrdersData.products_ordered[key].ordered}),
-//                 $('<td/>',{class:'taE p3 pX5',text:website.currency+parseFloat(todayOrdersData.products_ordered[key].income).toFixed(2)}),
-//             )
-//         )
-//     }
-// }
-// drawTodayNotOrderedProducts = function(){
-//     if(!account.is_master){return;}
-//     let todayOrdersData = calcTodayOrdersData();
-//     $('.home-productsNotOrderedContainer').text('');
-//     if(todayOrdersData.products_notOrdered.length == 0){
-//         $('.home-productsNotOrderedContainer').append(
-//             $('<div/>',{class:'column alnC jstfyC'}).append(
-//                 $('<div/>',{class:'ico-success fs3 cG'}),
-//                 $('<div/>',{class:'m10 fs103',text:texts.home.noNotOrderedProducts})
-//             )
-//         )
-//     }else{
-//         for(const key in todayOrdersData.products_notOrdered){
-//             let product = website.products.find(item=> item.name == todayOrdersData.products_notOrdered[key].name);
-//             if(typeof(product) !== 'undefined'){
-//                 $('.home-productsNotOrderedContainer').append(
-//                     $('<div/>',{class:'homeShareProduct '}).append(
-//                         $('<img/>',{class:'w200 h100 br3 ofCover',src:product.thumbnail}),
-//                         $('<div/>',{class:'w100p-10 pY5 fs101 row alnC jstfySB'}).append(
-//                             $('<a/>',{text:product.name,class:'mX5 ellipsis w60p popupPage',popupPage:'Product',product:product.name}),
-//                             $('<span/>',{class:'ico-share share pointer',tooltip:texts.cpanel.public.share,type:'product',itemId:product.id}),
-//                         )
-//                     )
-//                 )
-//             }
-//         }
-//     }
-// }
+        $('<tr/>',{class:'trHead'}).append(
+            $('<th/>',{class:'taS'}),
+            $('<th/>',{class:'taE'}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pT10 pB5 taS bold',text:texts.dashboard.deliveredOrders}),
+            $('<td/>',{class:'pT10 pB5 taE',text:todayOrdersData.do.orders}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.itemsTotal}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.do.items_total)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.deliveryCost}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.do.delivery)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.tax}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.do.tax)}`}),
+        ),
+        $('<tr/>',{class:'bold'}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.total}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.do.total)}`}),
+        ),
+
+        $('<tr/>',{class:'trHead'}).append(
+            $('<th/>',{class:'taS'}),
+            $('<th/>',{class:'taE'}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pT10 pB5 taS bold',text:texts.dashboard.pickedupOrders}),
+            $('<td/>',{class:'pT10 pB5 taE',text:todayOrdersData.po.orders}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.itemsTotal}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.po.items_total)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.tax}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.po.tax)}`}),
+        ),
+        $('<tr/>',{class:'bold'}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.total}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.po.total)}`}),
+        ),
+
+        $('<tr/>',{class:'trHead'}).append(
+            $('<th/>',{class:'taS'}),
+            $('<th/>',{class:'taE'}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pT10 pB5 taS bold',text:texts.dashboard.dinedinOrders}),
+            $('<td/>',{class:'pT10 pB5 taE',text:todayOrdersData.di.orders}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.itemsTotal}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.di.items_total)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.tax}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.di.tax)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.service}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.di.service)}`}),
+        ),
+        $('<tr/>',{class:'bold'}).append(
+            $('<td/>',{class:'pY5 taS pis-15',text:texts.dashboard.total}),
+            $('<td/>',{class:'pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.di.total)}`}),
+        ),
+
+        $('<tr/>',{class:'trHead'}).append(
+            $('<th/>',{class:'taS'}),
+            $('<th/>',{class:'taE'}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'cR pT10 pB5 taS bold',text:texts.dashboard.canceledorders}),
+            $('<td/>',{class:'cR pT10 pB5 taE',text:todayOrdersData.co.orders}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'cR pY5 taS pis-15',text:texts.dashboard.itemsTotal}),
+            $('<td/>',{class:'cR pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.co.items_total)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'cR pY5 taS pis-15',text:texts.dashboard.deliveryCost}),
+            $('<td/>',{class:'cR pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.co.delivery)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'cR pY5 taS pis-15',text:texts.dashboard.tax}),
+            $('<td/>',{class:'cR pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.co.tax)}`}),
+        ),
+        $('<tr/>',{class:''}).append(
+            $('<td/>',{class:'cR pY5 taS pis-15',text:texts.dashboard.service}),
+            $('<td/>',{class:'cR pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.co.service)}`}),
+        ),
+        $('<tr/>',{class:'bold'}).append(
+            $('<td/>',{class:'cR pY5 taS pis-15',text:texts.dashboard.total}),
+            $('<td/>',{class:'cR pY5 taE',text:`${website.currency}${bigFloat(todayOrdersData.co.total)}`}),
+        ),
+
+    )
+
+
+    if(todayOrdersData.products.length == 0){
+        $('#products_sold_today_table').text(texts.dashboard.noData)
+    }
+
+    for(const key in todayOrdersData.products){
+        let product = todayOrdersData.products[key];
+        $('#products_sold_today_table').append(
+            $('<tr/>',{class:''}).append(
+                $('<td/>',{class:'taS'}).append(
+                    $('<a/>',{class:'popupPage popupId',popupPage:'product',popupId:'product',product:product.name,text:product.name})
+                ),
+                $('<td/>',{class:'taE',text:product.ordered}),
+                $('<td/>',{class:'taE',text:`${website.currency}${bigFloat(product.income)}`})
+            )
+        )
+    }
+
+}

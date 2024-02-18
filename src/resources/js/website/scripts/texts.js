@@ -80,27 +80,27 @@ setLinks = function(elem=null){
     !website.twitterLink ? $('[soIcon="twitter"]').addClass('none') : $('[soIcon="twitter"]').prop('href',website.twitterLink).removeClass('none');
     !website.instagramLink ? $('[soIcon="instagram"]').addClass('none') : $('[soIcon="instagram"]').prop('href',website.instagramLink).removeClass('none');
 
-    $('.home').prop('href',`/${urlLang}/home`);
-    $('.allProducts').prop('href',`/${urlLang}/allproducts`);
-    $('.privacyPolicy').prop('href',`/${urlLang}/privacypolicy`);
-    $('.aboutus').prop('href',`/${urlLang}/aboutus`);
-    $('.profile, .changeEmail, .changePassword, .orderHistory').prop('href',`/${urlLang}/profile`);
+    $('.home').prop('href',`/${lang}/home`);
+    $('.allProducts').prop('href',`/${lang}/allproducts`);
+    $('.privacyPolicy').prop('href',`/${lang}/privacypolicy`);
+    $('.aboutus').prop('href',`/${lang}/aboutus`);
+    $('.profile, .changeEmail, .changePassword, .orderHistory').prop('href',`/${lang}/profile`);
 
     website.phoneNumbers.length == 0 ? $('.restaurantPhoneNumbers').addClass('none') : null;
     website.address == null || website.address == '' ? $('.restaurantAddress').addClass('none') : null
     website.restaurantEmail == null || website.restaurantEmail == ''?  $('.restaurantEmail').addClass('none') : null
 
     for(const key in categories){
-        $(`.categoryLink[categoryId="${categories[key].id}"]`).prop('href',`/${urlLang}/${categories[key].name}`);
+        $(`.categoryLink[categoryId="${categories[key].id}"]`).prop('href',`/${lang}/${categories[key].name}`);
     }
     for(const key in products){
-        $(`.productLink[productId="${products[key].id}"]`).prop('href',`/${urlLang}/${products[key].catName}/${products[key].name}`);
+        $(`.productLink[productId="${products[key].id}"]`).prop('href',`/${lang}/${products[key].catName}/${products[key].name}`);
     }
 
-    $('.trending').attr('href',`/${urlLang}/allproducts?tag=trending`)
-    $('.popular').attr('href',`/${urlLang}/allproducts?tag=popular`)
-    $('.topRated').attr('href',`/${urlLang}/allproducts?tag=topRated`)
-    $('.new').attr('href',`/${urlLang}/allproducts?tag=new`)
+    $('.trending').attr('href',`/${lang}/allproducts?tag=trending`)
+    $('.popular').attr('href',`/${lang}/allproducts?tag=popular`)
+    $('.topRated').attr('href',`/${lang}/allproducts?tag=topRated`)
+    $('.new').attr('href',`/${lang}/allproducts?tag=new`)
 
 }
 

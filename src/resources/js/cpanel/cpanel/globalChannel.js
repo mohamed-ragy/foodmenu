@@ -40,6 +40,8 @@ window.globalChannel
         }
         // console.log(window.online)
     }
+    drawHomeOnlineVisitors();
+
 }).joining(function(user){
     let isUserFound = false;
     for(const key in window.online){
@@ -76,23 +78,25 @@ window.globalChannel
         subaccountOnline(user.id)
     }
     drawOnlineUsersTable();
+    drawHomeOnlineVisitors();
 
-    if(account.isInvisible == 0){
-        window.globalChannel.send({invisible:account.isInvisible})
-    }
+    // if(account.isInvisible == 0){
+    //     window.globalChannel.send({invisible:account.isInvisible})
+    // }
 }).leaving(function(user){
     // console.log(user)
     if(user.type == 'user' || user.type == 'guest'){
         window.online.find(item=>item.id == user.id && item.type == user.type).lastSeen = parseInt(parseInt(new Date().getTime()) / 1000)
         window.online.find(item=>item.id == user.id && item.type == user.type).is_pending = true;
         $(`.visitorOnlineIcon-${user.type}-${user.id}`).removeClass('offline-icon online-icon').addClass('onlineO-icon')
-    }else{
+    }
+    // else{
         for(const key in window.online){
             if(window.online[key].type == user.type && window.online[key].id == user.id){
                 window.online.splice(key,1)
             }
         }
-    }
+    // }
     if(user.type == 'delivery'){
         website.deliveries.find(item=>item.id == user.id).lastSeen = parseInt(parseInt(new Date().getTime()) / 1000);
         deliveryManOffline(user.id)
@@ -101,6 +105,7 @@ window.globalChannel
         website.accounts.find(item=>item.id == user.id).lastSeen = parseInt(parseInt(new Date().getTime()) / 1000);
         subaccountOffline(user.id)
     }
+    drawHomeOnlineVisitors();
 }).listen(`.globalChannel.${website.id}`,function(r){
     let data = r.notification;
     // console.log(data)
@@ -112,13 +117,13 @@ setInterval(() => {
     for(const key in window.online){
         if(window.online[key].type == 'user' || window.online[key].type == 'guest'){
             if(window.online[key].is_pending && window.online[key].lastSeen < (parseInt(parseInt(new Date().getTime()) / 1000) - 5)){
-                console.log('hena')
                 if(window.online[key].type == 'user' && typeof(website.users.find(item=>item.id == window.online[key].id)) !== 'undefined'){
                     website.users.find(item=>item.id == window.online[key].id).lastSeen = parseInt(parseInt(new Date().getTime()) / 1000)
                 }
                 window.online[key].type == 'user' || window.online[key].type == 'guest' ? offlineUser(window.online[key].id,window.online[key].type) : null ;
                 window.online.splice(key,1)
                 drawOnlineUsersTable();
+                drawHomeOnlineVisitors();
             }
         }
     }

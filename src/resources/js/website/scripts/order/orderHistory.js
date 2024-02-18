@@ -60,7 +60,7 @@ $('html, body').on('click','.orderHistory',function(e){
     userStatus(status);
     if($('#profilepage').hasClass('none')){
         switchPage($('#profilepage'),showProfilePage('orderHistory'))
-        window.history.pushState({'page':'profile'},``, `https://${website.url}/${urlLang}/profile`);
+        window.history.pushState({'page':'profile'},``, `https://${website.url}/${lang}/profile`);
         document.title =  user.name+' | '+website.restaurantName
         $('meta[name="description"]').attr('content',website.websiteDescriptions[lang])
     }else{

@@ -8,7 +8,7 @@
 .tnw{white-space: nowrap;}
 .ellipsis{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .lThrough{text-decoration: line-through;}
-.tdNone{text-decoration: none;}
+.tdNone{text-decoration: none !important;}
 .hvr-tdNone:hover{text-decoration: none;}
 
 .fs01{font-size:0.1em}

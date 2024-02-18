@@ -1,6 +1,4 @@
 
-require('./system/websiteSwitch.js');//
-require('./system/qrCode.js');//
 require('./system/systemSettings.js');//done
 require('./system/privacyPolicy.js');//done
 require('./system/deleteHistoryData.js');//done

@@ -89,7 +89,10 @@ return [
 
         'create_sub_account' => 'Create new sub-account',
         'sub_account' => 'Sub-account',
-        'manage_sub_account' => 'Manage sub-account\'s authorities',
+        'manage_sub_account' => "Manage sub-account's authorities",
+
+        'products_sold_today' => 'Products sold today',
+        'todays_income' => "Today's income",
     ],
     'diffTime' => [
         'before' => '',
@@ -178,6 +181,7 @@ return [
         'of' => 'of',
         'yes' => 'Yes',
         'no' => 'No',
+        'na' => 'N/A',
         'and' => 'and',
         'error' => 'Error',
         'gotIt' => 'Got it!',
@@ -417,5 +421,9 @@ return [
         // 'ourStoryTitle1' => "You haven't set the website homepage ourStory section title",
         // 'ourStoryDes1' => "You haven't set the website homepage ourStory section description",
     ],
-
+    'welcome' => [
+        'new' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat (new).',
+        'ann_important' => '',
+        'blog' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat (ann).',
+    ]
 ];

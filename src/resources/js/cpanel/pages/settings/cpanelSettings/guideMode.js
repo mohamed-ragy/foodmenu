@@ -142,7 +142,7 @@ hotkeys = function(){
         ////guide mode
         if (e.ctrlKey && e.which == 71) {
             e.preventDefault();
-            if(window.history.state.page == 'statistics_and_analytics'  || window.history.state.page == 'home'){
+            if(window.history.state.page == 'statistics_and_analytics' ||window.history.state.page == 'home'){
                 return;
             }
             settings_temp.guideMode ?  guideModeToggle(false) : guideModeToggle(true);

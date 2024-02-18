@@ -141,17 +141,30 @@ draw_statistics_users_user = function(user_id){
     let graph_width = 600; let graph_height = 200;
     let heighestNum_so = getGraphHighestNumber_user(user_id,'so',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_co = getGraphHighestNumber_user(user_id,'co',window.statistics.s1_,window.statistics.s2_ ?? []);
-    let heighestNum_total = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_orders = heighestNum_so > heighestNum_co ? heighestNum_so : heighestNum_co ;
+
+    let hightestNum_total_so = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);
+    let hightestNum_total_co = getGraphHighestNumber_user(user_id,'co_total',window.statistics.s1_,window.statistics.s2_ ?? []);
+    let heighestNum_total = hightestNum_total_so > hightestNum_total_co ? hightestNum_total_so : hightestNum_total_co ;
 
     let user_s1 = window.statistics.s1.users[user_id];
     let user_s2 = {id:user_id,name:window.statistics.s1.users[user_id].name,so:0,so_delivery:0,so_itemsTotal:0,so_service:0,so_tax:0,so_total:0,co:0,co_delivery:0,co_itemsTotal:0,co_service:0,co_tax:0,co_total:0,do:0,do_delivery:0,do_itemsTotal:0,do_tax:0,do_total:0,po:0,po_itemsTotal:0,po_tax:0,po_total:0,di:0,di_itemsTotal:0,di_service:0,di_tax:0,di_total:0,rv:0,rv1:0,rv2:0,rv3:0,rv4:0,rv5:0,}
 
     let user_s1_so_percent = Math.round((user_s1.so/(user_s1.so + user_s1.co))*100);
     let user_s1_co_percent = Math.round((user_s1.co/(user_s1.so + user_s1.co))*100);
-    let user_s1_do_percent = Math.round((user_s1.do/user_s1.so)*100);
-    let user_s1_po_percent = Math.round((user_s1.po/user_s1.so)*100);
-    let user_s1_di_percent = Math.round((user_s1.di/user_s1.so)*100);
+    let user_s1_do_percent
+    let user_s1_po_percent
+    let user_s1_di_percent
+    if(user_s1.so == 0){
+        user_s1_do_percent = 0;
+        user_s1_po_percent = 0;
+        user_s1_di_percent = 0;
+    }else{
+        user_s1_do_percent = Math.round((user_s1.do/user_s1.so)*100);
+        user_s1_po_percent = Math.round((user_s1.po/user_s1.so)*100);
+        user_s1_di_percent = Math.round((user_s1.di/user_s1.so)*100);
+    }
+
 
     user_s1_so_percent + user_s1_co_percent == 99 ? user_s1_so_percent = user_s1_so_percent + 1 : null;
     user_s1_so_percent + user_s1_co_percent == 101 ? user_s1_so_percent = user_s1_so_percent - 1 : null;
@@ -406,8 +419,13 @@ fill_statistics_users_user = function(key,user_id){
 
     let heighestNum_so = getGraphHighestNumber_user(user_id,'so',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_co = getGraphHighestNumber_user(user_id,'co',window.statistics.s1_,window.statistics.s2_ ?? []);
-    let heighestNum_total = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_orders = heighestNum_so > heighestNum_co ? heighestNum_so : heighestNum_co ;
+
+    let hightestNum_total_so = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);
+    let hightestNum_total_co = getGraphHighestNumber_user(user_id,'co_total',window.statistics.s1_,window.statistics.s2_ ?? []);
+    let heighestNum_total = hightestNum_total_so > hightestNum_total_co ? hightestNum_total_so : hightestNum_total_co ;
+
+    // let heighestNum_total = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);    
 
     switch(key){
         case 'successful':

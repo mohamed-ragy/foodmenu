@@ -55,7 +55,7 @@ for(const key in categories){
     category = categories[key];
     $('.homeCategoriesContainer').append(
         $('<a/>',{
-            href:`/${urlLang}/${category.name}`,
+            href:`/${lang}/${category.name}`,
             class:'homeCategoryContainer categoryLink',
             categoryId:category.id,
         }).append(

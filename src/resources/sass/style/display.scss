@@ -2,6 +2,7 @@
 .block{display:block}
 
 .wrap{flex-wrap: wrap;}
+.wrap-720{@media (max-width:720px) {flex-wrap: wrap;}}
 .row{display:flex;flex-direction: row;}
 .rowR{display:flex;flex-direction: row-reverse;}
 .column{display:flex;flex-direction: column;}
@@ -31,6 +32,7 @@
 .shrink0{flex-shrink: 0;}
 .grow1{flex-grow: 1;}
 .grow2{flex-grow: 2;}
+.grow3{flex-grow: 3;}
 .basis0{flex-basis:0}
 
 

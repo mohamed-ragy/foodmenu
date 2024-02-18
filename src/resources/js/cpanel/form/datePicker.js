@@ -58,7 +58,6 @@ datePickerCalcDateAndTime = function(timeStamp,modify=''){
         time = new Date(timeStamp+' UTC');
     }
     TimeLang = account.language;
-    if(TimeLang == 'eg'){TimeLang = 'ar'}
     if(website.hour12 == true){
         hour12 = 1;
     }else{

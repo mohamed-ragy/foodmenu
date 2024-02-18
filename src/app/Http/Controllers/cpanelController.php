@@ -23,6 +23,7 @@ use App\Models\account_verifications;
 use App\Models\bug;
 use App\Models\financial_reports;
 use App\Models\guest;
+use App\Models\help_en_tut;
 use App\Models\statistics_day;
 use App\Models\statistics_hour;
 use App\Models\statistics_month;
@@ -276,15 +277,6 @@ class cpanelController extends Controller
                     ->with(['accounts'=>function($q){
                         $q->select('authorities','is_master','email','website_id','id','name','password_fails','lastSeen');
                     }])
-                    // ->with(['financial_reports'=> function($q){
-                    //     $q->select('month','year','website_id','id','created_at')->take(30)->orderBy('created_at','desc');
-                    // }])
-                    // ->with(['imgs'=>function($q){
-                    //     $q->orderBy('created_at','desc');
-                    // }])
-                    ->with(['activity_logs'=>function($q){
-                        $q->orderBy('created_at','desc')->limit(5);
-                    }])
                     ->with(['categories'=>function($q){
                         $q->orderBy('sort','asc');
                     }])
@@ -297,7 +289,7 @@ class cpanelController extends Controller
         }else{
             $website = website::where('id',Auth::guard('account')->user()->website_id)
                 ->select([
-                    'id','plan','active','phoneNumbers',
+                    'id','plan','active','subscription_status','phoneNumbers',
                     'addresses',
                     'lat','lng','url','timeZone','hour12','country_code',
                     'currencies','websiteNames','websiteDescriptions',
@@ -360,9 +352,6 @@ class cpanelController extends Controller
                     }])
                     ->with(['deliveries'])
 
-                    // ->with(['imgs'=>function($q){
-                    //     $q->orderBy('created_at','desc');
-                    // }])
                     ->with(['categories'=>function($q){
                         $q->orderBy('sort','asc');
                     }])
@@ -378,6 +367,7 @@ class cpanelController extends Controller
         //     $website->template = $request->t ?? 1;
         // }
         $website->templateData = foodmenuFunctions::templates()[$website->template];
+
         $account = Auth::guard('account')->user();
         $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
         $settings = cpanelSettings::where('account_id',$account->id)->first();
@@ -385,7 +375,10 @@ class cpanelController extends Controller
             'plans' => foodmenuFunctions::plans(),
             'langs'=> foodmenuFunctions::languages(),
         ]);
-
+        if($account->language == 'en'){
+            $help_articles = help_en_tut::inRandomOrder()->limit(6)->get();
+        }
+        $website->help_articles = $help_articles;
 
         //////////
 
@@ -722,11 +715,10 @@ class cpanelController extends Controller
             ],$this->account->website_id);
             /////////////
             $notificationCodes = [];
-            // $todayOrders = [];
+            $last_activites = [];
             if($this->account->is_master == true){
                 $timezone =website::where('id',$this->website_id)->pluck('timeZone')->first();
                 $notificationCodes = ['system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
-                // $todayOrders = order::where('placed_at','>',Carbon::today($timezone))->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
                 $todayOrders = order::where(function($q) use ($timezone){
                     $q->where('dinedin_at','>',Carbon::today($timezone)->timestamp);
                 })->orWhere(function($q) use ($timezone){
@@ -738,6 +730,12 @@ class cpanelController extends Controller
                 })
                 ->where(['website_id'=>$this->website_id])
                 ->whereIn('status',[2,5,6,7])->orderBy('placed_at','asc')->get();
+                //
+
+                $last_activites = activityLog::where([
+                    'website_id' => $this->website_id
+                ])->orderBy('created_at','desc')->limit(5)->get();;
+
             }else{
                 if(str_split($this->account->authorities)[0] == true){
                     array_push($notificationCodes,'orders.new_order_user');
@@ -754,12 +752,13 @@ class cpanelController extends Controller
                 $todayOrders = [];
             }
             $notifications = notification::where(['website_id'=>$this->website_id,'seen'=>false])->whereIn('code',$notificationCodes)->get();
-
+            ////
             return response([
                 'notifications' => $notifications,
                 'unSeenLiveChats' => $unSeenLiveChats,
                 'incompleteOrders' =>$incompleteOrders,
                 'todayOrders' => $todayOrders,
+                'last_activites' => $last_activites,
             ]);
         }
         else if($request->has('getActivityLog')){

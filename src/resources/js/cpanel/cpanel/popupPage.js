@@ -44,6 +44,16 @@ showPopupPage = function(popupPage,keysObj){
         window.popupPage = {};
         window.popupPage.popupPage = popupPage;
         switch(popupPage){
+            case 'todays_income':
+                if(account.is_master == false){reject(1);return;}
+                drawPopupPage_todays_income();
+                resolve(3);
+            break;
+            case 'products_sold_today':
+                if(account.is_master == false){reject(1);return;}
+                drawPopupPage_products_sold_today();
+                resolve(3);
+            break;
             case 'order':
                 if(account.authorities[0] == false){reject(1);return;}
                 window.popupPage.order = keysObj.order;

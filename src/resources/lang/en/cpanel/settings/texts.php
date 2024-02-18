@@ -1,11 +1,5 @@
 <?php
 return [
-    ///need to be moved to home
-    'websiteSwitch'=>'Website Switch',
-    'websiteUrl' => 'Website Domain Name',
-    'qrcode' => 'QR Code',
-    'downloadqr' => 'Download Code',
-    ///need to be moved to home
     'country' => 'Country',
     'findCountry'=>'Select your country',
     'timeZone'=>'Time zone',

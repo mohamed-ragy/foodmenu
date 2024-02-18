@@ -27,6 +27,12 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
         success:function(response){
             $('.loading_navIconNum').addClass('none');
             ///////////
+            response.last_activites.sort((a,b)=>{return a.created_at - b.created_at})
+            window.last_activites = response.last_activites;
+            for(const key in window.last_activites){
+                drawActivityLog(window.last_activites[key],true)
+            }
+            //
             for(const key in response.unSeenLiveChats){
                 if(response.unSeenLiveChats[key].user_id){
                     window.unSeenChats_users.push(response.unSeenLiveChats[key].user_id);
@@ -42,7 +48,6 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
                 )
             }
             calcIncompleteOrders();
-            // new orders().incompleteOrders();
 
             window.incompleteOrdersCheck = true;
             website.todayOrders = response.todayOrders;
@@ -50,7 +55,6 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
             $('.ordersHomePageInfoLoading').addClass('none');
             $('.ordersHomePageInfoIcon').removeClass('none')
 
-            // drawTodayHomeOrders();
 
             for(const key in response.notifications){
                 if(!response.notifications[key].seen){

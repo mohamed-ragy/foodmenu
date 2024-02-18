@@ -198,13 +198,32 @@ class websiteController extends Controller
 
             $this->website->templateData = foodmenuFunctions::templates()[$this->website->template];
 
+            $langCheck = [];
+            $defaultLang = '';
+            foreach($this->website->languages as $lang){
+                array_push($langCheck,$lang['code']);
+                if($lang['websiteDefault']){
+                    $defaultLang = $lang['code'];
+                }
+            }
+            if(in_array($request->lang,$langCheck)){
+                App::setLocale($request->lang);
+                $this->lang = $request->lang;
+                Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$request->lang,9999999999999));
+            }else{
+                App::setLocale($defaultLang);
+                $this->lang = $defaultLang;
+                Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$this->lang,9999999999999));
+                return redirect()->route('website.home',['lang'=>$this->lang]);
+            }
+
             if($this->website->subscription_status != 'trialing' && $this->website->subscription_status != 'active' && $this->website->subscription_status != 'past_due'){
                 if($request->route()->getName() != 'websiteNotActive'){
-                    return redirect()->route('websiteNotActive',[$lang = $this->website->defaultLanguage]);
+                    return redirect()->route('websiteNotActive',['lang' => $this->lang]);
                 }
             }else if($this->website->active == false){
                 if($request->route()->getName() != 'websiteNotActive'){
-                    return redirect()->route('websiteNotActive',[$lang = $this->website->defaultLanguage]);
+                    return redirect()->route('websiteNotActive',['lang' => $this->lang]);
                 }
             }else{
                 if($request->route()->getName() == 'websiteNotActive'){
@@ -225,32 +244,12 @@ class websiteController extends Controller
             }
 
 
-            $langCheck = [];
-            $defaultLang = '';
-            foreach($this->website->languages as $lang){
-                array_push($langCheck,$lang['code']);
-                if($lang['websiteDefault']){
-                    $defaultLang = $lang['code'];
-                }
-            }
-            if(in_array($request->lang,$langCheck)){
-                App::setLocale($request->lang);
-                $this->lang = $request->lang;
-                Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$request->lang,9999999999999));
-            }else{
-                App::setLocale($defaultLang);
-                $this->lang = $defaultLang;
-                Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$this->lang,9999999999999));
-                return redirect()->route('website.home',['lang'=>$this->lang]);
-            }
+
+
             $this->website_id = $this->website->id;
             $this->website->availableLangs = foodmenuFunctions::languages();
-            if($this->lang == 'eg'){
-                $this->urlLang = $this->website->customLang_code;
-            }else{
-                $this->urlLang = $this->lang;
-            }
-            $this->website->website_texts[$this->urlLang] = websiteText::where(['website_id'=>$this->website_id,'lang'=>$this->lang])->pluck('text')->first();
+
+            $this->website->website_texts[$this->lang] = websiteText::where(['website_id'=>$this->website_id,'lang'=>$this->lang])->pluck('text')->first();
 
             $imgsIds = [];
             if($this->website->icon != null){array_push($imgsIds,$this->website->icon);}

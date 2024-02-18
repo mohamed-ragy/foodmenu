@@ -24,6 +24,7 @@ $('html,body').on('click','#LiveChat-goInvisible',function(e){
     }
     window.globalChannel.send({invisible:account.isInvisible}).then(()=>{
         $('#LiveChat-goInvisible').prop('checked') ? account.isInvisible = 1 : account.isInvisible = 0;
+        ReloadForUpdatePopup();
     },()=>{
         account.isInvisible == 1 ? $('#LiveChat-goInvisible').prop('checked',true) : $('#LiveChat-goInvisible').prop('checked',false) ;
     })

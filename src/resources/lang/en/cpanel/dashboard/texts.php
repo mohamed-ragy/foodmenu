@@ -162,5 +162,25 @@ return [
     'serviceStatus' => 'Service Status',
     'faq' => 'FAQs',
     'contactus' => 'Contact us',
+    //
+    'todayIncome' => "Income",
+    'currentVisitors' => 'Current website visitors',
+    'currentUsers' => 'Signed in users',
+    'currentGuests' => 'Unregistered guests',
+    'productsSoldToday' => 'Products sold',
+    'sold' => 'Sold',
+    //
+    'websitetitle' => ":name:'s website",
+    'websiteStatus' => 'Status',
+    'websiteSwitch'=>'Website Switch',
+    'websiteUrl' => 'URL',
+    'qrcode' => 'QR Code',
+    'downloadqr' => 'Download Code',
+    'todaysPerformance' => "Today's Performance",
+    'welcomeMsg' => 'Hello, :name:',
+    'whatsHappening' => "What's happening now?",
+    'incompleteOrders' => 'Incomplete orders',
+    'seeAll' => 'See all',
+    'help_articles' => 'Useful articles',
     //new
 ];

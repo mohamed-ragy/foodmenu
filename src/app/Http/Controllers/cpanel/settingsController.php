@@ -43,7 +43,9 @@ class settingsController extends Controller
     public function settings(Request $request)
     {
         if($request->has(['websiteSwitch'])){
-            if(str_split($this->account->authorities)[4] == false){return;}
+            if($this->account->is_master == false){
+                return;
+            }
             if($request->websiteSwitch == 1){
                 $websiteStatus = website::where('id',$this->website_id)->pluck('subscription_status')->first();
                 if($websiteStatus != 'trialing'&& $websiteStatus != 'incomplete' && $websiteStatus != 'active'){
