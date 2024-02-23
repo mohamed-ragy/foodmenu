@@ -1,5 +1,4 @@
 draw_statistics_overview = function(){
-    // console.log(window.statistics.s1)
     $('#statistics_overview').append(
         $('<div/>',{class:'w100p pT40 pB20',id:'statistics_overview_Head'}),
         $('<div/>',{class:'w100p pY40 brdrB1_w3 row alnS jstfyS'}).append(
@@ -372,65 +371,3 @@ draw_statistics_overview_topUsers = function(){
         }
     }
 }
-// draw_statistics_overview_topUsers = function(){
-//     let top_users_s1 = get_statistics_top_users(window.statistics.s1.users,'so_total');
-//     if(top_users_s1.length == 0){return;}
-//     $('#statistics_overview_top_users').append(
-//         $('<div/>',{class:'bold fs103 mB20',text:texts.dashboard.topUsers}),
-//         $('<table/>',{id:'statistics_overview_topUsers_table'}).append(
-//             $('<tr/>',{class:'trHead'}).append(
-//                 $('<th/>',{class:'mxw200',text:texts.dashboard.name}),
-//                 $('<th/>',{class:'taC pie-30',text:texts.dashboard.orders}),
-//                 $('<th/>',{class:'taC',text:texts.dashboard.income}),
-//                 $('<th/>',{class:'taE',text:''}),
-//             )
-//         )
-//     )
-//     for(const key in top_users_s1){
-//         if(key < 10){
-//             let key4;
-//             let orders_compare = ''; let total_compare = '';
-//             if(window.page.compare == 1){
-//                 if(typeof(window.statistics.s2.users[top_users_s1[key].id]) === 'undefined'){
-//                     orders_compare = $('<span/>',{class:'',html:compareNums(top_users_s1[key].so,0,texts.dashboard.userOrders_compare.replace(':user:',top_users_s1[key].name),false,false)})
-//                     total_compare = $('<span/>',{class:'',html:compareNums(top_users_s1[key].so_total,0,texts.dashboard.userTotal_compare.replace(':user:',top_users_s1[key].name),false,false)})
-//                     key4 = 'undefined';
-//                     // statisticspopup_user(top_users_s1[key],{
-//                     //     id:top_users_s1[key].id,
-//                     //     name:top_users_s1[key].name,
-//                     //     so:0,so_delivery:0,so_itemsTotal:0,so_service:0,so_tax:0,so_total:0,co:0,co_delivery:0,co_itemsTotal:0,co_service:0,co_tax:0,co_total:0,do:0,do_delivery:0,do_itemsTotal:0,do_tax:0,do_total:0,po:0,po_itemsTotal:0,po_tax:0,po_total:0,di:0,di_itemsTotal:0,di_service:0,di_tax:0,di_total:0,rv:0,rv1:0,rv2:0,rv3:0,rv4:0,rv5:0,
-//                     // },window.statistics.date1,window.statistics.date2,'c_statistics1','c_statistics2')
-
-//                 }else{
-//                     key4 = window.statistics.s2._id;
-//                     orders_compare = $('<span/>',{class:'',html:compareNums(top_users_s1[key].so,window.statistics.s2.users[top_users_s1[key].id].so,texts.dashboard.userOrders_compare.replace(':user:',top_users_s1[key].name),false,false)})
-//                     total_compare = $('<span/>',{class:'',html:compareNums(top_users_s1[key].so_total,window.statistics.s2.users[top_users_s1[key].id].so_total,texts.dashboard.userTotal_compare.replace(':user:',top_users_s1[key].name),false,false)})
-//                     // statisticspopup_user(top_users_s1[key],window.statistics.s2.users[top_users_s1[key].id],window.statistics.date1,window.statistics.date2,'c_statistics1','c_statistics2')
-//                 }
-//             }else{
-//                 key4 = null;
-//                 // statisticspopup_user(top_users_s1[key],null,window.statistics.date1,null,'c_statistics1','')
-//             }
-//             $('#statistics_overview_topUsers_table').append(
-//                 $('<tr/>',{class:''}).append(
-//                     $('<td/>',{class:'pY15'}).append(
-//                         $('<span/>',{class:'ico-user fs103'}),
-//                         $('<a/>',{class:'ellipsis mis-5 popupPage popupId',popupPage:'user',popupId:'user',user:top_users_s1[key].id,text:top_users_s1[key].name}),
-//                     ),
-//                     $('<td/>',{class:'taC pie-30 pY15'}).append(
-//                         $('<span/>',{text:`${bigInt(top_users_s1[key].so)}`}),
-//                         orders_compare
-//                     ),
-//                     $('<td/>',{class:'taC pY15'}).append(
-//                         $('<span/>',{text:`${website.currency}${bigFloat(top_users_s1[key].so_total)}`}),
-//                         total_compare
-//                     ),
-//                     $('<td/>',{class:'taE vaM'}).append(
-//                         $('<div/>',{class:'ico-info pointer statisticspopup',key1:'user',key2:top_users_s1[key].id,key3:window.statistics.s1._id,key4:key4,key5:window.statistics.date1,key6:window.page.compare == 1 ? window.statistics.date2 : null})
-//                     )
-//                 )
-//             )
-//         }
-//     }
-// }
-//

@@ -16,7 +16,6 @@ drawPage_home = function(){
     drawTodayHomeOrders();
     checkWebsiteStatus();
     drawWebsiteQRCode();
-    drawInfoSection();
     for(const key in window.last_activites){
         drawActivityLog(window.last_activites[key],true)
     }
@@ -108,12 +107,6 @@ draw_todaysPerformanceSection = function(){
                 $('<div/>',{class:'cGtxt ico-products fs405 homeRevenueCard_icon2'}),
                 $('<div/>',{class:'cGtxt ico-products fs2 homeRevenueCard_icon1'}),
             ),
-            // $('<div/>',{class:'homeRevenueCard bgc_G_90 cGtxt cpPage pointer',cpPage:'online_users'}).append(
-            //     $('<div/>',{class:'bold fs09',text:texts.dashboard.currentVisitors}),
-            //     $('<div/>',{class:'h_online_visitors fs09 cardLoading br5 h10 m5 w50',text:'0'}),
-            //     $('<div/>',{class:'cGtxt ico-users fs405 homeRevenueCard_icon2'}),
-            //     $('<div/>',{class:'cGtxt ico-users fs2 homeRevenueCard_icon1'}),
-            // ),
         ),
         $('<div/>',{class:'row wrap alnSH jstfyS'}).append(
             $('<div/>',{class:'home_ordersPerformanceBarContainer'}).append(
@@ -162,7 +155,7 @@ draw_websiteSection = function(){
                     $('<div/>',{class:'cG-40 ico-link fs2 homeRevenueCard_icon1'}),
                 ),
                 $('<div/>',{class:'row wrap alnS jstfyC'}).append(
-                    $('<div/>',{class:'home_websiteSwitchContainer alnsS'}).append(
+                    $('<div/>',{id:'system-websiteSwitch_container',class:'home_websiteSwitchContainer alnsS'}).append(
                         $('<div/>',{class:'bold alnsS mB25',text:texts.dashboard.websiteStatus}),
                         $('<div/>',{class:'websiteStatus column alnC jstfyC'}).append(
                             $('<div/>',{class:'ico-online websiteStatusIcon'}),

@@ -1,7 +1,7 @@
 
-require('./deliveryAccounts/create.js')//done
-require('./deliveryAccounts/edit.js')//done
-require('./deliveryAccounts/delete.js')//done
+require('./deliveryAccounts/create.js')//done//
+require('./deliveryAccounts/edit.js')//done//
+require('./deliveryAccounts/delete.js')//done//
 
 deliveryManOnline = function(deliveryId){
     $(`.deliveryOnlineIcon-${deliveryId}`).removeClass('offline-icon').addClass('online-icon');

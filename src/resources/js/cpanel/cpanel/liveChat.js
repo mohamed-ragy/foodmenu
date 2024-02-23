@@ -1,6 +1,6 @@
-require("./liveChat/liveChatOptions.js");//done
-require("./liveChat/chatBoxes.js");//done
-require("./liveChat/chatWindow.js");//need to redesign order msg
+require("./liveChat/liveChatOptions.js");//done//
+require("./liveChat/chatBoxes.js");//done//
+require("./liveChat/chatWindow.js");//done//
 
 
 $('#liveChatMsgs').on('click',function(){

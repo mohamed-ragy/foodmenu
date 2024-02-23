@@ -21,10 +21,8 @@ calcCartLifeTime = function(action=null){
     }else if(action == 'down'){
         cartLifeTime = parseInt($('#systemSettings-cartLifeTime').attr('cartLifeTime'));
         if(cartLifeTime == 1){
-            // cartLifeTime = 1;
             cartLifeTime = 60;
         }else if(cartLifeTime > 1 && cartLifeTime <= 59){
-            // cartLifeTime = cartLifeTime - 1;
             cartLifeTime = 60;
         }else if(cartLifeTime >= 60 && cartLifeTime < 120){
             cartLifeTime = 60 ;

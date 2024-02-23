@@ -1,9 +1,8 @@
 
 
-require('./home/orders.js') //done
-require('./home/websiteSwitch.js');//done
-require('./home/qrCode.js');//done
-require('./home/info.js');//done
+require('./home/orders.js') //done//
+require('./home/websiteSwitch.js');//done//
+require('./home/qrCode.js');//done//
 
 setInterval(() => {
     const timeNow = new Date();

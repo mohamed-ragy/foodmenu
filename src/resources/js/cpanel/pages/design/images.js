@@ -1,7 +1,7 @@
-require('./imgs/storageBar.js') //done
-require('./imgs/imgs.js') //done
-require('./imgs/uploadImg.js') //done
-require('./imgs/imgBrowser.js') //done
+require('./imgs/storageBar.js') //done//
+require('./imgs/imgs.js') //done//
+require('./imgs/uploadImg.js') //done//
+require('./imgs/imgBrowser.js') //done//
 
 getImg = function(img_id){
     return new Promise(function(resolve,reject){

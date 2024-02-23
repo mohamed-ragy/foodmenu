@@ -1,14 +1,6 @@
 console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 console.log(window.navigator.language)
-$(window).resize(function(){
-    if(window.history.state.page == 'statistics_and_analytics' || window.history.state.page == 'home' ){
-        // if($(window).width() < 1200){
-        //     $('#pageWrapper').removeClass().text('')
-        //     drawPage_statistics_and_analytics_smallScreen();
-        // }
 
-    }
-})
 //////drawMenu
 drawMenuItemsPages = function(menuId){
     $('.sideMenu-itemsContainer').text('')
@@ -19,111 +11,113 @@ drawMenuItemsPages = function(menuId){
     $('.sideMenu-mainItem').removeClass('sideMenu-mainItemSelected');
     $(`.sideMenu-mainItem[menuId="${menuId}"]`).addClass('sideMenu-mainItemSelected');
 }
-$('#sideMenu-Container').append(
-    $('<div/>',{id:'sideMenu-itemsContainer'}).append(
-        $('<div/>',{class:'w100p row alnC jstfyE mB10 mT20'}).append(
-            $('<div/>',{class:'sideMenu-itemsContainerTitle'}),
-            $('<div/>',{
-                id:'sideMenu-toggle',
-                tooltip:`<div><span>${texts.cpanel.hotKeys.SideMenuToggle}</span> <span class="hotKeys">${texts.cpanel.hotKeys.viewIconsHotKey}</span></div>`,
-            }).append($('<div/>',{class:'ico-menu'})),
+drawSideMenu = function(){
+    $('#sideMenu-Container').append(
+        $('<div/>',{id:'sideMenu-itemsContainer'}).append(
+            $('<div/>',{class:'w100p row alnC jstfyE mB10 mT20'}).append(
+                $('<div/>',{class:'sideMenu-itemsContainerTitle'}),
+                $('<div/>',{
+                    id:'sideMenu-toggle',
+                    tooltip:`<div><span>${texts.cpanel.hotKeys.SideMenuToggle}</span> <span class="hotKeys">${texts.cpanel.hotKeys.viewIconsHotKey}</span></div>`,
+                }).append($('<div/>',{class:'ico-menu'})),
+            ),
         ),
-    ),
-    $('<div/>',{id:'sideMenu-mainContainer'}).append(
-        $('<div/>',{class:'column alnC jstfyS'}).append(
-            $('<img/>',{id:'sideMenu-logo',src:'./storage/logo/logo.png'}),
+        $('<div/>',{id:'sideMenu-mainContainer'}).append(
+            $('<div/>',{class:'column alnC jstfyS'}).append(
+                $('<img/>',{id:'sideMenu-logo',src:'./storage/logo/logo.png'}),
+            ),
+            $('<div/>'),
         ),
-        $('<div/>'),
-    ),
-)
-for(const key in window.menu){
-    const item = window.menu[key];
-    $('#menuList').append(
-        $('<div/>',{class:`navMenu-elementCat ${item.authority}`}).append(
-            $('<span/>',{class:`ico-${item.name}`}),
-            $('<span/>',{text:texts.cpanel.menu[item.name]})
-        )
     )
-    if(item.position == 'top'){
-        $('#sideMenu-mainContainer').children().first().append(
-            $('<div/>',{
-                menuId:item.name,
-                class:`sideMenu-mainItem ${item.authority}`,
-                tooltip:texts.cpanel.menu[item.name],
-            }).append(
-                $('<div/>',{class:`sideMenu-mainItem_unsaved none ${item.name}_unsaved`}),
-                $('<span/>',{class:`ico-${item.name}`})
+    for(const key in window.menu){
+        const item = window.menu[key];
+        $('#menuList').append(
+            $('<div/>',{class:`navMenu-elementCat ${item.authority}`}).append(
+                $('<span/>',{class:`ico-${item.name}`}),
+                $('<span/>',{text:texts.cpanel.menu[item.name]})
             )
         )
-    }else if(item.position == 'bottom'){
-        $('#sideMenu-mainContainer').children().last().append(
-            $('<div/>',{
-                menuId:item.name,
-                class:`sideMenu-mainItem ${item.authority}`,
-                tooltip:texts.cpanel.menu[item.name],
-            }).append(
-                $('<div/>',{class:`sideMenu-mainItem_unsaved none ${item.name}_unsaved`}),
-                $('<span/>',{class:`ico-${item.name}`})
-            )
-        )
-    }
-    for(const key2 in item.pages){
-        const pageId = item.pages[key2];
-        $('#sideMenu-itemsContainer').append(
-            $('<div/>',{
-                class:`cpPage side-menuItem none ${pageId.authority}`,
-                cpPage:pageId.name,
-                menuCat:item.name,
-            }).append(
-                $('<div/>',{class:'ico-right sideMenu-itemArrow'}),
-                $('<div/>',{class:'row alnC jstfyC'}).append(
-                    $('<div/>',{class:`sideMenu-mainItem_unsaved none ${pageId.name}_unsaved`}),
-                    $('<span/>',{class:'sideMenu-itemTitle',text:texts.cpanel.menu[pageId.name]}),
-                    $('<span/>',{class:`ico-${pageId.name} sideMenu-itemIcon`,tooltip:texts.cpanel.menu[pageId.name]})
+        if(item.position == 'top'){
+            $('#sideMenu-mainContainer').children().first().append(
+                $('<div/>',{
+                    menuId:item.name,
+                    class:`sideMenu-mainItem ${item.authority}`,
+                    tooltip:texts.cpanel.menu[item.name],
+                }).append(
+                    $('<div/>',{class:`sideMenu-mainItem_unsaved none ${item.name}_unsaved`}),
+                    $('<span/>',{class:`ico-${item.name}`})
                 )
             )
-        );
-        $('#menuList').append(
-            $('<div/>',{class:`cpPage navMenu-element ${pageId.authority}`,cpPage:pageId.name}).append(
-                $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-${pageId.name}`})).append(
-                    $('<div/>',{class:`navMenu-mainItem_unsaved none ${pageId.name}_unsaved`}),
+        }else if(item.position == 'bottom'){
+            $('#sideMenu-mainContainer').children().last().append(
+                $('<div/>',{
+                    menuId:item.name,
+                    class:`sideMenu-mainItem ${item.authority}`,
+                    tooltip:texts.cpanel.menu[item.name],
+                }).append(
+                    $('<div/>',{class:`sideMenu-mainItem_unsaved none ${item.name}_unsaved`}),
+                    $('<span/>',{class:`ico-${item.name}`})
+                )
+            )
+        }
+        for(const key2 in item.pages){
+            const pageId = item.pages[key2];
+            $('#sideMenu-itemsContainer').append(
+                $('<div/>',{
+                    class:`cpPage side-menuItem none ${pageId.authority}`,
+                    cpPage:pageId.name,
+                    menuCat:item.name,
+                }).append(
+                    $('<div/>',{class:'ico-right sideMenu-itemArrow'}),
+                    $('<div/>',{class:'row alnC jstfyC'}).append(
+                        $('<div/>',{class:`sideMenu-mainItem_unsaved none ${pageId.name}_unsaved`}),
+                        $('<span/>',{class:'sideMenu-itemTitle',text:texts.cpanel.menu[pageId.name]}),
+                        $('<span/>',{class:`ico-${pageId.name} sideMenu-itemIcon`,tooltip:texts.cpanel.menu[pageId.name]})
+                    )
+                )
+            );
+            $('#menuList').append(
+                $('<div/>',{class:`cpPage navMenu-element ${pageId.authority}`,cpPage:pageId.name}).append(
+                    $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-${pageId.name}`})).append(
+                        $('<div/>',{class:`navMenu-mainItem_unsaved none ${pageId.name}_unsaved`}),
+                    ),
+                    $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.menu[pageId.name]}))
                 ),
-                $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.menu[pageId.name]}))
-            ),
-        )
+            )
+        }
     }
+    $('#sideMenu-mainContainer').children().last().append(
+        $('<div/>',{
+            class:'reportBug reportBug-sideMenu',
+            tooltip:texts.cpanel.reportBug.reportBug
+        }).append($('<span/>',{class:'ico-bug'})),
+        $('<div/>',{
+            class:'Logout Logout-sideMenu',
+            tooltip:texts.cpanel.public.logout,
+        }).append($('<span/>',{class:'ico-logout'})),
+    )
+    $('#menuList').append(
+        $('<div/>',{class:'mT40'}),
+        $('<div/>',{class:'navMenu-element reportBug'}).append(
+            $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-bug`})),
+            $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.reportBug.reportBug}))
+        ),
+        $('<div/>',{class:'navMenu-element Logout'}).append(
+            $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-logout`})),
+            $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.public.logout}))
+        ),
+    )
 }
-$('#sideMenu-mainContainer').children().last().append(
-    $('<div/>',{
-        class:'reportBug reportBug-sideMenu',
-        tooltip:texts.cpanel.reportBug.reportBug
-    }).append($('<span/>',{class:'ico-bug'})),
-    $('<div/>',{
-        class:'Logout Logout-sideMenu',
-        tooltip:texts.cpanel.public.logout,
-    }).append($('<span/>',{class:'ico-logout'})),
-)
-$('#menuList').append(
-    $('<div/>',{class:'mT40'}),
-    $('<div/>',{class:'navMenu-element reportBug'}).append(
-        $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-bug`})),
-        $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.reportBug.reportBug}))
-    ),
-    $('<div/>',{class:'navMenu-element Logout'}).append(
-        $('<div/>',{class:'navMenu-element-icon'}).append($('<span/>',{class:`ico-logout`})),
-        $('<div/>',{class:'navMenu-element-body'}).append($('<span/>',{text:texts.cpanel.public.logout}))
-    ),
-)
+
 
 ////////////////////home page menu events
 
 $('html,body').on('click','.navMenu-element',function(){
-    hideList($('#menuList'),$('#Menu'))
+    hideList();
 })
 
 showPage = function(pageId,tab,keysObj){
     return new Promise(function(resolve, reject){
-        // console.log(window.history.state.page)
         let pushHistory = true;
         if(pageId == window.page.page){pushHistory = false;}else{
             $('#bodyPage').find('#pageWrapper').css({'opacity':0,'transform':'translateX(20px)'});

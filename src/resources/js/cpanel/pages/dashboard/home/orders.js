@@ -5,28 +5,11 @@ calcTodayOrdersData = function(){
         po:{orders:0,items_total:0,tax:0,total:0,guestOrders:0,userOrders:0,},
         co:{orders:0,items_total:0,delivery:0,tax:0,service:0,total:0,guestOrders:0,userOrders:0,},
         di:{orders:0,items_total:0,tax:0,service:0,total:0,guestOrders:0,userOrders:0,},
-        // users:{},
         products:[],
         solid_products:0,
-        // deliveries:{},
     }
     if(!account.is_master){return todayOrdersData}
 
-    // for(const key in website.products){
-    //     todayOrdersData.products.push({
-    //         name:website.products[key].name,
-    //         ordered:0,
-    //         income:0,
-    //     })
-    // }
-    // for(const key in website.deliveries){
-    //     let delivery = website.deliveries[key];
-    //     todayOrdersData.deliveries.push({
-    //         id:delivery.id,
-    //         name:delivery.deliveryName,
-    //         orders:0,
-    //     })
-    // }
     for(const key in website.todayOrders){
         let order = website.todayOrders[key];
 
@@ -70,9 +53,7 @@ calcTodayOrdersData = function(){
             todayOrdersData.do.delivery = todayOrdersData.do.delivery + order.deliveryCost;
             todayOrdersData.do.tax = todayOrdersData.do.tax + order.tax;
             order.isGuest ? todayOrdersData.do.guestOrders = todayOrdersData.do.guestOrders + 1 : todayOrdersData.do.userOrders = todayOrdersData.do.userOrders + 1;
-            // if(order.delivered_by == 1 && typeof(todayOrdersData.deliveries.find(item=> item.id == order.delivered_delivery_id)) !== 'undefined'){
-            //     todayOrdersData.deliveries.find(item=> item.id == order.delivered_delivery_id).orders = todayOrdersData.deliveries.find(item=> item.id == order.delivered_delivery_id).orders + 1;
-            // }
+
         }
         if(order.status == 6){
             todayOrdersData.po.orders = todayOrdersData.po.orders + 1;

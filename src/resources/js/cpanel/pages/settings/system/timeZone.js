@@ -40,7 +40,6 @@ $('html,body').on('click','#system-timeZoneCancelBtn',function(e){
             $(this).trigger('click');
         }
     })
-    // system_unsave_check();
 });
 
 $('html,body').on('click','#system-timeZoneSaveBtn',function(e){

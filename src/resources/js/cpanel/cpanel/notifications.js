@@ -216,12 +216,12 @@ getNotifications = function(){
     })
 
 }
-window.cpanelChannel.listen(`cpanelChannel`,function(r){
-    console.log(r)
-    if('activity' in r.notification){drawActivityLog(r.notification.activity,true,'prepend')}
-    handelCpanelChannel(r.notification.notification,r.notification.code)
-})
-
+setCpanelChannel = function(){
+    window.cpanelChannel.listen(`cpanelChannel`,function(r){
+        if('activity' in r.notification){drawActivityLog(r.notification.activity,true,'prepend')}
+        handelCpanelChannel(r.notification.notification,r.notification.code)
+    })
+}
 handelCpanelChannel = function(n,code){
     if(code.split('.')[0] == 'system' && account.is_master != 1){return;}
     if(code.split('.')[0] == 'settings' && account.authorities[4] != 1){return;}
@@ -238,12 +238,12 @@ handelCpanelChannel = function(n,code){
     console.log(n)
     switch(code){
         case '0':
-            // if(n.account_id == account.id){
-            //     showPopup('loginDetected');
-            //     setTimeout(function(){
-            //         $('#logoutForm').trigger('submit');
-            //     },5000)
-            // }
+            if(n.account_id == account.id){
+                showPopup('loginDetected');
+                setTimeout(function(){
+                    $('#logoutForm').trigger('submit');
+                },5000)
+            }
         break;
         case '00':
             //reload after 10 sec
@@ -265,10 +265,12 @@ handelCpanelChannel = function(n,code){
         case 'website.offline':
             website.active = false;
             checkWebsiteStatus();
+            window.guideHints.websiteSwitch();
         break;
         case 'website.online':
             website.active = true;
             checkWebsiteStatus();
+            window.guideHints.websiteSwitch();
         break;
 
         /////system
@@ -350,9 +352,7 @@ handelCpanelChannel = function(n,code){
             cpanelTitle(true);
         break;
         case 'liveChat.new_msg_by_account':
-            // clearTimeout(window.usersTypingTimeouts[`${n.type}-${n.id}`]);
             newMsgFromAccount(n.type,n.id,n.msg)
-            // $(`#chatWindow-${n.type}-${n.id}`).find('.chatWindowTyping').removeClass('chatWindowTyping_show');
         break;
         case 'liveChat.seen_by_account':
             setChatAsSeen_apply(n.type,n.id);
@@ -499,15 +499,13 @@ handelCpanelChannel = function(n,code){
             $('#settings-websiteIconImg').attr('src',n.icon);
             website.icon = n.icon;
             website.icon_id = n.icon_id;
-            // website.iconUrl = n.iconUrl;
-            // window.guideHints.websiteIcon();
+            window.guideHints.websiteIcon();
             break;
         case 'settings.websiteLogo':
             $('#settings-websiteLogoImg').attr('src',n.logo);
             website.logo = n.logo
             website.logo_id = n.logo_id;
-            // website.logoUrl = n.logoUrl;
-            // window.guideHints.websiteLogo();
+            window.guideHints.websiteLogo();
             break;
         case 'settings.websiteName':
             website.websiteNames = n.websiteNames;

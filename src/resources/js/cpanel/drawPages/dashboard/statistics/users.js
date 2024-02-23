@@ -425,7 +425,6 @@ fill_statistics_users_user = function(key,user_id){
     let hightestNum_total_co = getGraphHighestNumber_user(user_id,'co_total',window.statistics.s1_,window.statistics.s2_ ?? []);
     let heighestNum_total = hightestNum_total_so > hightestNum_total_co ? hightestNum_total_so : hightestNum_total_co ;
 
-    // let heighestNum_total = getGraphHighestNumber_user(user_id,'so_total',window.statistics.s1_,window.statistics.s2_ ?? []);    
 
     switch(key){
         case 'successful':

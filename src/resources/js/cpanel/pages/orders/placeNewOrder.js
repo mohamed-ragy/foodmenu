@@ -1,15 +1,15 @@
 
-require('./placeNewOrder/details_events.js')
-require('./placeNewOrder/details_functions.js')
+require('./placeNewOrder/details_events.js')//done//
+require('./placeNewOrder/details_functions.js')//done//
 //
-require('./placeNewOrder/items_events.js')
-require('./placeNewOrder/items_functions.js')
+require('./placeNewOrder/items_events.js')//done//
+require('./placeNewOrder/items_functions.js')//done//
 //
-require('./placeNewOrder/check_functions.js')
-require('./placeNewOrder/check_events.js')
+require('./placeNewOrder/check_functions.js')//done//
+require('./placeNewOrder/check_events.js')//done//
 //
-require('./placeNewOrder/load.js')
-require('./placeNewOrder/reset.js')
+require('./placeNewOrder/load.js')//done//
+require('./placeNewOrder/reset.js')//done//
 //
 
 $('html,body').on('click','#placeOrder-cancelBtn',function(e){
@@ -95,7 +95,6 @@ $('html,body').on('click','#placeOrder-btn',function(e){
             hideBtnLoading($('#placeOrder-btn'))
             if(r.placeOrderStat == 1){
                 website.incompleteOrders.push(r.order);
-                //add Order to incomplete orders table
                 if(window.history.state.page == 'incomplete_orders'){
                     drawIncompleteOrdersTable(window.history.state.tab ?? 'all_orders',window.history.state.order_by ?? 'placed_at',window.history.state.sort ?? 'desc');
                 }

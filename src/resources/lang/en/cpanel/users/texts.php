@@ -62,5 +62,5 @@ return [
     'selectManageUser' => 'Please select a user.',
     'noUsers' => 'No users found.',
     'editPassowrdNote' => 'To keep the user’s password unchanged, leave this input box empty.',
-    "userNotFound" => "User not found!",    
+    "userNotFound" => "User not found!",
 ];

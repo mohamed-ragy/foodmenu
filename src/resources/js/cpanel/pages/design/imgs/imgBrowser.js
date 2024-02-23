@@ -3,7 +3,7 @@ appendToImgBrowser = function(img,imgBrowserClass,append){
     let imgInfo;
     if(img.id == null){
         imgInfo = $('<div/>',{class:'w200 pB10 column alnS jstfyS fs08'}).append(
-            $('<div/>',{text:img.name,class:'ellipsis'})
+            $('<div/>',{text:img.name,class:'ellipsis mX5'})
         )
     }else{
         imgInfo = $('<div/>',{class:'w200 pB10 column alnS jstfyS fs08'}).append(
@@ -39,28 +39,16 @@ showImgBrowser = function(title,imgBrowserClass,append='append'){
         let img = {id:null,name:'',url:'',thumbnailUrl:''};
         $('.popupTitle').text(title)
         if(imgBrowserClass == 'imgBrowser-icon'){
-            img.name = texts.settings.templateIcon;
-            img.url ='/storage/imgs/templates/'+website.template+'/icon.webp';
-            img.thumbnailUrl ='/storage/imgs/templates/'+website.template+'/icon.webp';
+            img.name = texts.design.noimg;
+            img.url ='storage/imgs/cpanel/noimg.png';
+            img.thumbnailUrl ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
-            // appendImgToImgBrowser('',texts.settings.templateIcon,'/storage/imgs/templates/'+website.template+'/icon.webp',imgBrowserClass,'span');
         }else if(imgBrowserClass == 'imgBrowser-logo'){
-            img.name = texts.settings.templateLogo;
-            img.url ='/storage/imgs/templates/'+website.template+'/logo.webp';
-            img.thumbnailUrl ='/storage/imgs/templates/'+website.template+'/logo.webp';
+            img.name = texts.design.noimg;
+            img.url ='storage/imgs/cpanel/noimg.png';
+            img.thumbnailUrl ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
-            // appendImgToImgBrowser('',texts.settings.templateLogo,'/storage/imgs/templates/'+website.template+'/logo.webp',imgBrowserClass,'span');
-        }
-
-        // else if(imgBrowserClass == 'imgBrowser-introImg'){
-        //     appendImgToImgBrowser('template',texts.homePageSections.templateIntroImg,'/storage/imgs/templates/'+website.template+'/intro.webp',imgBrowserClass,'span');
-        // }else if(imgBrowserClass == 'imgBrowser-infoImg'){
-        //     appendImgToImgBrowser('template',texts.homePageSections.templateInfoImg,'/storage/imgs/templates/'+website.template+'/info.webp',imgBrowserClass,'span');
-        // }else if(imgBrowserClass == 'imgBrowser-ourStoryImg'){
-        //     appendImgToImgBrowser('template',texts.homePageSections.templateOurStoryImg,'/storage/imgs/templates/'+website.template+'/ourStory.webp',imgBrowserClass,'span');
-        // }
-
-        else{
+        }else{
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
             img.thumbnailUrl ='storage/imgs/cpanel/noimg.png';

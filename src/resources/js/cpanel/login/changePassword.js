@@ -1,19 +1,6 @@
-showChangePasswordForm = function(){
-    $('.formContainer').addClass('opacity0');
-    $('#changePasswordPassword').val('').prop('disabled',false).prop('type','password');
-    $('#changePasswordConfirm').val('').prop('disabled',false).prop('type','password');
-    $('#changePasswordPassword').closest('.inputTextContainer').find('.inputText-clearVal').removeClass('ico-hidePassword').addClass('ico-showPassword')
-    $('#changePasswordConfirm').closest('.inputTextContainer').find('.inputText-clearVal').removeClass('ico-hidePassword').addClass('ico-showPassword')
-    hideBtnLoading($('#changePasswordBtn'))
-    setTimeout(function(){
-        $('.formContainer').addClass('none');
-        $('#changePasswordForm').removeClass('none');
-        $('#changePasswordForm').removeClass('opacity0');
-        $('#changePasswordPassword').focus();
-    },500)
-}
 
-$('#changePasswordPassword, #changePasswordConfirm').on('keypress',function(e){
+$('html,body').on('keypress','#changePasswordPassword, #changePasswordConfirm',function(e){
+    e.stopImmediatePropagation();
     if(e.which == 13){
         $('#changePasswordBtn').trigger('click');
     }
@@ -21,7 +8,8 @@ $('#changePasswordPassword, #changePasswordConfirm').on('keypress',function(e){
 
 
 
-$('#changePasswordBtn').on('click',function(){
+$('html,body').on('click','#changePasswordBtn',function(e){
+    e.stopImmediatePropagation();
     showBtnLoading($('#changePasswordBtn'));
     $('#changePasswordPassword').prop('disabled',true);
     $('#changePasswordConfirm').prop('disabled',true);
@@ -42,18 +30,21 @@ $('#changePasswordBtn').on('click',function(){
             $('#changePasswordConfirm').prop('disabled',false);
             if(r.status == 0){
                 if('newPassword' in r.error){
-                    $('#changePasswordMsg').text(r.error.newPassword[0]).removeClass('none');
-                }else if('newPasswordConfirm' in r.error){
-                    $('#changePasswordMsg').text(r.error.newPasswordConfirm[0]).removeClass('none');
+                        $('#msg').removeClass().addClass('cR m10').text(r.error.newPassword[0])
+                    }else if('newPasswordConfirm' in r.error){
+                        $('#msg').removeClass().addClass('cR m10').text(r.error.newPasswordConfirm[0])
                 }
 
             }else if(r.status == 2){
-                showErrorMsg(r.msg);
+                changeForm('error',function(){
+                    $('#msg').removeClass().addClass('cR m10').text(r.msg)
+                })
             }else if(r.status == 1){
-                $('#loginEmailinput').val(window.resetPasswordEmail)
-                $('#backToLoginForm').trigger('click');
-                $('#loginMsg').removeClass().addClass('cG').text(r.msg);
+                changeForm('login',function(){
+                    $('#loginEmailinput').val(window.resetPasswordEmail)
+                    $('#msg').removeClass().addClass('cG').text(r.msg);
 
+                })
             }
         }
     })

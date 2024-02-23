@@ -1,4 +1,9 @@
-$('html,body').on('click','.Logout',function(){
+$('html,body').on('click','.reportBug',function(e){
+    e.stopImmediatePropagation();
+    showPopup('reportBug');
+})
+$('html,body').on('click','.Logout',function(e){
+    e.stopImmediatePropagation();
     showPopup('logout');
 })
 $('html,body').on('click','#logout-btn',function(e){
@@ -55,7 +60,7 @@ $('#imgs-imgPreviewClose').on('click',function(){
 $('html,body').on('click','.cpPage',function(e){
     e.stopImmediatePropagation();
     $('.navElement').removeClass('navElementSelected');
-    $('.navList').hide();
+    hideList();
     $('.closeFullScreenAutoHelp').trigger('click')
     $('#liveChatBoxMenu').addClass('none')
     let openTab = $(this).attr('openTab')
@@ -136,7 +141,7 @@ $('html,body').on('click','.cpPage',function(e){
 $('html,body').on('click','.popupPage',function(e){
     e.stopImmediatePropagation();
     $('.navElement').removeClass('navElementSelected');
-    $('.navList').hide();
+    hideList();
     $('.closeFullScreenAutoHelp').trigger('click')
     let scrollToElem = $(this).attr('scrollToElem');
     let selectElem = $(this).attr('selectElem');

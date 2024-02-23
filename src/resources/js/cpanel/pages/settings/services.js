@@ -14,7 +14,6 @@ floatToTime = function(hour,minute){
             fixedHour = parseInt(hour);
             fixed12 = 'AM';
         }
-        // return fixedHour+':'+minute+' '+fixed12;
         if(fixedHour < 10){fixedHour = '0'+fixedHour}
         if(minute < 10){minute = '0'+minute}
         return [fixedHour,minute,fixed12];

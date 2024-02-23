@@ -7,7 +7,6 @@ sortProducts = function(){
     let tempProductFromSort = website.products.find(item=> item.id == productCardOnMoveFrom).sort;
     let tempProductToSort = website.products.find(item=> item.id == productCardOnMoveTo).sort;
     if(tempProductFromSort == tempProductToSort){return;}
-    // $('.manageProductCardMove').addClass('none');
     website.products.find(item=> item.id == productCardOnMoveFrom).sort = tempProductToSort;
     website.products.find(item=> item.id == productCardOnMoveTo).sort = tempProductFromSort;
     website.products.sort((a,b)=>{
@@ -32,7 +31,6 @@ sortProducts = function(){
             fromSort:tempProductToSort,
             toSort:tempProductFromSort,
         },success:function(r){
-            // $('.manageProductCardMove').removeClass('none');
             if(r.sortProductsStatus == 1){
 
             }else if(r.sortProductsStatus == 0){

@@ -22,7 +22,7 @@ drawLoadingChatWindow = function(id,type){
                         $('<div/>',{class:`chatWindowUsersOnlineIcon visitorOnlineIcon-${type}-${id}`}),
                         $('<div/>',{class:'chatWindowUserName'})
                     ),
-                    $('<div/>',{class:`chatWindowUserActions visitorActions-${type}-${id}`}) 
+                    $('<div/>',{class:`chatWindowUserActions visitorActions-${type}-${id}`})
                 ),
                 $('<div/>',{class:'chatWindowHeadIconsContainer'}).append(
                     $('<span/>',{class:'minMaxChatWindow fs08 pointer mX5 ico-minimize',tooltip:texts.cpanel.public.minimize}),
@@ -32,7 +32,6 @@ drawLoadingChatWindow = function(id,type){
             $('<div/>',{class:'chatwindowBody',getMoreMsgs:'1',noMoreMsgs:'0'}).append(
                 $('<div/>',{class:'chatWindowStatusIcon none chatWindowSeenIcon ico-msg_seen',tooltip:texts.cpanel.liveChat.msgSeen}),
                 $('<div/>',{class:'chatWindowStatusIcon none chatWindowSentIcon ico-msg_sent',tooltip:texts.cpanel.liveChat.msgSent}),
-                // $('<div/>',{class:'chatWindowStatusIcon none chatWindowSendingIcon ico-msg_sending',tooltip:texts.cpanel.liveChat.msgSending}),
             ),
             $('<div/>',{class:'chatWindowFooter'}).append(
                 $('<div/>',{class:`${guestHideClass} authority_0 chatWindowUserIcon ico-orders cpPage`,cpPage:'order_history',user:id}),

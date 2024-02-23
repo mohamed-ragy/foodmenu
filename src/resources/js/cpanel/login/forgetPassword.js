@@ -1,54 +1,3 @@
-resetForgetPasswordForm = function(){
-    enableRecoverInputs();
-    $('#recoverPassEmailMsg').removeClass().text('')
-    $('#recoverPassPhoneMsg').removeClass().text('')
-    $('#recoverPasswordEmailInput').val('');
-    $('#recoverPasswordPhoneInput').val('');
-    showForgetPasswordSelect();
-}
-
-showForgetPasswordSelect = function(){
-    $('#forgetPasswordSelectContainer').removeClass('none');
-    $('#forgetPasswordEmailContainer').addClass('opacity0');
-    $('#forgetPasswordPhoneContainer').addClass('opacity0');
-    setTimeout(()=>{
-        $('#forgetPasswordSelectContainer').removeClass('opacity0');
-        $('#forgetPasswordEmailContainer').addClass('none');
-        $('#forgetPasswordPhoneContainer').addClass('none');
-    },500)
-}
-showForgetPasswordEmail = function(){
-    $('#forgetPasswordSelectContainer').addClass('opacity0');
-    $('#forgetPasswordPhoneContainer').addClass('opacity0 none');
-    setTimeout(()=>{
-        $('#forgetPasswordEmailContainer').removeClass('none');
-        $('#forgetPasswordSelectContainer').addClass('none');
-        setTimeout(()=>{
-            $('#forgetPasswordEmailContainer').removeClass('opacity0');
-            $('#recoverPasswordEmailInput').focus();
-        },100)
-    },500)
-}
-showForgetPasswordPhone = function(){
-    $('#forgetPasswordSelectContainer').addClass('opacity0');
-    $('#forgetPasswordEmailContainer').addClass('opacity0 none');
-    setTimeout(()=>{
-        $('#forgetPasswordPhoneContainer').removeClass('none');
-        $('#forgetPasswordSelectContainer').addClass('none');
-        setTimeout(()=>{
-            $('#forgetPasswordPhoneContainer').removeClass('opacity0');
-            $('#recoverPasswordPhoneInput').focus();
-        },100)
-    },500)
-}
-$('#forgetPasswordSelectEmail').on('click',function(){
-    showForgetPasswordEmail();
-})
-$('#forgetPasswordSelectPhone').on('click',function(){
-    showForgetPasswordPhone();
-})
-
-
 disableRecoverInputs = function(){
     showBtnLoading($('#recoverPasswordEmailBtn'))
     $('#recoverPasswordEmailInput').prop('disabled',true);
@@ -63,14 +12,23 @@ enableRecoverInputs = function(){
 }
 
 
-$('#recoverPasswordEmailInput').on('keypress',function(e){
+$('html,body').on('keypress','#recoverPasswordEmailInput',function(e){
+    e.stopImmediatePropagation();
     if(e.which == 13){
         $('#recoverPasswordEmailBtn').trigger('click');
     }
 })
+$('html,body').on('keypress','#recoverPasswordPhoneInput',function(e){
+    e.stopImmediatePropagation();
+    if(e.which == 13){
+        $('#recoverPasswordPhoneBtn').trigger('click');
+    }
+})
 
-$('#recoverPasswordEmailBtn').on('click',function(e){
 
+
+$('html,body').on('click','#recoverPasswordEmailBtn',function(e){
+    e.stopImmediatePropagation();
     disableRecoverInputs();
     window.resetPassword = 'email';
     window.resetPasswordEmail = $('#recoverPasswordEmailInput').val()
@@ -83,24 +41,22 @@ $('#recoverPasswordEmailBtn').on('click',function(e){
         },success:function(r){
             enableRecoverInputs();
             if(r.status == 0){
-                $('#recoverPassEmailMsg').removeClass().addClass('cR m10').text(r.msg)
+                $('#msg').removeClass().addClass('cR m10').text(r.msg)
+                $('#recoverPasswordEmailInput').focus();
             }else if(r.status == 1){
-                showResetPasswordEnterCodeForm();
+                changeForm('forgetPassword_code')
             }else if(r.status == 2){
-                showErrorMsg(r.msg);
+                changeForm('error',function(){
+                    $('#msg').removeClass().addClass('cR m10').text(r.msg)
+                })
             }
         }
     })
 })
 
-$('#recoverPasswordPhoneInput').on('keypress',function(e){
-    if(e.which == 13){
-        $('#recoverPasswordPhoneBtn').trigger('click');
-    }
-})
 
-
-$('#recoverPasswordPhoneBtn').on('click',function(e){
+$('html,body').on('click','#recoverPasswordPhoneBtn',function(e){
+    e.stopImmediatePropagation();
     disableRecoverInputs();
     window.resetPassword = 'phone';
     window.resetPasswordPhone= $('#recoverPasswordPhoneInput').val()
@@ -113,11 +69,13 @@ $('#recoverPasswordPhoneBtn').on('click',function(e){
         },success:function(r){
             enableRecoverInputs();
             if(r.status == 0){
-                $('#recoverPassPhoneMsg').removeClass().addClass('cR m10').text(r.msg)
+                $('#msg').removeClass().addClass('cR m10').text(r.msg)
             }else if(r.status == 1){
-                showResetPasswordEnterCodeForm();
+                changeForm('forgetPassword_code')
             }else if(r.status == 2){
-                showErrorMsg(r.msg);
+                changeForm('error',function(){
+                    $('#msg').removeClass().addClass('cR m10').text(r.msg)
+                })
             }
         }
     })

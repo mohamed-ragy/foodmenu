@@ -11,61 +11,151 @@
     font-family: 'Tajawal';
     src: url('/storage/fonts/ar/Tajawal.ttf') format("truetype");
 }
-@import 'tools/icons';
 @import 'tools/loading';
 @import 'tools/scrollBar';
 @import 'form/button.scss';
 @import 'form/input-text.scss';
-
+html{
+    margin: 0;
+    padding:0;
+    height: 100%;
+    width:100%;
+    overflow: hidden;
+}
 body{
-    user-select: none;
-    background-color: var(--c1);
-    color:var(--c1txt);
     font-family: 'Nunito','inter','Tajawal', sans-serif;
+    overscroll-behavior-y: contain;
+    margin: 0;
+    padding:0;
+    user-select: none;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+    color: var(--txt-1);
+    background-color: var(--white);
+
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 0em;
     padding: 0em;
-    height:100%;
-    @media (max-width:1023px) {
-        font-size:.8em;
-    }
     overflow-y: auto;
     overflow-x: hidden;
 }
-#loginFormsContainer {
+.imgContainer{
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    @media (max-width:720px) {
+        display: none;
+    }
+    position: relative;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    width:70%;
+    background-image: url('/storage/imgs/cpanel/login/5.jpg');
+}
+.imgCover{
+    background-image: radial-gradient(circle at center left, var(--green-70),var(--green-10));
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+.imgTxtContaienr{
+    margin: 70px;
+    margin-inline-end:150px;
+    z-index: 2;
+    color:var(--txt-2);
+    @media (max-width:1024px) {
+        margin: 30px;
+        margin-inline-end:70px;
+    }
+}
+.imgTxtTitle{
+    font-size: 2em;
+    font-weight: bold;
+    font-family: 'inter','Nunito','Tajawal', sans-serif;
+}
+.imgTxt{
+    font-size: 1.3em;
+}
+.loginFormsContainerC{
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 10;
+    width:30%;
+    min-width: 500px;
+    @media (max-width:1024px) {
+        min-width: 400px;
+    }
+    @media (max-width:720px) {
+        width:100%;
+        min-width: 100%;
+        justify-content: center;
+    }
+}
+.loginFormsContainer{
+    height:600px;
+    width:500px;
+    max-width:clac(100px - 40px);
+    max-height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin:0;
-    padding: 40px 20px;
-    overflow: auto;
-    transition-duration: 300ms;
+    justify-content: center;
+    margin:20px;
+    margin-inline-start:-50px;
+    @media (max-width:720px) {
+        margin-inline-start:20px;
+    }
+
+    background-color: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--shdw-5), 0 0 20px 0px var(--shdw-5);
+}
+.foodMenuLogo{
+    margin:20px 10px;
+    margin-top: 0;
+    padding:5px;
+    height:80px;
+    box-shadow: 0 0 10px var(--shdw-5), 0 0 1px 0px var(--shdw-20);
+    border-radius: 50%;
 }
 a {
     text-decoration: none;
     cursor: pointer;
-    color: var(--c4);
+    color: var(--green);
 }
 a:hover{
     text-decoration: underline;
 }
-.inputText{
-    @media (max-width:500px) {
-        width:170px;
+.inputText {
+    @media (max-width:720px) {
+        width:180px
     }
-    font-family: 'Nunito','inter','Tajawal', sans-serif;
 }
 .btn{
-    padding: 5px 30px;
+    padding: 5px 0px;
+    margin:0px;
+    width:calc(100%);
+    @media (max-width:720px) {
+        width:180px
+    }
 }
-#backToLoginForm{transition-duration: .4s;}
 .formContainer {
     max-width:500px;
-    background-color: var(--c1);
+    background-color: var(--white);
     border-radius: 3px;
     box-shadow: var(--shdw4);
     color: var(--placeholder2);
@@ -74,17 +164,24 @@ a:hover{
     justify-content: center;
     align-items: center;
     width: fit-content;
-    padding: 20px 30px;
-    transition-duration: .4s;
+    padding: 20px;
+    transition-duration: 400ms;
     margin:0 ;
+    max-width:calc(100% - 40px)
 }
-#loginMsg{
-    max-width: 300px;
-    text-align: center;
-    margin:10px 10px 0 10px;
+.forgetPasswordOption{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: var(--white-1);
+    padding:20px;
+    cursor: pointer;
+    box-shadow: var(--card-shdw);
+    transition-duration: 150ms;
 }
-.forgetPasswordSelect{transition-duration: 200ms;}
-.forgetPasswordSelect:hover{color:var(--c4)}
-.td04{transition-duration: .4s}
-
-@import 'styleClasses.scss';
+.forgetPasswordOption:hover{background-color: var(--white-3)}
+#msg{text-align: center}
+@import 'tools/icons';
+@import '../style/style.scss';

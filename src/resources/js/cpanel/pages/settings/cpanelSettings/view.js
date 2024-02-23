@@ -71,12 +71,12 @@ darkModeToogle = function(action){
     control_panel_settings_unsave_check();
 }
 darkModeYes = function(){
-    $('#colors').prop('href','css/cpanel/colorsDark.css');
+    $('#colors').prop('href','css/cpanel/colorsDark.css?v=1');
     $('#cpanelSettings-darkMode').prop('checked',true);
     settings_temp.darkMode = true;
 }
 darkModeNo = function(){
-    $('#colors').prop('href','css/cpanel/colors.css');
+    $('#colors').prop('href','css/cpanel/colors.css?v=1');
     $('#cpanelSettings-darkMode').prop('checked',false);
     settings_temp.darkMode = false;
 }

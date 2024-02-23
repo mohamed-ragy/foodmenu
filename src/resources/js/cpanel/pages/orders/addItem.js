@@ -1,3 +1,3 @@
-require('./addItem/events.js')
-require('./addItem/functions.js')
+require('./addItem/events.js')//done//
+require('./addItem/functions.js')//done//
 //

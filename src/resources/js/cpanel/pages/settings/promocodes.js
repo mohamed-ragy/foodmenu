@@ -1,6 +1,6 @@
-require('./promocodes/create.js');//done
-require('./promocodes/edit.js');//done
-require('./promocodes/delete.js');//done
+require('./promocodes/create.js');//done//
+require('./promocodes/edit.js');//done//
+require('./promocodes/delete.js');//done//
 
 getPromocodes = function(callback=function(){}){
     if(window.promocodesFirstLoad){

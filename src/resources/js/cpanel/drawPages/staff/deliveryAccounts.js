@@ -89,7 +89,6 @@ drawPopupPage_delivery_account = function(deliveryId){
             deliveryOrdersCounter == 1 ? deliveryManOrdersNowTxt = texts.staff.deliveryManOrderNow : deliveryManOrdersNowTxt = texts.staff.deliveryManOrdersNow ;
             $('#popupPageTitle').append(
                 $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.delivery_account}),
-                // $('<span/>',{class:'ico-help help-icon',helpId:''})
             );
             $('#popupPageBody').addClass('p10 mnw400').append(
                 $('<div/>',{class:'row alnBL jstfyS mX10'}).append(

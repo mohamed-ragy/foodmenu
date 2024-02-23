@@ -420,9 +420,7 @@ drawPoupPage_order_receipt = function(order){
             $('<div/>',{class:'fs09',text:`${website.currency}${bigFloat(order.total)}`}),
         ),
     )
-    // for(const key in order.order_items){
-    //     let item = order.order_items[key];
-    // }
+
 }
 //
 draw_orderActivities_loading = function(){

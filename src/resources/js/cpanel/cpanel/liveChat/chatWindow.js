@@ -1,9 +1,9 @@
 
-require('./chatWindow/openChatWindow.js')//done
-require('./chatWindow/setSeen.js')//done
-require("./chatWindow/chatMsg.js");//need to redesign the order msg
-require("./chatWindow/receiveChatMsg.js");//done
-require("./chatWindow/sendMsg.js")//done
+require('./chatWindow/openChatWindow.js')//done//
+require('./chatWindow/setSeen.js')//done//
+require("./chatWindow/chatMsg.js");//done//
+require("./chatWindow/receiveChatMsg.js");//done//
+require("./chatWindow/sendMsg.js")//done//
 
 ////
 closeChatWindow = function(chatWindow){

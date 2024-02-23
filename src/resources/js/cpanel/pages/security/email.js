@@ -29,7 +29,6 @@ emailVerification_NoSave = function(){
         return true;
     }
 }
-email_address_unsave_check();
 
 
 $('html,body').on('click','#security-verifyEmail-btn',function(e){

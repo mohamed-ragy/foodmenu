@@ -20,23 +20,7 @@ checkWebsiteStatus = function(){
         }
     }
 };
-// if(account.is_master){
-    if(website.subscription_status != 'trialing' && website.subscription_status != 'past_due' && website.subscription_status != 'active'){
-        $('.paymentFailAnn').removeClass('none').addClass('paymentFailAnn_red');
-        $('#paymentFailAnnTxt').text(texts.cpanel.public.siteoffpaymentFail)
-    }else if(website.payment_methods_count < 1 && (website.subscription_end_period * 1000 ) < Date.parse(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)) ){
-    // }else if(website.payment_methods_count < 1){
-        let nextRenew = new Date(website.subscription_end_period * 1000);
-        nextRenew = nextRenew.toLocaleString(account.language,{ month: 'long', day: 'numeric',year:'numeric'})
-        $('.paymentFailAnn').removeClass('none').addClass('paymentFailAnn_orange');
-        $('#paymentFailAnnTxt').text(`${texts.cpanel.public.renewSoonNoPaymentMethod1} ${nextRenew}. ${texts.cpanel.public.renewSoonNoPaymentMethod2}`)
-    }else if( website.subscription_status == 'past_due' ){
-        $('.paymentFailAnn').removeClass('none').addClass('paymentFailAnn_orange');
-        $('#paymentFailAnnTxt').text(`${texts.cpanel.public.renewFailSiteOffSoon}`)
-    }
 
-    if(!account.is_master){$('.paymentFailAnn').hide();}
-// }
 
 $('html,body').on('change','#system-websiteSwitch',function(e){
     e.stopImmediatePropagation();
@@ -69,7 +53,7 @@ $('html,body').on('change','#system-websiteSwitch',function(e){
                         showAlert('success',response.msg,4000,true);
                         hideLoading($('#websiteSwitchLoading'))
                         website.active = true;
-                        // window.guideHints.websiteSwitch();
+                        window.guideHints.websiteSwitch();
                         checkWebsiteStatus();
                     },1000);
                 }else if(response.websiteSwitchOnStatus == 0){
@@ -93,7 +77,7 @@ $('html,body').on('change','#system-websiteSwitch',function(e){
                         showAlert('success',response.msg,4000,true);
                         hideLoading($('#websiteSwitchLoading'))
                         website.active = false;
-                        // window.guideHints.websiteSwitch();
+                        window.guideHints.websiteSwitch();
                         checkWebsiteStatus();
                     },1000);
                 }else if(response.websiteSwitchOffStatus == 0){

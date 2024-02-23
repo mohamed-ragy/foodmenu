@@ -36,7 +36,6 @@ drawPage_promo_codes = function(){
 drawPopupPage_create_promo_code = function(){
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.create_promo_code}),
-        // $('<span/>',{class:'ico-help help-icon',helpId:''})
     );
     $('#popupPageBody').addClass('w500 mxw100p-40 p20').append(
         $('<div/>',{class:'area',autoHelp:'create_promo_code_basic_info'}).append(
@@ -121,7 +120,6 @@ drawPopupPage_create_promo_code = function(){
 drawPopupPage_manage_promo_code_loading = function(){
     $('#popupPageTitle').text('').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.manage_promo_code}),
-        // $('<span/>',{class:'ico-help help-icon',helpId:''})
     );
     $('#popupPageBody').addClass('w500 mxw100p-40 p20').append(
         $('<div/>',{class:'colum alnS sjtfyS mB20'}).append(
@@ -154,7 +152,6 @@ drawPopupPage_manage_promo_code=function(promocode){
     $('#popupPageTitle').text('').append(
         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:`editPromocodeNoSave-${promocode.id} ico-warning unsaved none mie-5 mis-5 fs1 `}),
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.manage_promo_code}),
-        // $('<span/>',{class:'ico-help help-icon',helpId:''})
     );
     $('#popupPageBody').text('').addClass('w500 mxw100p-40 p20').append(
         $('<div/>',{class:'area',autoHelp:'manage_promo_code_basic_info'}).append(

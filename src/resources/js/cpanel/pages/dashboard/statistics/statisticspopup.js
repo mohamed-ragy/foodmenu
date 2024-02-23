@@ -1,6 +1,5 @@
 $('html,body').on('click','.statisticspopup',function(e){
     e.stopImmediatePropagation();
-    // let popupHtml = window.statisticspopup[$(this).attr('statisticspopup')]
     let popupHtml = statisticspopup_html($(this).attr('key1'),$(this).attr('key2'),$(this).attr('key3'),$(this).attr('key4'),$(this).attr('key5'),$(this).attr('key6'));
     showPopup('statistics',function(){
         $('.popupBody').text('').append(popupHtml)
@@ -15,7 +14,6 @@ $('html,body').on('mouseleave','.statisticspopup',function(e){
 $('html,body').on('mousemove mouseover mouseenter','.statisticspopup',function(e){
     if($(this).attr('statisticspopup') == ''){return;}
     if(!window.matchMedia("(pointer: coarse)").matches  && settings_temp.tooltip){
-        // console.log($(this).attr('statisticspopup'));
         let tooltipHtml = statisticspopup_html($(this).attr('key1'),$(this).attr('key2'),$(this).attr('key3'),$(this).attr('key4'),$(this).attr('key5'),$(this).attr('key6'));
         $('#statisticspopupDiv').html(tooltipHtml);
         if(e.pageY < ($(window).height()/2) &&  e.pageX < ($(window).width()/2)){

@@ -52,7 +52,7 @@ drawOnlineUsersTable = function(){
             setUnseenChat(online[key].type,online[key].id)
         }
     }
-    if(onlineUsersGuestsCounter == 0 && window.globalChannelCheck == true){
+    if(onlineUsersGuestsCounter == 0 && window.websocketServerConnected == true){
         $('#onlineUsersTable').text('').append(
             $('<div/>',{class:'m10 fs09',text:texts.users.noOnlineUsers})
         )

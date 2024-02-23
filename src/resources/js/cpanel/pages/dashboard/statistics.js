@@ -1,11 +1,9 @@
-require("./statistics/functions.js")
-require("./statistics/statisticspopup.js")
-require("./statistics/period_selection.js")
-require("./statistics/dounts.js")
-require("./statistics/graph.js")
+require("./statistics/functions.js")//done//
+require("./statistics/statisticspopup.js")//done//
+require("./statistics/period_selection.js")//done//
+require("./statistics/dounts.js")//done//
+require("./statistics/graph.js")//done//
 
-
-//
 //
 load_statistics = function(){
     draw_statistics_loading();

@@ -1,1 +1,1 @@
-require('./design/images.js')
+require('./design/images.js')//done//

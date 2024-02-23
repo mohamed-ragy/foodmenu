@@ -25,7 +25,7 @@ class CreateCpanelSettingsTable extends Migration
             $table->boolean('guideHints')->default(true);
 
             $table->boolean('bigSideMenu')->default(true);
-            $table->boolean('statusBar')->default(false);
+            $table->boolean('statusBar')->default(true);
             $table->boolean('darkMode')->default(false);
 
             $table->boolean('tooltip')->default(true);

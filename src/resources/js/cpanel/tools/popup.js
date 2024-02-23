@@ -1,5 +1,6 @@
 
-$('.popupContainer').on('click',function(){
+$('html,body').on('click','.popupContainer',function(e){
+    e.stopImmediatePropagation();
     if(
         $('.popupCard:hover').length > 0
         || $('.popupCard').attr('popup') == 'connectionLost'
@@ -211,9 +212,7 @@ showPopup =function(popup,callback=()=>{}){
         break;
     }
     $('.popupContainer').removeClass('none');
-    // setTimeout(function(){
-        callback();
-    // },320)
+    callback();
 }
 ////////draw functions
 drawf1Popup_shortcut = function(text,keys){

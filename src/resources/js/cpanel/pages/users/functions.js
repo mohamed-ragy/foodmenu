@@ -46,9 +46,9 @@ getUsersData = function(usersIds){
             resolve();
             return;
         }
-        if(!window.globalChannelCheck){
+        if(!window.websocketServerConnected){
             showUserPopupPageInterval = setInterval(() => {
-                if(window.globalChannelCheck){
+                if(window.websocketServerConnected){
                     clearInterval(showUserPopupPageInterval);
                     $.ajax({
                         url:'users',

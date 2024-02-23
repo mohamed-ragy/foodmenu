@@ -300,9 +300,7 @@ fillStatisticsGraph_product = function(id,h,w,obj_key,obj_key2,heighestNum){
             let heightPercent = 0;
             let heightPercent2 = 0;
             let date1 = ''; let date2 ='';
-            // if(typeof(s) !== 'undefined'){
-                date1 = getDate(Date.parse(new Date(window.statistics.s1.year,x,1,1,0,10,10))/1000).month_year.local;
-            // }
+            date1 = getDate(Date.parse(new Date(window.statistics.s1.year,x,1,1,0,10,10))/1000).month_year.local;
             if(window.page.compare == 1){
                 s2 = window.statistics.s2_.find(item=>item.month == x+1);
                 date2 = getDate(Date.parse(new Date(window.statistics.s2.year,x,1,1,0,10,10))/1000).month_year.local;
@@ -477,9 +475,7 @@ fillStatisticsGraph_user_orders = function(id,h,w,obj_key,user_id,heighestNum){
             let heightPercent = 0;
             let heightPercent2 = 0;
             let date1 = ''; let date2 ='';
-            // if(typeof(s) !== 'undefined'){
-                date1 = getDate(Date.parse(new Date(window.statistics.s1.year,x,1,1,0,10,10))/1000).month_year.local;
-            // }
+            date1 = getDate(Date.parse(new Date(window.statistics.s1.year,x,1,1,0,10,10))/1000).month_year.local;
             if(window.page.compare == 1){
                 s2 = window.statistics.s2_.find(item=>item.month == x+1);
                 date2 = getDate(Date.parse(new Date(window.statistics.s2.year,x,1,1,0,10,10))/1000).month_year.local;

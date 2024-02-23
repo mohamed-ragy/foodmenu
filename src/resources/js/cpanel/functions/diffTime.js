@@ -52,15 +52,18 @@ diffTime = (time) => {
         return '--';
     }
 }
-setInterval(function(){
-    resendEmailVerifycodeBtnTimer();
-    resendPhoneVerifycodeBtnTimer();
-    $('.diffTimeCalc').each(function(){
-        $(this).find('.cardLoading').remove();
-        if($(this).is('[timeText]')){
-            $(this).text($(this).attr('timeText')+' '+diffTime($(this).attr('time')))
-        }else{
-            $(this).text(diffTime($(this).attr('time')))
-        }
-    })
-},1000)
+
+diffTimeInterval = function(){
+    setInterval(function(){
+        resendEmailVerifycodeBtnTimer();
+        resendPhoneVerifycodeBtnTimer();
+        $('.diffTimeCalc').each(function(){
+            $(this).find('.cardLoading').remove();
+            if($(this).is('[timeText]')){
+                $(this).text($(this).attr('timeText')+' '+diffTime($(this).attr('time')))
+            }else{
+                $(this).text(diffTime($(this).attr('time')))
+            }
+        })
+    },1000)
+}

@@ -79,7 +79,6 @@ phoneNumberVerification_NoSave = function(){
         }
     }
 }
-phone_number_unsave_check();
 getBrowserDialCode = function(){
     let browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     let browserDialCode;

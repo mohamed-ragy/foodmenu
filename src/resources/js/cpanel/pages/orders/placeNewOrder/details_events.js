@@ -58,7 +58,6 @@ $('html,body').on('click','#placeOrder-locationToggle',function(e){
     e.stopImmediatePropagation();
     if($(this).attr('action') == 'show'){
         $(this).attr('action','hide')
-        // $('#placeOrder-userLocation').removeClass('none')
         $(this).text(texts.orders.removeLocation);
         drawPlaceOrderMap(0,0);
     }else if($(this).attr('action') == 'hide'){

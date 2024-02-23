@@ -3,28 +3,23 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
-    <link id="cpanelCSS" rel="stylesheet" href="{{ asset('css/cpanel/cpanel.css') }}">
+    <link id="cpanelCSS" rel="stylesheet" href="{{ asset('css/cpanel/cpanel.css?v=1') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
     <link rel="icon" type="image/x-icon" href="/storage/favicon.ico">
     <meta https-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="{{ trans('home/home.homeDescription') }}">
-    @if($settings->darkMode)
-    <link id="colors" rel="stylesheet" href="{{ asset('css/cpanel/colorsDark.css') }}">
-    @else
-    <link rel="stylesheet" href="{{ asset('css/cpanel/colorsDark.css') }}">
-    <link id="colors" rel="stylesheet" href="{{ asset('css/cpanel/colors.css') }}">
-    @endif
-
-    <title>{{ trans('cpanel/cpanel.public.cpanel') }} - {{ $website->domainName }}</title>
+    <meta name="description" content="{{ trans('foodmenu/home.descriptions.home') }}">
+    <link id="colors" rel="stylesheet" href="{{ asset('css/cpanel/colors.css?v=1') }}">
+    <title></title>
 </head>
-@include('cpanel.tools.loadingScreen')
+
+<div class="bgc-c1 fixed w100p h100p" id="cpanelLoading"><img id="cpanelLoading_img" src="./storage/logo/logo.png" alt=""><div></div><div></div><div></div><div></div></div>
 
 <body>
     <div class="popupContainer none"></div>
     <div id="bodyContainer">
         <div id="sideMenu-Container"></div>
         <div id="cp-body">
-        @include('cpanel.cpanel.nav')
+            @include('cpanel.cpanel.nav')
             <div id="cp-container">
                 <div id="bodyPage">
                     <a class="paymentFailAnn paymentFailAnn_red none" href="{{ env('BILLING_CENTER_URL') }}" target="_blank">
@@ -45,20 +40,19 @@
         </div>
     </div>
 
-    {{-- @include('cpanel.cpanel.statusBar') --}}
-    <div id="statusBar">{{ $website->domainName }} ({{ trans('cpanel/cpanel.public.cpanel') }})</div>
+    <div id="statusBar"></div>
 
+
+    <div id="windowsCover_autoHelp"></div>
 
     <div id="windowsCover_popupPage"></div>
-    <div id="windowsCover_autoHelp"></div>
+
     <div id="popupPage">
         <div id="popupPageHead">
             <span id="popupPageTitle" class=""></span>
             <span id="popupPageClose" class="ico-close" tooltip="<div><span>{{ trans('cpanel/cpanel.public.close') }}</span> <span class='hotKeys'>{{ trans('cpanel/cpanel.hotKeys.CloseHotKey') }}</span></div>"></span>
         </div>
-        <div id="popupPageBody">
-            {{-- @include('cpanel.popupPage') --}}
-        </div>
+        <div id="popupPageBody"></div>
     </div>
 
 
@@ -74,11 +68,11 @@
     <audio id="alert_success"><source src="./storage/audio/cpanelAlerts/success.wav" type="audio/mpeg" /></audio>
     <audio id="alert_warning"><source src="./storage/audio/cpanelAlerts/warning.wav" type="audio/mpeg" /></audio>
     <audio id="newChatMsgSound"><source id="newChatMsgSoundSource" src="./storage/audio/cpanelAlerts/chat.wav" type="audio/mpeg" /></audio>
+
     <div id="tooltipDiv"></div>
     <div id="popupId" class="none"></div>
     <div id="liveChatBoxMenu" class="liveChatBoxMenu none"></div>
     <div id="onMove" class=""></div>
-
     <div id="website_QRcodeDownload"></div>
     <div id="statisticspopupDiv"></div>
     <div id="printDiv"></div>
@@ -98,22 +92,12 @@
         <img src="" class="imgs-imgPreviewimg none" alt="" zoomLvl="1">
         <div class="imgPreviewLoading"></div>
     </div>
-
-
     <div id="changeOrderStatus" class="none"></div>
     <div id="changeOrderType"  class="none"></div>
     <div id="changeItemSelection" class="none"></div>
-
-    {{-- <div id="galleryImgOnMove"></div> --}}
-    {{-- <div id="slideShowImgOnMove"></div> --}}
-    {{-- <div id="categoryCardOnMove"></div> --}}
-    {{-- <div id="manageProductCardOnMove"></div> --}}
-    {{-- <div id="productOptionCardOnMove"></div> --}}
-    {{-- <div id="selectionCardOnMove"></div> --}}
 </body>
 <form method="post" id="logoutForm" action="{{ route('account.logout') }}">
     @csrf
 </form>
-@include('cpanel.cpanel.objects')
-<script id="cpanelJS" src="{{ asset('js/cpanel/cpanel.js') }}"></script>
+<script id="cpanelJS" src="{{ asset('js/cpanel/cpanel.js?v=1') }}"></script>
 </html>

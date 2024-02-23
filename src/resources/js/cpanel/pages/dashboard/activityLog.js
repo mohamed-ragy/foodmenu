@@ -104,7 +104,6 @@ activityLog_loadMore = function(){
         success:function(r){
             hideBtnLoading($('#findActivites_btn'));
             $('#activityLogContainer_loading').addClass('none')
-            // scrollToDiv($('#bodyPage'),$('#activityLogContainer'),500,20);
             if(r.activities.length == 0){
                 noMoreActivites = true;
 

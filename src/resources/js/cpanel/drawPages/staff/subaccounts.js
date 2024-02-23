@@ -79,7 +79,6 @@ drawPopupPage_sub_account = function(subaccountId){
     let authority5Icon = subaccount.authorities.split('')[5] == 1 ? 'ico-check cG' : 'ico-no cR';
     $('#popupPageTitle').append(
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.sub_account}),
-        // $('<span/>',{class:'ico-help help-icon',helpId:''})
     );
     $('#popupPageBody').addClass('p10 mnw400').append(
         $('<div/>',{class:'row alnBL jstfyS mX10'}).append(
@@ -153,7 +152,6 @@ drawPopupPage_manage_sub_account = function(subaccountId){
     $('#popupPageTitle').text('').append(
         $('<span/>',{class:`manageSubaccountNoSaveCheck-${subaccount.id} unsaved ico-warning mie-5 none`,tooltip:texts.cpanel.public.unsaved}),
         $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.manage_sub_account}),
-        // $('<span/>',{class:'ico-help help-icon',helpId:''})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40 p20 w500').append(
         $('<div/>',{class:'row alnBL jstfyS mX10'}).append(

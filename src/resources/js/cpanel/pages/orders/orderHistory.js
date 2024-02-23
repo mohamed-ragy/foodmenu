@@ -1,5 +1,5 @@
-require('./orderHistory/filters.js')
-require('./orderHistory/tableEvents.js')
+require('./orderHistory/filters.js')//done//
+require('./orderHistory/tableEvents.js')//done//
 
 //
 getOrderHistory = function(){
@@ -13,14 +13,12 @@ getOrderHistory = function(){
     let orderHistoryTRArrow_type = '';
     let orderHistoryTRArrow_placed_at = '';
     let orderHistoryTRArrow_status = '';
-    // let orderHistoryTRArrow_items = '';
     let orderHistoryTRArrow_customer = '';
     let orderHistoryTRArrow_Price = '';
     if(window.history.state.orderBy == 'id'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_id = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_id = 'ico-up' : null;}
     if(window.history.state.orderBy == 'type'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_type = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_type = 'ico-up' : null;}
     if(window.history.state.orderBy == 'placed_at'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_placed_at = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_placed_at = 'ico-up' : null;}
     if(window.history.state.orderBy == 'status'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_status = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_status = 'ico-up' : null;}
-    // if(window.history.state.orderBy == 'items'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_items = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_items = 'ico-up' : null;}
     if(window.history.state.orderBy == 'customer'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_customer = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_customer = 'ico-up' : null;}
     if(window.history.state.orderBy == 'price'){window.history.state.sort == 'desc' ? orderHistoryTRArrow_Price = 'ico-down' : window.history.state.sort == 'asc' ? orderHistoryTRArrow_Price = 'ico-up' : null;}
     $('#orderHistoryTable').text('').append(

@@ -65,7 +65,6 @@ class cpanelController extends Controller
                     return response(['status' => 2 ,'msg' => Lang::get('cpanel/login.tooManyRequests')]);
                 }
                 $code = Str::random(6);
-                $code = '000000';
                 $applyCode = Account::where(['email'=>$request->resetPasswordEmail,'is_master' => true])->update([
                     'recover_password_code' => bcrypt($code),
                     'recover_password_code_sent_at' => Carbon::now()->timestamp,
@@ -113,7 +112,6 @@ class cpanelController extends Controller
                 return response(['status' => 0 ,'msg' => Lang::get('cpanel/login.resetPasswordWrongPhone')]);
             }
         }else if($request->has('resetPasswordCheckCode')){
-
             if($request->recoverVia == 'phone'){
                 $code = Account::where(['phone' => $request->resetPasswordViaPhone,'is_master' => true])->select('recover_password_code_sent_at','recover_password_code')->first();
             }else if($request->recoverVia == 'email'){
@@ -145,22 +143,21 @@ class cpanelController extends Controller
                             'newPassword' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPasswordConfirm',
                             'newPasswordConfirm' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|same:newPassword',
                         ],[
-                            'newPassword.required' => lang::get('cpanel/security/password.newPasswordRequired'),
-                            'newPassword.min' => lang::get('cpanel/security/password.newPasswordMin'),
-                            'newPassword.max' => lang::get('cpanel/security/password.newPasswordMax'),
-                            'newPassword.regex' => lang::get('cpanel/security/password.newPasswordRegex'),
-                            'newPassword.same' => lang::get('cpanel/security/password.newPasswordSame'),
+                            'newPassword.required' => lang::get('cpanel/security/responses.newPasswordRequired'),
+                            'newPassword.min' => lang::get('cpanel/security/responses.newPasswordMin'),
+                            'newPassword.max' => lang::get('cpanel/security/responses.newPasswordMax'),
+                            'newPassword.regex' => lang::get('cpanel/security/responses.newPasswordRegex'),
+                            'newPassword.same' => lang::get('cpanel/security/responses.newPasswordSame'),
 
-                            'newPasswordConfirm.required' => lang::get('cpanel/security/password.newPasswordRequired'),
-                            'newPasswordConfirm.min' => lang::get('cpanel/security/password.newPasswordMin'),
-                            'newPasswordConfirm.max' => lang::get('cpanel/security/password.newPasswordMax'),
-                            'newPasswordConfirm.regex' => lang::get('cpanel/security/password.newPasswordRegex'),
-                            'newPasswordConfirm.same' => lang::get('cpanel/security/password.newPasswordSame'),
+                            'newPasswordConfirm.required' => lang::get('cpanel/security/responses.newPasswordRequired'),
+                            'newPasswordConfirm.min' => lang::get('cpanel/security/responses.newPasswordMin'),
+                            'newPasswordConfirm.max' => lang::get('cpanel/security/responses.newPasswordMax'),
+                            'newPasswordConfirm.regex' => lang::get('cpanel/security/responses.newPasswordRegex'),
+                            'newPasswordConfirm.same' => lang::get('cpanel/security/responses.newPasswordSame'),
                         ]);
                         if ($validate->fails()) {
                             return response(['status' => 0, 'error' => $validate->errors()]);
-                        }
-                        else if (!$validate->fails()) {
+                        }else if (!$validate->fails()) {
                             if(Account::where('id',$code->id)->update(['password' => bcrypt($request->newPassword)])){
                                 return response(['status' => 1 ,'msg' => Lang::get('cpanel/login.passwordChanged') ]);
                             }else{
@@ -188,7 +185,7 @@ class cpanelController extends Controller
                     foodmenuFunctions::notification('0',null,[
                         'account_id' => $account->id,
                     ],$account->website_id);
-                    if($account->account_unblock_code == null || $account->account_unblock_code == '' ){
+                    if($account->account_unblock_code == null || $account->account_unblock_code == ''){
                         if($account->is_master){
                             Account::where('email',$request->email)->update(['account_unblock_code' => Str::random(100)]);
                             ///send email with the unblock link if master
@@ -236,22 +233,19 @@ class cpanelController extends Controller
                 return response(['code'=>0,'msg'=>Lang::get('cpanel/login.accountUnblockWrongCode')]);
             }
         }
-
-
     }
 
     public function login(Request $request)
     {
-        // if(isset($request['unblock'])){
-        //     $unblockAccount = Account::where('account_unblock_code',$request->unblock)->update(['password_fails' => 0,'account_unblock_code'=>null]);
-        //     if($unblockAccount){
-                // return redirect()->route('account.login',['unblocked'=>1]);
-        //     }else{
-        //         return redirect()->route('account.login');
-        //     }
-        // }else{
-            return view('cpanel.login');
-        // }
+        $solutions = Lang::get('cpanel/login.solutions');
+        if($request->x != null){
+            $rand = $request->x;
+        }else{
+            $rand = array_rand($solutions);
+        }
+
+        $solution = $solutions[$rand];
+        return view('cpanel.login',['solution'=>$solution,'img' => $rand]);
     }
 
     public function logout(Request $request)
@@ -267,132 +261,12 @@ class cpanelController extends Controller
 
     public function home(Request $request)
     {
+
         if(Auth::guard('account')->user()->register != 2 && Auth::guard('account')->user()->is_master == true){
             return redirect()->route('foodmenu.register',['FoodMenuLang' => Cookie::get('FoodMenuLang') ?? 'en']);
         }
-        if(Auth::guard('account')->user()->is_master == true){
-            $website = website::where('id',Auth::guard('account')->user()->website_id)
-                    ->with(['deliveries'])
-                    ->withCount('paymentMethods')
-                    ->with(['accounts'=>function($q){
-                        $q->select('authorities','is_master','email','website_id','id','name','password_fails','lastSeen');
-                    }])
-                    ->with(['categories'=>function($q){
-                        $q->orderBy('sort','asc');
-                    }])
-                    ->with(['products'=> function($q){
-                        $q->with(['product_options'=>function($q){
-                                $q->with('product_option_selections');
-                            }]);
-                    }])
-            ->first();
-        }else{
-            $website = website::where('id',Auth::guard('account')->user()->website_id)
-                ->select([
-                    'id','plan','active','subscription_status','phoneNumbers',
-                    'addresses',
-                    'lat','lng','url','timeZone','hour12','country_code',
-                    'currencies','websiteNames','websiteDescriptions',
-                    'website_announcements','website_receiptMsgs','languages','facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink','restaurantEmail','domainName','specialDomainName','trendingProducts',
-                    'website_colors','useCustomColors','customColorsHexCode','icon','logo','template',
-                    'intro',
-                    'info',
-                    'ourStory',
-                    'slideShow',
-                    'gallery',
-                    'productReviews',
-                    'guestReviews',
-                    'collectReviews',
-                    'guestOrders',
-                    'cancelOrder',
-                    'dineinWorkingHours',
-                    'liveChat',
-                    'guestLiveChat',
-                    'discountAnnouncement',
-                    'cookies_msg',
-                    'fastLoading',
-                    'useDelivery',
-                    'langPopup',
-                    'cash_on_delivery',
-                    'card_on_delivery',
-                    'acceptDeliveryOrders24',
-                    'deliveryCost',
-                    'showDeliveryCostChangable',
-                    'deliveryTaxCost',
-                    'deliveryTaxPercentage',
-                    'useDeliveryTaxCost',
-                    'deliveryMinimumCharge',
-                    'deliveryMinimumChargeIncludes',
-                    'workingDays_delivery',
-                    'averageDeliveryTime',
-                    'usePickup',
-                    'cash_at_restaurant',
-                    'card_at_restaurant',
-                    'acceptPickupOrders24',
-                    'pickupTaxCost',
-                    'pickupTaxPercentage',
-                    'usePickupTaxCost',
-                    'pickupMinimumCharge',
-                    'pickupMinimumChargeIncludes',
-                    'workingDays_pickup',
-                    'averagePickupTime',
-
-                    'dineInTaxPercentage',
-                    'dineInTaxCost',
-                    'useDineInTaxCost',
-                    'dineInServicePercentage',
-                    'dineInServiceCost',
-                    'useDineInServiceCost',
-                    'workingDays_dinein',
-                    'cart_lifeTime',
-                    'printerWidth',
-                    ])
-                    ->with(['accounts'=>function($q){
-                        $q->select('id','name','website_id');
-                    }])
-                    ->with(['deliveries'])
-
-                    ->with(['categories'=>function($q){
-                        $q->orderBy('sort','asc');
-                    }])
-                    ->with(['products'=> function($q){
-                        $q->with(['product_options'=>function($q){
-                                $q->with('product_option_selections');
-                            }]);
-                    }])
-            ->first();
-        }
-        $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];
-        // if($website->template == 'demo'){
-        //     $website->template = $request->t ?? 1;
-        // }
-        $website->templateData = foodmenuFunctions::templates()[$website->template];
-
-        $account = Auth::guard('account')->user();
-        $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
-        $settings = cpanelSettings::where('account_id',$account->id)->first();
-        $foodMenuData = collect([
-            'plans' => foodmenuFunctions::plans(),
-            'langs'=> foodmenuFunctions::languages(),
-        ]);
-        if($account->language == 'en'){
-            $help_articles = help_en_tut::inRandomOrder()->limit(6)->get();
-        }
-        $website->help_articles = $help_articles;
-
-        //////////
-
         Account::where('id',Auth::guard('account')->user()->id)->update(['lastSeen' => Carbon::now()->timestamp]);
-        return view('cpanel.cpanel',[
-            'website' => $website,
-            'account' => $account,
-            'settings' => $settings,
-            'foodMenuData' => $foodMenuData,
-            'texts' => collect([
-                'cpanel' => Lang::get('cpanel/cpanel'),
-            ]),
-            'autoHelp_text' => collect(Lang::get('cpanel/autoHelp')),
-        ]);
+        return view('cpanel.cpanel');
     }
 
     public function financialreport(Request $request)
@@ -450,7 +324,7 @@ class cpanelController extends Controller
         $date = Carbon::createFromFormat('Y-m-d H:i:s',$request->year.'-'.$request->month.'-1 00:00:00','UTC');
         $pdf = PDF::loadView(
             'cpanel.pdf.financialReport',
-            ['report' => $report,'lang'=>$request->lang,'date'=>$date->format('F Y'),'currency'=>$request->currency],
+            ['report' => $report,'lang'=>$request->lang,'date'=>$date->format('F Y'),'currency'=>$request->currency_symbol],
             [
                 'format' => 'A4',
                 'author' => 'Foodmenu',
@@ -522,14 +396,12 @@ class cpanelController extends Controller
             ->with('last_msg')
             ->orderBy('lastChat','desc')
             ->take(15)
-            // ->select('id','lastChat','lastMsg_id')
             ->get();
             $liveChats_guests = guest::where('website_id', $this->website_id)
             ->where('lastMsg_id','!=',null)
             ->with('last_msg')
             ->orderBy('lastChat','desc')
             ->take(15)
-            // ->select('id','lastChat','lastMsg_id')
             ->get();
             return response(['liveChats_users'=>$liveChats_users,'liveChats_guests'=>$liveChats_guests]);
 
@@ -541,7 +413,6 @@ class cpanelController extends Controller
             ->with('last_msg')
             ->orderBy('lastChat','desc')
             ->take(15)
-            // ->select('id','lastChat','lastMsg_id')
             ->get();
             $liveChats_guests = guest::where('website_id', $this->website_id)
             ->where('lastMsg_id','!=',null)
@@ -549,7 +420,6 @@ class cpanelController extends Controller
             ->with('last_msg')
             ->orderBy('lastChat','desc')
             ->take(15)
-            // ->select('id','lastChat','lastMsg_id')
             ->get();
             return response(['liveChats_users'=>$liveChats_users,'liveChats_guests'=>$liveChats_guests]);
 
@@ -614,8 +484,6 @@ class cpanelController extends Controller
                 'type' => $request->type,
                 'id' => $request->id
             ]);
-            //send to user and other accounts
-
         }
         else if($request->has('getChatMsgs')){
             $chatMsgs = liveChat::where([
@@ -656,7 +524,6 @@ class cpanelController extends Controller
                 }else if($request->type == 'guest'){
                     guest::where('id',$request->id)->update(['lastChat' => carbon::now()->timestamp,'lastMsg_id' => $createChatMsg->_id]);
                 }
-                //send to user and other accounts
                 foodmenuFunctions::notification('liveChat.new_msg_by_account',[],[
                     'type' => $request->type,
                     'id' => $request->id,
@@ -693,7 +560,133 @@ class cpanelController extends Controller
 
     public function dashboard(Request $request)
     {
-        if($request->has('FirstLoad')){
+        if($request->has('firstLoad')){
+            if(Auth::guard('account')->user()->is_master == true){
+                $website = website::where('id',Auth::guard('account')->user()->website_id)
+                        ->with(['deliveries'])
+                        ->withCount('paymentMethods')
+                        ->with(['accounts'=>function($q){
+                            $q->select('authorities','is_master','email','website_id','id','name','password_fails','lastSeen');
+                        }])
+                        ->with(['categories'=>function($q){
+                            $q->orderBy('sort','asc');
+                        }])
+                        ->with(['products'=> function($q){
+                            $q->with(['product_options'=>function($q){
+                                    $q->with('product_option_selections');
+                                }]);
+                        }])
+                ->first();
+            }else{
+                $website = website::where('id',Auth::guard('account')->user()->website_id)
+                    ->select([
+                        'id','plan','active','subscription_status','phoneNumbers',
+                        'addresses',
+                        'lat','lng','url','timeZone','hour12','country_code',
+                        'currencies','websiteNames','websiteDescriptions',
+                        'website_announcements','website_receiptMsgs','languages','facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink','restaurantEmail','domainName','specialDomainName','trendingProducts',
+                        'website_colors','useCustomColors','customColorsHexCode','icon','logo','template',
+                        'intro',
+                        'info',
+                        'ourStory',
+                        'slideShow',
+                        'gallery',
+                        'productReviews',
+                        'guestReviews',
+                        'collectReviews',
+                        'guestOrders',
+                        'cancelOrder',
+                        'dineinWorkingHours',
+                        'liveChat',
+                        'guestLiveChat',
+                        'discountAnnouncement',
+                        'cookies_msg',
+                        'fastLoading',
+                        'useDelivery',
+                        'langPopup',
+                        'cash_on_delivery',
+                        'card_on_delivery',
+                        'acceptDeliveryOrders24',
+                        'deliveryCost',
+                        'showDeliveryCostChangable',
+                        'deliveryTaxCost',
+                        'deliveryTaxPercentage',
+                        'useDeliveryTaxCost',
+                        'deliveryMinimumCharge',
+                        'deliveryMinimumChargeIncludes',
+                        'workingDays_delivery',
+                        'averageDeliveryTime',
+                        'usePickup',
+                        'cash_at_restaurant',
+                        'card_at_restaurant',
+                        'acceptPickupOrders24',
+                        'pickupTaxCost',
+                        'pickupTaxPercentage',
+                        'usePickupTaxCost',
+                        'pickupMinimumCharge',
+                        'pickupMinimumChargeIncludes',
+                        'workingDays_pickup',
+                        'averagePickupTime',
+                        'dineInTaxPercentage',
+                        'dineInTaxCost',
+                        'useDineInTaxCost',
+                        'dineInServicePercentage',
+                        'dineInServiceCost',
+                        'useDineInServiceCost',
+                        'workingDays_dinein',
+                        'cart_lifeTime',
+                        'printerWidth',
+                        ])
+                        ->with(['accounts'=>function($q){
+                            $q->select('id','name','website_id');
+                        }])
+                        ->with(['deliveries'])
+
+                        ->with(['categories'=>function($q){
+                            $q->orderBy('sort','asc');
+                        }])
+                        ->with(['products'=> function($q){
+                            $q->with(['product_options'=>function($q){
+                                    $q->with('product_option_selections');
+                                }]);
+                        }])
+                ->first();
+            }
+            $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];
+            $website->templateData = foodmenuFunctions::templates()[$website->template];
+            $account = Auth::guard('account')->user();
+            $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
+            $settings = cpanelSettings::where('account_id',$account->id)->first();
+            $foodMenuData = collect([
+                'plans' => foodmenuFunctions::plans(),
+                'langs'=> foodmenuFunctions::languages(),
+            ]);
+            if($account->language == 'en'){
+                $help_articles = help_en_tut::inRandomOrder()->limit(6)->get();
+            }
+            $website->help_articles = $help_articles;
+            return response([
+                'website' => $website,
+                'account' => $account,
+                'settings' => $settings,
+                'foodMenuData' => $foodMenuData,
+                'autoHelp_text' => Lang::get('cpanel/autoHelp'),
+                'texts' => [
+                    'cpanel' => Lang::get('cpanel/cpanel'),
+                    'support' => Lang::get('cpanel/support/texts'),
+                    'settings' => Lang::get('cpanel/settings/texts'),
+                    'users' => Lang::get('cpanel/users/texts'),
+                    'staff' => Lang::get('cpanel/staff/texts'),
+                    'products' => Lang::get('cpanel/products/texts'),
+                    'design' => Lang::get('cpanel/design/texts'),
+                    'orders' => Lang::get('cpanel/orders/texts'),
+                    'security' => Lang::get('cpanel/security/texts'),
+                    'dashboard' => Lang::get('cpanel/dashboard/texts'),
+                    'activity_log' => Lang::get('cpanel/dashboard/activity_log'),
+                ]
+            ]);
+        }
+        else if($request->has('getData')){
             //////////
             if(str_split($this->account->authorities)[0] == false){
                 $incompleteOrders = [];

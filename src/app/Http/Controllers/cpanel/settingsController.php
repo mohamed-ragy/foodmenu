@@ -330,8 +330,7 @@ class settingsController extends Controller
             if(str_split($this->account->authorities)[4] == false){return;}
             $old_icon = website::where('id',$this->website_id)->pluck('icon')->first();
             if($request->websiteIcon == '' || $request->websiteIcon == null){
-                $template = website::where('id',$this->website_id)->pluck('template')->first();
-                $iconUrl = "/storage/imgs/templates/$template/icon.webp";
+                $iconUrl = "/storage/imgs/cpanel/noimg.png";
                 $iconId = null;
             }else{
                 $img = img::where(['website_id' => $this->website_id,'id'=>$request->websiteIcon])->first();
@@ -373,8 +372,7 @@ class settingsController extends Controller
             $old_logo = website::where('id',$this->website_id)->pluck('logo')->first();
 
             if($request->websiteLogo == '' || $request->websiteLogo == null){
-                $template = website::where('id',$this->website_id)->pluck('template')->first();
-                $logoUrl = "/storage/imgs/templates/$template/logo.webp";
+                $logoUrl = "/storage/imgs/cpanel/noimg.png";
                 $logoId = null;
             }else{
                 $img = img::where(['website_id' => $this->website_id,'id'=>$request->websiteLogo])->first();

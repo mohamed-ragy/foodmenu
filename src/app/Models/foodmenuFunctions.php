@@ -17,18 +17,12 @@ use stdClass;
 class foodmenuFunctions
 {
     public static function sendVeryficationSMS($to,$code,$msg=1){
-        return true;
-        // $account_sid = "AC13d8b990e66aede7bfd582685e7925eb";
-        // $auth_token = "63aa324a95837d01b3773845ea2e9c25";
-        // $twilio_number k= "+13213926819";
-        // $client = new Client($account_sid, $auth_token);
-        // $sendSMS = $client->messages->create($to,
-        //         ['from' => $twilio_number, 'body' => Lang::get("mails/sms.verificationCode"). '( '.$code.' )'] );
+        // return true;
+        $account_sid = "AC13d8b990e66aede7bfd582685e7925eb";
+        $auth_token = "63aa324a95837d01b3773845ea2e9c25";
+        $twilio_number = "+13203993791";
         if($msg == 1){
             try{
-                $account_sid = "AC13d8b990e66aede7bfd582685e7925eb";
-                $auth_token = "63aa324a95837d01b3773845ea2e9c25";
-                $twilio_number = "+13203993791";
                 $client = new Client($account_sid, $auth_token);
                 $client->messages->create($to,
                 ['from' => $twilio_number, 'body' => Lang::get("mails/sms.foodMenu").' '.$code.' '.Lang::get("mails/sms.verificationCode") ]);
@@ -39,9 +33,6 @@ class foodmenuFunctions
             }
         }else if($msg == 2){
             try{
-                $account_sid = "AC13d8b990e66aede7bfd582685e7925eb";
-                $auth_token = "63aa324a95837d01b3773845ea2e9c25";
-                $twilio_number = "+13203993791";
                 $client = new Client($account_sid, $auth_token);
                 $client->messages->create($to,
                 ['from' => $twilio_number, 'body' => Lang::get("mails/sms.foodMenu").' '.$code.' '.Lang::get("mails/sms.resetPasswordCode") ] );

@@ -30,12 +30,10 @@ $('html,body').on('mouseenter','.popupId',function(e){
                 $('#popupIdReviewContainer').text('').append(
                     window.product_reviews.find(item=>item.id == $(this).attr('review')).review
                 )
-                // checkUseenNotifications([4],'product_review_id',window.product_reviews.find(item=>item.id == $(this).attr('review')).id)
             }
             showPopupId(thisPopupIdElem)
         break;
         case 'product':
-            // if(!account.authorities[0]){return;}
             let product = website.products.find(item=>item.name == $(this).attr('product'));
             if(typeof(product) === 'undefined'){return;}
             let productRating = Math.round(parseFloat(product.rating));
@@ -175,7 +173,6 @@ $('html,body').on('mouseenter','.popupId',function(e){
         break;
         case 'order':
             $('#popupId').text('').append(
-                // $('<div/>',{class:'bold500 fs101',text:`${texts.orders.order} #${$(this).attr('order')}`}),
                 $('<div/>',{class:'chatOrderBody p10'}).append(
                     $('<div/>',{class:'cardLoading br10 h10 w50 mX5 mY3'}),
                     $('<div/>',{class:'cardLoading br10 h10 w150 mX5 mY3'}),
@@ -236,20 +233,6 @@ $('html,body').on('mouseenter','.popupId',function(e){
             showPopupId(thisPopupIdElem)
         break;
     }
-    // setTimeout(()=>{
-    //     if(thisPopupIdElem.is(':hover')){
-    //         $('#popupId').removeClass('none').css({
-    //             'top':$(this).offset().top - $('#popupId').outerHeight(),
-    //             'left':$(this).offset().left
-    //         })
-    //         if(parseFloat($('#popupId').offset().left) + parseFloat($('#popupId').width()) > $(window).width()){
-    //             $('#popupId').removeClass('none').css({
-    //                 'top':$(this).offset().top - $('#popupId').outerHeight(),
-    //                 'left':$(window).width() - $('#popupId').width() - 10,
-    //             })
-    //         }
-    //     }
-    // },500)
 
 })
 

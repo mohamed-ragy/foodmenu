@@ -26,7 +26,7 @@ $('html,body').on('click','.imgBrowser-icon',function(e){
                 website.icon = imgUrl;
                 website.icon_id = imgId;
                 $('#settings-websiteIconImg').attr('src',imgUrl)
-                // window.guideHints.websiteIcon();
+                window.guideHints.websiteIcon();
             }else if(response.saveWebsiteIconStatus == 0){
                 showAlert('error',response.msg,4000,true);
             }
@@ -61,7 +61,7 @@ $('html,body').on('click','.imgBrowser-logo',function(e){
                 website.logo = imgUrl;
                 website.logo_id = imgId;
                 $('#settings-websiteLogoImg').attr('src',imgUrl)
-                // window.guideHints.websiteLogo();
+                window.guideHints.websiteLogo();
                 $('#navTitle').children().first().attr('src',imgUrl)
             }else if(response.saveWebsiteLogoStatus == 0){
                 showAlert('error',response.msg,4000,true);

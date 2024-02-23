@@ -1,42 +1,33 @@
-resetLoginForm = function(){
-    hideBtnLoading($('#loginBtn'));
-    $('#loginEmailinput').prop('disabled',false)
-    $('#loginPasswordinput').prop('disabled',false)
-    $(this).removeClass('ico-hidePassword').addClass('ico-showPassword');
-    $('#loginPasswordinput').prop('type','password');
-    $('#loginMsg').removeClass().addClass('none').text('')
-}
+
 handleLoginRequest = function(r){
     if(r.code == 1){
-        $('#loginFormsContainer').css('opacity','0');
+        changeForm('loading')
         setTimeout(function(){
             location.reload();
-        },400)
+        },1000)
     }else if(r.code == 0){
-        $('#loginMsg').removeClass().addClass('cR').text(r.msg);
+        $('#msg').removeClass().addClass('cR m10').text(r.msg)
         $('#loginEmailinput').prop('disabled',false)
-        $('#loginPasswordinput').text('').prop('disabled',false)
-        $('#loginPasswordinput').val('').focus();
+        $('#loginPasswordinput').prop('disabled',false).val('').focus();
         hideBtnLoading($('#loginBtn'));
     }
 }
 /////
-if(Cookies.get('CpanelLoginEmail')){
-    $('#loginEmailinput').val(Cookies.get('CpanelLoginEmail'));
-    $('#loginPasswordinput').focus();
-}else{
-    $('#loginEmailinput').focus();
-}
+
 //////
-$('#loginEmailinput, #loginPasswordinput').on('keypress',function(e){
+$('html,body').on('keypress','#loginEmailinput, #loginPasswordinput',function(e){
+    e.stopImmediatePropagation();
     if(e.which == 13){
         $('#loginBtn').trigger('click');
     }
 })
-$('#loginBtn').on('click',function(){
+$('html,body').on('click','#loginBtn',function(e){
+    e.stopImmediatePropagation();
+
     showBtnLoading($('#loginBtn'));
     $('#loginEmailinput').prop('disabled',true)
     $('#loginPasswordinput').prop('disabled',true)
+    $('#msg').text('');
     $.ajax({
         url:'/dologin',
         type:'post',

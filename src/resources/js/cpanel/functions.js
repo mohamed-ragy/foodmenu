@@ -1,14 +1,14 @@
 
 
-require('./functions/confirmBtn.js')
-require('./functions/coolDown.js')
-require('./functions/inputList.js')
-require('./functions/pushHistory.js')
-require('./functions/firstLoad.js')
-require('./functions/authorities.js')
-require('./functions/cpanelTitle.js')
-require('./functions/getDate.js')
-require('./functions/diffTime.js')
+require('./functions/confirmBtn.js')//done//
+require('./functions/coolDown.js')//done//
+require('./functions/inputList.js')//done//
+require('./functions/pushHistory.js')//done//
+require('./functions/firstLoad.js')//done//
+require('./functions/authorities.js')//done//
+require('./functions/cpanelTitle.js')//done//
+require('./functions/getDate.js')//done//
+require('./functions/diffTime.js')//done//
 
 counterIntervals = [];
 counter = function(div,number,prefix,after='',toFixed=0){
@@ -46,20 +46,6 @@ counter = function(div,number,prefix,after='',toFixed=0){
         div.text(after+number.toFixed(toFixed))
     }
 }
-
-MultiLoginCheckANdAutoLogout = function(accountId){
-    setInterval(function(){
-        $.ajax({
-            url:'notifications',
-            type:'put',
-            data:{
-                _token:$('meta[name="csrf-token"]').attr('content'),
-                lastSeen:true,
-            }
-        });
-    },60000 * 5);
-}
-MultiLoginCheckANdAutoLogout();
 
 ReloadForUpdate = function(){
     showAlert('warning',texts.cpanel.public.pageRefreshRequired1,100000000,true);

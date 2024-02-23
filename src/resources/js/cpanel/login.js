@@ -1,83 +1,190 @@
-// require("../bootstrap");
 window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
 const { post } = require("jquery");
 loadTouchEvents($);
 window.Cookies = require('js-cookie');
-$(document).ready(function(){
-    let colorMode = window.Cookies.get('darkMode');
-    console.log(colorMode)
-    if(colorMode == 1){
-        $('#colors').prop('href','css/cpanel/colorsDark.css');
-        $('#foodMenuLogo').attr('src','./storage/logo/logo_dark.png')
+
+require("./tools/loading.js")
+require("./tools/form/inputTxt.js")
+
+changeForm = function(form,callback=()=>{}){
+    $('.formContainer').addClass('opacity0')
+    setTimeout(()=>{
+        drawForm(form)
+        callback();
+        setTimeout(()=>{
+            $('.formContainer').removeClass('opacity0')
+        },200)
+    },400)
+}
+drawForm = function(form){
+    switch (form) {
+        case 'login':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<a/>',{class:'hvr-tdNone taC pointer',href:process.env.MIX_APP_URL}).append(
+                        $('<img/>',{class:'foodMenuLogo',src:'/storage/logo/logo.png'})
+                    ),
+                    $('<div/>',{class:'m10 fs103 bold',text:window.texts.login}),
+
+                    $('<div/>',{class:'taC mX10 w350 mxw100p-40'}).append(
+                        $('<span/>',{id:'msg',class:'',text:''})
+                    ),
+                    drawInputText('','ico-email_address','',window.texts.email,'loginEmailinput','text',window.texts.email,200,'clearVal','mY20','',false,''),
+                    drawInputText('','ico-password','',window.texts.password,'loginPasswordinput','password',window.texts.password,200,'password','mT0','',false,''),
+                    $('<a/>',{class:'alnsE fs09 mB10 changeForm',changeForm:'forgetPassword',text:window.texts.forgetPassword}),
+                    $('<button/>',{class:'btn',id:'loginBtn'}).append(
+                        $('<div/>',{class:'btnLoading'}),
+                        $('<div/>',{class:'btnTxt',text:window.texts.login})
+                    ),
+                    $('<div/>',{class:'mT20',html:window.texts.dontHaveAccount})
+                )
+            )
+            if(Cookies.get('CpanelLoginEmail')){
+                $('#loginEmailinput').val(Cookies.get('CpanelLoginEmail'));
+                $('#loginPasswordinput').focus();
+            }else{
+                $('#loginEmailinput').focus();
+            }
+        break;
+        case 'loading':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'loading_L vV'})
+            )
+        break;
+        case 'forgetPassword':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<div/>',{class:'forgetPasswordOption changeForm',changeForm:'forgetPassword_email'}).append(
+                        $('<div/>',{class:'ico-email_address fs3'}),
+                        $('<div/>',{class:'fs101 taC mX10 mY20',text:window.texts.recoverPasswordEmail})
+                    ),
+                    $('<div/>',{class:'forgetPasswordOption mT20 changeForm',changeForm:'forgetPassword_phone'}).append(
+                        $('<div/>',{class:'ico-phone_number fs3'}),
+                        $('<div/>',{class:'fs101 taC mX10 mY20',text:window.texts.recoverPasswordSMS})
+                    ),
+                    $('<a/>',{class:'mT30 changeForm',changeForm:'login',text:window.texts.backToLogin})
+                )
+            )
+        break;
+        case 'forgetPassword_email':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<div/>',{class:'taC mX10 w350 mxw100p-40'}).append(
+                        $('<span/>',{id:'msg',class:'',text:window.texts.enterResetEmailMsg})
+                    ),
+                    drawInputText('','ico-email_address','',window.texts.email,'recoverPasswordEmailInput','text',window.texts.email,200,'clearVal','mY20','',false,''),
+                    $('<button/>',{class:'btn',id:'recoverPasswordEmailBtn'}).append(
+                        $('<div/>',{class:'btnLoading'}),
+                        $('<div/>',{class:'btnTxt',text:window.texts.recoverPasswordEmailBtn})
+                    ),
+                    $('<a/>',{class:'mT30 changeForm',changeForm:'login',text:window.texts.backToLogin})
+                )
+            )
+            $('#recoverPasswordEmailInput').focus();
+        break;
+        case 'forgetPassword_phone':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<div/>',{class:'taC mX10 w350 mxw100p-40'}).append(
+                        $('<span/>',{id:'msg',class:'',text:window.texts.enterResetPhoneMsg})
+                    ),
+                    drawInputText('','ico-phone_number','',window.texts.phoneNumber,'recoverPasswordPhoneInput','text',window.texts.phoneNumber,200,'clearVal','mY20','',false,''),
+                    $('<button/>',{class:'btn',id:'recoverPasswordPhoneBtn'}).append(
+                        $('<div/>',{class:'btnLoading'}),
+                        $('<div/>',{class:'btnTxt',text:window.texts.recoverPasswordPhoneBtn})
+                    ),
+                    $('<a/>',{class:'mT30 changeForm',changeForm:'login',text:window.texts.backToLogin})
+                )
+            )
+            $('#recoverPasswordPhoneInput').focus();
+        break;
+        case 'forgetPassword_code':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<div/>',{class:'taC mX10 w350 mxw100p-40'}).append(
+                        $('<span/>',{id:'msg',class:'',text:window.texts.enterTheCode})
+                    ),
+                    drawInputText('','ico-security','','','resetPasswordCode','password','',6,'password','mY20','',false,'w80'),
+                    $('<button/>',{class:'btn w150',id:'resetPasswordCodeBtn'}).append(
+                        $('<div/>',{class:'btnLoading'}),
+                        $('<div/>',{class:'btnTxt',text:window.texts.confirm})
+                    ),
+                    $('<a/>',{class:'mT30 changeForm',changeForm:'login',text:window.texts.backToLogin})
+                )
+            )
+            $('#resetPasswordCode').focus();
+        break;
+        case 'changePassword':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<div/>',{class:'taC mX10 w350 mxw100p-40'}).append(
+                        $('<span/>',{id:'msg',class:'',text:window.texts.enterTheCode})
+                    ),
+                    drawInputText('','ico-password','',window.texts.newPassword,'changePasswordPassword','password',window.texts.newPassword,200,'password','','',false,''),
+                    drawInputText('','ico-password','',window.texts.newPasswordConfirm,'changePasswordConfirm','password',window.texts.newPasswordConfirm,200,'password','','',false,''),
+                    $('<button/>',{class:'btn mY10 mX5 w100p-10',id:'changePasswordBtn'}).append(
+                        $('<div/>',{class:'btnLoading'}),
+                        $('<div/>',{class:'btnTxt',text:window.texts.changePassword})
+                    ),
+                )
+            )
+            $('#changePasswordPassword').focus();
+        break;
+        case 'error':
+            $('#loginFormsContainer').text('').append(
+                $('<div/>',{class:'formContainer opacity0'}).append(
+                    $('<div/>',{class:'taC mX10 w350 mxw100p-40'}).append(
+                        $('<span/>',{id:'msg',class:'cR'})
+                    ),
+                    $('<a/>',{class:'mT30 changeForm',changeForm:'login',text:window.texts.backToLogin})
+                )
+            )
+        break;
+        default:
+            drawForm('login')
+        break;
     }
-    require("./tools/loading.js")
-    require("./login/loginForm.js")
-    require("./login/forgetPassword.js")
-    require("./login/enterCode.js")
-    require("./login/changePassword.js")
-    require("./login/unblock.js")
+}
+
+require("./login/loginForm.js")
+require("./login/forgetPassword.js")
+require("./login/enterCode.js")
+require("./login/changePassword.js")
 
 
-    window.resetCodeFails = 0;
+window.resetCodeFails = 0;
 
-    showErrorMsg = function(msg){
-        $('.formContainer').addClass('opacity0');
-        $('#backToLoginForm').addClass('opacity0')
-        $('#errorMsgTxt').text(msg)
-        setTimeout(() => {
-            $('#backToLoginForm').addClass('none')
-            $('.formContainer').addClass('none');
-            $('#errorMsg').removeClass('none');
-            $('#errorMsg').removeClass('opacity0');
-        }, 500);
-    }
-    /////////////events
-    $('.clearVal').on('click',function(){
-        if($(this).closest('.inputTextContainer').find('.inputText').prop('disabled')){return}
-        $(this).closest('.inputTextContainer').find('.inputText').val('')
-    })
-    $('.passwordShowHide').on('click',function(){
-        if($(this).hasClass('ico-showPassword')){
-            $(this).removeClass('ico-showPassword').addClass('ico-hidePassword');
-            $(this).closest('.inputTextContainer').find('.inputText').prop('type','text');
-        }else if($(this).hasClass('ico-hidePassword')){
-            $(this).removeClass('ico-hidePassword').addClass('ico-showPassword');
-            $(this).closest('.inputTextContainer').find('.inputText').prop('type','password');
+
+$('html,body').on('click','.changeForm',function(e){
+    e.stopImmediatePropagation();
+    changeForm($(this).attr('changeForm'))
+})
+
+drawForm('loading')
+let params = new URLSearchParams(window.location.search)
+if(params.get('unblock') != null){
+    let unblockCode = params.get('unblock');
+    window.history.replaceState({},'','/login')
+    $.ajax({
+        url:'/dologin',
+        type:'post',
+        data:{
+            _token:$('meta[name="csrf-token"]').attr('content'),
+            unblockAccount:unblockCode,
+            email:params.get('email'),
+        },success:function(r){
+            if(r.code == 0){
+                changeForm('error',function(){
+                    $('#msg').removeClass().addClass('cR m10').text(r.msg)
+                })
+            }else if(r.code == 1){
+                changeForm('login',function(){
+                    $('#msg').removeClass().addClass('cG m10').text(r.msg)
+                })
+            }
         }
     })
-
-
-    $('#forgetPassword').on('click',function(e){
-
-        resetForgetPasswordForm();
-        $('.formContainer').addClass('opacity0');
-        $('#backToLoginForm').removeClass('none')
-        setTimeout(()=>{
-            $('.formContainer').addClass('none');
-            $('#forgetPasswordContainer').removeClass('none')
-            $('#forgetPasswordContainer').removeClass('opacity0')
-            $('#backToLoginForm').removeClass('opacity0')
-        },500)
-    })
-
-    $('#backToLoginForm').on('click',function(){
-        window.resetPassword = null;
-        window.resetPasswordEmail = null;
-        window.resetPasswordPhone = null;
-        window.resetCodeFails = 0;
-        resetLoginForm();
-        $('.formContainer').addClass('opacity0');
-        $('#backToLoginForm').addClass('opacity0')
-        setTimeout(()=>{
-            $('#backToLoginForm').addClass('none')
-            $('.formContainer').addClass('none');
-            $('#loginContainer').removeClass('none');
-            $('#loginContainer').removeClass('opacity0');
-        },500)
-    })
-
-
-    ////////
-    $('#loginContainer').removeClass('opacity0')
-});
+}else{
+    changeForm('login')
+}

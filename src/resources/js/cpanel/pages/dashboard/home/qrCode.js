@@ -11,12 +11,15 @@ drawWebsiteQRCode = function(){
 
 }
 
-var qrcode2 = new QRCode(document.getElementById("website_QRcodeDownload"), {
-    text: `${process.env.MIX_APP_URL_HTTP}${website.url}`,
-    width: 800,
-    height: 800,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-})
+drawDownloadQrcode = function(){
+    var qrcode2 = new QRCode(document.getElementById("website_QRcodeDownload"), {
+        text: `${process.env.MIX_APP_URL_HTTP}${website.url}`,
+        width: 800,
+        height: 800,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    })
 
+
+}

@@ -91,7 +91,7 @@ $cpanel = function(){
 
     Route::middleware(['account'])->group(function () {
         Route::get('/',[cpanelController::class,'home'])->name('cpanel');
-        Route::get('/financialreport/{action}/{year}/{month}/{lang}/{currency}',[cpanelController::class,'financialreport'])->name('cpanel.financialreport');
+        Route::get('/financialreport/{action}',[cpanelController::class,'financialreport'])->name('cpanel.financialreport');
         Route::put('/notifications',[cpanelController::class,'notifications'])->name('cpanel.notifications');
         Route::put('/liveChat',[cpanelController::class,'liveChat'])->name('cpanel.liveChat');
         Route::put('/globalChannel',[cpanelController::class,'globalChannel'])->name('cpanel.globalChannel');

@@ -106,9 +106,8 @@ $('html,body').on('click','#delete_financial_report-confirmBtn',function(e){
 $('html,body').on('click','.open_financial_report',function(e){
     e.stopImmediatePropagation();
     let report_id = $(this).attr('report');
-    // let report = window.financialReports.find(item=>item.id == report_id);
     checkUseenNotifications(['system.financial_report'],'financialReport_id',report_id)
-    window.open(`/financialreport/view/${$(this).attr('year')}/${$(this).attr('month')}/${account.language}/${website.currency}`, '_blank').focus();
+    window.open(`/financialreport/view?year=${$(this).attr('year')}&month=${$(this).attr('month')}&currency_symbol=${website.currency}&lang=${account.language}`, '_blank').focus();
 });
 
 $('html,body').on('click','.download_financial_report',function(e){
@@ -116,6 +115,6 @@ $('html,body').on('click','.download_financial_report',function(e){
     let report_id = $(this).closest('.financial_report_container').attr('report');
     let report = window.financialReports.find(item=>item.id == report_id);
     checkUseenNotifications(['system.financial_report'],'financialReport_id',report_id)
-    window.open(`/financialreport/download/${report.year}/${report.month}/${account.language}/${website.currency}`, '_blank').focus();
+    window.open(`/financialreport/download?year=${report.year}&month=${report.month}&currency_symbol=${website.currency}&lang=${account.language}`, '_blank').focus();
 });
 

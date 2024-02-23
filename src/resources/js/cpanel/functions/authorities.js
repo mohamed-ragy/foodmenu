@@ -22,4 +22,3 @@ authorities = function(){
         $('.authority_5').hide();
     }
 }
-authorities();

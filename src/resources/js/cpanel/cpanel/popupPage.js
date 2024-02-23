@@ -7,7 +7,6 @@ popupPageClose = function(push=true){
     $('#popupPage').css({'right':'unset','left':'-110%'});
     $('#helpWindow').removeClass('helpWindow_popupPage')
     $('#popupPage').find('.pageWrapper').hide();
-    // delete window.page.tab;
     window.popupPage = {};
     if(push){
         pushHistory(true)
@@ -22,9 +21,7 @@ showPopupPage = function(popupPage,keysObj){
         setTimeout(()=>{cpanelTitle(false)},300)
         if(popupPage == null || popupPage == ''){reject(3);return;}
         if(popupPage == window.popupPage.popupPage){reject(2);return;}
-        // if($('#'+popupPage).css('display') != 'none' && $('#'+popupPage).closest('.pageWrapper').css('display') != 'none'){return;}
         if($('#popupPage').css('right') == '0px' || $('#popupPage').css('left') == '0px'){
-            // popupPageClose(true);
             $('#popupPage').css({'right':'unset','left':'-110%'});
             $('#helpWindow').removeClass('helpWindow_popupPage')
             $('#popupPage').find('.pageWrapper').hide();

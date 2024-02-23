@@ -13,7 +13,6 @@ $(document).on('click',function(){
 })
 
 //////
-$('#LiveChat-goInvisible').prop('checked',account.isInvisible);
 $('html,body').on('click','#LiveChat-goInvisible',function(e){
     e.stopImmediatePropagation();
     if(!coolDownChecker()){return;}
@@ -31,11 +30,7 @@ $('html,body').on('click','#LiveChat-goInvisible',function(e){
 
 })
 ////
-if(settings.muteChat == 1){
-    $('#navLiveChat-mute').find('.navLiveChat-muteCheck').addClass('ico-check1').removeClass('ico-check0')
-}else{
-    $('#navLiveChat-mute').find('.navLiveChat-muteCheck').removeClass('ico-check1').addClass('ico-check0')
-}
+
 $('html,body').on('click','#navLiveChat-mute',function(e){
     e.stopImmediatePropagation();
     if(settings.muteChat == 1){
@@ -55,7 +50,6 @@ $('html,body').on('click','#navLiveChat-mute',function(e){
     })
 })
 ///////
-$('#LiveChat-chatPopup').prop('checked',settings_temp.chatPopup);
 
 $('#LiveChat-chatPopup').on('click',function(){
     settings_temp.chatPopup = $(this).prop('checked')

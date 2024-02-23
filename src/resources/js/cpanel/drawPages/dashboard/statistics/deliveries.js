@@ -13,7 +13,6 @@ draw_statistics_deliveries_list = function(order,sort){
         );
         return;
     }
-    // console.log(top_deliveries)
     $('#statistics_deliveries_list').text('').append(
         $('<table/>',{class:'mT30',id:'statistics_deliveries_list_table'}).append(
             $('<tr/>',{class:'trHead'}).append(

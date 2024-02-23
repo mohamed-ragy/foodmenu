@@ -1,28 +1,45 @@
 loadWebsiteOrdersAndChats = function(callback=()=>{}){
     $('.loading_navIconNum').removeClass('none');
+    hideList();
+
     window.waitFor_loadWebsiteOrdersAndChats = true;
     window.notificationsFirstLoad = false;
     website.notifications = [];
     website.notifications_unseen = [];
+
     $('#notificationsListConainer').text('')
-    hideList($('#notificationsList'),$('#notifications'))
     /////
+    window.unSeenChats_users = [];
+    window.unSeenChats_guests = [];
+    window.chatBoxes = {users:[],guests:[]}
+    window.chatMsgs = {}
     window.getFirstChatsCheck = false;
+
+    window.getMoreChats_users = true;
+    window.getMoreChats_guests = true;
+    window.noMoreChats_users = false;
+    window.noMoreChats_guests = false;
+    website.users = [];
+    website.guests = [];
     $('#liveChatMsgsListConainer').text('')
     $('#liveChatMsgsListConainer_guests').text('')
-    hideList($('#liveChatMsgsList'),$('#liveChatMsgs'))
+    $('.chatWindow').remove();
     /////
     window.incompleteOrdersCheck = false;
+    website.incompleteOrders = [];
+    try{
+        if(window.history.state.page == 'incomplete_orders'){
+            drawIncompleteOrdersTable_loading();
+        }
+    }catch{}
     /////////
-    $('.ordersHomePageInfoLoading').removeClass('none');
-    $('.ordersHomePageInfoIcon').addClass('none')
 
     $.ajax({
         url:'dashboard',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
-            FirstLoad:true,
+            getData:true,
         },
         success:function(response){
             $('.loading_navIconNum').addClass('none');
@@ -51,10 +68,10 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
 
             window.incompleteOrdersCheck = true;
             website.todayOrders = response.todayOrders;
+            if(window.history.state.page == 'incomplete_orders'){
+                drawIncompleteOrdersTable('all_orders','placed_at','desc');
+            }
             drawTodayHomeOrders();
-            $('.ordersHomePageInfoLoading').addClass('none');
-            $('.ordersHomePageInfoIcon').removeClass('none')
-
 
             for(const key in response.notifications){
                 if(!response.notifications[key].seen){

@@ -83,8 +83,6 @@ return [
     'websiteLogo' => 'Restaurant logo',
     'selectIcon' => 'Select your website icon',
     'selectLogo' => 'Select your website logo',
-    'templateIcon' => 'Template icon',
-    'templateLogo' => 'Template logo',
     'websitePhone' => 'Restaurant phone numbers',
     'websiteAddress' => 'Address',
     'websiteAddressTitle' => 'Restaurant address',

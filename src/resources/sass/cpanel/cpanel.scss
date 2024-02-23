@@ -36,7 +36,6 @@ body{
     color: var(--txt-1);
     background-color: var(--white);
 }
-.inter{font-family: 'inter','Nunito','Tajawal', sans-serif;}
 #bodyContainer{
     display: flex;
     flex-direction: row;
@@ -65,72 +64,67 @@ body{
     }
 }
 
-@import 'cpanel/popupPage.scss';//done
-@import 'cpanel/helpWidnow.scss'; //done
-@import 'cpanel/bodyPage.scss'; //done
+@import 'cpanel/popupPage.scss';//done//
+@import 'cpanel/helpWidnow.scss'; //done//
+@import 'cpanel/bodyPage.scss'; //done//
 
-@import 'cpanel/loadingScreen.scss';//done
-@import 'tools/_icons.scss';//done
-@import '/node_modules/leaflet/dist/leaflet.css';//done
+@import 'cpanel/loadingScreen.scss';//done//
+@import '/node_modules/leaflet/dist/leaflet.css';//done//
 
-@import 'cpanel/autoHelp';//done
-@import 'cpanel/sideMenu';//done
-@import 'cpanel/nav';//done
-@import 'cpanel/statusBar';//done
-@import 'chat';//done
+@import 'cpanel/autoHelp';//done//
+@import 'cpanel/sideMenu';//done//
+@import 'cpanel/nav';//done//
+@import 'cpanel/statusBar';//done//
+@import 'cpanel/chat';//done//
 
-@import 'form/checkbox';//done
-@import 'form/button';//done
-@import 'form/input-text';//done
-@import 'form/input-list';//done
-@import 'form/textarea';//done
-@import 'form/numberPicker';//done
-@import 'form/timePicker.scss';//done
+@import 'form/checkbox';//done//
+@import 'form/button';//done//
+@import 'form/input-text';//done//
+@import 'form/input-list';//done//
+@import 'form/textarea';//done//
+@import 'form/numberPicker';//done//
+@import 'form/timePicker.scss';//done//
 
-
-@import 'tools/scrollBar';//done
-@import 'tools/popup'; //need to fix the popups blade file
-@import 'tools/alert';//done
-@import 'tools/loading';//done
-@import 'tools/f1';//done
-@import 'tools/sharepopup';//done
-@import 'tools/datePicker';//done
+@import 'tools/scrollBar';//done//
+@import 'tools/popup'; //done//
+@import 'tools/alert';//done//
+@import 'tools/loading';//done//
+@import 'tools/f1';//done//
+@import 'tools/sharepopup';//done//
+@import 'tools/datePicker';//done//
 
 
 
-@import 'pages/dashboard/home';
-@import 'pages/dashboard/activityLog';//done
-@import 'pages/dashboard/statistics';//done
-@import 'pages/dashboard/restaurantExpenses';//done
-@import 'pages/dashboard/financialReports';//done
-@import 'pages/dashboard/quickLinks';//done
+@import 'pages/dashboard/home';//done//
+@import 'pages/dashboard/activityLog';//done//
+@import 'pages/dashboard/statistics';//done//
+@import 'pages/dashboard/restaurantExpenses';//done//
+@import 'pages/dashboard/financialReports';//done//
+@import 'pages/dashboard/quickLinks';//done//
 
-@import 'pages/security/phoneNumber';//done
+@import 'pages/security/phoneNumber';//done//
 
 
-@import 'pages/orders/placeOrder.scss';//done
-@import 'pages/orders/incompleteOrders.scss';//done
-@import 'pages/orders/orderHistory.scss';//done
-@import 'pages/orders/order.scss';//done
+@import 'pages/orders/placeOrder.scss';//done//
+@import 'pages/orders/incompleteOrders.scss';//done//
+@import 'pages/orders/orderHistory.scss';//done//
+@import 'pages/orders/order.scss';//done//
 
-@import 'pages/categories/categoriesList';//done
+@import 'pages/categories/categoriesList';//done//
 
-@import 'pages/products/manageProducts';//done
-@import 'pages/products/productReviews';//done
+@import 'pages/products/manageProducts';//done//
+@import 'pages/products/productReviews';//done//
 
-@import 'pages/design/templates';
-@import 'pages/design/websiteColors';
-@import 'pages/design/homePageSections';
-@import 'pages/design/images';//done
+@import 'pages/design/images';//done//
 
-@import 'pages/settings/system';//done
-@import 'pages/settings/generalSettings';//done
-@import 'pages/settings/lang';//done
-@import 'pages/settings/services';//done
-@import 'pages/settings/promocodes';//done
+@import 'pages/settings/system';//done//
+@import 'pages/settings/generalSettings';//done//
+@import 'pages/settings/lang';//done//
+@import 'pages/settings/services';//done//
+@import 'pages/settings/promocodes';//done//
 
-@import 'pages/support/submitTicket';//done
-@import 'pages/support/ticketsHistory';//done
+@import 'pages/support/submitTicket';//done//
+@import 'pages/support/ticketsHistory';//done//
 
 a{
     cursor: pointer;
@@ -226,7 +220,6 @@ a:hover{
     color:var(--txt-1);
     box-shadow: 0 0 6px 1px var(--shdw-20);
     border-radius: 5px;
-    // padding: 3px;
     position: fixed;
     flex-wrap: nowrap;
     z-index: 5250;
@@ -397,10 +390,8 @@ td{
     border-radius: 2px;
     background-color: var(--shdw-40);
     color:var(--txt-2);
-    // color:var(--white);
     cursor: pointer;
     pointer-events: none;
-    // box-shadow: 0 0 1px 1px var(--shdw-10);
     opacity: .9;
 }
 

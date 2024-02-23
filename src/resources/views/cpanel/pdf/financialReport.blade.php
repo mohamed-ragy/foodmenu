@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta https-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $report->websites->domainName.' '.trans('cpanel/financialReport.financialReport').' '.$date }}</title>
-    <link rel="stylesheet" href="css/cpanel/financialReport.css">
+    <link rel="stylesheet" href="css/cpanel/financialReport.css?v=1">
 </head>
 <body>
         <table class="w100p brdr-Bot pB10">

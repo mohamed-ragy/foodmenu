@@ -39,7 +39,7 @@ sendChatMsg = function(type,id){
                         }else{
                             window.chatBoxes.users.find(item=>item.user_id == id).lastMsg_at = r.msg.sent_at;
                         }
-            
+
                     }
                     if($('#showUsersChatBoxes').hasClass('usersGuestsChat_selected')){
                         drawUsersChatBoxes();
@@ -57,7 +57,7 @@ sendChatMsg = function(type,id){
                         }else{
                             window.chatBoxes.guests.find(item=>item.guest_id == id).lastMsg_at = r.msg.sent_at;
                         }
-            
+
                     }
                     if($('#showGuestsChatBoxes').hasClass('usersGuestsChat_selected')){
                         drawGuestsChatBoxes();
@@ -85,6 +85,3 @@ sendChatMsg = function(type,id){
         )
     })
 }
-// drawTempChatMsg = function(type,id,msgTxt){
-    
-// }

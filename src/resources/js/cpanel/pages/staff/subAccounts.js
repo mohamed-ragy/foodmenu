@@ -1,6 +1,6 @@
-require('./subAccounts/delete.js')//done
-require('./subAccounts/create.js')//done
-require('./subAccounts/manage.js')//done
+require('./subAccounts/delete.js')//done//
+require('./subAccounts/create.js')//done//
+require('./subAccounts/manage.js')//done//
 
 subaccountOnline = function(subaccountId){
     $(`.subaccountOnlineIcon-${subaccountId}`).removeClass('offline-icon').addClass('online-icon');
