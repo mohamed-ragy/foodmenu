@@ -18,7 +18,6 @@ use App\Models\User;
 use App\Models\website;
 use DateTimeZone;
 
-use stdClass;
 
 class Kernel extends ConsoleKernel
 {
@@ -69,7 +68,7 @@ class Kernel extends ConsoleKernel
                     ->whereBetween('posted_at',[$yesterday_start->timestamp, $yesterday_end->timestamp])
                     ->get();
 
-                    foodmenuFunctions::archiveStatistice($thisDayOrders,$reviews,(int)$job->website_id,(int)$yesterday_start->day,(int)$yesterday_start->month,(int)$yesterday_start->year,$job->timeZone);
+                    foodmenuFunctions::archiveStatistice($thisDayOrders,$reviews,(int)$job->website_id,(int)$yesterday_end->day,(int)$yesterday_end->month,(int)$yesterday_end->year,$job->timeZone);
                     //////////
                 }
                 $cart_lifeTime = website::where('id',$job->website_id)->pluck('cart_lifeTime')->first();

@@ -6,7 +6,6 @@ nav{
     @media (max-width:1024px) {
         display:none;
     }
-    border-right:1px solid var(--inptbr);
     overflow-y:scroll;
     height:calc(100% - 100px);
     transition-duration: 250ms;
@@ -28,7 +27,7 @@ nav{
     }
     .navGroupHeadName{
         font-weight: bold;
-        color:var(--a);
+        color:var(--green);
     }
 }
 .navGroupHead{
@@ -36,7 +35,7 @@ nav{
     align-items: center;
     justify-content: flex-start;
     cursor: pointer;
-    color:var(--c1txt);
+    color:var(--txt-1);
     width:fit-content;
 }
 
@@ -56,26 +55,25 @@ nav{
 
 
 .navArticleA{
-    color:var(--placeholder2);
+    color:var(--white-10);
     cursor: pointer;
 }
 .navArticleA:hover{
-    color:var(--placeholder2);
+    color:var(--txt-1);
 }
 
 .navArticle{
-    // margin:10px 15px;
     margin:0 0 0 10px;
     padding:5px 15px 5px 0;
     font-size: .9em;
-    color:var(--placeholder2);
+    color:var(--white-10);
 }
 .navArticleA_selected{
-    color:var(--a) ;
+    color:var(--green) ;
     font-weight:bold;
 }
 .navArticleA_selected:hover{
-    color:var(--a) ;
+    color:var(--green) ;
     font-weight:bold;
 }
 

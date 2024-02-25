@@ -30,8 +30,8 @@ body{
     padding:0;
     margin:0;
     font-family: 'Nunito', sans-serif;
-    background-color: var(--c1);
-    color:var(--c1txt);
+    background-color: var(--white-1);
+    color:var(--txt-1);
     overflow: hidden;
     position: relative;
     display:flex;
@@ -69,6 +69,10 @@ main{
     width:calc(100% - 40px);
     transition-duration: 200ms;
     max-width:1000px;
+    @media (max-width:720px) {
+        padding:10px;
+        width:calc(100% - 20px);
+    }
 }
 .page[page="home"]{margin-top:0;padding:0px;width:100%;max-width:100%;}
 
@@ -78,11 +82,10 @@ main{
 a{
     text-decoration: none;
     cursor: pointer;
-    color: var(--a);
-    // font-weight: bold;
+    color: var(--green);
 }
 a:hover{
-    color: var(--c1txt);
+    color: var(--txt-1);
     text-decoration: none;
 }
 li{margin-top:5px;}
@@ -94,21 +97,19 @@ li{margin-top:5px;}
     display:none;
     position: absolute;
     z-index: 1000;
-    background-color: var(--c1);
-    color:rgb(117, 117, 117);
+    background-color: var(--white-1);
+    color:var(--txt-1);
     font-size: .8em;
     padding:5px;
     border-radius: 5px;
     max-width:300px;
-    // min-width:200px;
-    box-shadow: var(--shdw1);
+    box-shadow: 0 0 4px 1px var(--shdw-10);
     font-family: 'Nunito', sans-serif;
     text-align: start;
     animation-name: tooltipAnimation;
     animation-duration: 500ms;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
-    // animation-delay:1000ms ;
 }
 @keyframes tooltipAnimation {
     0%{opacity:0;transform: translateY(5px);}
@@ -117,17 +118,6 @@ li{margin-top:5px;}
 }
 .openPage{cursor: pointer;}
 .openPage:hover{text-decoration: none;}
-// .button{
-//     background-color: var(--c3);
-//     box-shadow: rgba(50, 50, 93, 0.15) 0px 0px 1px 1px;
-//     font-weight: bold;
-//     // padding:3px 8px;
-//     width:25px;
-//     height:25px;
-//     display:flex;
-//     align-items: center;
-//     justify-content: center;
-//     border-radius: 3px;
-// }
 
-// @import '../cpanel/styleClasses.scss';
+
+@import '../style/style.scss'

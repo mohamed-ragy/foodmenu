@@ -48,7 +48,8 @@
                 </div>
             </div>
             <div id="country_error" class="inputTxtError mB2"></div>
-            <x-input-list id="country" icon="ico-flag" containerClass="zx10 mT0" iconClass="pX10" class="pY10" listId="countriesList" placeholder="{{ trans('foodmenu/register.country') }}"/>
+            <input type="text" id="country">
+            {{-- <x-input-list id="country" icon="ico-flag" containerClass="zx10 mT0" iconClass="pX10" class="pY10" listId="countriesList" placeholder="{{ trans('foodmenu/register.country') }}"/> --}}
             <img src="" class="countryImg none" id="countryImg" alt="">
         </div>
         <div class="inputTextContainer_C mX10 mT40 pT40 brdrT1">
@@ -59,7 +60,8 @@
                 </div>
             </div>
             <div id="timeZone_error" class="inputTxtError mB2"></div>
-            <x-input-list id="timeZone" icon="ico-clock" containerClass="zx5 mT0" iconClass="pX10" class="pY10" listId="timeZonesList" placeholder="{{ trans('foodmenu/register.timeZone') }}"/>
+            {{-- <x-input-list id="timeZone" icon="ico-clock" containerClass="zx5 mT0" iconClass="pX10" class="pY10" listId="timeZonesList" placeholder="{{ trans('foodmenu/register.timeZone') }}"/> --}}
+            <input type="text" id="timeZone">
             <div class="column wrap alnC jstfyC alnsC mX10">
                 <label class="checkboxlabel ">
                     <span class="mX5 taS">{{ trans('foodmenu/register.enable12Hour') }}</span>
@@ -127,7 +129,8 @@
             </div>
         </div>
         <div class="m10 row alnC jstfyC w100p-20">
-            <x-input-list id="templatesInputList" listId="templatesList" containerClass="zx5" iconClass="pX10" class="pY10" icon="ico-templates" placeholder="{{ trans('foodmenu/register.templatesPlaceHolder')  }}" />
+            <input type="text" id="templatesInputList">
+            {{-- <x-input-list id="templatesInputList" listId="templatesList" containerClass="zx5" iconClass="pX10" class="pY10" icon="ico-templates" placeholder="{{ trans('foodmenu/register.templatesPlaceHolder')  }}" /> --}}
         </div>
         <div id="template_error" class="inputTxtError fs1"></div>
         <div class="w100p row alnC jstfyC ofH">
@@ -162,7 +165,7 @@
         </div>
 
         <div class="row alnC jstfyS w100p">
-            <x-textarea  id="restaurantDescription" icon="ico-description" title="{{ trans('foodmenu/register.restaurantDescription') }}" maxLength="150" />
+            {{-- <x-textarea  id="restaurantDescription" icon="ico-description" title="{{ trans('foodmenu/register.restaurantDescription') }}" maxLength="150" /> --}}
             <div class="row alnC jstfyC mX5">
                 <div class="inputTextInfo ico-info">
                     <div class="inputTextInfoElem w300 none">{{ trans('foodmenu/register.restaurantDescription2') }}</div>

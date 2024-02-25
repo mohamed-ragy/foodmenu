@@ -71,8 +71,7 @@
     </style>
 </head>
 <body class="bc_bg c_txt">
-    <center class="wrapper bc_bg">
-        {{-- <img src="{{ env('APP_URL') }}/storage/logo/logo.png" style="width:60px;height:auto;margin-bottom:20px;border-radius:50%;box-shadow:var(--card-shdw)" alt=""> --}}
+    <center class="wrapper bc_bg c_txt">
         <div style="color:#109092;font-size:1.7em;margin-bottom:10px;font-weight:bold;text-align:start;max-width:600px;">Foodmenu</div>
 
         <table class="main bc_green c_txt2" cellpadding="0" border="0" cellspacing="0">

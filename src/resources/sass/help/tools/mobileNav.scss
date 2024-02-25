@@ -1,5 +1,5 @@
 .mobileNav{
-    background-color: var(--c1);
+    background-color: var(--white-1);
     z-index:8;
     position: absolute;
     top:70px;
@@ -10,7 +10,7 @@
     height:calc(100% - 70px);
     transition-duration: 300ms;
     overflow: hidden;
-    color:var(--c1txt);
+    color:var(--txt-1);
     opacity:1;
     @media (min-width:1025px) {
         display:none;

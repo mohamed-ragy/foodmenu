@@ -6,13 +6,13 @@
     position: relative;
 }
 .mobileNavSearchResultsContainer{
-    background-color: var(--c1);
+    background-color: var(--white-1);
     z-index: 1;
     transition-duration: 300ms;
     opacity: 1;
     height: 100%;
     width:100%;
-    border-bottom:1px dashed var(--placeholder);
+    border-bottom:1px dashed var(--white-5);
     max-height:2000px;
 }
 .mobileNavSearchResults{
@@ -32,15 +32,14 @@
     outline:none;
     height:25px;
     border:none;
-    border-bottom:1px dashed var(--inptbr);
     width:100%;
     padding:5px 0;
     font-size: 1em;
     font-family: 'Nunito', sans-serif;
-    color:var(--c1txt);
+    color:var(--txt-1);
     z-index: 5;
 }
-.mobileNavSearch::placeholder{color:var(--placeholder)}
+.mobileNavSearch::placeholder{color:var(--white-10)}
 .mobileNavSearchLeft{
     height:25px;
     width:25px;
@@ -48,9 +47,8 @@
     display:flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--c1);
+    background-color: var(--white-1);
     z-index: 5;
-    border-bottom:1px dashed var(--inptbr);
 }
 .mobileNavSearchRight{
     height:25px;
@@ -58,9 +56,8 @@
     display:flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--c1);
+    background-color: var(--white-1);
     z-index: 5;
-    border-bottom:1px dashed var(--inptbr);
 }
 
 ///

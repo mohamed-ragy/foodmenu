@@ -24,15 +24,7 @@ drawArticle = function(article,cat,section){
     })
 }
 drawArticlePage = function(article,cat,section){
-    // if(window.history.state.page == 'section' && window.history.state.article == article.title_id && window.history.state.cat == cat && $('#articaleContainer_sections').children().length > 0){
-    //     console.log('gg')
-    //     $('main').animate({'scrollTop':($(`#${section}`).position().top + 200)},200)
-    //     setTimeout(()=>{
-    //         $('.articaleContainer_section').removeClass('articaleContainer_section_selected')
-    //         $(`.articaleContainer_section[section="${section}"]`).addClass('articaleContainer_section_selected')
-    //     },300)
-    //     return;
-    // }
+
     let keyWords = article.keyWords.split('.');
     let relatedArticles = {}
     for(const key in keyWords){
@@ -49,7 +41,6 @@ drawArticlePage = function(article,cat,section){
             }
         }
     }
-    // console.log(relatedArticles)
 
     let articleRateUpClass = '';
     let articleRateDownClass = '';
@@ -64,8 +55,8 @@ drawArticlePage = function(article,cat,section){
     $('meta[name="description"]').attr('content',article.description)
     $('.articaleContainer_loading').addClass('none');
     $('#articaleContainer').text('').append(
-        $('<div/>',{class:''}).append(
-            $('<span/>',{class:`${article.icon} fs106 mie-7`}),
+        $('<div/>',{class:'mB5'}).append(
+            $('<span/>',{class:`${article.icon} fs106 mie-10`}),
             $('<span/>',{class:'bold inter fs108',text:article.title}),
         ),
         $('<div/>',{class:'mT5 fs1 mxw650',text:article.description}),

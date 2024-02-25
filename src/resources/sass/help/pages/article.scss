@@ -6,9 +6,13 @@
     position: relative;
 }
 #articaleContainer{
-    // flex-grow: 1;
     margin:0 30px;
     user-select:text;
+    max-width: calc(100% - 60px);
+    @media (max-width:720px) {
+        margin: 0 10px;
+        max-width: calc(100% - 20px);
+    }
 }
 #articaleContainer_sections{
     position: sticky;
@@ -29,41 +33,40 @@
     margin:5px 0;
     font-size:.9em;
     cursor: pointer;
-    color:var(--c1txt);
+    color:var(--txt-1);
 }
 .articaleContainer_section:hover{
     text-decoration: none;
-    color:var(--a);
+    color:var(--green);
 }
 .articaleContainer_section_selected{
-    color:var(--c4);
+    color:var(--green);
     font-weight:bold;
 }
 .articleSectionContainer{
     position: relative;
     padding-top:30px;
     padding-bottom:30px;
-    border-bottom:1px solid #e1e1e1;
+    border-bottom:1px solid var(--white-4);
 }
 
 .articleRateContainerWrapepr{
     padding-bottom:50px;
     width:100%;
-    // border-bottom:1px solid #e1e1e1;
 }
 .articleRateContainer{
-    // margin:10px 0;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     position: relative;
-    // width:100%;
     width:fit-content;
+    max-width: 100%;
+    flex-wrap: wrap;
 }
 .articleRateButton{
     cursor: pointer;
-    margin:0 5px;
+    margin:5px;
     padding:5px;
     border-radius: 5px;
     border:1px solid transparent;
@@ -78,7 +81,7 @@
 .articleRateThnxPopup{
     position: absolute;
     top:calc(-100% - 15px);
-    background-color: var(--c1);
+    background-color: var(--white-1);
     right:0px;
     padding:10px;
     margin:0 auto;
@@ -97,7 +100,7 @@
 }
 .articleTooltip{
     margin:5px 10px;
-    color:var(--c1txt);
+    color:var(--txt-1);
 }
 .tipContainer{
     max-width:400px;
@@ -125,13 +128,8 @@
     max-width:100%;
     width:800px;
     object-fit: contain;
-    // width:auto;
     height:auto;
     cursor: zoom-in;
-    // image-rendering: -webkit-optimize-contrast;
-    // image-rendering: optimizeQuality;
-    // image-rendering: optimizeSpeed;
-    // image-rendering: -moz-crisp-edges;
 }
 .fullScreenImgcontainer{
     position: fixed;
@@ -156,6 +154,6 @@
     position: absolute;
     top:10px;
     right:10px;
-    color:var(--bg);
+    color:var(--white-1);
     cursor: pointer;
 }

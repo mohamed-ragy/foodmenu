@@ -59,7 +59,7 @@ $('html,body').on('mouseleave','#tooltip, [tooltip]',function(e){
         if($('#tooltip:hover').length <= 0 && $('[tooltip]:hover').length <= 0){
             $('#tooltip').text($(this).attr('tooltip')).css({
                 'display':'none',
-            'animation-name':'tooltipAnimation',
+                'animation-name':'tooltipAnimation',
             })
         }
     },200)

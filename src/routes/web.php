@@ -40,7 +40,7 @@ use App\Mail\welcomeMail;
 Route::get('/mail',function(){
     $account = Auth::guard('account')->user();
     $FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en';
-    $hello = str_replace(':name:',$account->name,trans('mails/automated.hi'));
+    $hello = str_replace(':name:',explode(' ',$account->name)[0],trans('mails/automated.hi'));
     $data = [
         'lang' => $FoodMenuLang,
         'subject' => 'Verify your email address',
@@ -54,9 +54,9 @@ Route::get('/mail',function(){
             </div>
         string,
     ];
-    
+
     dispatch(function () use ($data) {
-        Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
+        // Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
         // Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
         // Mail::to('admin@food-menu.net')->send(new automatedEmails($data));
     })->afterResponse();

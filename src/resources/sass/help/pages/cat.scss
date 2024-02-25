@@ -17,8 +17,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    background-color: var(--c1);
-    color:var(--c1txt);
+    background-color: var(--white-1);
+    color:var(--txt-1);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
     border-radius: 4px;
     width:250px;
@@ -45,7 +45,7 @@
     justify-content: center;
     transition-duration: 250ms;
     position: relative;
-    color:var(--c4);
+    color:var(--green);
 }
 .catArticleContainerIcon_after{
     position: absolute;
@@ -54,9 +54,9 @@
     top:0;
     left:0;
     border-radius: 50%;;
-    border-top:2px solid var(--c5);
-    border-left:2px dashed var(--c5);
-    border-bottom:2px dotted var(--c5);
+    border-top:2px solid var(--green);
+    border-left:2px dashed var(--green);
+    border-bottom:2px dotted var(--green);
     transition-duration: 1000ms;
     border-right:1px dotted transparent;
 }
