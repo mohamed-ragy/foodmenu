@@ -8,7 +8,6 @@ window.QRCode = require('davidshimjs-qrcodejs');
 
 
 
-
 require("./process_data.js");//done//
 require("./startup.js");//done//
 

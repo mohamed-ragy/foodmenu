@@ -4,7 +4,7 @@ const { post } = require("jquery");
 loadTouchEvents($);
 window.Cookies = require('js-cookie');
 require("../cpanel/tools/loading.js")
-// require("../cpanel/form/inputList.js")
+require("../cpanel/tools/form/inputList.js")
 require("../cpanel/tools/form/textArea.js")
 require('./nav.js')
 

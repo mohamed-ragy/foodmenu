@@ -1,4 +1,5 @@
 
+require("../cpanel/tools/form/inputList.js")
 inputTextError = function(elem){
     elem.select();
     $('body,html').stop();
@@ -255,3 +256,9 @@ $('.inputTextInfo').on('mouseleave',function(e){
 })
 
 ///////////
+$('#countryContainer').append(
+    drawInputList('','ico-flag','','','country','',200,'countriesList',false,'zx10 mT0','','pY10')
+)
+$('#timezoneContainer').append(
+    drawInputList('','ico-clock','','','timeZone','',200,'timeZonesList',false,'zx10 mT0','','pY10')
+)

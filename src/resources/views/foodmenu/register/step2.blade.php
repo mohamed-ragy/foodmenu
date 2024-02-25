@@ -48,7 +48,8 @@
                 </div>
             </div>
             <div id="country_error" class="inputTxtError mB2"></div>
-            <input type="text" id="country">
+            <div id="countryContainer"></div>
+            {{-- <input type="text" id="country"> --}}
             {{-- <x-input-list id="country" icon="ico-flag" containerClass="zx10 mT0" iconClass="pX10" class="pY10" listId="countriesList" placeholder="{{ trans('foodmenu/register.country') }}"/> --}}
             <img src="" class="countryImg none" id="countryImg" alt="">
         </div>
@@ -60,8 +61,10 @@
                 </div>
             </div>
             <div id="timeZone_error" class="inputTxtError mB2"></div>
+            <div id="timezoneContainer"></div>
+
             {{-- <x-input-list id="timeZone" icon="ico-clock" containerClass="zx5 mT0" iconClass="pX10" class="pY10" listId="timeZonesList" placeholder="{{ trans('foodmenu/register.timeZone') }}"/> --}}
-            <input type="text" id="timeZone">
+            {{-- <input type="text" id="timeZone"> --}}
             <div class="column wrap alnC jstfyC alnsC mX10">
                 <label class="checkboxlabel ">
                     <span class="mX5 taS">{{ trans('foodmenu/register.enable12Hour') }}</span>

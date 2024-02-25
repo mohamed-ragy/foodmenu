@@ -1,3 +1,4 @@
+
 step2 = function(){
     $('.getStartedText').addClass('getStartedText_show');
     $('.stepTxt').addClass('stepTxt_Show')
@@ -19,10 +20,11 @@ step2 = function(){
         $('.stepContainer[step="3"]').find('.stepTxtCheck').removeClass('stepTxtCheck_show');
         $('.stepContainer[step="4"]').find('.stepTxtCheck').removeClass('stepTxtCheck_show');
 
+
+
     },500)
     setTimeout(function(){
         $('.stepContainer[step="1"]').find('.stepTxtCheck').addClass('stepTxtCheck_show');
-
         $('.registerForm[step="2"]').addClass('registerForm_show');
         $('.stepContainer[step="1"]').find('.stepIcon').removeClass('stepIcon_active').addClass('stepIcon_success')
         $('.stepContainer[step="2"]').find('.stepIcon').addClass('stepIcon_active').removeClass('stepIcon_success')
