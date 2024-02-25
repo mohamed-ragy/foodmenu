@@ -56,7 +56,7 @@ Route::get('/mail',function(){
     ];
     dispatch(function () use ($data) {
         // Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
-        Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
+        // Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
     })->afterResponse();
 
     return new App\Mail\automatedEmails($data);
