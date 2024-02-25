@@ -49,10 +49,8 @@
             border-spacing: 0;
         }
         .footer{
-            margin:0 auto;
             margin-top:20px;
-            width:100%;
-            max-width: 600px;
+            margin-bottom:0px;
             border-spacing: 0;
             font-size:.9em;
         }
@@ -64,6 +62,7 @@
         a:hover{
             color:rgb(10, 112, 113) !important;
         }
+        .mX10{margin-right:10px;margin-left:10px}
         .p10{padding:10px}
         .p20{padding:20px}
         .taC{text-align: center}
@@ -72,13 +71,13 @@
 </head>
 <body class="bc_bg c_txt">
     <center class="wrapper bc_bg c_txt">
-        <div style="color:#109092;font-size:1.7em;margin-bottom:10px;font-weight:bold;text-align:start;max-width:600px;">Foodmenu</div>
+        <div class="mX10" style="color:#109092;font-size:1.7em;margin-bottom:10px;font-weight:bold;text-align:start;max-width:600px;">Foodmenu</div>
 
         <table class="main bc_green c_txt2" cellpadding="0" border="0" cellspacing="0">
             <tr>
                 <td class="p20 taC">
                     <img src="{{ env('APP_URL') }}/storage/imgs/mails/automated/{{ $data['icon'] }}" width="60" height="60" style="margin:10px;box-shadow:var(--card-shdw)" alt="" title="">
-                    <div class="bold" style="font-size: 1.4em;">{!! $data['subject'] !!}</div>
+                    <div class="bold c_txt2" style="font-size: 1.4em;">{!! $data['subject'] !!}</div>
                 </td>
 
             </tr>
@@ -94,7 +93,6 @@
         </table>
 
         <table class="footer bc_bg c_green" cellpadding="0" border="0" cellspacing="0">
-
 
             <tr>
                 <td align="center" style="padding-bottom:10px;">
