@@ -26,7 +26,7 @@ return [
     'noPhoneNumberTxt' => "You haven't added a phone number to your account yet.",
     'noPhoneNumberTxt2' => "To secure your account, it is highly recommended that you add your phone number. You can find or type your country code, followed by your mobile phone number, as in this example +1012345678.",
     'phoneNumberNoVerifyTxt' => 'Your phone number has not been verified yet.',
-    'phoneNotVerified' => 'Your phone number has not been verified yet. Please enter the verification code sent via SMS, then click on Verify.',
+    'phoneNotVerified' => 'Your phone number has not been verified yet, which means you cannot use it for account recovery. To proceed, please enter the verification code that was sent to you via SMS, and then click on "verify".',
     'phoneVerified' => 'Your phone number has been verified.',
     'addPhone' => 'Add my phone number',
     'phoneVerification' => 'Phone number verification',

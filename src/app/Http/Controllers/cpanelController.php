@@ -87,7 +87,7 @@ class cpanelController extends Controller
             if($request->resetPasswordPhone == '' || $request->resetPasswordPhone == null){
                 return response(['status' => 0 ,'msg' => Lang::get('cpanel/login.resetPasswordWrongPhone')]);
             }
-            $findAccount = Account::where([ 'phone'=> $request->resetPasswordPhone,'is_master' => true])->select('phone','id')->first();
+            $findAccount = Account::where([ 'phone'=> $request->resetPasswordPhone,'is_master' => true])->where('phone_verified_at','!=',null)->select('phone','id')->first();
             if($findAccount){
                 $emailVerificationsToday = account_verifications::where(['account_id'=> $findAccount->id ])->where('phone_verification_code_sent_at','>',Carbon::now()->subday(1)->timestamp)->count();
                 if($emailVerificationsToday > 5){
