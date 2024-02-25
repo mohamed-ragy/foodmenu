@@ -436,7 +436,6 @@ class designController extends Controller
     {
         if($request->has('gitStorageSize')){
             if(str_split($this->account->authorities)[3] == false){return;}
-
             return response(img::where(['website_id'=>$this->website_id])->sum('size'));
         }else if($request->has('getImgs')){
             $imgs = img::where(['website_id'=>$this->website_id])->orderBy('created_at','DESC')->skip($request->skip)->limit(10)->get();
@@ -500,11 +499,8 @@ class designController extends Controller
             }
 
         }else if($request->has(['deleteImg'])){
-            if(str_split($this->account->authorities)[3] == false){
-                return;
-            }
+            if(str_split($this->account->authorities)[3] == false){return;}
             $img = img::where('id',$request->imgId)->select('url','thumbnailUrl','name')->first();
-
             $deleteFiles = File::delete(ltrim($img->url,'/'),ltrim($img->thumbnailUrl,'/'));
             if($deleteFiles){
                 if(img::where('id',$request->imgId)->delete()){
@@ -528,9 +524,7 @@ class designController extends Controller
         }
 
         else if($request->has(['ticketUploadImg'])){
-            if($this->account->is_master == false){
-                return;
-            }
+            if($this->account->is_master == false){return;}
             $validate = Validator::make(['ticketUploadImg'=> $request->ticketUploadImg ],
             [
                 'ticketUploadImg' => 'required|mimes:webp,png,jpeg,gif,bmp,jpg,jpe|max:1024'
@@ -546,9 +540,7 @@ class designController extends Controller
             }
         }
         else if($request->has(['deleteTicketAttachment'])){
-            if($this->account->is_master == false){
-                return;
-            }
+            if($this->account->is_master == false){return;}
             $deleteAttachment = Storage::delete([$request->deleteTicketAttachment]);
             if($deleteAttachment){
                 return response(['deleteTicketAttachmentStatus'=>1]);

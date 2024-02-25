@@ -37,8 +37,7 @@ class settingsController extends Controller
             App::setlocale($this->account->language);
             return $next($request);
         });
-        // Carbon::setLocale('en');
-        // Responser::error(400, 'damn')
+
     }
     public function settings(Request $request)
     {
@@ -1862,20 +1861,6 @@ class settingsController extends Controller
                 'updated_at' => Carbon::now()->timestamp,
             ]);
         }
-        else if($request->has('getHelpTip')){
-
-        }
-        // else if($request->has(['cpanelLang'])){
-        //     $updateCpanelLang = cpanelSettings::where('account_id', $this->account->id)
-        //                         ->update(['language'=>$request->cpanelLang,'updated_at' => Carbon::now()->timestamp]);
-
-        //     if($updateCpanelLang){
-        //         Account::where('id',$this->account->id)->update(['lang' => $request->cpanelLang,'updated_at' => Carbon::now()->timestamp]);
-        //         return response(['cpanelLangStatus'=>1]);
-        //     }else{
-        //         return response(['cpanelLangStatus'=>0,'msg'=> Lang::get('cpanel/settings/responses.cpanelLangFail')]);
-        //     }
-        // }
         //////////////////////
 
     }

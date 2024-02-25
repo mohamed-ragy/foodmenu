@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use App\Events\cpanelChannel;
-use App\Events\cpanelNotification;
 use App\Events\websiteChannel;
 use Carbon\Carbon;
 use DateTime;
@@ -10,14 +9,13 @@ use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Lang;
-use Ramsey\Uuid\Type\Decimal;
 use stdClass;
 
 
 class foodmenuFunctions
 {
     public static function sendVeryficationSMS($to,$code,$msg=1){
-        // return true;
+        return true;
         $account_sid = "AC13d8b990e66aede7bfd582685e7925eb";
         $auth_token = "63aa324a95837d01b3773845ea2e9c25";
         $twilio_number = "+13203993791";

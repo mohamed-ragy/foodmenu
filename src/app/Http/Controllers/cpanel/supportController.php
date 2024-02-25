@@ -67,14 +67,6 @@ class supportController extends Controller
             ->take(10)->skip($request->skip)->orderBy($request->orderBy,$request->order)->get();
             $ticketsCount = ticket::where('website_id',$this->website_id)->count();
 
-            // if($request->lastTicketCard == ''){
-            //     $tickets = ticket::where('website_id',$this->website_id)
-            //     ->limit(20)->orderBy('created_at','desc')->get();
-            // }else{
-            //     $tickets = ticket::where('website_id',$this->website_id)
-            //     ->where('created_at','<',$request->lastTicketCard)
-            //     ->limit(20)->orderBy('created_at','desc')->get();
-            // }
             return response(['tickets' => $tickets,'ticketsCount'=>$ticketsCount]);
         }
         else if($request->has('getTicket')){

@@ -26,7 +26,6 @@ class usersController extends Controller
             return $next($request);
 
         });
-        // Carbon::setLocale('en');
 
     }
     public function users(Request $request){
@@ -136,19 +135,12 @@ class usersController extends Controller
             }
         }
         else if($request->has('getUsers')){
-            // if(str_split($this->account->authorities)[2] == false){
-            //     return;
-            // }
             $users = User::where('website_id',$this->website_id)->whereIn('id',$request->userIds)
                 ->with('last_msg')
                 ->get();
                 return response(['users'=>$users]);
         }
         else if($request->has('getGuests')){
-            // if(str_split($this->account->authorities)[2] == false){
-            //     return;
-            // }
-
             $guests = guest::where('website_id',$this->website_id)->whereIn('id',$request->guestsIds)
                 ->with('last_msg')
                 ->get();

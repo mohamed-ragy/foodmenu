@@ -6,9 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
     <style>
+        :root {
+            --bg:rgb(234, 239, 239);
+            --txt:rgb(40, 40, 40);
+            --white:rgb(255, 255, 255);
+            --green:rgb(16, 144, 146);
+            --shdw-5:rgba(0, 0, 0, 0.05);
+            --shdw-10:rgba(0, 0, 0, 0.1);
+            --card-shdw:0 0 20px var(--shdw-5), 0 0 1px 0px var(--shdw-10);
+        }
         body{
             margin:0;
-            background-color:#e0e6e6;
+            background-color:var(--bg);
             font-family: sans-serif;
         }
         table{
@@ -24,41 +33,48 @@
         .wrapper{
             width:100%;
             table-layout: fixed;
-            background-color:#e0e6e6;
+            background-color:var(--bg);
             padding-bottom: 100px;
             padding-top:50px;
         }
         .main{
-            background-color: #ffffff;
+            background-color: var(--white);
             margin:0 auto;
             width:100%;
             max-width: 600px;
             border-spacing: 0;
-            color:#565b5b;
+            color:var(--txt);
             font-family: sans-serif;
-            border-radius: 5px;
+            border-radius: 0 0 5px 5px;
+            border-top:4px solid var(--green);
+        }
+        .footer{
+            background-color:var(--bg);
+            margin:0 auto;
+            margin-top:20px;
+            width:100%;
+            max-width: 600px;
+            border-spacing: 0;
+            font-family: sans-serif;
+            font-size:.8em;
+            color:var(--green);
         }
         a{
             cursor: pointer;
             text-decoration: underline;
-            color:#2b6f70;
+            color:var(--green);
         }
         a:hover{
-            color:#163d3d;
+            color:rgb(42, 140, 142) !important;
         }
     </style>
 </head>
 <body>
     <center class="wrapper">
+        {{-- <img src="{{ env('APP_URL') }}/storage/logo/logo.png" style="width:60px;height:auto;margin-bottom:20px;border-radius:50%;box-shadow:var(--card-shdw)" alt=""> --}}
+        <div style="color:#109092;font-size:1.7em;margin-bottom:10px;font-weight:bold;">Foodmenu</div>
+
         <table class="main" width="100%" cellpadding="0" border="0" cellspacing="0">
-            <tr>
-                <td align="start" style="padding:20px;">
-                    <div style="color:#2b6f70;font-size:1.5em;font-weight:bold;">Foodmenu</div>
-                </td>
-                <td align="end" style="padding:20px;">
-                    <img src="{{ env('APP_URL') }}/storage/logo/logo.png" style="width:30px;height:auto;" alt="">
-                </td>
-            </tr>
             <tr>
                 <td>
                     @yield('content')
@@ -68,7 +84,7 @@
         </table>
 
 
-        <table style="background-color:#e0e6e6;margin-top:20px;font-size:.8em;color:#2b6f70;" class="main" width="100%" cellpadding="0" border="0" cellspacing="0">
+        <table class="footer" width="100%" cellpadding="0" border="0" cellspacing="0">
 
 
             <tr>

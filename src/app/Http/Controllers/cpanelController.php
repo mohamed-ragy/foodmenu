@@ -159,6 +159,7 @@ class cpanelController extends Controller
                             return response(['status' => 0, 'error' => $validate->errors()]);
                         }else if (!$validate->fails()) {
                             if(Account::where('id',$code->id)->update(['password' => bcrypt($request->newPassword)])){
+                                //send email password changed
                                 return response(['status' => 1 ,'msg' => Lang::get('cpanel/login.passwordChanged') ]);
                             }else{
                                 return response(['status' => 2,'msg' => Lang::get('cpanel/login.resetPasswordErrorTryAgain') ]);

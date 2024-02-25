@@ -646,7 +646,6 @@ class ordersController extends Controller
                 ->with('order_items')
                 ->first();
             }
-
             return response(['order' => $order]);
         }else if($request->has('changeOrderNotice')){
             if(str_split($this->account->authorities)[0] == false){return;}

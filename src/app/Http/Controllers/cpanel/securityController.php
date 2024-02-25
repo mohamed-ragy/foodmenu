@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\cpanel;
 
-use App\Events\cpanelNotification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\phones;
@@ -17,7 +16,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\foodmenuFunctions;
-use stdClass;
 
 class securityController extends Controller
 {
@@ -28,17 +26,11 @@ class securityController extends Controller
 
         $this->middleware(function ($request, $next) {
             $this->account = Auth::guard('account')->user();
-            return $next($request);
-        });
-        $this->middleware(function ($request, $next) {
-            if($this->account->is_master == false){return;}
             $this->website_id = $this->account->website_id;
+            if($this->account->is_master == false){return;}
             App::setlocale($this->account->language);
             return $next($request);
-
-        })->except(['dologin','login']);
-        // Carbon::setLocale('en');
-
+        });
     }
     public function security(Request $request)
     {
@@ -52,6 +44,7 @@ class securityController extends Controller
                                     'email_verification_code' => null,
                                 ]);
                 if($verifyEmail){
+                    //send email that account verified
                     foodmenuFunctions::notification(null,[
                         'website_id' => $this->website_id,
                         'code' => 'security.email.verified'
@@ -139,12 +132,12 @@ class securityController extends Controller
                             'new_email' => strip_tags($request->newEmail)
                         ],null);
                         ///send email to the new email address with the new verifiction code
+                        //send short sms tell him that email changed and if its not him he can recover password and change it.
                         $emails = new emails();
                         $emails->account_id = $this->account->id;
                         $emails->old_email = $this->account->email;
                         $emails->new_email = strip_tags($request->newEmail);
                         $emails->save();
-                        //send short sms tell him that email changed and if its not him he can recover password and change it.
                         return response([
                             'changeEmailStats'=> 1,
                             'msg' => Lang::get('cpanel/security/responses.newEmailChanged'),
@@ -202,6 +195,7 @@ class securityController extends Controller
                     'website_id' => $this->website_id,
                     'code' => 'security.phone.verified'
                 ],null);
+                //
                 Account::where('id',$this->account->id)
                                 ->update([
                                     'phone_verified_at' => Carbon::now()->timestamp,
@@ -254,7 +248,7 @@ class securityController extends Controller
             /////////
             $emailsChangedLast3Days = emails::whereDate('created_at','>',Carbon::now()->subDay(3)->timestamp)->where('account_id', $this->account->id )->count();
             if($emailsChangedLast3Days > 0){
-                ///send sms inform email trying to change
+                ///send sms inform phone trying to change
                 return response(['newPhoneStats' => 4, 'msg' => Lang::get('cpanel/security/responses.changePhoneEmailChanged3daysBefore') ]);
             }
             ///////////

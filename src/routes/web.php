@@ -19,16 +19,13 @@ use App\Http\Controllers\helpController;
 use App\Http\Controllers\stripeController;
 use App\Http\Controllers\websiteController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cookie;
 
 
 use Illuminate\Support\Facades\Mail;
+use App\Mail\automatedEmails;
 use App\Mail\welcomeMail;
-use App\Models\invoice;
-use App\Models\website;
-// use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\Cookie;
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,25 +37,33 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/mail',function(){
-//     dispatch(function () {
-//         $account = Auth::guard('account')->user()->id;
-//         $FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en';
-//         Mail::to('migori3330@cwtaa.com')->send(new welcomeMail($account,$FoodMenuLang));
-//     })->afterResponse();
+Route::get('/mail',function(){
+    $account = Auth::guard('account')->user();
+    $FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en';
+    $hello = str_replace(':name:',$account->name,trans('mails/automated.hi'));
+    $data = [
+        'lang' => $FoodMenuLang,
+        'subject' => 'Verify your email address',
+        'icon' => 'email_verification.svg',
+        'account_email' => $account->email,
+        'content' => <<<string
+            <div style="font-size:2.3em;margin:20px;" class=" c_txt">$hello</div>
+            <div style="margin:20px;font-size:1.2em;">Please use the code below to verify your Foodmenu account's email address.</div>
+            <div style="text-align:center;width:calc(100% - 40px);margin:20px;">
+                <div style="width:fit-content;margin:auto;font-size:2.3em;font-weight:bold;letter-spacing: 3px;padding:10px;border-radius:5px;box-shadow: 0 0 2px 0px rgb(0 0 0 / 20%);">52s6fg</div>
+            </div>
+        string,
+    ];
+    dispatch(function () use ($data) {
+        // Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
+        // Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
+    })->afterResponse();
 
-//     // Mail::to('keyame5419@viperace.com')->send(new welcomeMail($account));
+    return new App\Mail\automatedEmails($data);
 
-//     // return new App\Mail\welcomeMail($account);
-
-// });
+});
 
 $getHost = request()->getHost();
-// if ($getHost == 'ragy.'.env('APP_DOMAIN')){
-//     Route::get('/',function(){
-//         return view('ragy.home');
-//     });
-// }
 
 Route::put('/underConstractionSignup',[homeController::class,'underConstractionSignup'])->name('underConstractionSignup');
 
