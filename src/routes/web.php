@@ -44,19 +44,21 @@ Route::get('/mail',function(){
     $data = [
         'lang' => $FoodMenuLang,
         'subject' => 'Verify your email address',
-        'icon' => 'email_verification.svg',
+        'icon' => 'email_verification.png',
         'account_email' => $account->email,
         'content' => <<<string
             <div style="font-size:2.3em;margin:20px;" class=" c_txt">$hello</div>
             <div style="margin:20px;font-size:1.2em;">Please use the code below to verify your Foodmenu account's email address.</div>
             <div style="text-align:center;width:calc(100% - 40px);margin:20px;">
-                <div style="width:fit-content;margin:auto;font-size:2.3em;font-weight:bold;letter-spacing: 3px;padding:10px;border-radius:5px;box-shadow: 0 0 2px 0px rgb(0 0 0 / 20%);">52s6fg</div>
+                <div style="font-size:2.3em;font-weight:bold;letter-spacing:3px;padding: 10px 20px;margin:auto;border-radius:5px;width: fit-content;    border: 1px solid #dbdbdba1;">52s6fg</div>
             </div>
         string,
     ];
+    
     dispatch(function () use ($data) {
-        // Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
-        Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
+        Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
+        // Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
+        // Mail::to('admin@food-menu.net')->send(new automatedEmails($data));
     })->afterResponse();
 
     return new App\Mail\automatedEmails($data);

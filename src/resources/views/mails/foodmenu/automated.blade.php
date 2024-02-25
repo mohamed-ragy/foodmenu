@@ -20,6 +20,7 @@
         .c_txt{color:rgb(80, 80, 80);}
         .c_txt2{color:rgb(255, 255, 255);}
         .c_green{color:rgb(16, 144, 146);}
+
         body{
             margin:0;
             font-family: 'Calibri';
@@ -27,7 +28,8 @@
         table{
             border-spacing: 0;
             max-width: 600px;
-            width:100%;
+            width:calc(100% - 20px);
+            margin: 0 10px;
         }
         td{
             padding:0;
@@ -76,7 +78,7 @@
         <table class="main bc_green c_txt2" cellpadding="0" border="0" cellspacing="0">
             <tr>
                 <td class="p20 taC">
-                    <img src="{{ env('APP_URL') }}/storage/imgs/mails/automated/{{ $data['icon'] }}" style="width:60px;height:auto;margin:10px;box-shadow:var(--card-shdw)" alt="">
+                    <img src="{{ env('APP_URL') }}/storage/imgs/mails/automated/{{ $data['icon'] }}" width="60" height="60" style="margin:10px;box-shadow:var(--card-shdw)" alt="" title="">
                     <div class="bold" style="font-size: 1.4em;">{!! $data['subject'] !!}</div>
                 </td>
 
