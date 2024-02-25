@@ -11,7 +11,7 @@ sortSelections = function(){
     website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveTo).sort = tempSelectionFromSort;
     website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveFrom).sort = tempSelectionToSort;
     website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveTo).sort = tempSelectionFromSort;
-    drawPopupPage_manage_product_options(window.history.state.product)
+    drawPopupPage_manage_product_variants(window.history.state.product)
     $.ajax({
         url:'products',
         type:'put',
@@ -33,7 +33,7 @@ sortSelections = function(){
                 website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveTo).sort = tempSelectionToSort;
                 website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveFrom).sort = tempSelectionFromSort;
                 website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveTo).sort = tempSelectionToSort;
-                drawPopupPage_manage_product_options(window.history.state.product)
+                drawPopupPage_manage_product_variants(window.history.state.product)
                 showAlert('error',r.msg,4000,true);
             }
         }
@@ -42,7 +42,7 @@ sortSelections = function(){
         website.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveTo).sort = tempSelectionToSort;
         website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveFrom).sort = tempSelectionFromSort;
         website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == selectionCardOnMoveOption).product_option_selections.find(item=>item.id == selectionCardOnMoveTo).sort = tempSelectionToSort;
-        drawPopupPage_manage_product_options(window.history.state.product)
+        drawPopupPage_manage_product_variants(window.history.state.product)
         showAlert('error',r.msg,4000,true);
     })
 }

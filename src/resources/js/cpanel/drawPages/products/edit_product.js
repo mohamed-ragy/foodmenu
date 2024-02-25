@@ -7,7 +7,7 @@ drawPopupPage_edit_product = function(product_name){
     );
     $('#popupPageBody').text('').addClass('mxw100p-40  p20').append(
         $('<div/>',{class:'btnContainer'}).append(
-            $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'manage_product_options',product:product.name,text:texts.products.manageOptions}),
+            $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'manage_product_variants',product:product.name,text:texts.products.manageOptions}),
         ),
         $('<div/>',{class:'column alnS jstfyS wFC alnsS mXa mY20 relative',id:'editProduct_img_container'}).append(
             $('<div/>',{text:texts.products.productImg,class:'c_white-8 fs08 mB3'}),

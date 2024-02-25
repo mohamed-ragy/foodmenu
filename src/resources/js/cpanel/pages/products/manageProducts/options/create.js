@@ -59,8 +59,8 @@ $('html,body').on('click','#createNewOption_btn',function(e){
                 website.products.find(item=>item.name == product.name).product_options.push(JSON.parse(JSON.stringify(r.option)));
                 website_temp.products.find(item=>item.name == product.name).product_options.push(JSON.parse(JSON.stringify(r.option)));
                 window.guideHints.products();
-                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
-                    drawPopupPage_manage_product_options(window.history.state.product)
+                if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_variants(window.history.state.product)
                 }
                 closePopup();
                 showAlert('success',r.msg,4000,true);

@@ -26,8 +26,8 @@ $('html,body').on('click','.productOptionSelectionSetDefault',function(e){
                     website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections[key].isDefault = 0;
                 }
                 website.products.find(item=>item.id == product.id).product_options.find(item=>item.id == option.id).product_option_selections.find(item=>item.id == selection.id).isDefault = 1;
-                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
-                    drawPopupPage_manage_product_options(window.history.state.product)
+                if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_variants(window.history.state.product)
                 }
                 showAlert('success',r.msg,4000,true);
             }else if(r.setDefaultSelectionStat == 0){

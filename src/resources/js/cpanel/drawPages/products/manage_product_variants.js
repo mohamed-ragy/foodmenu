@@ -1,8 +1,8 @@
-drawPopupPage_manage_product_options = function(product_name){
+drawPopupPage_manage_product_variants = function(product_name){
     let product = website.products.find(item=>item.name == product_name);
     $('#popupPageTitle').text('').append(
         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:`manageProductOptionsNoSave_${product.name} ico-warning unsaved none mie-5 mis-5 fs1 `}),
-        $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.manage_product_options}),
+        $('<span/>',{class:'ellipsis',text:texts.cpanel.menu.manage_product_variants}),
         $('<span/>',{class:'ico-help help-icon',helpId:'manage_product_variants'})
     );
     $('#popupPageBody').text('').addClass('mxw100p-40 p20').append(

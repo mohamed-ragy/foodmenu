@@ -52,8 +52,8 @@ $('html,body').on('click','#deleteSelection-confirmBtn',function(e){
                                     if(website.products[key].product_options[key2].product_option_selections[key3].id == selection.id){
                                         website.products[key].product_options[key2].product_option_selections.splice(key3,1);
                                         closePopup();
-                                        if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
-                                            drawPopupPage_manage_product_options(window.history.state.product)
+                                        if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == website.products[key].name){
+                                            drawPopupPage_manage_product_variants(window.history.state.product)
                                         }
                                         window.guideHints.products();
                                     }

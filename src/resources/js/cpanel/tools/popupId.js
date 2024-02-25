@@ -62,7 +62,7 @@ $('html,body').on('mouseenter','.popupId',function(e){
                     $('<div/>',{class:'pX5 fs09 authority_master',text:product.ratings_sum == 1 ? texts.products.poductReviewedTime.replace(':sum:',product.ratings_sum) : texts.products.poductReviewedTimes.replace(':sum:',product.ratings_sum)}),
                     $('<div/>',{class:'authority_1 row alnC jstfyE mis-20 mT10 mie-5'}).append(
                         $('<button/>',{class:'btn_icon popupPage',popupPage:'edit_product',product:product.name,text:texts.cpanel.public.edit}),
-                        $('<button/>',{class:'btn_icon popupPage',popupPage:'manage_product_options',product:product.name,text:texts.products.manageOptions}),
+                        $('<button/>',{class:'btn_icon popupPage',popupPage:'manage_product_variants',product:product.name,text:texts.products.manageOptions}),
                     )
                 )
             )

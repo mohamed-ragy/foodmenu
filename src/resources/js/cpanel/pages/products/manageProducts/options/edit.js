@@ -76,8 +76,8 @@ $('html,body').on('click','#editOption_saveBtn',function(e){
                 window.guideHints.products();
                 showAlert('success',r.msg,4000,true);
                 closePopup();
-                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == product.name){
-                    drawPopupPage_manage_product_options(window.history.state.product)
+                if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == product.name){
+                    drawPopupPage_manage_product_variants(window.history.state.product)
                 }
             }else if(r.editProductOptionStat == 0){
                 showAlert('error',r.msg,4000,true);

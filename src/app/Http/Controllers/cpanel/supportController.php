@@ -57,7 +57,7 @@ class supportController extends Controller
                 $admin->ticket = $ticket;
                 $admin->status = 0;
                 broadcast(new admins($admin))->toOthers();
-                return response(['ticket' => $ticket,'submitTicketStatus' => 1,'msg' => Lang::get('cpanel/support/responses.submitTicketSaved').$ticket->id ]);
+                return response(['ticket' => $ticket,'submitTicketStatus' => 1,'msg' => Lang::get('cpanel/support/responses.submitTicketSaved') ]);
             }else{
                 return response(['submitTicketStatus' => 0,'msg' => Lang::get('cpanel/support/responses.submitTicketSaveFailed')]);
             }

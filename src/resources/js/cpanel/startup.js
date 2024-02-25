@@ -204,7 +204,7 @@ showFirstPage = function(){
             case 'edit_product':
                 keysObj.product = params.get('product')
             break;
-            case 'manage_product_options':
+            case 'manage_product_variants':
                 keysObj.product = params.get('product')
             break;
             case 'review':

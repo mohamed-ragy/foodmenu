@@ -121,7 +121,7 @@ drawManageProductCards = function(action){
                 }).append(
                     drawSwitchBtn('',null,'',`checkboxlabel manageProductCardIcon m0 br0 ${hideUncategorizedClass}`,'manageProductCardProductAvailability',texts.products.productAvailability,productAvailability,product.id),
                     $('<div/>',{class:'ico-product_reviews cpPage manageProductCardIcon',cpPage:'product_reviews',product:product.name,tooltip:texts.products.reviews}),
-                    $('<div/>',{class:'ico-list popupPage manageProductCardIcon',popupPage:'manage_product_options',product:product.name,tooltip:texts.products.manageOptions}),
+                    $('<div/>',{class:'ico-list popupPage manageProductCardIcon',popupPage:'manage_product_variants',product:product.name,tooltip:texts.products.manageOptions}),
                     $('<div/>',{class:'ico-edit popupPage manageProductCardIcon',popupPage:'edit_product',product:product.name,tooltip:texts.products.editProduct}).append($('<span/>',{class:`editProductNoSave_${product.name} button_unsaved none`})),
                     $('<div/>',{class:`ico-share share manageProductCardIcon ${hideUncategorizedClass}`,type:'product',itemId:product.id,tooltip:texts.cpanel.public.share}),
                     $('<div/>',{class:'ico-delete manageProductCardDelete manageProductCardIcon',product:product.id,tooltip:texts.cpanel.public.delete}),
@@ -170,7 +170,7 @@ drawPopupPage_product = function(product_name){
         $('<div/>',{class:'fs09 authority_master',text:product.ordered_sum == 1 ? texts.products.productOrderedTime.replace(':sum:',product.ordered_sum) : texts.products.productOrderedTimes.replace(':sum:',product.ordered_sum)}),
         $('<div/>',{class:'fs09 authority_master',text:product.ratings_sum == 1 ? texts.products.poductReviewedTime.replace(':sum:',product.ratings_sum) : texts.products.poductReviewedTimes.replace(':sum:',product.ratings_sum)}),
         $('<div/>',{class:'btnContainer mT20 authority_1'}).append(
-            $('<button/>',{class:'btn mie-5  btn-cancel popupPage',popupPage:'manage_product_options',product:product.name,text:texts.products.manageOptions}),
+            $('<button/>',{class:'btn mie-5  btn-cancel popupPage',popupPage:'manage_product_variants',product:product.name,text:texts.products.manageOptions}),
             $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'edit_product',product:product.name,text:texts.products.editProduct}),
         )
     )

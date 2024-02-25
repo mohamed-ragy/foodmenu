@@ -15,7 +15,7 @@
 
 <body>
 
-    <div class="imgContainer" style="background-image:url('/storage/imgs/cpanel/login/{{ $img }}.jpg')">
+    <div class="imgContainer" style="background-image:url('/storage/imgs/cpanel/login/{{ $img }}.webp')">
         <div class="imgCover"></div>
         <div class="imgTxtContaienr">
             <div class="imgTxtTitle">{{ $solution['title'] }}</div>

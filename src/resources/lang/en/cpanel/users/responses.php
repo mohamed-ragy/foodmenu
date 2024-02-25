@@ -14,13 +14,13 @@ return [
     'phoneNumberRegex' => 'The phone number you entered is incorrect.',
     'addressRequired' => 'Please enter the address.',
     'createNewUserCreated' => 'The new user account has been created successfully.',
-    'createNewUserFailed' => 'Unknown Error Occurred! Failed to create a new user account.',
+    'createNewUserFailed' => 'Unknown error occurred! Failed to create a new user account.',
     //
     'banUserBanned' => 'The user has been successfully banned.',
     'unBanUserSaved' => 'This user is no longer banned.',
-    'banUserFail' => 'Unknown Error Occurred! Failed to ban the user.',
-    'unBanUserFail' => 'Unknown Error Occurred! Failed to unban the user.',
+    'banUserFail' => 'Unknown error occurred! Failed to ban the user.',
+    'unBanUserFail' => 'Unknown error occurred! Failed to unban the user.',
     'userUpdateSaved' => 'The user\'s profile has been updated successfully.',
-    'userUpdateFail' => 'Unknown Error Occurred! Failed to update the user\'s profile.',
+    'userUpdateFail' => 'Unknown error occurred Failed to update the user\'s profile.',
     //
 ];

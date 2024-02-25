@@ -2,7 +2,7 @@
 
 return [
     'deliveryNameRequires' => 'Please enter a delivery name.',
-    'deliveryNameUnique' => 'This delivery name is used by another delivery account. Please choose another name.',
+    'deliveryNameUnique' => 'This delivery name is used by another account. Please choose another name.',
     'passwordRequired' => 'Please enter a password.',
     'deliveryNameRegex' => 'The delivery name can only include English letters, numbers, and underscores.',
     'deliveryAccountCreated' => 'The delivery account has been created successfully.',

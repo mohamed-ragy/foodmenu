@@ -14,7 +14,7 @@ sortOptions = function(){
     website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionToSort;
     website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionFromSort;
 
-    drawPopupPage_manage_product_options(window.history.state.product)
+    drawPopupPage_manage_product_variants(window.history.state.product)
 
     $.ajax({
         url:'products',
@@ -36,7 +36,7 @@ sortOptions = function(){
 
                 website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionFromSort;
                 website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionToSort;
-                drawPopupPage_manage_product_options(window.history.state.product)
+                drawPopupPage_manage_product_variants(window.history.state.product)
                 showAlert('error',r.msg,4000,true);
             }
         }
@@ -46,7 +46,7 @@ sortOptions = function(){
 
         website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveFrom).sort = tempOptionFromSort;
         website_temp.products.find(item=>item.name == window.history.state.product).product_options.find(item=>item.id == optionCardOnMoveTo).sort = tempOptionToSort;
-        drawPopupPage_manage_product_options(window.history.state.product)
+        drawPopupPage_manage_product_variants(window.history.state.product)
         showAlert('error',r.msg,4000,true);
     })
 }

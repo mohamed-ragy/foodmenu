@@ -67,11 +67,11 @@ showPopupPage = function(popupPage,keysObj){
                 drawPopupPage_review(window.popupPage.review);
                 resolve(3);
             break;
-            case 'manage_product_options':
+            case 'manage_product_variants':
                 if(account.authorities[1] == false){reject(1);return;}
                 if(typeof(website.products.find(item=>item.name == keysObj.product)) !== 'undefined'){
                     window.popupPage.product = keysObj.product;
-                    drawPopupPage_manage_product_options(keysObj.product);
+                    drawPopupPage_manage_product_variants(keysObj.product);
                     resolve(true);
                     break;
                 }else{

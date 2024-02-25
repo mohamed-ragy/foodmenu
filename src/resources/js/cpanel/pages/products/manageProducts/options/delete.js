@@ -47,8 +47,8 @@ $('html,body').on('click','#deleteOption-confirmBtn',function(e){
                         for(const key2 in website.products[key].product_options){
                             if(website.products[key].product_options[key2].id == option_id){
                                 website.products[key].product_options.splice(key2,1);
-                                if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
-                                    drawPopupPage_manage_product_options(window.history.state.product)
+                                if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == website.products[key].name){
+                                    drawPopupPage_manage_product_variants(window.history.state.product)
                                 }
                             }
                         }

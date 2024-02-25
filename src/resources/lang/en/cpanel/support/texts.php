@@ -27,7 +27,7 @@ return [
     'imgTooBig' => 'The image you selected is larger than 1MB. Need to attach large images? You can always email us the images at support@food-menu.net, with the ticket number as the email subject.',
 
     ///ticket history
-    'noTickets' => "You haven't placed any tickets yet.",
+    'noTickets' => "You haven't submitted any tickets yet.",
     'ticketPending' => 'Awaiting your response',
     'ticketOpen' => 'Open',
     'ticketSolved' => 'Resolved',

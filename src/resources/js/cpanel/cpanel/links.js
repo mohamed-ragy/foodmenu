@@ -190,7 +190,7 @@ $('html,body').on('click','.popupPage',function(e){
         case 'edit_product':
             keysObj.product = $(this).attr('product')
         break;
-        case 'manage_product_options':
+        case 'manage_product_variants':
             keysObj.product = $(this).attr('product')
         break;
         case 'review':
@@ -340,7 +340,7 @@ $(window).on('popstate',(e)=>{
             case 'edit_product':
                 keysObj.product = window.history.state.product;
             break;
-            case 'manage_product_options':
+            case 'manage_product_variants':
                 keysObj.product = window.history.state.product;
             break;
             case 'review':

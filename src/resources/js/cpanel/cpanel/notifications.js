@@ -1058,16 +1058,16 @@ handelCpanelChannel = function(n,code){
             website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.fromId).sort = n.fromSort;
             website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.fromId).sort = n.fromSort;
             website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.toId).sort = n.toSort;
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             break;
         case 'option.create':
             website.products.find(item=>item.id == n.product_id).product_options.push(JSON.parse(JSON.stringify(n.option)));
             website_temp.products.find(item=>item.id == n.product_id).product_options.push(JSON.parse(JSON.stringify(n.option)));
             window.guideHints.products();
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             break;
         case 'option.delete':
@@ -1090,8 +1090,8 @@ handelCpanelChannel = function(n,code){
                 }
             }
             window.guideHints.products();
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             break;
         case 'option.edit':
@@ -1100,8 +1100,8 @@ handelCpanelChannel = function(n,code){
                 website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).names[lang.code] = n.names[lang.code];
                 website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).names[lang.code] = n.names[lang.code];
             }
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             window.guideHints.products();
             break;
@@ -1110,8 +1110,8 @@ handelCpanelChannel = function(n,code){
                 website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections[key].isDefault = 0;
             }
             website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.selection_id).isDefault = 1;
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             break;
         case 'selection.sort':
@@ -1119,16 +1119,16 @@ handelCpanelChannel = function(n,code){
             website.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.toId).sort = n.toSort;
             website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.fromId).sort = n.fromSort;
             website_temp.products.find(item=>item.name == n.product_name).product_options.find(item=>item.id == n.option_id).product_option_selections.find(item=>item.id == n.toId).sort = n.toSort;
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             break;
         case 'selection.create':
             website.products.find(item=>item.id == n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.push(JSON.parse(JSON.stringify(n.selection)))
             website_temp.products.find(item=>item.id == n.product_id).product_options.find(item=>item.id == n.option_id).product_option_selections.push(JSON.parse(JSON.stringify(n.selection)))
             window.guideHints.products();
-            if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == n.product_name){
-                drawPopupPage_manage_product_options(window.history.state.product)
+            if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == n.product_name){
+                drawPopupPage_manage_product_variants(window.history.state.product)
             }
             break;
         case 'selection.edit':
@@ -1147,8 +1147,8 @@ handelCpanelChannel = function(n,code){
                                 if(website.products[key].product_options[key2].product_option_selections[key3].id == n.selection_id){
                                     website.products[key].product_options[key2].product_option_selections.splice(key3,1);
                                     closePopup();
-                                    if(window.history.state.popupPage == 'manage_product_options' && window.history.state.product == website.products[key].name){
-                                        drawPopupPage_manage_product_options(window.history.state.product)
+                                    if(window.history.state.popupPage == 'manage_product_variants' && window.history.state.product == website.products[key].name){
+                                        drawPopupPage_manage_product_variants(window.history.state.product)
                                     }
                                     window.guideHints.products();
                                 }
