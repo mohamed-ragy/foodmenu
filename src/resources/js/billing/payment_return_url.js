@@ -2,42 +2,35 @@ window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
 const { post } = require("jquery");
 loadTouchEvents($);
-
 const stripe = Stripe('pk_test_51NV5sdIYxD8tIsOHZDYt4SyJYDtJtwOiVy9IFMJLSHXvo8DbuqAFTqP3PfCsfipnAsJnnhgseCQq6DqNRm08ri7L006J1AMtQz');
-
 let params = new URLSearchParams(window.location.search)
-
-if(paymentType == 'addPaymentMethod'){
+require('../page_loading.js');
+if(paymentType == 'add_payment_method'){
     if(params.get('setup_intent_client_secret') != null){
         stripe.retrieveSetupIntent(params.get('setup_intent_client_secret')).then(({setupIntent}) => {
-            $('.loading').addClass('none');
-            $('.backToBillingCenter').removeClass('none');
-            let messageTxt;
+            hide_page_loading();
             switch (setupIntent.status) {
-                case 'succeeded': {
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.paymentMethodAdded})
-                    )
-                }
-                break;
-                case 'processing': {
-                    $('#message').addClass('cG fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.paymentMethodProcessing})
+                case 'succeeded': 
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodAdded})
                     )
                 break;
-                }
-                case 'requires_payment_method': {
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<div/>',{class:'ico-close cR mie-10 fs09 mB2'}),
-                        $('<div/>',{text:messageTxt = texts.paymentMethodFailed})
+                case 'processing': 
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodProcessing})
                     )
                 break;
-                }
+                case 'requires_payment_method': 
+                    $('#message').addClass('msgBox_red').append(
+                        $('<div/>',{class:'ico-no cR fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodFailed})
+                    )
+                break;
                 default:
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<div/>',{class:'ico-close cR mie-10 fs09 mB2'}),
+                    $('#message').addClass('msgBox_red').append(
+                        $('<div/>',{class:'ico-no cR fs205 mB20'}),
                         $('<div/>',{text:texts.unknownError})
                     )
                 break;
@@ -45,78 +38,73 @@ if(paymentType == 'addPaymentMethod'){
         });
 
     }
-}else if(paymentType == 'activatePlan'){
+}else if(paymentType == 'retry_plan_payment'){
     if(params.get('payment_intent_client_secret') != null){
         stripe.retrievePaymentIntent(params.get('payment_intent_client_secret')).then(({paymentIntent}) => {
-            $('.loading').addClass('none');
-            $('.backToBillingCenter').removeClass('none');
+            hide_page_loading();
             const message = document.querySelector('#message')
             switch (paymentIntent.status) {
                 case 'succeeded':
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.subscriptionActivated})
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.subscriptionActivated})
                     )
                 break;
                 case 'processing':
-                    $('#message').addClass('cG fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.paymentMethodProcessing})
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodProcessing})
                     )
                 break;
                 case 'requires_payment_method':
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<div/>',{class:'ico-close cR mie-10 fs09 mB2'}),
-                        $('<div/>',{text:messageTxt = texts.paymentMethodFailed})
+                    $('#message').addClass('msgBox_red').append(
+                        $('<div/>',{class:'ico-no cR fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodFailed})
                     )
                 break;
                 default:
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<div/>',{class:'ico-close cR mie-10 fs09 mB2'}),
+                    $('#message').addClass('msgBox_red').append(
+                        $('<div/>',{class:'ico-no cR fs205 mB20'}),
                         $('<div/>',{text:texts.unknownError})
                     )
                 break;
             }
           });
     }
-}else if(paymentType == 'retryPlanPayment'){
+}else if(paymentType == 'activate_plan'){
     if(params.get('payment_intent_client_secret') != null){
         stripe.retrievePaymentIntent(params.get('payment_intent_client_secret')).then(({paymentIntent}) => {
-            $('.loading').addClass('none');
-            $('.backToBillingCenter').removeClass('none');
+            hide_page_loading();
             const message = document.querySelector('#message')
             switch (paymentIntent.status) {
                 case 'succeeded':
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.subscriptionActivated})
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.subscriptionActivated})
                     )
                 break;
                 case 'processing':
-                    $('#message').addClass('cG fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.paymentMethodProcessing})
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodProcessing})
                     )
                 break;
                 case 'requires_payment_method':
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<div/>',{class:'ico-close cR mie-10 fs09 mB2'}),
-                        $('<div/>',{text:messageTxt = texts.paymentMethodFailed})
+                    $('#message').addClass('msgBox_red').append(
+                        $('<div/>',{class:'ico-no cR fs205 mB20'}),
+                        $('<div/>',{text:texts.paymentMethodFailed})
                     )
                 break;
                 default:
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<div/>',{class:'ico-close cR mie-10 fs09 mB2'}),
+                    $('#message').addClass('msgBox_red').append(
+                        $('<div/>',{class:'ico-no cR fs205 mB20'}),
                         $('<div/>',{text:texts.unknownError})
                     )
                 break;
             }
           });
     }
-}else if(paymentType == 'cancelSubscription'){
-    $('.loading').removeClass('none');
-    $('.backToBillingCenter').addClass('none');
-
+}else if(paymentType == 'cancel_subscription'){
     checkSubscriptionStatus = function(){
         $.ajax({
             url:'/api',
@@ -126,11 +114,10 @@ if(paymentType == 'addPaymentMethod'){
                 checkSubscriptionStatus:true,
             },success:function(r){
                 if( r.subscriptionStatus == 'canceled'){
-                    $('.loading').addClass('none');
-                    $('.backToBillingCenter').removeClass('none');
-                    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-                        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-                        $('<span/>',{text:texts.subscriptionCanceled})
+                    hide_page_loading();
+                    $('#message').addClass('msgBox_green').append(
+                        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                        $('<div/>',{text:texts.subscriptionCanceled})
                     )
                 }else{
                     checkSubscriptionStatus();
@@ -140,7 +127,8 @@ if(paymentType == 'addPaymentMethod'){
     }
 
     checkSubscriptionStatus();
-}else if(paymentType == 'updateSubscription'){
+}
+else if(paymentType == 'updateSubscription'){
     $('.loading').addClass('none');
     $('.backToBillingCenter').removeClass('none');
     $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(

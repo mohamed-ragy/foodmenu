@@ -77,13 +77,9 @@ startup = function(){
     setGlobalChannel();
     setCpanelChannel();
 
-    $('#cpanelLoading').css('transition-duration','800ms');
-    $('#cpanelLoading').css('opacity',0);
-    setTimeout(()=>{
-        $('#cpanelLoading').hide();
-        $('#cpanelLoading').css('transition-duration','0ms');
-        loadPinnedHelp();
-    },510)
+    hide_page_loading();
+    
+    loadPinnedHelp();
     showFirstPage();
 
 

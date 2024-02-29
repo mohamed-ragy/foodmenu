@@ -59,6 +59,8 @@ $('html,body').on('click','#account-newPassword-confirm',function(e){
                 inputTextError($('#account-current_password'))
             }else if(r.changePasswordStat == 4){
                 showAlert('error',r.msg,4000,true);
+            }else if(r.changePasswordStat == 5){
+                $('#logoutForm').trigger('submit');
             }
         }
     })

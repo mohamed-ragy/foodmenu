@@ -12,6 +12,7 @@
     src: url('/storage/fonts/ar/Tajawal.ttf') format("truetype");
 }
 
+.inter{font-family: 'inter', sans-serif;}
 
 p{margin:10px 5px;}
 
@@ -64,11 +65,11 @@ body{
     }
 }
 
+@import '../page_loading.scss';//done//
 @import 'cpanel/popupPage.scss';//done//
 @import 'cpanel/helpWidnow.scss'; //done//
 @import 'cpanel/bodyPage.scss'; //done//
 
-@import 'cpanel/loadingScreen.scss';//done//
 @import '/node_modules/leaflet/dist/leaflet.css';//done//
 
 @import 'cpanel/autoHelp';//done//
@@ -288,7 +289,6 @@ th{
     color:var(--txt-1);
 }
 td{
-    border-bottom: 1px solid var(--bg5);
     padding:10px;
     text-align: start;
     font-size: .8em;

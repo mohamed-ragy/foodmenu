@@ -238,6 +238,9 @@ class settingsController extends Controller
                 foodmenuFunctions::notification('0',null,[
                     'account_id' => $this->account->id
                 ]);
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
                 return response(['deleteHistoryDataStatus' => 2]);
                 ///send email with the unblock link
 

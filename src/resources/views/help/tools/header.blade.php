@@ -1,4 +1,4 @@
-<header class="header_notHome">
+<header class="">
 <a class="headerTitle openPage" page="home" href="/{{ $lang }}/home">
     <img src="" class="headerTitle_f" alt="">
     <span class="fs1 mT5 bold tnw">{{ trans('help/help.helpCenter') }}</span>

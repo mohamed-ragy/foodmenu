@@ -92,6 +92,11 @@ class securityController extends Controller
 
                 Account::where('id',$this->account->id)->update(['account_unblock_code' => Str::random(100)]);
                 ///send email with the unblock link
+
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['changeEmailStats'=>5]);
             }
             ///
             $phonesChangedLast3Days = phones::where('created_at','>',Carbon::now()->subDays(3)->timestamp)->where('account_id' , $this->account->id )->count();
@@ -244,6 +249,11 @@ class securityController extends Controller
 
                 Account::where('id',$this->account->id)->update(['account_unblock_code' => Str::random(100)]);
                 ///send email with the unblock link
+
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['newPhoneStats'=>5]);
             }
             /////////
             $emailsChangedLast3Days = emails::whereDate('created_at','>',Carbon::now()->subDay(3)->timestamp)->where('account_id', $this->account->id )->count();
@@ -316,7 +326,11 @@ class securityController extends Controller
                 ],$this->account->website_id);
                 Account::where('id',$this->account->id)->update(['account_unblock_code' => Str::random(100)]);
                 ///send email with the unblock link
-                return;
+
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['changePasswordStat'=>5]);
             }
 
             $passwordChangedAt = $this->account->password_changed_at;

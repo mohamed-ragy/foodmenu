@@ -4,7 +4,7 @@ drawCurrentPlan = function(){
     $('#newRenewDate').text(nextRenew)
     $('#currentPlan').text('').append(
         $('<div/>',{text:texts.currentPlan,class:'bold mB10 pB10 brdrBottomS w100p'}),
-        $('<div/>',{class:'mT100 row alnC jstfyS'}).append(
+        $('<div/>',{class:'mT10 row alnC jstfyS'}).append(
             $('<span/>',{class:'fs104 bold',text:texts[`plan-${data.currentPlan}`]}),
             $('<span/>',{class:`planStatusBage planStatusBage_${data.subscription_status}`,text:texts[data.subscription_status]})
         ),
@@ -18,7 +18,7 @@ drawCurrentPlan = function(){
             // $('<button/>',{text:texts.changePlan,class:'btn updatePlanBtn openPage',page:'updatePlan'}),
             $('<a/>',{text:texts.changePlan,class:'pointer underline fs08  c-placeholder2 openPage',page:'updatePlan'}),
             $('<span/>',{class:'mX5 c-placeholder2',text:'|'}),
-            $('<a/>',{text:texts.unsubscribe,class:'pointer underline fs08 c-placeholder2 openPage',page:'cancelSubscription'}),
+            $('<a/>',{text:texts.cancel_subscription,class:'pointer underline fs08 c-placeholder2 openPage',page:'cancelSubscription'}),
         )
     }else if(data.subscription_status == 'incomplete_expired'
         || data.subscription_status == 'canceled'
@@ -27,7 +27,7 @@ drawCurrentPlan = function(){
     ){
         $('#currentPlan').append(
             $('<a/>',{text:texts.changePlan,class:'pointer underline fs08 mX5 c-placeholder2 openPage',page:'updatePlan'}),
-            $('<button/>',{text:texts.activatePlan,class:'btn updatePlanBtn openPage',page:'activatePlan'}),
+            $('<button/>',{text:texts.activate_plan,class:'btn updatePlanBtn openPage',page:'activate_plan'}),
         )
     }
     else if(data.subscription_status == 'past_due'){
@@ -60,7 +60,7 @@ $('html,body').on('click','.retryPlanPayment',function(e){
         showPopup('paymentForm');
         $('#paymentFormTxt').text(texts.pay)
         $('#popupHeadTitle').text(texts.retryPlanPayment)
-        window.payment_return_url = 'activatePlan';
+        window.payment_return_url = 'activate_plan';
         $('#payment-form_loading').removeClass('none').addClass('vV')
         $('#payment-form').addClass('none')
         $.ajax({

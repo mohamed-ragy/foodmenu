@@ -1,5 +1,5 @@
-#cpanelLoading{
-    background-color: var(--white);
+#page_loading{
+    background-color: var(--white-1);
     position: fixed;
     top:0;
     left:0;
@@ -11,19 +11,19 @@
     justify-content: center;
 }
 
-#cpanelLoading img:nth-child(1){
+#page_loading img:nth-child(1){
     position: absolute;
     width:210px;
     height:210px;
     z-index: 6;
-    animation-name: cpanelLoadingAnimation_1;
+    animation-name: page_loadingAnimation_1;
     animation-duration: 10000ms;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     transform: scale(.85);
 }
 
-#cpanelLoading div:nth-child(2){
+#page_loading div:nth-child(2){
     position: absolute;
     z-index: 1;
     border-radius: 50%;
@@ -31,12 +31,12 @@
     height:115px;
     background-color: transparent;
     border:30px solid var(--white-2);
-    animation-name: cpanelLoadingAnimation;
+    animation-name: page_loadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
     animation-iteration-count: infinite;
 }
-#cpanelLoading div:nth-child(3){
+#page_loading div:nth-child(3){
     position: absolute;
     z-index: 1;
     border-radius: 50%;
@@ -44,13 +44,13 @@
     height:115px;
     background-color: transparent;
     border:30px solid var(--white-2);
-    animation-name: cpanelLoadingAnimation;
+    animation-name: page_loadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
     animation-iteration-count: infinite;
     animation-delay: 150ms;
 }
-#cpanelLoading div:nth-child(4){
+#page_loading div:nth-child(4){
     position: absolute;
     z-index: 1;
     border-radius: 50%;
@@ -58,14 +58,14 @@
     height:115px;
     background-color: transparent;
     border:30px solid var(--white-2);
-    animation-name: cpanelLoadingAnimation;
+    animation-name: page_loadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
     animation-iteration-count: infinite;
     animation-delay: 300ms;
 }
 
-#cpanelLoading div:nth-child(5){
+#page_loading div:nth-child(5){
     position: absolute;
     z-index: 1;
     border-radius: 50%;
@@ -73,20 +73,20 @@
     height:115px;
     background-color: transparent;
     border:30px solid var(--white-2);
-    animation-name: cpanelLoadingAnimation;
+    animation-name: page_loadingAnimation;
     animation-duration: 1800ms;
     animation-timing-function: ease-in;
     animation-iteration-count: infinite;
     animation-delay: 450ms;
 }
 
-@keyframes cpanelLoadingAnimation {
+@keyframes page_loadingAnimation {
     0%{opacity:1;transform: scale(1);}
     30%{opacity:1;transform: scale(1);}
     100%{opacity:0;transform: scale(2);}
 }
 
-@keyframes cpanelLoadingAnimation_1 {
+@keyframes page_loadingAnimation_1 {
     0%{transform: scale(.85);}
     50%{transform: scale(1);}
     100%{transform: scale(.85);}

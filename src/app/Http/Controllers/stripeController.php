@@ -7,6 +7,7 @@ use App\Models\invoice;
 use App\Models\invoice_item;
 use App\Models\payment_method;
 use App\Models\website;
+use Carbon\Carbon;
 
 
 class stripeController extends Controller
@@ -212,7 +213,8 @@ class stripeController extends Controller
                     'subscription_status' => $data->status,
                     'subscription_start_period' => $data->current_period_start,
                     'subscription_end_period' => $data->current_period_end,
-
+                    'updated_at' => Carbon::now()->timestamp
+                    
                 ])){
                     payment_method::where('website_id',$website->id)
                     ->where('paymentMethod_id','!=', $data->default_payment_method)
@@ -310,7 +312,7 @@ class stripeController extends Controller
             if($deletePaymentMethod){
                 $paymentmethodsCount = payment_method::where('website_id',$website_id)->count();
                 foodmenuFunctions::notification('system.paymentMethod_update',null,[
-                    'website_id' => $website->id,
+                    'website_id' => $website_id,
                     'paymentmethodsCount' => $paymentmethodsCount,
                 ]);
                 return response('', 200);

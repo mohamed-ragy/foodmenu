@@ -47,7 +47,6 @@ drawHomeArticles = function(){
 }
 
 drawHomeArticle = function(container,article){
-    console.log(article)
     let catClassAndColor = catIconColor(article.helpCat);
     container.append(
         $('<a/>',{

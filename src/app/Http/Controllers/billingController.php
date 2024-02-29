@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use PDF;
 use stdClass;
+use Illuminate\Support\Facades\Hash;
 
 class billingController extends Controller
 {
@@ -28,7 +29,6 @@ class billingController extends Controller
     public function __construct(Request $request)
     {
         $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-
         // dd($stripe->subscriptions->retrieve(
         //     'sub_1NdERRIYxD8tIsOHkd3nGS6w',
         //     []
@@ -42,23 +42,21 @@ class billingController extends Controller
         //     'pi_3NdERSIYxD8tIsOH1Bz5Af7O',
         //     []
         // ));
-
-
         $this->middleware(function ($request, $next) {
             if(!Auth::guard('account')->check()){
-                dd(Auth::guard('account')->check());
                 return redirect()->route('account.login');
             }
             if(Auth::guard('account')->user()->is_master == false){
                 return redirect()->route('cpanel');
             }
+            $this->lang = $request->FoodMenuLang ?? 'en';
+            Cookie::queue(Cookie::make('FoodMenuLang',$this->lang,9999999));
             return $next($request);
         });
 
         $this->middleware(function ($request, $next) {
             if(
                 $request->FoodMenuLang === 'en'
-                // || $request->FoodMenuLang === 'ar'
             ){
                 Cookie::queue(Cookie::make('FoodMenuLang',$request->FoodMenuLang,9999999));
                 App::setLocale($request->FoodMenuLang);
@@ -73,39 +71,8 @@ class billingController extends Controller
     }
 
     public function home(Request $request){
-        $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['plan','billingPeriod','subscription_status','subscription_start_period','subscription_end_period','balance'])->first();
-        if($website->balance < 0){$website->balance = $website->balance * -1;}
-        $plans = collect(foodmenuFunctions::plans());
-        $plansData = $plans->map(function ($c) {
-            return collect($c)->forget('id')->forget('monthlyId')->forget('yearlyId');
-        });
-
-        $currentPlanPrice = '';
-        if($website->billingPeriod == 'year'){$currentPlanPrice = $plans->where('name',$website->plan)->first()['yearlyCost'];}
-        else if($website->billingPeriod == 'month'){$currentPlanPrice = $plans->where('name',$website->plan)->first()['monthlyCost'];}
-
-        // dd(Lang::get('billing'));
-
         return view('billing.home',[
             'lang'=>$this->lang,
-            'plans'=>$plansData,
-            'data'=>collect([
-                'currentPlan' => $website->plan,
-                // 'currentPlan' => 'premium',
-                'plans'=> $plans,
-                'balance' => $website->balance,
-                'currentPlanPrice' => $currentPlanPrice,
-                'billingPeriod' => $website->billingPeriod,
-                // 'billingPeriod' => 'year',
-                'subscription_status' => $website->subscription_status,
-                // 'subscription_status' => 'active',
-                'subscription_start_period' => $website->subscription_start_period,
-                'subscription_end_period' => $website->subscription_end_period,
-                'lastInvoices' => invoice::where(['website_id'=>Auth::guard('account')->user()->website_id])->orderBy('created','desc')->orderBy('created_at','desc')->limit(5)->get(),
-                'invoices_count' => invoice::where('website_id',Auth::guard('account')->user()->website_id)->count(),
-                'paymentMethods' => payment_method::where('website_id',Auth::guard('account')->user()->website_id)->orderBy('created_at','desc')->get(),
-                'texts' => collect(Lang::get('billing')),
-            ]),
         ]);
     }
 
@@ -118,9 +85,7 @@ class billingController extends Controller
     }
 
     public function invoice(Request $request){
-        // $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
         $invoice = invoice::where(['website_id'=>Auth::guard('account')->user()->website_id,'id'=>$request->invoice_id])->with('invoice_items')->first();
-        // dd($stripe->invoices->retrieve($invoice->invoice_id,[]));
         if(!$invoice){return abort(404);}
         $invoice_created_at = Carbon::createFromTimestamp($invoice->created);
 
@@ -145,9 +110,8 @@ class billingController extends Controller
         foreach($invoice->invoice_items as $key => $invoiceItem){
             $invoiceItem->amount = number_format((float)$invoiceItem->amount / 100, 2, '.', '');
         }
-        // return view('billing.pdf.invoice',['invoice' => $invoice,'lang'=>$this->lang]);
         $pdf = PDF::loadView(
-            'billing.pdf.invoice',
+            'billing.invoice',
             ['invoice' => $invoice,'lang'=>$this->lang],
             [
                 'format' => 'A4',
@@ -209,7 +173,7 @@ class billingController extends Controller
             $specialDomainName = $website->specialDomainName;
             $storage =(img::where('website_id',Auth::guard('account')->user()->website_id)->sum('size') / 1024 / 1024 );
             $deliveryAccounts = delivery::where('website_id',Auth::guard('account')->user()->website_id)->count();
-            $websiteLangs = count(explode('.',$website->languages));
+            $websiteLangs = count($website->languages);
             $promocodes = promocode::where('website_id',Auth::guard('account')->user()->website_id)->count();
             if($subaccounts > $plan_request['subAccounts']){
                 $errors->subAccounts = [
@@ -286,7 +250,46 @@ class billingController extends Controller
     }
 
     public function api(Request $request){
-        if($request->has('createPaymentIntent')){
+        if($request->has('get_data')){
+            $account = Auth::guard('account')->user();
+            if($account->password_fails > 10){
+                foodmenuFunctions::notification('0',null,[
+                    'account_id' => $account->id,
+                ],$account->website_id);
+                if($account->account_unblock_code == null || $account->account_unblock_code == ''){
+                    Account::where('email',$account->email)->update(['account_unblock_code' => Str::random(100)]);
+                    ///send email with the unblock link if master
+                }
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['passwordCheck' => 2, 'msg' => Lang::get('cpanel/login.accountBlocked') ]);
+            }
+            if( Hash::check($request->password,Account::where('id',Auth::guard('account')->user()->id)->pluck('password')->first())){
+                Account::where('email',$request->email)->update([ 'password_fails' => 0 ]);
+
+                $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['domainName','plan','billingPeriod','subscription_status','subscription_start_period','subscription_end_period','balance'])->first();
+                if($website->balance < 0){$website->balance = $website->balance * -1;}
+                $plans = collect(foodmenuFunctions::plans());
+                $plansData = $plans->map(function ($c) {
+                    return collect($c)->forget('id')->forget('monthlyId')->forget('yearlyId');
+                });
+                return response([
+                    'passwordCheck' => 1,
+                    'website' => $website,
+                    'lang'=>$this->lang,
+                    'plans'=>$plansData,
+                    'lastInvoices' => invoice::where(['website_id'=>Auth::guard('account')->user()->website_id])->orderBy('created','desc')->orderBy('created_at','desc')->limit(5)->get(),
+                    'invoices_count' => invoice::where('website_id',Auth::guard('account')->user()->website_id)->count(),
+                    'paymentMethods' => payment_method::where('website_id',Auth::guard('account')->user()->website_id)->orderBy('created_at','desc')->get(),
+                    'texts' => Lang::get('billing'),
+                ]);
+            }else{
+                Account::where('email',$account->email)->increment('password_fails');
+                return response(['passwordCheck' => 0,'msg'=> Lang::get('billing.wrongPassword')]);
+            }
+        }
+        else if($request->has('createPaymentIntent')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id'])->first();
             $intent = $stripe->setupIntents->create([
@@ -295,7 +298,6 @@ class billingController extends Controller
             ]);
             return response($intent);
         }
-
         else if($request->has('setPaymentMethodDefault')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id','subscription_status'])->first();
@@ -305,21 +307,35 @@ class billingController extends Controller
                 $website->subscription_id,
                 ['default_payment_method'=>$paymentMethod_id]
             );
-            // payment_method::where('website_id',Auth::guard('account')->user()->website_id)->update(['is_default'=>false]);
-            // payment_method::where(['website_id'=>Auth::guard('account')->user()->website_id,'id'=>$request->setPaymentMethodDefault])->update(['is_default'=>true]);
         }
-
         else if($request->has('deletePaymentMethod')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            // $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id'])->first();
             $paymentMethod = payment_method::where(['website_id'=>Auth::guard('account')->user()->website_id,'id'=>$request->deletePaymentMethod])->select(['paymentMethod_id','is_default'])->first();
             if($paymentMethod->is_default == 0){
                 $stripe->paymentMethods->detach($paymentMethod->paymentMethod_id,[]);
-                // payment_method::where(['website_id'=>Auth::guard('account')->user()->website_id,'id'=>$request->deletePaymentMethod])->delete();
             }
         }
+        else if($request->has('retryPlanPayment')){
+            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
+            $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
+            $invoice = $stripe->invoices->retrieve($subscription->latest_invoice,[]);
+            $payInvoice = $stripe->invoices->pay($invoice->id,[]);
+            if($payInvoice){
+                $payInvoice->payment_intent;
+                $payment_intent = $stripe->paymentIntents->retrieve($payInvoice->payment_intent,[]);
+                return response(['retryPlanPaymentStatus'=>1,'payment_intent'=>$payment_intent]);
+            }
 
-        else if($request->has('activatePlan')){
+        }
+        else if($request->has('getLastInvoice')){
+            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
+            $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
+            $lastInvoice = $stripe->invoices->retrieve($subscription->latest_invoice,['expand' => ['payment_intent']]);
+            return response(['lastInvoice'=>$lastInvoice]);
+        }
+        else if($request->has('activate_plan')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['plan','billingPeriod','customer_id'])->first();
             $plan = collect(foodmenuFunctions::plans())->where('name',$website->plan)->first();
@@ -340,8 +356,7 @@ class billingController extends Controller
                 return response(['client_secret' => $subscription->latest_invoice->payment_intent->client_secret]);
             }
         }
-
-        else if($request->has('activatePlanAndPay')){
+        else if($request->has('activate_planAndPay')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['plan','billingPeriod','customer_id'])->first();
             $plan = collect(foodmenuFunctions::plans())->where('name',$website->plan)->first();
@@ -367,29 +382,47 @@ class billingController extends Controller
             }
             return response(['client_secret' => $subscription->latest_invoice->payment_intent->client_secret]);
         }
-
-        else if($request->has('retryPlanPayment')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
-            $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
-            $invoice = $stripe->invoices->retrieve($subscription->latest_invoice,[]);
-            $payInvoice = $stripe->invoices->pay($invoice->id,[]);
-            if($payInvoice){
-                $payInvoice->payment_intent;
-                $payment_intent = $stripe->paymentIntents->retrieve($payInvoice->payment_intent,[]);
-                return response(['retryPlanPaymentStatus'=>1,'payment_intent'=>$payment_intent]);
+        else if($request->has('loadMoreInvoices')){
+            $invoices = invoice::where([
+                'website_id'=>Auth::guard('account')->user()->website_id
+            ])
+            ->where('created','<',$request->loadMoreInvoices)
+            ->orderBy('created','desc')->limit(5)->get();
+            $invoices_count = invoice::where('website_id',Auth::guard('account')->user()->website_id)->count();
+            return response(['invoices' => $invoices,'invoices_count' => $invoices_count]);
+        }        
+        else if($request->has('cancel_subscription')){
+            $account = Auth::guard('account')->user();
+            if($account->password_fails > 10){
+                foodmenuFunctions::notification('0',null,[
+                    'account_id' => $account->id,
+                ],$account->website_id);
+                if($account->account_unblock_code == null || $account->account_unblock_code == ''){
+                    Account::where('email',$account->email)->update(['account_unblock_code' => Str::random(100)]);
+                    ///send email with the unblock link if master
+                }
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['cancelSubscriptionStatus' => 2, 'msg' => Lang::get('cpanel/login.accountBlocked') ]);
             }
-
+            if( Hash::check($request->password,Account::where('id',Auth::guard('account')->user()->id)->pluck('password')->first())){
+                $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+                $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
+                $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
+                if($subscription->delete()){
+                    return response(['cancelSubscriptionStatus' => 1]);
+                }
+            }else{
+                Account::where('email',$account->email)->increment('password_fails');
+                return response(['cancelSubscriptionStatus' => 0,'msg'=> Lang::get('billing.wrongPassword')]);
+            }
         }
-
-        else if($request->has('getLastInvoice')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
-            $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
-            $lastInvoice = $stripe->invoices->retrieve($subscription->latest_invoice,['expand' => ['payment_intent']]);
-            return response(['lastInvoice'=>$lastInvoice]);
+        else if($request->has('checkSubscriptionStatus')){
+            $subscriptionStatus = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_status')->first();
+            return response(['subscriptionStatus'=>$subscriptionStatus]);
         }
-
+        ////
         else if($request->has('payInvoice')){
             $invoice = invoice::where(['id'=>$request->payInvoice,'website_id'=>Auth::guard('account')->user()->website_id])->first();
             if($invoice == null){return;}
@@ -404,31 +437,6 @@ class billingController extends Controller
             );
             return response(['client_secret'=> $paymentInt->client_secret]);
         }
-
-        else if($request->has('cancelSubscription')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
-            $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
-            if($subscription->delete()){
-                return response(['cancelSubscriptionStatus' => 1]);
-            }
-        }
-
-        else if($request->has('checkSubscriptionStatus')){
-            $subscriptionStatus = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_status')->first();
-            return response(['subscriptionStatus'=>$subscriptionStatus]);
-        }
-
-        else if($request->has('loadMoreInvoices')){
-            $invoices = invoice::where([
-                'website_id'=>Auth::guard('account')->user()->website_id
-            ])
-            ->where('created','<',$request->loadMoreInvoices)
-            ->orderBy('created','desc')->limit(5)->get();
-            $invoices_count = invoice::where('website_id',Auth::guard('account')->user()->website_id)->count();
-            return response(['invoices' => $invoices,'invoices_count' => $invoices_count]);
-        }
-
         else if($request->has('calcUpdateSubscription')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','customer_id','subscription_id','plan','billingPeriod','specialDomainName','languages'])->first();
@@ -485,7 +493,6 @@ class billingController extends Controller
                 return response(['actionValid' => 0,'errors' => $checkDowngrade['errors'],'currentPlan'=>$website->plan,'plan_request'=>$plan_request['name']]);
             }
         }
-
         else if($request->has('updateSubscription')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','customer_id','subscription_id','plan','billingPeriod','specialDomainName','languages'])->first();
@@ -532,7 +539,6 @@ class billingController extends Controller
             }
 
         }
-
         else if($request->has('changePlan')){
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','billingPeriod','plan','specialDomainName','languages'])->first();
             $plan_request = foodmenuFunctions::plans()[$request->changePlan];
@@ -561,7 +567,6 @@ class billingController extends Controller
 
             }
         }
-
         else if($request->has('refund')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id'])->first();

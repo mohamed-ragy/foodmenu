@@ -7,6 +7,7 @@
     src: url('/storage/fonts/en/inter.ttf') format("truetype");
 }
 .inter{font-family: 'inter', sans-serif;}
+@import '../page_loading.scss';
 @import '../cpanel/tools/icons';
 @import '../cpanel/tools/loading';
 @import '../cpanel/tools/scrollBar';
@@ -119,5 +120,16 @@ li{margin-top:5px;}
 .openPage{cursor: pointer;}
 .openPage:hover{text-decoration: none;}
 
-
+.homeLoadingContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: var(--white-1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @import '../style/style.scss'

@@ -7,7 +7,7 @@ window.Cookies = require('js-cookie');
 window.QRCode = require('davidshimjs-qrcodejs');
 
 
-
+require('../page_loading.js');//done//
 require("./process_data.js");//done//
 require("./startup.js");//done//
 

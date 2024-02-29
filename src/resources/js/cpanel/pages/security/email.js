@@ -156,6 +156,8 @@ $('html,body').on('click','#account-newEmailBtn-confirm',function(e){
             }else if(r.changeEmailStats == 4){
                 $('#account-newEmail_password').val('');
                 showAlert('error',r.msg,4000,true);
+            }else if(r.changeEmailStats == 5){
+                $('#logoutForm').trigger('submit');
             }
         }
     })

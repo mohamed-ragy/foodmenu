@@ -72,8 +72,6 @@ setUpdatePlans = function(){
     }
 
 }
-
-
 for(const key in data.plans){
     const plan = data.plans[key];
     let productOptionsTxt; let websiteLangsTxt; let promocodeTxt; let subAccountsTxt;
@@ -145,8 +143,6 @@ for(const key in data.plans){
         )
     )
 }
-
-
 if(data.billingPeriod == 'year'){
     $('#billedYearly').prop('checked',true);
     $('.planPerMonthPrice').addClass('none');
@@ -185,7 +181,6 @@ if(data.billingPeriod == 'year'){
         setUpdatePlans();
     });
 }
-
 drawDowngradeFailReasons = function(errors,currentPlan,plan_request){
     let downgradeFail = texts.downgradeFail1;
     if(Object.keys(errors).length > 1 ){
@@ -288,7 +283,6 @@ drawDowngradeFailReasons = function(errors,currentPlan,plan_request){
         }
     }
 }
-
 $('html,body').on('click','.updateSubscriptionBtn',function(e){
     e.stopImmediatePropagation();
     let billedYearly = $('#billedYearly').prop('checked');
@@ -341,7 +335,7 @@ $('html,body').on('click','.updateSubscriptionBtn',function(e){
             $('<div/>',{text:texts.cantUpdatePlanNoPayment}),
             $('<div/>',{class:'row alnC jstfyE w100p mT40'}).append(
                 $('<button/>',{class:'btn btn-cancel popupClose',text:texts.cancel}),
-                $('<button/>',{class:'btn openPage',page:'addPaymentMethod',text:texts.addPaymentMethod_c})
+                $('<button/>',{class:'btn openPage',page:'addPaymentMethod',text:texts.add_payment_method})
             )
         )
         $('#popupHeadTitle').text(texts.error)

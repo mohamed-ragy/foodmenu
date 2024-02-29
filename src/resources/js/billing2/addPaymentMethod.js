@@ -15,7 +15,7 @@ drawAddPaymentMethod = function(){
     })
 }
 
-window.stripe = Stripe('pk_test_51NV5sdIYxD8tIsOHZDYt4SyJYDtJtwOiVy9IFMJLSHXvo8DbuqAFTqP3PfCsfipnAsJnnhgseCQq6DqNRm08ri7L006J1AMtQz');
+// window.stripe = Stripe('pk_test_51NV5sdIYxD8tIsOHZDYt4SyJYDtJtwOiVy9IFMJLSHXvo8DbuqAFTqP3PfCsfipnAsJnnhgseCQq6DqNRm08ri7L006J1AMtQz');
 drawPaymentGateWay = function(client_secret){
     const appearance = {
         theme: 'none',
@@ -81,36 +81,4 @@ drawPaymentGateWay = function(client_secret){
     // Create and mount the Payment Element
     const paymentElement = elements.create('payment');
     paymentElement.mount('#payment-element');
-
-
 }
-
-// let params = new URLSearchParams(window.location.search)
-// if(params.get('setup_intent_client_secret') != null){
-//     stripe.retrieveSetupIntent(params.get('setup_intent_client_secret')).then(({setupIntent}) => {
-//         switch (setupIntent.status) {
-//             case 'succeeded': {
-//                 $('#message').removeClass().addClass('cG mB40 row alnS jstfyS').text('').append(
-//                     $('<span/>',{class:'ico-success mT5 mie-5'}),
-//                     $('<span/>',{text:texts.paymentMethodAdded})
-//                 )
-//             }
-//             break;
-//             case 'processing': {
-//                 $('#message').removeClass().addClass('cG mB40 row alnC jstfyS').text('').append(
-//                     $('<span/>',{class:'ico-success mie-5'}),
-//                     $('<span/>',{text:texts.paymentMethodProcessing})
-//                 )
-//                 break;
-//             }
-//             case 'requires_payment_method': {
-//                 $('#message').removeClass().addClass('cR mB40 row alnC jstfyS').text('').append(
-//                     $('<div/>',{class:'ico-close fs09 mB3 mie-5'}),
-//                     $('<div/>',{text:texts.paymentMethodFailed})
-//                 )
-//                 break;
-//             }
-//         }
-//       });
-
-// }

@@ -1,0 +1,25 @@
+[tooltip]{
+    position: relative;
+}
+#tooltip{
+    display:none;
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--white-1);
+    color:rgb(117, 117, 117);
+    font-size: .8em;
+    padding:10px;
+    border-radius: 5px;
+    max-width:300px;
+    box-shadow: 0 0 5px 1px var(--shdw-10);
+    font-family: 'Nunito', sans-serif;
+    text-align: start;
+    animation-name: tooltipAnimation;
+    animation-duration: 250ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes tooltipAnimation {
+    0%{opacity:0;transform: translateY(5px);}
+    100%{opacity:1;transform: translateY(0px);}
+}

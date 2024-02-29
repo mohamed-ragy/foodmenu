@@ -1,0 +1,31 @@
+.invoicesContainer{
+    border-collapse: collapse;
+    overflow: hidden;
+}
+.invoiceStatus{
+    padding: 1px 8px ;
+    margin:0 5px;
+    font-size:.8em;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+.invoiceStatus_green{
+    background-color:var(--green-20);
+    color:var(--green);
+    border:1px solid var(--green-30);
+}
+.invoiceStatus_orange{
+    background-color:var(--orange-20);
+    color:var(--orange);
+    border:1px solid var(--orange-30);
+}
+.invoiceStatus_red{
+    background-color:var(--red-20);
+    color:var(--red);
+    border:1px solid var(--red-30);
+}
+.invoiceStatus_gray{
+    background-color:var(--shdw-5);
+    color:var(--white-10);
+}

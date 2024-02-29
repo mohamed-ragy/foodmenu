@@ -43,6 +43,18 @@
 }
   ////////////////////
 
+  .ico-plan-large:before {
+    content: "\e9b2";
+  }
+  .ico-plan-premium:before {
+    content: "\e9b3";
+  }
+  .ico-plan-standard:before {
+    content: "\e9b4";
+  }
+  .ico-plan-small:before {
+    content: "\e9b1";
+  }
   .ico-dashboard:before {
     content: "\e928";
   }
@@ -574,3 +586,4 @@
   .ico-createCategory:before {
     content: "\e96b";
   }
+  

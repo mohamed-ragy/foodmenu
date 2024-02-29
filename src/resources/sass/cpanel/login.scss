@@ -180,6 +180,7 @@ a:hover{
     cursor: pointer;
     box-shadow: var(--card-shdw);
     transition-duration: 150ms;
+    width:calc(100% - 40px);
 }
 .forgetPasswordOption:hover{background-color: var(--white-3)}
 #msg{text-align: center}

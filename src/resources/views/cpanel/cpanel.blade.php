@@ -12,9 +12,9 @@
     <title></title>
 </head>
 
-<div class="bgc-c1 fixed w100p h100p" id="cpanelLoading"><img id="cpanelLoading_img" src="./storage/logo/logo.png" alt=""><div></div><div></div><div></div><div></div></div>
-
+@include('page_loading')
 <body>
+    <input type="password" style="width: 0; height: 0; border: 0; padding: 0; margin:0;position:fixed;top:-1000%;left:-100%" />
     <div class="popupContainer none"></div>
     <div id="bodyContainer">
         <div id="sideMenu-Container"></div>
@@ -96,7 +96,7 @@
     <div id="changeOrderType"  class="none"></div>
     <div id="changeItemSelection" class="none"></div>
 </body>
-<form method="post" id="logoutForm" action="{{ route('account.logout') }}">
+<form method="post" id="logoutForm" action="/logout">
     @csrf
 </form>
 <script id="cpanelJS" src="{{ asset('js/cpanel/cpanel.js?v=1') }}"></script>

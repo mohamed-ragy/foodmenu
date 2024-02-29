@@ -74,13 +74,13 @@ Route::post('/stripe/subscriptions',[stripeController::class,'subscriptions']);
 Route::post('/stripe/paymentmethods',[stripeController::class,'paymentmethods']);
 
 $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en';
-$foodmenu = function()use($FoodMenuLang){
+$foodmenu = function()use ($FoodMenuLang){
     Route::get('/', function () use ($FoodMenuLang){
         return redirect()->route('foodmenu.home', $FoodMenuLang);
     })->name('root');
 
-    Route::prefix('{FoodMenuLang}')->group(function ()use ($FoodMenuLang){
-        Route::get('/', function (){
+    Route::prefix('{FoodMenuLang}')->group(function () use ($FoodMenuLang){
+        Route::get('/', function () use ($FoodMenuLang){
             return redirect()->route('foodmenu.home', $FoodMenuLang);
         });
         Route::get('/home',[foodmenuController::class,'home',$FoodMenuLang])->name('foodmenu.home');
@@ -119,14 +119,13 @@ $cpanel = function(){
     });
 };
 $billing = function()use($FoodMenuLang){
-    Route::get('/', function (){
-        return redirect()->route('billing.home', $FoodMenuLang = Cookie::get('FoodMenuLang') ?? 'en');
+    Route::get('/', function () use ($FoodMenuLang){
+        return redirect()->route('billing.home', $FoodMenuLang);
     })->name('billing.root');
-
-    Route::prefix('{FoodMenuLang}')->group(function (){
-        Route::get('/',[billingController::class,'home',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.home');
-        Route::get('/invoice/{invoice_id}',[billingController::class,'invoice',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.invoice');
-        Route::get('/payment/{payment_return_url}',[billingController::class,'payment_return_url',$FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en'])->name('billing.payment_return_url');
+    Route::prefix('{FoodMenuLang}')->group(function () use ($FoodMenuLang){
+        Route::get('/',[billingController::class,'home',$FoodMenuLang])->name('billing.home');
+        Route::get('/invoice/{invoice_id}',[billingController::class,'invoice',$FoodMenuLang])->name('billing.invoice');
+        Route::get('/payment/{payment_return_url}',[billingController::class,'payment_return_url',$FoodMenuLang])->name('billing.payment_return_url');
 
     });
 
@@ -164,7 +163,7 @@ $admin = function(){
     Route::get('/',[adminController::class,'home'])->middleware(['admin'])->name('admin.home');
 };
 $website = function()use ($getHost){
-    $lang = Cookie::get(Str::slug($getHost.'_lang', '_'));
+    $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
     Route::get('/', function () use ($lang){
         return redirect()->route('website.home', $lang);
     });

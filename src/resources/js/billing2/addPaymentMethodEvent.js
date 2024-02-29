@@ -20,7 +20,7 @@ form.addEventListener('submit', async (event) => {
             // hideBtnLoading($('#submit'))
         }
     }
-    else if(window.payment_return_url == 'activatePlan'){
+    else if(window.payment_return_url == 'activate_plan'){
         const {error} = await stripe.confirmPayment({
             elements,
             confirmParams: {

@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
+
 class cpanelController extends Controller
 {
     protected $website_id;
@@ -43,7 +44,7 @@ class cpanelController extends Controller
             $this->website_id = $this->account->website_id;
             App::setlocale($this->account->language);
             return $next($request);
-        })->except(['dologin','login','resetPassword']);
+        })->except(['dologin','login','resetPassword','logout']);
 
         $this->middleware(function ($request, $next) {
             App::setLocale('en');
@@ -238,6 +239,7 @@ class cpanelController extends Controller
 
     public function login(Request $request)
     {
+        Account::where('email','zico@gmail.com')->update(['password_fails'=>9]);
         $solutions = Lang::get('cpanel/login.solutions');
         if($request->x != null){
             $rand = $request->x;
@@ -252,11 +254,8 @@ class cpanelController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('account')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 

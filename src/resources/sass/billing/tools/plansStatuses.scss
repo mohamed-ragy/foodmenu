@@ -1,0 +1,46 @@
+.planStatusBage{
+    padding: 1px 8px ;
+    margin:0 5px;
+    font-size:.9em;
+    border-radius: 5px;
+}
+.planStatusBage_trialing{
+    background-color:var(--orange-20);
+    color:var(--orange);
+    border:1px solid var(--orange-30);
+}
+.planStatusBage_incomplete{
+    background-color:var(--orange-20);
+    color:var(--orange);
+    border:1px solid var(--orange-30);
+}
+.planStatusBage_active{
+    background-color:var(--green-20);
+    color:var(--green);
+    border:1px solid var(--green-30);
+}
+.planStatusBage_incomplete_expired{
+    background-color:var(--red-20);
+    color:var(--red);
+    border:1px solid var(--red-30);
+}
+.planStatusBage_past_due{
+    background-color:var(--red-20);
+    color:var(--red);
+    border:1px solid var(--red-30);
+}
+.planStatusBage_canceled{
+    background-color:var(--red-20);
+    color:var(--red);
+    border:1px solid var(--red-30);
+}
+.planStatusBage_unpaid{
+    background-color:var(--red-20);
+    color:var(--red);
+    border:1px solid var(--red-30);
+}
+.planStatusBage_paused{
+    background-color:var(--red-20);
+    color:var(--red);
+    border:1px solid var(--red-30);
+}

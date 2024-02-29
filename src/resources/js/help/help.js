@@ -164,6 +164,7 @@ showPage = function(page,cat,article,section,push=true){
 
 }
 
+require('../page_loading.js')
 require('./tools/tooltip.js')
 require('./tools/mobileNav.js')
 require('./tools/header.js')
@@ -183,7 +184,12 @@ $(window).on('popstate',(e)=>{
 });
 
 
-showPage(routeName.split('.')[1],cat,article,section,false)
+
+setTimeout(()=>{
+    showPage(routeName.split('.')[1],cat,article,section,false)
+    hide_page_loading()
+},500)
+
 
 $('html,body').on('click','.openPage',function(e){
     e.stopImmediatePropagation();

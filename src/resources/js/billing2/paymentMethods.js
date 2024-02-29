@@ -5,7 +5,7 @@ drawPaymentMethods = function(){
         $('<table/>',{id:'paymentMethodsContainer',class:'paymentMethodsContainer'}),
         $('<div/>',{class:'mT20 row alnC jstfyS pointer openPage hvr-cBlack',page:'addPaymentMethod'}).append(
             $('<span/>',{class:'ico-plus mB3 fs08 mie-5'}),
-            $('<span/>',{text:texts.addPaymentMethod})
+            $('<span/>',{text:texts.add_payment_method})
         ),
 
     )
@@ -45,14 +45,6 @@ drawPaymentMethods = function(){
                 )
             )
         }
-        // else if(data.subscription_status == 'incomplete'){
-        //     $('#paymentMethods').append(
-        //         $('<div/>',{class:'row alnBL jstfyS cR bold mT20'}).append(
-        //             $('<div/>',{class:'ico-warning mie-5'}),
-        //             $('<div/>',{class:'',text:texts.pleaseAddPaymentMethod})
-        //         )
-        //     )
-        // }
     }
 }
 
@@ -103,8 +95,6 @@ $('html,body').on('click','.deletePaymentMethod',function(e){
     showPopup('deletePaymentConfirm')
 
 })
-
-
 $('html,body').on('click','#deletePaymentMethodConfirm',function(e){
     e.stopImmediatePropagation();
     showBtnLoading($('#deletePaymentMethodConfirm'))

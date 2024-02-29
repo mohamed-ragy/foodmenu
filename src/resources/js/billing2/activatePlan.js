@@ -1,9 +1,9 @@
-activatePlan = function(){
-    $('.popupPage[page="activatePlan"]').text('');
+activate_plan = function(){
+    $('.popupPage[page="activate_plan"]').text('');
     if(Object.keys(data.paymentMethods).length == 0){
         showPopup('paymentForm');
-        $('#paymentFormTxt').text(texts.activatePlan)
-        window.payment_return_url = 'activatePlan';
+        $('#paymentFormTxt').text(texts.activate_plan)
+        window.payment_return_url = 'activate_plan';
         $('#payment-form_loading').removeClass('none').addClass('vV')
         $('#payment-form').addClass('none')
         $.ajax({
@@ -11,10 +11,10 @@ activatePlan = function(){
             type:'post',
             data:{
                 _token:$('meta[name="csrf-token"]').attr('content'),
-                activatePlan:true,
+                activate_plan:true,
             },success:function(r){
                 drawPaymentGateWay(r.client_secret);
-                window.payment_return_url = 'activatePlan';
+                window.payment_return_url = 'activate_plan';
                 $('#payment-form').removeClass('none');
                 $('#payment-form_loading').addClass('none').removeClass('vV')
             }
@@ -22,59 +22,59 @@ activatePlan = function(){
     }else{
         for(const key in data.paymentMethods){
             let paymentMethod = data.paymentMethods[key];
-            $('.popupPage[page="activatePlan"]').append(
-                $('<div/>',{class:'mY10 row alnC jstfyC pointer activatePlanPayment',paymentMethod_id:paymentMethod.id}).append(
-                    $('<div/>',{class:'ico-check0 pointer activatePlanPaymentCheck'}),
+            $('.popupPage[page="activate_plan"]').append(
+                $('<div/>',{class:'mY10 row alnC jstfyC pointer activate_planPayment',paymentMethod_id:paymentMethod.id}).append(
+                    $('<div/>',{class:'ico-check0 pointer activate_planPaymentCheck'}),
                     $('<img/>',{src:`/storage/imgs/billing_cards/${paymentMethod.brand}.png`,class:'w30 pX20'}),
                     $('<div/>',{class:'pX20 ',text:'•••• '+paymentMethod.last4}),
                 )
             )
         }
-        $('.popupPage[page="activatePlan"]').append(
+        $('.popupPage[page="activate_plan"]').append(
             $('<div/>',{class:'row alnC jstfyE w100p mT40'}).append(
-                $('<button/>',{class:'btn activatePlanBtn'}).append(
-                    $('<div/>/',{class:'btnTxt',text:texts.activatePlan}),
+                $('<button/>',{class:'btn activate_planBtn'}).append(
+                    $('<div/>/',{class:'btnTxt',text:texts.activate_plan}),
                     $('<div/>',{class:'btnLoading'})
                 )
             ),
-            $('<div/>',{class:'activatePlanMsg'})
+            $('<div/>',{class:'activate_planMsg'})
         )
     }
 }
-$('html,body').on('click','.activatePlanPayment',function(e){
+$('html,body').on('click','.activate_planPayment',function(e){
     e.stopImmediatePropagation();
-    $('.activatePlanPaymentCheck').removeClass('ico-check1').addClass('ico-check0');
-    $(this).find('.activatePlanPaymentCheck').removeClass('ico-check0').addClass('ico-check1')
+    $('.activate_planPaymentCheck').removeClass('ico-check1').addClass('ico-check0');
+    $(this).find('.activate_planPaymentCheck').removeClass('ico-check0').addClass('ico-check1')
 })
-$('html,body').on('click','.activatePlanBtn',function(e){
+$('html,body').on('click','.activate_planBtn',function(e){
     e.stopImmediatePropagation();
     let paymentMethod_id = null;
-    $('.activatePlanPayment').each(function(){
-        if($(this).find('.activatePlanPaymentCheck').hasClass('ico-check1')){
+    $('.activate_planPayment').each(function(){
+        if($(this).find('.activate_planPaymentCheck').hasClass('ico-check1')){
             paymentMethod_id = $(this).attr('paymentMethod_id')
         }
     })
     if(paymentMethod_id == null){
-        $('.activatePlanMsg').addClass('cR').text(texts.pleaseSelectPayment);
+        $('.activate_planMsg').addClass('cR').text(texts.pleaseSelectPayment);
     }else{
-        $('.activatePlanMsg').removeClass('cR').text('');
-        showBtnLoading($('.activatePlanBtn'))
+        $('.activate_planMsg').removeClass('cR').text('');
+        showBtnLoading($('.activate_planBtn'))
         $.ajax({
             url:'/api',
             type:'post',
             data:{
                 _token:$('meta[name="csrf-token"]').attr('content'),
-                activatePlanAndPay:true,
+                activate_planAndPay:true,
                 paymentMethod_id:paymentMethod_id,
             },success:function(r){
-                // hideBtnLoading($('.activatePlanBtn'))
-                window.location.href = `/${lang}/payment/activatePlan?payment_intent_client_secret=${r.client_secret}`
+                // hideBtnLoading($('.activate_planBtn'))
+                window.location.href = `/${lang}/payment/activate_plan?payment_intent_client_secret=${r.client_secret}`
             }
 
         }).fail(function(r){
-            hideBtnLoading($('.activatePlanBtn'))
+            hideBtnLoading($('.activate_planBtn'))
             $('.popupClose').addClass('none')
-            $('.popupPage[page="activatePlan"]').text('').append(
+            $('.popupPage[page="activate_plan"]').text('').append(
                 $('<div/>',{
                     class:'cR',
                     text:r.responseJSON.message

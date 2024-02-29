@@ -1,0 +1,33 @@
+
+body{
+    font-family: 'trebuchetms','sans', sans-serif;
+    color:#464646;
+}
+table{
+    border-collapse: collapse;
+    border-spacing:50px;
+    border-width: 1px 1px 1px 1px;
+}
+tr{
+    display:table-row;
+    width:100%;
+    border:none;
+}
+td{
+    display:table-cell;
+    width:calc(50%);
+    border:none;
+    padding:3px 0px;
+    vertical-align: start;
+}
+
+@import '../style/style.scss';
+.taS{text-align: left;}
+.taE{text-align: right;}
+.pL10{padding-left:10px;}
+.pR10{padding-right:10px;}
+.pL20{padding-left:20px;}
+.pR20{padding-right:20px;}
+.pY10{padding-top:10px;padding-bottom:10px;}
+.brdrT1{border-top:.1px solid #dcdcdc}
+.brdrB1{border-bottom:.1px solid #dcdcdc}

@@ -11,10 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
 </head>
-<body>
+
+
+    @include('page_loading')
     @include('help.tools.mobileNav')
     @include('help.tools.header')
-    <nav class="">
+    <nav class="nav_hidden">
         @include('help.tools.nav')
     </nav>
     <main class="">

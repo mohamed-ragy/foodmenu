@@ -304,6 +304,8 @@ $('html,body').on('click','#account-newPhoneBtn-confirm',function(e){
             }else if(r.newPhoneStats == 4){
                 $('#account-newPhone_password').val('');
                 showAlert('error',r.msg,4000,true);
+            }else if(r.newPhoneStats == 5){
+                $('#logoutForm').trigger('submit');
             }
         }
     })

@@ -98,10 +98,6 @@ window.menu = [
     }
 ];
 process_data = function(){
-    if(settings.darkMode == true){
-        $('#colors').prop('href','css/cpanel/colorsDark.css?v=1');
-        $('#cpanelLoading_img').attr('src','./storage/logo/logo_dark.png')
-    }
     account.helpTips == null ? account.helpTips = [] : null;
     account.authorities = account.authorities.split('')
     website.guests = [];
