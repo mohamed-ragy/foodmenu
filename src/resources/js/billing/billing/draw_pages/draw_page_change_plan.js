@@ -1,5 +1,9 @@
 draw_page_change_plan = function(){
     $('.page').text('').append(
+        $('<div/>',{class:'pointer fs08 c_white-10 openPopup hvr_c_txt1 openPage',page:'home',}).append(
+            $('<span/>',{class:'ico-left fs09 pie-3'}),
+            $('<span/>',{class:'fs103',text:texts.back})
+        ),
         drawSwitchBtn('',texts.billedYearly,'billedYearly','checkboxlabel alnsC bgc_white-1 mT20 ','','',false,null),
         $('<div/>',{id:'plansCards',class:'mT20 row alnC jstfyC wrap w100p'}).append(
             $('<div/>',{class:'planCardContainer'})
@@ -8,9 +12,9 @@ draw_page_change_plan = function(){
     if(window.website.billingPeriod == 'year'){
         if(window.website.subscription_status == 'active' || window.website.subscription_status == 'past_due' || window.website.subscription_status == 'incomplete'){
             $('.planPerYearPrice_save').addClass('none')
+            $('#billedYearly').closest('.checkboxlabel').addClass('none');
         }
         $('#billedYearly').prop('checked',true);
-        $('#billedYearly').closest('.checkboxlabel').addClass('none');
     }else if(window.website.billingPeriod == 'month'){
         $('#billedYearly').prop('checked',false);
     }
@@ -84,7 +88,7 @@ drawPlansCards = function(){
 
                     $('<tr/>',{style:'border-bottom:1px solid black;'}).append(
                         $('<td/>',{class:'tnw td_borderB pY5 taS',text:texts.storage}),
-                        $('<td/>',{class:'tnw td_borderB pY5 taE bold',text:`${plan.storage}MB`}),
+                        $('<td/>',{class:'tnw td_borderB pY5 taE bold',text:`${plan.storage} MB`}),
                     ),
 
                     $('<tr/>',{style:'border-bottom:1px solid black;'}).append(
@@ -120,7 +124,6 @@ setUpdatePlans = function(){
             }else{
                 switch(window.website.plan){
                     case 'small':
-                        // $('.planCard-small').addClass('none');
                         $('.planCard-small').find('.updateSubscriptionBtn').attr('action',null).find('.btnTxt').text(texts.currentPlan).prop('disabled',true);
                         $('.planCard-standard').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
                         $('.planCard-large').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
@@ -128,7 +131,6 @@ setUpdatePlans = function(){
                     break;
                     case 'standard':
                         $('.planCard-small').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
-                        // $('.planCard-standard').addClass('none');
                         $('.planCard-standard').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                         $('.planCard-large').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
                         $('.planCard-premium').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
@@ -136,7 +138,6 @@ setUpdatePlans = function(){
                     case 'large':
                         $('.planCard-small').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
                         $('.planCard-standard').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
-                        // $('.planCard-large').addClass('none');
                         $('.planCard-large').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                         $('.planCard-premium').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
                     break;
@@ -144,7 +145,6 @@ setUpdatePlans = function(){
                         $('.planCard-small').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
                         $('.planCard-standard').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
                         $('.planCard-large').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
-                        // $('.planCard-premium').addClass('none');
                         $('.planCard-premium').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                     break;
                 }
@@ -152,7 +152,6 @@ setUpdatePlans = function(){
         }else if(window.website.billingPeriod == 'year'){
             switch(window.website.plan){
                 case 'small':
-                    // $('.planCard-small').addClass('none');
                     $('.planCard-small').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                     $('.planCard-standard').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
                     $('.planCard-large').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
@@ -160,7 +159,6 @@ setUpdatePlans = function(){
                 break;
                 case 'standard':
                     $('.planCard-small').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
-                    // $('.planCard-standard').addClass('none');
                     $('.planCard-standard').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                     $('.planCard-large').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
                     $('.planCard-premium').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
@@ -168,7 +166,6 @@ setUpdatePlans = function(){
                 case 'large':
                     $('.planCard-small').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
                     $('.planCard-standard').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
-                    // $('.planCard-large').addClass('none');
                     $('.planCard-large').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                     $('.planCard-premium').find('.updateSubscriptionBtn').attr('action','upgrade').find('.btnTxt').text(texts.upgrade);
                 break;
@@ -176,30 +173,149 @@ setUpdatePlans = function(){
                     $('.planCard-small').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
                     $('.planCard-standard').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
                     $('.planCard-large').find('.updateSubscriptionBtn').attr('action','downgrade').find('.btnTxt').text(texts.downgrade);
-                    // $('.planCard-premium').addClass('none');
                     $('.planCard-premium').find('.updateSubscriptionBtn').attr('action',null).text(texts.currentPlan).prop('disabled',true);
                 break;
             }
         }
 
     }
+
     if($('#billedYearly').prop('checked') == true){
+        $('.planPerMonthPrice').addClass('none');
+        $('.planPerYearPrice').removeClass('none');
         if(window.website.billingPeriod == 'year'){
             if(window.website.subscription_status == 'active' || window.website.subscription_status == 'past_due' || window.website.subscription_status == 'incomplete'){
                 $('.planPerYearPrice_save').addClass('none')
+            }else{
+                $('.planPerYearPrice_save').removeClass('none');
             }
-        }else{
-            $('.planPerYearPrice_save').removeClass('none');
         }
-        $('.planPerMonthPrice').addClass('none');
-        $('.planPerYearPrice').removeClass('none');
     }else if($('#billedYearly').prop('checked') == false){
         $('.planPerYearPrice_save').addClass('none')
-        $('.planPerMonthPrice').removeClass('none');
         $('.planPerYearPrice').addClass('none');
+        $('.planPerMonthPrice').removeClass('none');
     }
 }
-$('html,body').on('click','#billedYearly',function(e){
-    e.stopImmediatePropagation();
-    drawPlansCards();
-})
+draw_Change_plan_failed = function(key){
+    for(const key2 in key.errors){
+        switch(key2){
+            case 'subAccounts':
+                let subAccountsTxt = texts.downgradeFail_subaccount;
+                subAccountsTxt = subAccountsTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                subAccountsTxt = subAccountsTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                subAccountsTxt = subAccountsTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:subAccountsTxt})
+                )
+            break;
+            case 'categories':
+                let categoriesTxt = texts.downgradeFail_categories;
+                categoriesTxt = categoriesTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                categoriesTxt = categoriesTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                categoriesTxt = categoriesTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:categoriesTxt})
+                )
+            break;
+            case 'products':
+                let productsTxt = texts.downgradeFail_products;
+                productsTxt = productsTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                productsTxt = productsTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                productsTxt = productsTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:productsTxt})
+                )
+            break;
+            case 'productOptions':
+                let productOptionsTxt;
+                if(key.errors[key2].productOptions_products <= 1){
+                    productOptionsTxt = texts.downgradeFail_productOptions2;
+                }else{
+                    productOptionsTxt = texts.downgradeFail_productOptions1;
+                }
+                productOptionsTxt = productOptionsTxt.replace(':created:',`${key.errors[key2].productOptions_products}`)
+                productOptionsTxt = productOptionsTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                productOptionsTxt = productOptionsTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:productOptionsTxt})
+                )
+            break;
+            case 'specialDomainName':
+                let specialDomainNameTxt = texts.downgradeFail_specialDomainName;
+                specialDomainNameTxt = specialDomainNameTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:specialDomainNameTxt})
+                )
+            break;
+            case 'storage':
+                let storageTxt = texts.downgradeFail_storage;
+                storageTxt = storageTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                storageTxt = storageTxt.replace(':max:',`${key.errors[key2].plan_request.toFixed(2)}`)
+                storageTxt = storageTxt.replace(':created:',`${key.errors[key2].current.toFixed(2)}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:storageTxt})
+                )
+            break;
+            case 'deliveryAccounts':
+                let deliveryAccountsTxt = texts.downgradeFail_deliveryAccounts;
+                deliveryAccountsTxt = deliveryAccountsTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                deliveryAccountsTxt = deliveryAccountsTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                deliveryAccountsTxt = deliveryAccountsTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:deliveryAccountsTxt})
+                )
+            break;
+            case 'websiteLangs':
+                let websiteLangsTxt = texts.downgradeFail_websiteLangs;
+                websiteLangsTxt = websiteLangsTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                websiteLangsTxt = websiteLangsTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                websiteLangsTxt = websiteLangsTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:websiteLangsTxt})
+                )
+            break;
+            case 'promocodes':
+                let promocodesTxt = texts.downgradeFail_promocodes;
+                promocodesTxt = promocodesTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                promocodesTxt = promocodesTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                promocodesTxt = promocodesTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:promocodesTxt})
+                )
+            break;
+        }
+    }
+}
+draw_calc_update_subscription = function(planName,billedYearly,action){
+    $.ajax({
+        url:'/api',
+        type:'post',
+        data:{
+            _token:$('meta[name="csrf-token"]').attr('content'),
+            calcUpdateSubscription:true,
+            plan:planName,
+            billedYearly:billedYearly,
+        },success:function(r){
+            if(r.actionValid == 1){
+                r.action = action;
+                r.planName = planName;
+                showPopup('calc_update_subscription',r)
+            }else if(r.actionValid == 0){
+                showPopup('change_plan_failed',{
+                    errors:r.errors,
+                    currentPlan:r.currentPlan,
+                    plan_request:r.plan_request
+
+                });
+            }else if(r.actionValid == 2){
+                $('.popupBody').text('').append(
+                    $('<div/>',{text:texts.updateSubscriptionLastInvoiceNotPaid}),
+                    $('<div/>',{class:'row alnC jstfyE mT20'}).append(
+                        $('<button/>',{class:'btn btn-cancel popupClose',text:texts.gotit})
+                    )
+                )
+            }
+        }
+    })
+}

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $data['subject'] }}</title>
+    <title>{{ $data['content']['subject'] }}</title>
     <style>
         *{
             --bg:rgb(234, 239, 239);
@@ -67,17 +67,30 @@
         .p20{padding:20px}
         .taC{text-align: center}
         .bold{font-weight: bold}
+        .btn{
+            text-decoration:none;
+            padding:15px 20px;
+            background-color:rgb(16, 144, 146) !important;
+            border-radius:5px;
+            color:rgb(250, 250,250) !important;
+            cursor:pointer;
+            font-size:1.2em;
+        }
+        .btn:hover{
+            text-decoration:none;
+            background-color:rgba(16, 144, 146, 0.8) !important;
+            color:rgb(250, 250, 250) !important;
+        }
     </style>
 </head>
 <body class="bc_bg c_txt">
     <center class="wrapper bc_bg c_txt">
-        <div class="mX10" style="color:#109092;font-size:1.7em;margin-bottom:10px;font-weight:bold;text-align:start;max-width:600px;">Foodmenu</div>
 
+        <div class="mX10" style="color:#109092;font-size:2em;margin-bottom:10px;font-weight:bold;text-align:start;max-width:600px;text-align:center;">Foodmenu</div>
         <table class="main bc_green c_txt2" cellpadding="0" border="0" cellspacing="0">
             <tr>
                 <td class="p20 taC">
-                    <img src="{{ env('APP_URL') }}/storage/imgs/mails/automated/{{ $data['icon'] }}" width="60" height="60" style="margin:10px;box-shadow:var(--card-shdw)" alt="" title="">
-                    <div class="bold c_txt2" style="font-size: 1.4em;">{!! $data['subject'] !!}</div>
+                    {!! $data['content']['header'] !!}
                 </td>
 
             </tr>
@@ -86,7 +99,10 @@
         <table class="main bc_white c_txt" cellpadding="0" border="0" cellspacing="0">
             <tr>
                 <td class="p10" style="border-bottom: 4px solid rgb(16, 144, 146)">
-                    {!! $data['content'] !!}
+                    <div style="font-size:2.3em;margin:20px;" class=" c_txt">{!!  str_replace(':name:',explode(' ',$data['account_name'])[0],trans('mails/automated.hi')) !!}</div>
+                    <div style="margin:10px 20px;font-size:1.2em;">
+                        {!! $data['content']['body'] !!}
+                    </div>
                 </td>
 
             </tr>

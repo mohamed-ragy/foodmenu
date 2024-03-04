@@ -24,6 +24,10 @@ class automatedEmails extends Mailable
     public $data;
     public function __construct($data)
     {
+        $data['content'] = str_replace(':CPANEL_URL:',env('CPANEL_URL'),$data['content']);
+        $data['content'] = str_replace(':APP_URL:',env('APP_URL'),$data['content']);
+        $data['content'] = str_replace(':lang:',$data['lang'],$data['content']);
+        
         $this->data = $data;
 
     }
@@ -37,7 +41,8 @@ class automatedEmails extends Mailable
     {
         return new Envelope(
             from: new Address('noreply@food-menu.net', 'Foodmenu'),
-            subject: $this->data['subject'],
+            subject: $this->data['content']['subject'],
+            to: $this->data['account_email']
         );
     }
 

@@ -30,7 +30,7 @@ return [
     'newPhoneUnique' => 'This phone number is already in use on another existing account.',
     'newPhoneCreated' => 'Your phone number has been added to your account successfully.',
     'phoneVerified' => 'Your phone number has been verified.',
-    'phoneVirifyCodeResent' => 'The phone number verification code has been sent.',
+    'phoneVirifyCodeResent' => 'The verification code has been sent to your phone number .',
     'changePhoneEmailChanged3daysBefore' => 'Failed to change your phone number. Please try again later.',
     'phoneChangeMaxNum' => "You have just changed your phone number. Please try again later.",
     'newPhoneChanged' => 'Your phone number has been changed successfully. A Verification code has been sent to your new phone number via SMS.',

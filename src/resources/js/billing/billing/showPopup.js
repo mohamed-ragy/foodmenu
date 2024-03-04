@@ -7,9 +7,145 @@ showPopup = function(popup,key){
     switch(popup){
         case 'login':
             $('.popupClose').addClass('none');
-
         break;
         case 'refund':
+            $('.popupBody').text('').append(
+                $('<div/>',{class:'',html:texts.refundConfirmMsg.replace(':balance:',(parseFloat(window.website.balance/100).toFixed(2)))}),
+                $('<div/>',{class:'row alnC jstfyE w100p mT40'}).append(
+                    $('<button/>',{class:'btn btn-cancel mie-10 popupClose',text:texts.cancel}),
+                    $('<button/>',{class:'btn',id:'refundConfirm'}).append(
+                        $('<div/>',{class:'btnTxt',text:texts.refund}),
+                        $('<div/>',{class:'btnLoading'})
+                    )
+                )
+            )
+        break;
+        case 'calc_update_subscription':
+            key.action == 'upgrade' ? $('#popupHeadTitle').text(texts.upgrade) :
+            key.action == 'downgrade' ? $('#popupHeadTitle').text(texts.downgrade) :
+            key.action == 'selectPlan' ? $('#popupHeadTitle').text(texts.calc_update_subscription) : null;
+            let btnTxt = texts.confirm;
+            key.action == 'upgrade' ?  btnTxt = texts.upgrade :
+            key.action == 'downgrade' ?  btnTxt = texts.downgrade :
+            key.action == 'selectPlan' ?  btnTxt = texts.confirm : null;
+
+            if(key.invoice.ending_balance < 0){key.invoice.ending_balance = key.invoice.ending_balance * -1}
+            if(key.invoice.starting_balance < 0){key.invoice.starting_balance = key.invoice.starting_balance * -1}
+            let updatePlanTxt = texts.updatePlanTxt1;
+            if(window.website.subscription_status == 'trialing'){updatePlanTxt = texts.updatePlanTxt2}
+            $('.popupBody').text('').append(
+                $('<div/>',{class:'mxw700',text:updatePlanTxt}),
+                $('<table/>',{class:'upgradeInvoice fs08 w100p mxw500 mXa mT20 br5'}).append(
+                    $('<tr/>',{class:'w100p'}).append(
+                        $('<td/>',{class:'bold taS pie-10 pY3 brdrB2',text:texts.invoice.description}),
+                        $('<td/>',{class:'bold taE pis-10 pY3 brdrB2',text:texts.invoice.amount}),
+                    )
+                ),
+                $('<div/>',{class:'row alnC jstfyE w100p mT40'}).append(
+                    $('<button/>',{class:'btn btn-cancel popupClose mie-10',text:texts.cancel}),
+                    $('<button/>',{class:'btn',id:'updateSubscriptionBtnConfirm',planName:key.planName}).append(
+                        $('<div/>',{class:'btnTxt',text:btnTxt}),
+                        $('<div/>',{class:'btnLoading'})
+                    ),
+                ),
+                $('<div/>',{class:'updateSubscriptionMsg w100p taE'})
+            )
+            for(const key2 in key.invoice.lines.data){
+                let item = key.invoice.lines.data[key2];
+                $('.upgradeInvoice').append(
+                    $('<tr/>',{class:'w100p '}).append(
+                        $('<td/>',{class:'taS pie-10 pY3',text:item.description}),
+                        $('<td/>',{class:'taE pis-10 pY3',text:'$'+(item.amount/100).toFixed(2)}),
+                    )
+                )
+            }
+            $('.upgradeInvoice').append(
+                $('<tr/>',{class:'w100p '}).append(
+                    $('<td/>',{class:'taS pY3 bold',text:texts.invoice.total}),
+                    $('<td/>',{class:'taE pY3 bold',text:'$'+(key.invoice.total/100).toFixed(2)}),
+                )
+            )
+            $('.upgradeInvoice').append(
+                $('<tr/>',{class:'w100p'}).append(
+                    $('<td/>',{class:'taS pie-10 ',text:''}),
+                    $('<td/>',{class:'taE pis-10 ',text:''}).append(
+                        $('<div/>',{class:'w100p row alnS jstfySB brdrT1 mT10'}).append(
+                            $('<div/>',{text:texts.invoice.amountDue,class:'bold tnw mie-5'}),
+                            $('<div/>',{text:'$'+(key.invoice.amount_due/100).toFixed(2),class:'bold mis-5'}),
+                        )
+                    ),
+                ),
+                $('<tr/>',{class:'w100p'}).append(
+                    $('<td/>',{class:'taS pie-10 ',text:''}),
+                    $('<td/>',{class:'taE pis-10 ',text:''}).append(
+                        $('<div/>',{class:'w100p row alnS jstfySB'}).append(
+                            $('<div/>',{text:texts.invoice.startingBalance,class:'bold tnw mie-5'}),
+                            $('<div/>',{text:'$'+(key.invoice.starting_balance/100).toFixed(2),class:'bold mis-5'}),
+                        )
+                    ),
+                ),
+                $('<tr/>',{class:'w100p'}).append(
+                    $('<td/>',{class:'taS pie-10 ',text:''}),
+                    $('<td/>',{class:'taE pis-10 ',text:''}).append(
+                        $('<div/>',{class:'w100p row alnS jstfySB'}).append(
+                            $('<div/>',{text:texts.invoice.endingBalance,class:'bold tnw mie-5'}),
+                            $('<div/>',{text:'$'+(key.invoice.ending_balance/100).toFixed(2),class:'bold mis-5'}),
+                        )
+                    ),
+                ),
+            )
+        break;
+        case 'update_subscription':
+
+            if(Object.keys(window.website.paymentMethods).length < 1){
+                $('.popupBody').text('').append(
+                    $('<div/>',{text:texts.cantUpdatePlanNoPayment}),
+                    $('<div/>',{class:'row alnC jstfyE w100p mT40'}).append(
+                        $('<button/>',{class:'btn btn-cancel popupClose mie-10',text:texts.gotit}),
+                        $('<button/>',{class:'btn openPopup',popup:'add_payment_method',text:texts.add_payment_method})
+                    )
+                )
+                $('#popupHeadTitle').text(texts.error)
+            }else{
+                key.action == 'upgrade' ? $('#popupHeadTitle').text(texts.upgradePlan) :
+                key.action == 'downgrade' ? $('#popupHeadTitle').text(texts.downgradePlan) :
+                key.action == 'selectPlan' ? $('#popupHeadTitle').text(texts.selectPlan) : null;
+                let btnTxt = texts.changePlan;
+                key.action == 'upgrade' ? btnTxt = texts.upgrade :
+                key.action == 'downgrade' ? btnTxt = texts.downgrade :
+                key.action== 'selectPlan' ? btnTxt = texts.selectPlan : null;
+                
+                $('.popupBody').text('').append(
+                    $('<div/>',{class:'loading_L vV'})
+                )
+
+                draw_calc_update_subscription(key.planName,key.billedYearly,key.action)
+            }
+        break;
+        case 'plan_changed':
+            $('.popupBody').text('').append(
+                $('<div/>',{class:'msgBox_green'}).append(
+                    $('<div/>',{class:'ico-success cG fs205 mB20'}),
+                    $('<div/>',{text:texts.planChangedMsg})
+                ),
+                $('<div/>',{class:'row alnC jstfyE'}).append(
+                    $('<button/>',{class:'btn openPopup',popup:'activate_plan',text:texts.activate_plan}),
+                )
+            )
+        break;
+        case 'change_plan_failed':
+            let downgradeFail = texts.downgradeFail1;
+            if(Object.keys(key.errors).length > 1 ){
+                downgradeFail = texts.downgradeFail2;
+            }
+            $('.popupBody').text('').append(
+                $('<div/>',{class:'fs101',html:`${downgradeFail}`}),
+                $('<ul/>',{class:'mxw700 fs09',id:'downgradeReasonsList'}),
+                $('<div/>',{class:'row alnC jstfyE mT20'}).append(
+                    $('<button/>',{class:'btn btn-cancel popupClose',text:texts.gotit})
+                )
+            )
+            draw_Change_plan_failed(key)
 
         break;
         case 'cancel_subscription':

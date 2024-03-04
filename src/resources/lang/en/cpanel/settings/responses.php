@@ -1,10 +1,10 @@
 <?php
     return [
         ///need to be moved to home
-        'switchedOn' => 'Your website has been successfully connected.',
-        'switchedOff' => 'Your website has been disconnected.',
-        'switchOnFail' => 'Error! Your website has not been reconnected. Please try again or contact our technical support team.',
-        'switchedOffFail' => 'Error! Your website has not been disconnected. Please try again or contact our technical support team.',
+        'switchedOn' => 'Your website has been switched on successfully.',
+        'switchedOff' => 'Your website has been switched off successfully.',
+        'switchOnFail' => 'Error! Your website has not been switched on. Please try again or contact our technical support team.',
+        'switchedOffFail' => 'Error! Your website has not been switched off. Please try again or contact our technical support team.',
         ///need to be moved to home
         'dataDeleted' => 'The data has been deleted successfully.',
         'wrongPassword' => 'The password you have entered is incorrect.',
@@ -40,7 +40,7 @@
         'privacyPolicySaveFaild' => 'Unknown error occurred! Failed to save the website privacy policy .',
         'restaurantEmailChanged' => 'Your restaurant email address has been saved successfully.',
         'restaurantEmailChangeFail' => 'Unknown error occurred! Failed to save the restaurant email address.',
-        'viewSettingsSaved' => 'The view seetings have been saved successfully.',
+        'viewSettingsSaved' => 'Your view settings have been saved successfully.',
         'viewSettingsSaveFail' => 'Unknown error occurred! Failed to save View Settings.',
         'guideModeSaved' => 'Your guide mode settings have been saved successfully.',
         'guideModeSaveFail' => 'Unknown error occurred! Failed to save the guide mode settings.',
@@ -50,7 +50,7 @@
         'alertNotificationsSaveFail' => 'Unknown error occurred! Failed to save the alert notifications settings.',
         'cpanelLangFail' => 'Unknown error occurred! Failed to change the control panel language.',
 
-        'planLangLimitError' => 'Failed to save! You have reached the number of languages allowed in your subscription plan.',
+        'planLangLimitError' => 'Failed to save! You have reached the maximum number of languages allowed in your subscription plan. You can install more languages when you upgrade your plan.',
         'failedToAddLang' => 'Unknown error occurred! Failed to install the new language.',
         'newLangAdded' => 'The new language has been installed successfully.',
         'setLangDefaultSaved' => 'The language has been set as the default successfully.',

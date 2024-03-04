@@ -422,20 +422,32 @@ class billingController extends Controller
             $subscriptionStatus = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_status')->first();
             return response(['subscriptionStatus'=>$subscriptionStatus]);
         }
-        ////
-        else if($request->has('payInvoice')){
-            $invoice = invoice::where(['id'=>$request->payInvoice,'website_id'=>Auth::guard('account')->user()->website_id])->first();
-            if($invoice == null){return;}
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            $stripeInvoice = $stripe->invoices->retrieve(
-                    $invoice->invoice_id,
-                    []
-            );
-            $paymentInt = $stripe->paymentIntents->retrieve(
-                $stripeInvoice->payment_intent,
-                []
-            );
-            return response(['client_secret'=> $paymentInt->client_secret]);
+        else if($request->has('changePlan')){
+            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','billingPeriod','plan','specialDomainName','languages'])->first();
+            $plan_request = foodmenuFunctions::plans()[$request->changePlan];
+            $checkDowngrade = self::checkDowngrade($website,$plan_request,$request->changePlan);
+            if($website->subscription_status == 'incomplete_expired'
+                || $website->subscription_status == 'canceled'
+                || $website->subscription_status == 'unpaid'
+                || $website->subscription_status == 'paused'
+            ){
+                if($checkDowngrade['downGradeValid']){
+                    if($request->billedYearly == 1){$billingPeriod = 'year';}else{$billingPeriod = 'month';}
+                    if($plan_request['name']){
+                        website::where('id',Auth::guard('account')->user()->website_id)
+                            ->update([
+                                'plan' => $plan_request['name'],
+                                'billingPeriod' => $billingPeriod,
+                            ]);
+                    }
+                    if($website->billingPeriod == 'year'){$plan_price = $plan_request['yearlyCost'];}
+                    else if($website->billingPeriod == 'month'){$plan_price = $plan_request['monthlyCost'];}
+                    return response(['changePlanState' => 1,'plan_name' => $plan_request['name'],'plan_price' => $plan_price]);
+                }else{
+                    return response(['changePlanState' => 0,'errors' => $checkDowngrade['errors'],'currentPlan'=>$website->plan,'plan_request'=>$plan_request['name']]);
+                }
+
+            }
         }
         else if($request->has('calcUpdateSubscription')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
@@ -539,34 +551,7 @@ class billingController extends Controller
             }
 
         }
-        else if($request->has('changePlan')){
-            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','billingPeriod','plan','specialDomainName','languages'])->first();
-            $plan_request = foodmenuFunctions::plans()[$request->changePlan];
-            $checkDowngrade = self::checkDowngrade($website,$plan_request,$request->changePlan);
-            if($website->subscription_status == 'incomplete_expired'
-                || $website->subscription_status == 'canceled'
-                || $website->subscription_status == 'unpaid'
-                || $website->subscription_status == 'paused'
-            ){
-                if($checkDowngrade['downGradeValid']){
-                    $plan = foodmenuFunctions::plans()[$request->changePlan];
-                    if($request->billedYearly == 1){$billingPeriod = 'year';}else{$billingPeriod = 'month';}
-                    if($plan['name']){
-                        website::where('id',Auth::guard('account')->user()->website_id)
-                            ->update([
-                                'plan' => $plan['name'],
-                                'billingPeriod' => $billingPeriod,
-                            ]);
-                    }
-                    if($website->billingPeriod == 'year'){$currentPlanPrice = $plan_request['yearlyCost'];}
-                    else if($website->billingPeriod == 'month'){$currentPlanPrice = $plan_request['monthlyCost'];}
-                    return response(['changePlanState' => 1,'plan_request' => $plan_request['name'],'currentPlanPrice' => $currentPlanPrice]);
-                }else{
-                    return response(['changePlanState' => 0,'errors' => $checkDowngrade['errors'],'currentPlan'=>$website->plan,'plan_request'=>$plan_request['name']]);
-                }
-
-            }
-        }
+        
         else if($request->has('refund')){
             $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id'])->first();
@@ -577,6 +562,7 @@ class billingController extends Controller
             // return response($invoices);
             // $refundChargeList = [];
             // $refundAvailable = 0;
+            
             $refunds = [];
             $customer_balance = ($customer->balance * -1);
             foreach($invoices->data as $invoice){
@@ -606,5 +592,23 @@ class billingController extends Controller
             website::where('id',Auth::guard('account')->user()->website_id)->update(['balance'=>$customer_balance]);
             return response(['refunds' => $refunds]);
         }
+        ////
+        else if($request->has('payInvoice')){
+            $invoice = invoice::where(['id'=>$request->payInvoice,'website_id'=>Auth::guard('account')->user()->website_id])->first();
+            if($invoice == null){return;}
+            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripeInvoice = $stripe->invoices->retrieve(
+                    $invoice->invoice_id,
+                    []
+            );
+            $paymentInt = $stripe->paymentIntents->retrieve(
+                $stripeInvoice->payment_intent,
+                []
+            );
+            return response(['client_secret'=> $paymentInt->client_secret]);
+        }
+
+
+
     }
 }

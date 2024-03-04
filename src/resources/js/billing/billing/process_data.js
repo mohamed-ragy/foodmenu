@@ -16,5 +16,5 @@ process_data = function(r){
     
     hide_page_loading();
     drawBalance();
-    showPage('change_plan');
+    showPage('home');
 }

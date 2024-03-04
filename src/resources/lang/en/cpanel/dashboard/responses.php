@@ -2,7 +2,7 @@
 return [
     'expenseNameRequired' => 'Please enter an expense name.',
     'expensesNameMax' => "The expense name can't be more than 20 characters.",
-    'expenseAmountRequired' => 'Please enter the name of the expense.',
+    'expenseAmountRequired' => 'Please enter the expense amount.',
     'expenseAmountMax' => "The expense amount can't be more than 20 characters.",
     'addExpensesadded' => 'The expense has been added successfully.',
     'addExpensesFail' => 'Unknown error occurred! Failed to add the expense.',

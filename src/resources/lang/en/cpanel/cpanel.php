@@ -78,7 +78,7 @@ return [
         'product' => 'Product',
         'edit_product' => 'Edit product',
         'create_product' => 'Create new product',
-        'manage_product_options' => 'Manage product variants',
+        'manage_product_variants' => 'Manage product variants',
         'review' => 'Product review',
 
         'create_delivery_account' => 'Create a delivery account',

@@ -22,16 +22,16 @@ drawPage_images = function(){
                     $('<div/>',{class:'btnLoading'})
                 )
             ),
-            $('<div/>',{class:'w100p row wrap alnSH jstfyC mT40',id:'imgs_imgsContainer'}),
+            $('<div/>',{class:'w100p row wrap alnSH jstfyC mT40',id:'imgs_imgsContainer'}).append(
+                $('<div/>',{id:'imgs_noImgsMsg',class:'m10 none',text:texts.design.noUploads})
+            ),
             drawLoadMore('imgs_loadMore','none')
         )
     )
     resetStorageBar();
     getImgs().then(function(){
         if(website.imgs.length == 0){
-            $('#imgs_imgsContainer').append(
-                $('<div/>',{class:'m10',text:texts.design.noUploads})
-            )
+            $('#imgs_noImgsMsg').removeClass('none')
         }
         for(const key in website.imgs){
             drawImg(website.imgs[key])

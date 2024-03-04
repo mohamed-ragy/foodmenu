@@ -33,6 +33,7 @@ return [
     'noProducts' => 'You haven\'t created any products yet.',
     'noUnsortedProduct' => 'There aren’t any uncategorized products.',
     'noProductsInCategory' => 'You haven\'t added any products to this category yet.',
+    'reviewsR' => 'Reviews',
     'reviews' => 'reviews',
     'review' => 'review',
     'lastUpdate' => 'Last update',

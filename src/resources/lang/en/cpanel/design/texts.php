@@ -4,7 +4,7 @@ return [
     'mb' => 'MB',
     'uploadNew' => 'Upload new image',
     'imgTooBig' => 'The image you tried to upload is larger than 10 MBs.',
-    'imgWrongType' => 'The image file type you selected is not supported, we only accept (png, jpg, jpeg, gif, webp, and bmp).',
+    'imgWrongType' => 'The image file type you selected is not supported, we only support (png, jpg, jpeg, gif, webp, and bmp).',
     'noUploads' => "You haven’t uploaded any images yet.",
     'imgName' => 'Name',
     'imgType' => 'Type',

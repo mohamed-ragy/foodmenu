@@ -70,7 +70,8 @@ class stripeController extends Controller
                     invoice_item::insert($invoiceItems);
                 }
 
-        }else if($event->type == 'invoice.paid'){
+        }
+        else if($event->type == 'invoice.paid'){
             $invoice = $event->data->object;
             if($invoice->starting_balance == null){$invoice->starting_balance = 0;}
             if($invoice->ending_balance == null){$invoice->ending_balance = 0;}

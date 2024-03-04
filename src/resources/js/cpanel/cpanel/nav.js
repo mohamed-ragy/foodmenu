@@ -6,7 +6,7 @@ hideList = function(){
 
 
 $(document).on('click',function(e){
-    e.stopImmediatePropagation();
+    // e.stopImmediatePropagation();
     if(
     $('#guideHintsList').is(':hover') ||
     $('#menuOrdersList').is(':hover') ||

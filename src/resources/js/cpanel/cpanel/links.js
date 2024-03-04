@@ -219,7 +219,6 @@ $('html,body').on('click','.popupPage',function(e){
 
 })
 $(window).on('popstate',(e)=>{
-    console.log(window.history.state.previewImg)
     if(typeof(window.history.state.previewImg) !== 'undefined'){
         window.previewImg.previewImg = history.state.previewImg;
         setImgPreview(history.state.previewImg)

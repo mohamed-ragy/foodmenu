@@ -46,7 +46,7 @@
             'title' => 'Your restaurant\'s time zone',
             'content' => <<<string
             <p>- Here, you can set the time format and time zone for both your website and Control Panel, based on your restaurant's region.</p>
-            <p>- By switching on the <b>Enable 12 hours</b> button, your website and Control Panel's systems will use the 12-hour time format. If you switch off the button, the system will be set to the 24-hour time format.</p>
+            <p>- By switching on the <b>Enable 12 hours clock format</b> button, your website and Control Panel's systems will use the 12-hour time format. If you switch off the button, the system will be set to the 24-hour time format.</p>
             <p>- You can select the time zone in which your website system will operate from the input list provided. Upon selecting the time zone, the standard time for the region you chose will be displayed above the input list.</p>
             string,
         ],

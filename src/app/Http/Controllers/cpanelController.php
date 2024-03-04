@@ -40,16 +40,22 @@ class cpanelController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+            if(!Auth::guard('account')->check()){
+                return redirect()->route('account.login',$request->all());
+            }
             $this->account = Auth::guard('account')->user();
             $this->website_id = $this->account->website_id;
             App::setlocale($this->account->language);
             return $next($request);
-        })->except(['dologin','login','resetPassword','logout']);
+        })->except(['dologin','login','resetPassword']);
 
         $this->middleware(function ($request, $next) {
+            if(Auth::guard('account')->check()){
+                return redirect()->route('cpanel');
+            }
             App::setLocale('en');
             return $next($request);
-        })->only(['login','resetPassword']);
+        })->only(['login','resetPassword','dologin']);
 
     }
 

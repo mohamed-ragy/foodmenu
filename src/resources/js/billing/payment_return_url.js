@@ -1,6 +1,5 @@
 window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
-const { post } = require("jquery");
 loadTouchEvents($);
 const stripe = Stripe('pk_test_51NV5sdIYxD8tIsOHZDYt4SyJYDtJtwOiVy9IFMJLSHXvo8DbuqAFTqP3PfCsfipnAsJnnhgseCQq6DqNRm08ri7L006J1AMtQz');
 let params = new URLSearchParams(window.location.search)
@@ -128,12 +127,11 @@ if(paymentType == 'add_payment_method'){
 
     checkSubscriptionStatus();
 }
-else if(paymentType == 'updateSubscription'){
-    $('.loading').addClass('none');
-    $('.backToBillingCenter').removeClass('none');
-    $('#message').addClass(' fs103 row alnS jstfyC w100p').text('').append(
-        $('<span/>',{class:'ico-success cG fs1 mie-5 mT5'}),
-        $('<span/>',{text:texts.updateSubscription})
+else if(paymentType == 'update_subscription'){
+    hide_page_loading();
+    $('#message').addClass('msgBox_green').append(
+        $('<div/>',{class:'ico-success cG fs205 mB20'}),
+        $('<div/>',{text:texts.updateSubscription})
     )
 }
 

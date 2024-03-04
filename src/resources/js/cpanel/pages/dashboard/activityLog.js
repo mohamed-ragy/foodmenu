@@ -183,6 +183,7 @@ drawActivityLog = function(activity,is_live){
     activity_body = activity_body.replace(':day_attr:',activity.day)
     activity_body = activity_body.replace(':service_attr:',activity.service)
     activity_body = activity_body.replace(':service_name_workingHours:',texts.dashboard[`service_name_workingHours_${activity.service}`])
+    activity_body = activity_body.replace(':service_name:',texts.dashboard[`service_name_${activity.service}`])
 
     activity.code.split('.')[1] == 'promocode' && lastActivity.code.split('.')[1] == 'promocode' && activity.promocode_id == lastActivity.promocode_id ? activity_group = true : null;
     activity.code.split('.')[1] == 'restaurant_info' && lastActivity.code.split('.')[1] == 'restaurant_info'? activity_group = true : null;
@@ -463,6 +464,7 @@ seeChanges_activityLog = function(activity){
     activityTxt = activityTxt.replace(':day_attr:',activity.day)
     activityTxt = activityTxt.replace(':service_attr:',activity.service)
     activityTxt = activityTxt.replace(':service_name_workingHours:',texts.dashboard[`service_name_workingHours_${activity.service}`])
+    activityTxt = activityTxt.replace(':service_name:',texts.dashboard[`service_name_${activity.service}`])
 
     switch(activity.code){
         case 'category.edited':

@@ -16,7 +16,7 @@ $('html,body').on('click','.loadMoreInvoices',function(e){
                 drawInvoice(r.invoices[key]);
                 window.website.lastInvoices.push(r.invoices[key]);
             }
-            if(window.website.lastInvoices.length < r.invoices_count){
+            if(window.website.lastInvoices.length < window.website.invoices_count){
                 $('.loadMoreInvoices').removeClass('none')
             }else{
                 $('.loadMoreInvoices').addClass('none')

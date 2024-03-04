@@ -18,6 +18,7 @@ setPhoneNumberPage = function(){
                 $('<input/>',{class:'accountPhoneSelectPhoneNumber',id:'account-phoneNumber',type:'number'}),
                 $('<div/>',{class:'accountPhoneSelectKeysListContainer none'})
             ),
+            drawInputText('','ico-phone_number','',texts.security.password,'account-phoneNumber_password','password',texts.security.password,200,'password','','',false,''),
             $('<div/>',{class:'btnContainer'}).append(
                 $('<button/>',{class:'btn',id:'account-createPhoneBtn'}).append(
                     $('<div/>',{class:'btnTxt',text:texts.security.addPhone}),
@@ -157,13 +158,14 @@ $('html,body').on('click','#account-createPhoneBtn',function(e){
     if($('#account-phoneCountryCode').val() == '' || $('#account-phoneNumber').val() == ''){return;}
     showBtnLoading($('#account-createPhoneBtn'))
     let phoneNumber = `+${$('#account-phoneCountryCode').val()}${$('#account-phoneNumber').val()}`;
-
+    let password = $('#account-phoneNumber_password').val();
     $.ajax({
         url:'security',
         type:'put',
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             createPhone:phoneNumber,
+            password:password,
         },success:function(r){
             hideBtnLoading($('#account-createPhoneBtn'))
             if (r.createPhoneStatus == 0){
@@ -176,6 +178,12 @@ $('html,body').on('click','#account-createPhoneBtn',function(e){
                 account.phone_verified_at = null;
                 account.phone_verification_code_sent_at = r.now;
                 setPhoneNumberPage();
+            }else if(r.createPhoneStatus == 3){
+                inputTextError($('#account-phoneNumber_password'))
+                $('#account-phoneNumber_password').val('');
+                showAlert('error',r.msg,4000,true);
+            }else if(r.createPhoneStatus == 5){
+                $('#logoutForm').trigger('submit');
             }
         }
     })

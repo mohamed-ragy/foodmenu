@@ -1078,9 +1078,9 @@ class settingsController extends Controller
                 ],[
                     'lang' => $request->setLangDefault,
                 ]);
-                return response(['setLangDefaultStats'=>1,'msg'=>Lang::get('cpanel/settings/responses.setLangDefaultSaved')]);
+                return response(['setLangDefaultStats'=>1,'msg'=> Lang::get('cpanel/settings/responses.setLangDefaultSaved')]);
             }else{
-                return response(['setLangDefaultStats'=>0,'msg'=>Lang::get('cpanel/settings/responses.setLangDefaultFail')]);
+                return response(['setLangDefaultStats'=>0,'msg'=> Lang::get('cpanel/settings/responses.setLangDefaultFail')]);
             }
         }
         else if($request->has('setReceiptLang')){

@@ -1,6 +1,6 @@
 
 $('html,body').on('click','.popupContainer',function(e){
-    e.stopImmediatePropagation();
+    // e.stopImmediatePropagation();
     if(
         $('.popupCard:hover').length > 0
         || $('.popupCard').attr('popup') == 'connectionLost'

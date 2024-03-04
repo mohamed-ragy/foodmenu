@@ -516,7 +516,8 @@ $('html,body').on('click','.datePickerSelectedDateContainer',function(e){
     $('.datePickerContainer').hide();
     $('#'+$(this).attr('datePickerContainer')).css({'display':'flex','left':$(this).position().left + ($(this).width() - $('#'+$(this).attr('datePickerContainer')).width()),'top':($(this).position().top) + $(this).outerHeight()});
 });
-$(window).on('click',function(e){
+
+$('html,body').on('click',function(e){
     $('.datePickerContainer').each(function(){
         if(!$(this).is(':hover')){
             $(this).hide();

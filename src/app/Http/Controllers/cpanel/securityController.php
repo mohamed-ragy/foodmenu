@@ -158,9 +158,23 @@ class securityController extends Controller
             }
         }
         //////
-
         else if ($request->has(['createPhone'])){
             if($this->account->is_master == false){return;}
+            if($this->account->password_fails > 10){
+                foodmenuFunctions::notification('0',null,[
+                    'account_id' => $this->account->id,
+                    'password_fails' => $this->account->password_fails,
+                ],$this->account->website_id);
+
+                Account::where('id',$this->account->id)->update(['account_unblock_code' => Str::random(100)]);
+                ///send email with the unblock link
+
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['createPhoneStatus'=>5]);
+            }
+
             if($this->account->phone != null){return;}
             $validator = Validator::make(['createPhone' => $request->createPhone],[
                 'createPhone' => 'required|regex:/^\+\d+$/|unique:accounts,phone|min:7'
@@ -173,23 +187,28 @@ class securityController extends Controller
             if($validator->fails()){
                 return response(['createPhoneStatus'=>0, 'errors' => $validator->errors() ]);
             }else{
-                $newCode = strtolower(Str::random(6));
-                if( foodmenuFunctions::sendVeryficationSMS(strip_tags($request->createPhone),$newCode,1) ){
-                    $addPhoneNumber = Account::where('id',$this->account->id)
-                        ->update(['phone' => strip_tags($request->createPhone),'phone_verified_at'=> Null ,'phone_verification_code'=> $newCode,'phone_verification_code_sent_at' => Carbon::now()->timestamp]);
-                    if($addPhoneNumber){
-                        foodmenuFunctions::notification(null,[
-                            'website_id' => $this->website_id,
-                            'code' => 'security.phone.created'
-                        ],null);
-                        return response(['createPhoneStatus'=>1, 'msg' => Lang::get('cpanel/security/responses.newPhoneCreated'), 'now' => Carbon::now()->timestamp ]);
+                if(Hash::check($request->password, $this->account->password)){
+                    $newCode = strtolower(Str::random(6));
+                    if( foodmenuFunctions::sendVeryficationSMS(strip_tags($request->createPhone),$newCode,1) ){
+                        $addPhoneNumber = Account::where('id',$this->account->id)
+                            ->update(['phone' => strip_tags($request->createPhone),'phone_verified_at'=> Null ,'phone_verification_code'=> $newCode,'phone_verification_code_sent_at' => Carbon::now()->timestamp]);
+                        if($addPhoneNumber){
+                            foodmenuFunctions::notification(null,[
+                                'website_id' => $this->website_id,
+                                'code' => 'security.phone.created'
+                            ],null);
+                            return response(['createPhoneStatus'=>1, 'msg' => Lang::get('cpanel/security/responses.newPhoneCreated'), 'now' => Carbon::now()->timestamp ]);
+                        }else{
+                        return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
+    
+                        }
                     }else{
-                    return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
-
+                        return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
+    
                     }
                 }else{
-                    return response(['createPhoneStatus'=>2, 'msg' => Lang::get('cpanel/security/responses.unknownError') ]);
-
+                    Account::where('id',$this->account->id)->increment('password_fails');
+                    return response(['createPhoneStatus' => 3, 'msg' => Lang::get('cpanel/security/responses.wrongPassword') ]);
                 }
             }
         }
@@ -277,7 +296,7 @@ class securityController extends Controller
                 'newPhone.unique' => Lang::get('cpanel/security/responses.newPhoneUnique'),
             ]);
             if($validate->fails()){
-                return response(['newPhoneStats' => 0, 'errors' => $validate->errors() ]);
+                return response([ 'newPhoneStats' => 0, 'errors' => $validate->errors() ]);
             }
             if(Hash::check($request->password, $this->account->password)){
                 $newCode = strtolower(Str::random(6));

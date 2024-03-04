@@ -23,9 +23,13 @@ draw_current_plan = function(){
     if(window.website.subscription_status == 'trialing'  || window.website.subscription_status == 'active'){
         $('#current_plan').append(
             $('<div/>',{class:'fs09',text:`${texts.renewOn} ${nextRenew}`}),
-            $('<span/>',{text:texts.changePlan,class:'pointer fs08 c_white-10 openPage hvr-underline',page:'change_plan'}),
+            $('<span/>',{class:'pointer fs08 c_white-10 openPopup hvr_c_txt1 openPage',page:'change_plan',}).append(
+                $('<span/>',{class:'',text:texts.changePlan})
+            ),
             $('<span/>',{class:'mX5 c_white-10',text:'|'}),
-            $('<span/>',{text:texts.cancel_subscription,class:'pointer fs08 c_white-10 openPopup hvr-underline',popup:'cancel_subscription'}),
+            $('<span/>',{class:'pointer fs08 c_white-10 openPopup hvr_c_txt1 openPopup',popup:'cancel_subscription',}).append(
+                $('<span/>',{class:'',text:texts.cancel_subscription})
+            ),
         )
     }else if(window.website.subscription_status == 'incomplete_expired'
         || window.website.subscription_status == 'canceled'
@@ -33,7 +37,9 @@ draw_current_plan = function(){
         || window.website.subscription_status == 'paused'
     ){
         $('#current_plan').append(
-            $('<div/>',{text:texts.changePlan,class:'pointer fs09 mB15 mX5 c_white-10 openPage hvr-underline',page:'change_plan'}),
+            $('<span/>',{class:'pointer fs08 c_white-10 openPopup hvr_c_txt1 openPage',page:'change_plan',}).append(
+                $('<span/>',{class:'',text:texts.changePlan})
+            ),
             $('<button/>',{text:texts.activate_plan,class:'btn updatePlanBtn openPopup',popup:'activate_plan'}),
         )
     }else if(window.website.subscription_status == 'past_due'){
@@ -56,9 +62,11 @@ draw_payment_methods = function(){
     $('#payment_methods').text('').append(
         $('<div/>',{text:texts.paymentMethods,class:'bold mB10 pB10 brdrBottomS w100p'}),
         $('<table/>',{id:'payment_methods_container',class:'paymentMethodsContainer'}),
-        $('<div/>',{class:'mT5 fs09 c_white-10 row alnBL jstfyS pointer openPopup hvr-underline',popup:'add_payment_method'}).append(
-            $('<span/>',{text:texts.add_payment_method})
+        $('<div/>',{class:'m10 pointer fs09 c_white-10 openPopup hvr_c_txt1 openPopup',popup:'add_payment_method',}).append(
+            $('<span/>',{class:'ico-plus fs07 pie-5'}),
+            $('<span/>',{class:'',text:texts.add_payment_method})
         ),
+
     );
 
     if(Object.keys(window.website.paymentMethods).length == 0){
@@ -104,10 +112,13 @@ draw_invoices = function(){
     $('#invoices').text('').append(
         $('<div/>',{text:texts.invoiceHistory,class:'bold mB10 pB10 brdrBottomS w100p'}),
         $('<table/>',{id:'invoicesContainer',class:'invoicesContainer '}),
-        $('<a/>',{class:'row alnBL jstfyS m10 none loadMoreInvoices'}).append(
-            $('<div/>',{class:'pointer fs09 c_white-10',text:texts.loadMore}),
+        $('<div/>',{class:'m10 pointer fs09 c_white-10 loadMoreInvoices hvr_c_txt1'}).append(
+            $('<div/>',{class:''}).append(
+                $('<span/>',{class:'ico-down fs08 pie-7'}),
+                $('<span/>',{class:'',text:texts.loadMore}),
+            ),
             $('<div/>',{class:'loading mX20 mY10 none vV'}),
-        )
+        ),
     );
     for(const key in window.website.lastInvoices){
         let invoice = window.website.lastInvoices[key];

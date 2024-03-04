@@ -1,4 +1,5 @@
 drawImg = function(img,append='append'){
+    $('#imgs_noImgsMsg').addClass('none')
     let planStorage = window.plans[website.plan].storage
     let imgSize = ( (img.size/1024)/1024 ).toFixed(2);
     let imgSizePercent = ( imgSize / planStorage * 100).toFixed(2);
@@ -138,6 +139,11 @@ $('html,body').on('click','#deleteImage-confirmBtn',function(e){
                 closePopup();
                 if(website.imgs.length < 10){
                     getImgs(true).then(function(imgs){
+                        if(website.imgs.length == 0){
+                            $('#imgs_noImgsMsg').removeClass('none')
+                        }else{
+                            $('#imgs_noImgsMsg').addClass('none')
+                        }
                         if(window.history.state.page == 'images'){
                             for(const key in imgs){
                                 drawImg(imgs[key],'append')

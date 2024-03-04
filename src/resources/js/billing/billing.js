@@ -4,6 +4,7 @@ loadTouchEvents($);
 require('../page_loading.js')
 require("../cpanel/tools/loading.js")
 require('../cpanel/tools/form/checkbox.js')
+
 require("./billing/tools/tooltip.js")
 
 require('./billing/draw_pages.js')
@@ -23,8 +24,8 @@ $('html,body').on('keypress','#confirmIdentity',function(e){
         $('#confirmIdentity_btn').trigger('click')
     }
 })
-// $('html,body').on('click','#confirmIdentity_btn',function(e){
-    // e.stopImmediatePropagation();
+$('html,body').on('click','#confirmIdentity_btn',function(e){
+    e.stopImmediatePropagation();
     showBtnLoading($('#confirmIdentity_btn'));
     $.ajax({
         url:'/api',
@@ -32,12 +33,10 @@ $('html,body').on('keypress','#confirmIdentity',function(e){
         data:{
             _token:$('meta[name="csrf-token"]').attr('content'),
             get_data:true,
-            // password:$('#confirmIdentity').val(),
-            password:'123123Aa'
+            password:$('#confirmIdentity').val(),
         },success:function(r){
             hideBtnLoading($('#confirmIdentity_btn'));
             if(r.passwordCheck == 1){
-                console.log(r)
                 process_data(r)
                 closePopup();
             }else if(r.passwordCheck == 0){
@@ -54,4 +53,4 @@ $('html,body').on('keypress','#confirmIdentity',function(e){
         }
     })
 
-// })
+})

@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\automatedEmails;
+
 class foodmenuController extends Controller
 {
     protected $lang;
@@ -40,13 +43,12 @@ class foodmenuController extends Controller
         })->except(['doRegister','api']);
     }
 
-
-
     public function home(Request $request){
         return view('foodmenu.home',['lang' => $this->lang]);
     }
 
     public function register(Request $request){
+        
 
         $templates = collect(foodmenuFunctions::templates())->shuffle();
         $plans = collect(foodmenuFunctions::plans());
@@ -135,6 +137,15 @@ class foodmenuController extends Controller
                     Auth::guard('account')->attempt(['email' => $request['email'] , 'password' => $request['password'] ]);
                     // $request->session()->regenerate();
                     //send email with email verification code and tell him if he didn't finish rigster he can login and finish installation
+                    $account = Auth::guard('account')->user();
+                    $data = [
+                        'account_name' => $account->name,
+                        'account_email' => $account->email,
+                        'lang' => $account->language,
+                        'content' => str_replace(':code:',$emailVerificationCode,Lang::get('mails/automated.welcome')),
+                    ];
+                    dispatch(function () use($data,){Mail::send(new automatedEmails($data));})->afterResponse();
+
                     return response(['createAccountState' => 1]);
                 }
             }
@@ -416,6 +427,17 @@ class foodmenuController extends Controller
                                 'website_id' => $website->id,
                                 'code' => 'website.installed'
                             ],null);
+
+                            $account = Auth::guard('account')->user();
+                            $data = [
+                                'account_name' => $account->name,
+                                'account_email' => $account->email,
+                                'lang' => $account->language,
+                                'content' => Lang::get('mails/automated.website_installed'),
+                            ];
+                            dispatch(function () use($data,){Mail::send(new automatedEmails($data));})->afterResponse();
+        
+
                             return response(['installWebsiteState' => 1]);
                         }else{
                             //return unkown error try again

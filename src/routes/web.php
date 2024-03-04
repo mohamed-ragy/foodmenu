@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Cookie;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\automatedEmails;
-use App\Mail\welcomeMail;
 
 
 /*
@@ -40,28 +39,39 @@ use App\Mail\welcomeMail;
 Route::get('/mail',function(){
     $account = Auth::guard('account')->user();
     $FoodMenuLang = Cookie::get('FoodMenuLang')  ?? 'en';
-    $hello = str_replace(':name:',explode(' ',$account->name)[0],trans('mails/automated.hi'));
+    // $mail = Lang::get('mails/automated.welcome');
+    // $mail = str_replace(':APP_URL:',env('APP_URL'),$mail);
+    // $mail = str_replace(':lang:',$FoodMenuLang,$mail);
+    // $mail_body = $mail['body'];
+    // $mail_header = $mail['header'];
+    // $mail_body = str_replace(':code:','000000',$mail_body);
+    // $mail = [
+    //     'account_name' => $account->name,
+    //     'lang' => $FoodMenuLang,
+    //     'subject' => Lang::get('mails/automated.welcome.subject'),
+    //     'account_email' => $account->email,
+    //     'body' => $mail_body,
+    //     'header' => $mail_header,
+    // ];
+    // $account = Auth::guard('account')->user();
+    $account->email = '288purple@yogirt.com';
     $data = [
-        'lang' => $FoodMenuLang,
-        'subject' => 'Verify your email address',
-        'icon' => 'email_verification.png',
+        'account_name' => 'mohamed ragy',
         'account_email' => $account->email,
-        'content' => <<<string
-            <div style="font-size:2.3em;margin:20px;" class=" c_txt">$hello</div>
-            <div style="margin:20px;font-size:1.2em;">Please use the code below to verify your Foodmenu account's email address.</div>
-            <div style="text-align:center;width:calc(100% - 40px);margin:20px;">
-                <div style="font-size:2.3em;font-weight:bold;letter-spacing:3px;padding: 10px 20px;margin:auto;border-radius:5px;width: fit-content;    border: 1px solid #dbdbdba1;">52s6fg</div>
-            </div>
-        string,
+        'lang' => $account->language,
+        'content' => str_replace(':code:','000000',Lang::get('mails/automated.website_installed')),
     ];
+    // dispatch(function () use($data,){Mail::send(new automatedEmails($data));})->afterResponse();
+    // dispatch(function () use ($mail) {
+    //     Mail::to('288purple@yogirt.com')->send(new automatedEmails($mail)); 
+    // })->afterResponse();
 
-    dispatch(function () use ($data) {
-        // Mail::to('xevaw10345@ricorit.com')->send(new automatedEmails($data));
-        // Mail::to('muha.ragy@gmail.com')->send(new automatedEmails($data));
-        // Mail::to('rolamahmoud15@gmail.com')->send(new automatedEmails($data));
-    })->afterResponse();
-
-    return new App\Mail\automatedEmails($data);
+    return new App\Mail\automatedEmails([
+        'account_name' => $account->name,
+        'account_email' => $account->email,
+        'lang' => $account->language,
+        'content' => str_replace(':code:','000000',Lang::get('mails/automated.website_installed')),
+    ]);
 
 });
 
@@ -80,23 +90,26 @@ $foodmenu = function()use ($FoodMenuLang){
     })->name('root');
 
     Route::prefix('{FoodMenuLang}')->group(function () use ($FoodMenuLang){
+
         Route::get('/', function () use ($FoodMenuLang){
             return redirect()->route('foodmenu.home', $FoodMenuLang);
         });
         Route::get('/home',[foodmenuController::class,'home',$FoodMenuLang])->name('foodmenu.home');
         Route::get('/register',[foodmenuController::class,'register',$FoodMenuLang])->name('foodmenu.register');
+
     });
 
     Route::post('/doRegister',[foodmenuController::class,'doRegister']);
     Route::post('/api',[foodmenuController::class,'api']);
 };
 $cpanel = function(){
-    Route::post('/dologin',[cpanelController::class,'dologin'])->middleware(['guest'])->name('account.dologin');
-    Route::Post('/logout',[cpanelController::class,'logout'])->middleware(['account'])->name('account.logout');
-    Route::get('/login',[cpanelController::class,'login'])->middleware(['guest'])->name('account.login');
-    Route::Post('/resetPassword',[cpanelController::class,'resetPassword'])->middleware(['guest'])->name('account.resetPassword');
+    Route::post('/dologin',[cpanelController::class,'dologin'])->name('account.dologin');
+    Route::get('/login',[cpanelController::class,'login'])->name('account.login');
+    Route::Post('/resetPassword',[cpanelController::class,'resetPassword'])->name('account.resetPassword');
 
-    Route::middleware(['account'])->group(function () {
+    Route::Post('/logout',[cpanelController::class,'logout'])->name('account.logout');
+
+    Route::group([],function () {
         Route::get('/',[cpanelController::class,'home'])->name('cpanel');
         Route::get('/financialreport/{action}',[cpanelController::class,'financialreport'])->name('cpanel.financialreport');
         Route::put('/notifications',[cpanelController::class,'notifications'])->name('cpanel.notifications');
