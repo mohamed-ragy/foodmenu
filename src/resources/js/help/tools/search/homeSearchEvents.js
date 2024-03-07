@@ -9,10 +9,9 @@ setHomeSearch = function(){
 $(window).resize(function(){
     setHomeSearch();
 })
-$(document).ready(function(){
-    setHomeSearch();
-})
-$('.homeSearch').on('focus',function(e){
+
+$('html,body').on('focus','.homeSearch',function(e){
+    e.stopImmediatePropagation();
     showHomeSearch();
 })
 $('main').on('scroll',function(){
@@ -21,9 +20,10 @@ $('main').on('scroll',function(){
 
 
 $('html,body').on('input','.homeSearch',function(e){
-    showSearchResaults($('.homeSearchResults'),$(this).val())
+    e.stopImmediatePropagation();
     $('.homeSearchLeft').find('.searchLoading').removeClass('none');
     $('.homeSearchLeft').find('.ico-search').addClass('none')
+    showSearchResaults($('.homeSearchResults'),$(this).val())
 })
 
 $('html,body').on('click','.homeOpenSearchBtn',function(e){

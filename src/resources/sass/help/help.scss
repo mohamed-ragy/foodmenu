@@ -6,11 +6,13 @@
     font-family: 'inter';
     src: url('/storage/fonts/en/inter.ttf') format("truetype");
 }
+*{-webkit-tap-highlight-color: transparent;}
 .inter{font-family: 'inter', sans-serif;}
+
 @import '../page_loading.scss';
 @import '../cpanel/tools/icons';
-@import '../cpanel/tools/loading';
 @import '../cpanel/tools/scrollBar';
+@import '../cpanel/tools/loading';
 
 @import '../help/tools/header.scss';
 @import '../help/tools/mobileNav.scss';
@@ -21,9 +23,8 @@
 @import '../help/pages/home.scss';
 @import '../help/pages/cat.scss';
 @import '../help/pages/article.scss';
-*{-webkit-tap-highlight-color: transparent;}
-html{height:100%;width:100%;}
 
+html{height:100%;width:100%;}
 body{
     user-select: none;
     height:100%;
@@ -39,9 +40,18 @@ body{
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    @media (max-width:500px) {
-        font-size: .9em;
-    }
+    // @media (max-width:500px) {
+    //     font-size: .9em;
+    // }
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--green);
+}
+a:hover{
+    color: var(--txt-1);
+    text-decoration: none;
 }
 main{
     @media (max-width:1024px) {
@@ -65,6 +75,7 @@ main{
 .main_full{
     width:100%;
 }
+
 .page{
     padding:20px;
     width:calc(100% - 40px);
@@ -75,24 +86,10 @@ main{
         width:calc(100% - 20px);
     }
 }
-.page[page="home"]{margin-top:0;padding:0px;width:100%;max-width:100%;}
+.page_home{margin-top:0;padding:0px;width:100%;max-width:100%;}
 
 .page_hidden{
     opacity: 0;
-}
-a{
-    text-decoration: none;
-    cursor: pointer;
-    color: var(--green);
-}
-a:hover{
-    color: var(--txt-1);
-    text-decoration: none;
-}
-li{margin-top:5px;}
-[tooltip]{
-    position: relative;
-    width:fit-content;
 }
 #tooltip{
     display:none;
@@ -116,20 +113,5 @@ li{margin-top:5px;}
     0%{opacity:0;transform: translateY(5px);}
     80%{opacity:0;transform: translateY(5px);}
     100%{opacity:1;transform: translateY(0px);}
-}
-.openPage{cursor: pointer;}
-.openPage:hover{text-decoration: none;}
-
-.homeLoadingContainer{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    background: var(--white-1);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 @import '../style/style.scss'

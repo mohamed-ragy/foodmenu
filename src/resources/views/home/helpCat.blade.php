@@ -5,7 +5,7 @@
 @section('body')
 <script>let helpCat = "{{ request()->helpCat }}"</script>
     <form style="margin:1em;font-size:.9em;padding:0;box-shadow:none;" id="helpHeaderSearchCard" method="get" action="{{ route('home.help.search',['FoodMenuLang'=> request()->FoodMenuLang ]) }}">
-        <input type="text" name="q" id="helpSearchInput" placeholder="{{ trans('home/help.searhPlaceHolder') }}">
+        <input type="text" name="q" id="helpSearchInput" placeholder="{{ trans('home/help.searchPlaceHolder') }}">
         <input type="hidden" name="p" value="1">
         <button id="helpSearchButton"><span class="ico-search"></span></button>
         <div id="helpSearchRecent">

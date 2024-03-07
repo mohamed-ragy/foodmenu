@@ -58,3 +58,15 @@
 .block-1280{@media(max-width:1279px){display:block}}
 
 .unset{all:unset;}
+
+.cardLoading{
+    background: linear-gradient(-90deg,  var(--shdw-5), var(--shdw-15));
+    background-size: 400% 400%;
+    animation: cardLoadingAnimation 1.5s ease-in-out infinite;
+    position: relative;
+}
+@keyframes cardLoadingAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}

@@ -8,7 +8,7 @@ nav{
     }
     overflow-y:scroll;
     height:calc(100% - 100px);
-    transition-duration: 250ms;
+    // transition-duration: 250ms;
 }
 .nav_hidden{
     width:0;
@@ -69,11 +69,11 @@ nav{
     color:var(--white-10);
 }
 .navArticleA_selected{
-    color:var(--green) ;
+    color:var(--txt-1) ;
     font-weight:bold;
 }
 .navArticleA_selected:hover{
-    color:var(--green) ;
+    color:var(--txt-1) ;
     font-weight:bold;
 }
 

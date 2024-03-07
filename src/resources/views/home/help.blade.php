@@ -7,7 +7,7 @@
         <img id="helpHeaderImg" src="/storage/imgs/support.jpg" alt="">
         <div id="helpHeaderSearchContainer">
             <form id="helpHeaderSearchCard" method="get" action="{{ route('home.help.search',['FoodMenuLang'=> request()->FoodMenuLang ]) }}">
-                <input type="text" name="q" id="helpSearchInput" placeholder="{{ trans('home/help.searhPlaceHolder') }}">
+                <input type="text" name="q" id="helpSearchInput" placeholder="{{ trans('home/help.searchPlaceHolder') }}">
                 <input type="hidden" name="p" value="1">
                 <button id="helpSearchButton"><span class="ico-search"></span></button>
                 <div id="helpSearchRecent">

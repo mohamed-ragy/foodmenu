@@ -1,7 +1,9 @@
-$('.mobileNavSearch').on('focus',function(e){
+$('html,body').on('focus','.mobileNavSearch',function(e){
+    e.stopImmediatePropagation();
     showMobileNavSearch();
 })
 $('html,body').on('input','.mobileNavSearch',function(e){
+    e.stopImmediatePropagation();
     showSearchResaults($('.mobileNavSearchResults'),$(this).val())
     $('.mobileNavSearchLeft').find('.searchLoading').removeClass('none');
     $('.mobileNavSearchLeft').find('.ico-search').addClass('none')

@@ -13,7 +13,7 @@
                     <div class="fs102 mie-5 ico-search"></div>
                     <div class="searchLoading loading_s vV"></div>
                 </div>
-                <input type="text" class="homeSearch" placeholder="{{ trans('help/help.searhPlaceHolder') }}">
+                <input type="text" class="homeSearch" placeholder="{{ trans('help/help.searchPlaceHolder') }}">
                 <div class="homeSearchRight" >
                     <div class="homeOpenSearchBtn bold w25 h25">/</div>
                 </div>

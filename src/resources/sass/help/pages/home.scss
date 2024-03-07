@@ -67,7 +67,7 @@
     display:flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: var(--white-1);
     color:var(--green);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
@@ -93,28 +93,21 @@
     overflow: hidden;
     .homeCatContainerIcon_after{transform: rotateZ(-40deg);}
     .homeCatContainerIcon2{transform: scale(1.02);opacity:.3;}
+    .homeCatContainerDes{color:var(--txt-1)}
+    color:var(--green);
+    background-color: var(--green-5);
 }
-.homeCatContainer[cat="getting-started"]:hover{background-color: #2ec4b60d;color:#2ec4b6;.homeCatContainerIcon_after{border-color:#2ec4b6;}}
-.homeCatContainer[cat="basics"]:hover{background-color: #00b4d80d;color:#00b4d8;.homeCatContainerIcon_after{border-color:#00b4d8;}}
-.homeCatContainer[cat="security"]:hover{background-color: #ef233c0d;color:#ef233c;.homeCatContainerIcon_after{border-color:#ef233c;}}
-.homeCatContainer[cat="ordering-system"]:hover{background-color: #e295780d;color:#e29578;.homeCatContainerIcon_after{border-color:#e29578;}}
-.homeCatContainer[cat="statistics-and-analytics"]:hover{background-color: #3c6e710d;color:#3c6e71;.homeCatContainerIcon_after{border-color:#3c6e71;}}
-.homeCatContainer[cat="billing-and-subscription"]:hover{background-color: #6a994e0d;color:#6a994e;.homeCatContainerIcon_after{border-color:#6a994e;}}
-.homeCatContainer[cat="products-and-categories"]:hover{background-color: #4c956c0d;color:#4c956c;.homeCatContainerIcon_after{border-color:#4c956c;}}
-.homeCatContainer[cat="website-users"]:hover{background-color: #9a8c980d;color:#9a8c98;.homeCatContainerIcon_after{border-color:#9a8c98;}}
-.homeCatContainer[cat="website-design"]:hover{background-color: #507dbc0d;color:#507dbc;.homeCatContainerIcon_after{border-color:#507dbc;}}
-.homeCatContainer[cat="system-and-settings"]:hover{background-color: #4a57590d;color:#4a5759;.homeCatContainerIcon_after{border-color:#4a5759;}}
 .homeCatContainerIcon{
-    font-size: 2.2em;
+    font-size: 3em;
     border-radius: 50%;
     padding:15px;
     margin:10px;
-    width:30px;
-    height:30px;
+    width:60px;
+    height:60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition-duration: 400ms;
+    transition-duration: 1500ms;
     position: relative;
 }
 .homeCatContainerIcon_after{
@@ -128,7 +121,7 @@
     border-top:2px solid var(--green);
     border-left:2px dashed var(--green);
     border-bottom:2px dotted var(--green);
-    transition-duration: 1000ms;
+    transition-duration: 2000ms;
     border-right:1px dotted var(--green);
 }
 
@@ -138,16 +131,17 @@
     top:-3px;
     left:3px;
     padding:15px;
-    width:30px;
-    height:30px;
+    width:60px;
+    height:60px;
     transition-duration: 800ms;
     opacity:.1;
     transform-origin: bottom left ;
 }
+.homeCatContainerDes{color:var(--white-11);transition-duration: 200ms;}
 .homeBotSectionContainer{
     width:calc(100% - 40px);
     max-width:1400px;
-    margin-top:100px;
+    margin-top:150px;
     margin-left:auto;
     margin-right: auto;
     z-index: 2;
@@ -164,15 +158,18 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    margin:10px;
-    padding:10px;
-    width:calc(50% - 40px);
+    margin:0px 10px;
+    padding:20px;
+    width:calc(50% - 60px);
     @media (max-width:1024px) {
-        width:calc(100% - 40px);
+        width:calc(100% - 60px);
     }
     border-radius: 5px;
-    color:var(--c1txt);
+    transition-duration: 200ms;
+    color:var(--white-11)
 }
 .homeArticleCard:hover{
     background-color: var(--white-2);
+    color:var(--txt-1);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 5px 0px;
 }

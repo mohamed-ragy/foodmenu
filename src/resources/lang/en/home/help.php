@@ -1,6 +1,6 @@
 <?php
 return [
-    'searhPlaceHolder' => 'What are you looking for?',
+    'searchPlaceHolder' => 'What are you looking for?',
     'get-started' => 'Getting Started',
     'gettingStartedTXT' => 'If you are new to Foodmenu, you will find helpful explanations here.',
 

@@ -23,7 +23,7 @@ use App\Models\account_verifications;
 use App\Models\bug;
 use App\Models\financial_reports;
 use App\Models\guest;
-use App\Models\help_en_tut;
+use App\Models\help_en_articles;
 use App\Models\statistics_day;
 use App\Models\statistics_hour;
 use App\Models\statistics_month;
@@ -668,7 +668,7 @@ class cpanelController extends Controller
                 'langs'=> foodmenuFunctions::languages(),
             ]);
             if($account->language == 'en'){
-                $help_articles = help_en_tut::inRandomOrder()->limit(6)->get();
+                $help_articles = help_en_articles::inRandomOrder()->limit(6)->get();
             }
             $website->help_articles = $help_articles;
             return response([

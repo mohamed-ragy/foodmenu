@@ -1,5 +1,5 @@
 ///////general events
-$(document).on('keyup',function(e){
+$('html,body').on('keyup',function(e){
     e.stopImmediatePropagation();
     if(e.which == 191 || e.which == 111){
         if($(window).width() > 550 && !$('header').hasClass('header_notHome') && !$('header').hasClass('header_shadow')){
@@ -17,7 +17,7 @@ $(document).on('keyup',function(e){
         hidemobileNav();
     }
 })
-$(document).on('click',function(){
+$('html,body').on('click',function(){
     if($('.homeSearchContainer:hover').length <= 0 && $('.homeSearchResultsContainer:hover').length <= 0){
         hideHomeSearch();
     }

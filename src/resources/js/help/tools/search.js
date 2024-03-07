@@ -19,7 +19,6 @@ hideSearchLoading = function(){
     $('.mobileNavSearchLeft').find('.ico-search').removeClass('none')
     $('.homeSearchLeft').find('.ico-search').removeClass('none')
 }
-hideSearchLoading();
 showSearchResaults = function(container,val){
     container.text('');
     if(val == ''){
@@ -38,12 +37,12 @@ drawSearchResault_noVal = function(container){
     let visitedArticlesCookies = Cookies.get('visitedArticles');
     if(typeof(visitedArticlesCookies) !== 'undefined'){
         container.append(
-            $('<div/>',{text:texts.recentlyViewed,class:'m5 bold'})
+            $('<div/>',{text:window.texts.recentlyViewed,class:'m5 bold'})
         )
         let visitedArticles = JSON.parse(visitedArticlesCookies);
         for(const key in visitedArticles){
             if(key < 4){
-                let article = articles.find(item=>item.title_id == visitedArticles[key]);
+                let article = window.articles.find(item=>item.title_id == visitedArticles[key]);
                 if(typeof(article !== 'undefined')){
                     container.append(drawSearchArticle(article,container))
                 }
@@ -54,19 +53,19 @@ drawSearchResault_noVal = function(container){
         )
     }
     container.append(
-        $('<div/>',{text:texts.featuredArticles,class:'m5 bold'})
+        $('<div/>',{text:window.texts.featuredArticles,class:'m5 bold'})
     )
 
     let featuredArticles = [];
     if(typeof(visitedArticlesCookies) !== 'undefined'){
         let visitedArticles2 = JSON.parse(visitedArticlesCookies);
-        for(const key in articles){
-            if(typeof(visitedArticles2.find(item=> item == articles[key].title_id)) === 'undefined'){
-                featuredArticles.push(articles[key]);
+        for(const key in window.articles){
+            if(typeof(visitedArticles2.find(item=> item == window.articles[key].title_id)) === 'undefined'){
+                featuredArticles.push(window.articles[key]);
             }
         }
         featuredArticles.sort((a,b)=>{
-            return b.rate - a.rate;
+            return b.rating - a.rating;
         })
         for(const key in featuredArticles){
             if(key < 4){
@@ -74,9 +73,12 @@ drawSearchResault_noVal = function(container){
             }
         }
     }else{
-        for(const key in articles){
+        window.articles.sort((a,b)=>{
+            return b.rating - a.rating;
+        })
+        for(const key in window.articles){
             if(key < 4){
-                container.append(drawSearchArticle(articles[key],container))
+                container.append(drawSearchArticle(window.articles[key],container))
             }
         }
     }
@@ -94,7 +96,7 @@ drawSearchResault_Val = function(container,val){
         },success:function(r){
             hideSearchLoading();
             if(r.results.length == 0){
-                container.append(
+                container.text('').append(
                     $('<div/>',{class:'mX5 mY10 fs102',text:texts.noResultsFound})
                 )
             }else{
@@ -115,8 +117,7 @@ drawSearchArticle = function(article,container){
                 class:`${classs} searchElem openPage`,
                 page:'article',
                 article:article.title_id,
-                cat:article.helpCat,
-                href:`/${lang}/articles/${article.helpCat}/${article.title_id}`
+                href:`/${window.lang}/articles/${article.category}/${article.title_id}`
             }).append(
                 $('<div/>',{class:'w100p'}).append(
                     $('<span/>',{class:`${article.icon}  mie-5`}),
@@ -127,7 +128,7 @@ drawSearchArticle = function(article,container){
 }
 
 drawSearchSection = function(section,container,val){
-    let article = articles.find(item=> item.id == section.help_en_tut_id);
+    let article = window.articles.find(item=> item.id == section.article_id);
     if(typeof(article) === 'undefined'){return '';}
     let classs = '';
     if(container.hasClass('mobileNavSearchResults')){
@@ -141,15 +142,14 @@ drawSearchSection = function(section,container,val){
     }
     return $('<a/>',{
                 class:`${classs} searchElem openPage pY10`,
-                page:'section',
+                page:'article',
                 article:article.title_id,
-                cat:article.helpCat,
                 section:section.title.replaceAll(/\W/g, '_'),
-                href:`/${lang}/articles/${article.helpCat}/${article.title_id}/${section.title.replaceAll(/\W/g, '_')}`
+                href:`/${lang}/articles/${article.category}/${article.title_id}/${section.title.replaceAll(/\W/g, '_')}`
             }).append(
                 $('<div/>',{class:' fs101 mB2 c1txt',html:sectionTitle}),
                 $('<div/>',{class:''}).append(
-                    $('<span/>',{text:texts.cats[article.helpCat.replaceAll('-','')]}),
+                    $('<span/>',{text:window.texts.cats[article.category.replaceAll('-','')]}),
                     $('<span/>',{class:'mX3 ico-right fs07',}),
                     $('<span/>',{text:article.title})
                 )

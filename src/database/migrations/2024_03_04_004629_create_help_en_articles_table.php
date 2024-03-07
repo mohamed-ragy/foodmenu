@@ -13,19 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('help_en_tuts', function (Blueprint $table) {
+        Schema::create('help_en_articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title_id');
             $table->tinyInteger('sort');
+            $table->string('title_id');
             $table->string('title',100);
             $table->string('description');
             $table->string('icon');
-            $table->string('helpCat');
+            $table->string('category');
             $table->string('keyWords');
-            $table->integer('upRates')->default(0);
-            $table->integer('downRates')->default(0);
-            $table->integer('created_at');
-            $table->integer('updated_at')->nullable();
+            $table->integer('rating')->default(0);
+
         });
     }
 
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('help_en_tuts');
+        Schema::dropIfExists('help_en_articles');
     }
 };

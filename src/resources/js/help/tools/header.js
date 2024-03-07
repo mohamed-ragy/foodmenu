@@ -1,21 +1,22 @@
-if($('main').scrollTop() == 0){
-    $('header').removeClass('header_shadow');
-    $('.homeSearchContainer').removeClass('none')
-}else{
+header_shdow = function(){
     $('header').addClass('header_shadow');
     $('.homeSearchContainer').addClass('none')
+    $('.homeSearchResultsContainer').addClass('none')
+}
+header_home_intro = function(){
+    $('header').removeClass('header_shadow');
+    $('.homeSearchContainer').removeClass('none')
+    $('.homeSearchResultsContainer').removeClass('none')
 }
 $('main').on('scroll',function(){
-    if($('main').scrollTop() == 0){
-        $('header').removeClass('header_shadow');
-        $('.homeSearchContainer').removeClass('none')
-        $('.homeSearchResultsContainer').removeClass('none')
+    if($('main').scrollTop() == 0 && window.history.state.page == 'home'){
+        header_home_intro();
     }else{
-        $('header').addClass('header_shadow');
-        $('.homeSearchContainer').addClass('none')
-        $('.homeSearchResultsContainer').addClass('none')
+        header_shdow();
     }
 })
+
+
 // $('.showNav').on('click',function(e){
 //     $('nav').removeClass('nav_hidden')
 // })

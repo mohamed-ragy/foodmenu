@@ -63,7 +63,7 @@ Route::get('/mail',function(){
     ];
     // dispatch(function () use($data,){Mail::send(new automatedEmails($data));})->afterResponse();
     // dispatch(function () use ($mail) {
-    //     Mail::to('288purple@yogirt.com')->send(new automatedEmails($mail)); 
+    //     Mail::to('288purple@yogirt.com')->send(new automatedEmails($mail));
     // })->afterResponse();
 
     return new App\Mail\automatedEmails([
@@ -154,9 +154,9 @@ $help = function()use($FoodMenuLang){
             return redirect()->route('help.home', $FoodMenuLang);
         });
         Route::get('/home',[helpController::class,'home',$FoodMenuLang])->name('help.home');
-        Route::get('/articles/{cat}',[helpController::class,'cat',$FoodMenuLang])->name('help.cat');
-        Route::get('/articles/{cat}/{article}',[helpController::class,'article',$FoodMenuLang])->name('help.article');
-        Route::get('/articles/{cat}/{article}/{section}',[helpController::class,'section',$FoodMenuLang])->name('help.section');
+        Route::get('/articles/{category}',[helpController::class,'category',$FoodMenuLang])->name('help.category');
+        Route::get('/articles/{category}/{article}',[helpController::class,'article',$FoodMenuLang])->name('help.article');
+        Route::get('/articles/{category}/{article}/{section}',[helpController::class,'section',$FoodMenuLang])->name('help.section');
     });
     Route::post('/api',[helpController::class,'api']);
 };

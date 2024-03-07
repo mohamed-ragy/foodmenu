@@ -1,8 +1,8 @@
 $('html,body').on('mouseenter','[tooltip]',function(e){
     // e.stopImmediatePropagation();
     if($(this).attr('tooltip') == 'article'){
-        let article = articles.find(item=> item.title_id == $(this).attr('article'));
-            let relatedArticleTooltip = `<a class="articleTooltip openPage" page="article" article="${article.title_id}" cat="${article.helpCat}" href="/${lang}/articles/${article.helpCat}/${article.title_id}">
+        let article = window.articles.find(item=> item.title_id == $(this).attr('article'));
+            let relatedArticleTooltip = `<a class="articleTooltip openPage" page="article" article="${article.title_id}" href="/${lang}/articles/${article.category}/${article.title_id}">
                 <div class="bold fs102"><span class="${article.icon} mie-5"></span>${article.title}</div>
                 <div class="mT2">${article.description}</div>
             </a>`;

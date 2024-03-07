@@ -1,7 +1,9 @@
-$('.headerSearch').on('focus',function(e){
+$('html,body').on('focus','.headerSearch',function(e){
+    e.stopImmediatePropagation();
     showHeadSearch();
 })
 $('html,body').on('input','.headerSearch',function(e){
+    e.stopImmediatePropagation();
     showSearchResaults($('.headerSearchResults'),$(this).val())
     $('.headerSearchLeft').find('.searchLoading').removeClass('none');
     $('.headerSearchLeft').find('.ico-search').addClass('none')

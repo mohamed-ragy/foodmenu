@@ -18,7 +18,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     background-color: var(--white-1);
-    color:var(--txt-1);
+    color:var(--green);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
     border-radius: 4px;
     width:250px;
@@ -29,17 +29,20 @@
 .catArticleContainer:hover{
     box-shadow: rgba(0, 0, 0, 0.15) 0px 7px 10px 0px;
     text-decoration: none;
+    background-color: var(--green-5);
+    color:var(--green);
     overflow: hidden;
     .catArticleContainerIcon_after{transform: rotateZ(-40deg);}
     .catArticleContainerIcon2{transform: scale(1.02);opacity:.3;}
+    .catArticleContainerDes{color:var(--txt-1)}
 }
 .catArticleContainerIcon{
-    font-size: 2.2em;
+    font-size: 3em;
     border-radius: 50%;
     padding:15px;
     margin:10px;
-    width:30px;
-    height:30px;
+    width:60px;
+    height:60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,7 +60,7 @@
     border-top:2px solid var(--green);
     border-left:2px dashed var(--green);
     border-bottom:2px dotted var(--green);
-    transition-duration: 1000ms;
+    transition-duration: 2000ms;
     border-right:1px dotted transparent;
 }
 
@@ -67,9 +70,12 @@
     top:-3px;
     left:3px;
     padding:15px;
-    width:30px;
-    height:30px;
-    transition-duration: 800ms;
+    width:60px;
+    height:60px;
+    transition-duration: 1500ms;
     opacity:.1;
     transform-origin: bottom left ;
+}
+.catArticleContainerDes{
+    color:var(--white-11);transition-duration: 200ms;
 }
