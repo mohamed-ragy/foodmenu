@@ -20,7 +20,7 @@ drawOrder = function(order){
             $('<div/>',{class:'orderRow'}).append(
                 $('<div/>',{class:'orderRowStart',text:`${texts.address}`}),
                 $('<div/>',{class:'mis-5 row alnC jstfyC'}).append(
-                    $('<button/>',{class:`btn ico-gps showMapBtn ${mapBtnClass}`,lat:order.lat,lng:order.lng}),
+                    $('<button/>',{class:`btn ico-gps mie-5 showMapBtn ${mapBtnClass}`,lat:order.lat,lng:order.lng}),
                     $('<div/>',{text:order.address})
 
                 )
@@ -37,12 +37,12 @@ drawOrder = function(order){
                 $('<div/>',{class:'orderRowStart orderColStart',text:`${texts.orderNotice}`}),
                 $('<div/>',{class:'mis-5',text:order.notice})
             ),
-            $('<div/>',{class:'btnContainer column alnE jstfyE'}).append(
-                $('<div/>',{class:'bold vH confirmTxt',text:'--'}),
-                $('<button/>',{class:'btn delivered',text:texts.delivered,orderId:order.id}).append(
+            $('<div/>',{class:'btnContainer column alnE jstfyE mT40'}).append(
+                $('<button/>',{class:'btn delivered mB10',text:texts.delivered,orderId:order.id}).append(
                     $('<div>',{class:'btnTxt'}),
                     $('<div>',{class:'btnLoading'})
-                )
+                ),
+                $('<div/>',{class:'bold vH confirmTxt ',text:'--'}),
             )
         )
     )

@@ -68,9 +68,11 @@ loadWebsiteOrdersAndChats = function(callback=()=>{}){
 
             window.incompleteOrdersCheck = true;
             website.todayOrders = response.todayOrders;
-            if(window.history.state.page == 'incomplete_orders'){
-                drawIncompleteOrdersTable('all_orders','placed_at','desc');
-            }
+            try{
+                if(window.history.state.page == 'incomplete_orders'){
+                    drawIncompleteOrdersTable('all_orders','placed_at','desc');
+                }
+            }catch{}
             drawTodayHomeOrders();
 
             for(const key in response.notifications){

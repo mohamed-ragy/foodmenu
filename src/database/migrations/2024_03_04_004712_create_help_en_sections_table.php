@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('html');
             $table->string('keyWords')->nullable();
             $table->fullText('keyWords')->language('english');
+            $table->tinyInteger('priority');
         });
     }
 

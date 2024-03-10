@@ -1,13 +1,16 @@
-@font-face {
-    font-family: 'Roboto';
-    src: url('/storage/fonts2/en/Roboto.ttf') format("truetype");
-}
 
 @font-face {
-    font-family: 'Tajawal';
-    src: url('/storage/fonts2/ar/Tajawal.ttf') format("truetype");
+    font-family: 'Nunito';
+    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
 }
-@import '../cpanel/tools/icons';
+@font-face {
+    font-family: 'inter';
+    src: url('/storage/fonts/en/inter.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'Tajawal';
+    src: url('/storage/fonts/ar/Tajawal.ttf') format("truetype");
+}
 @import '../cpanel/tools/loading';
 @import '../cpanel/tools/scrollBar';
 @import '../cpanel/form/button.scss';
@@ -18,21 +21,18 @@ html{
 }
 body{
     user-select: none;
-    background-color: var(--c1);
-    color:var(--c1txt);
-    font-family: 'Roboto','Tajawal', sans-serif;
+    color: var(--txt-1);
+    background-color: var(--white);
+    font-family: 'Nunito','inter','Tajawal', sans-serif;
     margin: 0em;
     padding: 0em;
     height:100%;
-    @media (max-width:1023px) {
-        font-size:.9em;
-    }
     position: relative;
     overflow: hidden;
 }
 #header{
     height:50px;
-    background-color: var(--c3);
+    background-color: var(--white-1);
     width:100%;
     max-width: 800px;
     margin:auto;
@@ -46,12 +46,11 @@ body{
     max-width: 800px;
     margin:auto;
     overflow-y: auto;
-
 }
 a {
     text-decoration: none;
     cursor: pointer;
-    color: var(--c4);
+    color: var(--green);
 }
 a:hover{
     text-decoration: underline;
@@ -65,9 +64,9 @@ a:hover{
     flex-direction:column;
     align-items:flex-start;
     justify-content:flex-start;
-    padding:10px;
-    width:calc(100% - 20px);
-    box-shadow: var(--shdw4);
+    padding:15px;
+    width:calc(100% - 30px);
+    box-shadow: 0 0 10px var(--shdw-5), 0 0 1px 0px var(--shdw-10);
     border-radius: 3px;
     margin: 30px 0;
 }
@@ -76,16 +75,17 @@ a:hover{
     display:flex;
     align-items: center;
     justify-content: space-between;
-    border-top:1px solid var(--brlight);
+    border-top:1px solid var(--shdw-5);
     padding:5px 5px;
     @media (max-width:500px) {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
     }
+    font-size:.9em;
 }
 .orderRow:hover{
-    background-color: var(--c2);
+    background-color: var(--white-2);
 }
 .orderCol{
     flex-direction: column;
@@ -127,11 +127,11 @@ a:hover{
 #map{
     width:calc(100% - 2em);
     height:calc(100% - 4.5em);
-    // background-color: red;
 }
 .showMapBtn{
     width:auto;
     min-width:auto;
     padding:5px;
 }
-// @import '../cpanel/styleClasses.scss';
+@import '../cpanel/tools/icons';
+@import '../style/style.scss';

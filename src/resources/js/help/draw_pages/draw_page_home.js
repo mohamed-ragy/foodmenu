@@ -41,7 +41,6 @@ draw_page_home = function(){
         )
     }
     drawHomeArticles();
-    // setHomeSearch();
 }
 drawHomeArticles = function(){
     window.articles.sort((a,b)=>{

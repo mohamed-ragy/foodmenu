@@ -29,13 +29,13 @@ class underConstruction
             request()->getRequestUri() == '/stripe/paymentmethods'){
             return $next($request);
         }else if($request->server('HTTP_X_FORWARDED_FOR') == env('UNSERCONSTRACTION_IP1') || $request->ip() == env('UNSERCONSTRACTION_IP1')){
-            // return new response(view('home.underConstruction2'));
+            // return new response(view('underConstruction'));
             return $next($request);
         }else if($request->server('HTTP_X_FORWARDED_FOR') == env('UNSERCONSTRACTION_IP2') || $request->ip() == env('UNSERCONSTRACTION_IP2')){
-            // return new response(view('home.underConstruction2'));
+            // return new response(view('underConstruction'));
             return $next($request);
         }
-        return new response(view('home.underConstruction2'));
+        return new response(view('underConstruction'));
 
     }
 }

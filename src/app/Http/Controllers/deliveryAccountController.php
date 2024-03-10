@@ -41,12 +41,11 @@ class deliveryAccountController extends Controller
     }
     public function dologin(Request $request)
     {
-
         if (Auth::guard('delivery')->attempt(['deliveryName' => $request->loginName , 'password' => $request->password ])) {
             $request->session()->regenerate();
             return response(['status'=>1]);
         }else{
-            return response(['status'=>0,'msg'=>Lang::get('deliveryAccount/deliveryAccount.wrongusernameorpassword')]);
+            return response(['status'=>0,'msg'=>Lang::get('deliveryAccount/deliveryAccount.login.wrongusernameorpassword')]);
         }
 
     }
@@ -59,6 +58,12 @@ class deliveryAccountController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+    public function home(Request $request)
+    {
+        delivery::where('id',Auth::guard('delivery')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
+        $settings = website::where('id',Auth::guard('delivery')->user()->website_id)->select(['currencies','languages'])->first();
+        return view('deliveryAccount.home',['settings' => $settings]);
     }
     public function orders(Request $request)
     {
@@ -90,7 +95,7 @@ class deliveryAccountController extends Controller
             }
             if($updateOrder->update([
                 'status' => 5,
-                'delivered_at' => Carbon::now(),
+                'delivered_at' => Carbon::now()->timestamp,
                 'delivered_by' => 1,
                 'delivered_delivery_name' => Auth::guard('delivery')->user()->deliveryName,
                 'delivered_delivery_id' => Auth::guard('delivery')->user()->id,
@@ -130,10 +135,5 @@ class deliveryAccountController extends Controller
         }
 
     }
-    public function home(Request $request)
-    {
-        delivery::where('id',Auth::guard('delivery')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
-        $settings = website::where('id',Auth::guard('delivery')->user()->website_id)->select(['currencies','languages'])->first();
-        return view('deliveryAccount.home',['settings' => $settings]);
-    }
+
 }

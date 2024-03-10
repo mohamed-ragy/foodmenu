@@ -1,3 +1,14 @@
+for(i=0;i<3;i++){
+    $('#ordersContainer_loading').append(
+        $('<div/>',{class:'orderContainer'}).append(
+            $('<div/>',{class:'cardLoading h15 w80p mY10 br5'}),
+            $('<div/>',{class:'cardLoading h15 w100p mY10 br5'}),
+            $('<div/>',{class:'cardLoading h15 w100p mY10 br5'}),
+            $('<div/>',{class:'cardLoading h15 w100p mY10 br5'}),
+
+        )
+    )
+}
 getOrders = function(callback=()=>{}){
     $('#ordersContainer').addClass('none');
     $('#ordersContainer_loading').removeClass('none');
@@ -13,7 +24,7 @@ getOrders = function(callback=()=>{}){
             if(r.orders.length == 0){
                 $('#ordersContainer').append(
                     $('<div/>',{class:' mY20',text:texts.noOrders})
-                    )
+                )
             }
             for(const key in r.orders){
                 drawOrder(r.orders[key]);
@@ -34,7 +45,7 @@ let refreshInterval = setInterval(() => {
 }, 1000);
 
 
-$('#refresh').on('click',function(){
+$('html,body').on('click','#refresh',function(){
     showBtnLoading($('#refresh'))
     getOrders(function(){
         hideBtnLoading($('#refresh'))

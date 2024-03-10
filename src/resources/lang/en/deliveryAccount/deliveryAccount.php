@@ -1,13 +1,17 @@
 <?php
 return [
     /////////////login//////////////////////////
-    'loginTitle1' => 'Foodmenu',
-    'loginTitle2' => 'Delivery Accounts Hub',
-    'loginName' => 'Login Name',
-    'password' => 'password',
-    'login' => 'Login',
-    'forgetPassword' => 'Forgot Password?',
-    'wrongusernameorpassword' => 'Wrong name or password',
+    'login' => [
+        'loginTitle1' => 'Foodmenu',
+        'loginTitle2' => 'Delivery Accounts Hub',
+        'loginName' => 'Login Name',
+        'password' => 'password',
+        'login' => 'Login',
+        'forgetPassword' => 'Forgot Password?',
+        'wrongusernameorpassword' => 'Wrong name or password',
+        'cpanel' => ['public' => 'clear'],
+    ],
+
     /////////////////home////////////////////////
     'homeTitle' => 'Foodmenu | Delivery Accounts Hub',
     'homeDescription' => 'Create individual accounts for your delivery personnel to manage your order deliveries thoroughly.',

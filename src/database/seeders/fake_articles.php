@@ -30,7 +30,11 @@ class fake_articles extends Seeder
         help_en_sections::where('id','!=',null)->delete();
         $categories = ['getting-started','basics','security','ordering-system','statistics-and-analytics','products-and-categories','website-users','website-design','system-and-settings','my-staff','billing-center'];
         $icons = ['dashboard','home','activity_log','statistics_and_analytics','restaurant_expenses','financial_reports','security','password','email_address','phone_number','sub_accounts','orders','categories','products','product_reviews','users','website_colors','home_page_sections','languages','home_delivery_settings','control_panel_settings','order_pickup_settings','dine_in_settings','promo_codes','support','submit_a_help_ticket','billing','logout','print','share','edit','star','address','card'];
-        $keywords = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
+        // $keywords = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
+        $keywords = [];
+        for($x=0;$x<=30;$x++){
+            array_push($keywords,$this->faker->word());
+        }
         foreach($categories as $category){
             for($x = 1; $x <= random_int(5,15); $x++){
                 $random_keywords = array_rand($keywords,3);
@@ -55,6 +59,7 @@ class fake_articles extends Seeder
                         'title' => $this->faker->sentence(),
                         'keyWords' => $keywords[$random_keywords[0]].' '.$keywords[$random_keywords[1]].' '.$keywords[$random_keywords[2]],
                         'html' => $this->faker->text(random_int(100,1000)),
+                        'priority' => random_int(0,5),
                     ]);
                 }
             }

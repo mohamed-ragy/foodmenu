@@ -37,7 +37,6 @@
             <a class="fs09 mis-5" href="{{ env('CPANEL_URL') }}/?page=submit_a_help_ticket">{{ trans('help/help.footer.submitHelpTicket') }}</a>
             <a class="fs09 mis-5" href="{{ env('APP_URL') }}/{{ $lang }}/faq">{{ trans('help/help.footer.faq') }}</a>
             <a class="fs09 mis-5" href="{{ env('APP_URL') }}/{{ $lang }}/service-status">{{ trans('help/help.footer.serviceStatus') }}</a>
-
         </div>
     </div>
 </footer>

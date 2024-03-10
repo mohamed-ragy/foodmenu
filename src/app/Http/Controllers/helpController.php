@@ -57,21 +57,10 @@ class helpController extends Controller
         if(!in_array($request->category,$this->categories)){
             return abort(404);
         }
-        // $website = null;
-
-
-        // if($this->lang == 'en'){
-        //     // $article = help_en_articles
-        //     $tuts = help_en_tut::select(['id','title_id','sort','title','description','icon','helpCat','keyWords','upRates','downRates'])->orderBy('helpCat','asc')->orderBy('sort','asc')->get();
-        // }else{
-        //     $tuts = help_en_tut::select(['id','title_id','sort','title','description','icon','helpCat','keyWords','upRates','downRates'])->orderBy('helpCat','asc')->orderBy('sort','asc')->get();
-        // }
         return view('help.help',[
             'title' => Lang::get(str_replace('-','','help/help.cats.'.$request->category)),
             'description' => Lang::get(str_replace('-','','help/help.cats.'.$request->category.'_des')),
             'lang' => $this->lang,
-            // 'website' => $website,
-            // 'tuts' => $tuts,
             'category' => $request->category,
             'page' => 'category',
             'texts' => collect(Lang::get('help/help')),
@@ -160,7 +149,7 @@ class helpController extends Controller
             }
         }
         else if($request->has('search')){
-            $results = help_en_sections::WhereFullText('keyWords',$request->search)->orWhereFullText('title',$request->search)->get();
+            $results = help_en_sections::WhereFullText('keyWords',$request->search)->orWhereFullText('title',$request->search)->orderBy('priority','desc')->get();
             return response(['results'=>$results]);
         }
     }

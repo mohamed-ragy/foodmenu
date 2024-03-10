@@ -1,9 +1,12 @@
 setHomeSearch = function(){
-    $('.homeSearchResultsContainer').css({
-        top:$('.homeSearchContainer').position().top,
-        left:$('.homeSearchContainer').position().left,
-        width:$('.homeSearchContainer').width(),
-    })
+    try{
+        $('.homeSearchResultsContainer').css({
+            top:$('.homeSearchContainer').position().top,
+            left:$('.homeSearchContainer').position().left,
+            width:$('.homeSearchContainer').width(),
+        })
+    }catch{}
+
 }
 
 $(window).resize(function(){
