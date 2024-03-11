@@ -55,22 +55,24 @@ Route::get('/mail',function(){
     // ];
     // $account = Auth::guard('account')->user();
     $account->email = '288purple@yogirt.com';
-    $data = [
-        'account_name' => 'mohamed ragy',
-        'account_email' => $account->email,
-        'lang' => $account->language,
-        'content' => str_replace(':code:','000000',Lang::get('mails/automated.website_installed')),
-    ];
+    // $data = [
+    //     'account_name' => 'mohamed ragy',
+    //     'account_email' => $account->email,
+    //     'lang' => $account->language,
+    //     'content' => str_replace(':code:','000000',Lang::get('mails/automated.reset_password_email')),
+    // ];
+    // dd(Mail::send(new automatedEmails($data)));
     // dispatch(function () use($data,){Mail::send(new automatedEmails($data));})->afterResponse();
     // dispatch(function () use ($mail) {
-    //     Mail::to('288purple@yogirt.com')->send(new automatedEmails($mail));
+        // Mail::to('288purple@yogirt.com')->send(new automatedEmails($mail));
     // })->afterResponse();
 
     return new App\Mail\automatedEmails([
         'account_name' => $account->name,
         'account_email' => $account->email,
         'lang' => $account->language,
-        'content' => str_replace(':code:','000000',Lang::get('mails/automated.website_installed')),
+        // 'content' => str_replace(':code:','000000',Lang::get('mails/automated.reset_password_email')),
+        'content' => Lang::get('mails/automated.reset_password_email'),
     ]);
 
 });

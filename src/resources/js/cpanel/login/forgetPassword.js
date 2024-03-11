@@ -43,7 +43,7 @@ $('html,body').on('click','#recoverPasswordEmailBtn',function(e){
             if(r.status == 0){
                 $('#msg').removeClass().addClass('cR m10').text(r.msg)
                 $('#recoverPasswordEmailInput').focus();
-            }else if(r.status == 1){
+            }else if(JSON.parse(r).status == 1){
                 changeForm('forgetPassword_code')
             }else if(r.status == 2){
                 changeForm('error',function(){

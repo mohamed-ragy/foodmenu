@@ -31,7 +31,8 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PDF;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\automatedEmails;
 
 class cpanelController extends Controller
 {
@@ -65,7 +66,7 @@ class cpanelController extends Controller
             if($request->resetPasswordEmail == '' || $request->resetPasswordEmail == null){
                 return response(['status' => 0 ,'msg' => Lang::get('cpanel/login.resetPasswordWrongEmail')]);
             }
-            $findAccount = Account::where(['email'=>$request->resetPasswordEmail,'is_master' => true])->select('email','id')->first();
+            $findAccount = Account::where(['email'=>$request->resetPasswordEmail,'is_master' => true])->select('email','id','name','language')->first();
             if($findAccount){
                 $emailVerificationsToday = account_verifications::where(['account_id'=> $findAccount->id ])->where('email_verification_code_sent_at','>',Carbon::now()->subday(1)->timestamp)->count();
                 if($emailVerificationsToday > 10){
@@ -77,13 +78,17 @@ class cpanelController extends Controller
                     'recover_password_code_sent_at' => Carbon::now()->timestamp,
                 ]);
                 if($applyCode){
-                    //send email with the code
-                    if(1+1==2){
-                        account_verifications::create(['account_id'=> $findAccount->id,'email_verification_code_sent_at'=>Carbon::now()->timestamp ]);
-                        return response(['status' => 1 ]);
-                    }else{
-                        return response(['status' => 0 ,'msg' => Lang::get('cpanel/login.resetPasswordErrorTryAgain')]);
-                    }
+                    $email_content = Lang::get('mails/automated.reset_password_email');
+                    $email_content['body'] = str_replace(':code:',$code,$email_content['body']);
+                    $email_content['body'] = str_replace(':email:',$findAccount->email,$email_content['body']);
+                    $data = [
+                        'account_name' => $findAccount->name,
+                        'account_email' => $findAccount->email,
+                        'lang' => $findAccount->language,
+                        'content' => $email_content,
+                    ];
+                    Mail::to($findAccount->email)->send(new automatedEmails($data));
+                    return response()->json(['status' => 1 ]);
                 }else{
                     return response(['status' => 0 ,'msg' => Lang::get('cpanel/login.resetPasswordErrorTryAgain')]);
                 }
