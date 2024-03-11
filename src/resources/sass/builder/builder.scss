@@ -1,0 +1,51 @@
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'inter';
+    src: url('/storage/fonts/en/inter.ttf') format("truetype");
+}
+.inter{font-family: 'inter', sans-serif;}
+*{-webkit-tap-highlight-color: transparent;}
+
+html{
+    margin: 0;
+    padding:0;
+    height: 100%;
+    width:100%;
+    overflow: hidden;
+}
+body{
+    font-family: 'Nunito','inter', sans-serif;
+    overscroll-behavior-y: contain;
+    margin: 0;
+    padding:0;
+    user-select: none;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+    color: var(--txt-1);
+    background-color: var(--white);
+}
+a{
+    cursor: pointer;
+    text-decoration: none;
+    color:var(--green);
+}
+a:hover{
+    text-decoration: underline;
+}
+
+
+@import '../page_loading.scss';
+
+
+
+
+
+@import '../cpanel/tools/icons';
+@import '../style/style.scss';
+
+//

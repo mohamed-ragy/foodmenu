@@ -11,7 +11,7 @@ class liveChat extends Model
 
     // protected $dates = ['sent_at','delivered_at','seen_at','deleted_at'];
     protected $collection = 'live_chats';
-    protected  $connection = 'mongodb_live_chat';
+    protected  $connection = 'mongodb';
     protected $fillable = [
         'website_id',
         'user_id',

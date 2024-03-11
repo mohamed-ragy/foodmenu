@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class order_item extends Model
 {
     use HasFactory;
-    protected  $connection = 'mongodb_orders';
+    protected  $connection = 'mongodb';
     // protected $collection = 'order_items';
 
     protected $fillable = [

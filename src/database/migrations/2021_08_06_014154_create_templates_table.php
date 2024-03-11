@@ -1,8 +1,10 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 
 return new class extends Migration
 {
@@ -13,13 +15,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb')->drop('statistics_months');
+        Schema::connection('mongodb')->drop('templates');
 
-        Schema::connection('mongodb')->create('statistics_months', function ($collection) {
-            $collection->index('id');
+        Schema::connection('mongodb')->create('templates', function ($collection) {
+            $collection->index('_id');
             $collection->index('website_id');
-            // $collection->index('month');
-            // $collection->index('year');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statistics_months');
+        // Schema::dropIfExists('templates');
     }
 };

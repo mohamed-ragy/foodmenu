@@ -10,7 +10,7 @@ class order extends Model
     use HasFactory;
     // protected $dates = ['placed_at','accepted_at','out_for_delivery_at','ready_for_pickup_at','canceled_at','delivered_at','pickedUp_at','diningin_at','dinedin_at'];
     protected $collection = 'orders';
-    protected  $connection = 'mongodb_orders';
+    protected  $connection = 'mongodb';
     public $timestamps = false;
     protected $fillable = [
 

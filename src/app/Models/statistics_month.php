@@ -24,7 +24,7 @@ class statistics_month extends Model
 
     }
     protected $collection = 'statistics_months';
-    protected  $connection = 'mongodb_statistics';
+    protected  $connection = 'mongodb';
     protected $fillable = [
         'website_id','month','year',
         'so','do','po','co','di',

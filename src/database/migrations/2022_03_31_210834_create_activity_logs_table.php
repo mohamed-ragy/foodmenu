@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb_activity_logs')->drop('activity_logs');
-        Schema::connection('mongodb_activity_logs')->create('activity_logs', function ($collection) {
+        Schema::connection('mongodb')->drop('activity_logs');
+        Schema::connection('mongodb')->create('activity_logs', function ($collection) {
             // $table->id();
             // $table->integer('code');
             // $table->UnsignedBigInteger('website_id')->index();

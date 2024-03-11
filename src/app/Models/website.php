@@ -55,16 +55,18 @@ class website extends Model
         'month_expenses',
         'trendingProducts',
 
-        'website_colors',
-        'useCustomColors',
-        'customColorsHexCode',
         'icon','logo','icon_id','logo_id',
-        'template',
-        'intro',
-        'info',
-        'ourStory',
-        'slideShow',
-        'gallery',
+        'template_id',
+
+        // 'website_colors',
+        // 'useCustomColors',
+        // 'customColorsHexCode',
+        // 'template',
+        // 'intro',
+        // 'info',
+        // 'ourStory',
+        // 'slideShow',
+        // 'gallery',
 
         'productReviews',
         'guestReviews',
@@ -148,6 +150,9 @@ class website extends Model
     }
     public function paymentMethods(){
         return $this->hasMany(payment_method::class,'website_id','id');
+    }
+    public function templates(){
+        return $this->hasMany(template::class,'website_id','id');
     }
     public function users(){
         return $this->hasMany(User::class,'website_id','id');

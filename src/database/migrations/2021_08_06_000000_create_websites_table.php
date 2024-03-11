@@ -64,15 +64,16 @@ class CreateWebsitesTable extends Migration
             $table->bigInteger('icon_id')->nullable();
             $table->bigInteger('logo_id')->nullable();
 
-            $table->integer('website_colors')->default(1);
-            $table->boolean('useCustomColors')->default(false);
-            $table->json('customColorsHexCode');
-            $table->string('template')->default('1');
-            $table->json('intro');
-            $table->json('info');
-            $table->json('ourStory');
-            $table->json('slideShow');
-            $table->text('gallery');
+            $table->integer('template_id');
+            // $table->integer('website_colors')->default(1);
+            // $table->integer('template')->default('1');
+            // $table->boolean('useCustomColors')->default(false);
+            // $table->json('customColorsHexCode');
+            // $table->json('intro');
+            // $table->json('info');
+            // $table->json('ourStory');
+            // $table->json('slideShow');
+            // $table->text('gallery');
 
 
             $table->boolean('productReviews')->default(true);

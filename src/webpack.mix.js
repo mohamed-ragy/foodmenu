@@ -51,9 +51,14 @@ mix
     .sass('resources/sass/cpanel/login.scss','public/css/cpanel')
     .css('resources/css/colors.css','public/css/cpanel')
     .css('resources/css/colorsDark.css','public/css/cpanel')
-    // .sass('resources/sass/cpanel/fonts.scss','public/css/cpanel')
 
     .sass('resources/sass/cpanel/financialReport.scss','public/css/cpanel')
+
+    ////////////////////////////////builder//////////////////////////
+    .sass('resources/sass/builder/builder.scss','public/css/builder')
+    .js('resources/js/builder/builder.js','public/js/builder')
+
+
     //////////////////////////deliveryAccount//////////////////////
     .js('resources/js/deliveryAccount/script.js','public/js/deliveryAccount')
     .js('resources/js/deliveryAccount/login.js','public/js/deliveryAccount')

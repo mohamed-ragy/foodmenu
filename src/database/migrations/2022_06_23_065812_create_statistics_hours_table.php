@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb_statistics')->drop('statistics_hours');
+        Schema::connection('mongodb')->drop('statistics_hours');
 
-        Schema::connection('mongodb_statistics')->create('statistics_hours', function ($collection) {
+        Schema::connection('mongodb')->create('statistics_hours', function ($collection) {
             $collection->index('id');
             $collection->index('website_id');
             // $collection->index('hour');

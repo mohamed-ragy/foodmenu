@@ -13,8 +13,8 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb_notifications')->drop('notifications');
-        Schema::connection('mongodb_notifications')->create('notifications', function ($collection) {
+        Schema::connection('mongodb')->drop('notifications');
+        Schema::connection('mongodb')->create('notifications', function ($collection) {
             // $table->id();
             // $table->integer('code');
             // $table->boolean('seen')->default(false)->index();

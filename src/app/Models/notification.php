@@ -10,7 +10,7 @@ class notification extends Model
 {
     use HasFactory;
     protected $collection = 'notifications';
-    protected  $connection = 'mongodb_notifications';
+    protected  $connection = 'mongodb';
     public $timestamps = false;
     protected static function boot() {
         parent::boot();

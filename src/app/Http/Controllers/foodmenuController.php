@@ -48,7 +48,6 @@ class foodmenuController extends Controller
     }
 
     public function register(Request $request){
-        
 
         $templates = collect(foodmenuFunctions::templates())->shuffle();
         $plans = collect(foodmenuFunctions::plans());
@@ -153,7 +152,7 @@ class foodmenuController extends Controller
         else if($request->has('installWebsite')){
             if(Auth::guard('account')->user()->website_id != null){return;}
             $notAllowedDomainNames = [
-                'www','delivery','cpanel','help','administration','foodmenu','menu','api','admin','register','signup','login','signin','helpcenter','blog','vlog','faq','how','example','billing','mail','mailing',
+                'www','delivery','cpanel','help','administration','foodmenu','menu','api','admin','register','signup','login','signin','helpcenter','blog','vlog','faq','how','example','billing','mail','mailing','design','editor','preview',
                 'cumbubble','fuck','fuckyou','shitbag','shit','pissoff','asshole','dickweed','cunt','sonofabitch','fucktrumpet','bastard','bitch','damn','bollocks','bugger','cocknose','bloodyhell','knobhead','choad','bitchtits','crikey','rubbish','pissflaps','shag','wanker','talkingthepiss','twat','arsebadger','jizzcock','cumdumpster','shitmagnet','scrote','twatwaffle','thundercunt','dickhead','shitpouch','jizzstain','nonce','pisskidney','wazzock','cumwipe','fanny','bellend','pisswizard','knobjockey','cuntpuddle','dickweasel','quim','bawbag','fuckwit','tosspot','cockwomble','twatface','cack','flange','clunge','dickfucker','fannyflaps','wankface','shithouse','gobshite','jizzbreath','todger','nutsack',
             ];
             $countries = ['AFG','ALB','DZA','ASM','AND','AGO','AIA','ATG','ARG','ARM','ABW','AUS','AUT','AZE','BHS','BHR','BGD','BRB','BLR','BEL','BLZ','BEN','BMU','BTN','BOL','BIH','BWA','BRA','IOT','BRN','BGR','BFA','BDI','KHM','CMR','CAN','CPV','CYM','CAF','TCD','CHL','CHN','CXR','CCK','COL','COM','COG','COD','COK','CRI','HRV','CUB','CYP','CZE','CIV','DNK','DJI','DMA','DOM','ECU','EGY','SLV','GNQ','ERI','EST','ETH','FLK','FRO','FJI','FIN','FRA','GUF','PYF','GAB','GMB','GEO','DEU','GHA','GIB','GRC','GRL','GRD','GLP','GUM','GTM','GGY','GIN','GNB','GUY','HTI','HMD','HND','HKG','HUN','ISL','IND','IDN','IRN','IRQ','IRL','IMN','ISR','ITA','JAM','JPN','JEY','JOR','KAZ','KEN','KIR','KWT','KGZ','LAO','LVA','LBN','LSO','LBR','LBY','LIE','LTU','LUX','MAC','MDG','MWI','MYS','MLI','MLT','MHL','MRT','MUS','MYT','MEX','FSM','MDA','MCO','MNG','MNE','MSR','MAR','MOZ','MMR','NAM','NLD','NZL','NIC','NER','NGA','PRK','MKD','MNP','NOR','OMN','PAK','PLW','PSE','PAN','PNG','PRY','PER','PHL','PCN','POL','PRT','PRI','QAT','REU','ROU','RUS','RWA','SHN','KNA','LCA','SPM','VCT','WSM','SMR','STP','SAU','SEN','SRB','SYC','SLE','SGP','SVK','SVN','SLB','SOM','ZAF','SGS','KOR','ESP','LKA','SDN','SUR','SJM','SWZ','SWE','CHE','SYR','TWN','TJK','TZA','THA','TLS','TGO','TKL','TON','TTO','TUN','TUR','TKM','TCA','TUV','UGA','UKR','ARE','GBR','USA','URY','UZB','VUT','VAT','VEN','VNM','VGB','VIR','WLF','ESH','YEM','ZMB','ZWE'];
@@ -315,7 +314,7 @@ class foodmenuController extends Controller
                 ];
 
                 $plan = $plans->where('name',$request->plan)->first();
-                $template = $templates->where('id',$request->template)->first();
+                // $template = $templates->where('id',$request->template)->first();
                 $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
                 $testClock = $stripe->testHelpers->testClocks->create([
                     'frozen_time' => Carbon::now()->timestamp,
@@ -389,17 +388,18 @@ class foodmenuController extends Controller
                         $website->website_privacyPolicy = $emptyLangs;
                         $website->expenses = [];
                         $website->month_expenses = [];
-                        $website->website_colors = $template['colors'];
-                        $website->customColorsHexCode = ['color1'=>'#F5F5F5','color2'=>'#EBEBEB','color3'=>'#E0E0E0','color4'=>'#D6D6D6','color5'=>'#CCCCCC','colorError'=>'#D10000','colorSuccess'=>'#228B22','colorWarning'=>'#E3AE09','colorStar'=>'#ffc824',];
-                        $website->template = $template['id'];
-                        $website->intro = $emptyLangs2;
-                        $website->info = $emptyLangs2;
-                        $website->ourStory = $emptyLangs2;
-                        $website->slideShow = [
-                            'interval' => 15,
-                            'content' => [],
-                        ];
-                        $website->gallery = '';
+                        $website->template_id = 1;
+                        // $website->website_colors = $template['colors'];
+                        // $website->customColorsHexCode = ['color1'=>'#F5F5F5','color2'=>'#EBEBEB','color3'=>'#E0E0E0','color4'=>'#D6D6D6','color5'=>'#CCCCCC','colorError'=>'#D10000','colorSuccess'=>'#228B22','colorWarning'=>'#E3AE09','colorStar'=>'#ffc824',];
+                        // $website->template = $template['id'];
+                        // $website->intro = $emptyLangs2;
+                        // $website->info = $emptyLangs2;
+                        // $website->ourStory = $emptyLangs2;
+                        // $website->slideShow = [
+                        //     'interval' => 15,
+                        //     'content' => [],
+                        // ];
+                        // $website->gallery = '';
                         $website->workingDays_delivery = $workingDays;
                         $website->workingDays_pickup = $workingDays;
                         $website->workingDays_dinein = $workingDays;
@@ -436,7 +436,7 @@ class foodmenuController extends Controller
                                 'content' => Lang::get('mails/automated.website_installed'),
                             ];
                             dispatch(function () use($data,){Mail::send(new automatedEmails($data));})->afterResponse();
-        
+
 
                             return response(['installWebsiteState' => 1]);
                         }else{

@@ -13,9 +13,9 @@ class CreateLiveChatsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb_live_chat')->drop('live_chats');
+        Schema::connection('mongodb')->drop('live_chats');
 
-        Schema::connection('mongodb_live_chat')->create('live_chats', function ($collection) {
+        Schema::connection('mongodb')->create('live_chats', function ($collection) {
             // $table->id()->index();
             // $table->UnsignedBigInteger('website_id')->index();
             // $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');

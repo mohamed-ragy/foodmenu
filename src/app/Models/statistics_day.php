@@ -24,7 +24,7 @@ class statistics_day extends Model
 
     }
     protected $collection = 'statistics_days';
-    protected  $connection = 'mongodb_statistics';
+    protected  $connection = 'mongodb';
     protected $fillable = [
         'website_id','day','month','year',
         'so','do','po','co','di',

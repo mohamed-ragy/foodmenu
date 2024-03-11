@@ -24,7 +24,7 @@ class statistics_hour extends Model
 
     }
     protected $collection = 'statistics_hours';
-    protected  $connection = 'mongodb_statistics';
+    protected  $connection = 'mongodb';
     protected $fillable = [
         'website_id','hour','day','month','year',
         'so','do','po','co','di',

@@ -13,9 +13,9 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb_orders')->drop('orders');
+        Schema::connection('mongodb')->drop('orders');
 
-        Schema::connection('mongodb_orders')->create('orders', function ($collection) {
+        Schema::connection('mongodb')->create('orders', function ($collection) {
             $collection->index('delivery_id');
             $collection->index('user_id');
             $collection->index('status');

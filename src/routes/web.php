@@ -133,6 +133,13 @@ $cpanel = function(){
         Route::put('/mystaff',[myStaffController::class,'mystaff'])->name('cpanel.mystaff');
     });
 };
+$builder = function(){
+    Route::get('/', function (){
+        return redirect()->route('builder.home');
+    })->name('builder.root');
+    Route::get('/',[designController::class,'home'])->name('builder.home');
+    Route::post('/api',[designController::class,'api']);
+};
 $billing = function()use($FoodMenuLang){
     Route::get('/', function () use ($FoodMenuLang){
         return redirect()->route('billing.home', $FoodMenuLang);
@@ -219,7 +226,8 @@ if(
     $getHost === env('BILLING_CENTER_DOMAIN') ||
     $getHost === env('HELP_CENTER_DOMAIN') ||
     $getHost === env('DELIVERY_HUB_DOMAIN') ||
-    $getHost === env('ADMINISTRATION_DOMAIN')
+    $getHost === env('ADMINISTRATION_DOMAIN') ||
+    $getHost === env('BUILDER_DOMAIN')
 ){
     Route::domain(env('APP_DOMAIN'))->group($foodmenu);
     Route::domain('www.'.env('APP_DOMAIN'))->group($foodmenu);
@@ -228,6 +236,7 @@ if(
     Route::domain(env('HELP_CENTER_DOMAIN'))->group($help);
     Route::domain(env('DELIVERY_HUB_DOMAIN'))->group($delivery);
     Route::domain(env('ADMINISTRATION_DOMAIN'))->group($admin);
+    Route::domain(env('BUILDER_DOMAIN'))->group($builder);
 }else{
     Route::domain($getHost)->group($website);
 

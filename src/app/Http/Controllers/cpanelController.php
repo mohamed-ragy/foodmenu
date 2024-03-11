@@ -596,12 +596,14 @@ class cpanelController extends Controller
                         'lat','lng','url','timeZone','hour12','country_code',
                         'currencies','websiteNames','websiteDescriptions',
                         'website_announcements','website_receiptMsgs','languages','facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink','restaurantEmail','domainName','specialDomainName','trendingProducts',
-                        'website_colors','useCustomColors','customColorsHexCode','icon','logo','template',
-                        'intro',
-                        'info',
-                        'ourStory',
-                        'slideShow',
-                        'gallery',
+                        // 'website_colors','useCustomColors','customColorsHexCode',
+                        'icon','logo','template_id',
+                        'icon_id','logo_id',
+                        // 'intro',
+                        // 'info',
+                        // 'ourStory',
+                        // 'slideShow',
+                        // 'gallery',
                         'productReviews',
                         'guestReviews',
                         'collectReviews',
@@ -663,8 +665,8 @@ class cpanelController extends Controller
                         }])
                 ->first();
             }
-            $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];
-            $website->templateData = foodmenuFunctions::templates()[$website->template];
+            // $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];
+            // $website->templateData = foodmenuFunctions::templates()[$website->template];
             $account = Auth::guard('account')->user();
             $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
             $settings = cpanelSettings::where('account_id',$account->id)->first();

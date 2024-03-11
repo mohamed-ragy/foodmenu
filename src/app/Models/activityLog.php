@@ -10,7 +10,7 @@ class activityLog extends Model
 {
     use HasFactory;
     protected $collection = 'activity_logs';
-    protected  $connection = 'mongodb_activity_logs';
+    protected  $connection = 'mongodb';
     public $timestamps = false;
     protected static function boot() {
         parent::boot();

@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class order_item_option_selection extends Model
 {
     use HasFactory;
-    protected  $connection = 'mongodb_orders';
+    protected  $connection = 'mongodb';
     // protected $collection = 'order_item_option_selections';
 
     protected $fillable = [
