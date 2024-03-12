@@ -18,7 +18,6 @@ return new class extends Migration
         Schema::connection('mongodb')->drop('templates');
 
         Schema::connection('mongodb')->create('templates', function ($collection) {
-            $collection->index('_id');
             $collection->index('website_id');
         });
     }
