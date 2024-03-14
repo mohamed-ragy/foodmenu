@@ -9,9 +9,12 @@
     margin:20px 10px;
     padding:10px;
     box-sizing: border-box;
-    border:1px solid var(--white-4);
+    border:1px solid var(--white-3);
     border-radius: 5px;
     overflow: hidden;
+}
+.font_style_pack_change:hover{
+    box-shadow: 0 0 15px var(--shdw-10);
 }
 //
 @font-face {

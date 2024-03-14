@@ -45,6 +45,9 @@
     cursor: pointer;
     overflow: hidden;
 }
+.color_theme:hover{
+    box-shadow: 0 0 15px var(--shdw-10);
+}
 .color_theme_check{
     margin-inline-end:7px;
     font-size: 1.2em;
@@ -78,13 +81,17 @@
     margin:10px;
     cursor: pointer;
     box-sizing: border-box;
-    border:1px solid var(--white-4);
+    border:1px solid var(--white-3);
     border-radius: 5px;
     overflow: hidden;
+    padding:5px;
 }
 .color_palette_preview_color{
     height:35px;
     width:35px;
     position: relative;
     box-sizing: border-box;
+}
+.color_palette_preview:hover{
+    box-shadow: 0 0 15px var(--shdw-10);
 }
