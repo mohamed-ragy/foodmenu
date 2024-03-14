@@ -58,6 +58,7 @@ class designController extends Controller
                 'templates' => $templates,
                 'texts' => Lang::get('builder'),
                 'colors' => templates_data::colors(),
+                'fonts' => templates_data::fonts(),
             ]);
         }else if($request->has('save_template')){
             $save_tempalte = template::where([
@@ -72,7 +73,10 @@ class designController extends Controller
                     'c3' =>  $request->template['colors']['c3'],
                     'c4' =>  $request->template['colors']['c4'],
                 ],
-                'fonts' => [],
+                'font_style' => [
+                    'title' => $request->template['font_style']['title'],
+                    'paragraph' => $request->template['font_style']['paragraph'],
+                ],
                 'spacing' => [],
                 'form' => [
                     'button' => [],

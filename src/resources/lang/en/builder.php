@@ -17,6 +17,8 @@ return [
     'saveAndContinue' => 'Save and continue',
     'cancel' => 'Cancel',
     'templateNotSaved' => "There is changes haven't saved, if u select another template all unsaved changes will be lose. Are you sure you want to continue?",
+
+    'cpanel' => ['public' => ['coolDown' => 'Too many requests please wait!']],
     'responses' => [
         'templateSaved' => 'The template has been saved successfullly.',
         'tempalteSaveFail' => 'Unknown error! failed to save the template.',
@@ -57,10 +59,18 @@ return [
         'colorThemes' => 'Color themes',
         'colorThemes_des' => "Click on a color theme to set it as your website's default color theme. you still can use the other themes on your website sepratly.",
         'colorThemeTxt' => 'Color theme :number:',
-        'browsePalettes' => 'Browse palettes',
+        'browsePalettes' => 'Change palette',
+        'colorsPalettes' => 'Color palettes',
+        'colorsPalettes_des' => 'You can select a pre made color palette. You still can customize it.',
 
+        'font_style' => 'Font style',
+        'font_style_des' => 'Two font styles will be used all over your website. One for the titles and another for the paragraphs.',
+        'titleFont_style' => 'Title font style',
+        'paragraphFont_style' => 'Paragraph font style. This is an example text.',
+        'changeFontStyle' => 'Change font style',
+        'fontStyles' => 'Font styles',
+        'fontStyles_des' => 'click on a font style card to set it as the font style for your website.',
 
-        'fonts' => 'Font style',
         'spacing' => 'Page spacing',
         'form' => 'Form elements',
 

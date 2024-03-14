@@ -239,10 +239,10 @@ handelCpanelChannel = function(n,code){
     switch(code){
         case '0':
             if(n.account_id == account.id){
-                // showPopup('loginDetected');
-                // setTimeout(function(){
-                //     $('#logoutForm').trigger('submit');
-                // },5000)
+                showPopup('loginDetected');
+                setTimeout(function(){
+                    $('#logoutForm').trigger('submit');
+                },5000)
             }
         break;
         case '00':

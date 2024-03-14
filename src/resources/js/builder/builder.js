@@ -4,6 +4,7 @@ loadTouchEvents($);
 require('../page_loading.js')
 
 require('../cpanel/tools/loading.js')
+require('../cpanel/functions/coolDown.js')
 
 require('../builder/tools/alerts.js')
 require('../builder/tools/tooltip.js');
@@ -34,6 +35,14 @@ $('html,body').on('click',function(e){
     $('.editor_popup').addClass('editor_popup_dump')
 })
 
+window.addEventListener("beforeunload", function (e) {
+    if(!is_saved_checker()){
+        var confirmationMessage = "\o/";
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage;                            //Webkit, Safari, Chrome
+    }
+  });
+
 $('html,body').on('keydown',function(e){
     e.stopImmediatePropagation();
     if(e.shiftKey && e.ctrlKey && e.which == 90){
@@ -41,11 +50,17 @@ $('html,body').on('keydown',function(e){
     }
     else if(e.ctrlKey && e.which == 90){
         undo();
+    }else if(e.ctrlKey && e.which == 83){
+        e.preventDefault();
+        if(!is_saved_checker()){
+            save();
+        }
     }
 
 })
 
 save = function(){
+    if(!coolDownChecker()){return;}
     return new Promise(function(resolve,reject){
 
         let save_template = JSON.parse(JSON.stringify(window.template))
@@ -65,10 +80,10 @@ save = function(){
                     }else{
                         $('#save').prop('disabled',false)
                     }
-                    showAlert('success',texts.responses.templateSaved,4000,false);
+                    showAlert('success',texts.responses.templateSaved,4000,true);
                     resolve();
                 }else if(r.save_template_state == 0){
-                    showAlert('error',texts.responses.tempalteSaveFail,4000,false);
+                    showAlert('error',texts.responses.tempalteSaveFail,4000,true);
                     reject();
                 }
             }

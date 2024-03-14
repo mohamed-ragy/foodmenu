@@ -1,18 +1,9 @@
 //z-indexs
 //popup 200
-//components_container 190
+//header 190
 //editor_popup 180
 //editor_popup_dump 170
-@font-face {
-    font-family: 'Nunito';
-    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'inter';
-    src: url('/storage/fonts/en/inter.ttf') format("truetype");
-}
-.inter{font-family: 'inter', sans-serif;}
-*{-webkit-tap-highlight-color: transparent;}
+
 
 html{
     margin: 0;
@@ -116,4 +107,4 @@ a:hover{
 @import 'icons/icons';
 @import '../style/style.scss';
 
-//
+

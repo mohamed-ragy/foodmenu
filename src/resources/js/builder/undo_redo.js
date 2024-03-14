@@ -45,6 +45,9 @@ redo = function(){
 undo_redo_actions = function(){
     set_colors_vars();
     setDefault_color_theme();
+    //
+    set_font_style_vars();
+    //
 }
 
 //events

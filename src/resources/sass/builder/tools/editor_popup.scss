@@ -16,10 +16,19 @@
     0%{transform: translateY(-5px);opacity:0;}
     100%{transform: translateY(0px);opacity:1;}
 }
+.editor_popup_resizeIcon{
+    position: absolute;
+    bottom:-0px;
+    right:-0px;
+    padding:10px;
+    font-size: .8em;
+    z-index: 10;
+    cursor:nwse-resize;
+    opacity: .5;
+}
 .editor_popup_head{
     width:calc(100% - 20px);
     text-align: center;
-    margin-bottom:10px;
     cursor: move;
     display: flex;
     align-items: center;
@@ -31,18 +40,21 @@
 .editor_popup_body{
     position: relative;
     overflow:auto;
-    height:calc(100% - 71px);
+    height:calc(100% - 61px);
     padding:10px;
 
 }
-.editor_popup_OnMove{opacity:.7}
-.editor_popup_dump{opacity:.7;z-index: 170;}
+.editor_popup_OnMove{opacity:.8}
+.editor_popup_dump{
+    z-index: 170;
+    box-shadow: 0 0 1px 0px var(--shdw-10), 0 0 5px 0px var(--shdw-10);
+}
 
 .editor_popup_slide_0_to_left{
     animation-name: editor_popup_slide_0_to_left;
-    animation-duration: 300ms;
+    animation-duration:150ms;
     animation-iteration-count: 1;
-    animation-timing-function: ease;
+    animation-timing-function:ease;
     display:none;
 }
 @keyframes editor_popup_slide_0_to_left {
@@ -51,9 +63,9 @@
 }
 .editor_popup_slide_right_to_0{
     animation-name: editor_popup_slide_right_to_0;
-    animation-duration: 300ms;
+    animation-duration:150ms;
     animation-iteration-count: 1;
-    animation-timing-function: ease;
+    animation-timing-function:ease;
 }
 @keyframes editor_popup_slide_right_to_0 {
     0%{opacity:0;transform: translateX(200px);}
@@ -61,9 +73,9 @@
 }
 .editor_popup_slide_0_to_right{
     animation-name: editor_popup_slide_0_to_right;
-    animation-duration: 300ms;
+    animation-duration:150ms;
     animation-iteration-count: 1;
-    animation-timing-function: ease;
+    animation-timing-function:ease;
     display:none;
 }
 @keyframes editor_popup_slide_0_to_right {
@@ -72,9 +84,9 @@
 }
 .editor_popup_slide_left_to_0{
     animation-name: editor_popup_slide_left_to_0;
-    animation-duration: 300ms;
+    animation-duration:150ms;
     animation-iteration-count: 1;
-    animation-timing-function: ease;
+    animation-timing-function:ease;
 }
 @keyframes editor_popup_slide_left_to_0 {
     0%{opacity:0;transform: translateX(-200px);}

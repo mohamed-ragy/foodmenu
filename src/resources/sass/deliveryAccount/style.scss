@@ -1,16 +1,4 @@
 
-@font-face {
-    font-family: 'Nunito';
-    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'inter';
-    src: url('/storage/fonts/en/inter.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'Tajawal';
-    src: url('/storage/fonts/ar/Tajawal.ttf') format("truetype");
-}
 @import '../cpanel/tools/loading';
 @import '../cpanel/tools/scrollBar';
 @import '../cpanel/form/button.scss';

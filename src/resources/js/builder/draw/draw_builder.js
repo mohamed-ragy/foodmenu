@@ -11,10 +11,13 @@ draw_builder = function(template_id){
 
     window.history.replaceState({},'',`/?template_id=${template._id}`)
 
-    set_colors_vars();
     $('body').find('.editor_popup').remove()
+
+    set_colors_vars();
     create_editor_popup('color_palette',draw_color_palette());
 
+    set_font_style_vars();
+    create_editor_popup('font_style',draw_font_style());
 
     draw_builder_header();
     set_component('home')
@@ -51,7 +54,7 @@ draw_builder_header = function(){
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.website_style.websiteStyle}),
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_style.websiteStyle_des}),
             $('<div/>',{class:'website_style_elem mT20',elem:'colors',text:texts.website_style.colors}),
-            $('<div/>',{class:'website_style_elem',elem:'fonts',text:texts.website_style.fonts}),
+            $('<div/>',{class:'website_style_elem',elem:'font_style',text:texts.website_style.font_style}),
             $('<div/>',{class:'website_style_elem',elem:'spacing',text:texts.website_style.spacing}),
             $('<div/>',{class:'website_style_elem brdrB0',elem:'form',text:texts.website_style.form}),
         ),
@@ -125,7 +128,10 @@ $('html,body').on('click','.showWebsiteStyle',function(e){
 $('html,body').on('click','.website_style_elem',function(e){
     e.stopImmediatePropagation();
     hide_website_style_menu(true);
+    $('.editor_popup').addClass('editor_popup_dump')
     if($(this).attr('elem') === 'colors'){
         show_editor_popup('color_palette');
+    }else if($(this).attr('elem') == 'font_style'){
+        show_editor_popup('font_style')
     }
 })

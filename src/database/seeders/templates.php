@@ -26,7 +26,10 @@ class templates extends Seeder
                 'c3' => ['r'=>102, 'g'=>155, 'b'=>188],
                 'c4' => ['r'=>253, 'g'=>240, 'b'=>213],
             ],
-            'fonts' => [],
+            'font_style' => [
+                'title' => 'rubik',
+                'paragraph' => 'signikaNegative',
+            ],
             'spacing' => [],
             'form' => [
                 'button' => [],

@@ -3,11 +3,20 @@ set_colors_vars = function(){
     $(':root').css('--color_2',`rgb(${window.template.colors.c2.r},${window.template.colors.c2.g},${window.template.colors.c2.b})`);
     $(':root').css('--color_3',`rgb(${window.template.colors.c3.r},${window.template.colors.c3.g},${window.template.colors.c3.b})`);
     $(':root').css('--color_4',`rgb(${window.template.colors.c4.r},${window.template.colors.c4.g},${window.template.colors.c4.b})`);
+
+    let default_color_theme_bg = window.template.colors[`c${window.template.colors.default_color_theme.split('_')[1]}`]
+    let default_color_theme_txt = window.template.colors[`c${window.template.colors.default_color_theme.split('_')[2]}`]
+    $(':root').css('--default_color_theme_bg',`rgb(${default_color_theme_bg.r},${default_color_theme_bg.g},${default_color_theme_bg.b})`);
+    $(':root').css('--default_color_theme_txt',`rgb(${default_color_theme_txt.r},${default_color_theme_txt.g},${default_color_theme_txt.b})`);
+
 }
 draw_color_palette = function(){
-    $('#color_palette').find('.editor_popup_body').text('').append(
+    $('#color_palette').find('.editor_popup_head_btn').text('').append(
+        $('<div/>',{class:'backToColorPalete none ico-arrowLeft pointer fs101'}),
+    )
+    $('#color_palette').addClass('w400 h600').find('.editor_popup_body').text('').append(
         $('<div/>',{id:'color_palette_container'}).append(
-            $('<div/>',{class:'fs1 bold',text:texts.website_style.colors}),
+            $('<div/>',{class:'inter fs1 bold',text:texts.website_style.colors}),
             $('<div/>',{class:'fs085 mB20  c_white-11',text:texts.website_style.colors_des}),
             $('<div/>',{class:'row w100p alnC jstfyC'}).append(
                 $('<div/>',{class:'color_edit color_1',color:'c1'}).append(
@@ -31,7 +40,7 @@ draw_color_palette = function(){
                 $('<button/>',{class:'btn btn-cancel browseColorPalettes',text:texts.website_style.browsePalettes}),
             ),
             $('<div/>',{class:'mT40 w100p '}).append(
-            $('<div/>',{class:'fs1 bold',text:texts.website_style.colorThemes}),
+            $('<div/>',{class:'inter fs1 bold',text:texts.website_style.colorThemes}),
             $('<div/>',{class:'fs085 mB20  c_white-11',text:texts.website_style.colorThemes_des}),
             $('<div/>',{class:'row wrap alnC jstfyC'}).append(
                     $('<div/>',{class:'color_theme color_1_2',color_theme:'color_1_2'}).append(
@@ -86,12 +95,13 @@ draw_color_palette = function(){
             )
         ),
         $('<div/>',{id:'color_palettes_container',class:'none'}).append(
-            $('<button/>',{class:'backToColorPalete btn btn-cancel',text:texts.back}),
-            $('<div/>',{class:'',text:texts.website_style.browsePalettes}),
+            $('<div/>',{class:'inter fs1 bold',text:texts.website_style.colorsPalettes}),
+            $('<div/>',{class:'fs085 mB20  c_white-11',text:texts.website_style.colorsPalettes_des}),
             $('<div/>',{class:'color_palettes_container row alnC jstfyC wrap '})
         )
 
     )
+
     for(const key in window.colors){
         $('.color_palettes_container').append(
             $('<div/>',{class:'color_palette_preview',key:key}).append(
@@ -104,10 +114,7 @@ draw_color_palette = function(){
     }
     setDefault_color_theme();
 }
-
-
 ///
-
 rgb_To_Hex =  function (r, g, b) {
     return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
 }
@@ -145,6 +152,12 @@ $('html,body').on('change','.color_edit_input',function(e){
 setDefault_color_theme = function(){
     $('.color_theme').find('.color_theme_check').removeClass('ico-check1').addClass('ico-check0');
     $(`.color_theme[color_theme="${window.template.colors.default_color_theme}"]`).find('.color_theme_check').removeClass('ico-check0').addClass('ico-check1');
+
+
+    let default_color_theme_bg = window.template.colors[`c${window.template.colors.default_color_theme.split('_')[1]}`]
+    let default_color_theme_txt = window.template.colors[`c${window.template.colors.default_color_theme.split('_')[2]}`]
+    $(':root').css('--default_color_theme_bg',`rgb(${default_color_theme_bg.r},${default_color_theme_bg.g},${default_color_theme_bg.b})`);
+    $(':root').css('--default_color_theme_txt',`rgb(${default_color_theme_txt.r},${default_color_theme_txt.g},${default_color_theme_txt.b})`);
 }
 $('html,body').on('click','.color_theme',function(e){
     e.stopImmediatePropagation();
@@ -156,8 +169,21 @@ $('html,body').on('click','.color_theme',function(e){
 $('html,body').on('click','.browseColorPalettes',function(e){
     e.stopImmediatePropagation();
     editor_popup_to_child($('#color_palette_container'),$('#color_palettes_container'))
+    $('.backToColorPalete').removeClass('none');
 })
 $('html,body').on('click','.backToColorPalete',function(e){
     e.stopImmediatePropagation();
     editor_popup_to_parent($('#color_palette_container'),$('#color_palettes_container'))
+    $('.backToColorPalete').addClass('none');
+})
+$('html,body').on('click','.color_palette_preview',function(e){
+    e.stopImmediatePropagation();
+    let color = window.colors[$(this).attr('key')]
+    window.template.colors.c1 = JSON.parse(JSON.stringify(color.c1));
+    window.template.colors.c2 = JSON.parse(JSON.stringify(color.c2));
+    window.template.colors.c3 = JSON.parse(JSON.stringify(color.c3));
+    window.template.colors.c4 = JSON.parse(JSON.stringify(color.c4));
+    new_action();
+    editor_popup_to_parent($('#color_palette_container'),$('#color_palettes_container'))
+    $('.backToColorPalete').addClass('none');
 })

@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 .color_edit:hover{
     .color_edit_icon{display: block;}
@@ -42,10 +43,15 @@
     border:1px solid var(--white-3);
     margin:10px;
     cursor: pointer;
+    overflow: hidden;
 }
 .color_theme_check{
     margin-inline-end:7px;
     font-size: 1.2em;
+}
+.default_color_theme{
+    background-color: var(--default_color_theme_bg);
+    color: var(--default_color_theme_txt);
 }
 .color_1_2{background-color: var(--color_1);color:var(--color_2);}
 .color_1_3{background-color: var(--color_1);color:var(--color_3);}

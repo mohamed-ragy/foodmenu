@@ -1,13 +1,4 @@
-@font-face {
-    font-family: 'Nunito';
-    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'inter';
-    src: url('/storage/fonts/en/inter.ttf') format("truetype");
-}
-*{-webkit-tap-highlight-color: transparent;}
-.inter{font-family: 'inter', sans-serif;}
+
 
 @import '../page_loading.scss';
 @import '../cpanel/tools/icons';

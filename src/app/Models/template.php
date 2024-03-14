@@ -26,7 +26,7 @@ class template extends Model
     protected $fillable = [
         'website_id',
         'name',
-        'colors','fonts','spacing','form',
+        'colors','font_style','spacing','form',
         'home','category','product','about_us','privacy_policy','all_products',
         'cart','place_order','track_order','order_history','addToCart',
         'header','footer','announcement','popup','live_chat','mobileNav','scrollbar',

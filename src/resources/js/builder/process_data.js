@@ -3,6 +3,7 @@ process_data = function(r){
     window.texts = r.texts;
     window.templates = r.templates;
     window.colors = r.colors;
+    window.fonts = r.fonts;
     if( typeof(window.templates.find(item=>item._id == window.template_id)) === 'undefined' ){
         draw_select_template();
     }else{
@@ -10,5 +11,6 @@ process_data = function(r){
     }
     hide_page_loading();
     show_editor_popup('color_palette')
+    show_editor_popup('font_style')
 
 }
