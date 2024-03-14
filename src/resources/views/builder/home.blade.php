@@ -13,8 +13,18 @@
 </head>
 @include('page_loading')
 <body>
+    <div class="popupContainer none"></div>
+    <header class="none"></header>
+    <div id="website"></div>
+
+    <div class="editor_popup none"></div>
+    <div id="tooltipDiv" class="none"></div>
+    <div id="alertsContainer"></div>
 
 </body>
+<script>
+    window.template_id = "{{ $template_id }}";
+</script>
 <script src="/js/builder/builder.js"></script>
 
 </html>

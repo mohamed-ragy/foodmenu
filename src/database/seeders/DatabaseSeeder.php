@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\template;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt(".ugdg, dhlh t[h[h"),
             'role' => 1,
         ]);
+
         $this->call([
+            templates::class,
             fake_articles::class,
             // articles_en::class,
             demo::class,

@@ -1,0 +1,85 @@
+@font-face {
+  font-family: 'builder';
+  src:  url('fonts/builder.eot?t6kuzy');
+  src:  url('fonts/builder.eot?t6kuzy#iefix') format('embedded-opentype'),
+    url('fonts/builder.ttf?t6kuzy') format('truetype'),
+    url('fonts/builder.woff?t6kuzy') format('woff'),
+    url('fonts/builder.svg?t6kuzy#builder') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'builder' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.ico-arrowLeft:before {
+    content: "\e906";
+  }
+  .ico-arrowRight:before {
+    content: "\e90f";
+  }
+  .ico-arrowUp:before {
+    content: "\e910";
+  }
+  .ico-arrowDown:before {
+    content: "\e911";
+  }
+  .ico-folder:before {
+    content: "\e90e";
+  }
+  .ico-success:before {
+    content: "\e90b";
+  }
+  .ico-warning:before {
+    content: "\e90c";
+  }
+  .ico-info:before {
+    content: "\e90d";
+  }
+  .ico-information:before {
+    content: "\e90d";
+  }
+  .ico-check0:before {
+    content: "\e909";
+  }
+  .ico-check1:before {
+    content: "\e90a";
+  }
+  .ico-edit:before {
+    content: "\e908";
+  }
+  .ico-drag:before {
+    content: "\e907";
+  }
+  .ico-close:before {
+    content: "\e905";
+  }
+  .ico-desktop:before {
+    content: "\e900";
+  }
+  .ico-mobile:before {
+    content: "\e901";
+  }
+  .ico-style:before {
+    content: "\e902";
+  }
+  .ico-redo:before {
+    content: "\e903";
+  }
+  .ico-undo:before {
+    content: "\e904";
+  }

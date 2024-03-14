@@ -1,4 +1,8 @@
-
+//z-indexs
+//popup 200
+//components_container 190
+//editor_popup 180
+//editor_popup_dump 170
 @font-face {
     font-family: 'Nunito';
     src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
@@ -25,7 +29,7 @@ body{
     user-select: none;
     height:100%;
     width:100%;
-    overflow: hidden;
+    overflow: auto;
     color: var(--txt-1);
     background-color: var(--white);
 }
@@ -37,15 +41,79 @@ a{
 a:hover{
     text-decoration: underline;
 }
-
+#tooltipDiv{
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow: 0 0 1px 1px var(--shdw-10);
+    border-radius: 3px;
+    padding: 5px 8px;
+    position: fixed;
+    flex-wrap: nowrap;
+    z-index: 5250;
+    transition-duration: 0s;
+    max-width:400px;
+    font-size: .85em;
+    animation:400ms tooltipAnimation 0s 1 ease;
+}
+@keyframes tooltipAnimation {
+    0%{transform: translateY(-5px);opacity:0;}
+    100%{transform: translateY(0px);opacity:1;}
+}
+.msgBox_orange{
+    padding:15px;
+    border:1px solid var(--orange);
+    background-color: var(--orange-5);
+    color:var(--orange);
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+}
+.msgBox_red{
+    padding:15px;
+    border:1px solid var(--red);
+    background-color: var(--red-5);
+    color:var(--red);
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+}
+.msgBox_green{
+    padding:15px;
+    border:1px solid var(--green);
+    background-color: var(--green-5);
+    color:var(--green);
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+}
 
 @import '../page_loading.scss';
 
+@import '../cpanel/tools/loading.scss';
+@import '../cpanel/tools/scrollBar.scss';
+@import '../cpanel/tools/alert.scss';
+
+@import 'tools/btn.scss';
+@import 'tools/popup.scss';
+@import 'tools/selectTemplate.scss';
+@import 'tools/editor_popup.scss';
+
+@import 'header.scss';
+
+@import 'website_style.scss';
 
 
 
-
-@import '../cpanel/tools/icons';
+@import 'icons/icons';
 @import '../style/style.scss';
 
 //

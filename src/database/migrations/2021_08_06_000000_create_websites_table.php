@@ -64,7 +64,7 @@ class CreateWebsitesTable extends Migration
             $table->bigInteger('icon_id')->nullable();
             $table->bigInteger('logo_id')->nullable();
 
-            $table->integer('template_id');
+            $table->string('template_id');
             // $table->integer('website_colors')->default(1);
             // $table->integer('template')->default('1');
             // $table->boolean('useCustomColors')->default(false);

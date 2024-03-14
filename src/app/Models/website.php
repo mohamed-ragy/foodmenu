@@ -47,8 +47,7 @@ class website extends Model
         'website_privacyPolicy',
 
         'languages',
-        // 'defaultLanguage','receiptLanguage',
-        // 'customLang_flag','customLang_name','customLang_rtl','customLang_code',
+
         'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
 
         'expenses',
@@ -58,15 +57,6 @@ class website extends Model
         'icon','logo','icon_id','logo_id',
         'template_id',
 
-        // 'website_colors',
-        // 'useCustomColors',
-        // 'customColorsHexCode',
-        // 'template',
-        // 'intro',
-        // 'info',
-        // 'ourStory',
-        // 'slideShow',
-        // 'gallery',
 
         'productReviews',
         'guestReviews',
@@ -131,10 +121,6 @@ class website extends Model
         'expenses' => 'array',
         'month_expenses' => 'array',
         'customColorsHexCode' => 'array',
-        'intro' => 'array',
-        'info' => 'array',
-        'ourStory' => 'array',
-        'slideShow' => 'array',
         'workingDays_delivery' => 'array',
         'workingDays_pickup'  => 'array',
         'workingDays_dinein' => 'array',

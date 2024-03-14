@@ -13,6 +13,9 @@ use App\Models\website;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Models\img;
+use App\Models\template;
+use App\Models\templates_data;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -37,14 +40,52 @@ class designController extends Controller
         });
     }
     public function home(Request $request){
-        return view('builder.home');
+        $template = null;
+        if($request->has('template')){
+            $template = template::where([
+                'website_id' => $this->website_id,
+                '_id' => $request->template_id,
+            ]);
+        }
+        return view('builder.home',['template_id' => $request->template_id]);
     }
     public function api(Request $request){
         if($request->has('getData')){
-            $website = website::where('id',$this->account->website_id)->select()->first();
+            $website = website::where('id',$this->website_id)->select(['template_id'])->first();
+            $templates = template::where(['website_id'=>$this->website_id])->get();
             return response([
-                // 'website' => $website,
+                'website' => $website,
+                'templates' => $templates,
+                'texts' => Lang::get('builder'),
+                'colors' => templates_data::colors(),
             ]);
+        }else if($request->has('save_template')){
+            $save_tempalte = template::where([
+                'website_id' => $this->website_id,
+                '_id'  => $request->template['_id']
+            ])->update([
+                'updated_at' => Carbon::now()->timestamp,
+                'colors' => [
+                    'default_color_theme' => $request->template['colors']['default_color_theme'],
+                    'c1' =>  $request->template['colors']['c1'],
+                    'c2' =>  $request->template['colors']['c2'],
+                    'c3' =>  $request->template['colors']['c3'],
+                    'c4' =>  $request->template['colors']['c4'],
+                ],
+                'fonts' => [],
+                'spacing' => [],
+                'form' => [
+                    'button' => [],
+                    'input' => [],
+                    'checkbox' => [],
+                ]
+            ]);
+
+            if($save_tempalte){
+                return response(['save_template_state' => 1]);
+            }else{
+                return response(['save_template_state' => 0]);
+            }
         }
     }
     public function design(Request $request)
