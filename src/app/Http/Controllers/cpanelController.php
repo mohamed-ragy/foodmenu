@@ -572,8 +572,8 @@ class cpanelController extends Controller
     public function dashboard(Request $request)
     {
         if($request->has('firstLoad')){
-            if(Auth::guard('account')->user()->is_master == true){
-                $website = website::where('id',Auth::guard('account')->user()->website_id)
+            if($this->account->is_master == true){
+                $website = website::where('id',$this->account->website_id)
                         ->with(['deliveries'])
                         ->withCount('paymentMethods')
                         ->with(['accounts'=>function($q){
@@ -667,20 +667,20 @@ class cpanelController extends Controller
             }
             // $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];
             // $website->templateData = foodmenuFunctions::templates()[$website->template];
-            $account = Auth::guard('account')->user();
-            $account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
-            $settings = cpanelSettings::where('account_id',$account->id)->first();
+            // $account = Auth::guard('account')->user();
+            $this->account->planName = foodmenuFunctions::plans()[$website->plan]['name'];
+            $settings = cpanelSettings::where('account_id',$this->account->id)->first();
             $foodMenuData = collect([
                 'plans' => foodmenuFunctions::plans(),
                 'langs'=> foodmenuFunctions::languages(),
             ]);
-            if($account->language == 'en'){
+            if($this->account->language == 'en'){
                 $help_articles = help_en_articles::inRandomOrder()->limit(6)->get();
             }
             $website->help_articles = $help_articles;
             return response([
                 'website' => $website,
-                'account' => $account,
+                'account' => $this->account,
                 'settings' => $settings,
                 'foodMenuData' => $foodMenuData,
                 'autoHelp_text' => Lang::get('cpanel/autoHelp'),
