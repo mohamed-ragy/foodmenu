@@ -10,7 +10,6 @@ process_data = function(r){
         draw_builder(window.template_id);
     }
     hide_page_loading();
-    show_editor_popup('color_palette')
-    show_editor_popup('font_style')
-
+    show_editor_popup('page_setup')
 }
+//

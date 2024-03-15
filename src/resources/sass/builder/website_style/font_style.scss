@@ -1,9 +1,15 @@
 
 .font_t{
     font-family: var(--font_t);
+    line-height: var(--font_t_lh);
+    letter-spacing: var(--font_t_ls);
+    font-weight: var(--font_t_fw)
 }
 .font_p{
     font-family: var(--font_p);
+    line-height: var(--font_p_lh);
+    letter-spacing: var(--font_p_ls);
+    font-weight: var(--font_p_fw)
 }
 .font_style_pack{
     margin:20px 10px;
@@ -16,6 +22,17 @@
 .font_style_pack_change:hover{
     box-shadow: 0 0 15px var(--shdw-10);
 }
+//
+.font_settings_row{
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:1px solid var(--white-2);
+    padding:5px;
+}
+.font_settings_row:hover{background-color: var(--white-2);}
 //
 @font-face {
     font-family: 'Tajawal';

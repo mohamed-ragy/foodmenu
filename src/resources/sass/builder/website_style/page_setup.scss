@@ -1,0 +1,10 @@
+.page_setup_row{
+    position: relative;
+    // overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:1px solid var(--white-2);
+    padding:5px;
+}
+.page_setup_row:hover{background-color: var(--white-2);}

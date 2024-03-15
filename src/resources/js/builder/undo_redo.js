@@ -44,10 +44,10 @@ redo = function(){
 
 undo_redo_actions = function(){
     set_colors_vars();
-    setDefault_color_theme();
     //
     set_font_style_vars();
     //
+    set_page_setup_vars();
 }
 
 //events

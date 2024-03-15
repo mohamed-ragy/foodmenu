@@ -18,10 +18,10 @@
 }
 .editor_popup_resizeIcon{
     position: absolute;
-    bottom:-0px;
-    right:-0px;
+    bottom:-10px;
+    right:-10px;
     padding:10px;
-    font-size: .8em;
+    font-size: .5em;
     z-index: 10;
     cursor:nwse-resize;
     opacity: .5;
@@ -39,7 +39,7 @@
 }
 .editor_popup_body{
     position: relative;
-    overflow:auto;
+    overflow:scroll;
     height:calc(100% - 61px);
     padding:10px;
 

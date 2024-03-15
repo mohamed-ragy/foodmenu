@@ -1,38 +1,29 @@
 create_editor_popup = function(id,callback=()=>{}){
-    $('body').append(
-        $('<div/>',{class:'editor_popup none',id:id}).append(
-            $('<div/>',{class:'editor_popup_resizeIcon ico-drag2'}),
-            $('<div/>',{class:'editor_popup_head'}).append(
-                $('<div/>',{class:'w30 editor_popup_head_btn'}),
-                $('<div/>',{class:'w30 ico-drag'}),
-                $('<div/>',{class:'w30 ico-close editor_popup_close pointer'}),
-            ),
-            $('<div/>',{class:'editor_popup_body'}),
-        ).css({
-            right:'20px',
-            top:'70px',
-        })
-    )
-    callback();
+    return new Promise((success,reject)=>{
+        $('body').append(
+            $('<div/>',{class:'editor_popup none',id:id}).append(
+                $('<div/>',{class:'editor_popup_resizeIcon ico-drag2'}),
+                $('<div/>',{class:'editor_popup_head'}).append(
+                    $('<div/>',{class:'w30 editor_popup_head_btn'}),
+                    $('<div/>',{class:'w30 ico-drag'}),
+                    $('<div/>',{class:'w30 ico-close editor_popup_close pointer'}),
+                ),
+                $('<div/>',{class:'editor_popup_body'}),
+            ).css({
+                right:'20px',
+                top:'70px',
+            })
+        )
+    })
 }
 
 show_editor_popup = function(elem,callback=()=>{}){
-    // $('#editor_popup').text('').append(
-    //     $('<div/>',{class:'editor_popup_head'}).append(
-    //         $('<div/>',{class:''}),
-    //         $('<div/>',{class:'ico-drag'}),
-    //         $('<div/>',{class:'ico-close editor_popup_close pointer'}),
-    //     ),
-    //     $('<div/>',{class:'editor_popup_body'}),
-    // )
     switch(elem){
-        case 'color_palette':
-            draw_color_palette();
-            $('#color_palette').removeClass('none editor_popup_dump')
+        case 'gaga':
+
         break;
-        case 'font_style':
-            draw_font_style();
-            $('#font_style').removeClass('none editor_popup_dump')
+            default:
+            $(`#${elem}`).removeClass('none editor_popup_dump')
         break;
     }
 
@@ -86,12 +77,18 @@ editor_popup_to_parent = function(parent,child){
 //events
 $('html,body').on('click','.editor_popup',function(e){
     e.stopImmediatePropagation();
+    //
+    $('.color_theme_picker_themes').addClass('none')
+    //
     $('.editor_popup').addClass('editor_popup_dump')
     $(this).removeClass('editor_popup_dump')
 })
 $('html,body').on('mousedown touchstart','.editor_popup_head',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
+    //
+    $('.color_theme_picker_themes').addClass('none')
+    //
     $(this).closest('.editor_popup').attr('onMove','true');
     $(this).closest('.editor_popup').addClass('editor_popup_OnMove')
     if(window.matchMedia("(pointer: coarse)").matches){
@@ -137,6 +134,9 @@ $('html,body').on('click','.editor_popup_close',function(e){
 $('html,body').on('mousedown touchstart','.editor_popup_resizeIcon',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
+    //
+    $('.color_theme_picker_themes').addClass('none')
+    //
     $(this).closest('.editor_popup').attr('onresize','true');
     if(window.matchMedia("(pointer: coarse)").matches){
         $(this).closest('.editor_popup').attr('gapX_resize', e.originalEvent.changedTouches[0].pageX );

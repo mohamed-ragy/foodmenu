@@ -66,19 +66,35 @@ class designController extends Controller
                 '_id'  => $request->template['_id']
             ])->update([
                 'updated_at' => Carbon::now()->timestamp,
-                'colors' => [
-                    'default_color_theme' => $request->template['colors']['default_color_theme'],
-                    'c1' =>  $request->template['colors']['c1'],
-                    'c2' =>  $request->template['colors']['c2'],
-                    'c3' =>  $request->template['colors']['c3'],
-                    'c4' =>  $request->template['colors']['c4'],
+                'website_colors' => [
+                    'c1' =>  $request->template['website_colors']['c1'],
+                    'c2' =>  $request->template['website_colors']['c2'],
+                    'c3' =>  $request->template['website_colors']['c3'],
+                    'c4' =>  $request->template['website_colors']['c4'],
+                    'c_star' =>  $request->template['website_colors']['c_star'],
+                    'c_success' =>  $request->template['website_colors']['c_success'],
+                    'c_error' =>  $request->template['website_colors']['c_error'],
+                    'c_warning' =>  $request->template['website_colors']['c_warning'],
                 ],
                 'font_style' => [
                     'title' => $request->template['font_style']['title'],
+                    'title_weight' => $request->template['font_style']['title_weight'],
+                    'title_line_height' => $request->template['font_style']['title_line_height'],
+                    'title_letter_spacing' => $request->template['font_style']['title_letter_spacing'],
                     'paragraph' => $request->template['font_style']['paragraph'],
+                    'paragraph_weight' => $request->template['font_style']['paragraph_weight'],
+                    'paragraph_line_height' => $request->template['font_style']['paragraph_line_height'],
+                    'paragraph_letter_spacing' => $request->template['font_style']['paragraph_letter_spacing'],
                 ],
-                'spacing' => [],
-                'form' => [
+                'page_setup' => [
+                    'max_width' => $request->template['page_setup']['max_width'],
+                    'page_margin' => $request->template['page_setup']['page_margin'],
+                    'color_theme' => $request->template['page_setup']['color_theme'],
+                    'pageTransition' => $request->template['page_setup']['pageTransition'],
+                    'transitionDuration' => $request->template['page_setup']['transitionDuration'],
+
+                ],
+                'form_elements' => [
                     'button' => [],
                     'input' => [],
                     'checkbox' => [],

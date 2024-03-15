@@ -12,16 +12,26 @@ draw_builder = function(template_id){
     window.history.replaceState({},'',`/?template_id=${template._id}`)
 
     $('body').find('.editor_popup').remove()
+    //
 
+    create_editor_popup('website_colors').then(draw_website_colors());
     set_colors_vars();
-    create_editor_popup('color_palette',draw_color_palette());
 
+    create_editor_popup('font_style').then(draw_font_style());
     set_font_style_vars();
-    create_editor_popup('font_style',draw_font_style());
 
+    create_editor_popup('page_setup').then(draw_page_setup());
+    set_page_setup_vars();
+
+    create_editor_popup('form_elements').then();
+
+    //
     draw_builder_header();
+    draw_website();
     set_component('home')
 }
+//
+
 draw_builder_header = function(){
     $('header').text('').removeClass('none').append(
         $('<div/>',{class:'components_container none'}).append(
@@ -53,20 +63,21 @@ draw_builder_header = function(){
         $('<div/>',{class:'website_style_container none'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.website_style.websiteStyle}),
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_style.websiteStyle_des}),
-            $('<div/>',{class:'website_style_elem mT20',elem:'colors',text:texts.website_style.colors}),
+            $('<div/>',{class:'website_style_elem mT20',elem:'website_colors',text:texts.website_style.website_colors}),
             $('<div/>',{class:'website_style_elem',elem:'font_style',text:texts.website_style.font_style}),
-            $('<div/>',{class:'website_style_elem',elem:'spacing',text:texts.website_style.spacing}),
-            $('<div/>',{class:'website_style_elem brdrB0',elem:'form',text:texts.website_style.form}),
+            $('<div/>',{class:'website_style_elem',elem:'page_setup',text:texts.website_style.page_setup}),
+            $('<div/>',{class:'website_style_elem brdrB0',elem:'form_elements',text:texts.website_style.form_elements}),
         ),
         $('<div/>',{class:'row alnC jstfyC'}).append(
             $('<div/>',{class:'header_icon ico-folder showSelectTemplate',tooltip:texts.selectTemplate}),
+            $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
+            $('<div/>',{class:'header_icon ico-style showWebsiteStyle',tooltip:texts.websiteStyle}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
             $('<div/>',{class:'header_icon2 showComponents row alnC jsfySB'}).append(
                 $('<div/>',{class:'mnw200 component_name'}),
                 $('<div/>',{class:'ico-arrowDown mis-20'})
             ),
-            $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon ico-style showWebsiteStyle',tooltip:texts.websiteStyle}),
+
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
             $('<div/>',{class:'header_icon ico-undo header_icon_disabled undo',tooltip:texts.undo}),
             $('<div/>',{class:'header_icon ico-redo header_icon_disabled redo',tooltip:texts.redo}),
@@ -129,9 +140,7 @@ $('html,body').on('click','.website_style_elem',function(e){
     e.stopImmediatePropagation();
     hide_website_style_menu(true);
     $('.editor_popup').addClass('editor_popup_dump')
-    if($(this).attr('elem') === 'colors'){
-        show_editor_popup('color_palette');
-    }else if($(this).attr('elem') == 'font_style'){
-        show_editor_popup('font_style')
-    }
+
+    show_editor_popup($(this).attr('elem'));
+
 })

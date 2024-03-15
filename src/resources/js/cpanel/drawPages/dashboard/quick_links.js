@@ -16,6 +16,10 @@ drawPage_quick_links  = function(){
                     $('<div/>',{class:'ico-support fs205 mB15 c_txt1'}),
                     $('<div/>',{class:'fs101 ',text:texts.dashboard.helpCenter})
                 ),
+                $('<a/>',{class:'quickLinkContainer',href:process.env.MIX_BUILDER_URL,target:'_blank'}).append(
+                    $('<div/>',{class:'ico-design fs205 mB15 c_txt1'}),
+                    $('<div/>',{class:'fs101 ',text:texts.dashboard.websiteBuilder})
+                ),
                 $('<a/>',{class:'quickLinkContainer',href:process.env.MIX_BILLING_CENTER_URL,target:'_blank'}).append(
                     $('<div/>',{class:'ico-billing fs203 mB20 c_txt1'}),
                     $('<div/>',{class:'fs101 ',text:texts.dashboard.billingCenter})

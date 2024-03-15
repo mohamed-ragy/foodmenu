@@ -1,0 +1,23 @@
+// .website_wrapper{
+//     width:100%;
+//     min-height:calc(100% - 50px);
+// }
+.website_body{
+    width:100%;
+    height:calc(100% - 50px);
+    padding:0 var(--page_margin);
+    box-sizing: border-box;
+    margin:auto;
+    overflow: auto;
+
+    .section{
+        max-width:var(--page_max_width);
+        margin-left:auto;
+        margin-right: auto;
+    }
+
+}
+.body_color_theme{
+    background-color: var(--body_color_theme_bg);
+    color: var(--body_color_theme_txt);
+}

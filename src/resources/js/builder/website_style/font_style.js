@@ -1,25 +1,112 @@
 set_font_style_vars = function(){
     $(':root').css('--font_t',`'${window.template.font_style.title}', cairo, sans-serif`);
+    $(':root').css('--font_t_fw',window.template.font_style.title_weight);
+    $(':root').css('--font_t_lh',window.template.font_style.title_line_height);
+    $(':root').css('--font_t_ls',window.template.font_style.title_letter_spacing);
     $(':root').css('--font_p',`'${window.template.font_style.paragraph}', Tajawal, sans-serif`);
+    $(':root').css('--font_p_fw',window.template.font_style.paragraph_weight);
+    $(':root').css('--font_p_lh',window.template.font_style.paragraph_line_height);
+    $(':root').css('--font_p_ls',window.template.font_style.paragraph_letter_spacing);
+
+    $('.title_weight_select').removeClass('select_box_selected')
+    $(`.title_weight_select[key="${window.template.font_style.title_weight}"]`).addClass('select_box_selected')
+
+    $('.title_line_height_select').removeClass('select_box_selected')
+    $(`.title_line_height_select[key="${window.template.font_style.title_line_height}"]`).addClass('select_box_selected')
+
+    $('.title_letter_spacing_select').removeClass('select_box_selected')
+    $(`.title_letter_spacing_select[key="${window.template.font_style.title_letter_spacing}"]`).addClass('select_box_selected')
+
+    $('.paragraph_weight_select').removeClass('select_box_selected')
+    $(`.paragraph_weight_select[key="${window.template.font_style.paragraph_weight}"]`).addClass('select_box_selected')
+
+    $('.paragraph_line_height_select').removeClass('select_box_selected')
+    $(`.paragraph_line_height_select[key="${window.template.font_style.paragraph_line_height}"]`).addClass('select_box_selected')
+
+    $('.paragraph_letter_spacing_select').removeClass('select_box_selected')
+    $(`.paragraph_letter_spacing_select[key="${window.template.font_style.paragraph_letter_spacing}"]`).addClass('select_box_selected')
 }
 draw_font_style = function(){
     $('#font_style').find('.editor_popup_head_btn').text('').append(
         $('<div/>',{class:'backToFontStyle none ico-arrowLeft pointer fs101'}),
     )
-    $('#font_style').addClass('w400 h400').find('.editor_popup_body').text('').append(
+    $('#font_style').addClass('w400 h700').find('.editor_popup_body').text('').append(
         $('<div/>',{id:'font_style_pack_container',class:''}).append(
             $('<div/>',{id:'font_style_pack_container'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.font_style}),
                 $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.font_style_des}),
 
-                $('<div/>',{class:`font_style_pack default_color_theme`}).append(
-                    $('<div/>',{class:`fs103 bold font_t`,text:texts.website_style.titleFont_style}),
+                $('<div/>',{class:`font_style_pack body_color_theme mnh100`}).append(
+                    $('<div/>',{class:`fs103 font_t`,text:texts.website_style.titleFont_style}),
                     $('<div/>',{class:`fs09 font_p`,text:texts.website_style.paragraphFont_style}),
-                )
+                ),
             ),
             $('<div/>',{class:'row alnC jstfyE w100p mT30'}).append(
                 $('<button/>',{class:'btn btn-cancel changeFontStyle',text:texts.website_style.changeFontStyle}),
             ),
+            $('<div/>',{class:'w100p mT40'}).append(
+                $('<div/>',{class:'fs1 bold mB5',text:texts.website_style.titleFont}),
+                $('<div/>',{class:'w100p mB40'}).append(
+                    $('<div/>',{class:'font_settings_row'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.fontWeight}),
+                        $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'title_weight'}).append(
+                            $('<div/>',{class:`pY5 pX10 title_weight_select select_box`,text:texts.website_style.bold,key:'bold'}),
+                            $('<div/>',{class:`pY5 pX10 title_weight_select select_box`,text:texts.website_style.normal,key:'normal'}),
+                        )
+                    ),
+                    $('<div/>',{class:'font_settings_row'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.lineHeight}),
+                        $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'title_line_height'}).append(
+                            $('<div/>',{class:`pY5 w25 title_line_height_select select_box`,text:'XS',key:'.8em'}),
+                            $('<div/>',{class:`pY5 w25 title_line_height_select select_box`,text:'S',key:'1.2em'}),
+                            $('<div/>',{class:`pY5 w25 title_line_height_select select_box`,text:'M',key:'1.6em'}),
+                            $('<div/>',{class:`pY5 w25 title_line_height_select select_box`,text:'L',key:'2em'}),
+                            $('<div/>',{class:`pY5 w25 title_line_height_select select_box`,text:'XL',key:'2.4em'}),
+                        )
+                    ),
+                    $('<div/>',{class:'font_settings_row brdrB0'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.letterSpacing}),
+                        $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'title_letter_spacing'}).append(
+                            $('<div/>',{class:`pY5 w25 title_letter_spacing_select select_box`,text:'XS',key:'0.01em'}),
+                            $('<div/>',{class:`pY5 w25 title_letter_spacing_select select_box`,text:'S',key:'0.04em'}),
+                            $('<div/>',{class:`pY5 w25 title_letter_spacing_select select_box`,text:'M',key:'0.08em'}),
+                            $('<div/>',{class:`pY5 w25 title_letter_spacing_select select_box`,text:'L',key:'0.12em'}),
+                            $('<div/>',{class:`pY5 w25 title_letter_spacing_select select_box`,text:'XL',key:'0.16em'}),
+                        )
+                    ),
+                ),
+                $('<div/>',{class:'fs1 bold mB5',text:texts.website_style.paragraphFont}),
+                $('<div/>',{class:'w100p'}).append(
+                    $('<div/>',{class:'font_settings_row'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.fontWeight}),
+
+                        $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'paragraph_weight'}).append(
+                            $('<div/>',{class:`pY5 pX10 paragraph_weight_select select_box`,text:texts.website_style.bold,key:'bold'}),
+                            $('<div/>',{class:`pY5 pX10 paragraph_weight_select select_box`,text:texts.website_style.normal,key:'normal'}),
+                        )
+                    ),
+                    $('<div/>',{class:'font_settings_row'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.lineHeight}),
+                        $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'paragraph_line_height'}).append(
+                            $('<div/>',{class:`pY5 w25 paragraph_line_height_select select_box`,text:'XS',key:'.8em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_line_height_select select_box`,text:'S',key:'1.2em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_line_height_select select_box`,text:'M',key:'1.6em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_line_height_select select_box`,text:'L',key:'2em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_line_height_select select_box`,text:'XL',key:'2.4em'}),
+                        )
+                    ),
+                    $('<div/>',{class:'font_settings_row brdrB0'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.letterSpacing}),
+                        $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'paragraph_letter_spacing'}).append(
+                            $('<div/>',{class:`pY5 w25 paragraph_letter_spacing_select select_box`,text:'XS',key:'0.01em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_letter_spacing_select select_box`,text:'S',key:'0.04em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_letter_spacing_select select_box`,text:'M',key:'0.08em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_letter_spacing_select select_box`,text:'L',key:'0.12em'}),
+                            $('<div/>',{class:`pY5 w25 paragraph_letter_spacing_select select_box`,text:'XL',key:'0.16em'}),
+                        )
+                    ),
+                ),
+            )
         ),
         $('<div/>',{id:'font_style_packs_container',class:'none'}).append(
             $('<div/>',{class:'inter fs1 bold',text:texts.website_style.fontStyles}),
@@ -29,16 +116,16 @@ draw_font_style = function(){
     )
     for(const key in window.fonts){
         $('.font_style_packs_container').append(
-            $('<div/>',{class:`font_style_pack font_style_pack_change default_color_theme`,key:key}).append(
-                $('<div/>',{style:`font-family:${window.fonts[key].title}`,class:`pointer fs103 bold`,text:texts.website_style.titleFont_style}),
-                $('<div/>',{style:`font-family:${window.fonts[key].paragraph}`,class:`pointer fs09`,text:texts.website_style.paragraphFont_style}),
+            $('<div/>',{class:`font_style_pack font_style_pack_change body_color_theme`,key:key}).append(
+                $('<div/>',{style:`font-family:${window.fonts[key].title}`,class:`font_t pointer fs103`,text:texts.website_style.titleFont_style}),
+                $('<div/>',{style:`font-family:${window.fonts[key].paragraph}`,class:`font-p pointer fs09`,text:texts.website_style.paragraphFont_style}),
             )
         )
     }
-
+    try{
+        set_font_style_vars();
+    }catch{}
 }
-
-
 //events
 $('html,body').on('click','.changeFontStyle',function(e){
     e.stopImmediatePropagation();

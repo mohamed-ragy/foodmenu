@@ -159,6 +159,9 @@ return [
     //
     'fodmenuHome' => 'Foodmenu Home',
     'helpCenter' => 'Help center',
+    //new//
+    'websiteBuilder' => 'Website Builder',
+    //new//
     'billingCenter' => 'Billing center',
     'deliveryGate' => 'Delivery accounts hub',
     'serviceStatus' => 'Service status',

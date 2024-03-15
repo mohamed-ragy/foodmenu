@@ -11,6 +11,7 @@ require('../builder/tools/tooltip.js');
 require('../builder/tools/popup.js');
 require('../builder/tools/editor_popup.js');
 require('../builder/tools/is_saved_checker.js');
+require('../builder/tools/selectors.js');
 
 require('../builder/process_data.js')
 require('../builder/undo_redo.js')
@@ -33,6 +34,7 @@ $('html,body').on('click',function(e){
     hide_components_menu()
     hide_website_style_menu();
     $('.editor_popup').addClass('editor_popup_dump')
+    $('.color_theme_picker_themes').addClass('none')
 })
 
 window.addEventListener("beforeunload", function (e) {

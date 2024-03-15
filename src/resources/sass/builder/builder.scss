@@ -1,6 +1,7 @@
 //z-indexs
 //popup 200
 //header 190
+//color_theme_picker_themes 185
 //editor_popup 180
 //editor_popup_dump 170
 
@@ -20,7 +21,7 @@ body{
     user-select: none;
     height:100%;
     width:100%;
-    overflow: auto;
+    // overflow: auto;
     color: var(--txt-1);
     background-color: var(--white);
 }
@@ -87,6 +88,7 @@ a:hover{
     margin:20px;
 }
 
+
 @import '../page_loading.scss';
 
 @import '../cpanel/tools/loading.scss';
@@ -97,11 +99,12 @@ a:hover{
 @import 'tools/popup.scss';
 @import 'tools/selectTemplate.scss';
 @import 'tools/editor_popup.scss';
+@import 'tools/selectors.scss';
 
 @import 'header.scss';
 
 @import 'website_style.scss';
-
+@import 'website/website.scss';
 
 
 @import 'icons/icons';

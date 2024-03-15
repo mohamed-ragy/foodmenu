@@ -24,9 +24,10 @@ class template extends Model
 
     }
     protected $fillable = [
-        'website_id',
-        'name',
-        'colors','font_style','spacing','form',
+        'website_id','name',
+
+        'website_colors','font_style','page_setup','form_elements',
+
         'home','category','product','about_us','privacy_policy','all_products',
         'cart','place_order','track_order','order_history','addToCart',
         'header','footer','announcement','popup','live_chat','mobileNav','scrollbar',
