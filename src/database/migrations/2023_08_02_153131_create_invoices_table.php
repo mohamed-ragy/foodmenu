@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->UnsignedBigInteger('website_id')->index()->nullable();
+            $table->UnsignedBigInteger('website_id')->nullable();
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->string('invoice_id')->nullable()->unique();
             $table->string('status');

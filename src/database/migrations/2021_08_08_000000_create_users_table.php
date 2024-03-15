@@ -15,12 +15,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->index();
+            $table->string('email');
             $table->string('password');
             $table->string('resetPassword_token')->nullable();
             $table->integer('resetPassword_token_sent_at')->nullable();
             $table->rememberToken();
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->string('name');
             $table->string('address');

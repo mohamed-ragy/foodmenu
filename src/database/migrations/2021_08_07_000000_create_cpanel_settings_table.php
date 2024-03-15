@@ -15,7 +15,7 @@ class CreateCpanelSettingsTable extends Migration
     {
         Schema::create('cpanel_settings', function (Blueprint $table) {
             $table->id();
-            $table->UnsignedBigInteger('account_id')->index();
+            $table->UnsignedBigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
 
             $table->boolean('guideMode')->default(true);

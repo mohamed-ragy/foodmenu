@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('financial_reports', function (Blueprint $table) {
-            $table->id()->index();
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->id();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->integer('month');
             $table->integer('year');

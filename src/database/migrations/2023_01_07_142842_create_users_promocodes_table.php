@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('users_promocodes', function (Blueprint $table) {
             $table->id();
-            $table->UnsignedBigInteger('user_id')->index();
+            $table->UnsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->UnsignedBigInteger('promocode_id')->index();
+            $table->UnsignedBigInteger('promocode_id');
             $table->foreign('promocode_id')->references('id')->on('promocodes')->onDelete('cascade');
         });
     }

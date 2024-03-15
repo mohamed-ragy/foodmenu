@@ -28,10 +28,10 @@ class CreateLiveChatsTable extends Migration
             // $table->timestamp('seen_at')->nullable();
             // $table->boolean('isDeleted')->default(false);
             // $table->timestamps();
-            $collection->index('_id');
-            $collection->index('website_id');
-            $collection->index('user_id');
-            $collection->index('guest_id');
+            // $collection->index('_id');
+            // $collection->index('website_id');
+            // $collection->index('user_id');
+            // $collection->index('guest_id');
             // $collection->index('sent_at');
             // $collection->index('is_delivered');
             // $collection->index('is_seen');

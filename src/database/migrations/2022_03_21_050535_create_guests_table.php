@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('ip');
 
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
 
             $table->integer('lastSeen');

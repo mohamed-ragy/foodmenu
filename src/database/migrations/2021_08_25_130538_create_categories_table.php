@@ -15,10 +15,10 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->tinyInteger('sort');
-            $table->string('name')->index();
+            $table->string('name');
             $table->UnsignedBigInteger('img_id')->nullable();
             $table->foreign('img_id')->references('id')->on('imgs')->onDelete('set Null');
             $table->string('img')->nullable();

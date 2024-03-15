@@ -22,7 +22,7 @@ class CreateaccountsTable extends Migration
             //2=> (all set)
             $table->boolean('newsLetter')->default(true);
             $table->string('authorities');
-            $table->UnsignedBigInteger('website_id')->index()->nullable();
+            $table->UnsignedBigInteger('website_id')->nullable();
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->string('name')->nullable();
 

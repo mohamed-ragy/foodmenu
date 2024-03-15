@@ -14,10 +14,10 @@ class CreateProductOptionSelectionsTable extends Migration
     public function up()
     {
         Schema::create('product_option_selections', function (Blueprint $table) {
-            $table->id()->index();
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->id();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
-            $table->UnsignedBigInteger('product_option_id')->index();
+            $table->UnsignedBigInteger('product_option_id');
             $table->foreign('product_option_id')->references('id')->on('product_options')->onDelete('cascade');
             $table->integer('sort');
             $table->decimal('price',10,2)->default(0.00);

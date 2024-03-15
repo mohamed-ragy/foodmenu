@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('promocodes', function (Blueprint $table) {
             $table->id();
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->string('code');
             $table->boolean('is_active')->default(true);

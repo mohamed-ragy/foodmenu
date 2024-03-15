@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::connection('mongodb')->drop('statistics_days');
 
         Schema::connection('mongodb')->create('statistics_days', function ($collection) {
-            $collection->index('id');
-            $collection->index('website_id');
+            // $collection->index('id');
+            // $collection->index('website_id');
             // $collection->index('day');
             // $collection->index('month');
             // $collection->index('year');

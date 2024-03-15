@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('ticket_msgs', function (Blueprint $table) {
             $table->id();
             $table->integer('author');
-            $table->UnsignedBigInteger('website_id')->index()->nullable();
+            $table->UnsignedBigInteger('website_id')->nullable();
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->UnsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
-            $table->UnsignedBigInteger('ticket_id')->index();
+            $table->UnsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             $table->text('msg');
             $table->integer('created_at');

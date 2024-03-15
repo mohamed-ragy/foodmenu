@@ -14,11 +14,11 @@ class CreateTicketsTable extends Migration
     public function up()
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id()->startingValue(1000)->index();
-            $table->UnsignedBigInteger('website_id')->index()->nullable();
+            $table->id()->startingValue(1000);
+            $table->UnsignedBigInteger('website_id')->nullable();
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->integer('code');
-            $table->integer('status')->index();
+            $table->integer('status');
             //0->new -> open
             //1->open -> open
             //2->pending -> Awaiting your reply

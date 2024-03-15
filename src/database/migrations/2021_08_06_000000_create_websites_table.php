@@ -14,7 +14,7 @@ class CreateWebsitesTable extends Migration
     public function up()
     {
         Schema::create('websites', function (Blueprint $table) {
-            $table->id()->index();
+            $table->id();
             $table->string('plan')->default('standard');
             $table->string('billingPeriod')->nullable();
 
@@ -26,7 +26,7 @@ class CreateWebsitesTable extends Migration
             $table->integer('subscription_end_period')->nullable();
 
             $table->boolean('active')->default(true);
-            $table->string('domainName')->unique()->index();
+            $table->string('domainName')->unique();
             $table->string('specialDomainName')->nullable()->unique();
 
             $table->json('languages');

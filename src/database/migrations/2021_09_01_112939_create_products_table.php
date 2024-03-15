@@ -14,12 +14,12 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id()->index();
+            $table->id();
 
-            $table->UnsignedBigInteger('website_id')->index();
+            $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
 
-            $table->UnsignedBigInteger('category_id')->nullable()->index();
+            $table->UnsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->tinyInteger('sort')->nullable();
 
@@ -28,14 +28,14 @@ class CreateProductsTable extends Migration
             $table->string('img')->nullable();
             $table->string('thumbnail')->nullable();
 
-            $table->string('name')->index();
+            $table->string('name');
 
             $table->json('names');
             $table->json('descriptions');
 
             $table->decimal('price',10,2)->default(0.00);
             $table->boolean('availability')->default(true);
-            $table->decimal('rating',10,2)->index()->nullable();
+            $table->decimal('rating',10,2)->nullable();
             $table->integer('ratings_sum')->default(0);
             $table->integer('ordered_sum')->default(0);
             $table->integer('created_at');
