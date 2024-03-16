@@ -77,12 +77,6 @@ save = function(){
                 // process_data(r);
                 if(r.save_template_state == 1){
                     window.last_saved_template = JSON.parse(JSON.stringify(save_template))
-                    if(is_saved_checker()){
-                        $('#save').prop('disabled',true)
-                    }else{
-                        $('#save').prop('disabled',false)
-                    }
-                    showAlert('success',texts.responses.templateSaved,4000,true);
                     resolve();
                 }else if(r.save_template_state == 0){
                     showAlert('error',texts.responses.tempalteSaveFail,4000,true);
@@ -96,8 +90,18 @@ save = function(){
 }
 $('html,body').on('click','#save',function(e){
     e.stopImmediatePropagation();
+
     showBtnLoading($('#save'))
-    save().then(hideBtnLoading($('#save')),hideBtnLoading($('#save')))
+    // save().then()
+    save().then(function(){
+        hideBtnLoading($('#save'))
+        if(is_saved_checker()){
+            $('#save').prop('disabled',true)
+        }else{
+            $('#save').prop('disabled',false)
+        }
+        showAlert('success',texts.responses.templateSaved,4000,true);
+    })
 })
 
 
