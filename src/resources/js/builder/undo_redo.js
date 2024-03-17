@@ -48,6 +48,8 @@ undo_redo_actions = function(){
     set_font_style_vars();
     //
     set_page_setup_vars();
+    //
+    set_form_elements_vars();
 }
 
 //events

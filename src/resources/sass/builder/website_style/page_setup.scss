@@ -1,6 +1,5 @@
 .page_setup_row{
     position: relative;
-    // overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -8,3 +7,19 @@
     padding:5px;
 }
 .page_setup_row:hover{background-color: var(--white-2);}
+//
+.fade_out{
+    animation-name: fade_out;
+    animation-duration: var(--page_transitionDuration);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes fade_out {0%{opacity:1}100%{opacity: 0}}
+.fade_in{
+    animation-name: fade_in;
+    animation-duration: var(--page_transitionDuration);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes fade_in {0%{opacity:0}100%{opacity: 1}}
+//

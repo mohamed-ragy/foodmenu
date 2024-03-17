@@ -23,7 +23,8 @@ draw_builder = function(template_id){
     create_editor_popup('page_setup').then(draw_page_setup());
     set_page_setup_vars();
 
-    create_editor_popup('form_elements').then();
+    create_editor_popup('form_elements').then(draw_form_elements());
+    set_form_elements_vars();
 
     //
     draw_builder_header();

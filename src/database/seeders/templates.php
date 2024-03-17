@@ -42,14 +42,26 @@ class templates extends Seeder
             'page_setup' => [
                 'max_width' => '1800px',
                 'page_margin' => '0vw',
-                'color_theme' => 'color_4_1',
+                'color_theme' => 'color_1_2',
                 'pageTransition' => 'fade',
                 'transitionDuration' => '300ms',
             ],
             'form_elements' => [
-                'button' => [],
-                'input' => [],
+                'spacing' => '10px',
+                'input' => [
+                    'padding' => '5px',
+                    
+                    'border_width' => '1px',
+                    'border_style' => 'solid solid solid solid',
+                    'border_radius' => '3px',
+                    'font_size' => '1.1em',
+                    'label_font_size' => '.9em',
+                    'focus_outline' => true,
+                    'background_fill' => true,
+                    'input_bg_color' => ['r'=>245,'g'=>245,'b'=>245],
+                ],
                 'checkbox' => [],
+                'button' => [],
             ]
         ]);
     }

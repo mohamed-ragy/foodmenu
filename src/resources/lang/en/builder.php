@@ -47,13 +47,11 @@ return [
         'popup' => 'Pop-up window',
         'live_chat' => 'Live chat',
         'mobileNav' => 'Mobile navbar',
-
-
     ],
     'website_style' => [
         'websiteStyle' => 'Website style',
         'websiteStyle_des' => "Customize your website's style settings that appear across your enire site.",
-
+        //
         'website_colors' => 'Website colors',
         'color_palettes' => 'Color palette',
         'color_palettes_des' => 'Your website color palette will be used to generate color themes which u can easily use anywhere on your website.',
@@ -80,8 +78,7 @@ return [
         'successMsgColor' => 'Success message text color',
         'errorMsgColor' => 'Error message text color',
         'warningMsgColor' => 'Warning message text color',
-
-
+        //
         'font_style' => 'Font style',
         'font_style_des' => 'Two font styles will be used all over your website. One for the titles and another for the paragraphs.',
         'titleFont_style' => 'Title font style',
@@ -96,8 +93,7 @@ return [
         'normal' => 'Normal',
         'lineHeight' => 'Line height',
         'letterSpacing' => 'Letter spacing',
-
-
+        //
         'page_setup' => 'Page Setup',
         'page_setup_des' => "Setting up the page to suite your website's taste.",
         'max_width' => 'Max content width',
@@ -105,9 +101,27 @@ return [
         'color_theme' => 'Color theme',
         'pageTransition' => 'Page transition',
         'transitionDuration' => 'Transition duration',
-        'form_elements' => 'Form elements',
 
+        'form_elements' => 'Form elements',
+        'form_elements_des' => 'The form elements will be used all over your website.',
+        'input_box' => 'Input box',
 
     ],
-
+    'inputList_elem' => [
+        '_800px' => '800px',
+        '_1000px' => '1000px',
+        '_1200px' => '1200px',
+        '_1400px' => '1400px',
+        '_1600px' => '1600px',
+        '_1800px' => '1800px',
+        '_2000px' => '2000px',
+        '_2200px' => '2200px',
+        '_2400px' => '2400px',
+        '_2600px' => '2600px',
+        '_2800px' => '2800px',
+        '_3000px' => '3000px',
+        //
+        'fade' => 'Fade',
+        'fade2' => 'Fade2',
+    ]
 ];

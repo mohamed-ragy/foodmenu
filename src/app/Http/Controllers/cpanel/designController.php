@@ -95,9 +95,18 @@ class designController extends Controller
 
                 ],
                 'form_elements' => [
-                    'button' => [],
-                    'input' => [],
+                    'spacing' => $request->template['form_elements']['spacing'],
+                    'font_size' => $request->template['form_elements']['font_size'],
+                    'input' => [
+                        'border_width' => $request->template['form_elements']['input']['border_width'],
+                        'border_style' => $request->template['form_elements']['input']['border_style'],
+                        'border_radius' => $request->template['form_elements']['input']['border_radius'],
+                        'padding' => $request->template['form_elements']['input']['padding'],
+                        'background_fill' => $request->template['form_elements']['input']['background_fill'],
+                        'focus_outline' => $request->template['form_elements']['input']['focus_outline'],
+                    ],
                     'checkbox' => [],
+                    'button' => [],
                 ]
             ]);
 

@@ -14,6 +14,7 @@ draw_color_theme_Picker = function(id,key_tree,last_key){
 
 $('html,body').on('click','.color_theme_picker_container',function(e){
     e.stopImmediatePropagation();
+    $('.inputList_elems').addClass('none')
     let key_tree = $(this).attr('key_tree').split('.');
     let template = window.template;
     for(const key in key_tree){

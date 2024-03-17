@@ -35,6 +35,7 @@ $('html,body').on('click',function(e){
     hide_website_style_menu();
     $('.editor_popup').addClass('editor_popup_dump')
     $('.color_theme_picker_themes').addClass('none')
+    $('.inputList_elems').addClass('none')
 })
 
 window.addEventListener("beforeunload", function (e) {

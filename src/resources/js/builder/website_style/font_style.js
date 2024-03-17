@@ -30,7 +30,7 @@ draw_font_style = function(){
     $('#font_style').find('.editor_popup_head_btn').text('').append(
         $('<div/>',{class:'backToFontStyle none ico-arrowLeft pointer fs101'}),
     )
-    $('#font_style').addClass('w400 h700').find('.editor_popup_body').text('').append(
+    $('#font_style').addClass('w400 h750').find('.editor_popup_body').text('').append(
         $('<div/>',{id:'font_style_pack_container',class:''}).append(
             $('<div/>',{id:'font_style_pack_container'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.font_style}),

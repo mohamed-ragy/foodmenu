@@ -59,21 +59,21 @@
     margin:10px;
     overflow: hidden;
 }
-.color_1_2{background-color: var(--color_1);color:var(--color_2);}
-.color_1_3{background-color: var(--color_1);color:var(--color_3);}
-.color_1_4{background-color: var(--color_1);color:var(--color_4);}
+.color_1_2{background-color: var(--color_1);color:var(--color_2);border-color:var(--color_2);}
+.color_1_3{background-color: var(--color_1);color:var(--color_3);border-color:var(--color_3);}
+.color_1_4{background-color: var(--color_1);color:var(--color_4);border-color:var(--color_4);}
 
-.color_2_1{background-color: var(--color_2);color:var(--color_1);}
-.color_2_3{background-color: var(--color_2);color:var(--color_3);}
-.color_2_4{background-color: var(--color_2);color:var(--color_4);}
+.color_2_1{background-color: var(--color_2);color:var(--color_1);border-color:var(--color_1);}
+.color_2_3{background-color: var(--color_2);color:var(--color_3);border-color:var(--color_3);}
+.color_2_4{background-color: var(--color_2);color:var(--color_4);border-color:var(--color_4);}
 
-.color_3_1{background-color: var(--color_3);color:var(--color_1);}
-.color_3_2{background-color: var(--color_3);color:var(--color_2);}
-.color_3_4{background-color: var(--color_3);color:var(--color_4);}
+.color_3_1{background-color: var(--color_3);color:var(--color_1);border-color:var(--color_1);}
+.color_3_2{background-color: var(--color_3);color:var(--color_2);border-color:var(--color_2);}
+.color_3_4{background-color: var(--color_3);color:var(--color_4);border-color:var(--color_4);}
 
-.color_4_1{background-color: var(--color_4);color:var(--color_1);}
-.color_4_2{background-color: var(--color_4);color:var(--color_2);}
-.color_4_3{background-color: var(--color_4);color:var(--color_3);}
+.color_4_1{background-color: var(--color_4);color:var(--color_1);border-color:var(--color_1);}
+.color_4_2{background-color: var(--color_4);color:var(--color_2);border-color:var(--color_2);}
+.color_4_3{background-color: var(--color_4);color:var(--color_3);border-color:var(--color_3);}
 
 ///
 .color_palette_preview{

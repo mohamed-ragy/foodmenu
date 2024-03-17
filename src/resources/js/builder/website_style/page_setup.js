@@ -1,20 +1,21 @@
 set_page_setup_vars = function(){
     $(':root').css('--page_max_width',window.template.page_setup.max_width);
+    $('#page_max_width_inputList').children().first().text(texts.inputList_elem[`_${window.template.page_setup.max_width}`])
+    //
     $(':root').css('--page_margin',window.template.page_setup.page_margin);
-
-    $(':root').css('--page_transitionDuration',window.template.page_setup.transitionDuration);
-
+    $('.page_margin_select').removeClass('select_box_selected')
+    $(`.page_margin_select[key="${window.template.page_setup.page_margin}"]`).addClass('select_box_selected')
+    //
     let body_color_theme_bg = window.template.website_colors[`c${window.template.page_setup.color_theme.split('_')[1]}`]
     let body_color_theme_txt = window.template.website_colors[`c${window.template.page_setup.color_theme.split('_')[2]}`]
     $(':root').css('--body_color_theme_bg',`rgb(${body_color_theme_bg.r},${body_color_theme_bg.g},${body_color_theme_bg.b})`);
     $(':root').css('--body_color_theme_txt',`rgb(${body_color_theme_txt.r},${body_color_theme_txt.g},${body_color_theme_txt.b})`);
-
-    $('.page_max_width_select').removeClass('select_box_selected')
-    $(`.page_max_width_select[key="${window.template.page_setup.max_width}"]`).addClass('select_box_selected')
-
-    $('.page_margin_select').removeClass('select_box_selected')
-    $(`.page_margin_select[key="${window.template.page_setup.page_margin}"]`).addClass('select_box_selected')
-
+    $('#page_setup_theme_color_picker').removeClass().addClass(`color_theme_picker_container ${window.template.page_setup.color_theme}`).children().first().text(texts.website_style[window.template.page_setup.color_theme])
+    //
+    $(':root').css('--page_transition',window.template.page_setup.pageTransition);
+    $('#pageTransition_inputList').children().first().text(texts.inputList_elem[window.template.page_setup.pageTransition])
+    //
+    $(':root').css('--page_transitionDuration',window.template.page_setup.transitionDuration);
     $('.page_transitionDuration_select').removeClass('select_box_selected')
     $(`.page_transitionDuration_select[key="${window.template.page_setup.transitionDuration}"]`).addClass('select_box_selected')
 }
@@ -26,15 +27,23 @@ draw_page_setup = function(){
         $('<div/>',{class:'w100p mB40'}).append(
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.max_width}),
-                $('<div/>',{class:'mis-10 select_box_container',key_tree:'page_setup',key:'max_width'}).append(
-                    $('<div/>',{class:`pY5 w30 page_max_width_select select_box`,text:'XXS',key:'800px'}),
-                    $('<div/>',{class:`pY5 w25 page_max_width_select select_box`,text:'XS',key:'1000px'}),
-                    $('<div/>',{class:`pY5 w25 page_max_width_select select_box`,text:'S',key:'1200px'}),
-                    $('<div/>',{class:`pY5 w25 page_max_width_select select_box`,text:'M',key:'1400px'}),
-                    $('<div/>',{class:`pY5 w25 page_max_width_select select_box`,text:'L',key:'1600px'}),
-                    $('<div/>',{class:`pY5 w25 page_max_width_select select_box`,text:'XL',key:'1800px'}),
-                    $('<div/>',{class:`pY5 w30 page_max_width_select select_box`,text:'XXL',key:'2000px'}),
-                    $('<div/>',{class:`pY5 w35 page_max_width_select select_box`,text:'MAX',key:'5000px'}),
+                $('<div/>',{class:'inputList_container',id:'page_max_width_inputList',key_tree:'page_setup',key:'max_width'}).append(
+                    $('<div/>',{class:'',text:texts.inputList_elem[`_${window.template.page_setup.max_width}`]}),
+                    $('<div/>',{class:'ico-arrowDown'}),
+                    $('<div/>',{class:'none inputList_elems_temp'}).append(
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._800px,key:'800px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._1000px,key:'1000px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._1200px,key:'1200px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._1400px,key:'1400px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._1600px,key:'1600px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._1800px,key:'1800px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._2000px,key:'2000px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._2200px,key:'2200px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._2400px,key:'2400px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._2600px,key:'2600px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._2800px,key:'2800px'}),
+                        $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem._3000px,key:'3000px'}),
+                    )
                 )
             ),
             $('<div/>',{class:'page_setup_row'}).append(
@@ -52,6 +61,18 @@ draw_page_setup = function(){
             ),
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.pageTransition}),
+                $('<div/>',{class:'row alnC jstfyE'}).append(
+                    $('<div/>',{class:'inputList_container',id:'pageTransition_inputList',key_tree:'page_setup',key:'pageTransition'}).append(
+                        $('<div/>',{class:'',text:texts.inputList_elem[`_${window.template.page_setup.pageTransition}`]}),
+                        $('<div/>',{class:'ico-arrowDown'}),
+                        $('<div/>',{class:'none inputList_elems_temp'}).append(
+                            $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem.fade,key:'fade'}),
+                            $('<div/>',{class:`inputList_elem`,text:texts.inputList_elem.fade2,key:'fade2'}),
+
+                        )
+                    ),
+                    $('<div/>',{class:'pageTransition_preview mis-5 fs101 pointer ico-play',})
+                ),
 
             ),
             $('<div/>',{class:'page_setup_row'}).append(
@@ -66,3 +87,16 @@ draw_page_setup = function(){
         )
     )
 }
+
+//events
+$('html,body').on('click','.pageTransition_preview',function(e){
+    e.stopImmediatePropagation();
+    console.log('gaga')
+    $('#website').addClass(`${window.template.page_setup.pageTransition}_out`)
+    setTimeout(()=>{
+        $('#website').removeClass(`${window.template.page_setup.pageTransition}_out`).addClass(`${window.template.page_setup.pageTransition}_in`)
+        setTimeout(()=>{
+            $('#website').removeClass(`${window.template.page_setup.pageTransition}_in`)
+        },window.template.page_setup.transitionDuration.replace('ms',''))
+    },window.template.page_setup.transitionDuration.replace('ms',''))
+})

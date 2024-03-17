@@ -78,6 +78,7 @@ editor_popup_to_parent = function(parent,child){
 $('html,body').on('click','.editor_popup',function(e){
     e.stopImmediatePropagation();
     //
+    $('.inputList_elems').addClass('none')
     $('.color_theme_picker_themes').addClass('none')
     //
     $('.editor_popup').addClass('editor_popup_dump')
@@ -87,6 +88,7 @@ $('html,body').on('mousedown touchstart','.editor_popup_head',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
     //
+    $('.inputList_elems').addClass('none')
     $('.color_theme_picker_themes').addClass('none')
     //
     $(this).closest('.editor_popup').attr('onMove','true');
@@ -135,6 +137,7 @@ $('html,body').on('mousedown touchstart','.editor_popup_resizeIcon',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
     //
+    $('.inputList_elems').addClass('none')
     $('.color_theme_picker_themes').addClass('none')
     //
     $(this).closest('.editor_popup').attr('onresize','true');

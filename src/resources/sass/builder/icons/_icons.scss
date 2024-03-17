@@ -25,7 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-drag2:before {
+.ico-play:before {
+    content: "\e913";
+  }
+  .ico-drag2:before {
     content: "\e912";
   }
   .ico-arrowLeft:before {
