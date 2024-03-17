@@ -5,20 +5,15 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "beyondcode/laravel-websockets": "1.x-dev",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.2",
-        "guzzlehttp/psr7": "^1.5",
         "intervention/image": "^2.6",
         "laravel/framework": "^9.0",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^4.2",
         "mongodb/laravel-mongodb": "^3.9",
         "niklasravnsborg/laravel-pdf": "^4.1",
-        "pusher/pusher-php-server": "^7.2",
-        "stripe/stripe-php": "^10.17",
-        "twilio/sdk": "^6.27"
+        "stripe/stripe-php": "^10.17"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
