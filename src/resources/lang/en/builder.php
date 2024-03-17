@@ -116,6 +116,11 @@ return [
         'bold' => 'Bold',
         'normal' => 'Normal',
         //
+        'radius_0px' => 'No curve',
+        'radius_3px' => 'light curve',
+        'radius_5px' => 'curved',
+        'radius_10px' => 'big curve',
+        'radius_20px' => 'very big curve',
         '_800px' => '800px',
         '_1000px' => '1000px',
         '_1200px' => '1200px',

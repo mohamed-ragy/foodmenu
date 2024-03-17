@@ -23,12 +23,15 @@ set_form_elements_vars = function(){
     $(`.input_border_width_select[key="${window.template.form_elements.input.border_width}"]`).addClass('select_box_selected')
     //
     $(':root').css('--input_border_radius',window.template.form_elements.input.border_radius);
+    // $('#form_input_border_radius').children().first().text(texts.select_elems[`radius_${window.template.form_elements.input.border_radius}`])
+    //
     $(':root').css('--input_border_color', `rgb(${window.template.form_elements.input.border_color.r},${window.template.form_elements.input.border_color.g},${window.template.form_elements.input.border_color.b})`);
     $(':root').css('--input_focus_outline_width',`${window.template.form_elements.input.focus_outline_width}`);
-
+    //
     $(':root').css('--input_font_size',window.template.form_elements.input.font_size);
     $(':root').css('--input_font_color', `rgb(${window.template.form_elements.input.font_color.r},${window.template.form_elements.input.font_color.g},${window.template.form_elements.input.font_color.b})`);
     $(':root').css('--input_label_font_size',window.template.form_elements.input.label_font_size);
+    $(':root').css('--input_label_margin',window.template.form_elements.input.label_margin);
 
     if(window.template.form_elements.input.background_fill == true){
         $(':root').css('--input_bg_color', `rgb(${window.template.form_elements.input.input_bg_color.r},${window.template.form_elements.input.input_bg_color.g},${window.template.form_elements.input.input_bg_color.b})`);
@@ -95,12 +98,23 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.border_radius}),
-                $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.input',key:'border_width'}).append(
-                    $('<div/>',{class:`pY5 pX5 input_border_width_select select_box ico-no`,key:'0px'}),
-                    $('<div/>',{class:`pY5 pX5 input_border_width_select select_box`,text:texts.select_elems.thin,key:'1px'}),
-                    $('<div/>',{class:`pY5 pX5 input_border_width_select select_box`,text:texts.select_elems.thick,key:'2px'}),
-                    $('<div/>',{class:`pY5 pX5 input_border_width_select select_box`,text:texts.select_elems.thicker,key:'3px'}),
+                $('<div/>',{class:'border_radius_selector_container'}).append(
+                    $('<div/>',{class:`fs101 border_radius_select border_radius_select_top_left_5`,key:'1px'}),
+                    $('<div/>',{class:`fs101 border_radius_select border_radius_select_top_right_5`,key:'1px'}),
+                    $('<div/>',{class:`fs101 border_radius_select border_radius_select_bottom_left_5`,key:'1px'}),
+                    $('<div/>',{class:`fs101 border_radius_select border_radius_select_bottom_right_5`,key:'1px'}),
                 )
+                // $('<div/>',{class:'inputList_container',id:'form_input_border_radius',key_tree:'form_elements.input',key:'border_radius'}).append(
+                    // $('<div/>',{class:'',text:texts.select_elems[`radius_${window.template.form_elements.input.border_radius}`]}),
+                    // $('<div/>',{class:'ico-arrowDown'}),
+                    // $('<div/>',{class:'none inputList_elems_temp'}).append(
+                        // $('<div/>',{class:`inputList_elem`,text:texts.select_elems.radius_0px,key:'0px'}),
+                        // $('<div/>',{class:`inputList_elem`,text:texts.select_elems.radius_3px,key:'3px'}),
+                        // $('<div/>',{class:`inputList_elem`,text:texts.select_elems.radius_5px,key:'5px'}),
+                        // $('<div/>',{class:`inputList_elem`,text:texts.select_elems.radius_10px,key:'10px'}),
+                        // $('<div/>',{class:`inputList_elem`,text:texts.select_elems.radius_20px,key:'20px'}),
+                    // )
+                // )
             ),
         ),
     )

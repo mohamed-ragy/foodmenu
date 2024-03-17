@@ -25,7 +25,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-border_left:before {
+.ico-corner_bottom_left:before {
+    content: "\e919";
+  }
+  .ico-corner_bottom_right:before {
+    content: "\e91a";
+  }
+  .ico-corner_top_left:before {
+    content: "\e91b";
+  }
+  .ico-corner_top_right:before {
+    content: "\e91c";
+  }
+  .ico-border_left:before {
     content: "\e915";
   }
   .ico-border_right:before {

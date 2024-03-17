@@ -10,14 +10,13 @@ $('html,body').on('click','.inputList_container',function(e){
 })
 $('html,body').on('click','.inputList_elem',function(e){
     e.stopImmediatePropagation();
-    let key_tree = $('.inputList_elems').attr('key_tree').split('.');
+    let keys = $(this).closest('.inputList_elems').attr('key_tree').split('.');
     let template = window.template;
-    let this_key = $(this).attr('key');
-    for(const key in key_tree){
-        template = window.template[key_tree[key]];
+    for(const key in keys){
+        template = template[keys[key]];
     }
+    let this_key = $(this).attr('key');
     template[$('.inputList_elems').attr('key')] = this_key;
-    $(`#${$('.inputList_elems').attr('inputList')}`).removeClass().addClass(`inputList_container ${this_key}`).children().first().text(texts.inputList_elem[`_${this_key}`])
     $('.inputList_elems').addClass('none')
     new_action();
 })

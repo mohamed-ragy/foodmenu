@@ -61,6 +61,7 @@ class templates extends Seeder
                     'font_size' => '1em',
                     'font_color' => ['r'=>100,'g'=>20,'b'=>10],
                     'label_font_size' => '.9em',
+                    'label_margin' => '5px',
 
                     'background_fill' => true,
                     'input_bg_color' => ['r'=>245,'g'=>245,'b'=>245],

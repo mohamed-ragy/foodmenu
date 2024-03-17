@@ -34,6 +34,7 @@ input::-webkit-inner-spin-button {
 .input_lable{
     margin-top:var(--form_elem_spacing);
     font-size:var(--input_label_font_size);
+    margin-inline-start:var(--input_label_margin);
 }
 textarea{
     resize: none;
