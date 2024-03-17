@@ -19,11 +19,11 @@
         <section class="section">
             <div class="font_t fs2">Test test wa7ed 2tnen talata s s s</div>
             <div class="font_p fs1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                <form action="" class="body_color_theme column alnS jstfyS m10 ">
+                <form action="" class="column alnS jstfyS m10 ">
                     <label class="input_lable">Useless input box</label>
-                    <input class="input font_p body_color_theme w350" type="text" placeholder="">
+                    <input class="input font_p w350" type="text" placeholder="">
                     <label class="input_lable">Useless input box</label>
-                    <textarea class="input font_p body_color_theme w350" name="" id="" rows="5"></textarea>
+                    <textarea class="input font_p w350" name="" id="" rows="5"></textarea>
                     <div class=""></div>
                     <button type="button" class="button font_p">Useless button</button>
                 </form>

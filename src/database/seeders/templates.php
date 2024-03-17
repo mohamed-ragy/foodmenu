@@ -49,14 +49,19 @@ class templates extends Seeder
             'form_elements' => [
                 'spacing' => '10px',
                 'input' => [
-                    'padding' => '5px',
-                    
+                    'padding_y' => '7px',
+                    'padding_x' => '10px',
+
+                    'border_style' => 'solid solid none solid',
                     'border_width' => '1px',
-                    'border_style' => 'solid solid solid solid',
                     'border_radius' => '3px',
-                    'font_size' => '1.1em',
+                    'border_color' => ['r'=>200,'g'=>120,'b'=>200],
+                    'focus_outline_width' => '1px',
+
+                    'font_size' => '1em',
+                    'font_color' => ['r'=>100,'g'=>20,'b'=>10],
                     'label_font_size' => '.9em',
-                    'focus_outline' => true,
+
                     'background_fill' => true,
                     'input_bg_color' => ['r'=>245,'g'=>245,'b'=>245],
                 ],

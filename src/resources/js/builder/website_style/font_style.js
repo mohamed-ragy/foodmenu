@@ -50,8 +50,8 @@ draw_font_style = function(){
                     $('<div/>',{class:'font_settings_row'}).append(
                         $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.fontWeight}),
                         $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'title_weight'}).append(
-                            $('<div/>',{class:`pY5 pX10 title_weight_select select_box`,text:texts.website_style.bold,key:'bold'}),
-                            $('<div/>',{class:`pY5 pX10 title_weight_select select_box`,text:texts.website_style.normal,key:'normal'}),
+                            $('<div/>',{class:`pY5 pX10 title_weight_select select_box`,text:texts.select_elems.bold,key:'bold'}),
+                            $('<div/>',{class:`pY5 pX10 title_weight_select select_box`,text:texts.select_elems.normal,key:'normal'}),
                         )
                     ),
                     $('<div/>',{class:'font_settings_row'}).append(
@@ -81,8 +81,8 @@ draw_font_style = function(){
                         $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.fontWeight}),
 
                         $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'paragraph_weight'}).append(
-                            $('<div/>',{class:`pY5 pX10 paragraph_weight_select select_box`,text:texts.website_style.bold,key:'bold'}),
-                            $('<div/>',{class:`pY5 pX10 paragraph_weight_select select_box`,text:texts.website_style.normal,key:'normal'}),
+                            $('<div/>',{class:`pY5 pX10 paragraph_weight_select select_box`,text:texts.select_elems.bold,key:'bold'}),
+                            $('<div/>',{class:`pY5 pX10 paragraph_weight_select select_box`,text:texts.select_elems.normal,key:'normal'}),
                         )
                     ),
                     $('<div/>',{class:'font_settings_row'}).append(

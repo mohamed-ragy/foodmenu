@@ -89,8 +89,6 @@ return [
         'fontStyles' => 'Font styles',
         'fontStyles_des' => 'click on a font style card to set it as the font style for your website.',
         'fontWeight' => 'Font weight',
-        'bold' => 'Bold',
-        'normal' => 'Normal',
         'lineHeight' => 'Line height',
         'letterSpacing' => 'Letter spacing',
         //
@@ -104,10 +102,20 @@ return [
 
         'form_elements' => 'Form elements',
         'form_elements_des' => 'The form elements will be used all over your website.',
+        'form_spacing' => 'Form spacing',
+
         'input_box' => 'Input box',
+        'padding_y' => 'Vertical padding',
+        'padding_x' => 'Horizontal padding',
+        'border_style' => 'Border style',
+        'border_width' => 'Border thickness',
+        'border_radius' => 'Border radius'
 
     ],
-    'inputList_elem' => [
+    'select_elems' => [
+        'bold' => 'Bold',
+        'normal' => 'Normal',
+        //
         '_800px' => '800px',
         '_1000px' => '1000px',
         '_1200px' => '1200px',
@@ -123,5 +131,15 @@ return [
         //
         'fade' => 'Fade',
         'fade2' => 'Fade2',
-    ]
+        //
+        'slower' => 'Slower',
+        'slow' => 'Slow',
+        'fast' => 'Fast',
+        'faster' => 'Faster',
+        //
+        'thinner' => 'Thinner',
+        'thin' => 'Thin',
+        'thick' => 'Thick',
+        'thicker' => 'Thicker',
+    ],
 ];

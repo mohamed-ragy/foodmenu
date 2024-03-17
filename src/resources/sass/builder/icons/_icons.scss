@@ -25,7 +25,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-play:before {
+.ico-border_left:before {
+    content: "\e915";
+  }
+  .ico-border_right:before {
+    content: "\e916";
+  }
+  .ico-border_top:before {
+    content: "\e917";
+  }
+  .ico-border_bottom:before {
+    content: "\e918";
+  }
+  .ico-no:before {
+    content: "\e914";
+  }
+  .ico-play:before {
     content: "\e913";
   }
   .ico-drag2:before {

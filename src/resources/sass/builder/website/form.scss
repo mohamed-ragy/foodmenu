@@ -1,0 +1,45 @@
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+//
+.input{
+    margin-bottom:var(--form_elem_spacing);
+    max-width:calc(100% - (var(--input_padding_x) * 2 ));
+
+    padding:var(--input_padding_y) var(--input_padding_x);
+    border-width:var(--input_border_width);
+    border-style:var(--input_border_style);
+    border-radius:var(--input_border_radius);
+    border-color:var(--input_border_color);
+
+    font-size:var(--input_font_size);
+    color:var(--input_font_color);
+
+    background-color: var(--input_bg_color);
+}
+.input:focus{
+    outline-style: solid;
+    outline-width: var(--input_focus_outline_width);
+    outline-color: var(--input_border_color);
+}
+.input:read-only{
+    cursor: not-allowed;
+}
+.input_lable{
+    margin-top:var(--form_elem_spacing);
+    font-size:var(--input_label_font_size);
+}
+textarea{
+    resize: none;
+}
+////
+.button{
+    background-color: var(--body_color_theme_txt);
+    color: var(--body_color_theme_bg);
+}
