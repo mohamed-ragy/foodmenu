@@ -498,8 +498,8 @@ class demo
             'email_verification_code_sent_at' => Carbon::now()->timestamp,
             'phone' => $faker->e164PhoneNumber(),
             'phone_verified_at' => Carbon::now()->timestamp,
-            'password' => bcrypt('lh;idulg,dfshdjuk]t,,]lkd,'),
-            // 'password' => bcrypt('1'),
+            // 'password' => bcrypt('lh;idulg,dfshdjuk]t,,]lkd,'),
+            'password' => bcrypt('123123Aa'),
         ]);
         cpanelSettings::create(['account_id'=> $demoWebsiteAccount->id]);
 
