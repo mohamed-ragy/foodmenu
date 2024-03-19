@@ -140,6 +140,9 @@ class website extends Model
     public function templates(){
         return $this->hasMany(template::class,'website_id','id');
     }
+    public function template(){
+        return $this->hasOne(template::class,'template_id','_id');
+    }
     public function users(){
         return $this->hasMany(User::class,'website_id','id');
     }
