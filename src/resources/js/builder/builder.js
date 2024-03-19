@@ -34,8 +34,7 @@ $('html,body').on('click',function(e){
     hide_components_menu()
     hide_website_style_menu();
     $('.editor_popup').addClass('editor_popup_dump')
-    $('.color_theme_picker_themes').addClass('none')
-    $('.inputList_elems').addClass('none')
+    hidePopupSelectors();
 })
 
 window.addEventListener("beforeunload", function (e) {

@@ -2,6 +2,8 @@
 //popup 200
 //header 190
 //color_theme_picker_themes 185
+//inputList_elems 185
+//border_radius_select 185
 //editor_popup 180
 //editor_popup_dump 170
 
@@ -92,7 +94,7 @@ a:hover{
 @import '../page_loading.scss';
 
 @import '../cpanel/tools/loading.scss';
-@import '../cpanel/tools/scrollBar.scss';
+// @import '../cpanel/tools/scrollBar.scss';
 @import '../cpanel/tools/alert.scss';
 
 @import 'tools/btn.scss';

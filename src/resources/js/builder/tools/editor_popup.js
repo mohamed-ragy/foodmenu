@@ -78,8 +78,7 @@ editor_popup_to_parent = function(parent,child){
 $('html,body').on('click','.editor_popup',function(e){
     e.stopImmediatePropagation();
     //
-    $('.inputList_elems').addClass('none')
-    $('.color_theme_picker_themes').addClass('none')
+    hidePopupSelectors();
     //
     $('.editor_popup').addClass('editor_popup_dump')
     $(this).removeClass('editor_popup_dump')

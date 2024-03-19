@@ -89,9 +89,11 @@ draw_website_colors = function(){
                 $('<div/>',{class:'w100p'}).append(
                     $('<div/>',{class:'other_color_row'}).append(
                         $('<div/>',{class:'fs09 taS mis-10',text:texts.website_style.ratingStarsColor}),
+
                         $('<div/>',{class:'taE mie-10 color_s_circle color_edit bgc_star',color:'c_star'}).append(
                             $('<input/>',{class:'color_edit_input vH absolute',type:'color',color:'c_star'}),
                         ),
+
                     ),
                     $('<div/>',{class:'other_color_row'}).append(
                         $('<div/>',{class:'fs09 taS mis-10',text:texts.website_style.successMsgColor}),
@@ -166,8 +168,8 @@ $('html,body').on('input','.color_edit_input',function(e){
 $('html,body').on('change','.color_edit_input',function(e){
     e.stopImmediatePropagation()
     new_action();
-
 })
+
 //
 $('html,body').on('click','.browseColorPalettes',function(e){
     e.stopImmediatePropagation();

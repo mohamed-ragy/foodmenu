@@ -103,13 +103,41 @@ return [
         'form_elements' => 'Form elements',
         'form_elements_des' => 'The form elements will be used all over your website.',
         'form_spacing' => 'Form spacing',
+        'form_align' => 'Form align',
 
         'input_box' => 'Input box',
+        'input_box_des' => 'The input styling will be applied for the the inputs in ur website.',
+        'text_align' => 'Text align',
         'padding_y' => 'Vertical padding',
         'padding_x' => 'Horizontal padding',
         'border_style' => 'Border style',
         'border_width' => 'Border thickness',
-        'border_radius' => 'Border radius'
+        'border_radius' => 'Border radius',
+        'border_color' => 'Border color',
+        'font_size' => 'Font size',
+        'font_color' => 'Font color',
+        'label_font_size' => 'Label font size',
+        'label_margin' => 'Label margin',
+        'background_fill' => 'Background fill',
+        'bg_color' => 'Background color',
+        'input_focus' => 'Input focus',
+        //
+        'checkbox' => 'Checkbox',
+        'checkbox_des' =>'checkbox blah blah blah',
+        'shape' => 'Shape',
+        'size' => 'Size',
+        'color' => 'Color',
+        'check_mark_colot' => 'Check mark color',
+
+        'button1' => 'Button 1',
+        'button1_des' => 'Button 1 blah blah blah',
+        'button2' => 'Button 2',
+        'button2_des' => 'Button 2 blah blah blah',
+        'button_hover' => 'Button hover',
+        'button_click' => 'Button Click',
+        'button_disabled' => 'Button disabled',
+        'outline_color' => 'Outline color',
+        'outline_width' => 'Outline width',
 
     ],
     'select_elems' => [
@@ -146,5 +174,6 @@ return [
         'thin' => 'Thin',
         'thick' => 'Thick',
         'thicker' => 'Thicker',
+        //
     ],
 ];

@@ -7,3 +7,37 @@
     padding:5px;
 }
 .form_elements_row:hover{background-color: var(--white-2);}
+//
+.checkbox_square{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:calc(1em);
+    height:calc(1em);
+    position: relative;
+    border:2px solid var(--checkbox_color);
+    cursor: pointer;
+    border-radius: 0px;
+}
+.checkbox_Rsquare{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:calc(1em);
+    height:calc(1em);
+    position: relative;
+    border:2px solid var(--checkbox_color);
+    cursor: pointer;
+    border-radius: 5px;
+}
+.checkbox_circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:calc(1em );
+    height:calc(1em );
+    position: relative;
+    border:2px solid var(--checkbox_color);
+    cursor: pointer;
+    border-radius: 50%;
+}

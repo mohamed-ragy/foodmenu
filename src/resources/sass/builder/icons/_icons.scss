@@ -25,17 +25,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-corner_bottom_left:before {
-    content: "\e919";
+.ico-plus:before {
+    content: "\e900";
   }
-  .ico-corner_bottom_right:before {
+  .ico-align_center:before {
     content: "\e91a";
   }
-  .ico-corner_top_left:before {
+  .ico-align_start:before {
     content: "\e91b";
   }
-  .ico-corner_top_right:before {
+  .ico-align_end:before {
     content: "\e91c";
+  }
+  .ico-check:before {
+    content: "\e919";
   }
   .ico-border_left:before {
     content: "\e915";
@@ -101,17 +104,17 @@
     content: "\e905";
   }
   .ico-desktop:before {
-    content: "\e900";
-  }
-  .ico-mobile:before {
     content: "\e901";
   }
-  .ico-style:before {
+  .ico-mobile:before {
     content: "\e902";
   }
-  .ico-redo:before {
+  .ico-style:before {
     content: "\e903";
   }
-  .ico-undo:before {
+  .ico-redo:before {
     content: "\e904";
+  }
+  .ico-undo:before {
+    content: "\e91d";
   }
