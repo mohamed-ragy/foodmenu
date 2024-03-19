@@ -184,11 +184,11 @@ $admin = function(){
     Route::post('/getInfo',[adminController::class,'getInfo'])->middleware('admin')->name('admin.getInfo');
     Route::get('/',[adminController::class,'home'])->middleware(['admin'])->name('admin.home');
 };
-$website = function()use ($getHost){
-    $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
-    Route::get('/', function () use ($lang){
-        return redirect()->route('website.home', $lang);
-    });
+$website2 = function()use ($getHost){
+    // $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
+    // Route::get('/', function () use ($lang){
+    //     return redirect()->route('website.home', $lang);
+    // });
     Route::post('/user/login',[websiteController::class,'userLogin'])->name('website.userLogin');
     Route::get('/user/logout',[websiteController::class,'userLogout'])->name('website.userLogout');
     Route::post('/user/singup',[websiteController::class,'userSignup'])->name('website.userSignup');
@@ -205,12 +205,12 @@ $website = function()use ($getHost){
 
     Route::prefix('{lang}')->group(function () use ($lang){
 
-        Route::get('/', function  () use ($lang){
-            return redirect()->route('website.home', $lang);
-        });
+        // Route::get('/', function  () use ($lang){
+        //     return redirect()->route('website.home', $lang);
+        // });
         Route::get('/website-not-active',[websiteController::class,'websiteNotActive'])->name('websiteNotActive');
 
-        Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
+        // Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
         Route::get('/aboutus',[websiteController::class,'aboutus',$lang])->name('website.aboutus');
         Route::get('/profile',[websiteController::class,'profile',$lang])->name('website.profile');
         Route::get('/privacypolicy',[websiteController::class,'privacypolicy',$lang])->name('website.privacypolicy');
@@ -218,6 +218,21 @@ $website = function()use ($getHost){
         Route::get('/{category}',[websiteController::class,'category',$lang])->name('website.category');
         Route::get('/{category}/{product}',[websiteController::class,'product',$lang])->name('website.product');
     });
+};
+$website = function() use ($getHost){
+    $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
+    Route::get('/', function () use ($lang){
+        return redirect()->route('website.home', $lang);
+    });
+
+    Route::prefix('{lang}')->group(function () use ($lang){
+        Route::get('/', function  () use ($lang){
+            return redirect()->route('website.home', $lang);
+        });
+        Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
+
+    });
+
 };
 if(
     $getHost === env('APP_DOMAIN') ||
