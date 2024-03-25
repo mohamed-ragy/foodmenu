@@ -25,7 +25,37 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-plus:before {
+.ico-position_left:before {
+    content: "\e923";
+  }
+  .ico-position_top:before {
+    content: "\e924";
+  }
+  .ico-position_right:before {
+    content: "\e925";
+  }
+  .ico-position_bottom:before {
+    content: "\e926";
+  }
+  .ico-position_vcenter:before {
+    content: "\e927";
+  }
+  .ico-position_hcenter:before {
+    content: "\e928";
+  }
+  .ico-page_settings:before {
+    content: "\e922";
+  }
+  .ico-copy:before {
+    content: "\e91e";
+  }
+  .ico-delete:before {
+    content: "\e91f";
+  }
+  .ico-download:before {
+    content: "\e920";
+  }
+  .ico-plus:before {
     content: "\e900";
   }
   .ico-align_center:before {
@@ -111,6 +141,9 @@
   }
   .ico-style:before {
     content: "\e903";
+  }
+  .ico-website_tools:before {
+    content: "\e921";
   }
   .ico-redo:before {
     content: "\e904";

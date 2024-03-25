@@ -1,32 +1,28 @@
-set_page_setup_vars = function(){
-    $(':root').css('--page_max_width',window.template.page_setup.max_width);
+set_page_setup_settings = function(){
+    set_page_setup_vars();
     $('#page_max_width_inputList').children().first().text(texts.select_elems[`_${window.template.page_setup.max_width}`])
     //
-    $(':root').css('--page_margin',window.template.page_setup.page_margin);
     $('.page_margin_select').removeClass('select_box_selected')
     $(`.page_margin_select[key="${window.template.page_setup.page_margin}"]`).addClass('select_box_selected')
     //
-    let body_color_theme_bg = window.template.website_colors[`c${window.template.page_setup.color_theme.split('_')[1]}`]
-    let body_color_theme_txt = window.template.website_colors[`c${window.template.page_setup.color_theme.split('_')[2]}`]
-    $(':root').css('--body_color_theme_bg',`rgb(${body_color_theme_bg.r},${body_color_theme_bg.g},${body_color_theme_bg.b})`);
-    $(':root').css('--body_color_theme_txt',`rgb(${body_color_theme_txt.r},${body_color_theme_txt.g},${body_color_theme_txt.b})`);
-    $('#page_setup_theme_color_picker').removeClass().addClass(`color_theme_picker_container ${window.template.page_setup.color_theme}`).children().first().text(texts.website_style[window.template.page_setup.color_theme])
+
+    $('#page_setup_theme_color_picker').removeClass().addClass(`color_theme_picker_container ${window.template.page_setup.page_color_theme}`).children().first().text(texts.website_style[window.template.page_setup.page_color_theme])
     //
-    $(':root').css('--page_transition',window.template.page_setup.pageTransition);
     $('#pageTransition_inputList').children().first().text(texts.select_elems[window.template.page_setup.pageTransition])
     //
-    $(':root').css('--page_transitionDuration',window.template.page_setup.transitionDuration);
     $('.page_transitionDuration_select').removeClass('select_box_selected')
     $(`.page_transitionDuration_select[key="${window.template.page_setup.transitionDuration}"]`).addClass('select_box_selected')
+    //
+    $('#page_social_image').attr('src',window.template.page_setup.social_image ?? window.website.icon)
 }
 
 draw_page_setup = function(){
-    $('#page_setup').addClass('w500 h400').find('.editor_popup_body').text('').append(
+    $('#page_setup').addClass('w500 h500').find('.editor_popup_body').text('').append(
         $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
         $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
         $('<div/>',{class:'w100p mB40'}).append(
             $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.max_width}),
+                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.max_content_width}),
                 $('<div/>',{class:'inputList_container',id:'page_max_width_inputList',key_tree:'page_setup',key:'max_width'}).append(
                     $('<div/>',{class:'',text:texts.select_elems[`_${window.template.page_setup.max_width}`]}),
                     $('<div/>',{class:'ico-arrowDown'}),
@@ -49,15 +45,15 @@ draw_page_setup = function(){
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.page_margin}),
                 $('<div/>',{class:'mis-10 select_box_container',key_tree:'page_setup',key:'page_margin'}).append(
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box ico-no`,key:'0vw'}),
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'S',key:'1vw'}),
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'M',key:'2vw'}),
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'L',key:'4vw'}),
+                    $('<div/>',{class:`pY5 w25 page_margin_select select_box ico-no`,key:'0%'}),
+                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'S',key:'1%'}),
+                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'M',key:'1.5%'}),
+                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'L',key:'2%'}),
                 )
             ),
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.color_theme}),
-                draw_color_theme_Picker('page_setup_theme_color_picker','page_setup','color_theme')
+                draw_color_theme_Picker('page_setup_theme_color_picker','page_setup','page_color_theme')
             ),
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.pageTransition}),
@@ -82,6 +78,13 @@ draw_page_setup = function(){
                     $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.slow,key:'500ms'}),
                     $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.fast,key:'300ms'}),
                     $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.faster,key:'100ms'}),
+                )
+            ),
+            $('<div/>',{class:'page_setup_row'}).append(
+                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.social_image}),
+                $('<div/>',{class:'editor_popup_img_select select_img',key_tree:'page_setup',key:'social_image'}).append(
+                    $('<img/>',{class:'editor_popup_img_select_img',id:'page_social_image'}),
+                    $('<div/>',{class:'ico-edit editor_popup_img_select_edit_icon'})
                 )
             )
         )

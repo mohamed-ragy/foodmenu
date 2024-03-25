@@ -139,6 +139,8 @@ $builder = function(){
     })->name('builder.root');
     Route::get('/',[designController::class,'home'])->name('builder.home');
     Route::post('/api',[designController::class,'api']);
+    Route::post('/imgs',[designController::class,'imgs'])->name('cpanel.imgs');
+
 };
 $billing = function()use($FoodMenuLang){
     Route::get('/', function () use ($FoodMenuLang){

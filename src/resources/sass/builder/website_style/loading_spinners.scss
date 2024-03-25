@@ -1,0 +1,31 @@
+@import '../website_style/loading_spinners/loading_spinner_0.scss';
+@import '../website_style/loading_spinners/loading_spinner_1.scss';
+@import '../website_style/loading_spinners/loading_spinner_2.scss';
+@import '../website_style/loading_spinners/loading_spinner_3.scss';
+@import '../website_style/loading_spinners/loading_spinner_5.scss';
+@import '../website_style/loading_spinners/loading_spinner_6.scss';
+
+.loading_spinners_row{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:1px solid var(--white-2);
+    padding:5px;
+}
+.loading_spinners_row:hover{background-color: var(--white-2);}
+
+.loading_spinner_select{
+    width:fit-content;
+    padding: 20px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin:20px;
+}
+.loading_spinner_preview{
+    margin:auto;
+    width:fit-content;
+    padding: 20px 40px;
+    border-radius: 5px;
+    min-height: 70px;
+}

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\template;
+use App\Models\website;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,7 @@ class templates extends Seeder
     public function run()
     {
         template::where('name','Test template')->delete();
-        $tempalte = template::create([
+        $template = template::create([
             'website_id' => 1,
             'name' => 'Test template',
             'website_colors' => [
@@ -42,9 +43,10 @@ class templates extends Seeder
             'page_setup' => [
                 'max_width' => '1800px',
                 'page_margin' => '0vw',
-                'color_theme' => 'color_1_2',
+                'page_color_theme' => 'color_1_2',
                 'pageTransition' => 'fade',
                 'transitionDuration' => '300ms',
+                'social_image' => null, // data
             ],
             'form_elements' => [
                 'spacing' => '10px',
@@ -125,7 +127,299 @@ class templates extends Seeder
                     'disabled_outline_width' => '0px',
                     'disabled_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
                 ],
-            ]
+            ],
+            'loading_spinner' => [
+                'key' => '5',
+                'elem' => '<div class="loading_spinner_5_:size:"><div class="dot1"></div><div class="dot2"></div><div class="dot3"></div></div>',
+                'colors' => [
+                    'loading_spinner_c1' => ['r'=>243,'g'=>243,'b'=>243],
+                    'loading_spinner_c2' => ['r'=>52,'g'=>152,'b'=>219],
+                ],
+            ],
+            'home' => [
+                [
+                    'sort' => 1,
+                    'tag' => 'section',
+                    'type' => 'section',
+                    'color_theme' => 'color_2_3',
+                    'class' => '',
+                    'style_class' => 'home_section_1',
+                    'style' => [
+                        'background-image' => '/storage/imgs/demo/americandiner/cat1.webp',
+                        'background-attachment' => 'fixed',
+                        'background-position-x' => 'left',
+                        'background-position-y' => 'top',
+                        'background-repeat' => 'no-repeat',
+                        'background-size' => 'cover',
+                    ],
+                    'children' => [
+                        'section_container' => [
+                            'tag' => 'div',
+                            'type' => 'section_container',
+                            'class' => 'section_container',
+                            'style_class' => 'home_section_1_container',
+                            'style' => [
+                                'min-height' => '100px',
+                                'display' => 'grid',
+                                'grid-template-areas' =>'"elem1 elem1" "elem2 elem3"',
+                                'grid-template-columns' =>  'repeat(2, 1fr)',
+                            ],
+                            'style_mobile' => [
+                                'grid-template-areas' =>'"elem1""elem2""elem3"',
+                                'grid-template-columns' =>  'repeat(1, 1fr)',
+                            ],
+                            'children' => [
+                                'element_container_1' => [
+                                    'tag' => 'div',
+                                    'type' => 'element_container',
+                                    'color_theme' => 'transparent',
+                                    'class' => 'element_container',
+                                    'style_class' => 'home_section_1_elem_1',
+                                    'style' => [
+                                        'grid-area' => 'elem1',
+                                        'display' => 'flex',
+                                        'flex-direction' => 'row',
+                                        'flex-wrap' => 'no-wrap',
+                                        'align-items' => 'center',
+                                        'justify-content' => 'center',
+                                    ],
+                                    'style_mobile' => [
+
+                                    ],
+                                ],
+                                'element_container_2' => [
+                                    'tag' => 'div',
+                                    'type' => 'element_container',
+                                    'color_theme' => 'transparent',
+                                    'class' => 'element_container',
+                                    'style_class' => 'home_section_1_elem_2',
+                                    'style' => [
+                                        'grid-area' => 'elem2',
+                                        'display' => 'flex',
+                                        'flex-direction' => 'row',
+                                        'flex-wrap' => 'no-wrap',
+                                        'align-items' => 'center',
+                                        'justify-content' => 'center',
+                                    ],
+                                    'style_mobile' => [
+
+                                    ],
+                                ],
+                                'element_container_3' => [
+                                    'tag' => 'div',
+                                    'type' => 'element_container',
+                                    'color_theme' => 'color_1_4',
+                                    'class' => 'element_container',
+                                    'style_class' => 'home_section_1_elem_3',
+                                    'style' => [
+                                        'grid-area' => 'elem3',
+                                        'display' => 'flex',
+                                        'flex-direction' => 'row',
+                                        'flex-wrap' => 'no-wrap',
+                                        'align-items' => 'center',
+                                        'justify-content' => 'center',
+                                    ],
+                                    'style_mobile' => [
+
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            // 'loading_screen' => [
+            //     'tag' => 'div',
+            //     'type' => 'section',
+            //     'settings' => [
+            //         'editable'=>'0',
+            //         'resizable' => '0',
+            //         'draggable' => '0',
+            //         'formateable' => '0',
+            //         'deletable' => '0',
+            //     ],
+            //     'settings' => [],
+            //     // 'settings' => ['editable','resizable','draggable','formateable','deletable','swappable'],
+            //     'elems' => ['loading_spinner','image','social_image','website_logo','website_icon','title','page_title','paragraph','page_paragraph'],
+            //     'section_container' => [
+            //         'class' => '',
+            //         'id' => 'loading_screen',
+            //         'color_theme' => 'color_2_1',
+            //         'style' => [
+            //             'height' => '100%',
+            //             'background-image' => 'url("/storage/imgs/demo/americandiner/cat1.webp")',
+            //             'background-image' => 'none',
+            //             'background-attachment' => 'fixed',
+            //             'background-position' => 'bottom center',
+            //             'background-repeat' => 'no-repeat',
+            //             'background-size' => 'cover',
+            //         ],
+            //     ],
+            //     'attr' => [
+            //         'class' => 'section loading_screen',
+            //     ],
+            //     'class_name' => 'loading_screen',
+            //     'style' => [
+            //         'height' => '100%',
+            //         'display' => 'flex',
+            //         'flex-direction' => 'column',
+            //         'align-items' => 'center',
+            //         'justify-content' => 'center',
+            //     ],
+            //     'children' => [
+            //         'child_0' => [
+            //             'tag' => 'loading_spinner',
+            //             'type' => 'loading_spinner',
+            //             'settings' => ['editable'],
+            //             'attr' => [
+            //                 'class' => 'section_elem',
+            //             ],
+            //             'class_name' => 'loading_screen_spinner',
+            //             'style' => [
+            //                 'margin-bottom'=>'10px',
+            //             ],
+            //             'style_desktop' => [
+            //                 'top' => '50px',
+            //                 'left' => '40%',
+            //             ],
+            //             'style_mobile' => [
+            //                 'top' => '10px',
+            //                 'left' => '10%',
+            //                 'width' => '80%',
+            //                 'height' => '70px',
+            //             ],
+            //             'size' => 'L',
+            //         ],
+            //         'child_1' => [
+            //             'tag' => 'div',
+            //             'type' => 'title',
+            //             'settings' => ['editable'],
+                        // 'text' => [
+                        //     'key' => 'page_title',
+                        // ],
+            //             'attr' => [
+            //                 'class' => 'loading_screen_title font_t section_elem',
+            //             ],
+            //             'class_name' => 'loading_screen_title',
+            //             'style' => [
+            //                 'font-size'=>'2em',
+            //                 'text-align' => 'center',
+            //             ],
+            //             'style_desktop' => [
+            //                 'top' => '10px',
+            //                 'left' => '10%',
+            //             ],
+            //             'style_mobile' => [
+            //                 'top' => '80px',
+            //                 'left' => '10%',
+            //                 'width' => '80%',
+            //                 'height' => '200px',
+            //             ],
+
+            //         ],
+            //         'child_2' => [
+            //             'tag' => 'div',
+            //             'type' => 'paragraph',
+            //             'settings' => ['editable'],
+            //             'text' => [
+            //                 'key' => 'page_description',
+            //             ],
+            //             'attr' => [
+            //                 'class' => 'loading_screen_paragraph font_p section_elem',
+            //             ],
+            //             'class_name' => 'loading_screen_paragraph',
+            //             'style' => [
+            //                 'font-size'=>'1em',
+            //                 'text-align' => 'center',
+            //                 'max-width' => '400px',
+            //             ],
+            //             'style_desktop' => [
+            //                 'top' => '10px',
+            //                 'left' => '80%',
+            //             ],
+            //             'style_mobile' => [
+            //                 'top' => '300px',
+            //                 'left' => '10%',
+            //                 'width' => '80%',
+            //                 'height' => '200px',
+            //             ],
+            //         ]
+            //     ]
+            // ],
+            // 'home' => [
+            //     'section_1' => [
+            //         'tag' => 'div',
+            //         'type' => 'section',
+            //         'section_container' => [
+            //             'class' => '',
+            //             'id' => 'home_section_1',
+            //             'color_theme' => 'color_2_1',
+            //             'style' => [
+            //                 'min-height' => '800px',
+            //                 // 'height' => '100%',
+            //                 'background-image' => 'url("/storage/imgs/demo/americandiner/cat1.webp")',
+            //                 'background-image' => 'none',
+            //                 'background-attachment' => 'fixed',
+            //                 'background-position' => 'bottom center',
+            //                 'background-repeat' => 'no-repeat',
+            //                 'background-size' => 'cover',
+            //             ]
+            //         ],
+            //         'attr' => [
+            //             'class' => 'section home',
+            //         ],
+            //         'class_name' => 'home',
+            //         'style' => [
+            //             'height' => '100%',
+            //             'min-height' => '800px',
+            //             'display' => 'flex',
+            //             'flex-direction' => 'column',
+            //             'align-items' => 'center',
+            //             'justify-content' => 'center',
+            //         ],
+            //         'children' => [
+            //             'child_1' => [
+            //                 'tag' => 'div',
+            //                 'type' => 'title',
+            //                 'settings' => ['editable'],
+            //                 'text' => [
+            //                     'key' => 'page_title',
+            //                 ],
+            //                 'attr' => [
+            //                     'class' => 'loading_screen_title font_t section_elem',
+            //                 ],
+            //                 'class_name' => 'loading_screen_title',
+            //                 'style' => [
+            //                     'font-size'=>'2em',
+            //                     'text-align' => 'center',
+            //                 ],
+            //             ],
+            //             'child_2' => [
+            //                 'tag' => 'div',
+            //                 'type' => 'paragraph',
+            //                 'settings' => ['editable'],
+            //                 'text' => [
+            //                     'key' => 'page_description',
+            //                 ],
+            //                 'attr' => [
+            //                     'class' => 'loading_screen_paragraph font_p section_elem',
+            //                 ],
+            //                 'class_name' => 'loading_screen_paragraph',
+            //                 'style' => [
+            //                     'font-size'=>'1em',
+            //                     'text-align' => 'center',
+            //                     'max-width' => '400px',
+
+            //                 ],
+            //             ]
+            //         ]
+            //     ]
+
+            // ]
+
+
         ]);
+        website::where('id',1)->update(['template_id'=>$template->_id]);
+
     }
 }

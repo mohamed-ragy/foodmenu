@@ -1,0 +1,111 @@
+
+.loading_spinner_2_S {
+    position: relative;
+    width: 30px;
+    height: 30px;
+
+  }
+  .loading_spinner_2_S div {
+    position: absolute;
+    border: 2px solid var(--loading_spinner_c1);
+    border-color:var(--loading_spinner_c1) var(--loading_spinner_c2) var(--loading_spinner_c1) var(--loading_spinner_c2);
+    opacity: 1;
+    border-radius: 50%;
+    animation: loading_spinner_2_S 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .loading_spinner_2_S div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes loading_spinner_2_S {
+    0% {
+      top: 13px;
+      left: 13px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+      transform: rotateZ(0deg);
+    }
+    100% {
+      top: 0;
+      left: 0;
+      width: 26px;
+      height: 26px;
+      opacity: 0;
+      transform: rotateZ(360deg);
+    }
+  }
+
+
+.loading_spinner_2_M {
+    display: block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+
+  }
+  .loading_spinner_2_M div {
+    position: absolute;
+    border: 3px solid var(--loading_spinner_c1);
+    border-color:var(--loading_spinner_c1) var(--loading_spinner_c2) var(--loading_spinner_c1) var(--loading_spinner_c2);
+    opacity: 1;
+    border-radius: 50%;
+    animation: loading_spinner_2_M 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .loading_spinner_2_M div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes loading_spinner_2_M {
+    0% {
+      top: 22px;
+      left: 22px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+      transform: rotateZ(0deg);
+    }
+    100% {
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      opacity: 0;
+      transform: rotateZ(360deg);
+    }
+  }
+
+.loading_spinner_2_L {
+    display: block;
+    position: relative;
+    width: 70px;
+    height: 70px;
+
+  }
+  .loading_spinner_2_L div {
+    position: absolute;
+    border: 4px solid var(--loading_spinner_c1);
+    border-color:var(--loading_spinner_c1) var(--loading_spinner_c2) var(--loading_spinner_c1) var(--loading_spinner_c2);
+    opacity: 1;
+    border-radius: 50%;
+    animation: loading_spinner_2_L 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .loading_spinner_2_L div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes loading_spinner_2_L {
+    0% {
+      top: 31px;
+      left: 31px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+      transform: rotateZ(0deg);
+    }
+    100% {
+      top: 0;
+      left: 0;
+      width: 62px;
+      height: 62px;
+      opacity: 0;
+      transform: rotateZ(360deg);
+    }
+  }

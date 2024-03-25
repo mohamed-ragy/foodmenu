@@ -17,6 +17,8 @@ use App\Models\promocode;
 use App\Models\statistics_day;
 use App\Models\statistics_hour;
 use App\Models\statistics_month;
+use App\Models\template;
+use App\Models\templates\generate_js;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
@@ -1034,6 +1036,16 @@ class settingsController extends Controller
             $saveWebsite = website::where('id',$this->website_id)->update(['languages'=> $websiteLangs]);
             if($saveWebsite){
                 websiteText::create(['website_id'=>$this->website_id,'lang'=>$addLang['code'],'text'=>foodmenuFunctions::defaultLanguageText($addLang['code'])]);
+
+                $website= website::where('id',$this->website_id)->select(['languages','template_id'])->first();
+                $langs = [];
+                foreach($website->languages as $lang){
+                    array_push($langs,$lang['code']);
+                }
+                $template = template::where('_id',$website->template_id)->first();
+                (new generate_js)->generate($template,$langs);
+
+
                 foodmenuFunctions::notification('settings.installLang',[
                     'website_id' => $this->website_id,
                     'code' => 'settings.language.installed',
@@ -1142,6 +1154,15 @@ class settingsController extends Controller
             ]);
             if($saveWebsite){
                 websiteText::where(['website_id'=>$this->website_id,'lang'=>$request->deleteLang])->delete();
+
+                $website= website::where('id',$this->website_id)->select(['languages','template_id'])->first();
+                $langs = [];
+                foreach($website->languages as $lang){
+                    array_push($langs,$lang['code']);
+                }
+                $template = template::where('_id',$website->template_id)->first();
+                (new generate_js)->generate($template,$langs);
+
                 foodmenuFunctions::notification('settings.deleteLang',[
                     'website_id' => $this->website_id,
                     'code' => 'settings.language.deleted',
@@ -1194,6 +1215,15 @@ class settingsController extends Controller
             ]);
             if($saveWebsite){
                 websiteText::create(['website_id'=>$this->website_id,'lang'=>strip_tags($request->code),'text'=>foodmenuFunctions::defaultLanguageText($langPack)]);
+
+                $website= website::where('id',$this->website_id)->select(['languages','template_id'])->first();
+                $langs = [];
+                foreach($website->languages as $lang){
+                    array_push($langs,$lang['code']);
+                }
+                $template = template::where('_id',$website->template_id)->first();
+                (new generate_js)->generate($template,$langs);
+
                 foodmenuFunctions::notification('settings.installLang',[
                     'website_id' => $this->website_id,
                     'code' => 'settings.language.custom_installed',
@@ -1308,6 +1338,15 @@ class settingsController extends Controller
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($saveLanagText){
+                $website= website::where('id',$this->website_id)->select(['languages','template_id'])->first();
+                $langs = [];
+                foreach($website->languages as $lang){
+                    array_push($langs,$lang['code']);
+                }
+                $template = template::where('_id',$website->template_id)->first();
+                (new generate_js)->generate($template,$langs);
+
+
                 foodmenuFunctions::notification('settings.saveLangText',[
                     'website_id' => $this->website_id,
                     'code' => 'settings.language.edit_texts',

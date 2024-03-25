@@ -54,9 +54,7 @@ class website extends Model
         'month_expenses',
         'trendingProducts',
 
-        'icon','logo','icon_id','logo_id',
-        'template_id',
-
+        'template_id','style_version','icon','logo','icon_id','logo_id',
 
         'productReviews',
         'guestReviews',

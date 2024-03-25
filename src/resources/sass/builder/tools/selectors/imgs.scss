@@ -1,0 +1,83 @@
+.editor_popup_img_select{
+    overflow: hidden;
+    border-radius: 5px;
+    border:1px solid var(--white-4);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.editor_popup_img_select_img{
+    width:50px;
+    height:50px;
+    object-fit: cover;
+}
+.editor_popup_img_select_edit_icon{
+    display:none;
+    position: absolute;
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    opacity: .7;
+    border-radius: 50%;
+    font-size: 1.5em;
+    padding:10px;
+}
+.editor_popup_img_select:hover{
+    .editor_popup_img_select_edit_icon{display:block}
+}
+//
+.imgsImgCard_loading{
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow:var(--card-shdw);
+    max-width:calc(100% - 20px);
+    width:300px;
+    position:relative;
+    margin:20px 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.imgsImgCard{
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow:var(--card-shdw);
+    max-width:calc(100% - 20px);
+    width:300px;
+    position:relative;
+    margin:20px 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.imgsImgCard:hover{
+    .imgsimgBtns{opacity:1;}
+}
+.imgsimgBtns{
+    position: absolute;
+    top:5px;
+    right:5px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition-duration: .20s;
+    opacity:0;
+}
+.imgsImgIcon{
+    font-size: 1.4em;
+    margin:1px;
+    padding:5px;
+    background-color: var(--shdw-20);
+    color:var(--txt-2);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 5px var(--shdw-20);
+}
+.deleteImgConfirmImg{
+    margin-top:20px;
+    width:150px;
+    height:150px;
+    object-fit: contain;
+    border-radius: 3px;
+}

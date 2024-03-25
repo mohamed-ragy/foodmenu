@@ -1,13 +1,5 @@
-set_font_style_vars = function(){
-    $(':root').css('--font_t',`'${window.template.font_style.title}', cairo, sans-serif`);
-    $(':root').css('--font_t_fw',window.template.font_style.title_weight);
-    $(':root').css('--font_t_lh',window.template.font_style.title_line_height);
-    $(':root').css('--font_t_ls',window.template.font_style.title_letter_spacing);
-    $(':root').css('--font_p',`'${window.template.font_style.paragraph}', Tajawal, sans-serif`);
-    $(':root').css('--font_p_fw',window.template.font_style.paragraph_weight);
-    $(':root').css('--font_p_lh',window.template.font_style.paragraph_line_height);
-    $(':root').css('--font_p_ls',window.template.font_style.paragraph_letter_spacing);
-
+set_font_style_settings = function(){
+    set_font_style_vars();
     $('.title_weight_select').removeClass('select_box_selected')
     $(`.title_weight_select[key="${window.template.font_style.title_weight}"]`).addClass('select_box_selected')
 
@@ -111,9 +103,37 @@ draw_font_style = function(){
         $('<div/>',{id:'font_style_packs_container',class:'none'}).append(
             $('<div/>',{class:'inter fs1 bold',text:texts.website_style.fontStyles}),
             $('<div/>',{class:'fs085 mB20  c_white-11',text:texts.website_style.fontStyles_des}),
-            $('<div/>',{class:'font_style_packs_container '})
+            $('<div/>',{class:'font_style_packs_container '}).append(
+                $('<div/>',{class:'font_style_pack_loading'}).append(
+                    $('<div/>',{class:'cardLoading br5 mY5 h20 w150'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                ),
+                $('<div/>',{class:'font_style_pack_loading'}).append(
+                    $('<div/>',{class:'cardLoading br5 mY5 h20 w150'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                ),
+                $('<div/>',{class:'font_style_pack_loading'}).append(
+                    $('<div/>',{class:'cardLoading br5 mY5 h20 w150'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                ),
+                $('<div/>',{class:'font_style_pack_loading'}).append(
+                    $('<div/>',{class:'cardLoading br5 mY5 h20 w150'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                    $('<div/>',{class:'cardLoading br5 mY5 h10 w250'}),
+                ),
+            )
         ),
     )
+    try{
+        set_font_style_settings();
+    }catch{}
+}
+
+draw_font_styles = function(){
+    $('.font_style_packs_container').text('')
     for(const key in window.fonts){
         $('.font_style_packs_container').append(
             $('<div/>',{class:`font_style_pack font_style_pack_change body_color_theme`,key:key}).append(
@@ -122,15 +142,30 @@ draw_font_style = function(){
             )
         )
     }
-    try{
-        set_font_style_vars();
-    }catch{}
+}
+get_fonts = function(){
+    if(window.fonts.length == 0){
+        $.ajax({
+            url:'api',
+            type:'post',
+            data:{
+                _token:$('meta[name="csrf-token"]').attr('content'),
+                get_fonts:true,
+            },success:function(r){
+                window.fonts = r.fonts;
+                draw_font_styles();
+            }
+        })
+    }else{
+        draw_color_palettes();
+    }
 }
 //events
 $('html,body').on('click','.changeFontStyle',function(e){
     e.stopImmediatePropagation();
     editor_popup_to_child($('#font_style_pack_container'),$('#font_style_packs_container'))
     $('.backToFontStyle').removeClass('none');
+    get_fonts();
 })
 $('html,body').on('click','.backToFontStyle',function(e){
     e.stopImmediatePropagation();

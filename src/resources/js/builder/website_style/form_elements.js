@@ -1,202 +1,128 @@
-set_form_elements_vars = function(){
-    $(':root').css('--form_align',window.template.form_elements.form_align);
+set_form_elements_settings = function(){
+    set_form_elements_vars();
     $('.form_align_select').removeClass('select_box_selected')
     $(`.form_align_select[key="${window.template.form_elements.form_align}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--form_elem_spacing',window.template.form_elements.spacing);
     $('.form_spacing_select').removeClass('select_box_selected')
     $(`.form_spacing_select[key="${window.template.form_elements.spacing}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_text_align',window.template.form_elements.input.text_align);
     $('.input_text_align_select').removeClass('select_box_selected');
     $(`.input_text_align_select[key="${window.template.form_elements.input.text_align}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_padding_y',window.template.form_elements.input.padding_y);
     $('.input_paddingY_select').removeClass('select_box_selected')
     $(`.input_paddingY_select[key="${window.template.form_elements.input.padding_y}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_padding_x',window.template.form_elements.input.padding_x);
     $('.input_paddingX_select').removeClass('select_box_selected')
     $(`.input_paddingX_select[key="${window.template.form_elements.input.padding_x}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_border_style',window.template.form_elements.input.border_style);
     let border_style = window.template.form_elements.input.border_style.split(' ');
     border_style[0] == 'solid' ? $('.input_border_style_select.ico-border_top').addClass('select_box_selected') : border_style[0] == 'none' ?  $('.input_border_style_select.ico-border_top').removeClass('select_box_selected') : null;
     border_style[1] == 'solid' ? $('.input_border_style_select.ico-border_right').addClass('select_box_selected') : border_style[1] == 'none' ?  $('.input_border_style_select.ico-border_right').removeClass('select_box_selected') : null;
     border_style[2] == 'solid' ? $('.input_border_style_select.ico-border_bottom').addClass('select_box_selected') : border_style[2] == 'none' ?  $('.input_border_style_select.ico-border_bottom').removeClass('select_box_selected') : null;
     border_style[3] == 'solid' ? $('.input_border_style_select.ico-border_left').addClass('select_box_selected') : border_style[3] == 'none' ?  $('.input_border_style_select.ico-border_left').removeClass('select_box_selected') : null;
     //
-    $(':root').css('--input_border_width',window.template.form_elements.input.border_width);
     $('.input_border_width_select').removeClass('select_box_selected')
     $(`.input_border_width_select[key="${window.template.form_elements.input.border_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_border_radius',window.template.form_elements.input.border_radius);
     let input_border_radius = window.template.form_elements.input.border_radius.split(' ');
     $('#input_border_radius').find('.border_radius_select[corner_name="top_left"]').removeClass().addClass(`border_radius_select border_radius_select_top_left_${input_border_radius[0]}`)
     $('#input_border_radius').find('.border_radius_select[corner_name="top_right"]').removeClass().addClass(`border_radius_select border_radius_select_top_right_${input_border_radius[1]}`)
     $('#input_border_radius').find('.border_radius_select[corner_name="bottom_right"]').removeClass().addClass(`border_radius_select border_radius_select_bottom_right_${input_border_radius[2]}`)
     $('#input_border_radius').find('.border_radius_select[corner_name="bottom_left"]').removeClass().addClass(`border_radius_select border_radius_select_bottom_left_${input_border_radius[3]}`)
     //
-    $(':root').css('--input_border_color', `rgb(${window.template.form_elements.input.border_color.r},${window.template.form_elements.input.border_color.g},${window.template.form_elements.input.border_color.b})`);
-    //
-    $(':root').css('--input_font_size',window.template.form_elements.input.font_size);
     $('.input_font_size_select').removeClass('select_box_selected')
     $(`.input_font_size_select[key="${window.template.form_elements.input.font_size}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_font_color', `rgb(${window.template.form_elements.input.font_color.r},${window.template.form_elements.input.font_color.g},${window.template.form_elements.input.font_color.b})`);
-    //
-    $(':root').css('--input_label_font_size',window.template.form_elements.input.label_font_size);
     $('.input_label_font_size_select').removeClass('select_box_selected')
     $(`.input_label_font_size_select[key="${window.template.form_elements.input.label_font_size}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_label_margin',window.template.form_elements.input.label_margin);
     $('.input_label_margin_select').removeClass('select_box_selected')
     $(`.input_label_margin_select[key="${window.template.form_elements.input.label_margin}"]`).addClass('select_box_selected')
     //
     if(window.template.form_elements.input.background_fill == '1'){
         $('#input_background_fill').addClass('switch_btn_selected')
-        $(':root').css('--input_bg_color', `rgb(${window.template.form_elements.input.input_bg_color.r},${window.template.form_elements.input.input_bg_color.g},${window.template.form_elements.input.input_bg_color.b})`);
         $('.input_bg_color_container').removeClass('none')
     }else{
-        $(':root').css('--input_bg_color', `transparent`);
         $('#input_background_fill').removeClass('switch_btn_selected')
         $('.input_bg_color_container').addClass('none')
     }
     //
-    $(':root').css('--input_focus_outline_width',`${window.template.form_elements.input.focus_outline_width}`);
     $('.input_focus_outline_width_select').removeClass('select_box_selected')
     $(`.input_focus_outline_width_select[key="${window.template.form_elements.input.focus_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--input_focus_outline_color',`rgb(${window.template.form_elements.input.focus_outline_color.r},${window.template.form_elements.input.focus_outline_color.g},${window.template.form_elements.input.focus_outline_color.b})`);
-    //
     if(window.template.form_elements.input.focus_background_fill == '1'){
         $('#input_focus_background_fill').addClass('switch_btn_selected')
-        $(':root').css('--input_focus_bg_color', `rgb(${window.template.form_elements.input.focus_bg_color.r},${window.template.form_elements.input.focus_bg_color.g},${window.template.form_elements.input.focus_bg_color.b})`);
         $('.input_focus_bg_color_container').removeClass('none')
     }else{
-        $(':root').css('--input_focus_bg_color', `var(--input_bg_color)`);
         $('#input_focus_background_fill').removeClass('switch_btn_selected')
         $('.input_focus_bg_color_container').addClass('none')
     }
     //
-    $(':root').css('--checkbox_border_radius',window.template.form_elements.checkbox.border_radius)
     $('.checkbox_shape_select').removeClass('select_box_selected')
     $('.checkbox_shape_select').children().removeClass('checkbox_checked ico-check')
     $(`.checkbox_shape_select[key="${window.template.form_elements.checkbox.border_radius}"]`).addClass('select_box_selected')
     $(`.checkbox_shape_select[key="${window.template.form_elements.checkbox.border_radius}"]`).children().addClass('checkbox_checked ico-check')
     //
-    $(':root').css('--checkbox_size',window.template.form_elements.checkbox.size)
     $('.checkbox_size_select').removeClass('select_box_selected')
     $(`.checkbox_size_select[key="${window.template.form_elements.checkbox.size}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--checkbox_color',`rgb(${window.template.form_elements.checkbox.color.r},${window.template.form_elements.checkbox.color.g},${window.template.form_elements.checkbox.color.b})`)
-    $(':root').css('--checkbox_checkMark_color',`rgb(${window.template.form_elements.checkbox.check_mark_color.r},${window.template.form_elements.checkbox.check_mark_color.g},${window.template.form_elements.checkbox.check_mark_color.b})`)
-    //
-    $(':root').css('--button1_padding_y',window.template.form_elements.button1.padding_y)
     $('.button1_paddingY_select').removeClass('select_box_selected')
     $(`.button1_paddingY_select[key="${window.template.form_elements.button1.padding_y}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_padding_x',window.template.form_elements.button1.padding_x)
     $('.button1_paddingX_select').removeClass('select_box_selected')
     $(`.button1_paddingX_select[key="${window.template.form_elements.button1.padding_x}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_border_radius',window.template.form_elements.button1.border_radius)
     let button1_border_radius = window.template.form_elements.button1.border_radius.split(' ');
     $('#button1_border_radius').find('.border_radius_select[corner_name="top_left"]').removeClass().addClass(`border_radius_select border_radius_select_top_left_${button1_border_radius[0]}`)
     $('#button1_border_radius').find('.border_radius_select[corner_name="top_right"]').removeClass().addClass(`border_radius_select border_radius_select_top_right_${button1_border_radius[1]}`)
     $('#button1_border_radius').find('.border_radius_select[corner_name="bottom_right"]').removeClass().addClass(`border_radius_select border_radius_select_bottom_right_${button1_border_radius[2]}`)
     $('#button1_border_radius').find('.border_radius_select[corner_name="bottom_left"]').removeClass().addClass(`border_radius_select border_radius_select_bottom_left_${button1_border_radius[3]}`)
     //
-    $(':root').css('--button1_font_size',window.template.form_elements.button1.font_size)
     $('.button1_font_size_select').removeClass('select_box_selected')
     $(`.button1_font_size_select[key="${window.template.form_elements.button1.font_size}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_font_color',`rgb(${window.template.form_elements.button1.font_color.r},${window.template.form_elements.button1.font_color.g},${window.template.form_elements.button1.font_color.b})`)
-    $(':root').css('--button1_bg_color',`rgb(${window.template.form_elements.button1.bg_color.r},${window.template.form_elements.button1.bg_color.g},${window.template.form_elements.button1.bg_color.b})`)
-    $(':root').css('--button1_outline_color',`rgb(${window.template.form_elements.button1.outline_color.r},${window.template.form_elements.button1.outline_color.g},${window.template.form_elements.button1.outline_color.b})`)
-    //
-    $(':root').css('--button1_outline_width',window.template.form_elements.button1.outline_width)
     $('.button1_outline_width_select').removeClass('select_box_selected')
     $(`.button1_outline_width_select[key="${window.template.form_elements.button1.outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_hover_font_color',`rgb(${window.template.form_elements.button1.hover_font_color.r},${window.template.form_elements.button1.hover_font_color.g},${window.template.form_elements.button1.hover_font_color.b})`)
-    $(':root').css('--button1_hover_bg_color',`rgb(${window.template.form_elements.button1.hover_bg_color.r},${window.template.form_elements.button1.hover_bg_color.g},${window.template.form_elements.button1.hover_bg_color.b})`)
-    $(':root').css('--button1_hover_outline_color',`rgb(${window.template.form_elements.button1.hover_outline_color.r},${window.template.form_elements.button1.hover_outline_color.g},${window.template.form_elements.button1.hover_outline_color.b})`)
-    //
-    $(':root').css('--button1_hover_outline_width',window.template.form_elements.button1.hover_outline_width)
     $('.button1_hover_outline_width_select').removeClass('select_box_selected')
     $(`.button1_hover_outline_width_select[key="${window.template.form_elements.button1.hover_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_click_font_color',`rgb(${window.template.form_elements.button1.click_font_color.r},${window.template.form_elements.button1.click_font_color.g},${window.template.form_elements.button1.click_font_color.b})`)
-    $(':root').css('--button1_click_bg_color',`rgb(${window.template.form_elements.button1.click_bg_color.r},${window.template.form_elements.button1.click_bg_color.g},${window.template.form_elements.button1.click_bg_color.b})`)
-    //
-    $(':root').css('--button1_click_outline_width',window.template.form_elements.button1.click_outline_width)
     $('.button1_click_outline_width_select').removeClass('select_box_selected')
     $(`.button1_click_outline_width_select[key="${window.template.form_elements.button1.click_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_click_outline_color',`rgb(${window.template.form_elements.button1.click_outline_color.r},${window.template.form_elements.button1.click_outline_color.g},${window.template.form_elements.button1.click_outline_color.b})`)
     //////
-    $(':root').css('--button1_disabled_font_color',`rgb(${window.template.form_elements.button1.disabled_font_color.r},${window.template.form_elements.button1.disabled_font_color.g},${window.template.form_elements.button1.disabled_font_color.b})`)
-    $(':root').css('--button1_disabled_bg_color',`rgb(${window.template.form_elements.button1.disabled_bg_color.r},${window.template.form_elements.button1.disabled_bg_color.g},${window.template.form_elements.button1.disabled_bg_color.b})`)
-    //
-    $(':root').css('--button1_disabled_outline_width',window.template.form_elements.button1.disabled_outline_width)
+
     $('.button1_disabled_outline_width_select').removeClass('select_box_selected')
     $(`.button1_disabled_outline_width_select[key="${window.template.form_elements.button1.disabled_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button1_disabled_outline_color',`rgb(${window.template.form_elements.button1.disabled_outline_color.r},${window.template.form_elements.button1.disabled_outline_color.g},${window.template.form_elements.button1.disabled_outline_color.b})`)
-    //////
-    $(':root').css('--button2_padding_y',window.template.form_elements.button2.padding_y)
     $('.button2_paddingY_select').removeClass('select_box_selected')
     $(`.button2_paddingY_select[key="${window.template.form_elements.button2.padding_y}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_padding_x',window.template.form_elements.button2.padding_x)
     $('.button2_paddingX_select').removeClass('select_box_selected')
     $(`.button2_paddingX_select[key="${window.template.form_elements.button2.padding_x}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_border_radius',window.template.form_elements.button2.border_radius)
     let button2_border_radius = window.template.form_elements.button2.border_radius.split(' ');
     $('#button2_border_radius').find('.border_radius_select[corner_name="top_left"]').removeClass().addClass(`border_radius_select border_radius_select_top_left_${button2_border_radius[0]}`)
     $('#button2_border_radius').find('.border_radius_select[corner_name="top_right"]').removeClass().addClass(`border_radius_select border_radius_select_top_right_${button2_border_radius[1]}`)
     $('#button2_border_radius').find('.border_radius_select[corner_name="bottom_right"]').removeClass().addClass(`border_radius_select border_radius_select_bottom_right_${button2_border_radius[2]}`)
     $('#button2_border_radius').find('.border_radius_select[corner_name="bottom_left"]').removeClass().addClass(`border_radius_select border_radius_select_bottom_left_${button2_border_radius[3]}`)
     //
-    $(':root').css('--button2_font_size',window.template.form_elements.button2.font_size)
     $('.button2_font_size_select').removeClass('select_box_selected')
     $(`.button2_font_size_select[key="${window.template.form_elements.button2.font_size}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_font_color',`rgb(${window.template.form_elements.button2.font_color.r},${window.template.form_elements.button2.font_color.g},${window.template.form_elements.button2.font_color.b})`)
-    $(':root').css('--button2_bg_color',`rgb(${window.template.form_elements.button2.bg_color.r},${window.template.form_elements.button2.bg_color.g},${window.template.form_elements.button2.bg_color.b})`)
-    $(':root').css('--button2_outline_color',`rgb(${window.template.form_elements.button2.outline_color.r},${window.template.form_elements.button2.outline_color.g},${window.template.form_elements.button2.outline_color.b})`)
-    //
-    $(':root').css('--button2_outline_width',window.template.form_elements.button2.outline_width)
     $('.button2_outline_width_select').removeClass('select_box_selected')
     $(`.button2_outline_width_select[key="${window.template.form_elements.button2.outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_hover_font_color',`rgb(${window.template.form_elements.button2.hover_font_color.r},${window.template.form_elements.button2.hover_font_color.g},${window.template.form_elements.button2.hover_font_color.b})`)
-    $(':root').css('--button2_hover_bg_color',`rgb(${window.template.form_elements.button2.hover_bg_color.r},${window.template.form_elements.button2.hover_bg_color.g},${window.template.form_elements.button2.hover_bg_color.b})`)
-    $(':root').css('--button2_hover_outline_color',`rgb(${window.template.form_elements.button2.hover_outline_color.r},${window.template.form_elements.button2.hover_outline_color.g},${window.template.form_elements.button2.hover_outline_color.b})`)
-    //
-    $(':root').css('--button2_hover_outline_width',window.template.form_elements.button2.hover_outline_width)
     $('.button2_hover_outline_width_select').removeClass('select_box_selected')
     $(`.button2_hover_outline_width_select[key="${window.template.form_elements.button2.hover_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_click_font_color',`rgb(${window.template.form_elements.button2.click_font_color.r},${window.template.form_elements.button2.click_font_color.g},${window.template.form_elements.button2.click_font_color.b})`)
-    $(':root').css('--button2_click_bg_color',`rgb(${window.template.form_elements.button2.click_bg_color.r},${window.template.form_elements.button2.click_bg_color.g},${window.template.form_elements.button2.click_bg_color.b})`)
-    //
-    $(':root').css('--button2_click_outline_width',window.template.form_elements.button2.click_outline_width)
     $('.button2_click_outline_width_select').removeClass('select_box_selected')
     $(`.button2_click_outline_width_select[key="${window.template.form_elements.button2.click_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_click_outline_color',`rgb(${window.template.form_elements.button2.click_outline_color.r},${window.template.form_elements.button2.click_outline_color.g},${window.template.form_elements.button2.click_outline_color.b})`)
     //
-    $(':root').css('--button2_disabled_font_color',`rgb(${window.template.form_elements.button2.disabled_font_color.r},${window.template.form_elements.button2.disabled_font_color.g},${window.template.form_elements.button2.disabled_font_color.b})`)
-    $(':root').css('--button2_disabled_bg_color',`rgb(${window.template.form_elements.button2.disabled_bg_color.r},${window.template.form_elements.button2.disabled_bg_color.g},${window.template.form_elements.button2.disabled_bg_color.b})`)
-    //
-    $(':root').css('--button2_disabled_outline_width',window.template.form_elements.button2.disabled_outline_width)
     $('.button2_disabled_outline_width_select').removeClass('select_box_selected')
     $(`.button2_disabled_outline_width_select[key="${window.template.form_elements.button2.disabled_outline_width}"]`).addClass('select_box_selected')
     //
-    $(':root').css('--button2_disabled_outline_color',`rgb(${window.template.form_elements.button2.disabled_outline_color.r},${window.template.form_elements.button2.disabled_outline_color.g},${window.template.form_elements.button2.disabled_outline_color.b})`)
     //////
 }
 
@@ -249,7 +175,11 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'form_elements_input_container none'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.input_box}),
-                $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.input_box_des}),
+                $('<div/>',{class:'fs085 c_white-11',text:texts.website_style.input_box_des}),
+                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                    $('<label/>',{class:'input_lable',text:texts.website_style.input_box}),
+                    $('<input/>',{class:'input'}),
+                ),
                 $('<div/>',{class:'page_setup_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.text_align}),
                     $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.input',key:'text_align'}).append(
@@ -426,7 +356,13 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'form_elements_button1_container none'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.button1}),
-                $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.button1_des}),
+                $('<div/>',{class:'fs085 c_white-11',text:texts.website_style.button1_des}),
+                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                    $('<div/>',{class:'row alnC jstfyC wFC'}).append(
+                        $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
+                        $('<button/>',{class:'button1 m5',disabled:true,text:texts.website_style.button1_disabled}),
+                    )
+                ),
                 $('<div/>',{class:'page_setup_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.padding_y}),
                     $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.button1',key:'padding_y'}).append(
@@ -583,6 +519,12 @@ draw_form_elements = function(){
             $('<div/>',{class:'form_elements_button2_container none'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.button2}),
                 $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.button2_des}),
+                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                    $('<div/>',{class:'row alnC jstfyC wFC'}).append(
+                        $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
+                        $('<button/>',{class:'button2 m5',disabled:true,text:texts.website_style.button2_disabled}),
+                    )
+                ),
                 $('<div/>',{class:'page_setup_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.padding_y}),
                     $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.button2',key:'padding_y'}).append(

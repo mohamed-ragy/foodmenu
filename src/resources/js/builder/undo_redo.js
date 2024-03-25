@@ -43,13 +43,21 @@ redo = function(){
 }
 
 undo_redo_actions = function(){
-    set_colors_vars();
+    set_website_colors_settings();
     //
-    set_font_style_vars();
+    set_font_style_settings();
     //
-    set_page_setup_vars();
+    set_page_setup_settings();
     //
-    set_form_elements_vars();
+    set_form_elements_settings();
+    //
+    set_loading_spinner_settings();
+    //
+    if(window.selected_section_key_tree != null){
+        draw_section(window.selected_section_key_tree)
+    }
+    //
+    set_view_style();
 }
 
 //events

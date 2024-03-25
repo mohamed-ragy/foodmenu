@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 use App\Models\website;
 use App\Models\guest;
-use App\Models\template;
+use App\Models\websiteText;
 use Carbon\Carbon;
 
 
@@ -56,20 +56,21 @@ class websiteController extends Controller
             'website_id' => $this->website_id,
             'lang' => $this->lang,
             'website_direction' => $this->website_direction,
-            'title' => $this->website->websiteNames[$this->lang],
-            'description' => $this->website->websiteDescriptions[$this->lang],
+            'title' => $this->website->websiteNames[$this->lang] ?? '',
+            'description' => $this->website->websiteDescriptions[$this->lang] ?? '',
             'logo' => $this->website->logo,
             'icon' => $this->website->icon,
-            'metaImg' => $this->website->logo,
-            'url' => $this->website->url
+            'style_version' => $this->website->style_version,
+            // 'metaImg' => $this->website->template['page_setup']['social_image'] == null ? $this->website->logo : $this->website->template['page_setup']['social_image'],
+            'url' => $this->website->url,
+            'template' => $this->website->template,
         ]);
     }
 
     public function get_website_data(){
         $domain = explode('.', $this->request_host);
         $this->website = website::where('url' , preg_replace('/^www./', '',$this->request_host))->orWhere('domainName' , $domain[0] )
-        ->select('id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo')
-        ->with('template')
+        ->select('id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','style_version')
         ->first();
         if(!$this->website){
             return abort(404);
@@ -101,7 +102,6 @@ class websiteController extends Controller
             return false;
         }
     }
-
     public function check_subscription($route_name){
         return redirect()->route('website.home',['lang' => $this->lang]);
 
@@ -119,7 +119,6 @@ class websiteController extends Controller
             }
         }
     }
-
     public function auth_check($request_ip){
         if(Auth::guard('user')->check() && Auth::guard('user')->user()->website_id == $this->website_id){
             $this->user = Auth::guard('user')->user();

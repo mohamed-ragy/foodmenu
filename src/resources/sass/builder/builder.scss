@@ -27,6 +27,7 @@ body{
     color: var(--txt-1);
     background-color: var(--white);
 }
+.editor_font{font-family: 'Nunito','inter', sans-serif !important;}
 a{
     cursor: pointer;
     text-decoration: none;
@@ -106,10 +107,27 @@ a:hover{
 @import 'header.scss';
 
 @import 'website_style.scss';
+
 @import 'website/website.scss';
 
+@import 'editable/section.scss';
 
 @import 'icons/icons';
 @import '../style/style.scss';
 
-
+.desktop_view{
+    margin:0;
+    width:100%;
+    height:calc(100% - 50px);
+    overflow: hidden;
+    transition-duration: 300ms;
+}
+.mobile_view{
+    // margin: auto;
+    margin-inline-start:calc(50% - 207px);
+    margin-top:100px;
+    width:414px;
+    height: 736px;
+    box-shadow: 0 0 20px var(--shdw-20), 0 0 1px 0px var(--shdw-5);
+    border-radius: 5px;
+}

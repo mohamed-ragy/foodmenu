@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Validator;
 use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\automatedEmails;
+use Illuminate\Support\Facades\Config;
 
 class cpanelController extends Controller
 {
@@ -40,6 +41,7 @@ class cpanelController extends Controller
     protected $account;
     public function __construct()
     {
+
         $this->middleware(function ($request, $next) {
             if(!Auth::guard('account')->check()){
                 return redirect()->route('account.login',$request->all());
@@ -192,6 +194,7 @@ class cpanelController extends Controller
     public function dologin(Request $request)
     {
         if($request->has('cpLogin')){
+
             $account = Account::where('email',$request->email)->select('id','name','website_id','password_fails','account_unblock_code','is_master')->first();
             if($account){
                 if($account->password_fails > 10){
@@ -221,9 +224,9 @@ class cpanelController extends Controller
                     }else{
                         return response(['code' => 0, 'msg' => Lang::get('cpanel/login.accountBlocked2') ]);
                     }
-                }else if (Auth::guard('account')->attempt(['email' => $request['email'] , 'password' => $request['password'] ])) {
+                }else if (Auth::guard('account')->attempt(['email' => $request['email'] , 'password' => $request['password'] ],false)) {
                     Account::where('email',$request->email)->update([ 'password_fails' => 0 ]);
-                    // $request->session()->regenerate();
+                    $request->session()->regenerate();
                     // Auth::guard('account')->logoutOtherDevices($request['password']);
                     return response(['code' => 1 ]);
                 }else{

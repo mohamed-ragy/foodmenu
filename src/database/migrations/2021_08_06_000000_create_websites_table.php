@@ -58,23 +58,12 @@ class CreateWebsitesTable extends Migration
             $table->json('month_expenses');
             $table->json('trendingProducts')->nullable();
 
-
+            $table->string('template_id');
+            $table->integer('style_version')->default(1);
             $table->string('icon')->nullable();
             $table->string('logo')->nullable();
             $table->bigInteger('icon_id')->nullable();
             $table->bigInteger('logo_id')->nullable();
-
-            $table->string('template_id');
-            // $table->integer('website_colors')->default(1);
-            // $table->integer('template')->default('1');
-            // $table->boolean('useCustomColors')->default(false);
-            // $table->json('customColorsHexCode');
-            // $table->json('intro');
-            // $table->json('info');
-            // $table->json('ourStory');
-            // $table->json('slideShow');
-            // $table->text('gallery');
-
 
             $table->boolean('productReviews')->default(true);
             $table->boolean('guestReviews')->default(false);

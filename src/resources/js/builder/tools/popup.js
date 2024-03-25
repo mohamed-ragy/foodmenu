@@ -12,8 +12,13 @@ show_popup = function(callback=()=>{}){
 }
 close_popup = function(){
     $('.popupContainer').text('').addClass('none');
+    window.is_imgBrowser_opened = false;
 }
 $('html,body').on('click','.popupClose',function(e){
     e.stopImmediatePropagation();
     close_popup();
+})
+$('html,body').on('click','.popup2Close',function(e){
+    e.stopImmediatePropagation();
+    $('.popupCard2').remove();
 })

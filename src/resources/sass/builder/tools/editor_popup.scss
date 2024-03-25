@@ -10,11 +10,19 @@
     width:calc(400px - 20px);
     max-height:80%;
     height:800px;
-    animation:200ms editor_popup_animation 0s 1 ease;
+    animation:300ms editor_popup_animation 0s 1 ease;
 }
 @keyframes editor_popup_animation {
     0%{transform: translateY(-5px);opacity:0;}
     100%{transform: translateY(0px);opacity:1;}
+}
+.editor_popup_flash{
+    animation:500ms editor_popup_flash 0s 3 ease;
+}
+@keyframes editor_popup_flash {
+    0%{box-shadow: 0 0 1px 0px var(--shdw-10), 0 0 15px 0px var(--shdw-20);}
+    50%{box-shadow: 0 0 1px 0px var(--shdw-10), 0 0 5px 0px var(--shdw-10);}
+    100%{box-shadow: 0 0 1px 0px var(--shdw-10), 0 0 15px 0px var(--shdw-20);}
 }
 .editor_popup_resizeIcon{
     position: absolute;

@@ -48,50 +48,50 @@ drawImg = function(img,append='append'){
 }
 
 
-checkDeleteImg = function(imgId){
-    let img = website.imgs.find(item=> item.id == imgId);
-    let deleteLinkElem;
-    let deleteValidation = true;
-    if(imgId == website.logo_id){
-        deleteLinkElem = `<a class="cpPage" cpPage="restaurant_information">${texts.design.deleteFailLogo}</a>`
-        deleteValidation = false
-    }else if (imgId == website.icon_id){
-        deleteLinkElem = `<a class="cpPage" cpPage="restaurant_information">${texts.design.deleteFailIcon}</a>`
-        deleteValidation = false
-    }
-    for(const key in website.products){
-        if(website.products[key].img_id == imgId){
-            deleteLinkElem = `<a class="popupPage popupId" popupPage="edit_product" popupId="product" product="${website.products[key].name}">${website.products[key].name}</a>`
-            deleteValidation = false;
-        }
-    }
-    for(const key in website.categories){
-        if(website.categories[key].img_id == imgId){
-            deleteLinkElem = `<a class="popupPage popupId" popupPage="edit_category" popupId="category" category="${website.categories[key].name}">${website.categories[key].name}</a>`
-            deleteValidation = false;
-        }
-    }
+// checkDeleteImg = function(imgId){
+//     let img = website.imgs.find(item=> item.id == imgId);
+//     let deleteLinkElem;
+//     let deleteValidation = true;
+//     if(imgId == website.logo_id){
+//         deleteLinkElem = `<a class="cpPage" cpPage="restaurant_information">${texts.design.deleteFailLogo}</a>`
+//         deleteValidation = false
+//     }else if (imgId == website.icon_id){
+//         deleteLinkElem = `<a class="cpPage" cpPage="restaurant_information">${texts.design.deleteFailIcon}</a>`
+//         deleteValidation = false
+//     }
+//     for(const key in website.products){
+//         if(website.products[key].img_id == imgId){
+//             deleteLinkElem = `<a class="popupPage popupId" popupPage="edit_product" popupId="product" product="${website.products[key].name}">${website.products[key].name}</a>`
+//             deleteValidation = false;
+//         }
+//     }
+//     for(const key in website.categories){
+//         if(website.categories[key].img_id == imgId){
+//             deleteLinkElem = `<a class="popupPage popupId" popupPage="edit_category" popupId="category" category="${website.categories[key].name}">${website.categories[key].name}</a>`
+//             deleteValidation = false;
+//         }
+//     }
 
-    if(!deleteValidation){
-        showPopup('error-popup',function(){
-            $('.popupBody').append(
-                $('<div/>',{class:'msgBox_red'}).append(
-                    $('<span/>',{class:'ico-warning fs2 mB10'}),
-                    $('<span/>',{class:'taC',html:texts.design.deleteFailImgInUse.replace(':name:',deleteLinkElem)})
-                ),
-                $('<div/>',{
-                    class:'btnContainer ',
-                }).append(
-                    $('<button/>',{class:'m20 btn btn-cancel popupClose',text:texts.cpanel.public.gotIt}),
-                )
-            )
-        })
-        return false;
-    }else{return true;}
-}
+//     if(!deleteValidation){
+//         showPopup('error-popup',function(){
+//             $('.popupBody').append(
+//                 $('<div/>',{class:'msgBox_red'}).append(
+//                     $('<span/>',{class:'ico-warning fs2 mB10'}),
+//                     $('<span/>',{class:'taC',html:texts.design.deleteFailImgInUse.replace(':name:',deleteLinkElem)})
+//                 ),
+//                 $('<div/>',{
+//                     class:'btnContainer ',
+//                 }).append(
+//                     $('<button/>',{class:'m20 btn btn-cancel popupClose',text:texts.cpanel.public.gotIt}),
+//                 )
+//             )
+//         })
+//         return false;
+//     }else{return true;}
+// }
 $('html,body').on('click','.deleteImg',function(e){
     e.stopImmediatePropagation();
-    if(!checkDeleteImg($(this).attr('img'))){return;}
+    // if(!checkDeleteImg($(this).attr('img'))){return;}
     let img = website.imgs.find(item=> item.id == $(this).attr('img'));
     showPopup('delete-popup',function(){
         $('.popupBody').append(
@@ -163,7 +163,7 @@ $('html,body').on('click','#deleteImage-confirmBtn',function(e){
 
 $('html,body').on('click','.copyImageLink',function(e){
     e.stopImmediatePropagation();
-    let imgUrl = $('.imgs-imgPreviewimg').attr('src');
+    let imgUrl = website.imgs.find(item=>item.id == $(this).attr('img')).url
     navigator.clipboard.writeText(`https://${website.url}${imgUrl}`).then(function(){
         showAlert('normal',texts.design.copyed,4000,true);
     });
@@ -198,6 +198,7 @@ setImgPreview = function(img_id){
         $('.imgs-imgPreviewInfo').attr('tooltip',thisImgInfo);
         $('.imgs-imgPreviewimg').attr('src',img.url)
         $('#imgs-imgPreview').find('.imgs-imgPreviewDownload').attr('download',img.name+'.'+img.extension).attr('href',img.url);
+        $('#imgs-imgPreview').find('.copyImageLink').attr('img',img.id);
         $('.imgs-imgPreviewimg').css('cursor','grab');
         $('.imgs-imgPreviewimg').css('transform','scale(1)')
         $('.imgs-imgPreviewimg').attr('zoomLvl',1)

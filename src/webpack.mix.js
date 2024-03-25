@@ -70,16 +70,16 @@ mix
     .sass('resources/sass/admin/layout.scss','public/css/admin')
 
     /////////////////////////website///////////////////////////////
-    .sass('resources/sass/website/notActive.scss','public/css/website/')
+    // .sass('resources/sass/website/notActive.scss','public/css/website/')
     .js('resources/js/website/script.js','public/js/website/')
     .sass('resources/sass/website/style.scss','public/css/website/')
 
 
-    .sass('resources/sass/website/1/style.scss','public/css/website/1/')
-    .js('resources/js/website/1/script.js','public/js/website/1/')
+    // .sass('resources/sass/website/1/style.scss','public/css/website/1/')
+    // .js('resources/js/website/1/script.js','public/js/website/1/')
 
-    .sass('resources/sass/website/2/style.scss','public/css/website/2/')
-    .js('resources/js/website/2/script.js','public/js/website/2/')
+    // .sass('resources/sass/website/2/style.scss','public/css/website/2/')
+    // .js('resources/js/website/2/script.js','public/js/website/2/')
 
     // .minify('public/js/cpanel/cpanel.js')
     // .webpackConfig({

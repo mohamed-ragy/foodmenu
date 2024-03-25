@@ -1,10 +1,9 @@
 draw_color_theme_Picker = function(id,key_tree,last_key){
-    key_tree = key_tree.split('.');
+    let key_tree_arr = key_tree.split('.');
     let template = window.template;
-    for(const key in key_tree){
-        template = window.template[key_tree[key]];
+    for(const key in key_tree_arr){
+        template = template[key_tree_arr[key]];
     }
-
     let selected_color_theme = template[last_key];
     return $('<div/>',{id:id,class:`color_theme_picker_container ${selected_color_theme}`,key_tree:key_tree,key:last_key}).append(
         $('<div/>',{class:'mie-5',text:texts.website_style[selected_color_theme]}),
@@ -18,11 +17,11 @@ $('html,body').on('click','.color_theme_picker_container',function(e){
     let key_tree = $(this).attr('key_tree').split('.');
     let template = window.template;
     for(const key in key_tree){
-        template = window.template[key_tree[key]];
+        template = template[key_tree[key]];
     }
-
     let selected_color_theme = template[$(this).attr('key')];
     $('.color_theme_picker_themes').attr('key_tree',$(this).attr('key_tree')).attr('key',$(this).attr('key')).attr('theme_picker',$(this).attr('id')).text('').append(
+        selected_color_theme != 'transparent' && $(this).attr('key') != 'page_color_theme' ? $('<div/>',{class:'color_theme_picker_theme',text:texts.website_style.transparent,key:'transparent'}) : '',
         selected_color_theme != 'color_1_2' ? $('<div/>',{class:'color_theme_picker_theme color_1_2',text:texts.website_style.color_1_2,key:'color_1_2'}) : '',
         selected_color_theme != 'color_1_3' ? $('<div/>',{class:'color_theme_picker_theme color_1_3',text:texts.website_style.color_1_3,key:'color_1_3'}) : '',
         selected_color_theme != 'color_1_4' ? $('<div/>',{class:'color_theme_picker_theme color_1_4',text:texts.website_style.color_1_4,key:'color_1_4'}) : '',
@@ -45,7 +44,7 @@ $('html,body').on('click','.color_theme_picker_theme',function(e){
     let key_tree = $('.color_theme_picker_themes').attr('key_tree').split('.');
     let template = window.template;
     for(const key in key_tree){
-        template = window.template[key_tree[key]];
+        template = template[key_tree[key]];
     }
     template[$('.color_theme_picker_themes').attr('key')] = $(this).attr('key');
     $(`#${$('.color_theme_picker_themes').attr('theme_picker')}`).removeClass().addClass(`color_theme_picker_container ${$(this).attr('key')}`).children().first().text($(this).text())

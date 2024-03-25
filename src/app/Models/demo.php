@@ -175,81 +175,11 @@ class demo
             'it' => ['code'=>'it','name'=>'Italiana','direction'=>'ltr','flag'=>'ITA','websiteDefault'=>0,'receiptDefault'=>0],
         ];
 
-        // $demoWebsite->website_colors = 1;
-        // $demoWebsite->customColorsHexCode = ['color1'=>'#F5F5F5','color2'=>'#EBEBEB','color3'=>'#E0E0E0','color4'=>'#D6D6D6','color5'=>'#CCCCCC','colorError'=>'#D10000','colorSuccess'=>'#228B22','colorWarning'=>'#E3AE09','colorStar'=>'#ffc824'];
-        // $demoWebsite->template = $website->template;
-        $demoWebsite->template_id = 1;
+        $demoWebsite->template_id = '000';
         $demoWebsite->icon = "/storage/imgs/templates/$website->template/icon.webp";
         $demoWebsite->logo = "/storage/imgs/templates/$website->template/logo.webp";
 
-        // $demoWebsite->gallery = '';
-        // $demoWebsite->slideShow = [
-        //     'interval' => 15,
-        //     'content' => [],
-        // ];
-        // $demoWebsite->intro = [
-        //     'img' => 'template',
-        //     'title_en' => $website->intro['en'],
-        //     'title_ar' => $website->intro['ar'],
-        //     'title_eg' => $website->intro['en'],
-        //     'title_fr' => $website->intro['fr'],
-        //     'title_de' => $website->intro['de'],
-        //     'title_it' => $website->intro['it'],
-        //     'title_es' => $website->intro['es'],
-        //     'title_ua' => $website->intro['ua'],
-        //     'title_ru' => $website->intro['ru'],
-        //     'des_en' => 'Let your customers know a little about your restaurant through this restaurant\'s brief introduction.',
-        //     'des_ar' => 'دع عملائك يعرفون القليل عن مطعمك من خلال مقدمة موجزة عن هذا المطعم.',
-        //     'des_eg' => 'Let your customers know a little about your restaurant through this restaurant\'s brief introduction.',
-        //     'des_fr' => 'Faites connaître votre restaurant à vos clients grâce à la brève présentation de ce restaurant.',
-        //     'des_de' => 'Lassen Sie Ihre Kunden durch die kurze Einführung dieses Restaurants ein wenig über Ihr Restaurant wissen.',
-        //     'des_it' => 'Fai conoscere ai tuoi clienti qualcosa del tuo ristorante attraverso la breve introduzione di questo ristorante.',
-        //     'des_es' => 'Deja que tus clientes conozcan un poco sobre tu restaurante a través de una breve introducción de este restaurante.',
-        //     'des_ua' => 'Розкажіть своїм клієнтам трохи про ваш ресторан за допомогою цього короткого вступу.',
-        //     'des_ru' => '',
-        // ];
-        // $demoWebsite->info = [
-        //     'img' => 'template',
-        //     'title_en' => 'Section Title',
-        //     'title_ar' => 'عنوان القسم',
-        //     'title_eg' => 'Section Title',
-        //     'title_fr' => 'Section titre',
-        //     'title_de' => 'Abschnittsüberschrift',
-        //     'title_it' => 'Titolo della sezione',
-        //     'title_es' => 'Sección de título',
-        //     'title_ua' => 'Назва розділу',
-        //     'title_ru' => '',
-        //     'des_en' => 'In this section, you can tell your customers anything you want them to know. Share your areas of expertise or signature products with your customers. Here you can add the section text and an image.',
-        //     'des_ar' => 'في هذا القسم ، يمكنك إخبار عملائك بأي شيء تريدهم أن يعرفوه. شارك مجالات خبرتك أو منتجاتك المميزة مع عملائك. هنا يمكنك إضافة نص القسم وصورة.',
-        //     'des_eg' => 'In this section, you can tell your customers anything you want them to know. Share your areas of expertise or signature products with your customers. Here you can add the section text and an image.',
-        //     'des_fr' => 'Dans cette section, vous pouvez dire à vos clients tout ce que vous voulez qu\'ils sachent. Partagez vos domaines d\'expertise ou produits signatures avec vos clients. Ici, vous pouvez ajouter le texte de la section et une image.',
-        //     'des_de' => 'In diesem Abschnitt können Sie Ihren Kunden alles mitteilen, was sie wissen sollen. Teilen Sie Ihre Fachgebiete oder Signaturprodukte mit Ihren Kunden. Hier können Sie den Abschnittstext und ein Bild hinzufügen.',
-        //     'des_it' => 'In questa sezione puoi dire ai tuoi clienti tutto ciò che vuoi che sappiano. Condividi le tue aree di competenza o firma i prodotti con i tuoi clienti. Qui puoi aggiungere il testo della sezione e un\'immagine.',
-        //     'des_es' => 'En esta sección, puedes decirles a tus clientes todo lo que quieras que sepan. Comparta sus áreas de especialización o productos exclusivos con sus clientes. Aquí puede agregar el texto de la sección y una imagen.',
-        //     'des_ua' => 'У цьому розділі ви можете повідомити своїм клієнтам усе, що забажаєте. Поділіться своїми знаннями або фірмовими продуктами зі своїми клієнтами. Тут ви можете додати текст розділу та зображення.',
-        //     'des_ru' => '',
-        // ];
-        // $demoWebsite->ourStory = [
-        //     'img' => 'template',
-        //     'title_en' => 'Section Title',
-        //     'title_ar' => 'عنوان القسم',
-        //     'title_eg' => 'Section Title',
-        //     'title_fr' => 'Section titre',
-        //     'title_de' => 'Abschnittsüberschrift',
-        //     'title_it' => 'Titolo della sezione',
-        //     'title_es' => 'Sección de título',
-        //     'title_ua' => 'Назва розділу',
-        //     'title_ru' => '',
-        //     'des_en' => 'In this section, you can tell the inspiring story behind your restaurant. Sharing your journey details with your customers will make them feel more connected to you. Here you can add text and an image.',
-        //     'des_ar' => 'في هذا القسم ، يمكنك سرد القصة الملهمة وراء مطعمك. ستجعل مشاركة تفاصيل رحلتك مع عملائك يشعرون بأنهم أكثر ارتباطًا بك. هنا يمكنك إضافة نص وصورة.',
-        //     'des_eg' => 'In this section, you can tell the inspiring story behind your restaurant. Sharing your journey details with your customers will make them feel more connected to you. Here you can add text and an image.',
-        //     'des_fr' => 'Dans cette section, vous pouvez raconter l\'histoire inspirante de votre restaurant. En partageant les détails de votre voyage avec vos clients, ils se sentiront plus connectés à vous. Ici, vous pouvez ajouter du texte et une image.',
-        //     'des_de' => 'In diesem Abschnitt können Sie die inspirierende Geschichte hinter Ihrem Restaurant erzählen. Wenn Sie Ihre Reisedetails mit Ihren Kunden teilen, fühlen sie sich Ihnen stärker verbunden. Hier können Sie Text und ein Bild hinzufügen.',
-        //     'des_it' => 'In questa sezione puoi raccontare la storia ispiratrice del tuo ristorante. Condividere i dettagli del tuo viaggio con i tuoi clienti li farà sentire più legati a te. Qui puoi aggiungere testo e un\'immagine.',
-        //     'des_es' => 'En esta sección, puede contar la historia inspiradora detrás de su restaurante. Compartir los detalles de su viaje con sus clientes hará que se sientan más conectados con usted. Aquí puede agregar texto y una imagen.',
-        //     'des_ua' => 'У цьому розділі ви можете розповісти надихаючу історію свого ресторану. Поділіться деталями своєї подорожі з вашими клієнтами, щоб вони відчули більше зв’язку з вами. Тут ви можете додати текст і зображення.',
-        //     'des_ru' => '',
-        // ];
+
         $demoWebsite->guestReviews = true;
         $demoWebsite->guestOrders = true;
         $demoWebsite->cookies_msg = false;
@@ -516,6 +446,8 @@ class demo
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'it','text'=>foodmenuFunctions::defaultLanguageText('it')]);
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'ru','text'=>foodmenuFunctions::defaultLanguageText('ru')]);
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'ua','text'=>foodmenuFunctions::defaultLanguageText('ua')]);
+
+
         error_log('');
         $start = hrtime(true);
         error_log(" \e[44m CREATE \e[0m Creating fake users accounts for $website->domainName.".env('APP_DOMAIN'));

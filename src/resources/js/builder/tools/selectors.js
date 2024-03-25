@@ -4,6 +4,7 @@ require('./selectors/inputList.js')
 require('./selectors/border_radius_selector.js')
 require('./selectors/color_selector.js')
 require('./selectors/switch_btn.js')
+require('./selectors/img_browser.js')
 
 hidePopupSelectors = function(){
     $('.color_theme_picker_themes').addClass('none')

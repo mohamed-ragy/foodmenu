@@ -7,14 +7,7 @@
     width:fit-content;
 }
 //
-input[type='number'] {
-    -moz-appearance:textfield;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
+input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
 //
 .input{
     text-align: var(--input_text_align);
@@ -26,10 +19,8 @@ input::-webkit-inner-spin-button {
     border-style:var(--input_border_style);
     border-radius:var(--input_border_radius);
     border-color:var(--input_border_color);
-
     font-size:var(--input_font_size);
     color:var(--input_font_color);
-
     background-color: var(--input_bg_color);
 }
 .input:focus{
@@ -107,7 +98,6 @@ textarea{
     max-width:100%;
     box-sizing: border-box;
     cursor: pointer;
-
     border: none;
     outline: none;
     font-size: var(--button2_font_size);

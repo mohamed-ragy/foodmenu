@@ -18,15 +18,23 @@ create_editor_popup = function(id,callback=()=>{}){
 }
 
 show_editor_popup = function(elem,callback=()=>{}){
+    $(`#${elem}`).css({'animation-duration':'300ms'})
     switch(elem){
-        case 'gaga':
-
+        case 'gaag':
+            draw_edit_section_options()
         break;
-            default:
-            $(`#${elem}`).removeClass('none editor_popup_dump')
+        default:
+            if(!$(`#${elem}`).hasClass('none')){
+                $(`#${elem}`).removeClass('editor_popup_dump').addClass('editor_popup_flash')
+                setTimeout(()=>{
+                    $(`#${elem}`).css({'animation-duration':'0ms'}).removeClass('editor_popup_flash')
+
+                },1500)
+            }else{
+                $(`#${elem}`).removeClass('none editor_popup_dump')
+            }
         break;
     }
-
     callback()
 
     // if(elem === null){
@@ -47,6 +55,9 @@ show_editor_popup = function(elem,callback=()=>{}){
 }
 hide_editor_popup = function(id){
     $(`#${id}`).addClass('none');
+    if(id == 'editor'){
+        deselect_all();
+    }
 }
 
 
@@ -86,6 +97,7 @@ $('html,body').on('click','.editor_popup',function(e){
 $('html,body').on('mousedown touchstart','.editor_popup_head',function(e){
     e.stopImmediatePropagation();
     e.preventDefault();
+    if($('.ico-close:hover').length > 0 || $('.ico-arrowLeft:hover').length > 0){return;}
     //
     $('.inputList_elems').addClass('none')
     $('.color_theme_picker_themes').addClass('none')

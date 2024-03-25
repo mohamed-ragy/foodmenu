@@ -1,16 +1,5 @@
-set_colors_vars = function(){
-    $(':root').css('--color_1',`rgb(${window.template.website_colors.c1.r},${window.template.website_colors.c1.g},${window.template.website_colors.c1.b})`);
-    $(':root').css('--color_2',`rgb(${window.template.website_colors.c2.r},${window.template.website_colors.c2.g},${window.template.website_colors.c2.b})`);
-    $(':root').css('--color_3',`rgb(${window.template.website_colors.c3.r},${window.template.website_colors.c3.g},${window.template.website_colors.c3.b})`);
-    $(':root').css('--color_4',`rgb(${window.template.website_colors.c4.r},${window.template.website_colors.c4.g},${window.template.website_colors.c4.b})`);
-
-    $(':root').css('--color_star',`rgb(${window.template.website_colors.c_star.r},${window.template.website_colors.c_star.g},${window.template.website_colors.c_star.b})`);
-    $(':root').css('--color_error',`rgb(${window.template.website_colors.c_error.r},${window.template.website_colors.c_error.g},${window.template.website_colors.c_error.b})`);
-    $(':root').css('--color_success',`rgb(${window.template.website_colors.c_success.r},${window.template.website_colors.c_success.g},${window.template.website_colors.c_success.b})`);
-    $(':root').css('--color_warning',`rgb(${window.template.website_colors.c_warning.r},${window.template.website_colors.c_warning.g},${window.template.website_colors.c_warning.b})`);
-
-
-
+set_website_colors_settings = function(){
+    set_website_colors_vars();
 }
 draw_website_colors = function(){
     $('#website_colors').find('.editor_popup_head_btn').text('').append(
@@ -119,21 +108,27 @@ draw_website_colors = function(){
         $('<div/>',{id:'color_palettes_container',class:'none'}).append(
             $('<div/>',{class:'inter fs1 bold',text:texts.website_style.colorsPalettes}),
             $('<div/>',{class:'fs085 mB20  c_white-11',text:texts.website_style.colorsPalettes_des}),
-            $('<div/>',{class:'color_palettes_container row alnC jstfyC wrap '})
+            $('<div/>',{class:'color_palettes_container row alnC jstfyC wrap '}).append(
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+                $('<div/>',{class:'color_palette_preview_loading cardLoading'}),
+            )
         )
 
     )
-
-    for(const key in window.colors){
-        $('.color_palettes_container').append(
-            $('<div/>',{class:'color_palette_preview',key:key}).append(
-                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c1.r},${window.colors[key].c1.g},${window.colors[key].c1.b})`}),
-                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c2.r},${window.colors[key].c2.g},${window.colors[key].c2.b})`}),
-                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c3.r},${window.colors[key].c3.g},${window.colors[key].c3.b})`}),
-                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c4.r},${window.colors[key].c4.g},${window.colors[key].c4.b})`})
-            )
-        )
-    }
 }
 ///
 rgb_To_Hex =  function (r, g, b) {
@@ -146,6 +141,37 @@ hex_to_rgb = function(hex){
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
     } : null;
+}
+//
+draw_color_palettes = function(){
+    $('.color_palettes_container').text('')
+    for(const key in window.colors){
+        $('.color_palettes_container').append(
+            $('<div/>',{class:'color_palette_preview',key:key}).append(
+                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c1.r},${window.colors[key].c1.g},${window.colors[key].c1.b})`}),
+                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c2.r},${window.colors[key].c2.g},${window.colors[key].c2.b})`}),
+                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c3.r},${window.colors[key].c3.g},${window.colors[key].c3.b})`}),
+                $('<div/>',{class:'color_palette_preview_color',style:`background-color:rgb(${window.colors[key].c4.r},${window.colors[key].c4.g},${window.colors[key].c4.b})`})
+            )
+        )
+    }
+}
+get_colors = function(){
+    if(window.colors.length == 0){
+        $.ajax({
+            url:'api',
+            type:'post',
+            data:{
+                _token:$('meta[name="csrf-token"]').attr('content'),
+                get_colors:true,
+            },success:function(r){
+                window.colors = r.colors;
+                draw_color_palettes();
+            }
+        })
+    }else{
+        draw_color_palettes();
+    }
 }
 //events
 $('html,body').on('click','.color_edit',function(e){
@@ -162,7 +188,7 @@ $('html,body').on('input','.color_edit_input',function(e){
     window.template.website_colors[$(this).attr('color')].r = color.r;
     window.template.website_colors[$(this).attr('color')].g = color.g;
     window.template.website_colors[$(this).attr('color')].b = color.b;
-    set_colors_vars()
+    set_website_colors_settings();
 
 })
 $('html,body').on('change','.color_edit_input',function(e){
@@ -175,6 +201,7 @@ $('html,body').on('click','.browseColorPalettes',function(e){
     e.stopImmediatePropagation();
     editor_popup_to_child($('#color_palette_container'),$('#color_palettes_container'))
     $('.backToColorPalete').removeClass('none');
+    get_colors();
 })
 $('html,body').on('click','.backToColorPalete',function(e){
     e.stopImmediatePropagation();

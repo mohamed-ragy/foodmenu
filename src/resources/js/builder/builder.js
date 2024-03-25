@@ -3,6 +3,14 @@ window.loadTouchEvents = require('jquery-touch-events');
 loadTouchEvents($);
 require('../page_loading.js')
 
+require('../builder/data.js')
+require('../builder/process_data.js')
+require('../builder/set_template_vars.js')
+require('../builder/undo_redo.js')
+require('../builder/website_style.js')
+require('../builder/website_tools.js')
+
+
 require('../cpanel/tools/loading.js')
 require('../cpanel/functions/coolDown.js')
 
@@ -13,30 +21,38 @@ require('../builder/tools/editor_popup.js');
 require('../builder/tools/is_saved_checker.js');
 require('../builder/tools/selectors.js');
 
-require('../builder/process_data.js')
-require('../builder/undo_redo.js')
-require('../builder/website_style.js')
 
 require('./draw.js')
+require('./editable.js')
 
+
+let params = new URLSearchParams(window.location.search)
+window.template_id = params.get('template_id')
+window.preview_language = params.get('preview_language')
 $.ajax({
     url:'api',
     type:'post',
     data:{
         _token:$('meta[name="csrf-token"]').attr('content'),
         getData:true,
-        template_id:window.template_id,
+        preview_language:params.get('preview_language'),
+        template_id:params.get('template_id'),
     },success:function(r){
         process_data(r);
     }
 })
+
 $('html,body').on('click',function(e){
-    hide_components_menu()
+    hide_website_pages_menu();
     hide_website_style_menu();
+    hide_website_tools_menu();
     $('.editor_popup').addClass('editor_popup_dump')
     hidePopupSelectors();
-})
 
+})
+$(window).resize(function(){
+    $(':root').css('--screen_height',`${$('#page').outerHeight()}px`)
+})
 window.addEventListener("beforeunload", function (e) {
     if(!is_saved_checker()){
         var confirmationMessage = "\o/";
@@ -47,24 +63,34 @@ window.addEventListener("beforeunload", function (e) {
 
 $('html,body').on('keydown',function(e){
     e.stopImmediatePropagation();
+    if(e.ctrlKey){
+        // highlight_all();
+    }
     if(e.shiftKey && e.ctrlKey && e.which == 90){
         redo();
     }
     else if(e.ctrlKey && e.which == 90){
         undo();
-    }else if(e.ctrlKey && e.which == 83){
+    }
+    else if(e.ctrlKey && e.which == 88){
+        view_toggle()
+    }
+    else if(e.ctrlKey && e.which == 83){
         e.preventDefault();
         if(!is_saved_checker()){
-            save();
+            $('#save').trigger('click')
         }
     }
 
 })
+$('html,body').on('keyup',function(e){
+    e.stopImmediatePropagation();
+    // dehighlight_all();
 
+});
 save = function(){
     if(!coolDownChecker()){return;}
     return new Promise(function(resolve,reject){
-
         let save_template = JSON.parse(JSON.stringify(window.template))
         $.ajax({
             url:'api',

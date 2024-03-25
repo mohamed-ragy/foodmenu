@@ -15,7 +15,7 @@ storage/logs/
 storage/pdf/
 storage/storage/
 storage/app/public/imgs/accounts
-storage/app/public/ragy
 storage/app/public/imgs/websites/
+storage/app/public/websites/
 .env
 # app/Http/Middleware/underConstruction.php

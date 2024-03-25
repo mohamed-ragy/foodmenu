@@ -1,4 +1,12 @@
 
+.font_style_pack_loading{
+    margin:20px 10px;
+    padding:10px;
+    box-sizing: border-box;
+    border:1px solid var(--white-3);
+    border-radius: 5px;
+    overflow: hidden;
+}
 .font_style_pack{
     margin:20px 10px;
     padding:10px;
@@ -22,33 +30,3 @@
 }
 .font_settings_row:hover{background-color: var(--white-2);}
 //
-@font-face {
-    font-family: 'Tajawal';
-    src: url('/storage/fonts/ar/Tajawal.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'cairo';
-    src: url('/storage/fonts/ar/cairo.ttf') format("truetype");
-}
-//
-@font-face {
-    font-family: 'inter';
-    src: url('/storage/fonts/en/inter.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'Nunito';
-    src: url('/storage/fonts/en/Nunito.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'rubik';
-    src: url('/storage/fonts/en/rubik.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'signikaNegative';
-    src: url('/storage/fonts/en/signikaNegative.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'playfairDisplay';
-    src: url('/storage/fonts/en/playfairDisplay.ttf') format("truetype");
-}
-

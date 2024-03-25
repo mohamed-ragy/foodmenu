@@ -1,0 +1,84 @@
+
+.loading_spinner_1_S {
+    position: relative;
+    width: 30px;
+    height:30px;
+
+  }
+  .loading_spinner_1_S div {
+    display: block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 4px solid var(--loading_spinner_c1);
+    border-radius: 50%;
+    animation: loading_spinner_1 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--loading_spinner_c1) transparent transparent transparent;
+  }
+  .loading_spinner_1_S div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .loading_spinner_1_S div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .loading_spinner_1_S div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+.loading_spinner_1_M {
+    position: relative;
+    width: 50px;
+    height: 50px;
+
+  }
+  .loading_spinner_1_M div {
+    display: block;
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border: 6px solid var(--loading_spinner_c1);
+    border-radius: 50%;
+    animation: loading_spinner_1 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--loading_spinner_c1) transparent transparent transparent;
+  }
+  .loading_spinner_1_M div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .loading_spinner_1_M div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .loading_spinner_1_M div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+.loading_spinner_1_L {
+    position: relative;
+    width: 70px;
+    height: 70px;
+
+  }
+  .loading_spinner_1_L div {
+    display: block;
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    border: 8px solid var(--loading_spinner_c1);
+    border-radius: 50%;
+    animation: loading_spinner_1 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--loading_spinner_c1) transparent transparent transparent;
+  }
+  .loading_spinner_1_L div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .loading_spinner_1_L div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .loading_spinner_1_L div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes loading_spinner_1 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

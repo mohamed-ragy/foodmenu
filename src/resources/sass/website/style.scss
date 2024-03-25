@@ -1,51 +1,14 @@
-///below list of fixed elements need to be styled in each template
-// html
-// body
-// header
-// footer
-// #tooltipPopup
-@import '/node_modules/leaflet/dist/leaflet.css';
-*{
-    -webkit-tap-highlight-color: transparent;
-}
+@import '../builder/website_style/fonts.scss';
 html{
+    margin: 0;
     padding:0;
-    margin:0;
-}
-body{
-    padding:0;
-    margin:0;
-    user-select: none;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-font-smoothing: antialiased !important;
-    // height: var(--vh);
-}
-#body{
-    opacity:0;
-    height: var(--vh);
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100%;
     width:100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: relative;
-}
-.page{
-    width:100%;
-}
-nav{
-    width:100%;
-}
-footer{
-    width:100%;
-    margin-top:auto;
+    overflow: hidden;
 }
 
-#liveChat{
-    position: fixed;
-    bottom:0px;
-    right:0px;
-}
-@import './styleClasses.scss';
+@import '../builder/website//website.scss';
+
+
+
+// @import '../style/style.scss';
