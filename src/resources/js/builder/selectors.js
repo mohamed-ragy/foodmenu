@@ -3,6 +3,7 @@ require('./selectors/color_theme_picker.js')
 require('./selectors/inputList.js')
 require('./selectors/border_radius_selector.js')
 require('./selectors/color_selector.js')
+require('./selectors/color_selector_no_var.js')
 require('./selectors/switch_btn.js')
 require('./selectors/img_browser.js')
 

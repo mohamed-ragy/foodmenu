@@ -15,9 +15,9 @@
     letter-spacing: var(--font_p_ls);
     font-weight: var(--font_p_fw)
 }
-section{ width:100%; }
-.section_container{ padding:0 var(--page_margin) ; box-sizing: border-box ; max-width:var(--page_max_width) ;margin:auto ; position: relative;}
-
+section{ width:100%;box-sizing:border-box; }
+.home_section_container{ padding:0 var(--page_margin) ; box-sizing: border-box ; max-width:var(--page_max_width) ;margin:auto ; position: relative;}
+.home_section_elements_container{display:flex;flex-direction: column; flex-wrap: nowrap;align-items: flex-start;justify-content: flex-start;box-sizing: border-box;}
 .window_height{height:100% ;}
 .font_t{
     font-family: var(--font_t);

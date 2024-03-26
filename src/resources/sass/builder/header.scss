@@ -50,12 +50,11 @@ header{
 .header_icon_selected{
     background-color:var(--sm-c3);
     color:var(--sm-c2);
-    cursor: auto;
+    // cursor: auto;
 }
 .header_icon_selected:hover{
     background-color:var(--sm-c3);
     color:var(--sm-c2);
-
 }
 //
 .website_pages_container{

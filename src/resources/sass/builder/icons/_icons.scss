@@ -25,7 +25,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-position_left:before {
+.ico-metrics:before {
+    content: "\e92a";
+  }
+  .ico-eye:before {
+    content: "\e92b";
+  }
+  .ico-add:before {
+    content: "\e929";
+  }
+  .ico-position_left:before {
     content: "\e923";
   }
   .ico-position_top:before {

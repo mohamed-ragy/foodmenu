@@ -1,15 +1,13 @@
 window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
 loadTouchEvents($);
+
 require('../page_loading.js')
 
 require('../builder/data.js')
 require('../builder/process_data.js')
 require('../builder/set_template_vars.js')
 require('../builder/undo_redo.js')
-require('../builder/website_style.js')
-require('../builder/website_tools.js')
-
 
 require('../cpanel/tools/loading.js')
 require('../cpanel/functions/coolDown.js')
@@ -19,10 +17,18 @@ require('../builder/tools/tooltip.js');
 require('../builder/tools/popup.js');
 require('../builder/tools/editor_popup.js');
 require('../builder/tools/is_saved_checker.js');
-require('../builder/tools/selectors.js');
 
+require('./selectors.js');
 
-require('./draw.js')
+require('./website_style.js')
+
+require('./website_tools.js')
+
+require('./pages.js')
+
+require('./draw_builder.js')
+require('./select_template.js')
+
 require('./editable.js')
 
 
@@ -62,10 +68,7 @@ window.addEventListener("beforeunload", function (e) {
   });
 
 $('html,body').on('keydown',function(e){
-    e.stopImmediatePropagation();
-    if(e.ctrlKey){
-        // highlight_all();
-    }
+    // e.stopImmediatePropagation();
     if(e.shiftKey && e.ctrlKey && e.which == 90){
         redo();
     }
@@ -81,11 +84,27 @@ $('html,body').on('keydown',function(e){
             $('#save').trigger('click')
         }
     }
+    if(e.altKey){
+        e.preventDefault();
+    }
+    if(e.altKey && e.which == 83){
+        set_preview_mode();
+    }
+    else if(e.altKey  && e.which == 65){
+        heighlight_all();
+    }
+
 
 })
 $('html,body').on('keyup',function(e){
     e.stopImmediatePropagation();
-    // dehighlight_all();
+    if(e.altKey && e.which == 83){
+        unset_preview_mode();
+    }
+    else if(e.altKey  && e.which == 65){
+        deheighlight_all();
+    }
+
 
 });
 save = function(){
@@ -118,7 +137,6 @@ $('html,body').on('click','#save',function(e){
     e.stopImmediatePropagation();
 
     showBtnLoading($('#save'))
-    // save().then()
     save().then(function(){
         hideBtnLoading($('#save'))
         if(is_saved_checker()){

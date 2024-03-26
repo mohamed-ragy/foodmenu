@@ -279,7 +279,7 @@ draw_form_elements = function(){
                 ),
                 $('<div/>',{class:'page_setup_row pY10'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.background_fill}),
-                    $('<div/>',{class:'switch_btn',id:'input_background_fill'})
+                    $('<div/>',{class:'switch_btn_action switch_btn',id:'input_background_fill',key_tree:'form_elements.input',key:'background_fill',switch_on:'1',switch_off:'0'})
                 ),
                 $('<div/>',{class:'page_setup_row input_bg_color_container'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.bg_color}),
@@ -305,7 +305,7 @@ draw_form_elements = function(){
                 ),
                 $('<div/>',{class:'page_setup_row pY10'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.background_fill}),
-                    $('<div/>',{class:'switch_btn',id:'input_focus_background_fill'})
+                    $('<div/>',{class:'switch_btn_action switch_btn',id:'input_focus_background_fill',key_tree:'form_elements.input',key:'focus_background_fill',switch_on:'1',switch_off:'0'})
                 ),
                 $('<div/>',{class:'page_setup_row input_focus_bg_color_container'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.bg_color}),
@@ -683,25 +683,7 @@ draw_form_elements = function(){
 }
 
 //events
-$('html,body').on('click','#input_background_fill',function(e){
-    e.stopImmediatePropagation();
-    if($(this).hasClass('switch_btn_selected')){
-        window.template.form_elements.input.background_fill = '0';
-    }else{
-        window.template.form_elements.input.background_fill = '1';
-    }
-    new_action();
-})
-$('html,body').on('click','#input_focus_background_fill',function(e){
-    e.stopImmediatePropagation();
-    if($(this).hasClass('switch_btn_selected')){
-        window.template.form_elements.input.focus_background_fill = '0';
-    }else{
-        window.template.form_elements.input.focus_background_fill = '1';
-    }
-    new_action();
-})
-//
+
 $('html,body').on('click','.backFrom_form_elements_input_container',function(e){
     e.stopImmediatePropagation();
     editor_popup_to_parent($('.form_elements_container'),$('.form_elements_input_container'))

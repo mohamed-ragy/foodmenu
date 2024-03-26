@@ -11,7 +11,6 @@ $('html,body').on('click','.color_select',function(e){
         left:$(this).offset().left - 3,
         top:$(this).offset().top + $(this).outerHeight(),
     })
-
 })
 $('html,body').on('click','.color_select3',function(e){
     e.stopImmediatePropagation();

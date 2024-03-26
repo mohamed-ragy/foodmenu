@@ -53,9 +53,10 @@ undo_redo_actions = function(){
     //
     set_loading_spinner_settings();
     //
-    if(window.selected_section_key_tree != null){
-        draw_section(window.selected_section_key_tree)
+    if(window.selected_page == 'home' && window.selected_section != null){
+        set_editor_poup_home_section();
     }
+    draw_page(window.selected_page)
     //
     set_view_style();
 }

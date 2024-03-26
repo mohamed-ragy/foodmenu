@@ -125,11 +125,7 @@ class generate_js
                 $html_end = "</{$elem['tag']}>";
             break;
         }
-        // if($elem['type'] == 'section'){
-            // return '<section class="'.$elem['section_container']['color_theme'].'" id="'.$elem['section_container']['id'].'">'.$html_start.$html.$html_end."</section>";
-        // }else{
-            return $html_start.$html.$html_end;
-        // }
+        return $html_start.$html.$html_end;
     }
 
 }

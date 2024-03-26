@@ -14,7 +14,7 @@
     0%{opacity: 0;transform: translateY(-5px);}
     100%{opacity: 1;transform: translateY(0px);}
 }
-.color_select{
+.color_select, .color_select_no_var{
     margin:5px;
     border-radius: 50%;
     width:70px;
@@ -27,7 +27,7 @@
     justify-content: center;
     flex-shrink: 0;
 }
-.color_select2{
+.color_select2, .color_select2_no_var{
     margin:5px;
     border-radius: 50%;
     width:20px;
@@ -40,7 +40,7 @@
     justify-content: center;
     flex-shrink: 0;
 }
-.color_select3{
+.color_select3, .color_select3_no_var{
     margin:5px;
     border-radius: 50%;
     width:20px;

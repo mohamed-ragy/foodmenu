@@ -30,10 +30,11 @@
     color:var(--green-80);
 }
 .btn-cancel:hover{
-    background-color: var(--white-3);
+    background-color: var(--white-2);
 }
 .btn-cancel:active{
     background-color:var(--white);
+    box-shadow: 0 0 1px 0px var(--green-10);
 }
 //
 .btn-delete{

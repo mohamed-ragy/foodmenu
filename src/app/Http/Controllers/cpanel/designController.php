@@ -223,7 +223,7 @@ class designController extends Controller
                 'form_elements' => $request->template['form_elements'],
                 'loading_spinner' => $request->template['loading_spinner'],
                 // 'loading_screen' => $request->template['loading_screen'],
-                'home' => $request->template['home'],
+                'home' => $request->template['home'] ?? [],
             ]);
 
             if($save_tempalte){

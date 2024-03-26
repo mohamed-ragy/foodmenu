@@ -11,7 +11,8 @@ process_data = function(r){
     window.imgs_noMore = false;
     window.imgs_getMore = true;
     //
-    window.selected_section_key_tree = null;
+    window.selected_section = null;
+    window.selected_page = null;
     if( typeof(window.templates.find(item=>item._id == window.template_id)) === 'undefined' ){
         draw_select_template();
     }else{

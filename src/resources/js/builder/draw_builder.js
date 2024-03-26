@@ -29,8 +29,6 @@ draw_builder = function(template_id){
     set_loading_spinner_settings();
     //
     create_editor_popup('editor')
-    // create_editor_popup('edit_elem_container')
-    // create_editor_popup('edit_elem')
     //
     draw_builder_header();
     desktop_view();
@@ -100,7 +98,10 @@ draw_builder_header = function(){
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
             $('<div/>',{class:'header_icon set_view_desktop ico-desktop header_icon_selected',tooltip:texts.desktopPreview}),
             $('<div/>',{class:'header_icon set_view_mobile ico-mobile',tooltip:texts.mobilePreview}),
-
+            $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
+            $('<div/>',{class:'header_icon set_preview_mode ico-eye',tooltip:texts.previewMode}),
+            $('<div/>',{class:'header_icon set_show_metrics ico-metrics',tooltip:texts.show_metrics}),
+            $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
         ),
         $('<div/>',{class:'row alnC jstfyC'}).append(
             $('<div/>',{class:'header_icon2 mis-20',text:texts.livePreview}),
@@ -238,4 +239,13 @@ $('html,body').on('click','.set_view_desktop',function(e){
 $('html,body').on('click','.set_view_mobile',function(e){
     e.stopImmediatePropagation();
     mobile_view();
+})
+//
+$('html,body').on('click','.set_preview_mode',function(e){
+    e.stopImmediatePropagation();
+    preview_mode_toggle();
+})
+$('html,body').on('click','.set_show_metrics',function(e){
+    e.stopImmediatePropagation();
+    heighlight_all_toggle();
 })

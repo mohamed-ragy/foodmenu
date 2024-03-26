@@ -23,7 +23,7 @@ body{
     user-select: none;
     height:100%;
     width:100%;
-    // overflow: auto;
+    overflow: auto;
     color: var(--txt-1);
     background-color: var(--white);
 }
@@ -117,17 +117,43 @@ a:hover{
 
 .desktop_view{
     margin:0;
-    width:100%;
-    height:calc(100% - 50px);
+    width:calc(100% - 40px);
+    height:calc(100% - 90px);
     overflow: hidden;
     transition-duration: 300ms;
+    box-shadow: 0 0 20px var(--shdw-20), 0 0 1px 0px var(--shdw-10);
+    margin:20px;
+    border-radius: 5px;
+    // outline:2px solid var(--txt-1);
 }
 .mobile_view{
+    overflow: hidden;
     // margin: auto;
     margin-inline-start:calc(50% - 207px);
     margin-top:100px;
     width:414px;
     height: 736px;
-    box-shadow: 0 0 20px var(--shdw-20), 0 0 1px 0px var(--shdw-5);
+    box-shadow: 0 0 20px var(--shdw-20), 0 0 1px 0px var(--shdw-10);
     border-radius: 5px;
+    // outline:2px solid var(--txt-1);
+}
+.section_clear{
+    outline: none !important;
+    box-shadow: none !important;
+    .section_btns_container{display: none !important}
+    .add_home_section{display: none !important;}
+    .home_section_elements_container{outline: none !important;box-shadow: none !important;}
+    .home_section_elements_container:hover{outline: none !important;box-shadow: none !important;}
+    .home_section_container{outline: none !important;box-shadow: none !important;}
+    .home_section_container:hover{outline: none !important;box-shadow: none !important;}
+}
+.section_clear:hover{
+    outline: none !important;
+    box-shadow: none !important;
+    .section_btns_container{display: none !important}
+    .add_home_section{display: none !important;}
+    .home_section_elements_container{outline: none !important;box-shadow: none !important;}
+    .home_section_elements_container:hover{outline: none !important;box-shadow: none !important;}
+    .home_section_container{outline: none !important;box-shadow: none !important;}
+    .home_section_container:hover{outline: none !important;box-shadow: none !important;}
 }

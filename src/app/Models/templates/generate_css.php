@@ -45,8 +45,13 @@ class generate_css
                 $css_start = ".{$elem['style_class']}{";
                     $css = '';
                     foreach($elem['style'] as $key => $val){
-                        if($key == 'background-image' && $val != 'unset'){$val = "url('".$val."')";}
                         $css = $css."{$key}:{$val};";
+                    }
+                    if(array_key_exists('background_style',$elem)){
+                        foreach($elem['background_style'] as $key => $val){
+                            if($key == 'background-image'){$val = "url('".$val."')";}
+                            $css = $css."{$key}:{$val};";
+                        }
                     }
                     if(array_key_exists('style_mobile', $elem)){
                         $css = $css."@media (max-width:720px){";
@@ -178,8 +183,9 @@ class generate_css
         $css = <<<string
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
         body{color: var(--body_color_theme_txt);background-color: var(--body_color_theme_bg);width:100%;height:100%;box-sizing: border-box;margin:auto;overflow: auto;font-family: var(--font_p);line-height: var(--font_p_lh);letter-spacing: var(--font_p_ls);font-weight: var(--font_p_fw)}
-        section{ width:100%; }
-        .section_container{ padding:0 var(--page_margin) ; box-sizing: border-box ; max-width:var(--page_max_width) ;margin:auto ; position: relative;}
+        section{ width:100%; box-sizing:border-box;}
+        .home_section_container{ padding:0 var(--page_margin) ; box-sizing: border-box ; max-width:var(--page_max_width) ;margin:auto ; position: relative;}
+        .home_section_elements_container{display:flex;flex-direction: column; flex-wrap: nowrap;align-items: flex-start;justify-content: flex-start;box-sizing: border-box;}
         .font_t{font-family: var(--font_t);line-height: var(--font_t_lh);letter-spacing: var(--font_t_ls);font-weight: var(--font_t_fw)}
         .font_p{font-family: var(--font_p);line-height: var(--font_p_lh);letter-spacing: var(--font_p_ls);font-weight: var(--font_p_fw)}
         .body_color_theme{background-color: var(--body_color_theme_bg);color: var(--body_color_theme_txt);}
