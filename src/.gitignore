@@ -1,4 +1,5 @@
 .vscode/
+bootstrap/
 node_modules/
 error.log
 composerCopy.json
