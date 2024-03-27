@@ -132,7 +132,7 @@ orderRow_data = function(order){
         let item = order.order_items[key];
         let product = website.products.find(prod=> prod.id == item.product_id);
         if(typeof(product) === 'undefined'){productImg = `storage/imgs/cpanel/noimg.png`}
-        else{productImg = product.thumbnail;}
+        else{productImg = product.img;}
         if(key == 0 || key == 1){
             data.itemsPics = data.itemsPics + `<img src="${productImg}" class="orderRowItemImg" tooltip="x${item.qty} ${item.productName}" />`
         }else{

@@ -627,7 +627,7 @@ statisticspopup_product = function(product_name,s1_id,s2_id,date1,date2){
 
 
     let product_img = '/storage/imgs/cpanel/noimg.png';
-    if(typeof(website.products.find(item=>item.name == product_name)) !== 'undefined'){product_img = website.products.find(item=>item.name == product_name).thumbnail}
+    if(typeof(website.products.find(item=>item.name == product_name)) !== 'undefined'){product_img = website.products.find(item=>item.name == product_name).img}
 
     let productTable = $('<table/>',{class:'w100p'}).append(
         $('<tr/>',{class:'trHead'}).append(

@@ -3,6 +3,7 @@ show_edit_home_section = function(section_key){
     window.selected_section = section_key;
     let section = window.template.home[section_key];
     if(typeof(section) == 'undefined'){return;}
+    $('#editor').find('.editor_popup_title').text(section.name)
     $(`section[key_tree="home.${section_key}"]`).addClass('section_selected')
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_head_btn').text('').append(
@@ -13,6 +14,10 @@ show_edit_home_section = function(section_key){
             $('<div/>',{id:'home_section_editor_settings'}).append(
                 $('<div/>',{class:'row alnC jstfyE w100p mY30'}).append(
                     $('<button/>',{class:'btn btn-cancel change_home_section_layout',text:texts.change_layout}),
+                ),
+                $('<div/>',{class:'section_style_row'}).append(
+                    $('<div/>',{class:'taS mie-10 fs09',text:texts.name}),
+                    $('<input>',{class:'input_editor_name editor_font',value:section.name,key_tree:`home.${section_key}`})
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.min_height}),
@@ -262,7 +267,7 @@ $('html,body').on('click','.change_home_section_layout_elem',function(e){
 })
 ///
 $('html,body').on('click','section[type="home_section"]',function(e){
-    e.stopImmediatePropagation();
+    // e.stopImmediatePropagation();
     if($('.home_section_elements_container:hover').length > 0){return}
     if($('.section_btns_container:hover').length != 0){return}
     show_edit_home_section($(this).attr("key_tree").split('.')[1])

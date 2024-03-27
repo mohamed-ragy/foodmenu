@@ -23,7 +23,7 @@ drawEditProductSelectionPopup = function(product_name,option_id,selection_id){
     showPopup('editProductSelection',function(){
         $('.popupBody').addClass('m0 p10 w100p-20').append(
             $('<div/>',{class:'row alnC jstfyS mB20'}).append(
-                $('<img/>',{class:'h40 w40 br5 ofCover',src:product.thumbnail}),
+                $('<img/>',{class:'h40 w40 br5 ofCover',src:product.img}),
                 $('<div/>',{class:'mis-5'}).append(
                     $('<span/>',{class:'fs102 bold500',text:product.name}),
                     $('<span/>',{class:'mis-5',text:`(${option.name})`})

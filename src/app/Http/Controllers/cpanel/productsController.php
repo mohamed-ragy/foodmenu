@@ -71,12 +71,10 @@ class productsController extends Controller
 
             if($request->productImgId == '' || $request->productImgId == null){
                 $img_url = '/storage/imgs/cpanel/noimg.png';
-                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
             }else{
                 $img = img::where(['website_id'=>$this->website_id,'id'=>$request->productImgId])->first();
                 if($img != null){
                     $img_url = $img->url;
-                    $thumbnail_url = $img->thumbnailUrl;
                 }
             }
 
@@ -88,7 +86,6 @@ class productsController extends Controller
                 'category_id' => $request->categoryId,
                 'img_id'=>$request->productImgId,
                 'img' => $img_url,
-                'thumbnail' => $thumbnail_url,
                 'names' => $names,
                 'descriptions' => $descriptions,
                 'rating' => null,
@@ -194,7 +191,7 @@ class productsController extends Controller
             $old_descriptions = $product->descriptions;
             $old_price = $product->price;
             $old_availability = $product->availability;
-            $old_img = $product->thumbnail;
+            $old_img = $product->img;
             $old_category = $product->category_id == null ? '0' : categories::where(['website_id'=>$this->website_id,'id'=>$product->category_id])->pluck('name')->first();
             $new_category = $request->category_id == null ? '0' : categories::where(['website_id'=>$this->website_id,'id'=>$request->category_id])->pluck('name')->first();
 
@@ -213,12 +210,10 @@ class productsController extends Controller
 
             if($request->img_id == '' || $request->img_id == null){
                 $img_url = '/storage/imgs/cpanel/noimg.png';
-                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
             }else{
                 $img = img::where(['website_id'=>$this->website_id,'id'=>$request->img_id])->first();
                 if($img != null){
                     $img_url = $img->url;
-                    $thumbnail_url = $img->thumbnailUrl;
                 }
             }
 
@@ -229,7 +224,6 @@ class productsController extends Controller
                 'category_id' => $request->category_id,
                 'img_id'=>$request->img_id,
                 'img' => $img_url,
-                'thumbnail' => $thumbnail_url,
                 'names' => $names,
                 'descriptions' => $descriptions,
                 'updated_at' => Carbon::now()->timestamp
@@ -237,7 +231,7 @@ class productsController extends Controller
                 $activity = null;
                 if(
                     $old_category != $new_category ||
-                    $old_img != $thumbnail_url ||
+                    $old_img != $img_url ||
                     $old_names != $names ||
                     $old_descriptions != $descriptions ||
                     (double)$old_price != (double)$request->price ||
@@ -253,7 +247,7 @@ class productsController extends Controller
                         'old_category' => $old_category,
                         'new_category'=> $new_category,
                         'old_img' => $old_img,
-                        'new_img' => $thumbnail_url,
+                        'new_img' => $img_url,
                         'old_names' => $old_names,
                         'new_names' => $names,
                         'old_descriptions' => $old_descriptions,

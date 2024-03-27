@@ -19,14 +19,14 @@ appendToImgBrowser = function(img,imgBrowserClass,append){
     if(append == 'append'){
         $('#imgsBrowserContainer').append(
             $('<div/>',{class:`imgsImgCard-imgBrowser`}).append(
-                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofCover mxw100p`,imgId:img.id ?? '',src:img.thumbnailUrl}),
+                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofCover mxw100p`,imgId:img.id ?? '',src:img.url}),
                 imgInfo
             )
         )
     }else if(append == 'prepend'){
         $('#imgsBrowserContainer').prepend(
             $('<div/>',{class:`imgsImgCard-imgBrowser`}).append(
-                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofCover mxw100p`,imgId:img.id ?? '',src:img.thumbnailUrl}),
+                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofCover mxw100p`,imgId:img.id ?? '',src:img.url}),
                 imgInfo
             )
         )
@@ -36,22 +36,19 @@ appendToImgBrowser = function(img,imgBrowserClass,append){
 
 showImgBrowser = function(title,imgBrowserClass,append='append'){
     showPopup('imgBrowser',function(){
-        let img = {id:null,name:'',url:'',thumbnailUrl:''};
+        let img = {id:null,name:'',url:''};
         $('.popupTitle').text(title)
         if(imgBrowserClass == 'imgBrowser-icon'){
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
-            img.thumbnailUrl ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
         }else if(imgBrowserClass == 'imgBrowser-logo'){
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
-            img.thumbnailUrl ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
         }else{
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
-            img.thumbnailUrl ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
         }
         getImgs().then(function(){

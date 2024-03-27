@@ -31,7 +31,7 @@ drawPlaceOrderItems = function(){
                 $('<div/>',{class:'row alnC jstfySB w100p'}).append(
                     $('<div/>',{class:'ico-close fs08 placeOrder-deleteItem',tooltip:texts.cpanel.public.remove}),
                     $('<div/>',{class:'row alnC jstfyS mie-10'}).append(
-                        $('<img/>',{src:product.thumbnail,class:'none-720 w40 h40 ofCover br5 mie-5'}),
+                        $('<img/>',{src:product.img,class:'none-720 w40 h40 ofCover br5 mie-5'}),
                         $('<div/>',{class:'bold fs09',text:product.name}),
                     ),
                     $('<div/>',{class:'column alnE jstfyS grow1 mX10'}).append(

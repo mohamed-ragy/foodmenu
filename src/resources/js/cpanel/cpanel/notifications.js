@@ -958,13 +958,11 @@ handelCpanelChannel = function(n,code){
         case 'category.edit':
             website.categories.find(item=>item.id == n.category_id).img_id = n.img_id;
             website.categories.find(item=>item.id == n.category_id).img = n.img;
-            website.categories.find(item=>item.id == n.category_id).thumbnail = n.thumbnail;
             website.categories.find(item=>item.id == n.category_id).names = n.names;
             website.categories.find(item=>item.id == n.category_id).descriptions = n.descriptions;
 
             website_temp.categories.find(item=>item.id == n.category_id).img_id = n.img_id;
             website_temp.categories.find(item=>item.id == n.category_id).img = n.img;
-            website_temp.categories.find(item=>item.id == n.category_id).thumbnail = n.thumbnail;
             website_temp.categories.find(item=>item.id == n.category_id).names = n.names;
             website_temp.categories.find(item=>item.id == n.category_id).descriptions = n.descriptions;
             drawCategoryList();
@@ -981,16 +979,14 @@ handelCpanelChannel = function(n,code){
             }
             window.guideHints.products();
             break;
-        case 'product.delete':
+        case 'product.deleted':
             for(const key in website.products){
-                product = website.products[key];
-                if(product.id == n.product_id){
+                if(website.products[key].id == n.product_id){
                     website.products.splice(key,1);
                 }
             }
             for(const key in website_temp.products){
-                product = website_temp.products[key];
-                if(product.id == n.product_id){
+                if(website_temp.products[key].id == n.product_id){
                     website_temp.products.splice(key,1);
                 }
             }

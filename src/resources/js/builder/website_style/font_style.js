@@ -19,13 +19,14 @@ set_font_style_settings = function(){
     $(`.paragraph_letter_spacing_select[key="${window.template.font_style.paragraph_letter_spacing}"]`).addClass('select_box_selected')
 }
 draw_font_style = function(){
+    $('#font_style').find('.editor_popup_title').text(texts.website_style.font_style)
     $('#font_style').find('.editor_popup_head_btn').text('').append(
         $('<div/>',{class:'backToFontStyle none ico-arrowLeft pointer fs101'}),
     )
     $('#font_style').addClass('w400 h750').find('.editor_popup_body').text('').append(
         $('<div/>',{id:'font_style_pack_container',class:''}).append(
             $('<div/>',{id:'font_style_pack_container'}).append(
-                $('<div/>',{class:'inter fs1 bold',text:texts.website_style.font_style}),
+                // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.font_style}),
                 $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.font_style_des}),
 
                 $('<div/>',{class:`font_style_pack body_color_theme mnh100`}).append(

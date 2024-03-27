@@ -32,11 +32,11 @@ $('html,body').on('click','.share',function(e){
     if($(this).attr('type') == 'category'){
         window.share.item = website.categories.find(item=> item.id == $(this).attr('itemId'));
         window.share.type = 'category';
-        share()
+        share_pop()
     }else if($(this).attr('type') == 'product'){
         window.share.item = website.products.find(item=> item.id == $(this).attr('itemId'));
         window.share.type = 'product';
-        share()
+        share_pop()
     }
 })
 $('html,body').on('click','.copyVal',function(e){

@@ -12,6 +12,7 @@ return [
     'mobilePreview' => 'Mobile preview  <span class="fs09 c_white-10">( Ctrl + X )</span>',
     'previewMode' => 'Preview mode <span class="fs09 c_white-10">( Alt + S )</span>',
     'show_metrics' => 'Show / hide metrics <span class="fs09 c_white-10">( Alt + A )</span>',
+    'metrics_color' => 'Metrics color',
     'selectTemplate' => 'Select template',
     'livePreview' => 'Live preview',
     'warning' => 'Warning',
@@ -33,6 +34,8 @@ return [
     'imgDeleteConfirm' => 'Are you sure you want to delete this image?',
     'colors' => 'Colors',
     //
+    'untitled_section' => 'Untitled section',
+    'name' => 'Name',
     'editSection' => 'Edit section',
     'swapUp' => 'Swap up',
     'swapDown' => 'Swap down',

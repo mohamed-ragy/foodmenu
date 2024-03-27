@@ -65,7 +65,6 @@ $('html,body').on('click','.imgBrowser_editProductImg',function(){
     $('#editProduct_img').attr('src',imgUrl)
     website_temp.products.find(item=> item.name == window.history.state.product).img_id = imgId;
     website_temp.products.find(item=> item.name == window.history.state.product).img = imgUrl;
-    website_temp.products.find(item=> item.name == window.history.state.product).thumbnail = imgUrl;
     manage_products_unsave_check();
 });
 $('html,body').on('input change','.editProductNamesInputText',function(e){

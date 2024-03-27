@@ -3,11 +3,11 @@
 
 .section_selected{
     z-index: 5;
-    box-shadow: inset 0 0 1px 1px var(--green);
-    .home_section_elements_container{box-shadow: inset 0 0 1px 1px var(--green);}
+    box-shadow: inset 0 0 1px 1px var(--metrics_color);
+    .home_section_elements_container{box-shadow: inset 0 0 1px 1px var(--metrics_color);}
 }
 .section_selected:hover{
-    box-shadow: inset 0 0 1px 2px var(--green);
+    box-shadow: inset 0 0 1px 2px var(--metrics_color);
 }
 section{
     transition-duration: 200ms;
@@ -15,9 +15,9 @@ section{
 }
 section:hover{
     transition-duration: 0ms;
-    box-shadow: inset 0 0 1px 1px var(--green);
+    box-shadow: inset 0 0 1px 1px var(--metrics_color);
     position: relative;
-    .home_section_elements_container{box-shadow: inset 0 0 1px 1px var(--green);}
+    .home_section_elements_container{box-shadow: inset 0 0 1px 1px var(--metrics_color);}
     .add_home_section_btn_style{transform: scale(1);opacity: 1;}
     .swap_home_section_up_btn, .dublicate_home_section_btn, .swap_home_section_down_btn, .edit_home_section_btn, .delete_home_section_btn{
         transform: translateX(0px);
@@ -99,5 +99,5 @@ section:hover{
 .section_style_row:hover{background-color: var(--white-2);}
 //
 .highlight{
-    box-shadow: inset 0 0 1px 1px var(--green) !important;
+    box-shadow: inset 0 0 1px 1px var(--metrics_color) !important;
 }

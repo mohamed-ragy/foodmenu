@@ -2,6 +2,7 @@ set_website_colors_settings = function(){
     set_website_colors_vars();
 }
 draw_website_colors = function(){
+    $('#website_colors').find('.editor_popup_title').text(texts.website_style.website_colors)
     $('#website_colors').find('.editor_popup_head_btn').text('').append(
         $('<div/>',{class:'backToColorPalete none ico-arrowLeft pointer fs101'}),
     )

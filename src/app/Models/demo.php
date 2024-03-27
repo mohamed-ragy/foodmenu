@@ -612,7 +612,6 @@ class demo
             'website_id' => $demoWebsite->id,
             'name' => $category['name'],
             'url' => "/storage/".$category['imgUrl'],
-            'thumbnailUrl' => "/storage/".$category['thumbnailUrl'],
             'extension' => 'webp',
             'size' => 104857,
             'height' => 1200,
@@ -625,7 +624,6 @@ class demo
             'name' => $category['name'],
             'img_id' => $catImg->id,
             'img' => "/storage/".$category['imgUrl'],
-            'thumbnail' => "/storage/".$category['thumbnailUrl'],
             'names' => [
                 'en' => $category['name_en'],
                 'ar' => $category['name_ar'],
@@ -712,7 +710,6 @@ class demo
             'website_id' => $demoWebsite->id,
             'name' => $product['name'],
             'url' => "/storage/".$product['imgUrl'],
-            'thumbnailUrl' => "/storage/".$product['thumbnailUrl'],
             'extension' => 'webp',
             'size' => random_int(1000000,10000000),
             'height' => 1200,
@@ -728,7 +725,6 @@ class demo
             'ordered_sum' => rand(10,100),
             'img_id' => $prodImg->id,
             'img' => "/storage/".$product['imgUrl'],
-            'thumbnail' => "/storage/".$product['thumbnailUrl'],
             'names' => [
                 'en' => $product['name_en'],
                 'ar' => $product['name_ar'],

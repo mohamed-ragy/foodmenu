@@ -20,8 +20,11 @@ use App\Models\templates\generate_js;
 use App\Models\websiteText;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
-use Image;
 use Illuminate\Support\Facades\Storage;
+
+use Imagick;
+use ImagickDraw;
+use ImagickPixel;
 
 class designController extends Controller
 {
@@ -217,6 +220,7 @@ class designController extends Controller
             // ]);
             ])->update([
                 'updated_at' => Carbon::now()->timestamp,
+                'settings' => $request->template['settings'],
                 'website_colors' => $request->template['website_colors'],
                 'font_style' => $request->template['font_style'],
                 'page_setup' => $request->template['page_setup'],
@@ -236,13 +240,67 @@ class designController extends Controller
                 $template = template::where('_id',$request->template['_id'])->first();
                 (new generate_css)->generate($template);
                 (new generate_js)->generate($template,$langs);
+                /////
+                // // Create a new Imagick object
+                // $image = new Imagick();
 
+                // // Set the image dimensions
+                // $image->newImage(400, 200, new ImagickPixel('white'));
+
+                // // Set the font properties
+                // $draw = new ImagickDraw();
+                // $draw->setFont('storage/fonts/inter.ttf');
+                // $draw->setFontSize(20);
+                // $draw->setFillColor('black');
+
+                // // Add text to the image
+                // $text = "<b>Hello, Imagick!</b>";
+                // $image->annotateImage($draw, 10, 50, 0, $text);
+
+                // // Set the image format
+                // $image->setImageFormat('png');
+
+                // // Save the image to storage
+                // $imagePath = "websites/$this->website_id/test.png";
+                // Storage::disk('public')->put($imagePath, $image);
+
+                // // Get the image URL
+                // $imageUrl = Storage::disk('public')->url($imagePath);
+
+                // HTML content to convert to image
+                $htmlContent = '<html><body><h1>Hello, World!</h1></body></html>';
+
+                // Create Imagick object
+                $imagick = new Imagick();
+
+                // Set image format
+                $imagick->setFormat('png');
+
+                // Read HTML content and convert it into an image
+                $imagick->readImageBlob($htmlContent);
+
+                // Optionally, set image size or other attributes
+                // $imagick->setImageFormat('png');
+                // $imagick->setImageSize(800, 600);
+
+                // Save the image or output it to the browser
+                $imagick->writeImage(public_path('path/to/save/your/image.png'));
+
+                // Optionally, output image to browser
+                // header('Content-Type: image/png');
+                // echo $imagick;
+
+                // Destroy Imagick object
+                $imagick->destroy();
+
+                /////
                 return response(['save_template_state' => 1]);
             }else{
                 return response(['save_template_state' => 0]);
             }
         }
     }
+
     public function design(Request $request)
     {
         // if($request->has('applyTemplate')){
@@ -679,19 +737,19 @@ class designController extends Controller
                 }else{
                     $file->storeAs('websites/'.$this->website_id.'/imgs/',$tempname.'.'.$fileExtention);
 
-                    $thumbnail = Image::make($request->file('designUploadImg'));
-                    $thumbnail->resize(400, 400, function ($constraint) { $constraint->aspectRatio(); $constraint->upsize(); });
-                    $thumbnail->save( 'storage/websites/'.$this->website_id.'/imgs/'.$tempname.'_thumbnail.'.$fileExtention);
+
+                    $img_width_height = getimagesize($file);
+                    $width = $img_width_height[0];
+                    $height = $img_width_height[1];
 
                     $img = new img();
                     $img->website_id = $this->website_id;
                     $img->name = $tempname;
                     $img->url = '/storage/websites/'.$this->website_id.'/imgs/'.$tempname.'.'.$fileExtention;
-                    $img->thumbnailUrl = '/storage/websites/'.$this->website_id.'/imgs/'.$tempname.'_thumbnail.'.$fileExtention;
                     $img->extension = $fileExtention;
                     $img->size = $fileSize;
-                    $img->width = Image::make($request->file('designUploadImg'))->width();
-                    $img->height = Image::make($request->file('designUploadImg'))->height();
+                    $img->width = $width;
+                    $img->height = $height;
                     $img->save();
 
                     foodmenuFunctions::notification('img.upload',[
@@ -710,8 +768,8 @@ class designController extends Controller
 
         }else if($request->has(['deleteImg'])){
             if(str_split($this->account->authorities)[3] == false){return;}
-            $img = img::where('id',$request->imgId)->select('url','thumbnailUrl','name')->first();
-            $deleteFiles = File::delete(ltrim($img->url,'/'),ltrim($img->thumbnailUrl,'/'));
+            $img = img::where('id',$request->imgId)->select('url','name')->first();
+            $deleteFiles = File::delete(ltrim($img->url,'/'));
             if($deleteFiles){
                 if(img::where('id',$request->imgId)->delete()){
                     foodmenuFunctions::notification('img.delete',[
@@ -729,7 +787,7 @@ class designController extends Controller
                     return response(['deleteImgStatus' => 0, 'msg' => Lang::get('cpanel/design/responses.imgDeleteError')]);
                 }
             }else{
-                return response(['deleteImgStatus' => 55, 'msg' => Lang::get('cpanel/design/responses.imgDeleteError')]);
+                return response(['deleteImgStatus' => 0, 'msg' => Lang::get('cpanel/design/responses.imgDeleteError')]);
             }
         }
 

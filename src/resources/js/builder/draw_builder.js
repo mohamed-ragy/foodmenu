@@ -33,6 +33,7 @@ draw_builder = function(template_id){
     draw_builder_header();
     desktop_view();
     set_page('home')
+
 }
 //
 draw_builder_header = function(){
@@ -101,6 +102,9 @@ draw_builder_header = function(){
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
             $('<div/>',{class:'header_icon set_preview_mode ico-eye',tooltip:texts.previewMode}),
             $('<div/>',{class:'header_icon set_show_metrics ico-metrics',tooltip:texts.show_metrics}),
+            $('<div/>',{class:'color_s_circle color_select',style:`background-color:var(--metrics_color)`,key_tree:'settings',key:'metrics_color',tooltip:texts.metrics_color}).append(
+                $('<input/>',{class:'color_select_input vH absolute',type:'color'}),
+            ),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
         ),
         $('<div/>',{class:'row alnC jstfyC'}).append(

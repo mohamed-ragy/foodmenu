@@ -20,6 +20,9 @@ class templates extends Seeder
         $template = template::create([
             'website_id' => 1,
             'name' => 'Test template',
+            'settings' => [
+                'metrics_color' => ['r'=>102, 'g'=>155, 'b'=>188],
+            ],
             'website_colors' => [
                 'c1' => ['r'=>255, 'g'=>255, 'b'=>255],
                 'c2' => ['r'=>0, 'g'=>48, 'b'=>73],
@@ -136,103 +139,7 @@ class templates extends Seeder
                     'loading_spinner_c2' => ['r'=>52,'g'=>152,'b'=>219],
                 ],
             ],
-            'home' => [
-                // [
-                //     'sort' => 1,
-                //     'tag' => 'section',
-                //     'type' => 'section',
-                //     'color_theme' => 'color_2_3',
-                //     'class' => '',
-                //     'style_class' => 'home_section_1',
-                //     'style' => [
-                //         'padding' => '0px',
-                //     ],
-                //     'background' => 'none',
-                //     'background_style' => [
-                //         'background-image' => '/storage/imgs/demo/americandiner/cat1.webp',
-                //         'background-attachment' => 'fixed',
-                //         'background-position-x' => 'left',
-                //         'background-position-y' => 'top',
-                //         'background-repeat' => 'no-repeat',
-                //         'background-size' => 'cover',
-                //         'background-blend-mode' => 'normal',
-                //     ],
-                //     'children' => [
-                //         'section_container' => [
-                //             'tag' => 'div',
-                //             'type' => 'section_container',
-                //             'class' => 'section_container',
-                //             'style_class' => 'home_section_1_container',
-                //             'style' => [
-                //                 'min-height' => '100px',
-                //                 'display' => 'grid',
-                //                 'grid-template-areas' =>'"elem1 elem1" "elem2 elem3"',
-                //                 'grid-template-columns' =>  'repeat(2, 1fr)',
-                //             ],
-                //             'style_mobile' => [
-                //                 'grid-template-areas' =>'"elem1""elem2""elem3"',
-                //                 'grid-template-columns' =>  'repeat(1, 1fr)',
-                //             ],
-                //             'children' => [
-                //                 'element_container_1' => [
-                //                     'tag' => 'div',
-                //                     'type' => 'element_container',
-                //                     'color_theme' => 'transparent',
-                //                     'class' => 'element_container',
-                //                     'style_class' => 'home_section_1_elem_1',
-                //                     'style' => [
-                //                         'grid-area' => 'elem1',
-                //                         'display' => 'flex',
-                //                         'flex-direction' => 'row',
-                //                         'flex-wrap' => 'no-wrap',
-                //                         'align-items' => 'center',
-                //                         'justify-content' => 'center',
-                //                     ],
-                //                     'style_mobile' => [
-
-                //                     ],
-                //                 ],
-                //                 'element_container_2' => [
-                //                     'tag' => 'div',
-                //                     'type' => 'element_container',
-                //                     'color_theme' => 'transparent',
-                //                     'class' => 'element_container',
-                //                     'style_class' => 'home_section_1_elem_2',
-                //                     'style' => [
-                //                         'grid-area' => 'elem2',
-                //                         'display' => 'flex',
-                //                         'flex-direction' => 'row',
-                //                         'flex-wrap' => 'no-wrap',
-                //                         'align-items' => 'center',
-                //                         'justify-content' => 'center',
-                //                     ],
-                //                     'style_mobile' => [
-
-                //                     ],
-                //                 ],
-                //                 'element_container_3' => [
-                //                     'tag' => 'div',
-                //                     'type' => 'element_container',
-                //                     'color_theme' => 'color_1_4',
-                //                     'class' => 'element_container',
-                //                     'style_class' => 'home_section_1_elem_3',
-                //                     'style' => [
-                //                         'grid-area' => 'elem3',
-                //                         'display' => 'flex',
-                //                         'flex-direction' => 'row',
-                //                         'flex-wrap' => 'no-wrap',
-                //                         'align-items' => 'center',
-                //                         'justify-content' => 'center',
-                //                     ],
-                //                     'style_mobile' => [
-
-                //                     ],
-                //                 ]
-                //             ]
-                //         ]
-                //     ]
-                // ]
-            ],
+            'home' => [],
             // 'loading_screen' => [
             //     'tag' => 'div',
             //     'type' => 'section',

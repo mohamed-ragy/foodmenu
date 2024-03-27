@@ -7,7 +7,7 @@ drawImg = function(img,append='append'){
         class:'imgsImgCard',
         imgId:img.id,
     }).append(
-        $('<img/>',{class:'w300 h300 ofCover mxw100p',src:img.thumbnailUrl,}),
+        $('<img/>',{class:'w300 h300 ofCover mxw100p',src:img.url,}),
         $('<div/>',{
             class:'w300 fs09 mB10',
         }).append(
@@ -97,7 +97,7 @@ $('html,body').on('click','.deleteImg',function(e){
         $('.popupBody').append(
             $('<div/>',{class:'msgBox_orange'}).append(
                 $('<span/>',{class:'fs103 taC bold',text:texts.design.imgDeleteConfirm,}),
-                $('<img/>',{src:img.thumbnailUrl,class:'deleteImgConfirmImg'}),
+                $('<img/>',{src:img.url,class:'deleteImgConfirmImg'}),
             ),
             $('<div/>',{
                 class:'btnContainer mT40',

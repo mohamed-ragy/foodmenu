@@ -47,7 +47,7 @@ draw_statistics_products_list = function(order,sort){
     )
     for(const key in top_products){
             let product_img = '/storage/imgs/cpanel/noimg.png';
-            if(typeof(website.products.find(item=>item.name == top_products[key].name)) !== 'undefined'){product_img = website.products.find(item=>item.name == top_products[key].name).thumbnail}
+            if(typeof(website.products.find(item=>item.name == top_products[key].name)) !== 'undefined'){product_img = website.products.find(item=>item.name == top_products[key].name).img}
             let ordered_compare = ''; let total_compare = ''; let reviews_compare = '';
             if(window.page.compare == 1){
                 if(typeof(window.statistics.s2.products[top_products[key].name]) === 'undefined'){
@@ -132,7 +132,7 @@ $('html,body').on('click','.statistics_products_list_showList',function(e){
 draw_statistics_products_product = function(product_name){
 
     let product_img = '/storage/imgs/cpanel/noimg.png';
-    if(typeof(website.products.find(item=>item.name == product_name)) !== 'undefined'){product_img = website.products.find(item=>item.name == product_name).thumbnail}
+    if(typeof(website.products.find(item=>item.name == product_name)) !== 'undefined'){product_img = website.products.find(item=>item.name == product_name).img}
 
 
     let heighestNum_orders = getGraphHighestNumber_product(product_name,'orders',window.statistics.s1_,window.statistics.s2_ ?? []);

@@ -206,7 +206,7 @@ drawPoupPage_order_items = function(order){
                 $('<div/>',{class:'row alnC jstfySB w100p'}).append(
                     $('<div/>',{class:`${order_complete ? 'none' : ''}ico-close fs08 p3 br3 order-deleteItem`,tooltip:texts.cpanel.public.remove}),
                     $('<div/>',{class:'row alnC jstfyS mie-10'}).append(
-                        $('<img/>',{src:product_exist ? product.thumbnail : './storage/imgs/cpanel/noimg.png',class:'none-720 w40 h40 ofCover br5 mie-5'}),
+                        $('<img/>',{src:product_exist ? product.img : './storage/imgs/cpanel/noimg.png',class:'none-720 w40 h40 ofCover br5 mie-5'}),
                         $('<div/>',{class:''}).append(
                             $('<div/>',{class:'bold fs09',text:item.productName}),
                             $('<div/>',{class:`fs08 ${order_complete ? '' : 'none'}`,text:`${texts.orders.qty}:${qty}`}),
@@ -267,7 +267,7 @@ drawPoupPage_order_items = function(order){
                 $('<div/>',{class:`order-original_item ${key == 0 ? 'brdrT0' : ''}`}).append(
                     $('<div/>',{class:'row alnC jstfySB w100p'}).append(
                         $('<div/>',{class:'row alnC jstfyS mie-10'}).append(
-                            $('<img/>',{src:product_exist ? product.thumbnail : './storage/imgs/cpanel/noimg.png',class:'blackWhite none-720 w40 h40 ofCover br5 mie-5'}),
+                            $('<img/>',{src:product_exist ? product.img : './storage/imgs/cpanel/noimg.png',class:'blackWhite none-720 w40 h40 ofCover br5 mie-5'}),
                             $('<div/>',{class:''}).append(
                                 $('<div/>',{class:'bold fs09',text:item.productName}),
                                 $('<div/>',{class:`fs08`,text:`${texts.orders.qty}:${qty}`}),

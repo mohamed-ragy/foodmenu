@@ -5,6 +5,7 @@ set_template_vars = function(){
     set_form_elements_vars();
 }
 set_website_colors_vars  = function(){
+    $(':root').css('--metrics_color',`rgb(${window.template.settings.metrics_color.r},${window.template.settings.metrics_color.g},${window.template.settings.metrics_color.b})`);
     $(':root').css('--color_1',`rgb(${window.template.website_colors.c1.r},${window.template.website_colors.c1.g},${window.template.website_colors.c1.b})`);
     $(':root').css('--color_2',`rgb(${window.template.website_colors.c2.r},${window.template.website_colors.c2.g},${window.template.website_colors.c2.b})`);
     $(':root').css('--color_3',`rgb(${window.template.website_colors.c3.r},${window.template.website_colors.c3.g},${window.template.website_colors.c3.b})`);

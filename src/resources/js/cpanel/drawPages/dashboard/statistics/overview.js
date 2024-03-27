@@ -311,7 +311,7 @@ draw_statistics_overview_topProducts = function(){
         if(key < 8){
             let key4;
             let product_img = '/storage/imgs/cpanel/noimg.png';
-            if(typeof(website.products.find(item=>item.name == top_products_s1[key].name)) !== 'undefined'){product_img = website.products.find(item=>item.name == top_products_s1[key].name).thumbnail}
+            if(typeof(website.products.find(item=>item.name == top_products_s1[key].name)) !== 'undefined'){product_img = website.products.find(item=>item.name == top_products_s1[key].name).img}
             let ordered_compare = ''; let total_compare = '';
             if(window.page.compare == 1){
                 if(typeof(window.statistics.s2.products[top_products_s1[key].name]) === 'undefined'){

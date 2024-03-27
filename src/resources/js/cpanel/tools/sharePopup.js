@@ -1,11 +1,11 @@
 
-share = function(){
+share_pop = function(){
     let item = window.share.item;
     let type = window.share.type;
     showPopup('share-popup',function(){
         $('.popupBody').append(
             $('<div/>',{class:''}).append(
-                $('<img/>',{src:window.share.item.thumbnail,class:'w400 mxw100p h100 br3 ofCover'}),
+                $('<img/>',{src:window.share.item.img,class:'w400 mxw100p h100 br3 ofCover'}),
                 $('<div/>',{class:'fs102 bold500',text:item.name})
             ),
             $('<div/>',{class:'pageSection_brdrB mY10'}),

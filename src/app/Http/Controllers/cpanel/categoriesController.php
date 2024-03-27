@@ -76,19 +76,16 @@ class categoriesController extends Controller
                             }
                             if($request->categoryImg == '' || $request->categoryImg == null){
                                 $img_url = '/storage/imgs/cpanel/noimg.png';
-                                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
                             }else{
                                 $img = img::where(['website_id'=>$this->website_id,'id'=>$request->categoryImg])->first();
                                 if($img != null){
                                     $img_url = $img->url;
-                                    $thumbnail_url = $img->thumbnailUrl;
                                 }
                             }
                             $createNewCategory = categories::create([
                                 'website_id'=>$this->website_id,
                                 'img_id'=>$request->categoryImg,
                                 'img' => $img_url,
-                                'thumbnail' => $thumbnail_url,
                                 'sort'=>$newCatSort + 1,
                                 'name'=>strip_tags($request->categoryName),
                                 'names' => $names,
@@ -159,7 +156,6 @@ class categoriesController extends Controller
             $old_descriptions = $category->descriptions;
             $old_img_id = $category->img_id;
             $old_img = $category->img;
-            $old_thumbnail = $category->thumbnail;
 
             $names = [];
             $descriptions = [];
@@ -171,25 +167,22 @@ class categoriesController extends Controller
             }
             if($request->categoryImg == '' || $request->categoryImg == null){
                 $img_url = '/storage/imgs/cpanel/noimg.png';
-                $thumbnail_url = '/storage/imgs/cpanel/noimg.png';
             }else{
                 $img = img::where(['website_id'=>$this->website_id,'id'=>$request->categoryImg])->first();
                 if($img != null){
                     $img_url = $img->url;
-                    $thumbnail_url = $img->thumbnailUrl;
                 }
             }
             $editCategory = categories::where(['id'=>$request->editCategory , 'website_id'=>$this->website_id])->update([
                 'img_id'=>$request->categoryImg,
                 'img' => $img_url,
-                'thumbnail' => $thumbnail_url,
                 'names' => $names,
                 'descriptions' => $descriptions,
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($editCategory){
                 $activity = null;
-                if($names != $old_names || $descriptions != $old_descriptions || $thumbnail_url != $old_thumbnail){
+                if($names != $old_names || $descriptions != $old_descriptions || $img_url != $old_img){
                     $activity = [
                         'website_id' => $this->website_id,
                         'code' => 'category.edited',
@@ -201,21 +194,18 @@ class categoriesController extends Controller
                         'old_names' => $old_names,
                         'new_descriptions' => $descriptions,
                         'old_descriptions' => $old_descriptions,
-                        'new_img' => $thumbnail_url,
-                        'old_img' => $old_thumbnail,
                     ];
                 }
                 foodmenuFunctions::notification('category.edit',$activity,[
                     'category_id' => $request->editCategory,
                     'img_id'=>$request->categoryImg,
                     'img' => $img_url,
-                    'thumbnail' => $thumbnail_url,
                     'names' => $names,
                     'descriptions' => $descriptions,
                 ]);
-                return response(['editCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEdited'),'thumbnail'=>$thumbnail_url,'img' => $img_url ]);
+                return response(['editCategoryStatus' => 1, 'msg'=>Lang::get('cpanel/products/responses.categoryEdited'),'img' => $img_url ]);
             }else{
-                return response(['editCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/categories/categoriesList.categoryEditeFail') ]);
+                return response(['editCategoryStatus' => 0, 'msg'=>Lang::get('cpanel/products/responses.categoryEditeFail') ]);
             }
 
         }

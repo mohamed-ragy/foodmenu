@@ -22,7 +22,6 @@ class CreateCategoriesTable extends Migration
             $table->UnsignedBigInteger('img_id')->nullable();
             $table->foreign('img_id')->references('id')->on('imgs')->onDelete('set Null');
             $table->string('img')->nullable();
-            $table->string('thumbnail')->nullable();
             $table->json('names');
             $table->json('descriptions');
             $table->integer('created_at');

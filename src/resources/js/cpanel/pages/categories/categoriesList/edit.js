@@ -37,7 +37,6 @@ $('html,body').on('click','.imgBrowser-editCatImg',function(e){
     $('#editCategory_img').attr('src',imgUrl)
     website_temp.categories.find(item=> item.name == window.history.state.category).img_id = imgId;
     website_temp.categories.find(item=> item.name == window.history.state.category).img = imgUrl;
-    website_temp.categories.find(item=> item.name == window.history.state.category).thumbnail = imgUrl;
     category_list_unsave_check();
 });
 
@@ -111,13 +110,11 @@ $('html,body').on('click','#editCategory_saveBtn',function(e){
                 website.categories.find(item=>item.id == category.id).descriptions = JSON.parse(JSON.stringify(categoryDescriptions));
                 website.categories.find(item=>item.id == category.id).img_id = categoryImg;
                 website.categories.find(item=>item.id == category.id).img = r.img;
-                website.categories.find(item=>item.id == category.id).thumbnail = r.thumbnail;
 
                 website_temp.categories.find(item=>item.id == category.id).names = JSON.parse(JSON.stringify(categoryNames));
                 website_temp.categories.find(item=>item.id == category.id).descriptions = JSON.parse(JSON.stringify(categoryDescriptions));
                 website_temp.categories.find(item=>item.id == category.id).img_id = categoryImg;
                 website_temp.categories.find(item=>item.id == category.id).img = r.img;
-                website_temp.categories.find(item=>item.id == category.id).thumbnail = r.thumbnail;
 
                 drawCategoryList();
                 window.guideHints.categories();

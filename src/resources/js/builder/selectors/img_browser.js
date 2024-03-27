@@ -39,14 +39,14 @@ appendToImgBrowser = function(img,append){
     if(append == 'append'){
         $('#imgBrowser_imgs_container').append(
             $('<div/>',{class:`imgsImgCard`,imgId:img.id}).append(
-                $('<img/>',{class:`w300 h300 ofCover mxw100p`,imgId:img.id ?? '',src:img.thumbnailUrl}),
+                $('<img/>',{class:`w300 h300 ofCover mxw100p`,imgId:img.id ?? '',src:img.url}),
                 imgInfo,imgBtns
             )
         )
     }else if(append == 'prepend'){
         $('#imgBrowser_imgs_container').prepend(
             $('<div/>',{class:`imgsImgCard`,imgId:img.id}).append(
-                $('<img/>',{class:`w300 h300 ofCover mxw100p`,imgId:img.id ?? '',src:img.thumbnailUrl}),
+                $('<img/>',{class:`w300 h300 ofCover mxw100p`,imgId:img.id ?? '',src:img.url}),
                 imgInfo,imgBtns
             )
         )
@@ -208,7 +208,7 @@ $('html,body').on('click','.deleteImg',function(e){
             $('<div/>',{class:'popupBody'}).append(
                 $('<div/>',{class:'msgBox_orange'}).append(
                     $('<span/>',{class:'fs103 taC bold',text:texts.imgDeleteConfirm,}),
-                    $('<img/>',{src:img.thumbnailUrl,class:'deleteImgConfirmImg'}),
+                    $('<img/>',{src:img.url,class:'deleteImgConfirmImg'}),
                 ),
                 $('<div/>',{class:'w100p-20 row alnC jstfyE m10'}).append(
                     $('<button/>',{class:'btn btn-cancel popup2Close mie-5',text:texts.cancel}),

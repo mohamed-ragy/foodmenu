@@ -10,7 +10,7 @@ drawPopupPage_manage_product_variants = function(product_name){
             $('<button/>',{class:'btn btn-cancel popupPage',popupPage:'edit_product',product:product.name,text:texts.products.editProduct}),
         ),
         $('<div/>',{class:'row alnC jstfyS'}).append(
-            $('<img/>',{class:'h40 w40 br5 ofCover',src:product.thumbnail}),
+            $('<img/>',{class:'h40 w40 br5 ofCover',src:product.img}),
             $('<div/>',{class:'fs102 bold500 mis-5',text:product.name}),
         ),
         $('<div/>',{class:'btnContainer'}).append(

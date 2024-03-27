@@ -1,7 +1,6 @@
 window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
 loadTouchEvents($);
-
 require('../page_loading.js')
 
 require('../builder/data.js')
@@ -28,8 +27,6 @@ require('./pages.js')
 
 require('./draw_builder.js')
 require('./select_template.js')
-
-require('./editable.js')
 
 
 let params = new URLSearchParams(window.location.search)
@@ -147,5 +144,5 @@ $('html,body').on('click','#save',function(e){
         showAlert('success',texts.responses.templateSaved,4000,true);
     })
 })
-
+///
 

@@ -17,8 +17,9 @@ set_page_setup_settings = function(){
 }
 
 draw_page_setup = function(){
+    $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
     $('#page_setup').addClass('w500 h500').find('.editor_popup_body').text('').append(
-        $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
+        // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
         $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
         $('<div/>',{class:'w100p mB40'}).append(
             $('<div/>',{class:'page_setup_row'}).append(

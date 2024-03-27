@@ -26,7 +26,6 @@ class img extends Model
         'website_id',
         'name',
         'url',
-        'thumbnailUrl',
         'extension',
         'size',
         'height','width',

@@ -38,7 +38,8 @@ draw_page = function(page){
             }
             for(const key in window.template.home){
                 $('#page').append(
-                    create_html(window.template.home[key],`home.${key}`)
+                    create_html(window.template.home[key],`home.${key}`),
+
                 )
             }
             $(`section[key_tree="home.${window.selected_section}"]`).addClass('section_selected')
@@ -138,6 +139,9 @@ create_html = function(elem,key_tree){
                     $('<button/>',{class:`btn btn-cancel swap_home_section_down_btn editor_font ico-arrowDown ${elem.sort == window.template.home.length - 1 ? 'none':''}`,tooltip:texts.swapDown,section:section_key}),
                     $('<button/>',{class:'btn btn-delete delete_home_section_btn editor_font ico-delete',tooltip:texts.deleteSection,section:section_key}),
                 )
+            )
+            html.prepend(
+
             )
         }
     }

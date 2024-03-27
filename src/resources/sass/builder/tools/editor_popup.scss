@@ -35,15 +35,26 @@
     opacity: .5;
 }
 .editor_popup_head{
-    width:calc(100% - 20px);
+    width:calc(100% - 10px);
     text-align: center;
     cursor: move;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height:20px;
-    padding:10px;
+    padding:10px 5px;
     border-bottom:1px dashed var(--white-4);
+}
+.editor_popup_title{
+    line-height: 1em;
+}
+.input_editor_name{
+    outline:none;
+    border:1px solid var(--white-5);
+    background-color: var(--white-1);
+    padding:5px;
+    border-radius: 3px;
+    font-size: .75em;
 }
 .editor_popup_body{
     position: relative;

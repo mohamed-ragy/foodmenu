@@ -1,4 +1,6 @@
 new_action = function(){
+    unset_preview_mode();
+    deheighlight_all();
     for(const key in window.template_edit_history){
         if(parseInt(key.replace('_','')) > window.template_current_edit ){
             delete window.template_edit_history[key]

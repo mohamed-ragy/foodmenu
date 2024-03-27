@@ -19,7 +19,6 @@ class CreateImgsTable extends Migration
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->string('name');
             $table->string('url');
-            $table->string('thumbnailUrl');
             $table->string('extension');
             $table->integer('size');
             $table->integer('height');

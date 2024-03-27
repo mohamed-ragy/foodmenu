@@ -127,6 +127,7 @@ set_form_elements_settings = function(){
 }
 
 draw_form_elements = function(){
+    $('#form_elements').find('.editor_popup_title').text(texts.website_style.form_elements)
     $('#form_elements').find('.editor_popup_head_btn').text('').append(
         $('<div/>',{class:'backTo_form_elements_container backFrom_form_elements_input_container none ico-arrowLeft pointer fs101'}),
         $('<div/>',{class:'backTo_form_elements_container backFrom_form_elements_checkbox_container none ico-arrowLeft pointer fs101'}),
@@ -136,7 +137,7 @@ draw_form_elements = function(){
     $('#form_elements').addClass('w400 h850').find('.editor_popup_body').text('').append(
         $('<div/>',{class:'w100p mB40'}).append(
             $('<div/>',{class:'form_elements_container'}).append(
-                $('<div/>',{class:'inter fs1 bold',text:texts.website_style.form_elements}),
+                // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.form_elements}),
                 $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.form_elements_des}),
                 $('<div/>',{class:'page_setup_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.form_align}),

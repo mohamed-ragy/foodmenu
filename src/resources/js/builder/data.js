@@ -11,6 +11,7 @@ hash = function() {
 }
 get_blank_home_section = function(){
     return{
+        name:`${texts.untitled_section} ${parseInt(window.template.home.length) + 1}`,
         sort:0,
         tag:'section',
         type:'home_section',

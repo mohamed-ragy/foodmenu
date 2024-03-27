@@ -121,8 +121,13 @@
     <audio id="alert_success"><source src="./storage/audio/cpanelAlerts/success.wav" type="audio/mpeg" /></audio>
     <audio id="alert_warning"><source src="./storage/audio/cpanelAlerts/warning.wav" type="audio/mpeg" /></audio>
     <audio id="newChatMsgSound"><source id="newChatMsgSoundSource" src="./storage/audio/cpanelAlerts/chat.wav" type="audio/mpeg" /></audio>
+
+    <img id="captured" src="" alt="">
+    <canvas id="canvas"></canvas>
 </body>
 
 <script src="/js/builder/builder.js"></script>
-
+{{-- <script src=
+"https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+  </script> --}}
 </html>

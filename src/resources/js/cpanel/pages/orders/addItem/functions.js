@@ -12,7 +12,7 @@ showAddOrderItemPopup = function(order_id){
 drawAddItemPopupProduct = function(product){
     $('#addItem-product').text('').append(
         $('<div/>',{class:'row alnC jstfyS mY20'}).append(
-            $('<img/>',{class:'h40 w40 br5 ofCover',src:product.thumbnail}),
+            $('<img/>',{class:'h40 w40 br5 ofCover',src:product.img}),
             $('<div/>',{class:''}).append(
                 $('<a/>',{class:'mis-5 popupPage popupId',text:product.name,product:product.name,popupPage:'product',popupId:'product'}),
                 $('<div/>',{class:'fs08 mX5',text:`${website.currency}${product.price}`})

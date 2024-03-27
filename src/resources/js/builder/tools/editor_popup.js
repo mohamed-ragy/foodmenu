@@ -4,9 +4,11 @@ create_editor_popup = function(id,callback=()=>{}){
             $('<div/>',{class:'editor_popup none',id:id}).append(
                 $('<div/>',{class:'editor_popup_resizeIcon ico-drag2'}),
                 $('<div/>',{class:'editor_popup_head'}).append(
-                    $('<div/>',{class:'w30 editor_popup_head_btn'}),
-                    $('<div/>',{class:'w30 ico-drag'}),
-                    $('<div/>',{class:'w30 ico-close editor_popup_close pointer'}),
+                    $('<div/>',{class:'row alnC jstfyS'}).append(
+                        $('<div/>',{class:'editor_popup_head_btn mie-5 '}),
+                        $('<div/>',{class:'editor_popup_title bold'})
+                    ),
+                    $('<div/>',{class:'ico-close mX5 editor_popup_close pointer'}),
                 ),
                 $('<div/>',{class:'editor_popup_body'}),
             ).css({
@@ -191,4 +193,16 @@ $('html,body').on('mousemove touchmove','.editor_popup',function(e){
         if( $(this).closest('.editor_popup').height() <= 300){$(this).closest('.editor_popup').height(300);}
         if($(this).closest('.editor_popup').width() <= 300){$(this).closest('.editor_popup').width(300);}
     }
+})
+//
+$('html,body').on('input change','.input_editor_name',function(e){
+    e.stopImmediatePropagation();
+    let template = window.template;
+    let keys = $(this).attr('key_tree').split('.');
+    for(const key in keys){
+        template = template[keys[key]];
+    }
+    template.name = $(this).val();
+    new_action();
+    $('#editor').find('.editor_popup_title').text($(this).val())
 })
