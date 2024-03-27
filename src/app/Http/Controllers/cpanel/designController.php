@@ -45,9 +45,6 @@ class designController extends Controller
             $this->website_id = $this->account->website_id;
             App::setlocale($this->account->language);
 
-        $en = foodmenuFunctions::defaultLanguageText('en');
-        Storage::put('websites/'.$this->website_id.'/lang/en.json', json_encode(['default' => $en]));
-
             return $next($request);
         });
     }
@@ -240,60 +237,7 @@ class designController extends Controller
                 $template = template::where('_id',$request->template['_id'])->first();
                 (new generate_css)->generate($template);
                 (new generate_js)->generate($template,$langs);
-                /////
-                // // Create a new Imagick object
-                // $image = new Imagick();
 
-                // // Set the image dimensions
-                // $image->newImage(400, 200, new ImagickPixel('white'));
-
-                // // Set the font properties
-                // $draw = new ImagickDraw();
-                // $draw->setFont('storage/fonts/inter.ttf');
-                // $draw->setFontSize(20);
-                // $draw->setFillColor('black');
-
-                // // Add text to the image
-                // $text = "<b>Hello, Imagick!</b>";
-                // $image->annotateImage($draw, 10, 50, 0, $text);
-
-                // // Set the image format
-                // $image->setImageFormat('png');
-
-                // // Save the image to storage
-                // $imagePath = "websites/$this->website_id/test.png";
-                // Storage::disk('public')->put($imagePath, $image);
-
-                // // Get the image URL
-                // $imageUrl = Storage::disk('public')->url($imagePath);
-
-                // HTML content to convert to image
-                $htmlContent = '<html><body><h1>Hello, World!</h1></body></html>';
-
-                // Create Imagick object
-                $imagick = new Imagick();
-
-                // Set image format
-                $imagick->setFormat('png');
-
-                // Read HTML content and convert it into an image
-                $imagick->readImageBlob($htmlContent);
-
-                // Optionally, set image size or other attributes
-                // $imagick->setImageFormat('png');
-                // $imagick->setImageSize(800, 600);
-
-                // Save the image or output it to the browser
-                $imagick->writeImage(public_path('path/to/save/your/image.png'));
-
-                // Optionally, output image to browser
-                // header('Content-Type: image/png');
-                // echo $imagick;
-
-                // Destroy Imagick object
-                $imagick->destroy();
-
-                /////
                 return response(['save_template_state' => 1]);
             }else{
                 return response(['save_template_state' => 0]);

@@ -122,8 +122,6 @@
     <audio id="alert_warning"><source src="./storage/audio/cpanelAlerts/warning.wav" type="audio/mpeg" /></audio>
     <audio id="newChatMsgSound"><source id="newChatMsgSoundSource" src="./storage/audio/cpanelAlerts/chat.wav" type="audio/mpeg" /></audio>
 
-    <img id="captured" src="" alt="">
-    <canvas id="canvas"></canvas>
 </body>
 
 <script src="/js/builder/builder.js"></script>

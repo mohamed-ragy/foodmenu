@@ -18,14 +18,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     libssl-dev \
     libzip-dev \
-    imagemagick \
-    libmagickwand-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd pdo_mysql zip \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
     && pecl install mongodb \
     && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini
 
