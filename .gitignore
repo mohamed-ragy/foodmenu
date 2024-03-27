@@ -1,4 +1,5 @@
 src/.vscode/
+src/bootstrap/
 src/node_modules/
 src/error.log
 src/composerCopy.json
