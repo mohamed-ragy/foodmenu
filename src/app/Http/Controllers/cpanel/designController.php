@@ -749,7 +749,7 @@ class designController extends Controller
             $client = new GuzzleHttp\Client();
             $response = $client->request('GET',"https://api.pexels.com/v1/search?query=$request->search_pexels&per_page=80&page=$request->page&orientation=$request->orientation&size=$request->size&color=$request->color",[
             'headers' => [
-                    'Authorization'=> 'zpjq9kL33Q1vAN43u1QsUchQ41SgmPWuHFgBGyNsBazZybzdTiDx2j0l',
+                    'Authorization'=> env('PEXELS_KEY'),
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
