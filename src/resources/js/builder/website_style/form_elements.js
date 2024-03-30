@@ -39,6 +39,9 @@ set_form_elements_settings = function(){
     $('.input_label_margin_select').removeClass('select_box_selected')
     $(`.input_label_margin_select[key="${window.template.form_elements.input.input_label_margin}"]`).addClass('select_box_selected')
     //
+    $('.input_transitionDuration_select').removeClass('select_box_selected')
+    $(`.input_transitionDuration_select[key="${window.template.form_elements.input.input_transition_duration}"]`).addClass('select_box_selected')
+    //
     $('.input_focus_outline_width_select').removeClass('select_box_selected')
     $(`.input_focus_outline_width_select[key="${window.template.form_elements.input.input_focus_outline_width}"]`).addClass('select_box_selected')
     //
@@ -67,6 +70,9 @@ set_form_elements_settings = function(){
     //
     $('.button1_outline_width_select').removeClass('select_box_selected')
     $(`.button1_outline_width_select[key="${window.template.form_elements.button1.button1_outline_width}"]`).addClass('select_box_selected')
+    //
+    $('.button1_transitionDuration_select').removeClass('select_box_selected')
+    $(`.button1_transitionDuration_select[key="${window.template.form_elements.button1.button1_transition_duration}"]`).addClass('select_box_selected')
     //
     $('.button1_hover_outline_width_select').removeClass('select_box_selected')
     $(`.button1_hover_outline_width_select[key="${window.template.form_elements.button1.button1_hover_outline_width}"]`).addClass('select_box_selected')
@@ -97,6 +103,9 @@ set_form_elements_settings = function(){
     $('.button2_outline_width_select').removeClass('select_box_selected')
     $(`.button2_outline_width_select[key="${window.template.form_elements.button2.button2_outline_width}"]`).addClass('select_box_selected')
     //
+    $('.button2_transitionDuration_select').removeClass('select_box_selected')
+    $(`.button2_transitionDuration_select[key="${window.template.form_elements.button2.button2_transition_duration}"]`).addClass('select_box_selected')
+    //
     $('.button2_hover_outline_width_select').removeClass('select_box_selected')
     $(`.button2_hover_outline_width_select[key="${window.template.form_elements.button2.button2_hover_outline_width}"]`).addClass('select_box_selected')
     //
@@ -118,7 +127,7 @@ draw_form_elements = function(){
         $('<div/>',{class:'backTo_form_elements_container backFrom_form_elements_button1_container none ico-arrowLeft pointer fs101'}),
         $('<div/>',{class:'backTo_form_elements_container backFrom_form_elements_button2_container none ico-arrowLeft pointer fs101'}),
     )
-    $('#form_elements').addClass('w400 h850').find('.editor_popup_body').text('').append(
+    $('#form_elements').addClass('w500 h850').find('.editor_popup_body').text('').append(
         $('<div/>',{class:'w100p mB40'}).append(
             $('<div/>',{class:'form_elements_container'}).append(
                 // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.form_elements}),
@@ -262,11 +271,21 @@ draw_form_elements = function(){
                         $('<div/>',{class:`pY5 w25 input_label_margin_select select_box`,text:'XL',key:'15px'}),
                     )
                 ),
-                $('<div/>',{class:'page_setup_row input_bg_color_container'}).append(
+                $('<div/>',{class:'page_setup_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.bg_color}),
                     $('<div/>',{class:'color_picker_container'}).append(
                         $('<input/>',{class:' color_picker',type:'text',style:`background-color:var(--input_bg_color)`,value:window.template.form_elements.input.input_bg_color,key:'input_bg_color',key_tree:'form_elements.input'}),
                     ),
+                ),
+                $('<div/>',{class:'page_setup_row'}).append(
+                    $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.transitionDuration}),
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.input',key:'input_transition_duration'}).append(
+                        $('<div/>',{class:`pY5 pX5 input_transitionDuration_select select_box ico-no`,key:'0ms'}),
+                        $('<div/>',{class:`pY5 pX5 input_transitionDuration_select select_box`,text:texts.select_elems.slower,key:'500ms'}),
+                        $('<div/>',{class:`pY5 pX5 input_transitionDuration_select select_box`,text:texts.select_elems.slow,key:'350ms'}),
+                        $('<div/>',{class:`pY5 pX5 input_transitionDuration_select select_box`,text:texts.select_elems.fast,key:'200ms'}),
+                        $('<div/>',{class:`pY5 pX5 input_transitionDuration_select select_box`,text:texts.select_elems.faster,key:'100ms'}),
+                    )
                 ),
                 $('<div/>',{class:'fs1 bold mT20',text:texts.website_style.input_focus}),
                 $('<div/>',{class:'page_setup_row'}).append(
@@ -284,7 +303,7 @@ draw_form_elements = function(){
                         $('<input/>',{class:' color_picker',type:'text',style:`background-color:var(--input_focus_outline_color)`,value:window.template.form_elements.input.input_focus_outline_color,key:'input_focus_outline_color',key_tree:'form_elements.input'}),
                     ),
                 ),
-                $('<div/>',{class:'page_setup_row input_focus_bg_color_container'}).append(
+                $('<div/>',{class:'page_setup_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.bg_color}),
                     $('<div/>',{class:'color_picker_container'}).append(
                         $('<input/>',{class:' color_picker',type:'text',style:`background-color:var(--input_focus_bg_color)`,value:window.template.form_elements.input.input_focus_bg_color,key:'input_focus_bg_color',key_tree:'form_elements.input'}),
@@ -407,6 +426,16 @@ draw_form_elements = function(){
                     $('<div/>',{class:'color_picker_container'}).append(
                         $('<input/>',{class:' color_picker',type:'text',style:`background-color:var(--button1_outline_color)`,value:window.template.form_elements.input.button1_outline_color,key:'button1_outline_color',key_tree:'form_elements.button1'}),
                     ),
+                ),
+                $('<div/>',{class:'page_setup_row'}).append(
+                    $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.transitionDuration}),
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.button1',key:'button1_transition_duration'}).append(
+                        $('<div/>',{class:`pY5 pX5 button1_transitionDuration_select select_box ico-no`,key:'0ms'}),
+                        $('<div/>',{class:`pY5 pX5 button1_transitionDuration_select select_box`,text:texts.select_elems.slower,key:'500ms'}),
+                        $('<div/>',{class:`pY5 pX5 button1_transitionDuration_select select_box`,text:texts.select_elems.slow,key:'350ms'}),
+                        $('<div/>',{class:`pY5 pX5 button1_transitionDuration_select select_box`,text:texts.select_elems.fast,key:'200ms'}),
+                        $('<div/>',{class:`pY5 pX5 button1_transitionDuration_select select_box`,text:texts.select_elems.faster,key:'100ms'}),
+                    )
                 ),
                 $('<div/>',{class:'fs1 bold mT20',text:texts.website_style.button_hover}),
                 $('<div/>',{class:'page_setup_row'}).append(
@@ -569,6 +598,16 @@ draw_form_elements = function(){
                     $('<div/>',{class:'color_picker_container'}).append(
                         $('<input/>',{class:' color_picker',type:'text',style:`background-color:var(--button2_outline_color)`,value:window.template.form_elements.input.button2_outline_color,key:'button2_outline_color',key_tree:'form_elements.button2'}),
                     ),
+                ),
+                $('<div/>',{class:'page_setup_row'}).append(
+                    $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.transitionDuration}),
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:'form_elements.button2',key:'button2_transition_duration'}).append(
+                        $('<div/>',{class:`pY5 pX5 button2_transitionDuration_select select_box ico-no`,key:'0ms'}),
+                        $('<div/>',{class:`pY5 pX5 button2_transitionDuration_select select_box`,text:texts.select_elems.slower,key:'500ms'}),
+                        $('<div/>',{class:`pY5 pX5 button2_transitionDuration_select select_box`,text:texts.select_elems.slow,key:'350ms'}),
+                        $('<div/>',{class:`pY5 pX5 button2_transitionDuration_select select_box`,text:texts.select_elems.fast,key:'200ms'}),
+                        $('<div/>',{class:`pY5 pX5 button2_transitionDuration_select select_box`,text:texts.select_elems.faster,key:'100ms'}),
+                    )
                 ),
                 $('<div/>',{class:'fs1 bold mT20',text:texts.website_style.button_hover}),
                 $('<div/>',{class:'page_setup_row'}).append(

@@ -125,16 +125,62 @@ showPopup =function(popup,callback=()=>{}){
         case 'imgBrowser':
             $('.popupCard').addClass('popupCard-800x800')
             $('.popupBody').append(
-                $('<div/>',{class:'btnContainer'}).append(
-                    $('<button/>',{class:'imgs-uploadImgBtn btn'}).append(
-                        $('<div/>',{class:'btnLoading'}),
-                        $('<div/>',{class:'btnTxt',text:texts.design.uploadNew})
-                    )
+                $('<div/>',{class:'row alnC jstfyS mX20 mT10 mB20'}).append(
+                    $('<div/>',{key:'storage',class:'img_browser_tab img_browser_tab_selected',text:texts.design.myLibrary}),
+                    $('<div/>',{key:'pexels',class:'img_browser_tab',text:texts.design.freeImgs}),
                 ),
-                $('<div/>',{id:'imgsBrowserContainer'}),
-                drawLoadMore('imgBrowser_loadMore','none'),
-                $('<div>',{id:'imgBrowserNoImgs',class:'ma taC none',text:texts.design.noUploads}),
+                $('<div/>',{class:'img_browser_tab_container',key:'storage'}).append(
+                    $('<div/>',{class:'btnContainer'}).append(
+                        $('<button/>',{class:'imgs-uploadImgBtn btn mie-10'}).append(
+                            $('<div/>',{class:'btnLoading'}),
+                            $('<div/>',{class:'btnTxt',text:texts.design.uploadNew})
+                        )
+                    ),
+                    $('<div/>',{id:'imgsBrowserContainer'}),
+                    drawLoadMore('imgBrowser_loadMore','none'),
+                    $('<div>',{id:'imgBrowserNoImgs',class:'ma taC none',text:texts.design.noUploads}),
+                ),
+                $('<div/>',{class:'img_browser_tab_container none',key:'pexels'}).append(
+                    $('<div/>',{class:'pexels_search_container'}).append(
+                        $('<div/>',{class:'ico-search pexels_search_icon'}),
+                        $('<input/>',{class:'pexels_search mie-5',id:'pexels_search',placeholder:texts.design.pexels_search_placeholder}),
+                    ),
+                    $('<div/>',{class:'row alnS jstfySB'}).append(
+                        $('<a/>',{href:'https://www.pexels.com',target:'_blank',class:'wFC mY5 mX15 row alnC jstfyS'}).append(
+                            $('<img/>',{class:'br3 h20 w20 ofCover imgPL mie-5',src:'https://images.pexels.com/lib/api/pexels.png'}),
+                            $('<div/>',{class:'fs08 c_white-11',text:'Photos provided by Pexels'})
+                        ),
+                        $('<div/>',{class:'column alnE jstfyS mX5'}).append(
+                            $('<div/>',{class:'row wrap alnC jstfyC'}).append(
+                                drawInputList('','ico-image','','','pexels_search_size',texts.design.size,100,'pexels_search_size_list',false,'mX5','','w100'),
+                                drawInputList('','ico-image','','','pexels_search_orientation',texts.design.orientation,100,'pexels_search_orientation_list',false,'mX5','','w100'),
+                            ),
+                            $('<button/>',{class:'btn mY0 mX5',id:'imgBrowser_pexels_search_btn'}).append(
+                                $('<div/>',{class:'btnLoading'}),
+                                $('<div/>',{class:'btnTxt',text:texts.cpanel.public.search}),
+                            ),
+                        )
+                    ),
+                    $('<div/>',{id:'imgsBrowserContainer_pexels',class:'row alnC jstfyC wrap mT20'}),
+                    $('<div/>',{class:'row alnC jstfyC'}).append(
+                        $('<div/>',{class:'imgBrowser_pexels_pagination none'}).append(
+                            $('<div/>',{class:'imgBrowser_pexels_pagination_prev ico-left'}),
+                            $('<div/>',{class:'imgBrowser_pexels_pagination_page_num',text:''}),
+                            $('<div/>',{class:'imgBrowser_pexels_pagination_next ico-right'}),
+                        )
+                    )
+                )
             );
+            addToInputList($('#pexels_search_size_list'),texts.design.allSizes,'')
+            addToInputList($('#pexels_search_size_list'),texts.design.large,'large')
+            addToInputList($('#pexels_search_size_list'),texts.design.medium,'medium')
+            addToInputList($('#pexels_search_size_list'),texts.design.small,'small')
+
+            addToInputList($('#pexels_search_orientation_list'),texts.design.allOrientations,'')
+            addToInputList($('#pexels_search_orientation_list'),texts.design.landscape,'landscape')
+            addToInputList($('#pexels_search_orientation_list'),texts.design.portrait,'portrait')
+            addToInputList($('#pexels_search_orientation_list'),texts.design.square,'square')
+
         break;
         case 'addNewLang':
             $('.popupCard').addClass('popupCard-500x300')

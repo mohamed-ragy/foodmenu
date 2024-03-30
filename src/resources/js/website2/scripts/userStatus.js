@@ -20,7 +20,7 @@ userStatus = (status) => {
     // loginCheck ? userStatusChannel.whisper('userStatus',{status:status,userId:user.id})
     // : userStatusChannel.whisper('userStatus',{status:status,userId:'guest_'+user.id })
 
-    status.status == 'user_browse_home' ? routeName = 'website.home' : null;
+    status.status == 'user_browse_home' ? routeName = 'website_home' : null;
     status.status == 'user_browse_aboutus' ? routeName = 'website.aboutus' : null;
     status.status == 'user_browse_allproducts' ? routeName = 'website.allproducts' : null;
     status.status == 'user_browse_privacyPolicy' ? routeName = 'website.privacypolicy' : null;
@@ -37,7 +37,7 @@ userStatus = (status) => {
 userStatusBrowsingPage = () => {
     return;
     let status ;
-    routeName == 'website.home' ? status = {'status': 'user_browse_home'}
+    routeName == 'website_home' ? status = {'status': 'user_browse_home'}
     : routeName == 'website.aboutus' ? status = {'status': 'user_browse_aboutus'}
     : routeName == 'website.allproducts' ? status = {'status': 'user_browse_allproducts'}
     : routeName == 'website.category' ? status = {'status': 'user_browse_category','category':categories.find(item=>item.id == pageCategoryId).name}

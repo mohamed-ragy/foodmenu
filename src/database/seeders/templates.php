@@ -53,7 +53,7 @@ class templates extends Seeder
             'page_setup' => [
                 'max_width' => '1800px',
                 'page_margin' => '0vw',
-                'page_color_theme' => 'color_1_2',
+                'page_color_theme' => 'color_theme_1',
                 'pageTransition' => 'fade',
                 'transitionDuration' => '300ms',
                 'smooth_scroll' => '0',
@@ -74,6 +74,7 @@ class templates extends Seeder
                     'input_label_font_size' => '.9em',
                     'input_label_margin' => '3px',
                     'input_bg_color' => 'rgba(0,0,0,0.1)',
+                    'input_transition_duration' => '300ms',
 
                     'input_focus_outline_width' => '1px',
                     'input_focus_outline_color' => 'rgba(0,0,0,0.1)',
@@ -94,6 +95,7 @@ class templates extends Seeder
                     'button1_bg_color' => 'rgba(0,0,0,0.1)',
                     'button1_outline_color' => 'rgba(0,0,0,0.1)',
                     'button1_outline_width' => '2px',
+                    'button1_transition_duration' => '300ms',
                     'button1_hover_font_color' => 'rgba(0,0,0,0.1)',
                     'button1_hover_bg_color' => 'rgba(0,0,0,0.1)',
                     'button1_hover_outline_width' => '1px',
@@ -116,6 +118,7 @@ class templates extends Seeder
                     'button2_bg_color' => 'rgba(0,0,0,0.1)',
                     'button2_outline_color' => 'rgba(0,0,0,0.1)',
                     'button2_outline_width' => '2px',
+                    'button2_transition_duration' => '300ms',
                     'button2_hover_font_color' => 'rgba(0,0,0,0.1)',
                     'button2_hover_bg_color' => 'rgba(0,0,0,0.1)',
                     'button2_hover_outline_width' => '1px',

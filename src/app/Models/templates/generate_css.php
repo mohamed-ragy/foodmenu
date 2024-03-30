@@ -140,6 +140,7 @@ class generate_css
         --input_label_font_size:{$this->template['form_elements']['input']['input_label_font_size']};
         --input_label_margin:{$this->template['form_elements']['input']['input_label_margin']};
         --input_bg_color:{$this->template['form_elements']['input']['input_bg_color']};
+        --input_transition_duration:{$this->template['form_elements']['input']['input_transition_duration']};
 
         --input_focus_outline_width:{$this->template['form_elements']['input']['input_focus_outline_width']};
         --input_focus_outline_color:{$this->template['form_elements']['input']['input_focus_outline_color']};
@@ -158,6 +159,7 @@ class generate_css
         --button1_bg_color:{$this->template['form_elements']['button1']['button1_bg_color']};
         --button1_outline_color:{$this->template['form_elements']['button1']['button1_outline_color']};
         --button1_outline_width:{$this->template['form_elements']['button1']['button1_outline_width']};
+        --button1_transition_duration:{$this->template['form_elements']['button1']['button1_transition_duration']};
         --button1_hover_font_color:{$this->template['form_elements']['button1']['button1_hover_font_color']};
         --button1_hover_bg_color:{$this->template['form_elements']['button1']['button1_hover_bg_color']};
         --button1_hover_outline_color:{$this->template['form_elements']['button1']['button1_hover_outline_color']};
@@ -181,6 +183,7 @@ class generate_css
         --button2_bg_color:{$this->template['form_elements']['button2']['button2_bg_color']};
         --button2_outline_color:{$this->template['form_elements']['button2']['button2_outline_color']};
         --button2_outline_width:{$this->template['form_elements']['button2']['button2_outline_width']};
+        --button2_transition_duration:{$this->template['form_elements']['button2']['button2_transition_duration']};
         --button2_hover_font_color:{$this->template['form_elements']['button2']['button2_hover_font_color']};
         --button2_hover_bg_color:{$this->template['form_elements']['button2']['button2_hover_bg_color']};
         --button2_hover_outline_color:{$this->template['form_elements']['button2']['button2_hover_outline_color']};
@@ -251,18 +254,18 @@ class generate_css
         $css = <<<string
         .form{display:flex;flex-direction: column;align-items: var(--form_align);justify-content: flex-start;width:fit-content;}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
-        .input{text-align: var(--input_text_align);margin-bottom:var(--form_elem_spacing);max-width:100%;box-sizing: border-box;padding:var(--input_padding_y) var(--input_padding_x);border-width:var(--input_border_width);border-style:var(--input_border_style);border-radius:var(--input_border_radius);border-color:var(--input_border_color);font-size:var(--input_font_size);color:var(--input_font_color);background-color: var(--input_bg_color);}
+        .input{text-align: var(--input_text_align);margin-bottom:var(--form_elem_spacing);max-width:100%;box-sizing: border-box;padding:var(--input_padding_y) var(--input_padding_x);border-width:var(--input_border_width);border-style:var(--input_border_style);border-radius:var(--input_border_radius);border-color:var(--input_border_color);font-size:var(--input_font_size);color:var(--input_font_color);background-color: var(--input_bg_color);transition-duration: var(--input_transition_duration);outline-style: solid;outline-width: 0px;outline-color: transparent;}
         .input:focus{outline-style: solid;outline-width: var(--input_focus_outline_width);outline-color: var(--input_focus_outline_color);background-color: var(--input_focus_bg_color);}
         .input:read-only{cursor: not-allowed;}
         .input_lable{margin-top:var(--form_elem_spacing);font-size:var(--input_label_font_size);margin-inline:var(--input_label_margin);}
         textarea{resize: none;}
         .checkbox{width:var(--checkbox_size);height:var(--checkbox_size);position: relative;border:2px solid var(--checkbox_color);cursor: pointer;border-radius: var(--checkbox_border_radius);margin:var(--form_elem_spacing) 0;}
         .checkbox_checked{background-color: var(--checkbox_color);color: var(--checkbox_checkMark_color);}
-        .button1{max-width:100%;box-sizing: border-box;cursor: pointer;border: none;outline: none;font-size: var(--button1_font_size);padding:var(--button1_padding_y) var(--button1_padding_x);background-color: var(--button1_bg_color);color: var(--button1_font_color);border-radius: var(--button1_border_radius);outline-style: solid;outline-color:var(--button1_outline_color);outline-width:var(--button1_outline_width);}
+        .button1{max-width:100%;box-sizing: border-box;cursor: pointer;border: none;outline: none;font-size: var(--button1_font_size);padding:var(--button1_padding_y) var(--button1_padding_x);background-color: var(--button1_bg_color);color: var(--button1_font_color);border-radius: var(--button1_border_radius);outline-style: solid;outline-color:var(--button1_outline_color);outline-width:var(--button1_outline_width);transition-duration: var(--button1_transition_duration);}
         .button1:hover{color:var(--button1_hover_font_color);background-color:var(--button1_hover_bg_color);outline-style: solid;outline-width: var(--button1_hover_outline_width);outline-color: var(--button1_hover_outline_color);}
         .button1:active{color:var(--button1_click_font_color);background-color:var(--button1_click_bg_color);outline-style: solid;outline-width: var(--button1_click_outline_width);outline-color: var(--button1_click_outline_color);}
         .button1:disabled{cursor: not-allowed;color:var(--button1_disabled_font_color);background-color:var(--button1_disabled_bg_color);outline-style: solid;outline-width: var(--button1_disabled_outline_width);outline-color: var(--button1_disabled_outline_color);}
-        .button2{max-width:100%;box-sizing: border-box;cursor: pointer;border: none;outline: none;font-size: var(--button2_font_size);padding:var(--button2_padding_y) var(--button2_padding_x);background-color: var(--button2_bg_color);color: var(--button2_font_color);border-radius: var(--button2_border_radius);outline-style: solid;outline-color:var(--button2_outline_color);outline-width:var(--button2_outline_width);}
+        .button2{max-width:100%;box-sizing: border-box;cursor: pointer;border: none;outline: none;font-size: var(--button2_font_size);padding:var(--button2_padding_y) var(--button2_padding_x);background-color: var(--button2_bg_color);color: var(--button2_font_color);border-radius: var(--button2_border_radius);outline-style: solid;outline-color:var(--button2_outline_color);outline-width:var(--button2_outline_width);transition-duration: var(--button2_transition_duration);}
         .button2:hover{color:var(--button2_hover_font_color);background-color:var(--button2_hover_bg_color);outline-style: solid;outline-width: var(--button2_hover_outline_width);outline-color: var(--button2_hover_outline_color);}
         .button2:active{color:var(--button2_click_font_color);background-color:var(--button2_click_bg_color);outline-style: solid;outline-width: var(--button2_click_outline_width);outline-color: var(--button2_click_outline_color);}
         .button2:disabled{cursor: not-allowed;color:var(--button2_disabled_font_color);background-color:var(--button2_disabled_bg_color);outline-style: solid;outline-width: var(--button2_disabled_outline_width);outline-color: var(--button2_disabled_outline_color);}

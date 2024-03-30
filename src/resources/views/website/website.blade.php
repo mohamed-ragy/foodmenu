@@ -30,7 +30,9 @@
     <div class="page_loading_description dont_p">{{ $description }}</div>
 </div> --}}
 <body>
-    <div id="page"></div>
+    <div id="page">
+        
+    </div>
         {{-- <section>
             <div class="section">
                 <div class="font_t fs2">Test test wa7ed 2tnen talata s s s</div>

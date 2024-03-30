@@ -214,7 +214,7 @@ class websiteController extends Controller
             //     App::setLocale($defaultLang);
             //     $this->lang = $defaultLang;
             //     Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$this->lang,9999999999999));
-            //     return redirect()->route('website.home',['lang'=>$this->lang]);
+            //     return redirect()->route('website_home',['lang'=>$this->lang]);
             // }
 
             // if($this->website->subscription_status != 'trialing' && $this->website->subscription_status != 'active' && $this->website->subscription_status != 'past_due'){
@@ -1634,7 +1634,7 @@ class websiteController extends Controller
             App::setLocale($defaultLang);
             $this->lang = $defaultLang;
             Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$this->lang,9999999999999));
-            return redirect()->route('website.home',['lang'=>$this->lang]);
+            return redirect()->route('website_home',['lang'=>$this->lang]);
         }
         $website = website::where('id' , $this->website_id )
         ->select(

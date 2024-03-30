@@ -189,7 +189,7 @@ $admin = function(){
 $website2 = function()use ($getHost){
     // $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
     // Route::get('/', function () use ($lang){
-    //     return redirect()->route('website.home', $lang);
+    //     return redirect()->route('website_home', $lang);
     // });
     Route::post('/user/login',[websiteController::class,'userLogin'])->name('website.userLogin');
     Route::get('/user/logout',[websiteController::class,'userLogout'])->name('website.userLogout');
@@ -208,11 +208,11 @@ $website2 = function()use ($getHost){
     Route::prefix('{lang}')->group(function () use ($lang){
 
         // Route::get('/', function  () use ($lang){
-        //     return redirect()->route('website.home', $lang);
+        //     return redirect()->route('website_home', $lang);
         // });
         Route::get('/website-not-active',[websiteController::class,'websiteNotActive'])->name('websiteNotActive');
 
-        // Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
+        // Route::get('/home',[websiteController::class,'home',$lang])->name('website_home');
         Route::get('/aboutus',[websiteController::class,'aboutus',$lang])->name('website.aboutus');
         Route::get('/profile',[websiteController::class,'profile',$lang])->name('website.profile');
         Route::get('/privacypolicy',[websiteController::class,'privacypolicy',$lang])->name('website.privacypolicy');
@@ -224,19 +224,19 @@ $website2 = function()use ($getHost){
 $website = function() use ($getHost){
     $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
     Route::get('/', function () use ($lang){
-        return redirect()->route('website.home', $lang);
+        return redirect()->route('website_home', $lang);
     })->name('website.root');
 
     Route::prefix('{lang}')->group(function () use ($lang){
         Route::get('/', function  () use ($lang){
-            return redirect()->route('website.home', $lang);
+            return redirect()->route('website_home', $lang);
         });
-        Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
+        Route::get('/home',[websiteController::class,'home',$lang])->name('website_home');
 
     });
 
     Route::prefix('api')->group(function () {
-        Route::post('/activity',[websiteController::class,'activity'])->name('website.activity');
+        Route::post('/activity',[websiteController::class,'activity'])->name('website_activity');
 
     });
 

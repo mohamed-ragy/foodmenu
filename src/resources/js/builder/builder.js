@@ -4,15 +4,15 @@ loadTouchEvents($);
 require('../page_loading.js')
 require('./selectors.js');
 
-require('../builder/data.js')
-require('../builder/process_data.js')
-require('../builder/set_template_vars.js')
-require('../builder/undo_redo.js')
+require('../builder/data.js');
+require('../builder/process_data.js');
+require('../builder/set_template_vars.js');
+require('../builder/undo_redo.js');
 
-require('../cpanel/tools/loading.js')
-require('../cpanel/functions/coolDown.js')
+require('../cpanel/tools/loading.js');
+require('../cpanel/functions/coolDown.js');
 
-require('../builder/tools/alerts.js')
+require('../builder/tools/alerts.js');
 require('../builder/tools/tooltip.js');
 require('../builder/tools/popup.js');
 require('../builder/tools/editor_popup.js');

@@ -27,6 +27,27 @@ return [
     'noimg'=>'No image',
     'copyed' => 'The image link has been copied to the clipboard.',
     'imgNotFound' => 'Image not found!',
-    ///
+    ///new
+    'myLibrary' => 'My library',
+    'freeImgs' => 'Free imgs',
+    'pexels_search_placeholder' => 'Type keywords and hit enter...',
+    'selectAndAddToLibrary' => 'Select and add to my library',
+    'AddToLibrary' => 'Add to my library',
+    'pagination_page' => 'Page :page:/:pages:',
+    'noResults' => 'No results found!',
+    'imageAddToLibrary' => 'The image has been added to your library successfullly.',
+    'imageAddToLibraryFail' => 'Unknown error! failed to add the image to your library.',
+    'imageAddToLibraryFail_noSpace' => 'The storage available is less than the size of the file you’re trying to upload.',
+    'size' => 'Size ',
+    'allSizes' => 'All sizes',
+    'large' => 'Large ',
+    'medium' => 'Medium ',
+    'small' => 'Small ',
+    'orientation' => 'Orientation',
+    'allOrientations' => 'All orientations',
+    'landscape' => 'Landscape',
+    'portrait' => 'Portrait',
+    'square' => 'Square',
+    //new
 ];
 

@@ -88,6 +88,7 @@ set_form_elements_vars = function(){
     $(':root').css('--input_label_font_size',window.template.form_elements.input.input_label_font_size);
     $(':root').css('--input_label_margin',window.template.form_elements.input.input_label_margin);
     $(':root').css('--input_bg_color',window.template.form_elements.input.input_bg_color);
+    $(':root').css('--input_transition_duration',window.template.form_elements.input.input_transition_duration);
 
     $(':root').css('--input_focus_outline_width',`${window.template.form_elements.input.input_focus_outline_width}`);
     $(':root').css('--input_focus_outline_color',`${window.template.form_elements.input.input_focus_outline_color}`);
@@ -107,6 +108,7 @@ set_form_elements_vars = function(){
     $(':root').css('--button1_bg_color',window.template.form_elements.button1.button1_bg_color)
     $(':root').css('--button1_outline_color',window.template.form_elements.button1.button1_outline_color)
     $(':root').css('--button1_outline_width',window.template.form_elements.button1.button1_outline_width)
+    $(':root').css('--button1_transition_duration',window.template.form_elements.button1.button1_transition_duration)
     $(':root').css('--button1_hover_font_color',window.template.form_elements.button1.button1_hover_font_color)
     $(':root').css('--button1_hover_bg_color',window.template.form_elements.button1.button1_hover_bg_color)
     $(':root').css('--button1_hover_outline_color',window.template.form_elements.button1.button1_hover_outline_color)
@@ -128,6 +130,7 @@ set_form_elements_vars = function(){
     $(':root').css('--button2_bg_color',window.template.form_elements.button2.button2_bg_color)
     $(':root').css('--button2_outline_color',window.template.form_elements.button2.button2_outline_color)
     $(':root').css('--button2_outline_width',window.template.form_elements.button2.button2_outline_width)
+    $(':root').css('--button2_transition_duration',window.template.form_elements.button2.button2_transition_duration)
     $(':root').css('--button2_hover_font_color',window.template.form_elements.button2.button2_hover_font_color)
     $(':root').css('--button2_hover_bg_color',window.template.form_elements.button2.button2_hover_bg_color)
     $(':root').css('--button2_hover_outline_color',window.template.form_elements.button2.button2_hover_outline_color)

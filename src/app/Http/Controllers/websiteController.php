@@ -44,7 +44,7 @@ class websiteController extends Controller
             }
             //
             if(!self::check_language($request->lang)){
-                return redirect()->route('website.home',['lang'=>$this->lang]);
+                return redirect()->route('website_home',['lang'=>$this->lang]);
             };
             self::check_subscription($request->route()->getName());//need to be checked
             self::auth_check($request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip());//need to be checked
@@ -55,7 +55,7 @@ class websiteController extends Controller
 
     public function home(Request $request)
     {
-        return view('website.website',[
+        return view("website.index",[
             'website_id' => $this->website_id,
             'lang' => $this->lang,
             'website_direction' => $this->website_direction,
@@ -107,7 +107,7 @@ class websiteController extends Controller
         }
     }
     public function check_subscription($route_name){
-        return redirect()->route('website.home',['lang' => $this->lang]);
+        return redirect()->route('website_home',['lang' => $this->lang]);
 
         if($this->website->subscription_status != 'trialing' && $this->website->subscription_status != 'active' && $this->website->subscription_status != 'past_due'){
             if($route_name != 'websiteNotActive'){
@@ -119,7 +119,7 @@ class websiteController extends Controller
             }
         }else{
             if($route_name == 'websiteNotActive'){
-                return redirect()->route('website.home',['lang' => $this->lang]);
+                return redirect()->route('website_home',['lang' => $this->lang]);
             }
         }
     }
@@ -129,7 +129,7 @@ class websiteController extends Controller
             $this->auth_type = 'user';
             if($this->user ->isBanned == true){
                 Auth::guard('user')->logout();
-                return redirect()->route('website.home',['lang' => $this->lang]);
+                return redirect()->route('website_home',['lang' => $this->lang]);
             }else{
                 User::where(['id' => $this->user->id ])->update(['lastSeen' => Carbon::now()->timestamp]);
             }

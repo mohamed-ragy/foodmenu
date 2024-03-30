@@ -116,7 +116,7 @@ for(const key in website.trendingProducts){
 }
 // console.log(website.trendingProducts2)
 
-// if(routeName == 'website.home'){
+// if(routeName == 'website_home'){
     website.gallery == '' ? website.gallery = [] : website.gallery = website.gallery.split('.');
     website.galleryImgs = [];
     if(website.isDemo){

@@ -22,6 +22,10 @@ input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-butto
     font-size:var(--input_font_size);
     color:var(--input_font_color);
     background-color: var(--input_bg_color);
+    transition-duration: var(--input_transition_duration);
+    outline-style: solid;
+    outline-width: 0px;
+    outline-color: transparent;
 }
 .input:focus{
     outline-style: solid;
@@ -70,6 +74,7 @@ textarea{
     outline-style: solid;
     outline-color:var(--button1_outline_color);
     outline-width:var(--button1_outline_width);
+    transition-duration: var(--button1_transition_duration);
 }
 .button1:hover{
     color:var(--button1_hover_font_color);
@@ -108,6 +113,7 @@ textarea{
     outline-style: solid;
     outline-color:var(--button2_outline_color);
     outline-width:var(--button2_outline_width);
+    transition-duration: var(--button2_transition_duration);
 }
 .button2:hover{
     color:var(--button2_hover_font_color);

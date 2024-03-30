@@ -1,7 +1,7 @@
 request_pexels_search = function(search,page){
     $('#imgBrowser_imgs_container_pexels').text('');
     draw_imgBrowser_loading_imgs('pexels');
-    showBtnLoading($('#color_picker_pexels_search_btn'))
+    showBtnLoading($('#imgBrowser_pexels_search_btn'))
     $('.imgBrowser_pexels_pagination').removeClass('none');
     $('.imgBrowser_pexels_pagination_prev').addClass('imgBrowser_pexels_pagination_arrow_dump')
     $('.imgBrowser_pexels_pagination_next').addClass('imgBrowser_pexels_pagination_arrow_dump')
@@ -16,7 +16,7 @@ request_pexels_search = function(search,page){
             size:window.pexels_filters_size,
             color:window.pexels_filters_color,
         },success:function(r){
-            hideBtnLoading($('#color_picker_pexels_search_btn'))
+            hideBtnLoading($('#imgBrowser_pexels_search_btn'))
             $('.popupBody').scrollTop(0)
             $('.imgBrowser_pexels_pagination_prev').removeClass('imgBrowser_pexels_pagination_arrow_dump')
             $('.imgBrowser_pexels_pagination_next').removeClass('imgBrowser_pexels_pagination_arrow_dump')

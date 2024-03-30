@@ -51,7 +51,7 @@ window.Echo.connector.pusher.connection.bind('connected', () => {
 });
 
 showFirstPage = () => {
-    if(routeName == 'website.home'){
+    if(routeName == 'website_home'){
         switchPage($('#home'),showHomePage())
         window.history.replaceState({'page':'home'},``, null);
         // userStatus({'status': 'user_browse_home'});

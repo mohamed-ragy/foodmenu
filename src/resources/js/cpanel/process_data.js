@@ -168,7 +168,7 @@ process_data = function(){
     }
     window.imgs_getMore = true;
     window.imgs_noMore = false;
-    window.imgBrowser = {opened:false,title:'',imgBrowserClass:''}
+    window.imgBrowser = {opened:false,title:'',imgBrowserClass:'',pexels_search_results:[],pexels_search_page:1}
     window.share = {item:null,type:null}
     window.plans = foodMenuData.plans;
     ////////////
