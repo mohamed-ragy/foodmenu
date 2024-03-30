@@ -18,7 +18,6 @@ $(document).ready(function(){
     window.text = texts[window.lang]
     text.page_title = window.title;
     text.page_description = window.description;
-    user_status({'status': `user_browse_${window.route}`})
 
     // draw_page(function(){
     //     $('#page').append(draw_home_page())

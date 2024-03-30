@@ -9,6 +9,9 @@ window.Echo.connector.pusher.connection.bind('connected', () => {
         },
         type:'POST',
     });
+    setTimeout(()=>{
+        user_status({'status': `user_browse_${window.route}`})
+    },100)
 });
 
 window.websiteChannel = window.Echo.private(`websiteChannel.${website_id}.${auth.type}.${auth.id}`)
