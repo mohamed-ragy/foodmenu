@@ -785,8 +785,9 @@ class designController extends Controller
                 $tempname = 'foodmenu-'. $website->domainName .'-'. $hash;
                 $filename = "$tempname.$fileExtention";
 
-                $path = storage_path("app/public/websites/$this->website_id/imgs/$filename");
-                file_put_contents($path, $image);
+                $path = "websites/$this->website_id/imgs/$filename";
+                Storage::disk('local')->put($path, $image);
+
                 ///
                 $manager = new ImageManager(Driver::class);
                 $thumbnail = $manager->read($image);
