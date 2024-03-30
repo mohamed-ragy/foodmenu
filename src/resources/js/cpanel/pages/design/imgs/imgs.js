@@ -3,11 +3,18 @@ drawImg = function(img,append='append'){
     let planStorage = window.plans[website.plan].storage
     let imgSize = ( (img.size/1024)/1024 ).toFixed(2);
     let imgSizePercent = ( imgSize / planStorage * 100).toFixed(2);
+    let photographer_elem;
+    if(img.type == 'pexels'){
+        photographer_elem = $('<div/>',{class:'row mX5 fs08 mB10'}).append(
+            $('<span/>',{html:`This image was taken by <a href="${img.photographer_url}" target="_blank">${img.photographer}</a> on Pexels.`})
+        )
+    }
     let elem = $('<div/>',{
         class:'imgsImgCard',
         imgId:img.id,
     }).append(
-        $('<img/>',{class:'w300 h300 ofCover mxw100p',src:img.url,}),
+        $('<img/>',{class:'w300 h300 ofContain mxw100p',src:img.thumbnail_url,}),
+        photographer_elem,
         $('<div/>',{
             class:'w300 fs09 mB10',
         }).append(
@@ -97,7 +104,7 @@ $('html,body').on('click','.deleteImg',function(e){
         $('.popupBody').append(
             $('<div/>',{class:'msgBox_orange'}).append(
                 $('<span/>',{class:'fs103 taC bold',text:texts.design.imgDeleteConfirm,}),
-                $('<img/>',{src:img.url,class:'deleteImgConfirmImg'}),
+                $('<img/>',{src:img.thumbnail_url,class:'deleteImgConfirmImg'}),
             ),
             $('<div/>',{
                 class:'btnContainer mT40',

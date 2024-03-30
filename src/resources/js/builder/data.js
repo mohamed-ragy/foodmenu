@@ -15,14 +15,23 @@ get_blank_home_section = function(){
         sort:0,
         tag:'section',
         type:'home_section',
-        color_theme:'transparent',
         class:'',
         style_class:hash(),
         style:{
             'padding' :'10px',
         },
         background:'color_theme',
-        background_style:{},
+        color_theme:'transparent',
+        background_image:{
+            'background-image' : '/storage/imgs/cpanel/noimg2.png',
+            'background-attachment' : 'local',
+            'background-position-x' : 'center',
+            'background-position-y' : 'center',
+            'background-repeat' : 'no-repeat',
+            'background-size' : 'cover',
+            'background-blend-mode' : 'normal',
+            'background-color' : '#ffffff',
+        },
         children:{},
     };
 }

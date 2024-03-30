@@ -58,7 +58,7 @@ $('html,body').on('click','.add_home_section',function(e){
     let section_sort = $(this).attr('section_sort');
     show_popup(function(){
         $('.popupTitle').text(texts.add_section);
-        $('.popupBody').addClass('w900 h600').attr('section_sort',section_sort).append(
+        $('.popupBody').addClass('').attr('section_sort',section_sort).append(
             $('<div/>',{class:'add_section_popup_container'}).append(
                 $('<div/>',{class:'add_home_section_type_elem_container'}).append(
                     $('<div/>',{class:'add_home_section_type_elem add_home_section_type_elem_selected',text:texts.home_sections.blank,type:'blank'}).append(

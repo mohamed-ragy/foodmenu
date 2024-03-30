@@ -24,11 +24,14 @@ class generate_js
         $this->langs = $langs;
 
 
-        //
+        //loading spinner
         $loading_spinner_html = $this->template['loading_spinner']['elem'];
         self::add_to_file("draw_loading_spinner = function(size){return `{$loading_spinner_html}`.replace(':size:',size);};");
-        // $loading_screen_html = self::generate_html_elem($this->template['loading_screen']);
-        // self::add_to_file("draw_loading_screen_page = function(){ return `{$loading_screen_html}`; };");
+
+
+
+
+        ///draw home page
         $home_html = '';
         foreach($this->template['home'] as $section){
             $home_html = $home_html.self::generate_html_elem($section);
@@ -36,6 +39,9 @@ class generate_js
         self::add_to_file("draw_home_page = function(){ return `{$home_html}`; };");
 
 
+
+
+        //////draw_page
         $page_transitionDuration = str_replace('ms','',$this->template['page_setup']['transitionDuration']);
         self::add_to_file("draw_page = function(callback=()=>{}){
             $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
@@ -47,11 +53,24 @@ class generate_js
                     $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
                 },{$page_transitionDuration});
             },{$page_transitionDuration});
-        }");
+        };");
         //
 
 
 
+        /////smooth scrolling
+        if($this->template['page_setup']['smooth_scroll'] == '1'){
+            self::add_to_file("$('body').on('mousewheel', function(e){
+                    if(event.wheelDelta < 0){
+                        $('body').stop(false,false).animate({scrollTop:$('body').scrollTop() + (parseFloat($(window).height()) / 2)},{duration: 600,specialEasing: {width: 'easeOutBounce',height: 'easeOutBounce'}});
+                    }else{
+                        $('body').stop(false,false).animate({scrollTop:$('body').scrollTop() - (parseFloat($(window).height()) / 2)},{duration: 600,specialEasing: {width: 'easeOutBounce',height: 'easeOutBounce'}});
+                    }
+                });
+            ");
+
+        }
+        /////website basic texts
         $website_texts = websiteText::where(['website_id'=>$this->template->website_id])->select(['text','lang'])->get();
         foreach($website_texts as $texts){
             $this->text[$texts['lang']]['authentication'] = $texts['text']['authentication'];
@@ -61,10 +80,12 @@ class generate_js
             $this->text[$texts['lang']]['other'] = $texts['text']['other'];
             // $this->text[$texts['lang']]['receipt'] = $texts['text']['receipt'];
         }
+
+
+
+        ///save file
         $this->js_file = "window.texts = ".json_encode($this->text).";".$this->js_file;
-
         $this->js_file = str_replace(array("\r","\n"),"",$this->js_file);
-
         if(Storage::put('websites/'.$this->template->website_id.'/script.js', $this->js_file)){
             website::where('id',$this->template->website_id)->increment('style_version');
             return true;
@@ -95,7 +116,13 @@ class generate_js
                     $html_start = $html_start." ".$elem['style_class'];
                 }
                 if(array_key_exists('color_theme',$elem)){
-                    $html_start = $html_start." ".$elem['color_theme'];
+                    if(array_key_exists('background',$elem)){
+                        if($elem['background'] == 'color_theme'){
+                            $html_start = $html_start." ".$elem['color_theme'];
+                        }
+                    }else{
+                        $html_start = $html_start." ".$elem['color_theme'];
+                    }
                 }
                 $html_start = $html_start."\"";
 

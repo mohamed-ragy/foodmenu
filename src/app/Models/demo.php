@@ -610,8 +610,10 @@ class demo
 
         $catImg = img::create([
             'website_id' => $demoWebsite->id,
+            'type' => 'storage',
             'name' => $category['name'],
             'url' => "/storage/".$category['imgUrl'],
+            'thumbnail_url' => "/storage/".$category['thumbnailUrl'],
             'extension' => 'webp',
             'size' => 104857,
             'height' => 1200,
@@ -708,8 +710,10 @@ class demo
         $prodDes = $prodDescriptions[array_rand($prodDescriptions)];
         $prodImg = img::create([
             'website_id' => $demoWebsite->id,
+            'type' => 'storage',
             'name' => $product['name'],
             'url' => "/storage/".$product['imgUrl'],
+            'thumbnail_url' => "/storage/".$product['thumbnailUrl'],
             'extension' => 'webp',
             'size' => random_int(1000000,10000000),
             'height' => 1200,

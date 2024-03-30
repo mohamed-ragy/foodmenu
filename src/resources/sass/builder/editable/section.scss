@@ -31,12 +31,14 @@ section:hover{
     justify-content: flex-start;
     top:10px;
     left:10px;
+    z-index: 100;
 }
 
 .swap_home_section_up_btn, .dublicate_home_section_btn, .swap_home_section_down_btn, .edit_home_section_btn, .delete_home_section_btn{
     transition-duration: 300ms;
     transform: translateX(-500px);
     min-width:unset;
+    width:unset;
     font-size:1.3em;
     margin:3px 0;
     padding:8px;
@@ -56,6 +58,7 @@ section:hover{
     cursor: pointer;
     transition-duration: 300ms;
     min-width:unset;
+    width:unset;
     font-size:1.3em;
     margin:3px 0;
     padding:8px;

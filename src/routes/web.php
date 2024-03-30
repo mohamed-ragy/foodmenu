@@ -225,13 +225,18 @@ $website = function() use ($getHost){
     $lang = Cookie::get(Str::slug($getHost.'_lang', '_')) ?? 'en';
     Route::get('/', function () use ($lang){
         return redirect()->route('website.home', $lang);
-    });
+    })->name('website.root');
 
     Route::prefix('{lang}')->group(function () use ($lang){
         Route::get('/', function  () use ($lang){
             return redirect()->route('website.home', $lang);
         });
         Route::get('/home',[websiteController::class,'home',$lang])->name('website.home');
+
+    });
+
+    Route::prefix('api')->group(function () {
+        Route::post('/activity',[websiteController::class,'activity'])->name('website.activity');
 
     });
 

@@ -47,12 +47,6 @@ class generate_css
                     foreach($elem['style'] as $key => $val){
                         $css = $css."{$key}:{$val};";
                     }
-                    if(array_key_exists('background_style',$elem)){
-                        foreach($elem['background_style'] as $key => $val){
-                            if($key == 'background-image'){$val = "url('".$val."')";}
-                            $css = $css."{$key}:{$val};";
-                        }
-                    }
                     if(array_key_exists('style_mobile', $elem)){
                         $css = $css."@media (max-width:720px){";
                         foreach($elem['style_mobile'] as $key => $val){
@@ -60,6 +54,14 @@ class generate_css
                             $css = $css."{$key}:{$val};";
                         }
                         $css = $css."}";
+                    }
+                    if(array_key_exists('background', $elem)){
+                        if($elem['background'] == 'image'){
+                            foreach($elem['background_image'] as $key => $val){
+                                if($key == 'background-image'){$val = "url('".$val."')";}
+                                $css = $css."{$key}:{$val};";
+                            }
+                        }
                     }
                     $css_end = "}";
                     self::add_to_file($css_start.$css.$css_end);
@@ -73,29 +75,44 @@ class generate_css
     }
 
     public function generate_vars(){
-        $page_color_theme = explode('_',$this->template['page_setup']['page_color_theme']);
-        $body_color_theme_bg = $this->template['website_colors']['c'.$page_color_theme[1]];
-        $body_color_theme_txt = $this->template['website_colors']['c'.$page_color_theme[2]];
-        if($this->template['form_elements']['input']['background_fill'] == '1'){
-            $input_bg_color = "rgb({$this->template['form_elements']['input']['input_bg_color']['r']},{$this->template['form_elements']['input']['input_bg_color']['g']},{$this->template['form_elements']['input']['input_bg_color']['b']})";
-        }else{
-            $input_bg_color = "transparent";
-        }
-        if($this->template['form_elements']['input']['focus_background_fill'] == '1'){
-            $input_focus_bg_color = "rgb({$this->template['form_elements']['input']['focus_bg_color']['r']},{$this->template['form_elements']['input']['focus_bg_color']['g']},{$this->template['form_elements']['input']['focus_bg_color']['b']})";
-        }else{
-            $input_focus_bg_color = "var(--input_bg_color)";
-        }
         $css = <<<string
         :root{
-        --color_1:rgb({$this->template['website_colors']['c1']['r']},{$this->template['website_colors']['c1']['g']},{$this->template['website_colors']['c1']['b']});
-        --color_2:rgb({$this->template['website_colors']['c2']['r']},{$this->template['website_colors']['c2']['g']},{$this->template['website_colors']['c2']['b']});
-        --color_3:rgb({$this->template['website_colors']['c3']['r']},{$this->template['website_colors']['c3']['g']},{$this->template['website_colors']['c3']['b']});
-        --color_4:rgb({$this->template['website_colors']['c4']['r']},{$this->template['website_colors']['c4']['g']},{$this->template['website_colors']['c4']['b']});
-        --color_star:rgb({$this->template['website_colors']['c_star']['r']},{$this->template['website_colors']['c_star']['g']},{$this->template['website_colors']['c_star']['b']});
-        --color_error:rgb({$this->template['website_colors']['c_error']['r']},{$this->template['website_colors']['c_error']['g']},{$this->template['website_colors']['c_error']['b']});
-        --color_success:rgb({$this->template['website_colors']['c_success']['r']},{$this->template['website_colors']['c_success']['g']},{$this->template['website_colors']['c_success']['b']});
-        --color_warning:rgb({$this->template['website_colors']['c_warning']['r']},{$this->template['website_colors']['c_warning']['g']},{$this->template['website_colors']['c_warning']['b']});
+        --color_1:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_2:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_3:{$this->template['website_colors']['color_theme']['color_3']};
+        --color_4:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_star:{$this->template['website_colors']['other_colors']['color_star']};
+        --color_error:{$this->template['website_colors']['other_colors']['color_error']};
+        --color_success:{$this->template['website_colors']['other_colors']['color_success']};
+        --color_warning:{$this->template['website_colors']['other_colors']['color_warning']};
+        --color_theme_1_bg:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_theme_1_txt:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_theme_2_bg:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_theme_2_txt:{$this->template['website_colors']['color_theme']['color_3']};
+        --color_theme_3_bg:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_theme_3_txt:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_theme_4_bg:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_theme_4_txt:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_theme_5_bg:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_theme_5_txt:{$this->template['website_colors']['color_theme']['color_3']};
+        --color_theme_6_bg:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_theme_6_txt:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_theme_7_bg:{$this->template['website_colors']['color_theme']['color_3']};
+        --color_theme_7_txt:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_theme_8_bg:{$this->template['website_colors']['color_theme']['color_3']};
+        --color_theme_8_txt:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_theme_9_bg:{$this->template['website_colors']['color_theme']['color_3']};
+        --color_theme_9_txt:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_theme_10_bg:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_theme_10_txt:{$this->template['website_colors']['color_theme']['color_1']};
+        --color_theme_11_bg:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_theme_11_txt:{$this->template['website_colors']['color_theme']['color_2']};
+        --color_theme_12_bg:{$this->template['website_colors']['color_theme']['color_4']};
+        --color_theme_12_txt:{$this->template['website_colors']['color_theme']['color_3']};
+
+        --body_color_theme_bg:var(--{$this->template['page_setup']['page_color_theme']}_bg);
+        --body_color_theme_txt:var(--{$this->template['page_setup']['page_color_theme']}_txt);
+
         --font_t:{$this->template['font_style']['title']};
         --font_t_fw:{$this->template['font_style']['title_weight']};
         --font_t_lh:{$this->template['font_style']['title_line_height']};
@@ -106,72 +123,79 @@ class generate_css
         --font_p_ls:{$this->template['font_style']['paragraph_letter_spacing']};
         --page_max_width:{$this->template['page_setup']['max_width']};
         --page_margin:{$this->template['page_setup']['page_margin']};
-        --body_color_theme_bg:rgb({$body_color_theme_bg['r']},{$body_color_theme_bg['g']},{$body_color_theme_bg['b']});
-        --body_color_theme_txt:rgb({$body_color_theme_txt['r']},{$body_color_theme_txt['g']},{$body_color_theme_txt['b']});
+
         --page_transition:{$this->template['page_setup']['pageTransition']};
         --page_transitionDuration:{$this->template['page_setup']['transitionDuration']};
         --form_align:{$this->template['form_elements']['form_align']};
         --form_elem_spacing:{$this->template['form_elements']['spacing']};
-        --input_text_align:{$this->template['form_elements']['input']['text_align']};
-        --input_padding_y:{$this->template['form_elements']['input']['padding_y']};
-        --input_padding_x:{$this->template['form_elements']['input']['padding_x']};
-        --input_border_style:{$this->template['form_elements']['input']['border_style']};
-        --input_border_width:{$this->template['form_elements']['input']['border_width']};
-        --input_border_radius:{$this->template['form_elements']['input']['border_radius']};
-        --input_border_color:rgb({$this->template['form_elements']['input']['border_color']['r']},{$this->template['form_elements']['input']['border_color']['g']},{$this->template['form_elements']['input']['border_color']['b']});
-        --font_size:{$this->template['form_elements']['input']['font_size']};
-        --input_font_color:rgb({$this->template['form_elements']['input']['font_color']['r']},{$this->template['form_elements']['input']['font_color']['g']},{$this->template['form_elements']['input']['font_color']['b']});
-        --input_label_font_size:{$this->template['form_elements']['input']['label_font_size']};
-        --input_bg_color:{$input_bg_color};
-        --input_focus_outline_width:{$this->template['form_elements']['input']['focus_outline_width']};
-        --input_focus_outline_color:rgb({$this->template['form_elements']['input']['focus_outline_color']['r']},{$this->template['form_elements']['input']['focus_outline_color']['g']},{$this->template['form_elements']['input']['focus_outline_color']['b']});
-        --input_focus_bg_color:{$input_focus_bg_color};
-        --checkbox_border_radius:{$this->template['form_elements']['checkbox']['border_radius']};
-        --checkbox_size:{$this->template['form_elements']['checkbox']['size']};
-        --checkbox_color:rgb({$this->template['form_elements']['checkbox']['color']['r']},{$this->template['form_elements']['checkbox']['color']['g']},{$this->template['form_elements']['checkbox']['color']['b']});
-        --checkbox_checkMark_color:rgb({$this->template['form_elements']['checkbox']['check_mark_color']['r']},{$this->template['form_elements']['checkbox']['check_mark_color']['g']},{$this->template['form_elements']['checkbox']['check_mark_color']['b']});
-        --button1_padding_y:{$this->template['form_elements']['button1']['padding_y']};
-        --button1_padding_x:{$this->template['form_elements']['button1']['padding_x']};
-        --button1_border_radius:{$this->template['form_elements']['button1']['border_radius']};
-        --button1_font_size:{$this->template['form_elements']['button1']['font_size']};
-        --button1_font_color:rgb({$this->template['form_elements']['button1']['font_color']['r']},{$this->template['form_elements']['button1']['font_color']['g']},{$this->template['form_elements']['button1']['font_color']['b']});
-        --button1_bg_color:rgb({$this->template['form_elements']['button1']['bg_color']['r']},{$this->template['form_elements']['button1']['bg_color']['g']},{$this->template['form_elements']['button1']['bg_color']['b']});
-        --button1_outline_color:rgb({$this->template['form_elements']['button1']['outline_color']['r']},{$this->template['form_elements']['button1']['outline_color']['g']},{$this->template['form_elements']['button1']['outline_color']['b']});
-        --button1_outline_width:{$this->template['form_elements']['button1']['outline_width']};
-        --button1_hover_font_color:rgb({$this->template['form_elements']['button1']['hover_font_color']['r']},{$this->template['form_elements']['button1']['hover_font_color']['g']},{$this->template['form_elements']['button1']['hover_font_color']['b']});
-        --button1_hover_bg_color:rgb({$this->template['form_elements']['button1']['hover_bg_color']['r']},{$this->template['form_elements']['button1']['hover_bg_color']['g']},{$this->template['form_elements']['button1']['hover_bg_color']['b']});
-        --button1_hover_outline_color:rgb({$this->template['form_elements']['button1']['hover_outline_color']['r']},{$this->template['form_elements']['button1']['hover_outline_color']['g']},{$this->template['form_elements']['button1']['hover_outline_color']['b']});
-        --button1_hover_outline_width:{$this->template['form_elements']['button1']['hover_outline_width']};
-        --button1_click_font_color:rgb({$this->template['form_elements']['button1']['click_font_color']['r']},{$this->template['form_elements']['button1']['click_font_color']['g']},{$this->template['form_elements']['button1']['click_font_color']['b']});
-        --button1_click_bg_color:rgb({$this->template['form_elements']['button1']['click_bg_color']['r']},{$this->template['form_elements']['button1']['click_bg_color']['g']},{$this->template['form_elements']['button1']['click_bg_color']['b']});
-        --button1_click_outline_color:rgb({$this->template['form_elements']['button1']['click_outline_color']['r']},{$this->template['form_elements']['button1']['click_outline_color']['g']},{$this->template['form_elements']['button1']['click_outline_color']['b']});
-        --button1_click_outline_width:{$this->template['form_elements']['button1']['click_outline_width']};
-        --button1_disabled_font_color:rgb({$this->template['form_elements']['button1']['disabled_font_color']['r']},{$this->template['form_elements']['button1']['disabled_font_color']['g']},{$this->template['form_elements']['button1']['disabled_font_color']['b']});
-        --button1_disabled_bg_color:rgb({$this->template['form_elements']['button1']['disabled_bg_color']['r']},{$this->template['form_elements']['button1']['disabled_bg_color']['g']},{$this->template['form_elements']['button1']['disabled_bg_color']['b']});
-        --button1_disabled_outline_color:rgb({$this->template['form_elements']['button1']['disabled_outline_color']['r']},{$this->template['form_elements']['button1']['disabled_outline_color']['g']},{$this->template['form_elements']['button1']['disabled_outline_color']['b']});
-        --button1_disabled_outline_width:{$this->template['form_elements']['button1']['disabled_outline_width']};
-        --button2_padding_y:{$this->template['form_elements']['button2']['padding_y']};
-        --button2_padding_x:{$this->template['form_elements']['button2']['padding_x']};
-        --button2_border_radius:{$this->template['form_elements']['button2']['border_radius']};
-        --button2_font_size:{$this->template['form_elements']['button2']['font_size']};
-        --button2_font_color:rgb({$this->template['form_elements']['button2']['font_color']['r']},{$this->template['form_elements']['button2']['font_color']['g']},{$this->template['form_elements']['button2']['font_color']['b']});
-        --button2_bg_color:rgb({$this->template['form_elements']['button2']['bg_color']['r']},{$this->template['form_elements']['button2']['bg_color']['g']},{$this->template['form_elements']['button2']['bg_color']['b']});
-        --button2_outline_color:rgb({$this->template['form_elements']['button2']['outline_color']['r']},{$this->template['form_elements']['button2']['outline_color']['g']},{$this->template['form_elements']['button2']['outline_color']['b']});
-        --button2_outline_width:{$this->template['form_elements']['button2']['outline_width']};
-        --button2_hover_font_color:rgb({$this->template['form_elements']['button2']['hover_font_color']['r']},{$this->template['form_elements']['button2']['hover_font_color']['g']},{$this->template['form_elements']['button2']['hover_font_color']['b']});
-        --button2_hover_bg_color:rgb({$this->template['form_elements']['button2']['hover_bg_color']['r']},{$this->template['form_elements']['button2']['hover_bg_color']['g']},{$this->template['form_elements']['button2']['hover_bg_color']['b']});
-        --button2_hover_outline_color:rgb({$this->template['form_elements']['button2']['hover_outline_color']['r']},{$this->template['form_elements']['button2']['hover_outline_color']['g']},{$this->template['form_elements']['button2']['hover_outline_color']['b']});
-        --button2_hover_outline_width:{$this->template['form_elements']['button2']['hover_outline_width']};
-        --button2_click_font_color:rgb({$this->template['form_elements']['button2']['click_font_color']['r']},{$this->template['form_elements']['button2']['click_font_color']['g']},{$this->template['form_elements']['button2']['click_font_color']['b']});
-        --button2_click_bg_color:rgb({$this->template['form_elements']['button2']['click_bg_color']['r']},{$this->template['form_elements']['button2']['click_bg_color']['g']},{$this->template['form_elements']['button2']['click_bg_color']['b']});
-        --button2_click_outline_color:rgb({$this->template['form_elements']['button2']['click_outline_color']['r']},{$this->template['form_elements']['button2']['click_outline_color']['g']},{$this->template['form_elements']['button2']['click_outline_color']['b']});
-        --button2_click_outline_width:{$this->template['form_elements']['button2']['click_outline_width']};
-        --button2_disabled_font_color:rgb({$this->template['form_elements']['button2']['disabled_font_color']['r']},{$this->template['form_elements']['button2']['disabled_font_color']['g']},{$this->template['form_elements']['button2']['disabled_font_color']['b']});
-        --button2_disabled_bg_color:rgb({$this->template['form_elements']['button2']['disabled_bg_color']['r']},{$this->template['form_elements']['button2']['disabled_bg_color']['g']},{$this->template['form_elements']['button2']['disabled_bg_color']['b']});
-        --button2_disabled_outline_color:rgb({$this->template['form_elements']['button2']['disabled_outline_color']['r']},{$this->template['form_elements']['button2']['disabled_outline_color']['g']},{$this->template['form_elements']['button2']['disabled_outline_color']['b']});
-        --button2_disabled_outline_width:{$this->template['form_elements']['button2']['disabled_outline_width']};
-        --loading_spinner_c1:rgb({$this->template['loading_spinner']['colors']['loading_spinner_c1']['r']},{$this->template['loading_spinner']['colors']['loading_spinner_c1']['g']},{$this->template['loading_spinner']['colors']['loading_spinner_c1']['b']});
-        --loading_spinner_c2:rgb({$this->template['loading_spinner']['colors']['loading_spinner_c2']['r']},{$this->template['loading_spinner']['colors']['loading_spinner_c2']['g']},{$this->template['loading_spinner']['colors']['loading_spinner_c2']['b']});
+        --input_text_align:{$this->template['form_elements']['input']['input_text_align']};
+        --input_padding_y:{$this->template['form_elements']['input']['input_padding_y']};
+        --input_padding_x:{$this->template['form_elements']['input']['input_padding_x']};
+        --input_border_style:{$this->template['form_elements']['input']['input_border_style']};
+        --input_border_width:{$this->template['form_elements']['input']['input_border_width']};
+        --input_border_radius:{$this->template['form_elements']['input']['input_border_radius']};
+        --input_border_color:{$this->template['form_elements']['input']['input_border_color']};
+        --input_font_size:{$this->template['form_elements']['input']['input_font_size']};
+        --input_font_color:{$this->template['form_elements']['input']['input_font_color']};
+        --input_label_font_size:{$this->template['form_elements']['input']['input_label_font_size']};
+        --input_label_margin:{$this->template['form_elements']['input']['input_label_margin']};
+        --input_bg_color:{$this->template['form_elements']['input']['input_bg_color']};
+
+        --input_focus_outline_width:{$this->template['form_elements']['input']['input_focus_outline_width']};
+        --input_focus_outline_color:{$this->template['form_elements']['input']['input_focus_outline_color']};
+        --input_focus_bg_color:{$this->template['form_elements']['input']['input_focus_bg_color']};
+
+        --checkbox_border_radius:{$this->template['form_elements']['checkbox']['checkbox_border_radius']};
+        --checkbox_size:{$this->template['form_elements']['checkbox']['checkbox_size']};
+        --checkbox_color:{$this->template['form_elements']['checkbox']['checkbox_color']};
+        --checkbox_checkMark_color:{$this->template['form_elements']['checkbox']['checkbox_checkMark_color']};
+
+        --button1_padding_y:{$this->template['form_elements']['button1']['button1_padding_y']};
+        --button1_padding_x:{$this->template['form_elements']['button1']['button1_padding_x']};
+        --button1_border_radius:{$this->template['form_elements']['button1']['button1_border_radius']};
+        --button1_font_size:{$this->template['form_elements']['button1']['button1_font_size']};
+        --button1_font_color:{$this->template['form_elements']['button1']['button1_font_color']};
+        --button1_bg_color:{$this->template['form_elements']['button1']['button1_bg_color']};
+        --button1_outline_color:{$this->template['form_elements']['button1']['button1_outline_color']};
+        --button1_outline_width:{$this->template['form_elements']['button1']['button1_outline_width']};
+        --button1_hover_font_color:{$this->template['form_elements']['button1']['button1_hover_font_color']};
+        --button1_hover_bg_color:{$this->template['form_elements']['button1']['button1_hover_bg_color']};
+        --button1_hover_outline_color:{$this->template['form_elements']['button1']['button1_hover_outline_color']};
+        --button1_hover_outline_width:{$this->template['form_elements']['button1']['button1_hover_outline_width']};
+        --button1_click_font_color:{$this->template['form_elements']['button1']['button1_click_font_color']};
+        --button1_click_bg_color:{$this->template['form_elements']['button1']['button1_click_bg_color']};
+        --button1_click_outline_color:{$this->template['form_elements']['button1']['button1_click_outline_color']};
+        --button1_click_outline_width:{$this->template['form_elements']['button1']['button1_click_outline_width']};
+        --button1_disabled_font_color:{$this->template['form_elements']['button1']['button1_disabled_font_color']};
+        --button1_disabled_bg_color:{$this->template['form_elements']['button1']['button1_disabled_bg_color']};
+        --button1_disabled_outline_color:{$this->template['form_elements']['button1']['button1_disabled_outline_color']};
+        --button1_disabled_outline_width:{$this->template['form_elements']['button1']['button1_disabled_outline_width']};
+
+
+
+        --button2_padding_y:{$this->template['form_elements']['button2']['button2_padding_y']};
+        --button2_padding_x:{$this->template['form_elements']['button2']['button2_padding_x']};
+        --button2_border_radius:{$this->template['form_elements']['button2']['button2_border_radius']};
+        --button2_font_size:{$this->template['form_elements']['button2']['button2_font_size']};
+        --button2_font_color:{$this->template['form_elements']['button2']['button2_font_color']};
+        --button2_bg_color:{$this->template['form_elements']['button2']['button2_bg_color']};
+        --button2_outline_color:{$this->template['form_elements']['button2']['button2_outline_color']};
+        --button2_outline_width:{$this->template['form_elements']['button2']['button2_outline_width']};
+        --button2_hover_font_color:{$this->template['form_elements']['button2']['button2_hover_font_color']};
+        --button2_hover_bg_color:{$this->template['form_elements']['button2']['button2_hover_bg_color']};
+        --button2_hover_outline_color:{$this->template['form_elements']['button2']['button2_hover_outline_color']};
+        --button2_hover_outline_width:{$this->template['form_elements']['button2']['button2_hover_outline_width']};
+        --button2_click_font_color:{$this->template['form_elements']['button2']['button2_click_font_color']};
+        --button2_click_bg_color:{$this->template['form_elements']['button2']['button2_click_bg_color']};
+        --button2_click_outline_color:{$this->template['form_elements']['button2']['button2_click_outline_color']};
+        --button2_click_outline_width:{$this->template['form_elements']['button2']['button2_click_outline_width']};
+        --button2_disabled_font_color:{$this->template['form_elements']['button2']['button2_disabled_font_color']};
+        --button2_disabled_bg_color:{$this->template['form_elements']['button2']['button2_disabled_bg_color']};
+        --button2_disabled_outline_color:{$this->template['form_elements']['button2']['button2_disabled_outline_color']};
+        --button2_disabled_outline_width:{$this->template['form_elements']['button2']['button2_disabled_outline_width']};
+
+        --loading_spinner_c1:{$this->template['loading_spinner']['colors']['loading_spinner_c1']});
+        --loading_spinner_c2:{$this->template['loading_spinner']['colors']['loading_spinner_c2']});
         }
         @font-face {font-family:'{$this->template['font_style']['title']}';src:url('/storage/fonts/{$this->template['font_style']['title']}.ttf')format('truetype');}
         @font-face {font-family:'{$this->template['font_style']['paragraph']}';src:url('/storage/fonts/{$this->template['font_style']['paragraph']}.ttf')format('truetype');}
@@ -190,35 +214,35 @@ class generate_css
         .font_p{font-family: var(--font_p);line-height: var(--font_p_lh);letter-spacing: var(--font_p_ls);font-weight: var(--font_p_fw)}
         .body_color_theme{background-color: var(--body_color_theme_bg);color: var(--body_color_theme_txt);}
         #page{ position: relative; width:100%; height:100%; }
-        .bgc_1{background-color: var(--color_1);}
-        .bgc_2{background-color: var(--color_2);}
-        .bgc_3{background-color: var(--color_3);}
-        .bgc_4{background-color: var(--color_4);}
-        .c_1{color: var(--color_1);}
-        .c_2{color: var(--color_2);}
-        .c_3{color: var(--color_3);}
-        .c_4{color: var(--color_4);}
+        .bg_color_1{background-color: var(--color_1);}
+        .bg_color_2{background-color: var(--color_2);}
+        .bg_color_3{background-color: var(--color_3);}
+        .bg_color_4{background-color: var(--color_4);}
+        .color_1{color: var(--color_1);}
+        .color_2{color: var(--color_2);}
+        .color_3{color: var(--color_3);}
+        .color_4{color: var(--color_4);}
         .transparent{background-color: unset;color:unset;}
-        .color_1_2{background-color: var(--color_1);color:var(--color_2);}
-        .color_1_3{background-color: var(--color_1);color:var(--color_3);}
-        .color_1_4{background-color: var(--color_1);color:var(--color_4);}
-        .color_2_1{background-color: var(--color_2);color:var(--color_1);}
-        .color_2_3{background-color: var(--color_2);color:var(--color_3);}
-        .color_2_4{background-color: var(--color_2);color:var(--color_4);}
-        .color_3_1{background-color: var(--color_3);color:var(--color_1);}
-        .color_3_2{background-color: var(--color_3);color:var(--color_2);}
-        .color_3_4{background-color: var(--color_3);color:var(--color_4);}
-        .color_4_1{background-color: var(--color_4);color:var(--color_1);}
-        .color_4_2{background-color: var(--color_4);color:var(--color_2);}
-        .color_4_3{background-color: var(--color_4);color:var(--color_3);}
-        .bgc_star{background-color: var(--color_star);}
-        .bgc_success{background-color: var(--color_success);}
-        .bgc_error{background-color: var(--color_error);}
-        .bgc_warning{background-color: var(--color_warning);}
-        .c_star{color: var(--color_star);}
-        .c_success{color: var(--color_success);}
-        .c_error{color: var(--color_error);}
-        .c_warning{color: var(--color_warning);}
+        .color_theme_1{background-color: var(--color_theme_1_bg);color:var(--color_theme_1_txt);}
+        .color_theme_2{background-color: var(--color_theme_2_bg);color:var(--color_theme_2_txt);}
+        .color_theme_3{background-color: var(--color_theme_3_bg);color:var(--color_theme_3_txt);}
+        .color_theme_4{background-color: var(--color_theme_4_bg);color:var(--color_theme_4_txt);}
+        .color_theme_5{background-color: var(--color_theme_5_bg);color:var(--color_theme_5_txt);}
+        .color_theme_6{background-color: var(--color_theme_6_bg);color:var(--color_theme_6_txt);}
+        .color_theme_7{background-color: var(--color_theme_7_bg);color:var(--color_theme_7_txt);}
+        .color_theme_8{background-color: var(--color_theme_8_bg);color:var(--color_theme_8_txt);}
+        .color_theme_9{background-color: var(--color_theme_9_bg);color:var(--color_theme_9_txt);}
+        .color_theme_10{background-color: var(--color_theme_10_bg);color:var(--color_theme_10_txt);}
+        .color_theme_11{background-color: var(--color_theme_11_bg);color:var(--color_theme_11_txt);}
+        .color_theme_12{background-color: var(--color_theme_12_bg);color:var(--color_theme_12_txt);}
+        .bg_color_star{background-color: var(--color_star);}
+        .bg_color_success{background-color: var(--color_success);}
+        .bg_color_error{background-color: var(--color_error);}
+        .bg_color_warning{background-color: var(--color_warning);}
+        .color_star{color: var(--color_star);}
+        .color_success{color: var(--color_success);}
+        .color_error{color: var(--color_error);}
+        .color_warning{color: var(--color_warning);}
         string;
         self::add_to_file($css);
     }

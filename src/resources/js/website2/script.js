@@ -24,7 +24,7 @@ require("./scripts/texts.js");
 require("./scripts/lang.js");
 require("./scripts/functions.js");
 require("./scripts/colors.js");
-require("./scripts/userStatus.js");
+// require("./scripts/userStatus.js");
 require("./scripts/diffTime.js");
 require("./scripts/tooltip.js");
 require("./scripts/auth.js");

@@ -90,7 +90,7 @@ $('html,body').on('click','.showSelectTemplate',function(e){
     }else{
         show_popup(function(){
             $('.popupTitle').text(window.texts.warning)
-            $('.popupBody').addClass('mxw500').append(
+            $('.popupBody').addClass('').append(
                 $('<div/>',{class:'msgBox_orange'}).append(
                     $('<div/>',{class:'ico-warning cO fs3 mB10'}),
                     $('<div/>',{class:'taC fs101 bold',text:texts.templateNotSaved}),

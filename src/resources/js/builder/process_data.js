@@ -10,6 +10,7 @@ process_data = function(r){
     window.imgs = [];
     window.imgs_noMore = false;
     window.imgs_getMore = true;
+    window.pexels_search_results = [];
     //
     window.selected_section = null;
     window.selected_page = null;

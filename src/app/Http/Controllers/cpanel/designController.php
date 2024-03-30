@@ -21,10 +21,9 @@ use App\Models\websiteText;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-
-use Imagick;
-use ImagickDraw;
-use ImagickPixel;
+use GuzzleHttp;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
 
 class designController extends Controller
 {
@@ -33,6 +32,8 @@ class designController extends Controller
     public function __construct()
     {
         // dd(['default' => $en]);
+
+
 
         $this->middleware(function ($request, $next) {
             if(!Auth::guard('account')->check()){
@@ -664,13 +665,14 @@ class designController extends Controller
             if($validate->fails()){
                 return response( ['imgUpladStatus'=> 0,'error'=> Lang::get('cpanel/design/responses.uploadError') ] );
             }else{
-                $domainName = website::where('id',$this->website_id)->pluck('domainName')->first();
+                $website = website::where('id',$this->website_id)->select(['domainName','plan'])->first();
                 $file = $request->file('designUploadImg');
                 $fileExtention = $file->guessExtension();
                 $fileSize = $file->getSize();
-                $tempname = 'foodmenu-'. $domainName .'-'. strtolower( Str::random(20) );
+                $hash = strtolower( Str::random(20) );
+                $tempname = 'foodmenu-'. $website->domainName .'-'. $hash;
 
-                $planStorage = foodmenuFunctions::plans()[website::where('id',$this->website_id)->pluck('plan')->first()]['storage'];
+                $planStorage = foodmenuFunctions::plans()[$website->plan]['storage'];
                 $planStorage = $planStorage * 1024 * 1024;
                 $currentStorage = img::where('website_id',$this->website_id)->sum('size');
                 $newStorage = $currentStorage + $fileSize;
@@ -680,16 +682,25 @@ class designController extends Controller
                     return response( ['imgUpladStatus'=> 2,'msg'=> Lang::get('cpanel/design/responses.noSpace') ] );
                 }else{
                     $file->storeAs('websites/'.$this->website_id.'/imgs/',$tempname.'.'.$fileExtention);
-
-
                     $img_width_height = getimagesize($file);
                     $width = $img_width_height[0];
                     $height = $img_width_height[1];
+                    //
+                    $manager = new ImageManager(Driver::class);
+                    $thumbnail = $manager->read($file);
+                    if((int)$width > (int)$height){
+                        $thumbnail->scaleDown(width: 250);
+                    }else{
+                        $thumbnail->scaleDown(height: 250);
+                    }
+                    $thumbnail->save('storage/websites/'.$this->website_id.'/imgs/'.$tempname.'_thumbnail.'.$fileExtention);
 
                     $img = new img();
                     $img->website_id = $this->website_id;
                     $img->name = $tempname;
+                    $img->type = 'storage';
                     $img->url = '/storage/websites/'.$this->website_id.'/imgs/'.$tempname.'.'.$fileExtention;
+                    $img->thumbnail_url = '/storage/websites/'.$this->website_id.'/imgs/'.$tempname.'_thumbnail.'.$fileExtention;
                     $img->extension = $fileExtention;
                     $img->size = $fileSize;
                     $img->width = $width;
@@ -712,9 +723,10 @@ class designController extends Controller
 
         }else if($request->has(['deleteImg'])){
             if(str_split($this->account->authorities)[3] == false){return;}
-            $img = img::where('id',$request->imgId)->select('url','name')->first();
-            $deleteFiles = File::delete(ltrim($img->url,'/'));
-            if($deleteFiles){
+            $img = img::where('id',$request->imgId)->select('url','thumbnail_url','name')->first();
+            $delete_img = File::delete(ltrim($img->url,'/'));
+            $delete_thumbnail = File::delete(ltrim($img->thumbnail_url,'/'));
+            if($delete_img && $delete_thumbnail){
                 if(img::where('id',$request->imgId)->delete()){
                     foodmenuFunctions::notification('img.delete',[
                         'website_id' => $this->website_id,
@@ -733,6 +745,92 @@ class designController extends Controller
             }else{
                 return response(['deleteImgStatus' => 0, 'msg' => Lang::get('cpanel/design/responses.imgDeleteError')]);
             }
+        }else if($request->has('search_pexels')){
+            $client = new GuzzleHttp\Client();
+            $response = $client->request('GET',"https://api.pexels.com/v1/search?query=$request->search_pexels&per_page=80&page=$request->page&orientation=$request->orientation&size=$request->size&color=$request->color",[
+            'headers' => [
+                    'Authorization'=> 'zpjq9kL33Q1vAN43u1QsUchQ41SgmPWuHFgBGyNsBazZybzdTiDx2j0l',
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
+            ]);
+            return response(['imgs' => json_decode($response->getBody())]);
+        }else if($request->has('add_pexel_img')){
+            $client = new GuzzleHttp\Client();
+            $response = $client->get($request->img_url);
+            if ($response->getStatusCode() === 200) {
+                $image = $response->getBody()->getContents();
+                if (!$response->hasHeader('Content-Type')) {
+                    return response(['code' => 0]);
+                }
+
+
+                $contentLength = $response->getHeader('Content-Length');
+                $fileSize = $contentLength ? (int)$contentLength[0] : null;
+
+
+                $website = website::where('id',$this->website_id)->select(['domainName','plan'])->first();
+                $planStorage = foodmenuFunctions::plans()[$website->plan]['storage'];
+                $planStorage = $planStorage * 1024 * 1024;
+                $currentStorage = img::where('website_id',$this->website_id)->sum('size');
+                $newStorage = $currentStorage + $fileSize;
+                if($newStorage > $planStorage){
+                    return response(['code' => 2]);
+                }
+
+                $contentType = $response->getHeader('Content-Type')[0];
+                $fileExtention = explode('/', $contentType)[1];
+                $dimensions = getimagesizefromstring($image);
+                $hash = strtolower( Str::random(20) );
+                $tempname = 'foodmenu-'. $website->domainName .'-'. $hash;
+                $filename = "$tempname.$fileExtention";
+
+                $path = storage_path("app/public/websites/$this->website_id/imgs/$filename");
+                file_put_contents($path, $image);
+                ///
+                $manager = new ImageManager(Driver::class);
+                $thumbnail = $manager->read($image);
+                if((int)$dimensions[0] > (int)$dimensions[1]){
+                    $thumbnail->scaleDown(width: 250);
+                }else{
+                    $thumbnail->scaleDown(height: 250);
+                }
+                $thumbnail->save('storage/websites/'.$this->website_id.'/imgs/'.$tempname.'_thumbnail.'.$fileExtention);
+                ///
+
+                $img = new img();
+                $img->website_id = $this->website_id;
+                $img->name = $tempname;
+                $img->type = 'pexels';
+                $img->photographer = $request->photographer;
+                $img->photographer_url = $request->photographer_url;
+                $img->url = '/storage/websites/'.$this->website_id.'/imgs/'.$tempname.'.'.$fileExtention;
+                $img->thumbnail_url = '/storage/websites/'.$this->website_id.'/imgs/'.$tempname.'_thumbnail.'.$fileExtention;
+                $img->extension = $fileExtention;
+                $img->size = $fileSize;
+                $img->width = $dimensions[0];
+                $img->height = $dimensions[1];
+                $img->save();
+
+                foodmenuFunctions::notification('img.upload',[
+                    'website_id' => $this->website_id,
+                    'code' => 'img.uploaded',
+                    'img_id' => $img->id,
+                    'img_name' => $img->name,
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                ],[
+                    'img'=>$img,
+                ]);
+
+                return response(['code' => 1, 'img' => $img]);
+            }else {
+                return response(['code' => 0]);
+            }
+
+
+
+
         }
 
         else if($request->has(['ticketUploadImg'])){

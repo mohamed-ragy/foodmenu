@@ -7,10 +7,11 @@ class templates_data
         $color_palettes = [];
         for($x=0;$x<=100;$x++){
             array_push($color_palettes,[
-                'c1' => ['r'=>random_int(0,255), 'g'=>random_int(0,255), 'b'=>random_int(0,255)],
-                'c2' => ['r'=>random_int(0,255), 'g'=>random_int(0,255), 'b'=>random_int(0,255)],
-                'c3' => ['r'=>random_int(0,255), 'g'=>random_int(0,255), 'b'=>random_int(0,255)],
-                'c4' => ['r'=>random_int(0,255), 'g'=>random_int(0,255), 'b'=>random_int(0,255)],
+                'color_1' => 'rgba('.random_int(0,255).','.random_int(0,255).','.random_int(0,255).')',
+                'color_2' => 'rgba('.random_int(0,255).','.random_int(0,255).','.random_int(0,255).')',
+                'color_3' => 'rgba('.random_int(0,255).','.random_int(0,255).','.random_int(0,255).')',
+                'color_4' => 'rgba('.random_int(0,255).','.random_int(0,255).','.random_int(0,255).')',
+
             ]);
         }
         return $color_palettes;

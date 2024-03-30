@@ -12,11 +12,11 @@ draw_loading_spinner = function(){
             $('<div/>',{class:'page_setup_row'}).append(
                 $('<div/>',{class:'taS mie-10 fs09',text:texts.colors}),
                  $('<div/>',{class:'row alnC jstfyE'}).append(
-                    $('<div/>',{class:'color_s_circle color_select',style:`background-color:var(--loading_spinner_c1)`,key_tree:'loading_spinner.colors',key:'loading_spinner_c1'}).append(
-                        $('<input/>',{class:'color_select_input vH absolute',type:'color'}),
+                    $('<div/>',{class:'color_picker_container mis-5'}).append(
+                        $('<input/>',{class:'color_picker',type:'text',style:`background-color:var(--loading_spinner_c1)`,value:window.template.settings.metrics_color,key:'loading_spinner_c1',key_tree:'loading_spinner.colors'}),
                     ),
-                    $('<div/>',{class:'color_s_circle color_select',style:`background-color:var(--loading_spinner_c2)`,key_tree:'loading_spinner.colors',key:'loading_spinner_c2'}).append(
-                        $('<input/>',{class:'color_select_input vH absolute',type:'color'}),
+                    $('<div/>',{class:'color_picker_container mis-5'}).append(
+                        $('<input/>',{class:'color_picker',type:'text',style:`background-color:var(--loading_spinner_c2)`,value:window.template.settings.metrics_color,key:'loading_spinner_c2',key_tree:'loading_spinner.colors'}),
                     ),
                 ),
             ),

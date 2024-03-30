@@ -2,9 +2,32 @@
 @import '../tools/selectors/color_theme_picker.scss';
 @import '../tools/selectors/inputList.scss';
 @import '../tools/selectors/border_radius_selector.scss';
-@import '../tools/selectors/color_selector.scss';
+@import '../tools/selectors/color_picker.scss';
+// @import '../tools/selectors/color_selector.scss';
 @import '../tools/selectors/switch_button.scss';
 @import '../tools/selectors/imgs.scss';
 
 
 //
+.tabs_container{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: flex-start;
+    margin:20px;
+}
+.tab{
+    margin-inline-end:20px;
+    cursor: pointer;
+    padding-bottom:5px;
+    white-space: nowrap;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.tab_selected{
+    border-bottom:1px solid var(--green);
+    color:var(--green);
+    font-weight: 700;
+}

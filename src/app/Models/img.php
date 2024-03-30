@@ -24,8 +24,12 @@ class img extends Model
     }
     protected $fillabel =[
         'website_id',
+        'type',
         'name',
+        'photographer',
+        'photographer_url',
         'url',
+        'thumbnail_url',
         'extension',
         'size',
         'height','width',

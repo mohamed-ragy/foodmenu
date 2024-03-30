@@ -1,9 +1,20 @@
 draw_builder = function(template_id){
+
     window.template = JSON.parse(JSON.stringify(window.templates.find(item=>item._id == template_id)));
     if(typeof(window.template) === 'undefined'){
         draw_select_template();
         return;
     }
+    Coloris({
+        format: 'rgb',
+        forceAlpha: true,
+        swatchesOnly: false,
+        el:'.color_picker',
+        focusInput:false,
+        selectInput:false,
+        swatches: [],
+      });
+
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
     window.template_edit_history = {};
     window.template_edit_history._0 = JSON.parse(JSON.stringify(window.template))
@@ -33,6 +44,8 @@ draw_builder = function(template_id){
     draw_builder_header();
     desktop_view();
     set_page('home')
+
+
 
 }
 //
@@ -102,14 +115,14 @@ draw_builder_header = function(){
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
             $('<div/>',{class:'header_icon set_preview_mode ico-eye',tooltip:texts.previewMode}),
             $('<div/>',{class:'header_icon set_show_metrics ico-metrics',tooltip:texts.show_metrics}),
-            $('<div/>',{class:'color_s_circle color_select',style:`background-color:var(--metrics_color)`,key_tree:'settings',key:'metrics_color',tooltip:texts.metrics_color}).append(
-                $('<input/>',{class:'color_select_input vH absolute',type:'color'}),
+            $('<div/>',{class:'color_picker_container mis-5'}).append(
+                $('<input/>',{class:' color_picker',type:'text',style:`background-color:var(--metrics_color)`,value:window.template.settings.metrics_color,key:'metrics_color',key_tree:'settings',tooltip:texts.metrics_color}),
             ),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
         ),
         $('<div/>',{class:'row alnC jstfyC'}).append(
             $('<div/>',{class:'header_icon2 mis-20',text:texts.livePreview}),
-            $('<button/>',{id:'save',disabled:true,class:'btn m5 mis-10'}).append(
+            $('<button/>',{id:'save',disabled:true,class:'btn save_btn'}).append(
                 $('<div/>',{class:'btnTxt',text:texts.save}),
                 $('<div/>',{class:'btnLoading'})
             ),

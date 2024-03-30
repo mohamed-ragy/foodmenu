@@ -92,7 +92,7 @@ setGlobalChannel = function(){
                 window.online.splice(key,1)
             }
         }
-        
+
         if(user.type == 'delivery'){
             website.deliveries.find(item=>item.id == user.id).lastSeen = parseInt(parseInt(new Date().getTime()) / 1000);
             deliveryManOffline(user.id)

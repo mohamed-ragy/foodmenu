@@ -25,7 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-metrics:before {
+.ico-search:before {
+    content: "\e92c";
+  }
+  .ico-metrics:before {
     content: "\e92a";
   }
   .ico-eye:before {

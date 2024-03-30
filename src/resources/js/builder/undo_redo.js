@@ -45,6 +45,7 @@ redo = function(){
 }
 
 undo_redo_actions = function(){
+    //
     set_website_colors_settings();
     //
     set_font_style_settings();
@@ -61,6 +62,13 @@ undo_redo_actions = function(){
     draw_page(window.selected_page)
     //
     set_view_style();
+    //
+    // $('.color_picker').each(function(){
+    //     $(this).val($(this).css('background-color'))
+    // })
+    // $('.color_picker_L').each(function(){
+    //     $(this).val($(this).css('background-color'))
+    // })
 }
 
 //events

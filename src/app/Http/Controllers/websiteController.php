@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\foodmenuFunctions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,6 @@ use Illuminate\Support\Str;
 
 use App\Models\website;
 use App\Models\guest;
-use App\Models\websiteText;
 use Carbon\Carbon;
 
 
@@ -21,15 +21,18 @@ class websiteController extends Controller
     private $lang;
     private $website_direction;
     private $request_host;
-    private $user;
-    private $guest;
+    private $user = 'null';
+    private $guest = 'null';
+    private $auth;
+    private $auth_type;
     public function __construct(Request $request)
     {
         $this->middleware(function ($request, $next) {
-            $this->website_id = $request->website_id;
-            $this->lang = $request->lang;
+            $this->website_id = $request->header('X-Website-Id');
+            // $this->lang = $request->lang;
             // self::check_subscription($request->route()->getName());//need to be checked
             self::auth_check($request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip());//need to be checked
+            return $next($request);
         })->except(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
 
         $this->middleware(function ($request, $next) {
@@ -63,7 +66,8 @@ class websiteController extends Controller
             'style_version' => $this->website->style_version,
             // 'metaImg' => $this->website->template['page_setup']['social_image'] == null ? $this->website->logo : $this->website->template['page_setup']['social_image'],
             'url' => $this->website->url,
-            'template' => $this->website->template,
+            'guest' => $this->guest,
+            'user' => $this->user,
         ]);
     }
 
@@ -122,6 +126,7 @@ class websiteController extends Controller
     public function auth_check($request_ip){
         if(Auth::guard('user')->check() && Auth::guard('user')->user()->website_id == $this->website_id){
             $this->user = Auth::guard('user')->user();
+            $this->auth_type = 'user';
             if($this->user ->isBanned == true){
                 Auth::guard('user')->logout();
                 return redirect()->route('website.home',['lang' => $this->lang]);
@@ -129,6 +134,7 @@ class websiteController extends Controller
                 User::where(['id' => $this->user->id ])->update(['lastSeen' => Carbon::now()->timestamp]);
             }
         }else{
+            $this->auth_type = 'guest';
             if(!Auth::guard('guest')->check() || Auth::guard('guest')->user()->website_id != $this->website_id){
                 $password = Str::random(10);
                 $guest  = new guest();
@@ -148,6 +154,23 @@ class websiteController extends Controller
                 $this->guest = Auth::guard('guest')->user();
                 guest::where('id',Auth::guard('guest')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
             }
+        }
+    }
+
+    //
+
+    public function activity(Request $request){
+        if($request->has('userLastSeen'))
+        {
+            User::where('id',Auth::guard('user')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp ]);
+        }
+        else if($request->has('new_activity'))
+        {
+            foodmenuFunctions::notification('user.activity',null,[
+                'activity' => $request->new_activity,
+                'id' => $this ->{$this->auth_type}->id,
+                'type' => $this->auth_type,
+            ]);
         }
     }
 }

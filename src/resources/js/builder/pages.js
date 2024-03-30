@@ -39,7 +39,6 @@ draw_page = function(page){
             for(const key in window.template.home){
                 $('#page').append(
                     create_html(window.template.home[key],`home.${key}`),
-
                 )
             }
             $(`section[key_tree="home.${window.selected_section}"]`).addClass('section_selected')
@@ -52,15 +51,18 @@ create_html = function(elem,key_tree){
     let style = '';
     let style_desktop = '';
     let style_mobile = '';
-    if('background_style' in elem){
-        for(const key in elem.background_style){
-            let val = elem.background_style[key];
-            if(key == 'background-image'){val = `url("${val}")`}
-            style = `${style} ${key}:${val};`
-            style_desktop = `${style_desktop} ${key}:${val};`
-            style_mobile = `${style_mobile} ${key}:${val};`
+    if('background' in elem){
+        if(elem.background == 'image'){
+            for(const key in elem.background_image){
+                let val = elem.background_image[key];
+                if(key == 'background-image'){val = `url("${val}")`}
+                style = `${style} ${key}:${val};`
+                style_desktop = `${style_desktop} ${key}:${val};`
+                style_mobile = `${style_mobile} ${key}:${val};`
+            }
         }
     }
+
 
     for(const key in elem.style){
         let val = elem.style[key];
@@ -95,7 +97,13 @@ create_html = function(elem,key_tree){
     }
     if(typeof(elem['color_theme']) !== 'undefined'){
         if(elem['color_theme'] != null){
-            classes = `${classes} ${elem['color_theme']}`
+            if('background' in elem){
+                if(elem['background'] == 'color_theme'){
+                    classes = `${classes} ${elem['color_theme']}`
+                }
+            }else{
+                classes = `${classes} ${elem['color_theme']}`
+            }
         }
     }
     switch(elem.tag){
@@ -133,16 +141,14 @@ create_html = function(elem,key_tree){
             html.append(
                 $('<button/>',{class:'btn btn-cancel add_home_section add_home_section_btn_style ico-add',section_sort:elem.sort,tooltip:texts.add_section}),
                 $('<div/>',{class:'section_btns_container'}).append(
-                    $('<button/>',{class:'btn btn-cancel edit_home_section_btn editor_font ico-edit',tooltip:texts.editSection,section:section_key}),
-                    $('<button/>',{class:'btn btn-cancel dublicate_home_section_btn editor_font ico-copy',tooltip:texts.duplicate,section:section_key}),
-                    $('<button/>',{class:`btn btn-cancel swap_home_section_up_btn editor_font ico-arrowUp ${elem.sort == 0 ? 'none' :''}`,tooltip:texts.swapUp,section:section_key}),
-                    $('<button/>',{class:`btn btn-cancel swap_home_section_down_btn editor_font ico-arrowDown ${elem.sort == window.template.home.length - 1 ? 'none':''}`,tooltip:texts.swapDown,section:section_key}),
-                    $('<button/>',{class:'btn btn-delete delete_home_section_btn editor_font ico-delete',tooltip:texts.deleteSection,section:section_key}),
-                )
+                    $('<button/>',{class:'btn btn-cancel edit_home_section_btn builder_font ico-edit',tooltip:texts.editSection,section:section_key}),
+                    $('<button/>',{class:'btn btn-cancel dublicate_home_section_btn builder_font ico-copy',tooltip:texts.duplicate,section:section_key}),
+                    $('<button/>',{class:`btn btn-cancel swap_home_section_up_btn builder_font ico-arrowUp ${elem.sort == 0 ? 'none' :''}`,tooltip:texts.swapUp,section:section_key}),
+                    $('<button/>',{class:`btn btn-cancel swap_home_section_down_btn builder_font ico-arrowDown ${elem.sort == window.template.home.length - 1 ? 'none':''}`,tooltip:texts.swapDown,section:section_key}),
+                    $('<button/>',{class:'btn btn-delete delete_home_section_btn builder_font ico-delete',tooltip:texts.deleteSection,section:section_key}),
+                ),
             )
-            html.prepend(
 
-            )
         }
     }
 

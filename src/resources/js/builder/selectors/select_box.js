@@ -6,7 +6,7 @@ $('html,body').on('click','.select_box',function(e){
         template = template[keys[key]];
     }
     if($(this).closest('.select_box_container').hasClass('select_box_border_style')){
-        let border_style = window.template.form_elements.input.border_style.split(' ');
+        let border_style = template[$(this).closest('.select_box_container').attr('key')].split(' ');
         let key_value = '';
         $(this).attr('key') == 'top' && $(this).hasClass('select_box_selected') ? key_value = key_value + 'none' : $(this).attr('key') == 'top' && !$(this).hasClass('select_box_selected') ? key_value = key_value + 'solid' : key_value = key_value + `${border_style[0]}`;
         $(this).attr('key') == 'right' && $(this).hasClass('select_box_selected') ? key_value = key_value + ' none' : $(this).attr('key') == 'right' && !$(this).hasClass('select_box_selected') ? key_value = key_value + ' solid' : key_value = key_value + ` ${border_style[1]}`;

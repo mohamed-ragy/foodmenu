@@ -13,7 +13,11 @@ set_page_setup_settings = function(){
     $('.page_transitionDuration_select').removeClass('select_box_selected')
     $(`.page_transitionDuration_select[key="${window.template.page_setup.transitionDuration}"]`).addClass('select_box_selected')
     //
-    $('#page_social_image').attr('src',window.template.page_setup.social_image ?? window.website.icon)
+    if(window.template.page_setup.smooth_scroll == '0'){
+        $('#page_setup_smooth_scroll').removeClass('switch_btn_selected')
+    }else if(window.template.page_setup.smooth_scroll == '1'){
+        $('#page_setup_smooth_scroll').addClass('switch_btn_selected')
+    }
 }
 
 draw_page_setup = function(){
@@ -82,11 +86,8 @@ draw_page_setup = function(){
                 )
             ),
             $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.social_image}),
-                $('<div/>',{class:'editor_popup_img_select select_img',key_tree:'page_setup',key:'social_image'}).append(
-                    $('<img/>',{class:'editor_popup_img_select_img',id:'page_social_image'}),
-                    $('<div/>',{class:'ico-edit editor_popup_img_select_edit_icon'})
-                )
+                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.smoothScroll}),
+                $('<div/>',{class:'switch_btn_action switch_btn',id:'page_setup_smooth_scroll',key_tree:'page_setup',key:'smooth_scroll',switch_on:'1',switch_off:'0'})
             )
         )
     )
@@ -108,3 +109,14 @@ $('html,body').on('click','.pageTransition_preview',function(e){
         },window.template.page_setup.transitionDuration.replace('ms',''))
     },window.template.page_setup.transitionDuration.replace('ms',''))
 })
+
+
+
+$('#website').on('mousewheel', function(e){
+    if(window.template.page_setup.smooth_scroll == '0'){return;}
+    if(event.wheelDelta < 0){
+    $('#website').stop(false,false).animate({scrollTop:$('#website').scrollTop() + (parseFloat($(window).height()) / 2)},{duration: 600,specialEasing: {width: "easeOutBounce",height: "easeOutBounce"}})
+    }else{
+    $('#website').stop(false,false).animate({scrollTop:$('#website').scrollTop() - (parseFloat($(window).height()) / 2)},{duration: 600,specialEasing: {width: "easeOutBounce",height: "easeOutBounce"}})
+    }
+});

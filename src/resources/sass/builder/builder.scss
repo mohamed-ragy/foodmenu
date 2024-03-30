@@ -1,8 +1,8 @@
 //z-indexs
+//inputList_elems 210
 //popup 200
 //color_theme_picker_themes 195
 //header 190
-//inputList_elems 185
 //border_radius_select 185
 //editor_popup 180
 //editor_popup_dump 170
@@ -27,7 +27,7 @@ body{
     color: var(--txt-1);
     background-color: var(--white);
 }
-.editor_font{font-family: 'Nunito','inter', sans-serif !important;}
+.builder_font{font-family: 'Nunito','inter', sans-serif !important;}
 a{
     cursor: pointer;
     text-decoration: none;
@@ -117,13 +117,13 @@ a:hover{
 
 .desktop_view{
     margin:0;
-    width:calc(100% - 40px);
-    height:calc(100% - 90px);
+    width:calc(100% );
+    height:calc(100% - 50px );
     overflow: hidden;
     transition-duration: 300ms;
     box-shadow: 0 0 20px var(--shdw-20), 0 0 1px 0px var(--shdw-10);
-    margin:20px;
-    border-radius: 5px;
+    // margin:20px;
+    // border-radius: 5px;
     // outline:2px solid var(--txt-1);
 }
 .mobile_view{
@@ -158,3 +158,14 @@ a:hover{
     .home_section_container:hover{outline: none !important;box-shadow: none !important;}
 }
 ///
+.save_btn{
+    margin:5px;
+    margin-inline-start:10px;
+    border-color: var(--white-1);
+    color: var(--white-1);
+}
+.save_btn:hover{
+    background-color: var(--green-20);
+}
+///
+

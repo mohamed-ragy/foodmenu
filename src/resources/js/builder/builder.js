@@ -2,6 +2,7 @@ window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
 loadTouchEvents($);
 require('../page_loading.js')
+require('./selectors.js');
 
 require('../builder/data.js')
 require('../builder/process_data.js')
@@ -17,7 +18,6 @@ require('../builder/tools/popup.js');
 require('../builder/tools/editor_popup.js');
 require('../builder/tools/is_saved_checker.js');
 
-require('./selectors.js');
 
 require('./website_style.js')
 
@@ -65,29 +65,35 @@ window.addEventListener("beforeunload", function (e) {
   });
 
 $('html,body').on('keydown',function(e){
-    // e.stopImmediatePropagation();
     if(e.shiftKey && e.ctrlKey && e.which == 90){
+        e.stopImmediatePropagation();
         redo();
     }
     else if(e.ctrlKey && e.which == 90){
+        e.stopImmediatePropagation();
         undo();
     }
     else if(e.ctrlKey && e.which == 88){
+        e.stopImmediatePropagation();
         view_toggle()
     }
     else if(e.ctrlKey && e.which == 83){
+        e.stopImmediatePropagation();
         e.preventDefault();
         if(!is_saved_checker()){
             $('#save').trigger('click')
         }
     }
     if(e.altKey){
+        e.stopImmediatePropagation();
         e.preventDefault();
     }
     if(e.altKey && e.which == 83){
+        e.stopImmediatePropagation();
         set_preview_mode();
     }
     else if(e.altKey  && e.which == 65){
+        e.stopImmediatePropagation();
         heighlight_all();
     }
 
@@ -145,4 +151,3 @@ $('html,body').on('click','#save',function(e){
     })
 })
 ///
-

@@ -1,6 +1,11 @@
 
 appendToImgBrowser = function(img,imgBrowserClass,append){
-    let imgInfo;
+    let imgInfo;let photographer_elem;
+    if(img.type == 'pexels'){
+        photographer_elem = $('<div/>',{class:'row mX5 fs07 mB10'}).append(
+            $('<span/>',{html:`This image was taken by <a href="${img.photographer_url}" target="_blank">${img.photographer}</a> on Pexels.`})
+        )
+    }
     if(img.id == null){
         imgInfo = $('<div/>',{class:'w200 pB10 column alnS jstfyS fs08'}).append(
             $('<div/>',{text:img.name,class:'ellipsis mX5'})
@@ -19,14 +24,16 @@ appendToImgBrowser = function(img,imgBrowserClass,append){
     if(append == 'append'){
         $('#imgsBrowserContainer').append(
             $('<div/>',{class:`imgsImgCard-imgBrowser`}).append(
-                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofCover mxw100p`,imgId:img.id ?? '',src:img.url}),
+                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofContain mxw100p`,imgId:img.id ?? '',src:img.thumbnail_url}),
+                photographer_elem,
                 imgInfo
             )
         )
     }else if(append == 'prepend'){
         $('#imgsBrowserContainer').prepend(
             $('<div/>',{class:`imgsImgCard-imgBrowser`}).append(
-                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofCover mxw100p`,imgId:img.id ?? '',src:img.url}),
+                $('<img/>',{class:`${imgBrowserClass} w200 h200 ofContain mxw100p`,imgId:img.id ?? '',src:img.thumbnail_url}),
+                photographer_elem,
                 imgInfo
             )
         )
@@ -41,14 +48,17 @@ showImgBrowser = function(title,imgBrowserClass,append='append'){
         if(imgBrowserClass == 'imgBrowser-icon'){
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
+            img.thumbnail_url ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
         }else if(imgBrowserClass == 'imgBrowser-logo'){
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
+            img.thumbnail_url ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
         }else{
             img.name = texts.design.noimg;
             img.url ='storage/imgs/cpanel/noimg.png';
+            img.thumbnail_url ='storage/imgs/cpanel/noimg.png';
             appendToImgBrowser(img,imgBrowserClass,'append')
         }
         getImgs().then(function(){

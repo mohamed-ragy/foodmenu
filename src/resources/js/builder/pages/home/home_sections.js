@@ -17,7 +17,7 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.name}),
-                    $('<input>',{class:'input_editor_name editor_font',value:section.name,key_tree:`home.${section_key}`})
+                    $('<input>',{class:'input_editor_name builder_font',value:section.name,key_tree:`home.${section_key}`})
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.min_height}),
@@ -73,21 +73,21 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.image}),
-                    $('<div/>',{class:'editor_popup_img_select select_img',key_tree:`home.${section_key}.background_style`,key:'background-image'}).append(
+                    $('<div/>',{class:'editor_popup_img_select select_img',key_tree:`home.${section_key}.background_image`,key:'background-image'}).append(
                         $('<img/>',{class:'editor_popup_img_select_img',id:`home_${section_key}_background_image`}),
                         $('<div/>',{class:'ico-edit editor_popup_img_select_edit_icon'})
                     )
                 ),
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.imageSize}),
-                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.background_style`,key:'background-size'}).append(
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.background_image`,key:'background-size'}).append(
                         $('<div/>',{class:`p5 home_${section_key}_bgSize_select select_box`,text:texts.select_elems.cover,key:'cover'}),
                         $('<div/>',{class:`p5 home_${section_key}_bgSize_select select_box`,text:texts.select_elems.contain,key:'contain'}),
                     )
                 ),
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.imageStyle}),
-                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.background_style`,key:'background-attachment'}).append(
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.background_image`,key:'background-attachment'}).append(
                         $('<div/>',{class:`p5 home_${section_key}_bgAttachment_select select_box`,text:texts.select_elems.fixed,key:'fixed'}),
                         $('<div/>',{class:`p5 home_${section_key}_bgAttachment_select select_box`,text:texts.select_elems.local,key:'local'}),
                     )
@@ -95,12 +95,12 @@ show_edit_home_section = function(section_key){
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.imagePosition}),
                     $('<div/>',{class:'row alnC jstfyE mis-10'}).append(
-                        $('<div/>',{class:'select_box_container',key_tree:`home.${section_key}.background_style`,key:'background-position-x'}).append(
+                        $('<div/>',{class:'select_box_container',key_tree:`home.${section_key}.background_image`,key:'background-position-x'}).append(
                             $('<div/>',{class:`p5 home_${section_key}_bgPositionX_select select_box ico-position_left`,key:'left'}),
                             $('<div/>',{class:`p5 home_${section_key}_bgPositionX_select select_box ico-position_hcenter`,key:'center'}),
                             $('<div/>',{class:`p5 home_${section_key}_bgPositionX_select select_box ico-position_right`,key:'right'}),
                         ),
-                        $('<div/>',{class:'mis-5 select_box_container',key_tree:`home.${section_key}.background_style`,key:'background-position-y'}).append(
+                        $('<div/>',{class:'mis-5 select_box_container',key_tree:`home.${section_key}.background_image`,key:'background-position-y'}).append(
                             $('<div/>',{class:`p5 home_${section_key}_bgPositionY_select select_box ico-position_top`,key:'top'}),
                             $('<div/>',{class:`p5 home_${section_key}_bgPositionY_select select_box ico-position_vcenter`,key:'center'}),
                             $('<div/>',{class:`p5 home_${section_key}_bgPositionY_select select_box ico-position_bottom`,key:'bottom'}),
@@ -110,14 +110,14 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.imageRepeat}),
-                    $('<div/>',{class:`switch_btn switch_btn_action home_${section_key}_bgRepeat_select`,key_tree:`home.${section_key}.background_style`,key:'background-repeat',switch_on:'repeat',switch_off:'no-repeat'})
+                    $('<div/>',{class:`switch_btn switch_btn_action home_${section_key}_bgRepeat_select`,key_tree:`home.${section_key}.background_image`,key:'background-repeat',switch_on:'repeat',switch_off:'no-repeat'})
                 ),
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 row alnC jstfyC'}).append(
                         $('<div/>',{class:'fs09',text:texts.imageBlendMode}),
                         $('<span/>',{class:'ico-info fs09 mis-5',tooltip:texts.infos.imageBlendMode})
                     ),
-                    $('<div/>',{class:'inputList_container',id:`home_${section_key}_bg_filter`,key_tree:`home.${section_key}.background_style`,key:'background-blend-mode'}).append(
+                    $('<div/>',{class:'inputList_container',id:`home_${section_key}_bg_filter`,key_tree:`home.${section_key}.background_image`,key:'background-blend-mode'}).append(
                         $('<div/>',{class:'',text:''}),
                         $('<div/>',{class:'ico-arrowDown'}),
                         $('<div/>',{class:'none inputList_elems_temp'}).append(
@@ -144,8 +144,8 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:`section_style_row home_${window.selected_section}_style_row_background_image`}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.backgroundColor}),
-                    $('<div/>',{class:'color_s_circle color_select_no_var',id:`home_${section_key}_background_style_background_color`,key_tree:`home.${section_key}.background_style`,key:'background-color'}).append(
-                        $('<input/>',{class:'color_select_no_var_input vH absolute',type:'color'}),
+                    $('<div/>',{class:'color_picker_container'}).append(
+                        $('<input/>',{id:`home_${window.selected_section}_background_image_background_color`,class:' color_picker',type:'text',style:`background-color:${window.template.home[section_key].background_image['background-color']}`,value:window.template.home[section_key].background_image['background-color'],key:'background-color',key_tree:`home.${section_key}.background_image`}),
                     ),
                 )
             ),
@@ -190,50 +190,52 @@ set_editor_poup_home_section = function(){
     $(`.home_${window.selected_section}_background_select`).removeClass('select_box_selected')
     $(`.home_${window.selected_section}_background_select[key="${window.template.home[window.selected_section].background}"]`).addClass('select_box_selected')
 
+    //
+    window.template.home[window.selected_section].background_image = {
+        'background-image' : window.template.home[window.selected_section].background_image['background-image'] ?? '/storage/imgs/cpanel/noimg2.png',
+        'background-attachment' : window.template.home[window.selected_section].background_image['background-attachment'] ?? 'local',
+        'background-position-x' : window.template.home[window.selected_section].background_image['background-position-x'] ?? 'center',
+        'background-position-y' : window.template.home[window.selected_section].background_image['background-position-y'] ?? 'center',
+        'background-repeat' : window.template.home[window.selected_section].background_image['background-repeat'] ?? 'no-repeat',
+        'background-size' : window.template.home[window.selected_section].background_image['background-size'] ?? 'cover',
+        'background-blend-mode' : window.template.home[window.selected_section].background_image['background-blend-mode'] ?? 'normal',
+        'background-color' : window.template.home[window.selected_section].background_image['background-color'] ?? '#ffffff',
+    }
+    $(`#home_${window.selected_section}_background_image`).attr('src',window.template.home[window.selected_section].background_image['background-image'] ?? '/storage/imgs/cpanel/noimg2.png')
+
+    $(`.home_${window.selected_section}_bgSize_select`).removeClass('select_box_selected')
+    $(`.home_${window.selected_section}_bgSize_select[key="${window.template.home[window.selected_section].background_image['background-size']}"]`).addClass('select_box_selected')
+
+    $(`.home_${window.selected_section}_bgAttachment_select`).removeClass('select_box_selected')
+    $(`.home_${window.selected_section}_bgAttachment_select[key="${window.template.home[window.selected_section].background_image['background-attachment']}"]`).addClass('select_box_selected')
+
+    $(`.home_${window.selected_section}_bgPositionX_select`).removeClass('select_box_selected')
+    $(`.home_${window.selected_section}_bgPositionX_select[key="${window.template.home[window.selected_section].background_image['background-position-x']}"]`).addClass('select_box_selected')
+
+    $(`.home_${window.selected_section}_bgPositionY_select`).removeClass('select_box_selected')
+    $(`.home_${window.selected_section}_bgPositionY_select[key="${window.template.home[window.selected_section].background_image['background-position-y']}"]`).addClass('select_box_selected')
+    if(window.template.home[window.selected_section].background_image['background-repeat'] == 'repeat'){
+        $(`.home_${window.selected_section}_bgRepeat_select`).addClass('switch_btn_selected')
+    }else if(window.template.home[window.selected_section].background_image['background-repeat'] == 'no-repeat'){
+        $(`.home_${window.selected_section}_bgRepeat_select`).removeClass('switch_btn_selected')
+    }
+    $(`#home_${window.selected_section}_bg_filter`).children().first().text(texts.select_elems[window.template.home[window.selected_section].background_image['background-blend-mode']])
+    $(`#home_${window.selected_section}_background_image_background_color`).css({'background-color':window.template.home[window.selected_section].background_image['background-color']})
+    //
+
+
+
     if(window.template.home[window.selected_section].background == 'color_theme'){
         $(`.home_${window.selected_section}_style_row_background_image`).addClass('none')
         $(`.home_${window.selected_section}_style_row_background_artistic`).addClass('none')
-        window.template.home[window.selected_section].background_style = {}
 
     }else if(window.template.home[window.selected_section].background == 'image'){
         $(`.home_${window.selected_section}_style_row_color_theme`).addClass('none')
         $(`.home_${window.selected_section}_style_row_background_artistic`).addClass('none')
-        window.template.home[window.selected_section].background_style = {
-            'background-image' : window.template.home[window.selected_section].background_style['background-image'] ?? '/storage/imgs/cpanel/noimg2.png',
-            'background-attachment' : window.template.home[window.selected_section].background_style['background-attachment'] ?? 'local',
-            'background-position-x' : window.template.home[window.selected_section].background_style['background-position-x'] ?? 'center',
-            'background-position-y' : window.template.home[window.selected_section].background_style['background-position-y'] ?? 'center',
-            'background-repeat' : window.template.home[window.selected_section].background_style['background-repeat'] ?? 'no-repeat',
-            'background-size' : window.template.home[window.selected_section].background_style['background-size'] ?? 'cover',
-            'background-blend-mode' : window.template.home[window.selected_section].background_style['background-blend-mode'] ?? 'normal',
-            'background-color' : window.template.home[window.selected_section].background_style['background-color'] ?? '#ffffff',
-        }
-        $(`#home_${window.selected_section}_background_image`).attr('src',window.template.home[window.selected_section].background_style['background-image'] ?? '/storage/imgs/cpanel/noimg2.png')
-
-        $(`.home_${window.selected_section}_bgSize_select`).removeClass('select_box_selected')
-        $(`.home_${window.selected_section}_bgSize_select[key="${window.template.home[window.selected_section].background_style['background-size']}"]`).addClass('select_box_selected')
-
-        $(`.home_${window.selected_section}_bgAttachment_select`).removeClass('select_box_selected')
-        $(`.home_${window.selected_section}_bgAttachment_select[key="${window.template.home[window.selected_section].background_style['background-attachment']}"]`).addClass('select_box_selected')
-
-        $(`.home_${window.selected_section}_bgPositionX_select`).removeClass('select_box_selected')
-        $(`.home_${window.selected_section}_bgPositionX_select[key="${window.template.home[window.selected_section].background_style['background-position-x']}"]`).addClass('select_box_selected')
-
-        $(`.home_${window.selected_section}_bgPositionY_select`).removeClass('select_box_selected')
-        $(`.home_${window.selected_section}_bgPositionY_select[key="${window.template.home[window.selected_section].background_style['background-position-y']}"]`).addClass('select_box_selected')
-        if(window.template.home[window.selected_section].background_style['background-repeat'] == 'repeat'){
-            $(`.home_${window.selected_section}_bgRepeat_select`).addClass('switch_btn_selected')
-        }else if(window.template.home[window.selected_section].background_style['background-repeat'] == 'no-repeat'){
-            $(`.home_${window.selected_section}_bgRepeat_select`).removeClass('switch_btn_selected')
-        }
-        $(`#home_${window.selected_section}_bg_filter`).children().first().text(texts.select_elems[window.template.home[window.selected_section].background_style['background-blend-mode']])
-        $(`#home_${window.selected_section}_background_style_background_color`).css({'background-color':window.template.home[window.selected_section].background_style['background-color']})
 
     }else if(window.template.home[window.selected_section].background == 'artistic'){
         $(`.home_${window.selected_section}_style_row_color_theme`).addClass('none')
         $(`.home_${window.selected_section}_style_row_background_image`).addClass('none')
-        window.template.home[window.selected_section].background_style = {}
-
     }
 
 

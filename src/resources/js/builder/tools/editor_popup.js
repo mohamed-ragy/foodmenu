@@ -88,13 +88,11 @@ editor_popup_to_parent = function(parent,child){
     },150)
 }
 //events
-$('html,body').on('click','.editor_popup',function(e){
-    e.stopImmediatePropagation();
-    //
-    hidePopupSelectors();
-    //
-    $('.editor_popup').addClass('editor_popup_dump')
-    $(this).removeClass('editor_popup_dump')
+$(document).on('click','.editor_popup',function(e){
+    // e.stopImmediatePropagation();
+        $('.editor_popup').addClass('editor_popup_dump')
+        $(this).removeClass('editor_popup_dump')
+        hidePopupSelectors();
 })
 $('html,body').on('mousedown touchstart','.editor_popup_head',function(e){
     e.stopImmediatePropagation();

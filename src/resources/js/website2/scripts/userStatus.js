@@ -33,9 +33,7 @@ userStatus = (status) => {
     status.status == 'user_browse_product' ? routeName = 'website.product' : null;
     status.status == 'user_browse_product' ? pageProductId = products.find(item=> item.name == status.productName).id : null;
 }
-lastUserStatusFun = function(){
-    userStatus(lastUserStatus);
-}
+
 userStatusBrowsingPage = () => {
     return;
     let status ;
@@ -95,5 +93,4 @@ if(loginCheck){
             }
         })
     },60000)
-
 }

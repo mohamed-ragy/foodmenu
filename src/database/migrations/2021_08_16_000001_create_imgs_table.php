@@ -17,8 +17,12 @@ class CreateImgsTable extends Migration
             $table->id();
             $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
-            $table->string('name');
+            $table->string('name')->nullable();
+            $table->string('photographer')->nullable();
+            $table->string('photographer_url')->nullable();
+            $table->string('type');
             $table->string('url');
+            $table->string('thumbnail_url');
             $table->string('extension');
             $table->integer('size');
             $table->integer('height');

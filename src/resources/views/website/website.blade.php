@@ -115,10 +115,14 @@
         </section> --}}
 </body>
 <script>
+    window.website_id = "{{ $website_id }}"
     window.lang = "{{ $lang }}"
     window.title = "{{ $title }}"
     window.description = "{{ $description }}"
+    window.user = {!! $user !!}
+    window.guest = {!! $guest !!}
+    window.route = "{{ request()->route()->getName() }}".split('.')[1];
 </script>
-<script src="/storage/websites/{{ $website_id }}/script.js?v={{ $style_version }}"></script>
 <script src="/js/website/script.js"></script>
+<script src="/storage/websites/{{ $website_id }}/script.js?v={{ $style_version }}"></script>
 </html>

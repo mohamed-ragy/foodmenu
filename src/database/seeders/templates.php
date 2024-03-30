@@ -21,17 +21,24 @@ class templates extends Seeder
             'website_id' => 1,
             'name' => 'Test template',
             'settings' => [
-                'metrics_color' => ['r'=>102, 'g'=>155, 'b'=>188],
+                'metrics_color' => 'rgba(102,155,188,1)',
             ],
             'website_colors' => [
-                'c1' => ['r'=>255, 'g'=>255, 'b'=>255],
-                'c2' => ['r'=>0, 'g'=>48, 'b'=>73],
-                'c3' => ['r'=>102, 'g'=>155, 'b'=>188],
-                'c4' => ['r'=>253, 'g'=>240, 'b'=>213],
-                'c_star' => ['r'=>255, 'g'=>190, 'b'=>11],
-                'c_success' => ['r'=>91, 'g'=>186, 'b'=>111],
-                'c_error' => ['r'=>193, 'g'=>18, 'b'=>31],
-                'c_warning' => ['r'=>251, 'g'=>86, 'b'=>7],
+                'color_theme' => [
+                    'color_1' => 'rgba(255,255,255,1)',
+                    'color_2' => 'rgba(0,48,73,1)',
+                    'color_3' => 'rgba(102,155,188,1)',
+                    'color_4' => 'rgba(253,240,213,1)',
+                ],
+                'other_colors' => [
+                    'color_star' => 'rgba(255,190,11,1)',
+                    'color_error' => 'rgba(91,186,111,1)',
+                    'color_success' => 'rgba(193,18,31,1)',
+                    'color_warning' => 'rgba(251,86,7,1)',
+                ],
+                'color_history' => [
+
+                ]
             ],
             'font_style' => [
                 'title' => 'rubik',
@@ -49,287 +56,89 @@ class templates extends Seeder
                 'page_color_theme' => 'color_1_2',
                 'pageTransition' => 'fade',
                 'transitionDuration' => '300ms',
-                'social_image' => null, // data
+                'smooth_scroll' => '0',
             ],
             'form_elements' => [
                 'spacing' => '10px',
                 'form_align' => 'flex-start',
                 'input' => [
-                    'text_align' => 'center',
-                    'padding_y' => '7px',
-                    'padding_x' => '10px',
-                    'border_style' => 'solid solid none solid',
-                    'border_width' => '1px',
-                    'border_radius' => '5px 5px 5px 5px',
-                    'border_color' => ['r'=>200,'g'=>120,'b'=>200],
-                    'font_size' => '1em',
-                    'font_color' => ['r'=>100,'g'=>20,'b'=>10],
-                    'label_font_size' => '.9em',
-                    'label_margin' => '3px',
-                    'background_fill' => '1',
-                    'input_bg_color' => ['r'=>245,'g'=>245,'b'=>245],
+                    'input_text_align' => 'center',
+                    'input_padding_y' => '7px',
+                    'input_padding_x' => '10px',
+                    'input_border_style' => 'solid solid solid solid',
+                    'input_border_width' => '1px',
+                    'input_border_radius' => '5px 5px 5px 5px',
+                    'input_border_color' => 'rgba(0,0,0,.5)',
+                    'input_font_size' => '1em',
+                    'input_font_color' => 'rgba(0,0,0,1)',
+                    'input_label_font_size' => '.9em',
+                    'input_label_margin' => '3px',
+                    'input_bg_color' => 'rgba(0,0,0,0.1)',
 
-                    'focus_outline_width' => '1px',
-                    'focus_outline_color' => ['r'=>100,'g'=>20,'b'=>10],
-                    'focus_border_color' => ['r'=>120,'g'=>100,'b'=>150],
-                    'focus_background_fill' => '1',
-                    'focus_bg_color' => ['r'=>250,'g'=>250,'b'=>250],
+                    'input_focus_outline_width' => '1px',
+                    'input_focus_outline_color' => 'rgba(0,0,0,0.1)',
+                    'input_focus_bg_color' => 'rgba(0,0,0,0.1)',
                 ],
                 'checkbox' => [
-                    'border_radius' => '5px',
-                    'size' => 'calc(1em - 4px)',
-                    'color' => ['r'=>200,'g'=>120,'b'=>200],
-                    'check_mark_color' => ['r'=>255,'g'=>255,'b'=>255],
+                    'checkbox_border_radius' => '5px' ,
+                    'checkbox_size' => '1em',
+                    'checkbox_color' => 'rgba(0,0,0,0.1)',
+                    'checkbox_checkMark_color' => 'rgba(0,0,0,0.1)',
                 ],
                 'button1' => [
-                    'padding_y' => '10px',
-                    'padding_x' => '25px',
-                    'border_radius' => '5px 5px 5px 5px',
-                    'font_size' => '1em',
-                    'font_color' => ['r'=>255, 'g'=>255, 'b'=>255],
-                    'bg_color' => ['r'=>0, 'g'=>48, 'b'=>73],
-                    'outline_width' => '2px',
-                    'outline_color' => ['r'=>200,'g'=>120,'b'=>200],
-                    'hover_font_color' => ['r'=>235, 'g'=>235, 'b'=>235],
-                    'hover_bg_color' => ['r'=>20, 'g'=>68, 'b'=>93],
-                    'hover_outline_width' => '1px',
-                    'hover_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
-                    'click_font_color' => ['r'=>255, 'g'=>255, 'b'=>255],
-                    'click_bg_color' => ['r'=>0, 'g'=>48, 'b'=>73],
-                    'click_outline_width' => '0px',
-                    'click_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
-
-                    'disabled_font_color' => ['r'=>255, 'g'=>255, 'b'=>255],
-                    'disabled_bg_color' => ['r'=>0, 'g'=>48, 'b'=>73],
-                    'disabled_outline_width' => '0px',
-                    'disabled_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
+                    'button1_padding_y' => '10px',
+                    'button1_padding_x' => '25px',
+                    'button1_border_radius' => '5px 5px 5px 5px',
+                    'button1_font_size' => '1em',
+                    'button1_font_color' => 'rgba(0,0,0,0.1)',
+                    'button1_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button1_outline_color' => 'rgba(0,0,0,0.1)',
+                    'button1_outline_width' => '2px',
+                    'button1_hover_font_color' => 'rgba(0,0,0,0.1)',
+                    'button1_hover_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button1_hover_outline_width' => '1px',
+                    'button1_hover_outline_color' => 'rgba(0,0,0,0.1)',
+                    'button1_click_font_color' => 'rgba(0,0,0,0.1)',
+                    'button1_click_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button1_click_outline_width' => '0px',
+                    'button1_click_outline_color' => 'rgba(0,0,0,0.1)',
+                    'button1_disabled_font_color' => 'rgba(0,0,0,0.1)',
+                    'button1_disabled_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button1_disabled_outline_width' => '0px',
+                    'button1_disabled_outline_color' => 'rgba(0,0,0,0.1)',
                 ],
                 'button2' => [
-                    'padding_y' => '10px',
-                    'padding_x' => '25px',
-                    'border_radius' => '5px 5px 5px 5px',
-                    'font_size' => '1em',
-
-                    'font_color' => ['r'=>255, 'g'=>255, 'b'=>255],
-                    'bg_color' => ['r'=>0, 'g'=>48, 'b'=>73],
-                    'outline_width' => '2px',
-                    'outline_color' => ['r'=>200,'g'=>120,'b'=>200],
-
-                    'hover_font_color' => ['r'=>235, 'g'=>235, 'b'=>235],
-                    'hover_bg_color' => ['r'=>20, 'g'=>68, 'b'=>93],
-                    'hover_outline_width' => '1px',
-                    'hover_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
-
-                    'click_font_color' => ['r'=>255, 'g'=>255, 'b'=>255],
-                    'click_bg_color' => ['r'=>0, 'g'=>48, 'b'=>73],
-                    'click_outline_width' => '0px',
-                    'click_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
-
-                    'disabled_font_color' => ['r'=>255, 'g'=>255, 'b'=>255],
-                    'disabled_bg_color' => ['r'=>0, 'g'=>48, 'b'=>73],
-                    'disabled_outline_width' => '0px',
-                    'disabled_outline_color' => ['r'=>190,'g'=>110,'b'=>190],
+                    'button2_padding_y' => '10px',
+                    'button2_padding_x' => '25px',
+                    'button2_border_radius' => '5px 5px 5px 5px',
+                    'button2_font_size' => '1em',
+                    'button2_font_color' => 'rgba(0,0,0,0.1)',
+                    'button2_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button2_outline_color' => 'rgba(0,0,0,0.1)',
+                    'button2_outline_width' => '2px',
+                    'button2_hover_font_color' => 'rgba(0,0,0,0.1)',
+                    'button2_hover_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button2_hover_outline_width' => '1px',
+                    'button2_hover_outline_color' => 'rgba(0,0,0,0.1)',
+                    'button2_click_font_color' => 'rgba(0,0,0,0.1)',
+                    'button2_click_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button2_click_outline_width' => '0px',
+                    'button2_click_outline_color' => 'rgba(0,0,0,0.1)',
+                    'button2_disabled_font_color' => 'rgba(0,0,0,0.1)',
+                    'button2_disabled_bg_color' => 'rgba(0,0,0,0.1)',
+                    'button2_disabled_outline_width' => '0px',
+                    'button2_disabled_outline_color' => 'rgba(0,0,0,0.1)',
                 ],
             ],
             'loading_spinner' => [
                 'key' => '5',
                 'elem' => '<div class="loading_spinner_5_:size:"><div class="dot1"></div><div class="dot2"></div><div class="dot3"></div></div>',
                 'colors' => [
-                    'loading_spinner_c1' => ['r'=>243,'g'=>243,'b'=>243],
-                    'loading_spinner_c2' => ['r'=>52,'g'=>152,'b'=>219],
+                    'loading_spinner_c1' => 'rgb(237, 237, 237)',
+                    'loading_spinner_c2' => 'rgba(102,155,188,1)',
                 ],
             ],
             'home' => [],
-            // 'loading_screen' => [
-            //     'tag' => 'div',
-            //     'type' => 'section',
-            //     'settings' => [
-            //         'editable'=>'0',
-            //         'resizable' => '0',
-            //         'draggable' => '0',
-            //         'formateable' => '0',
-            //         'deletable' => '0',
-            //     ],
-            //     'settings' => [],
-            //     // 'settings' => ['editable','resizable','draggable','formateable','deletable','swappable'],
-            //     'elems' => ['loading_spinner','image','social_image','website_logo','website_icon','title','page_title','paragraph','page_paragraph'],
-            //     'section_container' => [
-            //         'class' => '',
-            //         'id' => 'loading_screen',
-            //         'color_theme' => 'color_2_1',
-            //         'style' => [
-            //             'height' => '100%',
-            //             'background-image' => 'url("/storage/imgs/demo/americandiner/cat1.webp")',
-            //             'background-image' => 'none',
-            //             'background-attachment' => 'fixed',
-            //             'background-position' => 'bottom center',
-            //             'background-repeat' => 'no-repeat',
-            //             'background-size' => 'cover',
-            //         ],
-            //     ],
-            //     'attr' => [
-            //         'class' => 'section loading_screen',
-            //     ],
-            //     'class_name' => 'loading_screen',
-            //     'style' => [
-            //         'height' => '100%',
-            //         'display' => 'flex',
-            //         'flex-direction' => 'column',
-            //         'align-items' => 'center',
-            //         'justify-content' => 'center',
-            //     ],
-            //     'children' => [
-            //         'child_0' => [
-            //             'tag' => 'loading_spinner',
-            //             'type' => 'loading_spinner',
-            //             'settings' => ['editable'],
-            //             'attr' => [
-            //                 'class' => 'section_elem',
-            //             ],
-            //             'class_name' => 'loading_screen_spinner',
-            //             'style' => [
-            //                 'margin-bottom'=>'10px',
-            //             ],
-            //             'style_desktop' => [
-            //                 'top' => '50px',
-            //                 'left' => '40%',
-            //             ],
-            //             'style_mobile' => [
-            //                 'top' => '10px',
-            //                 'left' => '10%',
-            //                 'width' => '80%',
-            //                 'height' => '70px',
-            //             ],
-            //             'size' => 'L',
-            //         ],
-            //         'child_1' => [
-            //             'tag' => 'div',
-            //             'type' => 'title',
-            //             'settings' => ['editable'],
-                        // 'text' => [
-                        //     'key' => 'page_title',
-                        // ],
-            //             'attr' => [
-            //                 'class' => 'loading_screen_title font_t section_elem',
-            //             ],
-            //             'class_name' => 'loading_screen_title',
-            //             'style' => [
-            //                 'font-size'=>'2em',
-            //                 'text-align' => 'center',
-            //             ],
-            //             'style_desktop' => [
-            //                 'top' => '10px',
-            //                 'left' => '10%',
-            //             ],
-            //             'style_mobile' => [
-            //                 'top' => '80px',
-            //                 'left' => '10%',
-            //                 'width' => '80%',
-            //                 'height' => '200px',
-            //             ],
-
-            //         ],
-            //         'child_2' => [
-            //             'tag' => 'div',
-            //             'type' => 'paragraph',
-            //             'settings' => ['editable'],
-            //             'text' => [
-            //                 'key' => 'page_description',
-            //             ],
-            //             'attr' => [
-            //                 'class' => 'loading_screen_paragraph font_p section_elem',
-            //             ],
-            //             'class_name' => 'loading_screen_paragraph',
-            //             'style' => [
-            //                 'font-size'=>'1em',
-            //                 'text-align' => 'center',
-            //                 'max-width' => '400px',
-            //             ],
-            //             'style_desktop' => [
-            //                 'top' => '10px',
-            //                 'left' => '80%',
-            //             ],
-            //             'style_mobile' => [
-            //                 'top' => '300px',
-            //                 'left' => '10%',
-            //                 'width' => '80%',
-            //                 'height' => '200px',
-            //             ],
-            //         ]
-            //     ]
-            // ],
-            // 'home' => [
-            //     'section_1' => [
-            //         'tag' => 'div',
-            //         'type' => 'section',
-            //         'section_container' => [
-            //             'class' => '',
-            //             'id' => 'home_section_1',
-            //             'color_theme' => 'color_2_1',
-            //             'style' => [
-            //                 'min-height' => '800px',
-            //                 // 'height' => '100%',
-            //                 'background-image' => 'url("/storage/imgs/demo/americandiner/cat1.webp")',
-            //                 'background-image' => 'none',
-            //                 'background-attachment' => 'fixed',
-            //                 'background-position' => 'bottom center',
-            //                 'background-repeat' => 'no-repeat',
-            //                 'background-size' => 'cover',
-            //             ]
-            //         ],
-            //         'attr' => [
-            //             'class' => 'section home',
-            //         ],
-            //         'class_name' => 'home',
-            //         'style' => [
-            //             'height' => '100%',
-            //             'min-height' => '800px',
-            //             'display' => 'flex',
-            //             'flex-direction' => 'column',
-            //             'align-items' => 'center',
-            //             'justify-content' => 'center',
-            //         ],
-            //         'children' => [
-            //             'child_1' => [
-            //                 'tag' => 'div',
-            //                 'type' => 'title',
-            //                 'settings' => ['editable'],
-            //                 'text' => [
-            //                     'key' => 'page_title',
-            //                 ],
-            //                 'attr' => [
-            //                     'class' => 'loading_screen_title font_t section_elem',
-            //                 ],
-            //                 'class_name' => 'loading_screen_title',
-            //                 'style' => [
-            //                     'font-size'=>'2em',
-            //                     'text-align' => 'center',
-            //                 ],
-            //             ],
-            //             'child_2' => [
-            //                 'tag' => 'div',
-            //                 'type' => 'paragraph',
-            //                 'settings' => ['editable'],
-            //                 'text' => [
-            //                     'key' => 'page_description',
-            //                 ],
-            //                 'attr' => [
-            //                     'class' => 'loading_screen_paragraph font_p section_elem',
-            //                 ],
-            //                 'class_name' => 'loading_screen_paragraph',
-            //                 'style' => [
-            //                     'font-size'=>'1em',
-            //                     'text-align' => 'center',
-            //                     'max-width' => '400px',
-
-            //                 ],
-            //             ]
-            //         ]
-            //     ]
-
-            // ]
-
-
         ]);
         website::where('id',1)->update(['template_id'=>$template->_id]);
 
