@@ -18,12 +18,12 @@ class generate_js
     }
 
     public function delete_lang_dir($lang){
-        if (File::exists(storage_path("websites/{$this->template['website_id']}/views/$lang"))) {
+        if (File::exists(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"))) {
             File::deleteDirectory(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"));
         }
     }
     public function create_lang_dir($lang){
-        if (!File::exists(storage_path("websites/{$this->template['website_id']}/views/$lang"))) {
+        if (!File::exists(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"))) {
             File::makeDirectory(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"));
         }
     }
