@@ -12,6 +12,7 @@ set_website_colors_vars  = function(){
         window.template.website_colors.color_theme.color_3,
         window.template.website_colors.color_theme.color_4,
     ];
+    if(window.template.website_colors.color_history == null){window.template.website_colors.color_history = []}
     if(window.template.website_colors.color_history.length >= 9){
         window.template.website_colors.color_history.splice(0,1);
     }
