@@ -6,7 +6,7 @@ show_add_home_section_previews = function(type){
             let section_layouts = get_home_sections_layouts();
             for(const key in section_layouts){
                 let layout = section_layouts[key]
-                let section_container = layout.section_container;
+                let section_wrapper = layout.section_wrapper;
                 let thisLayoutContainer;
                 $('.add_home_section_sections_container').append(
                     $('<div/>',{class:'add_home_section_blank',layout:layout.layout}).append(
@@ -14,11 +14,11 @@ show_add_home_section_previews = function(type){
                     )
                 )
                 thisLayoutContainer.css({
-                    'grid-template-areas':layout.section_container.style['grid-template-areas'],
-                    'grid-template-columns':layout.section_container.style['grid-template-columns'],
+                    'grid-template-areas':layout.section_wrapper.css['grid-template-areas'],
+                    'grid-template-columns':layout.section_wrapper.css['grid-template-columns'],
                 })
                 let children_counter = 0;
-                for(const key2 in section_container.children){
+                for(const key2 in section_wrapper.children){
                     children_counter++;
                     thisLayoutContainer.append(
                         $('<div/>',{class:'',style:`grid-area:elem${children_counter};outline:1px solid var(--white-6);`})
@@ -33,12 +33,12 @@ show_add_home_section_previews = function(type){
 $('html,body').on('click','.add_home_section_blank',function(e){
     e.stopImmediatePropagation();
     let section_layouts = get_home_sections_layouts();
-    let layout = JSON.parse(JSON.stringify(section_layouts.find(item=>item.layout == $(this).attr('layout')).section_container));
+    let layout = JSON.parse(JSON.stringify(section_layouts.find(item=>item.layout == $(this).attr('layout')).section_wrapper));
     let blank_section = get_blank_home_section();
     let section = JSON.parse(JSON.stringify(blank_section))
     let new_section_sort = parseInt($('.popupBody').attr('section_sort')) + 1;
     section.sort = new_section_sort;
-    section.children.section_container = layout;
+    section.children.section_wrapper = layout;
 
     for(const key in window.template.home){
         if(key >= new_section_sort){

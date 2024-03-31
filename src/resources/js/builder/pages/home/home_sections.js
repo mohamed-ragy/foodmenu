@@ -17,12 +17,12 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.name}),
-                    $('<input>',{class:'input_editor_name builder_font',value:section.name,key_tree:`home.${section_key}`})
+                    $('<input>',{class:'input_editor_popup input_editor_popup_section_name builder_font',value:section.name,key_tree:`home.${section_key}`})
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.min_height}),
-                    $('<div/>',{class:'inputList_container',id:`home_${section_key}_min_height`,key_tree:`home.${section_key}.children.section_container.style`,key:'min-height'}).append(
-                        $('<div/>',{class:'',text:texts.select_elems[`_${section.children.section_container.style['min-height']}`] ?? texts.select_elems._100vh}),
+                    $('<div/>',{class:'inputList_container',id:`home_${section_key}_min_height`,key_tree:`home.${section_key}.children.section_wrapper.css`,key:'min-height'}).append(
+                        $('<div/>',{class:'',text:texts.select_elems[`_${section.children.section_wrapper.css['min-height']}`] ?? texts.select_elems._100vh}),
                         $('<div/>',{class:'ico-arrowDown'}),
                         $('<div/>',{class:'none inputList_elems_temp'}).append(
                             $('<div/>',{class:`inputList_elem`,text:texts.select_elems._100vh,key:'var(--screen_height)'}),
@@ -39,7 +39,7 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.blocks_gap}),
-                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.children.section_container.style`,key:'grid-gap'}).append(
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.children.section_wrapper.css`,key:'grid-gap'}).append(
                         $('<div/>',{class:`pY5 w25 home_${section_key}_grid_gap_select select_box ico-no`,key:'0px'}),
                         $('<div/>',{class:`pY5 w25 home_${section_key}_grid_gap_select select_box`,text:'XS',key:'2px'}),
                         $('<div/>',{class:`pY5 w25 home_${section_key}_grid_gap_select select_box`,text:'S',key:'5px'}),
@@ -50,7 +50,7 @@ show_edit_home_section = function(section_key){
                 ),
                 $('<div/>',{class:'section_style_row'}).append(
                     $('<div/>',{class:'taS mie-10 fs09',text:texts.margin}),
-                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.style`,key:'padding'}).append(
+                    $('<div/>',{class:'mis-10 select_box_container',key_tree:`home.${section_key}.css`,key:'padding'}).append(
                         $('<div/>',{class:`pY5 w25 home_${section_key}_padding_select select_box ico-no`,key:'0px'}),
                         $('<div/>',{class:`pY5 w25 home_${section_key}_padding_select select_box`,text:'XS',key:'2px'}),
                         $('<div/>',{class:`pY5 w25 home_${section_key}_padding_select select_box`,text:'S',key:'5px'}),
@@ -155,7 +155,7 @@ show_edit_home_section = function(section_key){
     let section_layouts = get_home_sections_layouts();
     for(const key in section_layouts){
         let layout = section_layouts[key]
-        let section_container = layout.section_container;
+        let section_wrapper = layout.section_wrapper;
         let thisLayoutContainer;
         $('#home_section_editor_settings_change_layout').append(
             $('<div/>',{class:'change_home_section_layout_elem',layout:layout.layout}).append(
@@ -163,11 +163,11 @@ show_edit_home_section = function(section_key){
             )
         )
         thisLayoutContainer.css({
-            'grid-template-areas':layout.section_container.style['grid-template-areas'],
-            'grid-template-columns':layout.section_container.style['grid-template-columns'],
+            'grid-template-areas':layout.section_wrapper.css['grid-template-areas'],
+            'grid-template-columns':layout.section_wrapper.css['grid-template-columns'],
         })
         let children_counter = 0;
-        for(const key2 in section_container.children){
+        for(const key2 in section_wrapper.children){
             children_counter++;
             thisLayoutContainer.append(
                 $('<div/>',{class:'',style:`grid-area:elem${children_counter};outline:1px solid var(--white-4);`})
@@ -239,13 +239,13 @@ set_editor_poup_home_section = function(){
     }
 
 
-    $(`#home_${window.selected_section}_min_height`).children().first().text(texts.select_elems[`_${window.template.home[window.selected_section].children.section_container.style['min-height']}`] ?? texts.select_elems._100vh)
+    $(`#home_${window.selected_section}_min_height`).children().first().text(texts.select_elems[`_${window.template.home[window.selected_section].children.section_wrapper.css['min-height']}`] ?? texts.select_elems._100vh)
 
     $(`.home_${window.selected_section}_grid_gap_select`).removeClass('select_box_selected')
-    $(`.home_${window.selected_section}_grid_gap_select[key="${window.template.home[window.selected_section].children.section_container.style['grid-gap']}"]`).addClass('select_box_selected')
+    $(`.home_${window.selected_section}_grid_gap_select[key="${window.template.home[window.selected_section].children.section_wrapper.css['grid-gap']}"]`).addClass('select_box_selected')
 
     $(`.home_${window.selected_section}_padding_select`).removeClass('select_box_selected')
-    $(`.home_${window.selected_section}_padding_select[key="${window.template.home[window.selected_section].style['padding']}"]`).addClass('select_box_selected')
+    $(`.home_${window.selected_section}_padding_select[key="${window.template.home[window.selected_section].css['padding']}"]`).addClass('select_box_selected')
 }
 //events
 $('html,body').on('click','.change_home_section_layout',function(e){
@@ -261,8 +261,8 @@ $('html,body').on('click','.back_to_home_section_editor_settings',function(e){
 $('html,body').on('click','.change_home_section_layout_elem',function(e){
     e.stopImmediatePropagation();
     let section_layouts = get_home_sections_layouts();
-    let layout = JSON.parse(JSON.stringify(section_layouts.find(item=>item.layout == $(this).attr('layout')).section_container));
-    window.template.home[window.selected_section].children.section_container = layout
+    let layout = JSON.parse(JSON.stringify(section_layouts.find(item=>item.layout == $(this).attr('layout')).section_wrapper));
+    window.template.home[window.selected_section].children.section_wrapper = layout
     new_action();
     editor_popup_to_parent($('#home_section_editor_settings'),$('#home_section_editor_settings_change_layout'))
     $('.back_to_home_section_editor_settings').addClass('none');
@@ -270,7 +270,7 @@ $('html,body').on('click','.change_home_section_layout_elem',function(e){
 ///
 $('html,body').on('click','section[type="home_section"]',function(e){
     // e.stopImmediatePropagation();
-    if($('.home_section_elements_container:hover').length > 0){return}
+    if($('.section_elements_wrapper:hover').length > 0){return}
     if($('.section_btns_container:hover').length != 0){return}
     show_edit_home_section($(this).attr("key_tree").split('.')[1])
 })

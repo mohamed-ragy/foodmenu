@@ -9,6 +9,8 @@
     <link rel="icon" type="image/x-icon" href="/storage/favicon.ico">
     <link rel="stylesheet" href="{{ asset('css/cpanel/colors.css?v=1') }}">
     <link rel="stylesheet" href="/css/builder/builder.css">
+    <link id="custom_font" href="" rel="stylesheet">
+
     <title>{{ trans('builder.title') }}</title>
 </head>
 @include('page_loading')

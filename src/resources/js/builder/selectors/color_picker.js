@@ -1251,11 +1251,11 @@ $(document).on('close','.color_picker',function(e){
     }
     if(
         !window.template.website_colors.color_history.includes(event.target.value) &&
-        window.template.settings.metrics_color != event.target.value &&
-        window.template.website_colors.color_theme.color_1 != event.target.value &&
-        window.template.website_colors.color_theme.color_2 != event.target.value &&
-        window.template.website_colors.color_theme.color_3 != event.target.value &&
-        window.template.website_colors.color_theme.color_4 != event.target.value
+        window.template.settings.metrics_color.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
+        window.template.website_colors.color_theme.color_1.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
+        window.template.website_colors.color_theme.color_2.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
+        window.template.website_colors.color_theme.color_3.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
+        window.template.website_colors.color_theme.color_4.replaceAll(' ','') != event.target.value.replaceAll(' ','')
 
     ){
         window.template.website_colors.color_history.push(event.target.value)

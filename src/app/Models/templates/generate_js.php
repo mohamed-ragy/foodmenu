@@ -16,16 +16,32 @@ class generate_js
     public function add_to_file($js){
         $this->js_file = $this->js_file.$js;
     }
-    public function generate($template,$langs){
-        $this->template = $template;
-        ////delete old html files and create new directory
-        if (File::exists(resource_path("views/websites/{$this->template['website_id']}/"))) {
-            File::deleteDirectory(resource_path("views/websites/{$this->template['website_id']}/"));
+
+    public function delete_lang_dir($lang){
+        if (File::exists(storage_path("websites/{$this->template['website_id']}/views/$lang"))) {
+            File::deleteDirectory(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"));
         }
-        File::makeDirectory(resource_path("/views/websites/{$this->template['website_id']}/"));
+    }
+    public function create_lang_dir($lang){
+        if (!File::exists(storage_path("websites/{$this->template['website_id']}/views/$lang"))) {
+            File::makeDirectory(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"));
+        }
+    }
+    public function generate($template,$langs,$add_lang,$remove_lang){
+        $this->template = $template;
+        if($add_lang != null){
+            self::create_lang_dir($add_lang);
+        }
+        if($remove_lang != null){
+            self::delete_lang_dir($remove_lang);
+        }
+        ////delete old html files and create new directory
+        // if (File::exists(resource_path("views/websites/{$this->template['website_id']}/"))) {
+        //     File::deleteDirectory(resource_path("views/websites/{$this->template['website_id']}/"));
+        // }
+        // File::makeDirectory(resource_path("/views/websites/{$this->template['website_id']}/"));
         foreach($langs as $lang){
             $this->text[$lang] = [];
-            File::makeDirectory(resource_path("/views/websites/{$this->template['website_id']}/{$lang}/"));
         }
         $this->langs = $langs;
         /////website basic texts
@@ -54,17 +70,17 @@ class generate_js
         ///draw home page
         $home_html = '';
         foreach($this->template['home'] as $section){
-            $home_html = $home_html.self::generate_html_elem($section);
+            $home_html = $home_html.self::generate_html_elem($section,null);
         }
         self::add_to_file("draw_home_page = function(){ return `{$home_html}`; };");
         foreach($this->langs as $lang){
-            $homt_view_html = '';
+            $home_view_html = '';
             foreach($this->template['home'] as $section){
-                $homt_view_html = $homt_view_html.self::generate_html_elem($section,$lang);
-                // Storage::put(resource_path("/views/websites/{$this->template['website_id']}/{$lang}/home.blade.php"), $homt_view_html);
-                $filePath = resource_path("/views/websites/{$this->template['website_id']}/{$lang}/website_home.blade.php");
-                file_put_contents($filePath, $homt_view_html);
+                $home_view_html = $home_view_html.self::generate_html_elem($section,$lang);
+                // $filePath = storage_path("websites/{$this->template['website_id']}/views/$lang/website_home.html");
+                Storage::put('websites/'.$this->template->website_id.'/views/'.$lang.'/website_home.html', $home_view_html);
             }
+
         }
 
 
@@ -85,7 +101,15 @@ class generate_js
             ");
 
         }
-
+        ////custom google font
+        if($this->template['font_style']['custom_link'] != ''){
+            self::add_to_file(<<<string
+                    let font_link = "{$this->template['font_style']['custom_link']}".split('family=')[1];
+                    font_link = font_link.split("')")[0];
+                    $('head').append(`<style>@import url('https://fonts.googleapis.com/css2?family=\${font_link}')</style>`)
+                string
+            );
+        }
 
 
         ///save js file
@@ -102,7 +126,7 @@ class generate_js
 
     }
 
-    public function generate_html_elem($elem,$draw_lang=null){
+    public function generate_html_elem($elem,$draw_lang){
         $html_start = '';
         $html = '';
         $html_end = '';
@@ -120,8 +144,8 @@ class generate_js
                 if(array_key_exists('class',$elem)){
                     $html_start = $html_start." ".$elem['class'];
                 }
-                if(array_key_exists('style_class',$elem)){
-                    $html_start = $html_start." ".$elem['style_class'];
+                if(array_key_exists('class_selector',$elem)){
+                    $html_start = $html_start." ".$elem['class_selector'];
                 }
                 if(array_key_exists('color_theme',$elem)){
                     if(array_key_exists('background',$elem)){
@@ -165,14 +189,14 @@ class generate_js
 
                 if(array_key_exists('children',$elem)){
                     foreach($elem['children'] as $child){
-                        $html = $html.self::generate_html_elem($child);
+                        $html = $html.self::generate_html_elem($child,$draw_lang);
                     }
                 }
 
                 $html_end = "</{$elem['tag']}>";
             break;
         }
-        return $html_start.$html.$html_end;
+        return strip_tags($html_start.$html.$html_end,['section','div','a']);
     }
 
 }

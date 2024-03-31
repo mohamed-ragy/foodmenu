@@ -17,6 +17,18 @@ set_font_style_settings = function(){
 
     $('.paragraph_letter_spacing_select').removeClass('select_box_selected')
     $(`.paragraph_letter_spacing_select[key="${window.template.font_style.paragraph_letter_spacing}"]`).addClass('select_box_selected')
+
+    if(window.template.font_style.custom_link == null || window.template.font_style.custom_link == ''){
+        $('.google_font_input_name').val('');
+        $('.google_font_input_link').val('');
+    }else{
+        let font_link = window.template.font_style.custom_link.split('family=')[1];
+        font_link = font_link.split("')")[0];
+        $('#custom_font').attr('href',`https://fonts.googleapis.com/css2?family=${font_link}`)
+        $('.google_font_input_name').val(window.template.font_style.custom_name);
+        $('.google_font_input_link').val(window.template.font_style.custom_link);
+    }
+
 }
 draw_font_style = function(){
     $('#font_style').find('.editor_popup_title').text(texts.website_style.font_style)
@@ -37,9 +49,9 @@ draw_font_style = function(){
             $('<div/>',{class:'row alnC jstfyE w100p mT30'}).append(
                 $('<button/>',{class:'btn btn-cancel changeFontStyle',text:texts.website_style.changeFontStyle}),
             ),
-            $('<div/>',{class:'w100p mT40'}).append(
-                $('<div/>',{class:'fs1 bold mB5',text:texts.website_style.titleFont}),
-                $('<div/>',{class:'w100p mB40'}).append(
+            $('<div/>',{class:'w100p'}).append(
+                $('<div/>',{class:'fs1 bold mB5 mT20',text:texts.website_style.titleFont}),
+                $('<div/>',{class:'w100p '}).append(
                     $('<div/>',{class:'font_settings_row'}).append(
                         $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.fontWeight}),
                         $('<div/>',{class:'mis-10 select_box_container',key_tree:'font_style',key:'title_weight'}).append(
@@ -68,8 +80,8 @@ draw_font_style = function(){
                         )
                     ),
                 ),
-                $('<div/>',{class:'fs1 bold mB5',text:texts.website_style.paragraphFont}),
-                $('<div/>',{class:'w100p'}).append(
+                $('<div/>',{class:'fs1 bold mB5 mT20',text:texts.website_style.paragraphFont}),
+                $('<div/>',{class:'w100p '}).append(
                     $('<div/>',{class:'font_settings_row'}).append(
                         $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.fontWeight}),
 
@@ -98,6 +110,21 @@ draw_font_style = function(){
                             $('<div/>',{class:`pY5 w25 paragraph_letter_spacing_select select_box`,text:'XL',key:'0.16em'}),
                         )
                     ),
+                ),
+                $('<div/>',{class:'fs1 bold mB5 mT20',text:texts.website_style.importGoogleFont}),
+                $('<div/>',{class:'w100p'}).append(
+                    $('<div/>',{class:'font_settings_row'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.font_name}),
+                        $('<input/>',{class:'google_font_input google_font_input_name input_editor_popup',key:'custom_name',key_tree:'font_style'})
+                    ),
+                    $('<div/>',{class:'font_settings_row'}).append(
+                        $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.font_link}),
+                        $('<input/>',{class:'google_font_input google_font_input_link input_editor_popup',key:'custom_link',key_tree:'font_style'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfyE w100p'}).append(
+                        $('<button/>',{class:'google_font_clear_btn btn btn-cancel fs08 pY3 pX10 mnw0 mX5',text:texts.website_style.clear}),
+                        $('<button/>',{class:'google_font_import_btn btn btn-cancel fs08 pY3 pX10 mnw0 m0',text:texts.website_style.import}),
+                    )
                 ),
             )
         ),
@@ -181,4 +208,16 @@ $('html,body').on('click','.font_style_pack_change',function(e){
     new_action();
     editor_popup_to_parent($('#font_style_pack_container'),$('#font_style_packs_container'))
     $('.backToFontStyle').addClass('none');
+})
+$('html,body').on('click','.google_font_import_btn',function(e){
+    e.stopImmediatePropagation();
+    window.template.font_style.custom_name = $('.google_font_input_name').val();
+    window.template.font_style.custom_link = $('.google_font_input_link').val();
+    new_action();
+})
+$('html,body').on('click','.google_font_clear_btn',function(e){
+    e.stopImmediatePropagation();
+    window.template.font_style.custom_name = '';
+    window.template.font_style.custom_link = '';
+    new_action();
 })

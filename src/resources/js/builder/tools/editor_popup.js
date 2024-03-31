@@ -193,7 +193,7 @@ $('html,body').on('mousemove touchmove','.editor_popup',function(e){
     }
 })
 //
-$('html,body').on('input change','.input_editor_name',function(e){
+$('html,body').on('input change','.input_editor_popup_section_name',function(e){
     e.stopImmediatePropagation();
     let template = window.template;
     let keys = $(this).attr('key_tree').split('.');

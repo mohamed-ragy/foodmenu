@@ -237,7 +237,7 @@ class designController extends Controller
                 }
                 $template = template::where('_id',$request->template['_id'])->first();
                 (new generate_css)->generate($template);
-                (new generate_js)->generate($template,$langs);
+                (new generate_js)->generate($template,$langs,null,null);
 
                 return response(['save_template_state' => 1]);
             }else{

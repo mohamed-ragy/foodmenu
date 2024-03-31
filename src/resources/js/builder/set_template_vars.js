@@ -12,6 +12,9 @@ set_website_colors_vars  = function(){
         window.template.website_colors.color_theme.color_3,
         window.template.website_colors.color_theme.color_4,
     ];
+    if(window.template.website_colors.color_history.length >= 9){
+        window.template.website_colors.color_history.splice(0,1);
+    }
     for(const key in window.template.website_colors.color_history){
         swatches.push(window.template.website_colors.color_history[key]);
     }
@@ -51,11 +54,11 @@ set_website_colors_vars  = function(){
     $(':root').css('--color_theme_12_txt',window.template.website_colors.color_theme.color_3);
 }
 set_font_style_vars = function(){
-    $(':root').css('--font_t',`'${window.template.font_style.title}', cairo, sans-serif`);
+    $(':root').css('--font_t',`'${window.template.font_style.title}', '${window.template.font_style.custom_name}', sans-serif`);
     $(':root').css('--font_t_fw',window.template.font_style.title_weight);
     $(':root').css('--font_t_lh',window.template.font_style.title_line_height);
     $(':root').css('--font_t_ls',window.template.font_style.title_letter_spacing);
-    $(':root').css('--font_p',`'${window.template.font_style.paragraph}', Tajawal, sans-serif`);
+    $(':root').css('--font_p',`'${window.template.font_style.paragraph}','${window.template.font_style.custom_name}', sans-serif`);
     $(':root').css('--font_p_fw',window.template.font_style.paragraph_weight);
     $(':root').css('--font_p_lh',window.template.font_style.paragraph_line_height);
     $(':root').css('--font_p_ls',window.template.font_style.paragraph_letter_spacing);

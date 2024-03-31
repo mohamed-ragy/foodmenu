@@ -64,14 +64,15 @@ create_html = function(elem,key_tree){
     }
 
 
-    for(const key in elem.style){
-        let val = elem.style[key];
+    for(const key in elem.css){
+        let val = elem.css[key];
         style = `${style} ${key}:${val};`
         style_desktop = `${style_desktop} ${key}:${val};`
         style_mobile = `${style_mobile} ${key}:${val};`
     }
-    for(const key in elem.style_mobile){
-        let val = elem.style_mobile[key];
+
+    for(const key in elem.css_mobile){
+        let val = elem.css_mobile[key];
         if(key == 'background-image' && val != 'unset'){val = `url("${val}")`}
         style_mobile = `${style_mobile} ${key}:${val};`
     }
@@ -81,31 +82,47 @@ create_html = function(elem,key_tree){
         if('val' in elem.text){
             text = elem.text.val[window.preview_language]
         }else{
-            text =  window.website_texts.text[elem.text.key]
+            let text_key = elem.text.key.split('.')
+            text =  window.website_texts.text[text_key[0]][text_key[1]]
         }
     }
-    let classes = '';
     // if('attr' in elem){
     //     if('class' in elem.attr){
     //         classes = elem.attr.class;
     //     }
     // }
-    if(typeof(elem['class']) !== 'undefined'){
-        if(elem['class'] != null){
-            classes = `${classes} ${elem['class']}`
-        }
+    let classes = '';
+    if('class_selector' in elem){
+        classes = `${classes} ${elem.class_selector}`
     }
-    if(typeof(elem['color_theme']) !== 'undefined'){
-        if(elem['color_theme'] != null){
-            if('background' in elem){
-                if(elem['background'] == 'color_theme'){
-                    classes = `${classes} ${elem['color_theme']}`
-                }
-            }else{
-                classes = `${classes} ${elem['color_theme']}`
+    if('class' in elem){
+        classes = `${classes} ${elem.class}`
+    }
+    if('color_theme' in elem ){
+        if('background' in elem){
+            if(elem.background == 'color_theme'){
+                classes = `${classes} ${elem.color_theme}`
             }
+        }else{
+            classes = `${classes} ${elem.color_theme}`
         }
     }
+    // if(typeof(elem['class']) !== 'undefined'){
+    //     if(elem['class'] != null){
+    //         classes = `${classes} ${elem['class']}`
+    //     }
+    // }
+    // if(typeof(elem['color_theme']) !== 'undefined'){
+    //     if(elem['color_theme'] != null){
+    //         if('background' in elem){
+    //             if(elem['background'] == 'color_theme'){
+    //                 classes = `${classes} ${elem['color_theme']}`
+    //             }
+    //         }else{
+    //             classes = `${classes} ${elem['color_theme']}`
+    //         }
+    //     }
+    // }
     switch(elem.tag){
         // case 'loading_spinner':
         //     html = $('<div/>',{key_tree:key_tree,type:elem.type,class:`loading_spinner_container ${classes}`,size:elem.size,style:style}).append(
@@ -113,14 +130,13 @@ create_html = function(elem,key_tree){
         //     )
         // break;
         default:
-            let contenteditable = false;
-            if(elem.formateable == '1'){
-                contenteditable = true;
-            }
+            // let contenteditable = false;
+            // if(elem.formateable == '1'){
+            //     contenteditable = true;
+            // }
             html = $(`<${elem.tag}/>`,{
                 class:classes,
                 // contenteditable:contenteditable,
-                type:elem.type,
                 text:text,
                 key_tree:key_tree,
                 style:style,
@@ -136,7 +152,7 @@ create_html = function(elem,key_tree){
     }
 
     if(window.selected_page == 'home'){
-        if(elem.type == 'home_section'){
+        if(elem.tag == 'section'){
             let section_key = key_tree.split('.')[1]
             html.append(
                 $('<button/>',{class:'btn btn-cancel add_home_section add_home_section_btn_style ico-add',section_sort:elem.sort,tooltip:texts.add_section}),
@@ -165,14 +181,14 @@ deselect_all = function(){
 heighlight_all = function(){
     $('.set_show_metrics').addClass('header_icon_selected')
     $('section[type="home_section"]').addClass('highlight')
-    $('.home_section_container').addClass('highlight')
-    $('.home_section_elements_container').addClass('highlight')
+    $('.section_wrapper').addClass('highlight')
+    $('.section_elements_wrapper').addClass('highlight')
 }
 deheighlight_all = function(){
     $('.set_show_metrics').removeClass('header_icon_selected')
     $('section[type="home_section"]').removeClass('highlight')
-    $('.home_section_container').removeClass('highlight')
-    $('.home_section_elements_container').removeClass('highlight')
+    $('.section_wrapper').removeClass('highlight')
+    $('.section_elements_wrapper').removeClass('highlight')
 }
 heighlight_all_toggle = function(){
     if( $('.set_show_metrics').hasClass('header_icon_selected')){

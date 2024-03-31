@@ -175,6 +175,11 @@ return [
         'fontWeight' => 'Font weight',
         'lineHeight' => 'Line height',
         'letterSpacing' => 'Letter spacing',
+        'importGoogleFont' => 'Import google font',
+        'font_name' => 'Font name',
+        'font_link' => 'Font link',
+        'import' => 'Import',
+        'clear' => 'Clear',
         //
         'page_setup' => 'Page Setup',
         'page_setup_des' => "Setting up the page to suite your website's taste.",

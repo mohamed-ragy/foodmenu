@@ -48,13 +48,22 @@
 .editor_popup_title{
     line-height: 1em;
 }
-.input_editor_name{
+.input_editor_popup{
     outline:none;
     border:1px solid var(--white-5);
     background-color: var(--white-1);
     padding:5px;
     border-radius: 3px;
     font-size: .75em;
+}
+.input_editor_popup_100p{
+    outline:none;
+    border:1px solid var(--white-5);
+    background-color: var(--white-1);
+    padding:5px;
+    border-radius: 3px;
+    font-size: .75em;
+    width:calc(100% - 12px);
 }
 .editor_popup_body{
     position: relative;

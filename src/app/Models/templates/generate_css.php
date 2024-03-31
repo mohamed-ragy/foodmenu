@@ -17,7 +17,7 @@ class generate_css
         self::generate_form_classes();
         self::add_to_file(templates_data::loading_spinners()[$this->template['loading_spinner']['key']]['css']);
         foreach($this->template['home'] as $section){
-            self::generate_classes($section);
+            self::generate_class($section);
         }
 
         $this->css_file = str_replace(array("\r","\n"),"",$this->css_file);
@@ -28,55 +28,88 @@ class generate_css
             return false;
         }
     }
-
-    public function generate_classes($elem){
-        // if($elem['type'] == 'section'){
-        //     $section_css_start = "#".$elem['section_container']['id']."{";
-        //     $section_css = '';
-        //     $section_css_end = "}";
-        //     foreach($elem['section_container']['style'] as $key => $val){
-        //         $section_css = $section_css."{$key}:{$val};";
-        //     }
-        //     self::add_to_file($section_css_start.$section_css.$section_css_end);
-        // }
-
-        if(array_key_exists('style_class',$elem)){
-            if(!empty($elem['style'])){
-                $css_start = ".{$elem['style_class']}{";
-                    $css = '';
-                    foreach($elem['style'] as $key => $val){
+    public function generate_class($elem){
+        if(array_key_exists('class_selector',$elem)){
+            if(!empty($elem['css'])){
+                $css_start = ".{$elem['class_selector']}{";
+                $css = '';
+                foreach($elem['css'] as $key => $val){
+                    $css = $css."{$key}:{$val};";
+                }
+                if(array_key_exists('css_mobile', $elem)){
+                    $css = $css."@media (max-width:720px){";
+                    foreach($elem['css_mobile'] as $key => $val){
                         $css = $css."{$key}:{$val};";
                     }
-                    if(array_key_exists('style_mobile', $elem)){
-                        $css = $css."@media (max-width:720px){";
-                        foreach($elem['style_mobile'] as $key => $val){
-                            if($key == 'background-image' && $val != 'unset'){$val = "url('".$val."')";}
+                    $css = $css."}";
+                }
+                if(array_key_exists('background', $elem)){
+                    if($elem['background'] == 'image'){
+                        foreach($elem['background_image'] as $key => $val){
+                            if($key == 'background-image'){$val = "url('".$val."')";}
                             $css = $css."{$key}:{$val};";
                         }
-                        $css = $css."}";
                     }
-                    if(array_key_exists('background', $elem)){
-                        if($elem['background'] == 'image'){
-                            foreach($elem['background_image'] as $key => $val){
-                                if($key == 'background-image'){$val = "url('".$val."')";}
-                                $css = $css."{$key}:{$val};";
-                            }
-                        }
-                    }
-                    $css_end = "}";
-                    self::add_to_file($css_start.$css.$css_end);
+                }
+                $css_end = "}";
+                self::add_to_file($css_start.$css.$css_end);
             }
         }
         if(array_key_exists('children',$elem)){
             foreach($elem['children'] as $child){
-                self::generate_classes($child);
+                self::generate_class($child);
             }
         }
     }
+    // public function generate_classes($elem){
+    //     // if($elem['type'] == 'section'){
+    //     //     $section_css_start = "#".$elem['section_container']['id']."{";
+    //     //     $section_css = '';
+    //     //     $section_css_end = "}";
+    //     //     foreach($elem['section_container']['style'] as $key => $val){
+    //     //         $section_css = $section_css."{$key}:{$val};";
+    //     //     }
+    //     //     self::add_to_file($section_css_start.$section_css.$section_css_end);
+    //     // }
+
+    //     if(array_key_exists('style_class',$elem)){
+    //         if(!empty($elem['style'])){
+    //             $css_start = ".{$elem['style_class']}{";
+    //                 $css = '';
+    //                 foreach($elem['style'] as $key => $val){
+    //                     $css = $css."{$key}:{$val};";
+    //                 }
+    //                 if(array_key_exists('style_mobile', $elem)){
+    //                     $css = $css."@media (max-width:720px){";
+    //                     foreach($elem['style_mobile'] as $key => $val){
+    //                         if($key == 'background-image' && $val != 'unset'){$val = "url('".$val."')";}
+    //                         $css = $css."{$key}:{$val};";
+    //                     }
+    //                     $css = $css."}";
+    //                 }
+    //                 if(array_key_exists('background', $elem)){
+    //                     if($elem['background'] == 'image'){
+    //                         foreach($elem['background_image'] as $key => $val){
+    //                             if($key == 'background-image'){$val = "url('".$val."')";}
+    //                             $css = $css."{$key}:{$val};";
+    //                         }
+    //                     }
+    //                 }
+    //                 $css_end = "}";
+    //                 self::add_to_file($css_start.$css.$css_end);
+    //         }
+    //     }
+    //     if(array_key_exists('children',$elem)){
+    //         foreach($elem['children'] as $child){
+    //             self::generate_classes($child);
+    //         }
+    //     }
+    // }
 
     public function generate_vars(){
         $css = <<<string
         :root{
+        --color_1:{$this->template['website_colors']['color_theme']['color_1']};
         --color_1:{$this->template['website_colors']['color_theme']['color_1']};
         --color_2:{$this->template['website_colors']['color_theme']['color_2']};
         --color_3:{$this->template['website_colors']['color_theme']['color_3']};
@@ -113,11 +146,11 @@ class generate_css
         --body_color_theme_bg:var(--{$this->template['page_setup']['page_color_theme']}_bg);
         --body_color_theme_txt:var(--{$this->template['page_setup']['page_color_theme']}_txt);
 
-        --font_t:{$this->template['font_style']['title']};
+        --font_t:'{$this->template['font_style']['title']}', '{$this->template['font_style']['custom_name']}', sans-serif;
         --font_t_fw:{$this->template['font_style']['title_weight']};
         --font_t_lh:{$this->template['font_style']['title_line_height']};
         --font_t_ls:{$this->template['font_style']['title_letter_spacing']};
-        --font_p:{$this->template['font_style']['paragraph']};
+        --font_p:'{$this->template['font_style']['paragraph']}', '{$this->template['font_style']['custom_name']}', sans-serif;
         --font_p_fw:{$this->template['font_style']['paragraph_weight']};
         --font_p_lh:{$this->template['font_style']['paragraph_line_height']};
         --font_p_ls:{$this->template['font_style']['paragraph_letter_spacing']};
@@ -211,8 +244,8 @@ class generate_css
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
         body{color: var(--body_color_theme_txt);background-color: var(--body_color_theme_bg);width:100%;height:100%;box-sizing: border-box;margin:auto;overflow: auto;font-family: var(--font_p);line-height: var(--font_p_lh);letter-spacing: var(--font_p_ls);font-weight: var(--font_p_fw)}
         section{ width:100%; box-sizing:border-box;}
-        .home_section_container{ padding:0 var(--page_margin) ; box-sizing: border-box ; max-width:var(--page_max_width) ;margin:auto ; position: relative;}
-        .home_section_elements_container{display:flex;flex-direction: column; flex-wrap: nowrap;align-items: flex-start;justify-content: flex-start;box-sizing: border-box;}
+        .section_wrapper{ padding:0 var(--page_margin) ; box-sizing: border-box ; max-width:var(--page_max_width) ;margin:auto ; position: relative;}
+        .section_elements_wrapper{display:flex;flex-direction: column; flex-wrap: nowrap;align-items: flex-start;justify-content: flex-start;box-sizing: border-box;}
         .font_t{font-family: var(--font_t);line-height: var(--font_t_lh);letter-spacing: var(--font_t_ls);font-weight: var(--font_t_fw)}
         .font_p{font-family: var(--font_p);line-height: var(--font_p_lh);letter-spacing: var(--font_p_ls);font-weight: var(--font_p_fw)}
         .body_color_theme{background-color: var(--body_color_theme_bg);color: var(--body_color_theme_txt);}

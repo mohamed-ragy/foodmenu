@@ -27,8 +27,7 @@
 
 <body>
     <div id="page">
-        @include("websites.$website_id.$lang.".request()->route()->getName())
-
+        <?php include storage_path().'/app/public/websites/'.$website_id.'/views'.'/'.$lang.'/'.request()->route()->getName().'.html'; ?>
     </div>
 </body>
 <script>

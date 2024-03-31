@@ -16,6 +16,20 @@ class templates extends Seeder
      */
     public function run()
     {
+        // [
+        //     'name' => '',
+        //     'tag' => '',
+        //     'class_selector' => '',
+        //     'css' => [],
+        //     'css_mobile' => [],
+        //     'background' => '',
+        //     'color_theme' => '',
+        //     'background_image' => [],
+        //     'class' => '',
+        //     'attr' => [],
+        //     'text' => [],// only key if basic text and if template text if will be key of the text and val:{} contain text of rach lang with the lang code as key
+        //     'children' => [],
+        // ],
         template::where('name','Test template')->delete();
         $template = template::create([
             'website_id' => 1,
@@ -49,6 +63,9 @@ class templates extends Seeder
                 'paragraph_weight' => 'normal',
                 'paragraph_line_height' => '1.2em',
                 'paragraph_letter_spacing' => '0.04em',
+                'custom_name' => '',
+                'custom_link' => '',
+
             ],
             'page_setup' => [
                 'max_width' => '1800px',
