@@ -8,36 +8,45 @@
 }
 .form_elements_row:hover{background-color: var(--white-2);}
 //
+// .checkbox{
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     font-size:calc(var(--checkbox_size) );
+// }
 .checkbox_square{
     display: flex;
     align-items: center;
     justify-content: center;
-    width:calc(1em);
-    height:calc(1em);
+    width:calc(15px);
+    height:calc(15px);
     position: relative;
-    border:2px solid var(--checkbox_color);
+    border:1px solid var(--checkbox_color);
     cursor: pointer;
     border-radius: 0px;
+    padding:1px;
 }
 .checkbox_Rsquare{
     display: flex;
     align-items: center;
     justify-content: center;
-    width:calc(1em);
-    height:calc(1em);
+    width:calc(15px);
+    height:calc(15px);
     position: relative;
-    border:2px solid var(--checkbox_color);
+    border:1px solid var(--checkbox_color);
     cursor: pointer;
     border-radius: 5px;
+    padding:1px;
 }
 .checkbox_circle{
     display: flex;
     align-items: center;
     justify-content: center;
-    width:calc(1em );
-    height:calc(1em );
+    width:calc(15px);
+    height:calc(15px);
     position: relative;
-    border:2px solid var(--checkbox_color);
+    border:1px solid var(--checkbox_color);
     cursor: pointer;
     border-radius: 50%;
+    padding:1px;
 }

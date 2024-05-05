@@ -253,7 +253,6 @@ class cpanelController extends Controller
 
     public function login(Request $request)
     {
-        Account::where('email','zico@gmail.com')->update(['password_fails'=>9]);
         $solutions = Lang::get('cpanel/login.solutions');
         if($request->x != null){
             $rand = $request->x;

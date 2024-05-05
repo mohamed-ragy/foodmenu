@@ -1,0 +1,43 @@
+
+.fade{
+    animation-name: fade;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes fade {0%{opacity:0}100%{opacity: 1}}
+//
+.zoom{
+    animation-name: zoom;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes zoom {0%{opacity:0;transform: scale(0.9);}100%{opacity: 1;transform: scale(1);}}
+
+//
+.slide_up{
+    animation-name: slide_up;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes slide_up {0%{opacity:0;transform: translateY(10px);}100%{opacity: 1;transform: translateY(0px);}}
+//
+.slide_down{
+    animation-name: slide_down;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes slide_down {0%{opacity:0;transform: translateY(-10px);}100%{opacity: 1;transform: translateY(0px);}}
+//
+.slide_left{
+    animation-name: slide_left;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes slide_left {0%{opacity:0;transform: translateX(10px);}100%{opacity: 1;transform: translateX(0px);}}
+//
+.slide_right{
+    animation-name: slide_right;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes slide_right {0%{opacity:0;transform: translateX(-10px);}100%{opacity: 1;transform: translateX(0px);}}

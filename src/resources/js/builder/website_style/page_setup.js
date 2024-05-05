@@ -1,122 +1,242 @@
-set_page_setup_settings = function(){
-    set_page_setup_vars();
-    $('#page_max_width_inputList').children().first().text(texts.select_elems[`_${window.template.page_setup.max_width}`])
-    //
-    $('.page_margin_select').removeClass('select_box_selected')
-    $(`.page_margin_select[key="${window.template.page_setup.page_margin}"]`).addClass('select_box_selected')
-    //
-
-    $('#page_setup_theme_color_picker').removeClass().addClass(`color_theme_picker_container ${window.template.page_setup.page_color_theme}`).children().first().text(texts.website_style[window.template.page_setup.page_color_theme])
-    //
-    $('#pageTransition_inputList').children().first().text(texts.select_elems[window.template.page_setup.pageTransition])
-    //
-    $('.page_transitionDuration_select').removeClass('select_box_selected')
-    $(`.page_transitionDuration_select[key="${window.template.page_setup.transitionDuration}"]`).addClass('select_box_selected')
-    //
-    if(window.template.page_setup.smooth_scroll == '0'){
-        $('#page_setup_smooth_scroll').removeClass('switch_btn_selected')
-    }else if(window.template.page_setup.smooth_scroll == '1'){
-        $('#page_setup_smooth_scroll').addClass('switch_btn_selected')
-    }
-}
-
 draw_page_setup = function(){
     $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
     $('#page_setup').addClass('w500 h500').find('.editor_popup_body').text('').append(
         // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
         $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
         $('<div/>',{class:'w100p mB40'}).append(
-            $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.max_content_width}),
-                $('<div/>',{class:'inputList_container',id:'page_max_width_inputList',key_tree:'page_setup',key:'max_width'}).append(
-                    $('<div/>',{class:'',text:texts.select_elems[`_${window.template.page_setup.max_width}`]}),
-                    $('<div/>',{class:'ico-arrowDown'}),
-                    $('<div/>',{class:'none inputList_elems_temp'}).append(
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._800px,key:'800px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._1000px,key:'1000px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._1200px,key:'1200px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._1400px,key:'1400px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._1600px,key:'1600px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._1800px,key:'1800px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._2000px,key:'2000px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._2200px,key:'2200px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._2400px,key:'2400px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._2600px,key:'2600px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._2800px,key:'2800px'}),
-                        $('<div/>',{class:`inputList_elem`,text:texts.select_elems._3000px,key:'3000px'}),
-                    )
-                )
-            ),
-            $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.page_margin}),
-                $('<div/>',{class:'mis-10 select_box_container',key_tree:'page_setup',key:'page_margin'}).append(
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box ico-no`,key:'0%'}),
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'S',key:'1%'}),
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'M',key:'1.5%'}),
-                    $('<div/>',{class:`pY5 w25 page_margin_select select_box`,text:'L',key:'2%'}),
-                )
-            ),
-            $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.color_theme}),
-                draw_color_theme_Picker('page_setup_theme_color_picker','page_setup','page_color_theme')
-            ),
-            $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.pageTransition}),
-                $('<div/>',{class:'row alnC jstfyE'}).append(
-                    $('<div/>',{class:'inputList_container',id:'pageTransition_inputList',key_tree:'page_setup',key:'pageTransition'}).append(
-                        $('<div/>',{class:'',text:texts.select_elems[`_${window.template.page_setup.pageTransition}`]}),
-                        $('<div/>',{class:'ico-arrowDown'}),
-                        $('<div/>',{class:'none inputList_elems_temp'}).append(
-                            $('<div/>',{class:`inputList_elem`,text:texts.select_elems.fade,key:'fade'}),
-                            $('<div/>',{class:`inputList_elem`,text:texts.select_elems.fade2,key:'fade2'}),
-
-                        )
-                    ),
-                    $('<div/>',{class:'pageTransition_preview mis-5 fs101 pointer ico-play',})
-                ),
-
-            ),
-            $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.transitionDuration}),
-                $('<div/>',{class:'mis-10 select_box_container',key_tree:'page_setup',key:'transitionDuration'}).append(
-                    $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.slower,key:'1000ms'}),
-                    $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.slow,key:'500ms'}),
-                    $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.fast,key:'300ms'}),
-                    $('<div/>',{class:`pY5 pX5 page_transitionDuration_select select_box`,text:texts.select_elems.faster,key:'100ms'}),
-                )
-            ),
-            $('<div/>',{class:'page_setup_row'}).append(
-                $('<div/>',{class:'taS mie-10 fs09',text:texts.website_style.smoothScroll}),
-                $('<div/>',{class:'switch_btn_action switch_btn',id:'page_setup_smooth_scroll',key_tree:'page_setup',key:'smooth_scroll',switch_on:'1',switch_off:'0'})
+            draw_input_list({
+                keys_arr:[{key:'max_width',key_tree:'page_setup'}],
+                name:texts.styling.max_content_width,
+                selections:[
+                    {name:'800px',val:'800px',class:''},
+                    {name:'1000px',val:'1000px',class:''},
+                    {name:'1200px',val:'1200px',class:''},
+                    {name:'1400px',val:'1400px',class:''},
+                    {name:'1600px',val:'1600px',class:''},
+                    {name:'1800px',val:'1800px',class:''},
+                    {name:'2000px',val:'2000px',class:''},
+                    {name:'2200px',val:'2200px',class:''},
+                    {name:'2400px',val:'2400px',class:''},
+                    {name:'2600px',val:'2600px',class:''},
+                    {name:'2800px',val:'2800px',class:''},
+                    {name:'3000px',val:'3000px',class:''},
+                ]
+            }),
+            draw_number_picker({
+                keys_arr:[{key:'mobile_max_width',key_tree:'page_setup'}],
+                name:texts.styling.mobile_max_width,
+                step:'10',
+                unit:'px'
+            }),
+            draw_color_theme_Picker({
+                keys_arr:[{key:'page_color_theme',key_tree:'page_setup'}],
+                name:texts.styling.color_theme
+            }),
+            draw_input_list({
+                keys_arr:[{key:'pageTransition',key_tree:'page_setup'}],
+                name:texts.website_style.pageTransition,
+                selections:window.inputList_arr.pageTransition,
+                after:$('<div/>',{class:'pageTransition_preview mis-5 fs101 pointer ico-play'})
+            }),
+            draw_select_range({
+                keys_arr:[{key:'transitionDuration',key_tree:'page_setup'}],
+                name:texts.website_style.transitionDuration,
+                range:{min:100,max:1500,step:100},
+                unit:'ms'
+            }),
+            draw_switch_btn({
+                keys_arr:[{key:'smooth_scroll',key_tree:'page_setup'}],
+                name:texts.website_style.smoothScroll,
+                show_hide:'smoothScrollDistance_inputList'
+            }),
+            $('<div/>',{class:`smoothScrollDistance_inputList ${window.template.page_setup.smooth_scroll == '0' ? 'none' : '' } w100p`}).append(
+                draw_select_range({
+                    keys_arr:[{key:'smooth_scroll_distance',key_tree:'page_setup'}],
+                    name:texts.website_style.smoothScrollDistance,
+                    range:{min:100,max:1000,step:100},
+                    unit:'px'
+                }),
+                draw_select_range({
+                    keys_arr:[{key:'smooth_scroll_duration',key_tree:'page_setup'}],
+                    name:texts.website_style.smoothScrollDuration,
+                    range:{min:100,max:1500,step:100},
+                    unit:'ms'
+                }),
             )
+
         )
     )
 }
 
 //events
-let preview_page_transition_in_timeout = null;
-let preview_page_transition_out_timeout = null;
-$('html,body').on('click','.pageTransition_preview',function(e){
-    e.stopImmediatePropagation();
-    clearTimeout(preview_page_transition_in_timeout)
-    clearTimeout(preview_page_transition_out_timeout)
-    $('#website').removeClass(`${window.template.page_setup.pageTransition}_in`)
-    $('#website').addClass(`${window.template.page_setup.pageTransition}_out`)
-    preview_page_transition_in_timeout = setTimeout(()=>{
-        $('#website').removeClass(`${window.template.page_setup.pageTransition}_out`).addClass(`${window.template.page_setup.pageTransition}_in`)
-        preview_page_transition_out_timeout = setTimeout(()=>{
-            $('#website').removeClass(`${window.template.page_setup.pageTransition}_in`)
-        },window.template.page_setup.transitionDuration.replace('ms',''))
-    },window.template.page_setup.transitionDuration.replace('ms',''))
+
+$('body').on('click','.pageTransition_preview',function(e){
+    //e.stopImmediatePropagation();
+    play_page_transition($('#page'),window.template.page_setup.pageTransition,window.template.page_setup.transitionDuration)
 })
 
 
 
-$('#website').on('mousewheel', function(e){
+$('#website').on('wheel', function(e){
+    if($('#website').css('overflow') == 'hidden'){return;}
+    // if(!$('.popup_container').hasClass('none')){return;}
     if(window.template.page_setup.smooth_scroll == '0'){return;}
     if(event.wheelDelta < 0){
-    $('#website').stop(false,false).animate({scrollTop:$('#website').scrollTop() + (parseFloat($(window).height()) / 2)},{duration: 600,specialEasing: {width: "easeOutBounce",height: "easeOutBounce"}})
+        $('#website').stop(true,false).animate({scrollTop:$('#website').scrollTop() + parseFloat(window.template.page_setup.smooth_scroll_distance.replace('px',''))},{duration: parseInt(window.template.page_setup.smooth_scroll_duration.replace('ms','')),specialEasing: {width: "easeOutQuint",height: "easeOutQuint"}})
     }else{
-    $('#website').stop(false,false).animate({scrollTop:$('#website').scrollTop() - (parseFloat($(window).height()) / 2)},{duration: 600,specialEasing: {width: "easeOutBounce",height: "easeOutBounce"}})
+        $('#website').stop(true,false).animate({scrollTop:$('#website').scrollTop() - parseFloat(window.template.page_setup.smooth_scroll_distance.replace('px',''))},{duration: parseInt(window.template.page_setup.smooth_scroll_duration.replace('ms','')),specialEasing: {width: "easeOutQuint",height: "easeOutQuint"}})
     }
+
 });
+scroll_elem_animation = function(scroll_direction){
+    $('[elem_animation="true"]').each(function(){
+        let elem = get_key_tree($(this).attr('key_tree')).elem
+        let elem_animation = window.current_view == 'desktop' ? elem.animation : window.current_view == 'mobile' ? elem.animation_mobile : null;
+        let elem_offset_top = $(this).offset().top;
+        if($(this).css('box-sizing') == 'border-box'){
+            elem_offset_top = $(this).offset().top - parseFloat($(this).css('padding-top'))
+        }
+        let elem_offset_bottom = elem_offset_top + $(this).outerHeight();
+        let window_height = $('#website').height();
+        let elem_animate_on = elem_animation.animate_on;
+        if(scroll_direction == 'top'  && elem_offset_top > 0 && elem_offset_top < $('#website').height() && elem_animation.animationUp == '1'){
+            $(this).css({
+                'transition-duration':'0ms',
+                'transition-delay':'0ms',
+            });
+            $(this).css({
+                'transform':elem_animation.animationUp_transform,
+                'opacity':elem_animation.animationUp_opacity,
+                'color':elem_animation.animationUp_font_color,
+                'background-color':elem_animation.animationUp_background_color,
+            })
+            setTimeout(()=>{
+                $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
+            },10)
+        }
+        else if(scroll_direction == 'down' && elem_animation.animationDown == '1'){
+            if(elem_animate_on == 'on_fully_enter'){
+                if(elem_offset_bottom > window_height){
+                    $(this).css({
+                        'transform':elem_animation.animationDown_transform,
+                        'opacity':elem_animation.animationDown_opacity,
+                        'color':elem_animation.animationDown_font_color,
+                        'background-color':elem_animation.animationDown_background_color,
+                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
+                    })
+                }else if(elem_offset_top < 0){
+                    $(this).css({
+                        'transform':elem_animation.animationUp_transform,
+                        'opacity':elem_animation.animationUp_opacity,
+                        'color':elem_animation.animationUp_font_color,
+                        'background-color':elem_animation.animationUp_background_color,
+                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
+                    })
+                }else{
+                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
+                }
+            }
+            else if(elem_animate_on == 'on_enter'){
+                if(elem_offset_top > window_height){
+                    $(this).css({
+                        'transform':elem_animation.animationDown_transform,
+                        'opacity':elem_animation.animationDown_opacity,
+                        'color':elem_animation.animationDown_font_color,
+                        'background-color':elem_animation.animationDown_background_color,
+                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
+                    })
+                }else if(elem_offset_top < 0){
+                    $(this).css({
+                        'transform':elem_animation.animationUp_transform,
+                        'opacity':elem_animation.animationUp_opacity,
+                        'color':elem_animation.animationUp_font_color,
+                        'background-color':elem_animation.animationUp_background_color,
+                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
+                    })
+                }else{
+                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
+                }
+            }
+        }
+
+        else if(scroll_direction == 'up' && elem_animation.animationUp == '1'){
+            if(elem_animate_on == 'on_fully_enter'){
+                if(elem_offset_top < 0){
+                    $(this).css({
+                        'transform':elem_animation.animationUp_transform,
+                        'opacity':elem_animation.animationUp_opacity,
+                        'color':elem_animation.animationUp_font_color,
+                        'background-color':elem_animation.animationUp_background_color,
+                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
+                    })
+                }else if(elem_offset_bottom > window_height){
+                    $(this).css({
+                        'transform':elem_animation.animationDown_transform,
+                        'opacity':elem_animation.animationDown_opacity,
+                        'color':elem_animation.animationDown_font_color,
+                        'background-color':elem_animation.animationDown_background_color,
+                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
+                    })
+                }else{
+                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
+                }
+            }
+            else if(elem_animate_on == 'on_enter'){
+                if(elem_offset_bottom < 0){
+                    $(this).css({
+                        'transform':elem_animation.animationUp_transform,
+                        'opacity':elem_animation.animationUp_opacity,
+                        'color':elem_animation.animationUp_font_color,
+                        'background-color':elem_animation.animationUp_background_color,
+                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
+                    })
+                }else if(elem_offset_bottom > window_height){
+                    $(this).css({
+                        'transform':elem_animation.animationDown_transform,
+                        'opacity':elem_animation.animationDown_opacity,
+                        'color':elem_animation.animationDown_font_color,
+                        'background-color':elem_animation.animationDown_background_color,
+                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
+                    })
+                }else{
+                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
+                }
+            }
+        }
+        // else if(elem_offset_top < animation_area_start){
+        //     if(elem_animation.animationUp == '1'){
+        //         $(this).css({
+        //             'transform':elem_animation.animationUp_transform,
+        //             'opacity':elem_animation.animationUp_opacity,
+        //             'color':elem_animation.animationUp_font_color,
+        //             'background-color':elem_animation.animationUp_background_color,
+        //         })
+        //     }
+
+        // }else if(elem_offset_top > animation_area_end){
+        //     if(elem_animation.animationDown == '1'){
+        //         $(this).css({
+        //             'transform':elem_animation.animationDown_transform,
+        //             'opacity':elem_animation.animationDown_opacity,
+        //             'color':elem_animation.animationDown_font_color,
+        //             'background-color':elem_animation.animationDown_background_color,
+        //             'backdrop-filter':elem_animation.animationDown_backdrop_filter,
+        //         })
+        //     }
+        // }else{
+        //     $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
+        // }
+    })
+}
+window.last_scroll_top = 0;
+$('#website').on('scroll',function(e){
+    let scroll_direction;
+    if(window.last_scroll_top < $('#website').scrollTop()){
+        scroll_direction = 'down';
+    }else{
+        scroll_direction = 'up';
+    }
+    window.last_scroll_top = $('#website').scrollTop();
+    set_adapted_header();
+    scroll_elem_animation(scroll_direction);
+})

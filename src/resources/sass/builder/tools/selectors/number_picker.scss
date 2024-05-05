@@ -1,0 +1,26 @@
+.number_picker_container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.number_picker_btn{
+    font-size: .65em;
+    cursor: pointer;
+}
+.number_picker_val{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:0 10px;
+    border:1px solid var(--white-4);
+    border-radius: 3px;
+}
+.number_picker_input{
+    all: unset;
+    font-size: .9em;
+    padding:3px 5px;
+    text-align: center;
+    width: 50px;
+    box-sizing: border-box;
+
+}

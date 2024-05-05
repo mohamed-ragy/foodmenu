@@ -1,4 +1,4 @@
-new_action = function(){
+new_action = function(set_selectors=true,draw_website=true){
     unset_preview_mode();
     deheighlight_all();
     for(const key in window.template_edit_history){
@@ -8,7 +8,7 @@ new_action = function(){
     }
     window.template_current_edit++;
     window.template_edit_history[`_${window.template_current_edit}`] = JSON.parse(JSON.stringify(window.template))
-    undo_redo_actions();
+    undo_redo_actions(set_selectors,draw_website);
     fix_undo_redo_btns();
 }
 fix_undo_redo_btns = function(){
@@ -44,42 +44,191 @@ redo = function(){
     fix_undo_redo_btns();
 }
 
-undo_redo_actions = function(){
+undo_redo_actions = function(set_selectors = true,draw_website=true){
+    // console.log('undo_redo_actions triggered')
+    set_template_vars();
     //
-    set_website_colors_settings();
-    //
-    set_font_style_settings();
-    //
-    set_page_setup_settings();
-    //
-    set_form_elements_settings();
-    //
-    set_loading_spinner_settings();
-    //
-    if(window.selected_page == 'home' && window.selected_section != null){
-        set_editor_poup_home_section();
+    if(draw_website){
+        draw_website_header_html()
+        $('.website_logo').attr('src',window.website_data.logo)
+        $('.restaurant_name').text(window.website_data.websiteNames[window.preview_language]);
+        //
+        if(window.is_header_selected){
+            $('.website_header').addClass('selected_header')
+        }
+        //
+        if(window.website_popup_opened){
+            show_popup_window();
+        }else{
+            $('.popup_container').css('display','none')
+        }
+        if(window.show_header_drop_down_list == true){
+            show_header_drop_down('foodmenu');
+        }
+        //
+        draw_page(window.selected_page)
+        set_adapted_header();
+        draw_website_checkbox()
+        // $('*').not('.format').addClass('stop_transitions');
+        // scroll_elem_animation('top');
+        // setTimeout(()=>{
+            // $('*').removeClass('stop_transitions')
+        // },10)
     }
-    draw_page(window.selected_page)
     //
     set_view_style();
     //
-    // $('.color_picker').each(function(){
-    //     $(this).val($(this).css('background-color'))
-    // })
-    // $('.color_picker_L').each(function(){
-    //     $(this).val($(this).css('background-color'))
-    // })
+    if(set_selectors){
+        $('.number_picker_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_number_picker($(this));
+                }catch{}
+            }
+        })
+        $('.select_box_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_select_box($(this))
+                }catch{}
+
+            }
+        })
+        $('.select_range_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_select_range_slider($(this));
+                }catch{}
+
+            }
+        })
+        $('.transform_btns_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_transform_selector($(this))
+                }catch{}
+            }
+        })
+        $('.image_position_btns_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_image_position_selector($(this))
+                }catch{}
+            }
+        })
+        $('.inputList_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_input_list($(this))
+                }catch{}
+            }
+        })
+        $('.color_theme_picker_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_color_theme_Picker($(this))
+                }catch{}
+            }
+        })
+        $('.font_style_selector_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_font_style_selector($(this))
+                }catch{}
+            }
+        })
+        $('.color_picker_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_color_picker($(this))
+                }catch{}
+            }
+        })
+        $('.switch_btn_action').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_switch_btn($(this))
+                }catch{}
+            }
+        })
+        $('.select_box_border_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_select_box_border($(this));
+                }catch{}
+            }
+        })
+        $('.drop_shadow_selector_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_drop_shadow_select($(this))
+                }catch{}
+            }
+        })
+        $('.editor_popup_img_select').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_image_selector($(this))
+                }catch{}
+            }
+        })
+        $('.backdrop_filter_selector_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_backdrop_filter_selector($(this))
+                }catch{}
+            }
+        })
+        $('.select_icon').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_icon_selctor($(this))
+                }catch{}
+            }
+        })
+        $('.text_shadow_settings_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_text_shadow_selector($(this))
+                }catch{}
+            }
+        })
+        $('.zindex_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_zindex_selector($(this))
+                }catch{}
+            }
+        })
+        $('.opacity_container').each(function(){
+            if(typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined'){
+                try{
+                    set_opacity_selector($(this))
+                }catch{}
+            }
+        })
+        $('.elem_text_selector_editor').each(function(){
+            if(typeof($(this).attr('key_tree')) !== 'undefined'){
+                try{
+                    if($(this).is(':hover') == false){
+                        $(this).html(get_key_tree($(this).attr('key_tree')).elem.text.val[$(this).attr('lang')])
+                    }
+                }catch{}
+            }
+        })
+    }
+
 }
 
 //events
-$('html,body').on('click','.undo',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.undo',function(e){
+    // e.stopImmediatePropagation();
     if($('.undo').hasClass('header_icon_disabled')){return;}
     undo();
 })
 //events
-$('html,body').on('click','.redo',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.redo',function(e){
+    // e.stopImmediatePropagation();
     if($('.redo').hasClass('header_icon_disabled')){return;}
     redo();
 })

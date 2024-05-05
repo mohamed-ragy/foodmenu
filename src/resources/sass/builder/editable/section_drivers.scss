@@ -1,0 +1,23 @@
+.section_driver_preview, .section_driver_preview_none{
+    width:150px;
+    height:75px;
+    cursor: pointer;
+    margin:10px;
+    outline:1px solid var(--white-6);
+    background-color: rgba(200,200,200,1);
+    border-radius: 4px;
+    padding:2px;
+    position: relative;
+    overflow: hidden;
+}
+.section_driver_preview:hover ,.section_driver_preview_none:hover{
+    box-shadow: 0 0 15px var(--shdw-10);
+}
+.section_driver_preview_block{
+    position: absolute;
+    bottom:0;
+    left:0;
+    height:30px;
+    width:100%;
+    background-color: rgb(255, 255, 255);
+}

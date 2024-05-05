@@ -30,8 +30,8 @@ show_add_home_section_previews = function(type){
     }
 }
 //
-$('html,body').on('click','.add_home_section_blank',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.add_home_section_blank',function(e){
+    // e.stopImmediatePropagation();
     let section_layouts = get_home_sections_layouts();
     let layout = JSON.parse(JSON.stringify(section_layouts.find(item=>item.layout == $(this).attr('layout')).section_wrapper));
     let blank_section = get_blank_home_section();
@@ -53,8 +53,8 @@ $('html,body').on('click','.add_home_section_blank',function(e){
     close_popup();
 })
 //
-$('html,body').on('click','.add_home_section',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.add_home_section',function(e){
+    // e.stopImmediatePropagation();
     let section_sort = $(this).attr('section_sort');
     show_popup(function(){
         $('.popupTitle').text(texts.add_section);
@@ -109,8 +109,8 @@ $('html,body').on('click','.add_home_section',function(e){
     })
 })
 //
-$('html,body').on('click','.add_home_section_type_elem',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.add_home_section_type_elem',function(e){
+    // e.stopImmediatePropagation();
     $('.add_home_section_type_elem').removeClass('add_home_section_type_elem_selected');
     $(this).addClass('add_home_section_type_elem_selected')
     $('.add_home_section_type_elem').find('.ico-arrowRight').addClass('vH')

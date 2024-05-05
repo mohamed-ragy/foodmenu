@@ -19,14 +19,3 @@
     box-shadow: 0 0 15px var(--shdw-10);
 }
 //
-.font_settings_row{
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom:1px solid var(--white-2);
-    padding:5px;
-}
-.font_settings_row:hover{background-color: var(--white-2);}
-//

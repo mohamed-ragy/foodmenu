@@ -40,19 +40,19 @@ updateToolTip = function(){
     $('#tooltipDiv').html(window.toolTipElem.attr('tooltip'));
 }
 ///
-$('html,body').on('mouseleave','[tooltip]',function(e){
+$('body').on('mouseleave','[tooltip]',function(e){
     $('#tooltipDiv').text('');
     $('#tooltipDiv').hide();
 });
-$('html,body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
+    // //e.stopImmediatePropagation();
     if($(this).attr('tooltip') == ''){return;}
     window.toolTipElem = $(this);
     tooltip($(this).attr('tooltip'),e.pageX,e.pageY);
 });
 
 
-$('html,body').on('mousemove',function(e){
+$('body').on('mousemove',function(e){
     if($('[tooltip]:hover').length == 0 && $('.confirm-btn:hover').length == 0){
         $('#tooltipDiv').text('');
         $('#tooltipDiv').hide();

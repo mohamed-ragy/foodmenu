@@ -1,53 +1,50 @@
-draw_color_theme_Picker = function(id,key_tree,last_key){
-    let key_tree_arr = key_tree.split('.');
-    let template = window.template;
-    for(const key in key_tree_arr){
-        template = template[key_tree_arr[key]];
-    }
-    let selected_color_theme = template[last_key];
-    return $('<div/>',{id:id,class:`color_theme_picker_container ${selected_color_theme}`,key_tree:key_tree,key:last_key}).append(
-        $('<div/>',{class:'mie-5',text:texts.website_style[selected_color_theme]}),
-        $('<div/>',{class:'ico-arrowDown mis-5'}),
+draw_color_theme_Picker = function(data){
+    let elem_data = get_key_tree(data.keys_arr[0].key_tree);
+    let elem_val = get_elem_val(elem_data,data.keys_arr[0].key,data.is_responsive ? '1':'0')
+    let selector;
+    let selector_container = $('<div/>',{class:`editor_popup_row ${data.selector_container_class === false ? '' : 'selector_container'}`,is_responsive:data.is_responsive ? '1':'0'}).append(
+        $('<div/>',{class:'row alnC jstfyS'}).append(
+            data.is_responsive && data.responsive_icon !== false ? responsive_icon(elem_val.responsive_class) : '',
+            $('<div/>',{text:data.name}),
+        ),
+        selector = $('<div/>',{class:`selector color_theme_picker_container ${elem_val.val}`}).append(
+            $('<div/>',{class:'mie-5',text:texts.styling[elem_val.val]}),
+            $('<div/>',{class:'ico-arrowDown mis-5'}),
+        )
     )
-}
 
-$('html,body').on('click','.color_theme_picker_container',function(e){
-    e.stopImmediatePropagation();
-    hidePopupSelectors();
-    let key_tree = $(this).attr('key_tree').split('.');
-    let template = window.template;
-    for(const key in key_tree){
-        template = template[key_tree[key]];
+    for(const key in data.keys_arr){
+        for(const key2 in data.keys_arr[key]){
+            selector.attr(key2,data.keys_arr[key][key2]);
+            selector.attr(key2,data.keys_arr[key][key2]);
+        }
     }
-    let selected_color_theme = template[$(this).attr('key')];
-    $('.color_theme_picker_themes').attr('key_tree',$(this).attr('key_tree')).attr('key',$(this).attr('key')).attr('theme_picker',$(this).attr('id')).text('').append(
-        selected_color_theme != 'transparent' && $(this).attr('key') != 'page_color_theme' ? $('<div/>',{class:'color_theme_picker_theme',text:texts.website_style.transparent,key:'transparent'}) : '',
-        selected_color_theme != 'color_theme_1' ? $('<div/>',{class:'color_theme_picker_theme color_theme_1',text:texts.website_style.color_theme_1,key:'color_theme_1'}) : '',
-        selected_color_theme != 'color_theme_2' ? $('<div/>',{class:'color_theme_picker_theme color_theme_2',text:texts.website_style.color_theme_2,key:'color_theme_2'}) : '',
-        selected_color_theme != 'color_theme_3' ? $('<div/>',{class:'color_theme_picker_theme color_theme_3',text:texts.website_style.color_theme_3,key:'color_theme_3'}) : '',
-        selected_color_theme != 'color_theme_4' ? $('<div/>',{class:'color_theme_picker_theme color_theme_4',text:texts.website_style.color_theme_4,key:'color_theme_4'}) : '',
-        selected_color_theme != 'color_theme_5' ? $('<div/>',{class:'color_theme_picker_theme color_theme_5',text:texts.website_style.color_theme_5,key:'color_theme_5'}) : '',
-        selected_color_theme != 'color_theme_6' ? $('<div/>',{class:'color_theme_picker_theme color_theme_6',text:texts.website_style.color_theme_6,key:'color_theme_6'}) : '',
-        selected_color_theme != 'color_theme_7' ? $('<div/>',{class:'color_theme_picker_theme color_theme_7',text:texts.website_style.color_theme_7,key:'color_theme_7'}) : '',
-        selected_color_theme != 'color_theme_8' ? $('<div/>',{class:'color_theme_picker_theme color_theme_8',text:texts.website_style.color_theme_8,key:'color_theme_8'}) : '',
-        selected_color_theme != 'color_theme_9' ? $('<div/>',{class:'color_theme_picker_theme color_theme_9',text:texts.website_style.color_theme_9,key:'color_theme_9'}) : '',
-        selected_color_theme != 'color_theme_10' ? $('<div/>',{class:'color_theme_picker_theme color_theme_10',text:texts.website_style.color_theme_1,key:'color_theme_10'}) : '',
-        selected_color_theme != 'color_theme_11' ? $('<div/>',{class:'color_theme_picker_theme color_theme_11',text:texts.website_style.color_theme_11,key:'color_theme_11'}) : '',
-        selected_color_theme != 'color_theme_12' ? $('<div/>',{class:'color_theme_picker_theme color_theme_12',text:texts.website_style.color_theme_12,key:'color_theme_12'}) : '',
+    return selector_container;
+}
+set_color_theme_Picker = function(selector){
+    let val = get_selector_val(selector);
+    color_theme_Picker_container.removeClass().addClass(`color_theme_picker_container selector ${val}`).children().first().text(texts.styling[val])
+}
+$('body').on('click','.color_theme_picker_container',function(e){
+    // e.stopImmediatePropagation();
+    window.selected_color_theme_picker = $(this);
+    let elem_val = get_selector_val($(this));
+    $('.color_theme_picker_themes').text('').append(
+        elem_val.val != 'transparent' && $(this).attr('key') != 'page_color_theme' ? $('<div/>',{class:'color_theme_picker_theme',text:texts.styling.transparent,key:'transparent'}) : '',
+        elem_val.val != 'color_theme_1' ? $('<div/>',{class:'color_theme_picker_theme color_theme_1',text:texts.styling.color_theme_1,key:'color_theme_1'}) : '',
+        elem_val.val != 'color_theme_2' ? $('<div/>',{class:'color_theme_picker_theme color_theme_2',text:texts.styling.color_theme_2,key:'color_theme_2'}) : '',
+        elem_val.val != 'color_theme_3' ? $('<div/>',{class:'color_theme_picker_theme color_theme_3',text:texts.styling.color_theme_3,key:'color_theme_3'}) : '',
+        elem_val.val != 'color_theme_4' ? $('<div/>',{class:'color_theme_picker_theme color_theme_4',text:texts.styling.color_theme_4,key:'color_theme_4'}) : '',
     ).removeClass('none').css({
         left:$(this).offset().left,
         top:$(this).offset().top + $(this).outerHeight(),
     })
 })
-$('html,body').on('click','.color_theme_picker_theme',function(e){
-    e.stopImmediatePropagation();
-    let key_tree = $('.color_theme_picker_themes').attr('key_tree').split('.');
-    let template = window.template;
-    for(const key in key_tree){
-        template = template[key_tree[key]];
-    }
-    template[$('.color_theme_picker_themes').attr('key')] = $(this).attr('key');
-    $(`#${$('.color_theme_picker_themes').attr('theme_picker')}`).removeClass().addClass(`color_theme_picker_container ${$(this).attr('key')}`).children().first().text($(this).text())
+$('body').on('click','.color_theme_picker_theme',function(e){
+    // e.stopImmediatePropagation();
+    let new_val = $(this).attr('key');
+    set_elem_val(window.selected_color_theme_picker,new_val)
+    window.selected_color_theme_picker.removeClass().addClass(`color_theme_picker_container selector ${new_val}`).children().first().text($(this).text())
     $('.color_theme_picker_themes').addClass('none')
     new_action();
 })

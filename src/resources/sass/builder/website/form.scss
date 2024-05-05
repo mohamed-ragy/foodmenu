@@ -2,138 +2,301 @@
 .form{
     display:flex;
     flex-direction: column;
-    align-items: var(--form_align);
     justify-content: flex-start;
     width:fit-content;
+    //
+    align-items: var(--form-align-items);
 }
 //
 input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
 //
 .input{
-    text-align: var(--input_text_align);
-    margin-bottom:var(--form_elem_spacing);
-    max-width:100%;
-    box-sizing: border-box;
-    padding:var(--input_padding_y) var(--input_padding_x);
-    border-width:var(--input_border_width);
-    border-style:var(--input_border_style);
-    border-radius:var(--input_border_radius);
-    border-color:var(--input_border_color);
-    font-size:var(--input_font_size);
-    color:var(--input_font_color);
-    background-color: var(--input_bg_color);
-    transition-duration: var(--input_transition_duration);
-    outline-style: solid;
-    outline-width: 0px;
-    outline-color: transparent;
+    margin-bottom:var(--input-margin-bottom);
+    max-width: var(--input-max-width);
+    box-sizing: var(--input-box-sizing);
+    outline-style: var(--input-outline-style);
+    outline-width: var(--input-outline-width);
+    outline-color: var(--input-outline-color);
+    //
+    font-family: var(--input-font_name);
+    line-height: var(--input-font_line_height);
+    letter-spacing: var(--input-font_letter_spacing);
+    //
+    text-align: var(--input-text-align);
+    padding-block: var(--input-padding-block);
+    padding-inline: var(--input-padding-inline);
+    font-size:var(--input-font-size);
+    color:var(--input-color);
+    background-color: var(--input-background-color);
+    border-color:var(--input-border-color);
+    border-style:var(--input-border-style);
+    border-width:var(--input-border-width);
+    border-top-left-radius: var(--input-border-top-left-radius);
+    border-top-right-radius: var(--input-border-top-right-radius);
+    border-bottom-right-radius: var(--input-border-bottom-right-radius);
+    border-bottom-left-radius: var(--input-border-bottom-left-radius);
+    box-shadow: var(--input-box-shadow);
+    transition-duration: var(--input-transition-duration);
 }
 .input:focus{
-    outline-style: solid;
-    outline-width: var(--input_focus_outline_width);
-    outline-color: var(--input_focus_outline_color);
-    background-color: var(--input_focus_bg_color);
+    outline-style: var(--input-focus-outline-style);
+    //
+    background-color: var(--input-focus-background-color);
+    color:var(--input-focus-color);
+    outline-width: var(--input-focus-outline-width);
+    outline-color: var(--input-focus-outline-color);
+    box-shadow: var(--input-focus-box-shadow);
 }
 .input:read-only{
-    cursor: not-allowed;
+    cursor: var(--input-read-only-cursor);
 }
-.input_lable{
-    margin-top:var(--form_elem_spacing);
-    font-size:var(--input_label_font_size);
-    margin-inline:var(--input_label_margin);
+.input_label{
+    font-family: var(--input_label-font_name);
+    line-height: var(--input_label-font_line_height);
+    letter-spacing: var(--input_label-font_letter_spacing);
+    //
+    color:var(--input_label-color);
+    font-size:var(--input_label-font-size);
+    margin-inline:var(--input_label-margin-inline);
+    margin-bottom:var(--input_label-margin-bottom);
 }
 textarea{
     resize: none;
 }
 ////
 .checkbox{
-    width:var(--checkbox_size);
-    height:var(--checkbox_size);
-    position: relative;
-    border:2px solid var(--checkbox_color);
-    cursor: pointer;
-    border-radius: var(--checkbox_border_radius);
-    margin:var(--form_elem_spacing) 0;
+    fill:var(--checkbox-fill);
+    position: var(--checkbox-position);
+    border-style:var(--checkbox-border-style);
+    border-color:var(--checkbox-border-color);
+    cursor: var(--checkbox-cursor);
+    border-radius: var(--checkbox-border-radius);
+    margin-bottom:var(--checkbox-margin-bottom);
+    //
+    width:var(--checkbox-width);
+    height:var(--checkbox-height);
+    border-width:var(--checkbox-border-width);
 }
-.checkbox_checked{
-    background-color: var(--checkbox_color);
-    color: var(--checkbox_checkMark_color);
-}
+.checkbox_checked{fill: var(--checkbox_checked-fill) !important;}
 //
 .button1{
+    margin-bottom:var(--button1-margin-bottom);
     max-width:100%;
     box-sizing: border-box;
-    cursor: pointer;
-
-    border: none;
     outline: none;
-    font-size: var(--button1_font_size);
-    padding:var(--button1_padding_y) var(--button1_padding_x);
-    background-color: var(--button1_bg_color);
-    color: var(--button1_font_color);
-    border-radius: var(--button1_border_radius);
-    outline-style: solid;
-    outline-color:var(--button1_outline_color);
-    outline-width:var(--button1_outline_width);
-    transition-duration: var(--button1_transition_duration);
+    cursor: pointer;
+    //
+    font-family: var(--button1-font_name);
+    line-height: var(--button1-font_line_height);
+    letter-spacing: var(--button1-font_letter_spacing);
+    //
+    padding-block:var(--button1-padding-block);
+    padding-inline:var(--button1-padding-inline);
+    font-weight: var(--button1-font-weight);
+    font-size: var(--button1-font-size);
+    color: var(--button1-color);
+    background-color: var(--button1-background-color);
+    border-top-left-radius: var(--button1-border-top-left-radius);
+    border-top-right-radius: var(--button1-border-top-right-radius);
+    border-bottom-right-radius: var(--button1-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button1-border-bottom-left-radius);
+    border-style:var(--button1-border-style);
+    border-width:var(--button1-border-width);
+    border-color:var(--button1-border-color);
+    transition-duration: var(--button1-transition-duration);
+    box-shadow: var(--button1-box-shadow);
 }
 .button1:hover{
-    color:var(--button1_hover_font_color);
-    background-color:var(--button1_hover_bg_color);
     outline-style: solid;
-    outline-width: var(--button1_hover_outline_width);
-    outline-color: var(--button1_hover_outline_color);
+    outline: none;
+    //
+    color:var(--button1-hover-color);
+    background-color:var(--button1-hover-background-color);
+    border-top-left-radius: var(--button1-hover-border-top-left-radius);
+    border-top-right-radius: var(--button1-hover-border-top-right-radius);
+    border-bottom-right-radius: var(--button1-hover-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button1-hover-border-bottom-left-radius);
+    border-style:var(--button1-hover-border-style);
+    border-width:var(--button1-hover-border-width);
+    border-color:var(--button1-hover-border-color);
+    box-shadow: var(--button1-hover-box-shadow);
 }
 .button1:active{
-    color:var(--button1_click_font_color);
-    background-color:var(--button1_click_bg_color);
     outline-style: solid;
-    outline-width: var(--button1_click_outline_width);
-    outline-color: var(--button1_click_outline_color);
+    outline: none;
+    //
+    color:var(--button1-active-color);
+    background-color:var(--button1-active-background-color);
+    border-top-left-radius: var(--button1-active-border-top-left-radius);
+    border-top-right-radius: var(--button1-active-border-top-right-radius);
+    border-bottom-right-radius: var(--button1-active-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button1-active-border-bottom-left-radius);
+    border-style:var(--button1-active-border-style);
+    border-width:var(--button1-active-border-width);
+    border-color:var(--button1-active-border-color);
+    box-shadow: var(--button1-active-box-shadow);
 }
 .button1:disabled{
     cursor: not-allowed;
-    color:var(--button1_disabled_font_color);
-    background-color:var(--button1_disabled_bg_color);
     outline-style: solid;
-    outline-width: var(--button1_disabled_outline_width);
-    outline-color: var(--button1_disabled_outline_color);
+    outline: none;
+    //
+    color:var(--button1-disabled-color);
+    background-color:var(--button1-disabled-background-color);
+    border-top-left-radius: var(--button1-disabled-border-top-left-radius);
+    border-top-right-radius: var(--button1-disabled-border-top-right-radius);
+    border-bottom-right-radius: var(--button1-disabled-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button1-disabled-border-bottom-left-radius);
+    border-style:var(--button1-disabled-border-style);
+    border-width:var(--button1-disabled-border-width);
+    border-color:var(--button1-disabled-border-color);
+    box-shadow: var(--button1-disabled-box-shadow);
 }
 //
 .button2{
+    margin-bottom:var(--button2-margin-bottom);
     max-width:100%;
     box-sizing: border-box;
-    cursor: pointer;
-    border: none;
     outline: none;
-    font-size: var(--button2_font_size);
-    padding:var(--button2_padding_y) var(--button2_padding_x);
-    background-color: var(--button2_bg_color);
-    color: var(--button2_font_color);
-    border-radius: var(--button2_border_radius);
-    outline-style: solid;
-    outline-color:var(--button2_outline_color);
-    outline-width:var(--button2_outline_width);
-    transition-duration: var(--button2_transition_duration);
+    cursor: pointer;
+    //
+    font-family: var(--button2-font_name);
+    line-height: var(--button2-font_line_height);
+    letter-spacing: var(--button2-font_letter_spacing);
+    //
+    padding-block:var(--button2-padding-block);
+    padding-inline:var(--button2-padding-inline);
+    font-weight: var(--button2-font-weight);
+    font-size: var(--button2-font-size);
+    color: var(--button2-color);
+    background-color: var(--button2-background-color);
+    border-top-left-radius: var(--button2-border-top-left-radius);
+    border-top-right-radius: var(--button2-border-top-right-radius);
+    border-bottom-right-radius: var(--button2-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button2-border-bottom-left-radius);
+    border-style:var(--button2-border-style);
+    border-width:var(--button2-border-width);
+    border-color:var(--button2-border-color);
+    transition-duration: var(--button2-transition-duration);
+    box-shadow: var(--button2-box-shadow);
 }
 .button2:hover{
-    color:var(--button2_hover_font_color);
-    background-color:var(--button2_hover_bg_color);
     outline-style: solid;
-    outline-width: var(--button2_hover_outline_width);
-    outline-color: var(--button2_hover_outline_color);
+    outline: none;
+    //
+    color:var(--button2-hover-color);
+    background-color:var(--button2-hover-background-color);
+    border-top-left-radius: var(--button2-hover-border-top-left-radius);
+    border-top-right-radius: var(--button2-hover-border-top-right-radius);
+    border-bottom-right-radius: var(--button2-hover-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button2-hover-border-bottom-left-radius);
+    border-style:var(--button2-hover-border-style);
+    border-width:var(--button2-hover-border-width);
+    border-color:var(--button2-hover-border-color);
+    box-shadow: var(--button2-hover-box-shadow);
 }
 .button2:active{
-    color:var(--button2_click_font_color);
-    background-color:var(--button2_click_bg_color);
     outline-style: solid;
-    outline-width: var(--button2_click_outline_width);
-    outline-color: var(--button2_click_outline_color);
+    outline: none;
+    //
+    color:var(--button2-active-color);
+    background-color:var(--button2-active-background-color);
+    border-top-left-radius: var(--button2-active-border-top-left-radius);
+    border-top-right-radius: var(--button2-active-border-top-right-radius);
+    border-bottom-right-radius: var(--button2-active-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button2-active-border-bottom-left-radius);
+    border-style:var(--button2-active-border-style);
+    border-width:var(--button2-active-border-width);
+    border-color:var(--button2-active-border-color);
+    box-shadow: var(--button2-active-box-shadow);
 }
 .button2:disabled{
     cursor: not-allowed;
-    color:var(--button2_disabled_font_color);
-    background-color:var(--button2_disabled_bg_color);
     outline-style: solid;
-    outline-width: var(--button2_disabled_outline_width);
-    outline-color: var(--button2_disabled_outline_color);
+    outline: none;
+    //
+    color:var(--button2-disabled-color);
+    background-color:var(--button2-disabled-background-color);
+    border-top-left-radius: var(--button2-disabled-border-top-left-radius);
+    border-top-right-radius: var(--button2-disabled-border-top-right-radius);
+    border-bottom-right-radius: var(--button2-disabled-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button2-disabled-border-bottom-left-radius);
+    border-style:var(--button2-disabled-border-style);
+    border-width:var(--button2-disabled-border-width);
+    border-color:var(--button2-disabled-border-color);
+    box-shadow: var(--button2-disabled-box-shadow);
+}
+//
+.button3{
+    margin-bottom:var(--button3-margin-bottom);
+    max-width:100%;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    //
+    font-family: var(--button3-font_name);
+    line-height: var(--button3-font_line_height);
+    letter-spacing: var(--button3-font_letter_spacing);
+    //
+    padding-block:var(--button3-padding-block);
+    padding-inline:var(--button3-padding-inline);
+    font-weight: var(--button3-font-weight);
+    font-size: var(--button3-font-size);
+    color: var(--button3-color);
+    background-color: var(--button3-background-color);
+    border-top-left-radius: var(--button3-border-top-left-radius);
+    border-top-right-radius: var(--button3-border-top-right-radius);
+    border-bottom-right-radius: var(--button3-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button3-border-bottom-left-radius);
+    border-style:var(--button3-border-style);
+    border-width:var(--button3-border-width);
+    border-color:var(--button3-border-color);
+    transition-duration: var(--button3-transition-duration);
+    box-shadow: var(--button3-box-shadow);
+}
+.button3:hover{
+    outline-style: solid;
+    outline: none;
+    //
+    color:var(--button3-hover-color);
+    background-color:var(--button3-hover-background-color);
+    border-top-left-radius: var(--button3-hover-border-top-left-radius);
+    border-top-right-radius: var(--button3-hover-border-top-right-radius);
+    border-bottom-right-radius: var(--button3-hover-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button3-hover-border-bottom-left-radius);
+    border-style:var(--button3-hover-border-style);
+    border-width:var(--button3-hover-border-width);
+    border-color:var(--button3-hover-border-color);
+    box-shadow: var(--button3-hover-box-shadow);
+}
+.button3:active{
+    outline-style: solid;
+    outline: none;
+    //
+    color:var(--button3-active-color);
+    background-color:var(--button3-active-background-color);
+    border-top-left-radius: var(--button3-active-border-top-left-radius);
+    border-top-right-radius: var(--button3-active-border-top-right-radius);
+    border-bottom-right-radius: var(--button3-active-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button3-active-border-bottom-left-radius);
+    border-style:var(--button3-active-border-style);
+    border-width:var(--button3-active-border-width);
+    border-color:var(--button3-active-border-color);
+    box-shadow: var(--button3-active-box-shadow);
+}
+.button3:disabled{
+    cursor: not-allowed;
+    outline-style: solid;
+    outline: none;
+    //
+    color:var(--button3-disabled-color);
+    background-color:var(--button3-disabled-background-color);
+    border-top-left-radius: var(--button3-disabled-border-top-left-radius);
+    border-top-right-radius: var(--button3-disabled-border-top-right-radius);
+    border-bottom-right-radius: var(--button3-disabled-border-bottom-right-radius);
+    border-bottom-left-radius: var(--button3-disabled-border-bottom-left-radius);
+    border-style:var(--button3-disabled-border-style);
+    border-width:var(--button3-disabled-border-width);
+    border-color:var(--button3-disabled-border-color);
+    box-shadow: var(--button3-disabled-box-shadow);
 }

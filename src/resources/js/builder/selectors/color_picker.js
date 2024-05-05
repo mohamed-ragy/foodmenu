@@ -25,7 +25,7 @@
         swatchesOnly: false,
         alpha: true,
         forceAlpha: false,
-        focusInput: true,
+        focusInput: false,
         selectInput: false,
         inline: false,
         defaultColor: '#000000',
@@ -297,7 +297,7 @@
      */
     function bindFields(selector) {
         // Show the color picker on click on the input fields that match the selector
-        addListener(document, 'click', selector, function (event) {
+        addListener(document, 'click', '.color_picker', function (event) {
         // Skip if inline mode is in use
         if (settings.inline) {
             return;
@@ -892,9 +892,9 @@
      */
     function RGBAToStr(rgba) {
         if (!settings.alpha || rgba.a === 1 && !settings.forceAlpha) {
-        return "rgb(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ")";
+        return "rgb(" + rgba.r + "," + rgba.g + "," + rgba.b +")";
         } else {
-        return "rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + rgba.a + ")";
+        return "rgba(" + rgba.r + "," + rgba.g + "," + rgba.b + "," + rgba.a + ")";
         }
     }
 
@@ -946,7 +946,7 @@
         '<span></span>' +
         '</fieldset>' +
         '</div>' +
-        '<div id="clr-swatches" class="clr-swatches"></div>' + ("<button type=\"button\" id=\"clr-clear\" class=\"clr-clear\" aria-label=\"" +
+        '<div id="clr-swatches" class="clr-swatches"></div>' + ("<button type=\"button\" id=\"clr-clear\" class=\"clr-clear btn btn-cancel\" aria-label=\"" +
         settings.a11y.clear + "\">" + settings.clearLabel + "</button>") +
         '<div id="clr-color-preview" class="clr-preview">' + ("<button type=\"button\" id=\"clr-close\" class=\"clr-close\" aria-label=\"" +
         settings.a11y.close + "\">" + settings.closeLabel + "</button>") +
@@ -1213,34 +1213,64 @@ rgbToHex = function (rgb) {
     rgb = rgb.split(",");
     return "#" + (1 << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2]).toString(16).slice(1);
 }
-
-
+draw_color_picker = function(data){
+    let elem_data = get_key_tree(data.keys_arr[0].key_tree);
+    let elem_val = get_elem_val(elem_data,data.keys_arr[0].key,data.is_responsive ? '1':'0')
+    let selector;
+    // let val = get_key_tree(data.keys_arr[0].key_tree).elem[data.keys_arr[0].key]
+    // let color_picker_input;
+    let selector_container = $('<div/>',{class:`editor_popup_row ${data.selector_container_class === false ? '' : 'selector_container'} ${data.container_class ?? ''}`,is_responsive:data.is_responsive ? '1':'0'}).append(
+        $('<div/>',{class:'row alnC jstfyS'}).append(
+            data.is_responsive && data.responsive_icon !== false ? responsive_icon(elem_val.responsive_class) : '',
+            $('<div/>',{text:data.name}),
+        ),
+        selector = $('<div/>',{class:`selector color_picker_container mis-5`}).append(
+            $('<input/>',{important:`${data.is_important ? '1' : '0'}`,class:`color_picker ${data.color_picker_class ?? ''}`,type:'text',style:`background-color:${elem_val.val} ${data.is_important ? '!important' : '' }`,value:elem_val.val}),
+        ),
+    );
+    for(const key in data.keys_arr){
+        for(const key2 in data.keys_arr[key]){
+            selector.attr(key2,data.keys_arr[key][key2]);
+            selector.attr(key2,data.keys_arr[key][key2]);
+        }
+    }
+    if(data.name == null){
+        return selector
+    }else{
+        return selector_container;
+    }
+}
+set_color_picker = function(selector){
+    let val = get_selector_val(selector);
+    selector.find('.color_picker').val(val);
+    selector.find('.color_picker').css('background-color',val)
+}
 //events
 
 $(document).on('input','.color_picker',function(e){
+    // e.stopImmediatePropagation();
     if($(this).hasClass('color_picker_no_action')){return;}
-    if($(this).attr('key_tree') == null){return;}
-    $(this).css('background-color',$(this).val())
-    let keys = $(this).attr('key_tree').split('.');
-    let template = window.template;
-    for(const key in keys){
-        template = template[keys[key]];
+    let selector = $(this).closest('.selector');
+    if(selector.attr('key_tree') == null){return;}
+    let new_val = $(this).val();
+    if($(this).attr('important') == '1'){
+        new_val = `${new_val} !important`;
     }
-    template[$(this).attr('key')] = $(this).val();
+    set_elem_val(selector,new_val)
+    $(this).css('background-color',new_val)
     undo_redo_actions();
-
-
 })
 $(document).on('change','.color_picker',function(e){
-    e.stopImmediatePropagation();
-    if($(this).attr('key_tree') == null){return;}
-    $(this).css('background-color',$(this).val())
-    let keys = $(this).attr('key_tree').split('.');
-    let template = window.template;
-    for(const key in keys){
-        template = template[keys[key]];
+    // e.stopImmediatePropagation();
+    if($(this).hasClass('color_picker_no_action')){return;}
+    let selector = $(this).closest('.selector');
+    if(selector.attr('key_tree') == null){return;}
+    let new_val = $(this).val();
+    if($(this).attr('important') == '1'){
+        new_val = `${new_val} !important`;
     }
-    template[$(this).attr('key')] = $(this).val();
+    set_elem_val(selector,new_val)
+    $(this).css('background-color',new_val)
     new_action();
 })
 $(document).on('close','.color_picker',function(e){
@@ -1252,10 +1282,9 @@ $(document).on('close','.color_picker',function(e){
     if(
         !window.template.website_colors.color_history.includes(event.target.value) &&
         window.template.settings.metrics_color.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
-        window.template.website_colors.color_theme.color_1.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
-        window.template.website_colors.color_theme.color_2.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
-        window.template.website_colors.color_theme.color_3.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
-        window.template.website_colors.color_theme.color_4.replaceAll(' ','') != event.target.value.replaceAll(' ','')
+        window.template.website_colors.color_themes.color_theme_1.bg.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
+        window.template.website_colors.color_themes.color_theme_2.bg.replaceAll(' ','') != event.target.value.replaceAll(' ','') &&
+        window.template.website_colors.color_themes.color_theme_3.bg.replaceAll(' ','') != event.target.value.replaceAll(' ','')
 
     ){
         window.template.website_colors.color_history.push(event.target.value)

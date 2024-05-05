@@ -2,27 +2,28 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: var(--white-2);
+    background-color: var(--white-3);
     border-radius: 3px;
+    padding:1px;
 }
 .select_box{
+    white-space: nowrap;
     position: relative;
     height:15px;
-    margin: 4px;
+    margin: 1px;
     font-size: .8em;
-    background-color: var(--white-2);
+    background-color: transparent;
     color:var(--white-11);
-    border-radius: 3px;
+    border-radius: 1px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    // border:.5px solid transparent
+    transition-duration: 300ms;
 }
 .select_box_selected{
     background-color: var(--white-1);
     color:var(--txt-1);
     font-weight: bold;
-    // border:.5px solid var(--white-4);
     box-shadow: 0 0 2px 1px var(--shdw-5);
 }

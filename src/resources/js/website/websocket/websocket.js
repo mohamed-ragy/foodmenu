@@ -11,6 +11,7 @@ window.Echo.connector.pusher.connection.bind('connected', () => {
     });
     setTimeout(()=>{
         user_status({'status': `user_browse_${window.route}`})
+        get_website_data();
     },100)
 });
 

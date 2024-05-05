@@ -19,8 +19,8 @@ draw_select_template = function(is_close_icon = false){
         )
     }
 
-    for(const key in website.languages){
-        let lang = website.languages[key];
+    for(const key in window.website_data.languages){
+        let lang = window.website_data.languages[key];
         let check_class = 'ico-check0';
         if(window.preview_language == lang.code){
             check_class = 'ico-check1'
@@ -47,44 +47,47 @@ draw_select_template = function(is_close_icon = false){
     }
 }
 //events
-$('html,body').on('click','.select_template_lang',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.select_template_lang',function(e){
+    // e.stopImmediatePropagation();
     $('.select_template_lang_check').removeClass('ico-check1').addClass('ico-check0');
     $(this).find('.select_template_lang_check').removeClass('ico-check0').addClass('ico-check1')
     window.preview_language = $(this).attr('lang')
 })
-$('html,body').on('click','.selectTemplate',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.selectTemplate',function(e){
+    // e.stopImmediatePropagation();
     window.template_id = $(this).attr('template_id')
-    if(window.preview_language == window.website_texts.lang){
-        draw_builder(window.template_id);
-        close_popup();
-    }else{
-        $('.popupClose').addClass('none')
-        $('.popupBody').text('').append(
-            $('<div/>',{class:'mY40 loading_L vV'})
-        )
-        $.ajax({
-            url:'api',
-            type:'post',
-            data:{
-                _token:$('meta[name="csrf-token"]').attr('content'),
-                get_langText:window.preview_language,
-            },success:function(r){
-                if(r.website_texts != null){
-                    window.website_texts = r.website_texts;
-                    set_website_texts()
-                    draw_builder(window.template_id);
-                    close_popup();
-                }
-            }
-        })
-    }
+    set_website_variable_data()
+    draw_builder(window.template_id);
+    close_popup();
+    // if(window.preview_language == window.website_texts.lang){
+    //     draw_builder(window.template_id);
+    //     close_popup();
+    // }else{
+    //     $('.popupClose').addClass('none')
+    //     $('.popupBody').text('').append(
+    //         $('<div/>',{class:'mY40 loading_L vV'})
+    //     )
+    //     $.ajax({
+    //         url:'api',
+    //         type:'post',
+    //         data:{
+    //             _token:$('meta[name="csrf-token"]').attr('content'),
+    //             get_langText:window.preview_language,
+    //         },success:function(r){
+    //             if(r.website_texts != null){
+    //                 window.website_texts = r.website_texts;
+    //                 set_website_variable_data()
+    //                 draw_builder(window.template_id);
+    //                 close_popup();
+    //             }
+    //         }
+    //     })
+    // }
 
 })
 
-$('html,body').on('click','.showSelectTemplate',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.showSelectTemplate',function(e){
+    // e.stopImmediatePropagation();
     if(is_saved_checker()){
         draw_select_template(true);
     }else{
@@ -110,12 +113,12 @@ $('html,body').on('click','.showSelectTemplate',function(e){
 
 })
 
-$('html,body').on('click','.showSelectTemplate_confirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.showSelectTemplate_confirm',function(e){
+    // e.stopImmediatePropagation();
     draw_select_template(true);
 })
-$('html,body').on('click','.showSelectTemplate_save',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.showSelectTemplate_save',function(e){
+    // e.stopImmediatePropagation();
     showBtnLoading($('.showSelectTemplate_save'))
     save().then(function(){
         hideBtnLoading($('#save'));

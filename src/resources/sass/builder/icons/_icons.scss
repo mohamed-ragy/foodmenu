@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'builder';
-  src:  url('fonts/builder.eot?t6kuzy');
-  src:  url('fonts/builder.eot?t6kuzy#iefix') format('embedded-opentype'),
-    url('fonts/builder.ttf?t6kuzy') format('truetype'),
-    url('fonts/builder.woff?t6kuzy') format('woff'),
-    url('fonts/builder.svg?t6kuzy#builder') format('svg');
+  src:  url('fonts/design.eot?fispvm');
+  src:  url('fonts/design.eot?fispvm#iefix') format('embedded-opentype'),
+    url('fonts/design.ttf?fispvm') format('truetype'),
+    url('fonts/design.woff?fispvm') format('woff'),
+    url('fonts/design.svg?fispvm#design') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,7 +25,64 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-search:before {
+.ico-erase:before {
+    content: "\e940";
+  }
+  .ico-background_color:before {
+    content: "\e93e";
+  }
+  .ico-text_color:before {
+    content: "\e93f";
+  }
+  .ico-unlink:before {
+    content: "\e939";
+  }
+  .ico-link:before {
+    content: "\e93a";
+  }
+  .ico-italic:before {
+    content: "\e93b";
+  }
+  .ico-underline:before {
+    content: "\e93c";
+  }
+  .ico-bold:before {
+    content: "\e93d";
+  }
+  .ico-mobile:before {
+    content: "\e902";
+  }
+  .ico-desktop:before {
+    content: "\e901";
+  }
+  .ico-responsive:before {
+    content: "\e930";
+  }
+  .ico-image:before {
+    content: "\e931";
+  }
+  .ico-button:before {
+    content: "\e932";
+  }
+  .ico-paragraph:before {
+    content: "\e933";
+  }
+  .ico-title:before {
+    content: "\e934";
+  }
+  .ico-dot_circle:before {
+    content: "\e92f";
+  }
+  .ico-see_more:before {
+    content: "\e92e";
+  }
+  .ico-minus:before {
+    content: "\e900";
+  }
+  .ico-plus:before {
+    content: "\e92d";
+  }
+  .ico-search:before {
     content: "\e92c";
   }
   .ico-metrics:before {
@@ -67,9 +124,6 @@
   .ico-download:before {
     content: "\e920";
   }
-  .ico-plus:before {
-    content: "\e900";
-  }
   .ico-align_center:before {
     content: "\e91a";
   }
@@ -102,6 +156,18 @@
   }
   .ico-drag2:before {
     content: "\e912";
+  }
+  .ico-scale_down:before {
+    content: "\e937";
+  }
+  .ico-scale_up:before {
+    content: "\e938";
+  }
+  .ico-rotate_r:before {
+    content: "\e935";
+  }
+  .ico-rotate_l:before {
+    content: "\e936";
   }
   .ico-arrowLeft:before {
     content: "\e906";
@@ -136,6 +202,9 @@
   .ico-check1:before {
     content: "\e90a";
   }
+  .ico-edit_text:before {
+    content: "\e941";
+  }
   .ico-edit:before {
     content: "\e908";
   }
@@ -144,12 +213,6 @@
   }
   .ico-close:before {
     content: "\e905";
-  }
-  .ico-desktop:before {
-    content: "\e901";
-  }
-  .ico-mobile:before {
-    content: "\e902";
   }
   .ico-style:before {
     content: "\e903";

@@ -1,11 +1,26 @@
+@import '../tools/selectors/number_picker.scss';
 @import '../tools/selectors/select_box.scss';
+@import '../tools/selectors/select_box_border.scss';
+@import '../tools/selectors/select_range.scss';
+@import '../tools/selectors/plus_minus.scss';
 @import '../tools/selectors/color_theme_picker.scss';
 @import '../tools/selectors/inputList.scss';
+@import '../tools/selectors/font_style_selector.scss';
 @import '../tools/selectors/border_radius_selector.scss';
+@import '../tools/selectors/padding_selector.scss';
 @import '../tools/selectors/color_picker.scss';
+@import '../tools/selectors/drop_shadow_selector.scss';
 // @import '../tools/selectors/color_selector.scss';
 @import '../tools/selectors/switch_button.scss';
 @import '../tools/selectors/imgs.scss';
+@import '../tools/selectors/icon_selector.scss';
+@import '../tools/selectors/transform_selector.scss';
+@import '../tools/selectors/image_position_selector.scss';
+@import '../tools/selectors/backdrop_filter_selector.scss';
+@import '../tools/selectors/elem_text_selector.scss';
+@import '../tools/selectors/text_shadow_selector.scss';
+@import '../tools/selectors/zindex_selector.scss';
+@import '../tools/selectors/opacity_selector.scss';
 
 
 //
@@ -30,4 +45,15 @@
     border-bottom:1px solid var(--green);
     color:var(--green);
     font-weight: 700;
+}
+//
+.responsive{
+    margin-inline-end:5px;
+    cursor: pointer;
+    font-size: 1.3em;
+    background-color: var(--white-1);
+    color: var(--txt-1);
+    font-weight: bold;
+    box-shadow: 0 0 2px 1px var(--shdw-5);
+    padding:3px;
 }

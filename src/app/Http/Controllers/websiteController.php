@@ -27,6 +27,7 @@ class websiteController extends Controller
     private $auth_type;
     public function __construct(Request $request)
     {
+
         $this->middleware(function ($request, $next) {
             $this->website_id = $request->header('X-Website-Id');
             // $this->lang = $request->lang;
@@ -36,6 +37,9 @@ class websiteController extends Controller
         })->except(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
 
         $this->middleware(function ($request, $next) {
+
+            $this->lang = Cookie::get(Str::slug(request()->getHost().'_lang', '_')) ?? 'en';
+
             $this->request_host = $request->getHost();
             self::get_website_data();
             //
@@ -43,9 +47,10 @@ class websiteController extends Controller
                 return redirect()->to(env('APP_URL_HTTP').$this->website->url);
             }
             //
-            if(!self::check_language($request->lang)){
-                return redirect()->route('website_home',['lang'=>$this->lang]);
-            };
+            self::check_language($this->lang);
+            // if(!self::check_language($this->lang)){
+            //     return redirect()->route('website_home');
+            // };
             self::check_subscription($request->route()->getName());//need to be checked
             self::auth_check($request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip());//need to be checked
             return $next($request);
@@ -81,7 +86,7 @@ class websiteController extends Controller
         }
         $this->website_id = $this->website->id;
     }
-    public function check_language($request_lang,){
+    public function check_language($request_lang){
         $defaultLang = '';
         $request_lang_check = false;
         foreach($this->website->languages as $lang){
@@ -98,12 +103,12 @@ class websiteController extends Controller
             App::setLocale($request_lang);
             $this->lang = $request_lang;
             Cookie::queue(Cookie::make(Str::slug($this->request_host.'_lang', '_'),$request_lang,9999999999999));
-            return true;
+            // return true;
         }else{
             App::setLocale($defaultLang);
             $this->lang = $defaultLang;
             Cookie::queue(Cookie::make(Str::slug($this->request_host.'_lang', '_'),$this->lang,9999999999999));
-            return false;
+            // return false;
         }
     }
     public function check_subscription($route_name){
@@ -171,6 +176,31 @@ class websiteController extends Controller
                 'id' => $this ->{$this->auth_type}->id,
                 'type' => $this->auth_type,
             ]);
+        }
+    }
+    public function website(Request $request){
+        if($request->has('get_website_data')){
+            $website = website::where('id',$this->website_id)->select([
+                'id',
+                'websiteNames',
+                'websiteDescriptions',
+                'logo','icon',
+                'languages',
+            ])->with(['categories'])->with(['products'])->first();
+            return response($website);
+        }else if($request->has('change_language')){
+            $website_languages = website::where('id',$this->website_id)->pluck('languages')->first();
+            $language_check = false;
+            foreach($website_languages as $language){
+                if($language['code'] == $request->change_language){
+                    $language_check = true;
+                }
+            }
+            // if(array_key_exists($request->change_language,$website_languages)){
+            if($language_check){
+                Cookie::queue(Cookie::make(Str::slug($request->getHost().'_lang', '_'),$request->change_language,9999999999999));
+                return response(['state'=>1]);
+            }
         }
     }
 }

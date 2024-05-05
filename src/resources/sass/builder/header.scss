@@ -1,4 +1,4 @@
-header{
+.builder_header{
     background-color: var(--sm-c);
     color:var(--sm-c3);
     padding:5px;
@@ -7,7 +7,7 @@ header{
     justify-content: space-between  ;
     position: sticky;
     top:0;
-    z-index: 190;
+    z-index: 2500;
     height: 40px;
 }
 .header_icon2{
@@ -131,3 +131,29 @@ header{
     border-bottom:1px solid var(--white-2);
 }
 .website_tools_elem:hover{background-color: var(--white-2);}
+//
+.preview_languages_container{
+    z-index: 190;
+    position: fixed;
+    left:10px;
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    padding:10px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px var(--shdw-20), 0 0 1px var(--shdw-5);
+    min-width:200px;
+    max-width:400px;
+    overflow: auto;
+    max-height:calc(100% - 100px);
+}
+.preview_languages_elem{
+    font-size: .9em;
+    box-sizing: border-box;
+    width:100%;
+    text-align: start;
+    cursor: pointer;
+    padding: 8px;
+    border-bottom:1px solid var(--white-2);
+}
+.preview_languages_elem:hover{background-color: var(--white-2);}
+.preview_languages_elem:last-child{border-bottom: none;}

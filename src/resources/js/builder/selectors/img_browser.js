@@ -2,8 +2,35 @@
 require('./img_browser/pexels.js')
 require('./img_browser/user_storage.js')
 
-$('html,body').on('click','.select_img',function(e){
-    e.stopImmediatePropagation();
+draw_image_selector = function(keys_arr){
+    let elem_data = get_key_tree(keys_arr[0].key_tree);
+    let elem_val = get_elem_val(elem_data,keys_arr[0].key,'0')
+    let selector;
+    let selector_container =  $('<div/>',{class:`editor_popup_row selector_container`,is_responsive:'0'}).append(
+        $('<div/>',{text:texts.styling.image}),
+        selector = $('<div/>',{class:'selector editor_popup_img_select select_img'}).append(
+            $('<img/>',{class:'editor_popup_img_select_img',src:elem_val.val}),
+            $('<div/>',{class:'ico-edit editor_popup_img_select_edit_icon'})
+        )
+    )
+
+    for(const key in keys_arr){
+        for(const key2 in keys_arr[key]){
+            selector.attr(key2,keys_arr[key][key2]);
+            selector.attr(key2,keys_arr[key][key2]);
+        }
+    }
+
+    return selector_container;
+}
+set_image_selector = function(selector){
+    let val = get_selector_val(selector);
+    selector.find('.editor_popup_img_select_img').attr('src',val)
+
+}
+//
+$('body').on('click','.select_img',function(e){
+    //e.stopImmediatePropagation();
     window.pexels_search_last = '';
     let key_tree = $(this).attr('key_tree');
     let key = $(this).attr('key');
@@ -117,34 +144,26 @@ draw_imgBrowser_loading_imgs = function(type){
         )
     }
 }
-
-
-
-$('html,body').on('click','.imgsImgCard',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.imgsImgCard',function(e){
+    //e.stopImmediatePropagation();
     if($(this).find('.imgsimgBtns').is(':hover')){return;}
-    let keys = $('#imgBrowser_imgs_container_storage').attr('key_tree').split('.');
-    let template = window.template;
-    for(const key in keys){
-        template = template[keys[key]];
-    }
-    img_src = window.imgs.find(item=>item.id == $(this).find('img').attr('imgId')).url;
-    template[$('#imgBrowser_imgs_container_storage').attr('key')] = img_src;
+    let elem = get_key_tree($('#imgBrowser_imgs_container_storage').attr('key_tree')).elem;
+    let img_src = window.imgs.find(item=>item.id == $(this).find('img').attr('imgId')).url;
+    elem[$('#imgBrowser_imgs_container_storage').attr('key')] = img_src;
     new_action();
     close_popup();
 })
-
 //
-$('html,body').on('click','.copyImageLink',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.copyImageLink',function(e){
+    //e.stopImmediatePropagation();
     let imgUrl = window.imgs.find(item=>item.id == $(this).attr('img')).url
     navigator.clipboard.writeText(`https://${website.url}${imgUrl}`).then(function(){
         showAlert('normal',texts.design.copyed,4000,true);
     });
 });
 //
-$('html,body').on('click','.deleteImg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteImg',function(e){
+    //e.stopImmediatePropagation();
      let img = window.imgs.find(item=> item.id == $(this).attr('img'));
      $('.popupContainer').append(
         $('<div/>',{class:'popupCard2'}).append(
@@ -169,8 +188,8 @@ $('html,body').on('click','.deleteImg',function(e){
     )
 
 })
-$('html,body').on('click','#deleteImage-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteImage-confirmBtn',function(e){
+    //e.stopImmediatePropagation();
     let imgId = $(this).attr('img');
     showBtnLoading($('#deleteImage-confirmBtn'))
     $.ajax({

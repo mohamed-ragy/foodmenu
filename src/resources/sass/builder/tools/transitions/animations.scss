@@ -1,0 +1,36 @@
+.slide_against_scroll_in_down{
+    animation-name: slide_against_scroll_in_down;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+}
+@keyframes slide_against_scroll_in_down {
+    0%{opacity: 0;transform:translateY(50px)}
+    100%{opacity: 1;transform:translateY(0px)}
+}
+.slide_against_scroll_out_down{
+    animation-name: slide_against_scroll_out_down;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+}
+@keyframes slide_against_scroll_out_down {
+    0%{opacity: 1;transform:translateY(0px)}
+    100%{opacity: 0;transform:translateY(-50px)}
+}
+// .slide_against_scroll_in_up{
+//     animation-name: slide_against_scroll_in_up;
+//     animation-timing-function: ease-out;
+//     animation-iteration-count: 1;
+// }
+// @keyframes slide_against_scroll_in_up {
+//     0%{opacity: 0;transform:translateY()}
+//     100%{opacity: 1;transform:translateY()}
+// }
+
+// .slide_against_scroll_out{
+//     animation-name: slide_against_scroll_in;
+//     animation-timing-function: ease-out;
+//     animation-iteration-count: 1;
+// }
+// @keyframes slide_against_scroll_out {
+
+// }

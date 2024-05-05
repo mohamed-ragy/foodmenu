@@ -1,0 +1,103 @@
+.elem_text_selector_container{
+
+    width:100%;
+}
+.elem_text_selector{
+    // box-sizing: border-box;
+    // padding:10px;
+    // width:100%;
+}
+.elem_text_selector_editor{
+    outline:none;
+}
+.elem_text_selector_editor_editor_popup{
+    border:1px solid var(--white-3);
+    background-color: var(--white-1);
+    padding:5px;
+    border-radius: 0 0 3px 3px;
+    font-size: .75em;
+    width:calc(100% - 12px);
+    user-select: text;
+    a{color:var(--blue);}
+    height:150px;
+    overflow-y: auto;
+}
+.elem_text_selector_format_btns{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top:10px;
+    background-color:var(--white-1);
+    border:1px solid var(--white-3);
+    border-bottom: none;;
+    border-radius: 3px 3px 0 0;
+    font-size: 1rem;
+
+}
+.elem_text_selector_format_btns_website_body{
+    position: absolute;
+    left:0;
+    margin-top:0;
+    top:unset;
+    bottom:100%;
+    margin-bottom:3px;
+    height:30px;
+    box-sizing: border-box;
+    background-color:transparent;
+
+    // border:1px none;
+}
+.elem_text_selector_format_btn_style{
+    outline:none;
+    border:1px solid var(--white-2);
+    box-sizing: border-box;
+    font-size:.8em;
+    margin: 0;
+    width:30px;
+    height:30px;
+    background-color: var(--white-1);
+    color: var(--white-10);
+    cursor: pointer;
+}
+.elem_text_selector_format_btn_style_2{
+    width:auto;
+    position: relative;
+}
+.elem_text_selector_format_btn_style:hover{background-color: var(--white-3);}
+.elem_text_selector_format_btn_selected{
+    background-color: var(--white-3);
+    color:var(--txt-1)
+}
+.elem_text_selector_format_btn_selected:hover{background-color: var(--white-3);}
+//
+.elem_text_selector_format_btn2_dropDown{
+    position: fixed;
+    background-color: var(--white-1);
+    max-height: 150px;
+    overflow-y: auto;
+    margin: 0;
+    box-shadow: 0 0 15px var(--shdw-20), 0 0 1px var(--shdw-5);
+    z-index: 310;
+    border-radius: 3px;
+}
+.elem_text_selector_format_btn2_dropDown_elem{
+    padding: 4px;
+    background-color: var(--white-1);
+    width: 100%;
+    border-top: 1px solid var(--white-4);
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-align: start;
+    font-weight: normal;
+    color:var(--txt-1);
+    max-width:200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: .9em;
+}
+.elem_text_selector_format_btn2_dropDown_elem:hover{
+    background-color: var(--white-2);
+}

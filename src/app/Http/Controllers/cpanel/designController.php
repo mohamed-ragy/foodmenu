@@ -56,24 +56,29 @@ class designController extends Controller
         if($request->has('getData')){
             $website = website::where('id',$this->website_id)
             ->select([
-                'icon',
+                'id',
+                'icon','logo',
                 'languages',
                 'websiteNames','websiteDescriptions'
-            ])->first();
+            ])->with(['categories'=>function($q){
+                $q->orderBy('sort','asc');
+            }])->with(['products'=>function($q){
+                $q->orderBy('sort','asc');
+            }])->first();
 
             $templates = template::where(['website_id'=>$this->website_id])->get();
 
             $default_language = '';
-            $preview_language = null;
-            foreach($website->languages as $lang){
-                if($lang['code'] == $request->preview_language){$preview_language = $lang['code'];}
-                if($lang['websiteDefault'] == true){$default_language = $lang['code'];}
-            }
-            if($preview_language != null){
-                $website_texts = websiteText::where(['website_id'=>$this->website_id ,'lang'=>$preview_language])->first();
-            }else{
-                $website_texts = websiteText::where(['website_id'=>$this->website_id ,'lang'=>$default_language])->first();
-            }
+            // $preview_language = null;
+            // foreach($website->languages as $lang){
+            //     if($lang['code'] == $request->preview_language){$preview_language = $lang['code'];}
+            //     if($lang['websiteDefault'] == true){$default_language = $lang['code'];}
+            // }
+            // if($preview_language != null){
+                $website_texts = websiteText::where(['website_id'=>$this->website_id ])->get();
+            // }else{
+                // $website_texts = websiteText::where(['website_id'=>$this->website_id ,'lang'=>$default_language])->first();
+            // }
             return response([
                 'website' => $website,
                 'templates' => $templates,
@@ -100,144 +105,65 @@ class designController extends Controller
         }
 
         else if($request->has('save_template')){
+            // $home = [];
+            // if($request->home != null){
+            //     foreach($request->home as $section){
+            //         array_push($home,$section,['section','div','span','svg','path','circle','header','a','img','ul','li']);
+            //     }
+            // }
+
+            $update_data = [
+                'updated_at' => Carbon::now()->timestamp,
+                // 'home' => $home,
+            ];
+            // foreach($request->template_data as $key => $val){
+            //     if($val != 0 ){
+            //         $update_data[$key] =$val;
+            //     }
+            // }
+            if($request->template_data['settings'] != 0){$update_data['settings'] = $request->template_data['settings'];}
+            if($request->template_data['website_colors'] != 0){$update_data['website_colors'] = $request->template_data['website_colors'];}
+            if($request->template_data['font_style'] != 0){$update_data['font_style'] = $request->template_data['font_style'];}
+            if($request->template_data['page_setup'] != 0){$update_data['page_setup'] = $request->template_data['page_setup'];}
+            if($request->template_data['form_elements'] != 0){$update_data['form_elements'] = $request->template_data['form_elements'];}
+            if($request->template_data['loading_spinner'] != 0){$update_data['loading_spinner'] = $request->template_data['loading_spinner'];}
+            if($request->template_data['website_header'] != 0){$update_data['website_header'] = $request->template_data['website_header'];}
+            if($request->template_data['popup_window'] != 0){$update_data['popup_window'] = $request->template_data['popup_window'];}
+            if($request->template_data['home'] != 0){$update_data['home'] = $request->template_data['home'];}
+            // if($request->changed_data != null){
+            //     foreach($request->changed_data as $key => $val){
+            //         $update_data[$key] = strip_tags($val,['section','div','span','svg','path','circle','header','a','img','ul','li']);
+            //     }
+            // }
             $save_tempalte = template::where([
                 'website_id' => $this->website_id,
-                '_id'  => $request->template['_id']
-            // ])->update([
-            //     'updated_at' => Carbon::now()->timestamp,
-            //     'website_colors' => [
-            //         'c1' =>  $request->template['website_colors']['c1'],
-            //         'c2' =>  $request->template['website_colors']['c2'],
-            //         'c3' =>  $request->template['website_colors']['c3'],
-            //         'c4' =>  $request->template['website_colors']['c4'],
-            //         'c_star' =>  $request->template['website_colors']['c_star'],
-            //         'c_success' =>  $request->template['website_colors']['c_success'],
-            //         'c_error' =>  $request->template['website_colors']['c_error'],
-            //         'c_warning' =>  $request->template['website_colors']['c_warning'],
-            //     ],
-            //     'font_style' => [
-            //         'title' => $request->template['font_style']['title'],
-            //         'title_weight' => $request->template['font_style']['title_weight'],
-            //         'title_line_height' => $request->template['font_style']['title_line_height'],
-            //         'title_letter_spacing' => $request->template['font_style']['title_letter_spacing'],
-            //         'paragraph' => $request->template['font_style']['paragraph'],
-            //         'paragraph_weight' => $request->template['font_style']['paragraph_weight'],
-            //         'paragraph_line_height' => $request->template['font_style']['paragraph_line_height'],
-            //         'paragraph_letter_spacing' => $request->template['font_style']['paragraph_letter_spacing'],
-            //     ],
-            //     'page_setup' => [
-            //         'max_width' => $request->template['page_setup']['max_width'],
-            //         'page_margin' => $request->template['page_setup']['page_margin'],
-            //         'color_theme' => $request->template['page_setup']['color_theme'],
-            //         'pageTransition' => $request->template['page_setup']['pageTransition'],
-            //         'transitionDuration' => $request->template['page_setup']['transitionDuration'],
-            //         'social_image' => $request->template['page_setup']['social_image'],
-
-            //     ],
-            //     'form_elements' => [
-            //         'spacing' => $request->template['form_elements']['spacing'],
-            //         'form_align' => $request->template['form_elements']['form_align'],
-            //         'input' => [
-            //             'text_align' => $request->template['form_elements']['input']['text_align'],
-            //             'padding_y' => $request->template['form_elements']['input']['padding_y'],
-            //             'padding_x' => $request->template['form_elements']['input']['padding_x'],
-            //             'border_style' => $request->template['form_elements']['input']['border_style'],
-            //             'border_width' => $request->template['form_elements']['input']['border_width'],
-            //             'border_radius' => $request->template['form_elements']['input']['border_radius'],
-            //             'border_color' => $request->template['form_elements']['input']['border_color'],
-            //             'font_size' => $request->template['form_elements']['input']['font_size'],
-            //             'font_color' => $request->template['form_elements']['input']['font_color'],
-            //             'label_font_size' => $request->template['form_elements']['input']['label_font_size'],
-            //             'label_margin' => $request->template['form_elements']['input']['label_margin'],
-            //             'background_fill' => $request->template['form_elements']['input']['background_fill'],
-            //             'input_bg_color' => $request->template['form_elements']['input']['input_bg_color'],
-            //             'focus_outline_width' => $request->template['form_elements']['input']['focus_outline_width'],
-            //             'focus_outline_color' => $request->template['form_elements']['input']['focus_outline_color'],
-            //             'focus_border_color' => $request->template['form_elements']['input']['focus_border_color'],
-            //             'focus_background_fill' => $request->template['form_elements']['input']['focus_background_fill'],
-            //             'focus_bg_color' => $request->template['form_elements']['input']['focus_bg_color'],
-
-            //         ],
-            //         'checkbox' => [
-            //             'border_radius' => $request->template['form_elements']['checkbox']['border_radius'],
-            //             'size' => $request->template['form_elements']['checkbox']['size'],
-            //             'color' => $request->template['form_elements']['checkbox']['color'],
-            //             'check_mark_color' => $request->template['form_elements']['checkbox']['check_mark_color'],
-            //         ],
-            //         'button1' => [
-            //             'padding_y' => $request->template['form_elements']['button1']['padding_y'],
-            //             'padding_x' => $request->template['form_elements']['button1']['padding_x'],
-            //             'border_radius' => $request->template['form_elements']['button1']['border_radius'],
-            //             'font_size' => $request->template['form_elements']['button1']['font_size'],
-            //             'font_color' => $request->template['form_elements']['button1']['font_color'],
-            //             'bg_color' => $request->template['form_elements']['button1']['bg_color'],
-            //             'outline_width' => $request->template['form_elements']['button1']['outline_width'],
-            //             'outline_color' => $request->template['form_elements']['button1']['outline_color'],
-            //             'hover_font_color' => $request->template['form_elements']['button1']['hover_font_color'],
-            //             'hover_bg_color' => $request->template['form_elements']['button1']['hover_bg_color'],
-            //             'hover_outline_width' => $request->template['form_elements']['button1']['hover_outline_width'],
-            //             'hover_outline_color' => $request->template['form_elements']['button1']['hover_outline_color'],
-            //             'click_font_color' => $request->template['form_elements']['button1']['click_font_color'],
-            //             'click_bg_color' => $request->template['form_elements']['button1']['click_bg_color'],
-            //             'click_outline_width' => $request->template['form_elements']['button1']['click_outline_width'],
-            //             'click_outline_color' => $request->template['form_elements']['button1']['click_outline_color'],
-            //             'disabled_font_color' => $request->template['form_elements']['button1']['disabled_font_color'],
-            //             'disabled_bg_color' => $request->template['form_elements']['button1']['disabled_bg_color'],
-            //             'disabled_outline_width' => $request->template['form_elements']['button1']['disabled_outline_width'],
-            //             'disabled_outline_color' => $request->template['form_elements']['button1']['disabled_outline_color'],
-            //         ],
-            //         'button2' => [
-            //             'padding_y' => $request->template['form_elements']['button2']['padding_y'],
-            //             'padding_x' => $request->template['form_elements']['button2']['padding_x'],
-            //             'border_radius' => $request->template['form_elements']['button2']['border_radius'],
-            //             'font_size' => $request->template['form_elements']['button2']['font_size'],
-            //             'font_color' => $request->template['form_elements']['button2']['font_color'],
-            //             'bg_color' => $request->template['form_elements']['button2']['bg_color'],
-            //             'outline_width' => $request->template['form_elements']['button2']['outline_width'],
-            //             'outline_color' => $request->template['form_elements']['button2']['outline_color'],
-            //             'hover_font_color' => $request->template['form_elements']['button2']['hover_font_color'],
-            //             'hover_bg_color' => $request->template['form_elements']['button2']['hover_bg_color'],
-            //             'hover_outline_width' => $request->template['form_elements']['button2']['hover_outline_width'],
-            //             'hover_outline_color' => $request->template['form_elements']['button2']['hover_outline_color'],
-            //             'click_font_color' => $request->template['form_elements']['button2']['click_font_color'],
-            //             'click_bg_color' => $request->template['form_elements']['button2']['click_bg_color'],
-            //             'click_outline_width' => $request->template['form_elements']['button2']['click_outline_width'],
-            //             'click_outline_color' => $request->template['form_elements']['button2']['click_outline_color'],
-            //             'disabled_font_color' => $request->template['form_elements']['button2']['disabled_font_color'],
-            //             'disabled_bg_color' => $request->template['form_elements']['button2']['disabled_bg_color'],
-            //             'disabled_outline_width' => $request->template['form_elements']['button2']['disabled_outline_width'],
-            //             'disabled_outline_color' => $request->template['form_elements']['button2']['disabled_outline_color'],
-            //         ],
-            //     ],
-            //     'loading_spinner' => [
-            //         'key' => $request->template['loading_spinner']['key'],
-            //         'elem' => $request->template['loading_spinner']['elem'],
-            //         'colors' => $request->template['loading_spinner']['colors'],
-            //     ],
-            //     'loading_screen' => $request->template['loading_screen']
-            // ]);
-            ])->update([
-                'updated_at' => Carbon::now()->timestamp,
-                'settings' => $request->template['settings'],
-                'website_colors' => $request->template['website_colors'],
-                'font_style' => $request->template['font_style'],
-                'page_setup' => $request->template['page_setup'],
-                'form_elements' => $request->template['form_elements'],
-                'loading_spinner' => $request->template['loading_spinner'],
-                // 'loading_screen' => $request->template['loading_screen'],
-                'home' => $request->template['home'] ?? [],
-            ]);
+                '_id'  => $request->template_id
+            ])->update($update_data);
 
             if($save_tempalte){
 
-                $website_langs = website::where('id',$this->website_id)->pluck('languages')->first();
-                $langs = [];
+                $template = template::where('_id',$request->template_id)->first()->encode();
+                // $template['settings'] = json_decode($template['settings'],true);
+                // $template['website_colors'] = json_decode($template['website_colors'],true);
+                // $template['font_style'] = json_decode($template['font_style'],true);
+                // $template['page_setup'] = json_decode($template['page_setup'],true);
+                // $template['form_elements'] = json_decode($template['form_elements'],true);
+                // $template['loading_spinner'] = json_decode($template['loading_spinner'],true);
+                // $template['website_header'] = json_decode($template['website_header'],true);
+                // $template['popup_window'] = json_decode($template['popup_window'],true);
+                // $template['home'] = json_decode($template['home'],true);
+                // $template_home = [];
+                // foreach ($template['home'] as $section) {
+                //   $decodedSection = json_decode($section, true);
+                //   array_push($template_home, $decodedSection);
+                // }
+                // $template['home'] = $template_home;
+
+                $website_langs = websiteText::where('website_id',$this->website_id)->select(['text','lang'])->get();
                 foreach($website_langs as $lang){
-                    array_push($langs,$lang['code']);
+                    (new generate_js)->generate($template,$lang->lang,$lang->text,null);
                 }
-                $template = template::where('_id',$request->template['_id'])->first();
                 (new generate_css)->generate($template);
-                (new generate_js)->generate($template,$langs,null,null);
 
                 return response(['save_template_state' => 1]);
             }else{
