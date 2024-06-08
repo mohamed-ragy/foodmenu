@@ -1,4 +1,5 @@
 draw_form_elements = function(){
+    return;
     $('#form_elements').find('.editor_popup_title').text(texts.website_style.form_elements)
     $('#form_elements').addClass('w500 h850').find('.editor_popup_body').text('').append(
         $('<div/>',{class:'w100p mB40'}).append(
@@ -31,7 +32,7 @@ draw_form_elements = function(){
             $('<div/>',{class:'editor_popup_container none',key:'input_box',parent_key:'form_elements'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.input_box}),
                 $('<div/>',{class:'fs085 c_white-11',text:texts.website_style.input_box_des}),
-                $('<div/>',{class:'w100p-20 form body_color_theme pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p-20 form  pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
                     $('<label/>',{class:'input_label',text:texts.website_style.dummyLabel}),
                     $('<input/>',{class:'input',value:texts.website_style.dummyInputBox}),
                 ),
@@ -79,7 +80,7 @@ draw_form_elements = function(){
                 draw_select_range({
                     keys_arr:[{key:'transition-duration',key_tree:'form_elements.elems.input.css'}],
                     name:texts.website_style.transitionDuration,
-                    range:{min:0,max:2000,step:100},
+                    range:{min:0,max:2000,step:1},
                     unit:'ms'
                 }),
                 $('<div/>',{class:'fs1 bold mT20',text:texts.styling.on_focus}),
@@ -96,25 +97,25 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'input_box_border',parent_key:'input_box'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border.replace(':name:',texts.website_style.input_box)}),
-                $('<div/>',{class:'w100p-20 form body_color_theme pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p-20 form  pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
                     $('<label/>',{class:'input_label',text:texts.website_style.dummyLabel}),
                     $('<input/>',{class:'input',value:texts.website_style.dummyInputBox}),
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.input.css`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.input.css']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.input.css']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.input.css'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.input.css`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.input.css`],step:1,units:['px'],is_responsive:false}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'input_box_shadow',parent_key:'input_box'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow.replace(':name:',texts.website_style.input_box)}),
-                $('<div/>',{class:'w100p-20 form body_color_theme pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p-20 form  pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
                     $('<label/>',{class:'input_label',text:texts.website_style.dummyLabel}),
                     $('<input/>',{class:'input',value:texts.website_style.dummyInputBox}),
                 ),
@@ -124,7 +125,7 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'input_box_label',parent_key:'input_box'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_label.replace(':name:',texts.website_style.input_box)}),
-                $('<div/>',{class:'w100p-20 form body_color_theme pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p-20 form  pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
                     $('<label/>',{class:'input_label',text:texts.website_style.dummyLabel}),
                     $('<input/>',{class:'input',value:texts.website_style.dummyInputBox}),
                 ),
@@ -153,7 +154,7 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'input_focus_box_shadow',parent_key:'input_box'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_focus.replace(':name:',texts.website_style.input_box)}),
-                $('<div/>',{class:'w100p-20 form body_color_theme pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p-20 form  pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
                     $('<label/>',{class:'input_label',text:texts.website_style.dummyLabel}),
                     $('<input/>',{class:'input',value:texts.website_style.dummyInputBox}),
                 ),
@@ -165,7 +166,7 @@ draw_form_elements = function(){
             $('<div/>',{class:'editor_popup_container none',key:'checkbox',parent_key:'form_elements'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.checkbox}),
                 $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.checkbox_des}),
-                $('<div/>',{class:'w100p-20 form body_color_theme pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p-20 form  pY20 pX10 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'checkbox_container'})
                 ),
                 draw_select_range({
@@ -198,7 +199,7 @@ draw_form_elements = function(){
             $('<div/>',{class:'editor_popup_container none',key:'button1',parent_key:'form_elements'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.button1}),
                 $('<div/>',{class:'fs085 c_white-11',text:texts.website_style.button1_des}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                         $('<button/>',{class:'button1 m5',disabled:true,text:texts.website_style.button1_disabled}),
@@ -247,7 +248,7 @@ draw_form_elements = function(){
                 draw_select_range({
                     keys_arr:[{key:'transition-duration',key_tree:'form_elements.elems.button1.css'}],
                     name:texts.website_style.transitionDuration,
-                    range:{min:0,max:2000,step:100},
+                    range:{min:0,max:2000,step:1},
                     unit:'ms'
                 }),
                 //
@@ -271,26 +272,26 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_border',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button1.css`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button1.css']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button1.css']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button1.css'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css`],step:1,units:['px'],is_responsive:false}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_box_shadow',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                     )
@@ -301,26 +302,26 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_hover_border',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_hover.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button1.css_hover`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button1.css_hover']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button1.css_hover']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button1.css_hover'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css_hover`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css_hover`],step:1,units:['px'],is_responsive:false}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_hover_box_shadow',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_hover.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                     )
@@ -331,27 +332,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_active_border',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_click.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button1.css_active`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button1.css_active']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button1.css_active']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button1.css_active'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css_active`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css_active`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_active_box_shadow',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_click.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',text:texts.website_style.button1}),
                     )
@@ -362,27 +363,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_disabled_border',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_disabled.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',disabled:true,text:texts.website_style.button1_disabled}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button1.css_disabled`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button1.css_disabled']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button1.css_disabled']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button1.css_disabled'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css_disabled`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button1.css_disabled`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button1_disabled_box_shadow',parent_key:'button1'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_disabled.replace(':name:',texts.website_style.button1)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button1 m5',disabled:true,text:texts.website_style.button1_disabled}),
                     )
@@ -395,7 +396,7 @@ draw_form_elements = function(){
             $('<div/>',{class:'editor_popup_container none',key:'button2',parent_key:'form_elements'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.button2}),
                 $('<div/>',{class:'fs085 c_white-11',text:texts.website_style.button2_des}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                         $('<button/>',{class:'button2 m5',disabled:true,text:texts.website_style.button2_disabled}),
@@ -444,7 +445,7 @@ draw_form_elements = function(){
                 draw_select_range({
                     keys_arr:[{key:'transition-duration',key_tree:'form_elements.elems.button2.css'}],
                     name:texts.website_style.transitionDuration,
-                    range:{min:0,max:2000,step:100},
+                    range:{min:0,max:2000,step:1},
                     unit:'ms'
                 }),
                 //
@@ -468,27 +469,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_border',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button2.css`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button2.css']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button2.css']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button2.css'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_box_shadow',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                     )
@@ -499,27 +500,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_hover_border',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_hover.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button2.css_hover`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button2.css_hover']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button2.css_hover']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button2.css_hover'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css_hover`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css_hover`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_hover_box_shadow',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_hover.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                     )
@@ -530,27 +531,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_active_border',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_click.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button2.css_active`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button2.css_active']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button2.css_active']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button2.css_active'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css_active`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css_active`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_active_box_shadow',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_click.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',text:texts.website_style.button2}),
                     )
@@ -561,26 +562,26 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_disabled_border',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_disabled.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',disabled:true,text:texts.website_style.button2_disabled}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button2.css_disabled`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button2.css_disabled']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button2.css_disabled']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button2.css_disabled'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css_disabled`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button2.css_disabled`],step:1,units:['px'],is_responsive:false}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button2_disabled_box_shadow',parent_key:'button2'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_disabled.replace(':name:',texts.website_style.button2)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button2 m5',disabled:true,text:texts.website_style.button2_disabled}),
                     )
@@ -593,7 +594,7 @@ draw_form_elements = function(){
             $('<div/>',{class:'editor_popup_container none',key:'button3',parent_key:'form_elements'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.button3}),
                 $('<div/>',{class:'fs085 c_white-11',text:texts.website_style.button3_des}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                         $('<button/>',{class:'button3 m5',disabled:true,text:texts.website_style.button3_disabled}),
@@ -642,7 +643,7 @@ draw_form_elements = function(){
                 draw_select_range({
                     keys_arr:[{key:'transition-duration',key_tree:'form_elements.elems.button3.css'}],
                     name:texts.website_style.transitionDuration,
-                    range:{min:0,max:2000,step:100},
+                    range:{min:0,max:2000,step:1},
                     unit:'ms'
                 }),
                 //
@@ -666,26 +667,26 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_border',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button3.css`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button3.css']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button3.css']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button3.css'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css`],step:1,units:['px'],is_responsive:false}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_box_shadow',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                     )
@@ -696,27 +697,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_hover_border',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_hover.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button3.css_hover`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button3.css_hover']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button3.css_hover']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button3.css_hover'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css_hover`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css_hover`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_hover_box_shadow',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_hover.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                     )
@@ -727,27 +728,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_active_border',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_click.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button3.css_active`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button3.css_active']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button3.css_active']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button3.css_active'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css_active`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css_active`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_active_box_shadow',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_click.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',text:texts.website_style.button3}),
                     )
@@ -758,27 +759,27 @@ draw_form_elements = function(){
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_disabled_border',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_border_disabled.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',disabled:true,text:texts.website_style.button3_disabled}),
                     )
                 ),
                 draw_color_picker({keys_arr:[{key_tree:`form_elements.elems.button3.css_disabled`,key:`border-color`}],name:texts.styling.border_color}),
-                draw_select_box_border({
-                    keys_arr:['form_elements.elems.button3.css_disabled']
-                }),
+                // draw_select_box_border({
+                //     keys_arr:['form_elements.elems.button3.css_disabled']
+                // }),
                 draw_select_range({
                     keys_arr:[{key:'border-width',key_tree:'form_elements.elems.button3.css_disabled'}],
                     name:texts.styling.border_width,
                     range:{min:0,max:5,step:1},
                     unit:'px'
                 }),
-                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css_disabled`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`form_elements.elems.button3.css_disabled`],step:1,units:['px'],is_responsive:false}),
 
             ),
             $('<div/>',{class:'editor_popup_container none',key:'button3_disabled_box_shadow',parent_key:'button3'}).append(
                 $('<div/>',{class:'inter fs1 bold',text:texts.website_style.name_shadow_disabled.replace(':name:',texts.website_style.button3)}),
-                $('<div/>',{class:'w100p form body_color_theme pY20 sticky t-10 brdrB1 zx10'}).append(
+                $('<div/>',{class:'w100p form  pY20 sticky t-10 brdrB1 zx10'}).append(
                     $('<div/>',{class:'row alnC jstfyC wFC'}).append(
                         $('<button/>',{class:'button3 m5',disabled:true,text:texts.website_style.button3_disabled}),
                     )

@@ -1,8 +1,9 @@
 draw_page_setup = function(){
+    return;
     $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
-    $('#page_setup').addClass('w500 h500').find('.editor_popup_body').text('').append(
+    $('#page_setup').addClass(' h500').find('.editor_popup_body').text('').append(
         // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
-        $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
+        // $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
         $('<div/>',{class:'w100p mB40'}).append(
             draw_input_list({
                 keys_arr:[{key:'max_width',key_tree:'page_setup'}],
@@ -26,22 +27,18 @@ draw_page_setup = function(){
                 keys_arr:[{key:'mobile_max_width',key_tree:'page_setup'}],
                 name:texts.styling.mobile_max_width,
                 step:'10',
-                unit:'px'
-            }),
-            draw_color_theme_Picker({
-                keys_arr:[{key:'page_color_theme',key_tree:'page_setup'}],
-                name:texts.styling.color_theme
+                units:['px'],
             }),
             draw_input_list({
                 keys_arr:[{key:'pageTransition',key_tree:'page_setup'}],
                 name:texts.website_style.pageTransition,
                 selections:window.inputList_arr.pageTransition,
-                after:$('<div/>',{class:'pageTransition_preview mis-5 fs101 pointer ico-play'})
+                after:$('<div/>',{class:'pageTransition_preview mis-5 fs101 cG pointer ico-play'})
             }),
             draw_select_range({
                 keys_arr:[{key:'transitionDuration',key_tree:'page_setup'}],
                 name:texts.website_style.transitionDuration,
-                range:{min:100,max:1500,step:100},
+                range:{min:100,max:1500,step:1},
                 unit:'ms'
             }),
             draw_switch_btn({
@@ -53,13 +50,13 @@ draw_page_setup = function(){
                 draw_select_range({
                     keys_arr:[{key:'smooth_scroll_distance',key_tree:'page_setup'}],
                     name:texts.website_style.smoothScrollDistance,
-                    range:{min:100,max:1000,step:100},
+                    range:{min:100,max:1000,step:1},
                     unit:'px'
                 }),
                 draw_select_range({
                     keys_arr:[{key:'smooth_scroll_duration',key_tree:'page_setup'}],
                     name:texts.website_style.smoothScrollDuration,
-                    range:{min:100,max:1500,step:100},
+                    range:{min:100,max:1500,step:1},
                     unit:'ms'
                 }),
             )
@@ -78,7 +75,7 @@ $('body').on('click','.pageTransition_preview',function(e){
 
 
 $('#website').on('wheel', function(e){
-    if($('#website').css('overflow') == 'hidden'){return;}
+    if($('#website').css('overflow-y') == 'hidden'){return;}
     // if(!$('.popup_container').hasClass('none')){return;}
     if(window.template.page_setup.smooth_scroll == '0'){return;}
     if(event.wheelDelta < 0){
@@ -88,145 +85,137 @@ $('#website').on('wheel', function(e){
     }
 
 });
-scroll_elem_animation = function(scroll_direction){
-    $('[elem_animation="true"]').each(function(){
-        let elem = get_key_tree($(this).attr('key_tree')).elem
-        let elem_animation = window.current_view == 'desktop' ? elem.animation : window.current_view == 'mobile' ? elem.animation_mobile : null;
-        let elem_offset_top = $(this).offset().top;
-        if($(this).css('box-sizing') == 'border-box'){
-            elem_offset_top = $(this).offset().top - parseFloat($(this).css('padding-top'))
-        }
-        let elem_offset_bottom = elem_offset_top + $(this).outerHeight();
-        let window_height = $('#website').height();
-        let elem_animate_on = elem_animation.animate_on;
-        if(scroll_direction == 'top'  && elem_offset_top > 0 && elem_offset_top < $('#website').height() && elem_animation.animationUp == '1'){
-            $(this).css({
-                'transition-duration':'0ms',
-                'transition-delay':'0ms',
-            });
-            $(this).css({
-                'transform':elem_animation.animationUp_transform,
-                'opacity':elem_animation.animationUp_opacity,
-                'color':elem_animation.animationUp_font_color,
-                'background-color':elem_animation.animationUp_background_color,
-            })
-            setTimeout(()=>{
-                $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
-            },10)
-        }
-        else if(scroll_direction == 'down' && elem_animation.animationDown == '1'){
-            if(elem_animate_on == 'on_fully_enter'){
-                if(elem_offset_bottom > window_height){
-                    $(this).css({
-                        'transform':elem_animation.animationDown_transform,
-                        'opacity':elem_animation.animationDown_opacity,
-                        'color':elem_animation.animationDown_font_color,
-                        'background-color':elem_animation.animationDown_background_color,
-                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
-                    })
-                }else if(elem_offset_top < 0){
-                    $(this).css({
-                        'transform':elem_animation.animationUp_transform,
-                        'opacity':elem_animation.animationUp_opacity,
-                        'color':elem_animation.animationUp_font_color,
-                        'background-color':elem_animation.animationUp_background_color,
-                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
-                    })
-                }else{
-                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
-                }
-            }
-            else if(elem_animate_on == 'on_enter'){
-                if(elem_offset_top > window_height){
-                    $(this).css({
-                        'transform':elem_animation.animationDown_transform,
-                        'opacity':elem_animation.animationDown_opacity,
-                        'color':elem_animation.animationDown_font_color,
-                        'background-color':elem_animation.animationDown_background_color,
-                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
-                    })
-                }else if(elem_offset_top < 0){
-                    $(this).css({
-                        'transform':elem_animation.animationUp_transform,
-                        'opacity':elem_animation.animationUp_opacity,
-                        'color':elem_animation.animationUp_font_color,
-                        'background-color':elem_animation.animationUp_background_color,
-                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
-                    })
-                }else{
-                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
-                }
-            }
-        }
 
-        else if(scroll_direction == 'up' && elem_animation.animationUp == '1'){
-            if(elem_animate_on == 'on_fully_enter'){
-                if(elem_offset_top < 0){
-                    $(this).css({
-                        'transform':elem_animation.animationUp_transform,
-                        'opacity':elem_animation.animationUp_opacity,
-                        'color':elem_animation.animationUp_font_color,
-                        'background-color':elem_animation.animationUp_background_color,
-                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
-                    })
-                }else if(elem_offset_bottom > window_height){
-                    $(this).css({
-                        'transform':elem_animation.animationDown_transform,
-                        'opacity':elem_animation.animationDown_opacity,
-                        'color':elem_animation.animationDown_font_color,
-                        'background-color':elem_animation.animationDown_background_color,
-                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
-                    })
-                }else{
-                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
-                }
-            }
-            else if(elem_animate_on == 'on_enter'){
-                if(elem_offset_bottom < 0){
-                    $(this).css({
-                        'transform':elem_animation.animationUp_transform,
-                        'opacity':elem_animation.animationUp_opacity,
-                        'color':elem_animation.animationUp_font_color,
-                        'background-color':elem_animation.animationUp_background_color,
-                        'backdrop-filter':elem_animation.animationUp_backdrop_filter,
-                    })
-                }else if(elem_offset_bottom > window_height){
-                    $(this).css({
-                        'transform':elem_animation.animationDown_transform,
-                        'opacity':elem_animation.animationDown_opacity,
-                        'color':elem_animation.animationDown_font_color,
-                        'background-color':elem_animation.animationDown_background_color,
-                        'backdrop-filter':elem_animation.animationDown_backdrop_filter,
-                    })
-                }else{
-                    $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
-                }
-            }
-        }
-        // else if(elem_offset_top < animation_area_start){
-        //     if(elem_animation.animationUp == '1'){
-        //         $(this).css({
-        //             'transform':elem_animation.animationUp_transform,
-        //             'opacity':elem_animation.animationUp_opacity,
-        //             'color':elem_animation.animationUp_font_color,
-        //             'background-color':elem_animation.animationUp_background_color,
-        //         })
-        //     }
-
-        // }else if(elem_offset_top > animation_area_end){
-        //     if(elem_animation.animationDown == '1'){
-        //         $(this).css({
-        //             'transform':elem_animation.animationDown_transform,
-        //             'opacity':elem_animation.animationDown_opacity,
-        //             'color':elem_animation.animationDown_font_color,
-        //             'background-color':elem_animation.animationDown_background_color,
-        //             'backdrop-filter':elem_animation.animationDown_backdrop_filter,
-        //         })
-        //     }
-        // }else{
-        //     $(this).attr('style',window.current_view == 'desktop' ? $(this).attr('style_desktop') : window.current_view == 'mobile' ? $(this).attr('style_mobile') : '');
-        // }
+set_elem_animation_styles = function(elem,animation,keyframe,immediate){
+    // for(const key in styles){
+    //     elem.css(key,styles[key])
+    // }
+    elem.css({
+        'transition-duration':animation[`${keyframe}_duration`],
+        'transition-delay':animation[`${keyframe}_delay`],
+        'transition-timing-function':animation[`${keyframe}_timing_function`],
+        'transform':animation[`${keyframe}_transform`],
+        'filter':animation[`${keyframe}_filter`],
     })
+    if(immediate){
+        elem.css({
+            'transition-duration':'0ms',
+            'transition-delay':'0ms',
+        })
+    }
+}
+// remove_elem_animation_styles = function(elem,duration,delay){
+//     setTimeout(()=>{
+//         if(window.current_view == 'desktop'){
+//             elem.attr('style',elem.attr('style_desktop'))
+//         }else if(window.current_view == 'mobile'){
+//             elem.attr('style',elem.attr('style_mobile'))
+//         }
+//     },(parseInt(duration)) + (parseInt(delay)) + 100)
+
+// }
+apply_scroll_animation = function(elem,scroll_direction){
+    let elem_offset_top = elem.offset().top;
+    let elem_offset_bottom = elem_offset_top + elem.height();
+    let elem_data = get_key_tree(elem.attr('key_tree')).elem;
+    let animation;
+    window.current_view == 'desktop' ? animation = elem_data.animation : window.current_view == 'mobile' ? animation = elem_data.animation_mobile : null;
+
+
+    let website_offset_top = $('#website').offset().top
+    let website_height = $('#website').height() + website_offset_top;
+
+    // if(window.template.website_header.elems.css.position == 'sticky'){
+        // website_height = website_height - $('.website_header').height();
+        // website_offset_top = website_offset_top - $('.website_header').height();
+    // }
+
+    let up_out_start = website_offset_top;
+    let up_out_end = website_height / 6;
+    
+    let up_start = up_out_end;
+    let up_end = (website_height / 6) * 2;
+
+    let down_start = (website_height / 6) * 4;
+    let down_end = (website_height / 6) * 5;
+
+    let down_out_start = down_end;
+    let down_out_end = website_height; 
+
+    let in_start = up_end;
+    let in_end = down_start;
+    
+    // if(typeof(animation) !== 'object'){return}
+    if(animation.name == 'no_animation'){return}
+    if($('#website').scrollTop() == 0 && elem_offset_bottom < down_out_end && scroll_direction != 'top'){
+        set_elem_animation_styles(elem,animation,'in',false);
+        return; 
+    }
+    if(scroll_direction == 'top'){
+        if(elem_offset_top > up_out_start && elem_offset_bottom < down_out_end){
+            set_elem_animation_styles(elem,animation,'up_out',true)
+            setTimeout(()=>{
+                set_elem_animation_styles(elem,animation,'in',false)
+            },100)
+        }
+        if(elem_offset_top > down_out_start){
+            set_elem_animation_styles(elem,animation,'down_out',true)
+        }
+        else if(elem_offset_bottom < up_out_end){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'up_out',true)
+            }
+        }
+    }
+
+
+    if(scroll_direction == 'down'){
+        if(elem_offset_top < down_end && elem_offset_top > down_start){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'down',false)
+            }
+        }else if(elem_offset_top < in_end && elem_offset_top > in_start){
+            set_elem_animation_styles(elem,animation,'in',false)
+        }else if(elem_offset_top < up_end && elem_offset_top > up_start){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'up',false)
+            }
+        }else if(elem_offset_top < up_out_end){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'up_out',false)
+            }
+        }
+    }else if(scroll_direction == 'up'){
+        if(elem_offset_bottom > up_start && elem_offset_bottom < up_end){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'up',false)
+            }
+        }else if(elem_offset_bottom > in_start && elem_offset_bottom < in_end){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'in',false)
+            }
+        }else if(elem_offset_bottom > down_start && elem_offset_bottom < down_end){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'down',false)
+            }
+        }else if(elem_offset_bottom > down_out_start){
+            if(animation.repeat == '1'){
+                set_elem_animation_styles(elem,animation,'down_out',false)
+            }
+        }
+    }
+
+}
+scroll_elem_animation = function(scroll_direction){
+    if(window.current_view == 'desktop'){
+        $('[animation]').each(function(){
+            apply_scroll_animation($(this),scroll_direction)
+        })
+    }else if(window.current_view == 'mobile'){
+        $('[animation_mobile]').each(function(){
+            apply_scroll_animation($(this),scroll_direction)
+        })
+    }
 }
 window.last_scroll_top = 0;
 $('#website').on('scroll',function(e){

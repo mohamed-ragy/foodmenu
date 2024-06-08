@@ -38,19 +38,22 @@ class websiteController extends Controller
 
         $this->middleware(function ($request, $next) {
 
-            $this->lang = Cookie::get(Str::slug(request()->getHost().'_lang', '_')) ?? 'en';
-
+            // $this->lang = $request->lang;
+            // $this->lang = $request->lang ?? Cookie::get(Str::slug(request()->getHost().'_lang', '_')) ?? 'en';
             $this->request_host = $request->getHost();
+
             self::get_website_data();
             //
             if($this->request_host != $this->website->url){
                 return redirect()->to(env('APP_URL_HTTP').$this->website->url);
             }
             //
-            self::check_language($this->lang);
-            // if(!self::check_language($this->lang)){
-            //     return redirect()->route('website_home');
-            // };
+            // self::check_language($this->lang);
+            
+            if(!self::check_language($request->lang)){
+            //     return redirect()->route('website_home',$this->lang);
+                return redirect()->route('website_home',$this->lang);
+            };
             self::check_subscription($request->route()->getName());//need to be checked
             self::auth_check($request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip());//need to be checked
             return $next($request);
@@ -87,6 +90,9 @@ class websiteController extends Controller
         $this->website_id = $this->website->id;
     }
     public function check_language($request_lang){
+        // if($request_lang === '--'){
+        //     $request_lang = Cookie::get(Str::slug(request()->getHost().'_lang', '_')); 
+        // }
         $defaultLang = '';
         $request_lang_check = false;
         foreach($this->website->languages as $lang){
@@ -94,20 +100,21 @@ class websiteController extends Controller
                 $defaultLang = $lang['code'];
                 // $this->website_direction = $lang['direction'];
             }
-            if($request_lang == $lang['code']){
+            if($request_lang === $lang['code']){
                 $request_lang_check = true;
                 $this->website_direction = $lang['direction'];
             }
         }
         if($request_lang_check){
-            App::setLocale($request_lang);
             $this->lang = $request_lang;
-            Cookie::queue(Cookie::make(Str::slug($this->request_host.'_lang', '_'),$request_lang,9999999999999));
-            // return true;
-        }else{
-            App::setLocale($defaultLang);
-            $this->lang = $defaultLang;
+            App::setLocale($this->lang);
             Cookie::queue(Cookie::make(Str::slug($this->request_host.'_lang', '_'),$this->lang,9999999999999));
+            return true;
+        }else{
+            $this->lang = Cookie::get(Str::slug(request()->getHost().'_lang', '_')) ?? $defaultLang;
+            return false;
+            // App::setLocale($defaultLang);
+            // Cookie::queue(Cookie::make(Str::slug($this->request_host.'_lang', '_'),$defaultLang,9999999999999));
             // return false;
         }
     }

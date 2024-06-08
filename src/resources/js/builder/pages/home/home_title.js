@@ -1,11 +1,11 @@
 show_edit_home_title = function(key_tree){
-    deselect_all();
+    // deselect_all();
     // hidePopupSelectors();
     hide_editor_popup('editor');
     let title = get_key_tree(key_tree).elem;
     if(typeof(title) === 'undefined'){return;}
     window.selected_elem = key_tree;
-    $(`.edit_home_elem[key_tree="${window.selected_elem}"]`).addClass('edit_home_elem_selected')
+    $(`.home_elem[key_tree="${window.selected_elem}"]`).addClass('edit_home_elem_selected')
     $('#editor').find('.editor_popup_title').text(texts.elems.title);
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_head_btn').addClass('none');
@@ -34,7 +34,7 @@ show_edit_home_title = function(key_tree){
                 draw_number_picker({
                     keys_arr:[{key:'font-size',key_tree:`${key_tree}.css`}],
                     name:texts.styling.font_size,
-                    unit:'em',
+                    units:['em'],
                     step:'.1',
                     is_responsive:true
                 }),
@@ -68,13 +68,13 @@ show_edit_home_title = function(key_tree){
                 draw_select_range({
                     keys_arr:[{key:'max-width',key_tree:`${key_tree}.css`}],
                     name:texts.styling.max_width,
-                    range:{max:100,min:10,step:10},
+                    range:{max:100,min:10,step:1},
                     unit:'%',
                     is_responsive:true,
                 }),
-                draw_select_padding({key_tree:`${key_tree}.css`,step:1,unit:'px',is_responsive:true}),
-                draw_select_margin({key_tree:`${key_tree}.css`,step:1,unit:'px',is_responsive:true}),
-                draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.css`,key:'transform'}],is_responsive:true}),
+                draw_select_padding({key_tree:`${key_tree}.css`,step:1,units:['px'],is_responsive:true}),
+                draw_select_margin({key_tree:`${key_tree}.css`,step:1,units:['px'],is_responsive:true}),
+                // draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.css`,key:'transform'}],is_responsive:true}),
                 draw_zindex_selector({
                     keys_arr:[`${key_tree}.css`],
                     is_responsive:true,
@@ -98,9 +98,9 @@ show_edit_home_title = function(key_tree){
                     keys_arr:[{key:'border-width',key_tree:`${key_tree}.css`}],
                     name:texts.styling.border_width,
                     step:1,
-                    unit:'px'
+                    units:['px'],
                 }),
-                draw_select_border_radius({keys_arr:[`${key_tree}.css`],step:1,unit:'px',is_responsive:false}),
+                draw_select_border_radius({keys_arr:[`${key_tree}.css`],step:1,units:['px'],is_responsive:false}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'title_shadow',parent_key:'home_elem_title'}).append(
                 draw_drop_shadow_select({
@@ -118,14 +118,14 @@ show_edit_home_title = function(key_tree){
                 draw_select_range({
                     keys_arr:[{key:'transition-duration',key_tree:`${key_tree}.css`}],
                     name:texts.styling.animation_duration,
-                    range:{min:0,max:4000,step:100},
+                    range:{min:0,max:4000,step:1},
                     unit:'ms',
                     is_responsive:true,
                 }),
                 draw_select_range({
                     keys_arr:[{key:'transition-delay',key_tree:`${key_tree}.css`}],
                     name:texts.styling.animation_delay,
-                    range:{min:0,max:4000,step:100},
+                    range:{min:0,max:4000,step:1},
                     unit:'ms',
                     is_responsive:true,
                 }),
@@ -155,7 +155,7 @@ show_edit_home_title = function(key_tree){
                 }),
                 draw_editor_show_container({key:'title_animation_up_backdrop_filter',name:texts.styling.backdrop_filter,row_class:true}),
                 draw_opacity_selector({keys_arr:[{key:'animationUp_opacity',key_tree:`${key_tree}.animation`}],is_responsive:true,container_class:'opacity_elem_animation'}),
-                draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.animation`,key:'animationUp_transform'}],is_responsive:true,container_class:'transform_elem_animation'}),
+                // draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.animation`,key:'animationUp_transform'}],is_responsive:true,container_class:'transform_elem_animation'}),
                 $('<div/>',{class:'bold fs101 mB10 mT40',text:texts.styling.animationDown}),
                 draw_switch_btn({
                     keys_arr:[{key_tree:`${key_tree}.animation`,key:'animationDown'}],
@@ -172,7 +172,7 @@ show_edit_home_title = function(key_tree){
                 }),
                 draw_editor_show_container({key:'title_animation_down_backdrop_filter',name:texts.styling.backdrop_filter,row_class:true}),
                 draw_opacity_selector({keys_arr:[{key:'animationDown_opacity',key_tree:`${key_tree}.animation`}],is_responsive:true,container_class:'opacity_elem_animation'}),
-                draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.animation`,key:'animationDown_transform'}],is_responsive:true,container_class:'transform_elem_animation'}),
+                // draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.animation`,key:'animationDown_transform'}],is_responsive:true,container_class:'transform_elem_animation'}),
             ),
             $('<div/>',{class:'editor_popup_container none',key:'title_animation_up_backdrop_filter',parent_key:'title_animation'}).append(
                 draw_backdrop_filter({

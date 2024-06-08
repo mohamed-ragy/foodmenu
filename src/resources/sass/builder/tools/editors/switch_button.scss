@@ -1,0 +1,31 @@
+.switch_btn{
+    background-color: var(--white-2);
+    border-radius: 10px;
+    border: 1px solid var(--white-4);
+    position: relative;
+    height:18px;
+    width:33px;
+    cursor: pointer;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in-out;
+}
+.switch_btn::after{
+    content: '';
+    background-color: var(--white-1);
+    border-radius: 50%;
+    position: absolute;
+    height: 20px;
+    width:20px;
+    top:-1px;
+    left:-1px;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in-out;
+    box-shadow: 0 0 2px var(--shdw-10), 0 0 1px 2px var(--shdw-10);
+}
+.switch_btn_selected{
+    background-color: var(--green);
+}
+.switch_btn_selected::after{
+    left:14px;
+
+}

@@ -1,0 +1,32 @@
+.image_position_btns_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+.image_position_btn{
+    all:unset;
+    position: relative;
+    height:25px;
+    width:25px;
+    margin: 1px;
+    background-color: var(--white-1);
+    color:var(--green);
+    border-radius: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 2px 0px var(--green-40);
+    font-size:1em;
+    transition-duration: 100ms;
+}
+.image_position_btn[position_direction="left"]{border-radius: 50% 0 0 50%;}
+.image_position_btn[position_direction="right"]{border-radius: 0 50% 50% 0;}
+.image_position_btn[position_direction="up"]{border-radius: 50% 50% 0 0;}
+.image_position_btn[position_direction="down"]{border-radius: 0 0 50% 50%;}
+.image_position_btn[position_direction="center"]{border-radius: 50%;}
+.image_position_btn:hover{
+    background-color: var(--green-80);
+    color:var(--green-txt);
+}

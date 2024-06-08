@@ -14,7 +14,7 @@
 .add_home_section_type_elem{
     padding:7px 10px;
     margin:1px 0;
-    border-radius: 3px;
+    border-radius: 1px 3px 3px 1px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -30,12 +30,11 @@
     color:var(--white-11)
 }
 .add_home_section_type_elem:hover{
-    background-color: var(--white-2);
+    background-color: var(--green-5);
 }
 .add_home_section_type_elem_selected{
-    background-color: var(--white-2);
-    font-weight: 600;
-    border-left:2px solid var(--white-7);
+    background-color: var(--green-5);
+    border-left:2px solid var(--green);
 }
 //
 .add_home_section_sections_container{

@@ -1,0 +1,31 @@
+.select_box_editor{
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    background-color: var(--white-3);
+    border-radius: 2px;
+    padding:1px;
+    box-sizing: border-box;
+    width: 100%;
+}
+.select_box{
+    white-space: nowrap;
+    position: relative;
+    margin: 1px;
+    padding:5px;
+    font-size: .8em;
+    background-color: transparent;
+    color:var(--white-11);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 300ms;
+    flex-grow: 1;
+}
+.select_box_selected{
+    background-color: var(--white-1);
+    color:var(--green);
+    box-shadow: 0 0 2px var(--shdw-5);
+}

@@ -5,7 +5,7 @@ namespace App\Models\templates;
 //popup => 120
 class templates_data
 {
-    public static function transitions(){
+    public static function animations(){
         return [
             'no_animation' => '',
             'fade' => '.fade{ animation-name: fade; animation-timing-function: ease-in-out; animation-iteration-count: 1; } @keyframes fade {0%{opacity:0}100%{opacity: 1}}',
@@ -14,6 +14,13 @@ class templates_data
             'slide_down' => '.slide_down{ animation-name: slide_down; animation-timing-function: ease-in-out; animation-iteration-count: 1; } @keyframes slide_down {0%{opacity:0;transform: translateY(-10px);}100%{opacity: 1;transform: translateY(0px);}}',
             'slide_left' => '.slide_left{ animation-name: slide_left; animation-timing-function: ease-in-out; animation-iteration-count: 1; } @keyframes slide_left {0%{opacity:0;transform: translateX(10px);}100%{opacity: 1;transform: translateX(0px);}}',
             'slide_right' => '.slide_right{ animation-name: slide_right; animation-timing-function: ease-in-out; animation-iteration-count: 1; } @keyframes slide_right {0%{opacity:0;transform: translateX(-10px);}100%{opacity: 1;transform: translateX(0px);}} ',
+        ];
+    }
+    
+    public static function scroll_animations(){
+        return [
+            'no_animation' => '',
+            
         ];
     }
 

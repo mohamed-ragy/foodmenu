@@ -27,12 +27,12 @@
 </head>
 
 <body>
-    <div class="loading_screen body_color_theme">
+    <div class="loading_screen ">
         <?php include storage_path().'/app/public/websites/'.$website_id.'/views'.'/'.$lang.'/loading_spinner.html'; ?>
         <h1>{{ $title }}</h1>
         <h3>{{ $description }}</h3>
     </div>
-    <div class="website_loading body_color_theme none">
+    <div class="website_loading none">
         <?php include storage_path().'/app/public/websites/'.$website_id.'/views'.'/'.$lang.'/loading_spinner.html'; ?>
     </div>
     <?php include storage_path().'/app/public/websites/'.$website_id.'/views'.'/'.$lang.'/popup_window.html'; ?>

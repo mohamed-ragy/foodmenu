@@ -223,13 +223,18 @@ $website2 = function()use ($getHost){
 };
 $website = function(){
     Route::get('/', function () {
-        return redirect()->route('website_home');
+        return redirect()->route('website_home','--');
     })->name('website.root');
-    Route::get('/home',[websiteController::class,'home'])->name('website_home');
+
+    Route::prefix('{lang}')->group(function(){
+        Route::get('/', function () {
+            return redirect()->route('website_home','--');
+        });
+        Route::get('/home',[websiteController::class,'home'])->name('website_home');
+    });
     Route::prefix('api')->group(function () {
         Route::post('/website',[websiteController::class,'website'])->name('website_activity');
         Route::post('/activity',[websiteController::class,'activity'])->name('website_activity');
-
     });
 
 };

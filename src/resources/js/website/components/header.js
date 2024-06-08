@@ -7,7 +7,7 @@ show_header_drop_down = function(list){
                 $('.header_drop_down_list').append(
                     $('<a/>',{
                         class:'header_drop_down_list_item',
-                        href:`/${category.name}`,
+                        href:`/${window.lang}/${category.name}`,
                         text:category.names[window.lang],
                     })
                 )
@@ -36,7 +36,7 @@ show_header_drop_down = function(list){
                     $('<a/>',{
                         class:'header_drop_down_list_item change_language',
                         text:langauge.name,
-                        langauge:langauge.code,
+                        href:`/${langauge.code}/home`
                     })
                 )
             }

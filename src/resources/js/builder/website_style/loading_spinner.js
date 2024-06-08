@@ -1,10 +1,11 @@
 draw_loading_spinner = function(){
+    return;
     $('#loading_spinner').find('.editor_popup_title').text(texts.website_style.loading_spinner)
     $('#loading_spinner').addClass('w400 h800').find('.editor_popup_body').text('').append(
         // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.loading_spinner}),
         $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.loading_spinner_des}),
         $('<div/>',{class:'w100p mB40',id:'loading_spinner_settings'}).append(
-            $('<div/>',{class:`loading_spinner_preview body_color_theme`}),
+            $('<div/>',{class:`loading_spinner_preview `}),
             $('<div/>',{class:'editor_popup_row'}).append(
                 $('<div/>',{text:texts.styling.colors}),
                  $('<div/>',{class:'row alnC jstfyE loading_spinner_colors_container'}),

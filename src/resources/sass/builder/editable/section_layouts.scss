@@ -1,29 +1,32 @@
 .section_layout_elem_S{
     display: grid;
-    width:180px;
-    height:85px;
+    width:120px;
+    height:60px;
     cursor: pointer;
-    margin:10px;
-    outline:1px solid var(--white-6);
-    border-radius: 4px;
+    margin:8px;
+    border-radius: 1px;
     padding:2px;
     grid-gap: 3px;
+    outline:2px solid var(--white-2);
+    outline-offset: 2px;
+    transition-duration: 100ms;
 }
 .section_layout_elem_S:hover{
-    box-shadow: 0 0 15px var(--shdw-10);
+    outline:2px solid var(--green-80);
 }
 .section_layout_elem_L{
     display: grid;
     width: 340px;
     height: 170px;
-    // height:calc(300px / 2);
     cursor: pointer;
     margin:10px;
-    outline:1px solid var(--white-6);
+    outline:2px solid var(--white-2);
+    outline-offset: 2px;
     border-radius: 4px;
     padding:4px;
     grid-gap: 5px;
+    transition-duration: 100ms;
 }
 .section_layout_elem_L:hover{
-    box-shadow: 0 0 15px var(--shdw-10);
+    outline:2px solid var(--green-80);
 }

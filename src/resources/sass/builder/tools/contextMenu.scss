@@ -1,0 +1,112 @@
+#contextMenu{
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 5px;
+    position: fixed;
+    z-index: 5240;
+    transition-duration: 0s;
+    animation:200ms contextMenu_animation 0s 1 ease;
+    min-width: 250px;
+    padding:10px 0;
+    max-height: 70vh;
+    overflow-y: hidden;
+    overflow-x: visible;
+}
+@keyframes contextMenu_animation {
+    0%{transform: translateY(0px);opacity:0;}
+    100%{transform: translateY(0px);opacity:1;}
+}
+.contextMenu_scrollIcon_up, .contextMenu_scrollIcon_down{
+    position: sticky;
+    width: 100%;
+    text-align: center;
+    left:0;
+    height:25px;
+    opacity: .5;
+    cursor: pointer;
+    background-color: var(--white-1);
+    padding:5px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+.contextMenu_scrollIcon_up:hover, .contextMenu_scrollIcon_down:hover{
+    background-color: var(--white-2);
+    opacity: 1;
+}
+.contextMenu_scrollIcon_up{
+    top: -10px;
+    margin-top: -10px;
+}
+.contextMenu_scrollIcon_down{
+    bottom:-10px;
+    margin-bottom: -10px;
+}
+#contextSubmenu{
+    position: fixed;
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 5px;
+    z-index: 5245;
+    transition-duration: 0s;
+    animation:200ms contextMenu_animation 0s 1 ease;
+    min-width: 150px;
+    padding:10px 0;
+    cursor: auto;
+}
+.contextMenu_elem{
+    white-space: nowrap;
+    position: relative;
+    cursor: pointer;
+    padding:8px 15px;
+    margin: 0;
+    width:100%;
+    box-sizing: border-box;
+    background-color: var(--white-1);
+    color:var(--txt-1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.contextMenu_elem:hover{
+    background-color: var(--green-10);
+}
+.contextMenu_elem_icon{
+    margin-inline-end:10px;
+    width:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contextSubmenu{
+    // position: absolute;
+    // left:calc(100% - 10px);
+    // top:-20px;
+    display: none;
+    // background-color: var(--white-1);
+    // color:var(--txt-1);
+    // box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    // border-radius: 5px;
+    // z-index: 5245;
+    // transition-duration: 0s;
+    // animation:200ms contextMenu_animation 0s 1 ease;
+    // min-width: 150px;
+    // padding:10px 0;
+    // cursor: auto;
+}
+.contextMenu_elem_dummy{
+    cursor: auto;
+    color:var(--white-8) !important;
+    pointer-events: none;
+}
+.contextMenu_elem_dummy div:nth-child(2){
+    cursor: auto;
+    color:var(--white-8) !important;
+    pointer-events: none;
+}
+.contextMenu_line{
+    width:calc(100% - 30px);
+    margin:10px 15px;
+    border-bottom:1px solid var(--white-5);
+}

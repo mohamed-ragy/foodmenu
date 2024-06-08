@@ -1,0 +1,108 @@
+
+.animation_preview_container{
+    width:120px;
+    height:60px;
+    cursor: pointer;
+    margin:10px 5px;
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 100ms;
+    outline:2px solid var(--white-2);
+    outline-offset: 2px;
+}
+.animation_preview_container_selected{
+    outline:2px solid var(--green);
+
+}
+.animation_preview_container_selected:hover{
+    outline:2px solid var(--green);
+}
+.animation_preview{
+    width:120px;
+    height:60px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.animation_preview:hover{
+    outline:2px solid var(--white-4);
+}
+.animation_preview_body{
+    width:100%;
+    height:180px;
+    background-color: var(--green-5);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+}
+.animation_preview_body_top{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background-color: var(--white);
+}
+.animation_preview_body_mid{
+    position: absolute;
+    top:60px;
+    left:0;
+    width:100%;
+    height:60px;
+    background-color: var(--green-5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.animation_preview_body_bottom{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background-color: var(--white);
+}
+.animation_preview_body_dummy_elem{
+    height:2px;
+    // width:30px;
+    margin:4px;
+    border-radius: 4px;
+    position: relative;
+    background-color: var(--green-20);
+}
+.animation_preview_scroll{
+    position: absolute;
+    right:1px;
+    top:0px;
+    width:4px;
+    height:30px;
+    background-color: var(--green-50);
+    border-radius: 5px;
+    // animation-name: animation_preview_scroll_animation;
+    transition-duration: 500ms;
+    // transition-iteration-count: 1;
+    transition-timing-function: ease;
+    z-index: 5;
+}
+// @keyframes animation_preview_scroll_animation {
+//     0%{transform: translateY(0px);}
+//     10%{transform: translateY(10px);}
+//     20%{transform: translateY(10px);}
+//     30%{transform: translateY(20px);}
+//     40%{transform: translateY(20px);}
+//     50%{transform: translateY(30px);}
+//     60%{transform: translateY(30px);}
+//     70%{transform: translateY(20px);}
+//     80%{transform: translateY(20px);}
+//     90%{transform: translateY(10px);}
+//     100%{transform: translateY(10px);}
+// }
+.animation_preview_elem{
+    width:30px;
+    height:30px;
+    // transition-duration: 1200ms;
+    // transition-delay: 300ms;
+    
+}

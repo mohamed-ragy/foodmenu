@@ -32,17 +32,18 @@ $('body').on('click','.checkbox',function(e){
     }
 })
 //
-$('body').on('click','.change_language',function(e){
-    $('.website_loading').removeClass('none')
-    $.ajax({
-        url:'/api/website',
-        data:{
-            change_language:$(this).attr('langauge')
-        },success:function(r){
-            console.log(r)
-            if(r.state == 1){
-                window.location.reload();
-            }
-        }
-    })
-})
+// $('body').on('click','.change_language',function(e){
+                // window.location.href = `/${$(this).attr('language')}/home`
+    //             $('.website_loading').removeClass('none')
+    // $.ajax({
+    //     url:'/api/website',
+    //     data:{
+    //         change_language:$(this).attr('langauge')
+    //     },success:function(r){
+    //         // console.log(r)
+    //         if(r.state == 1){
+    //             // window.location.reload();
+    //         }
+    //     }
+    // })
+// })

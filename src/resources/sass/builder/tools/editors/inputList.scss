@@ -1,0 +1,75 @@
+.inputList_editor{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding:5px 10px;
+    cursor: pointer;
+    font-size: .9em;
+    box-sizing: border-box;
+    width: 230px;
+
+    margin:0 10px;
+    border:1px solid var(--green-60);
+    border-radius: 3px;
+    height:35px
+}
+.inputList_val{
+    margin-inline-end:20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.inputList_elems{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 230px;
+    box-sizing: border-box;
+    background-color: var(--white-1);
+    left:0;
+    margin:0;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 210;
+    border-radius: 2px;
+    max-height:300px;
+    overflow: auto;
+    scrollbar-width: thin;
+    animation:inputList_elems_animation 100ms ease-in-out 1;
+    transform-origin: top center;
+    border:1px solid var(--green-60);
+}
+@keyframes inputList_elems_animation {
+    0%{opacity:0;transform: scaleY(.5);}
+    100%{opacity:1;transform: scaleY(1);}
+}
+.inputList_elems:focus{outline: none;}
+.inputList_elems div:nth-child(1){border: none;}
+.inputList_elem{
+    padding:5px 10px;
+    height:35px;
+    width:100%;
+    border-top:1px solid var(--green-10);
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: .9em;
+    position: relative;
+}
+.inputList_elem:hover{
+    background-color: var(--green-10);
+}
+
+.inputList_elem_selected{
+    background-color: var(--green-70);
+    color:var(--green-txt);
+}
+.inputList_elem_selected:hover{
+    background-color: var(--green-70);
+    color:var(--green-txt);
+}

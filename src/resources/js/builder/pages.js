@@ -1,3 +1,4 @@
+
 set_page = function(page){
     $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[page])
     switch (page) {
@@ -12,12 +13,15 @@ set_page = function(page){
 page_transition = function(page){
     $('#page').removeClass(`${window.template.page_setup.pageTransition}_in`)
     $('#page').addClass(`${window.template.page_setup.pageTransition}_out`)
+    // $('#website').css('overflow-x','hidden');
     preview_page_transition_in_timeout = setTimeout(()=>{
         draw_page(page)
-        scroll_elem_animation('top');
         $('#page').removeClass(`${window.template.page_setup.pageTransition}_out`).addClass(`${window.template.page_setup.pageTransition}_in`)
+        scroll_elem_animation('top');
         preview_page_transition_out_timeout = setTimeout(()=>{
             $('#page').removeClass(`${window.template.page_setup.pageTransition}_in`)
+            // $('#website').css('overflow-x','');
+            set_adapted_header();
         },window.template.page_setup.transitionDuration.replace('ms',''))
     },window.template.page_setup.transitionDuration.replace('ms',''))
 }
@@ -43,11 +47,12 @@ draw_page = function(page){
                     create_html(window.template.home[key],`home.${key}`),
                 )
             }
-            $(`section[key_tree="home.${window.selected_section}"]`).addClass('section_selected');
-            $(`.section_block[key_tree="${window.selected_section_block}"]`).addClass('section_block_selected')
-            $(`.edit_home_elem[key_tree="${window.selected_elem}"]`).addClass('edit_home_elem_selected')
-
-
+            // try{
+                select(window.selected);
+            // }catch{}
+            // $(`section[key_tree="home.${window.selected_section}"]`).addClass('section_selected');
+            // $(`.section_block[key_tree="${window.selected_section_block}"]`).addClass('section_block_selected')
+            // $(`.home_elem[key_tree="${window.selected_elem}"]`).addClass('edit_home_elem_selected')
         break;
     }
     $('#website').scrollTop(website_scrolltop);
@@ -61,7 +66,7 @@ create_html = function(elem,key_tree){
     let style_mobile_obj = {};
     let style_hover_desktop_obj = {};
     let style_hover_mobile_obj = {};
-    for(const key in elem.css){
+    for(let key in elem.css){
         let val = elem.css[key];
         if(val == '100vh'){val = 'calc(100vh - 40px)'}
         if(elem.name == 'popup_container'){
@@ -71,23 +76,39 @@ create_html = function(elem,key_tree){
                 val = 'none';
             }
         }
-        if('background' in elem){
-            if(elem.background == 'none' && key == 'backdrop-filter'){
-                val = 'unset';
+        // if('background' in elem){
+        //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
+        //         val = 'unset';
+        //     }
+        //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
+        //         key = 'background-color';
+        //     }
+        //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+        //         val = 'unset'
+        //     }
+        // }
+        if('animation' in elem){
+            if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation'){
+                if(key == 'transform'){
+                    val = 'unset'
+                }
+                if(key == 'filter'){
+                    val = 'unset'
+                }
             }
         }
         style_desktop_obj[key] = val;
     }
 
-    if('background' in elem){
-        if(elem.background == 'image'){
-            for(const key in elem.background_image){
-                let val = elem.background_image[key];
-                if(key == 'background-image'){val = `url('${val}')`}
-                style_desktop_obj[key] = val;
-            }
-        }
-    }
+    // if('background' in elem){
+    //     if(elem.background == 'image'){
+    //         for(const key in elem.background_image){
+    //             let val = elem.background_image[key];
+    //             if(key == 'background-image'){val = `url('${val}')`}
+    //             style_desktop_obj[key] = val;
+    //         }
+    //     }
+    // }
     if('font_style' in elem){
         style_desktop_obj['font-family'] = `var(--${elem.font_style}_name)`;
         style_desktop_obj['line-height'] = `var(--${elem.font_style}_line_height)`;
@@ -97,7 +118,7 @@ create_html = function(elem,key_tree){
 
     //
     style_mobile_obj = JSON.parse(JSON.stringify(style_desktop_obj));
-    for(const key in elem.css_mobile){
+    for(let key in elem.css_mobile){
         let val = elem.css_mobile[key];
         if(val == '100vh'){val = 'calc(100vh - 40px)'}
         if(elem.name == 'popup_container'){
@@ -107,22 +128,38 @@ create_html = function(elem,key_tree){
                 val = 'none';
             }
         }
-        if('background' in elem){
-            if(elem.background == 'none' && key == 'backdrop-filter'){
-                val = 'unset';
+        // if('background' in elem){
+        //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
+        //         val = 'unset';
+        //     }
+        //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
+        //         key = 'background-color';
+        //     }
+        //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+        //         val = 'unset'
+        //     }
+        // }
+        if('animation' in elem){
+            if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation'){
+                if(key == 'transform'){
+                    val = 'unset'
+                }
+                if(key == 'filter'){
+                    val = 'unset'
+                }
             }
         }
         style_mobile_obj[key] = val;
     }
-    if('background' in elem){
-        if(elem.background == 'image'){
-            for(const key in elem.background_image_mobile){
-                let val = elem.background_image_mobile[key];
-                if(key == 'background-image'){val = `url('${val}')`}
-                style_mobile_obj[key] = val;
-            }
-        }
-    }
+    // if('background' in elem){
+    //     if(elem.background == 'image'){
+    //         for(const key in elem.background_image_mobile){
+    //             let val = elem.background_image_mobile[key];
+    //             if(key == 'background-image'){val = `url('${val}')`}
+    //             style_mobile_obj[key] = val;
+    //         }
+    //     }
+    // }
     ///
     if(elem.type == 'home_section' && elem.has_driver == '1'){
         style_desktop_obj[`padding-${elem.driver.position}`] = elem.driver.css.height;
@@ -152,10 +189,37 @@ create_html = function(elem,key_tree){
     //
     if('css_hover' in elem){
         style_hover_desktop_obj = JSON.parse(JSON.stringify(style_desktop_obj));
-        style_hover_mobile_obj = JSON.parse(JSON.stringify(style_mobile_obj));
-        for(const key in elem.css_hover){
+        for(let key in elem.css_hover){
             let val = elem.css_hover[key];
+            // if('background' in elem){
+            //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
+            //         val = 'unset';
+            //     }
+            //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
+            //         key = 'background-color';
+            //     }
+            //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+            //         val = 'unset'
+            //     }
+            // }
             style_hover_desktop_obj[key] = val;
+        }
+    // }
+    // if('css_mobile_hover' in elem){
+        style_hover_mobile_obj = JSON.parse(JSON.stringify(style_mobile_obj));
+        for(let key in elem.css_mobile_hover){
+            let val = elem.css_mobile_hover[key];
+            // if('background' in elem){
+            //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
+            //         val = 'unset';
+            //     }
+            //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
+            //         key = 'background-color';
+            //     }
+            //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+            //         val = 'unset'
+            //     }
+            // }
             style_hover_mobile_obj[key] = val;
         }
     }
@@ -168,6 +232,7 @@ create_html = function(elem,key_tree){
         style_hover_mobile = `${style_hover_mobile}${key}:${style_hover_mobile_obj[key]};`
     }
     //
+
 
     let text ='';
     if('text' in elem){
@@ -195,15 +260,6 @@ create_html = function(elem,key_tree){
     if('class' in elem && elem.class != null){
         classes = `${classes} ${elem.class}`
     }
-    if('color_theme' in elem ){
-        if('background' in elem){
-            if(elem.background == 'color_theme'){
-                classes = `${classes} ${elem.color_theme}`
-            }
-        }else{
-            classes = `${classes} ${elem.color_theme}`
-        }
-    }
 
     let attrs = ''
     if('attr' in elem){
@@ -211,20 +267,26 @@ create_html = function(elem,key_tree){
             attrs = `${attrs} ${key}="${elem['attr'][key]}"`
         }
     }
-    if('animation' in elem && typeof(elem.animation) === 'object'){
-        attrs = `${attrs} elem_animation="true"`
+    if('animation' in elem){
+        if(elem.animation.name != 'no_animation'){
+            attrs = `${attrs} animation="${elem.animation.name}" `
+        }
     }
-
+    if('animation_mobile' in elem){
+        if(elem.animation_mobile.name != 'no_animation'){
+            attrs = `${attrs} animation_mobile="${elem.animation_mobile.name}" `
+        }
+    }
     //
     if(elem.type == 'home_elem'){
-        classes = `${classes} edit_home_elem`
+        classes = `${classes} home_elem`
         attrs = `${attrs} elem="${elem.elem_type}"`
 
         if(elem.elem_type == 'title' || elem.elem_type == 'paragraph'){
             classes = `${classes} add_elem_popup_elem_contenteditable`
         }
     }
-
+    html = '';
     switch(elem.type){
         // case 'loading_spinner':
         //     html = $('<div/>',{key_tree:key_tree,type:elem.type,class:`loading_spinner_container ${classes}`,size:elem.size,style:style}).append(
@@ -232,16 +294,34 @@ create_html = function(elem,key_tree){
         //     )
         // break;
         default:
-            // let contenteditable = false;
-            // if(elem.formateable == '1'){
-            //     contenteditable = true;
+            // if(elem.type == 'home_section_block'){
+            //     elem.children.sort((a,b)=>{
+            //         return a.sort - b.sort;
+            //     })
+
+            //     // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-1px - ${elem.css['border-width']})` : ''}`; 
+            //     // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
+            //     // html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div style="${window.current_view == 'desktop' ? section_block_title_desktop : window.current_view == 'mobile' ? section_block_title_mobile : ''}" style_desktop="${section_block_title_desktop}" style_mobile="${section_block_title_mobile}" class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
+            //     html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
+            //     style_desktop = `${style_desktop.replace('transform','')};height:100%;width:100%;`;
+            //     style_hover_desktop = `${style_hover_desktop.replace('transform','')};height:100%;width:100%;`;
+            //     style_mobile = `${style_mobile.replace('transform','')};height:100%;width:100%;`;
+            //     style_hover_mobile = `${style_hover_mobile.replace('transform','')};height:100%;width:100%;`;
             // }
-            html = `<${elem.tag} class="${classes}" style="${$('.desktop_view').hasClass('mobile_view') ? style_mobile : style_desktop }" key_tree="${key_tree}" style_desktop="${style_desktop}" style_mobile="${style_mobile}" ${attrs}`;
+
+
+            html = `${html}<${elem.tag} class="${classes}" style="${$('.desktop_view').hasClass('mobile_view') ? style_mobile : style_desktop }" key_tree="${key_tree}" style_desktop="${style_desktop}" style_mobile="${style_mobile}" ${attrs}`;
 
             if('css_hover' in elem){
-                html = `${html} style_hover_desktop="${style_hover_desktop}" style_hover_mobile="${style_hover_mobile}" `;
-                html = `${html} onmouseenter="if(window.current_view){$(this).attr('style',$(this).attr('style_hover_desktop'))}else{$(this).attr('style',$(this).attr('style_hover_mobile'))}"`;
-                html = `${html} onmouseleave="if(window.current_view){$(this).attr('style',$(this).attr('style_desktop'))}else{$(this).attr('style',$(this).attr('style_mobile'))}"`;
+                let mouseenter = `onmouseenter="if(window.current_view == 'desktop'){$(this).attr('style',$(this).attr('style_hover_desktop'))}else{$(this).attr('style',$(this).attr('style_hover_mobile'))}"`;
+                let mouseleave = `onmouseleave="if(window.current_view == 'desktop'){$(this).attr('style',$(this).attr('style_desktop'))}else{$(this).attr('style',$(this).attr('style_mobile'))}"`;
+                if('animation' in elem){
+                    if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation' ){
+                        mouseenter = '';
+                        mouseleave = '';
+                    }
+                }
+                html = `${html} style_hover_desktop="${style_hover_desktop}" style_hover_mobile="${style_hover_mobile}" ${mouseenter} ${mouseleave}`;
             }
             html = `${html}">${text}${elem_html}`
 
@@ -270,26 +350,21 @@ create_html = function(elem,key_tree){
                     html = `${html}</svg> `;
                 }
 
-                let section_key = get_key_tree(key_tree).elem_key;
-                html = `${html}<button class="btn btn-cancel add_home_section add_home_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>
-                <div class="section_btns_container" style="${elem.adapt_header == '1' && elem.sort == 0 ? `margin-top:${$('.website_header').outerHeight()}px` :''}">
-                    <button class="btn btn-cancel edit_home_section_btn builder_font ico-edit" tooltip="${texts.editSection}" section="${section_key}"></button>
-                    <button class="btn btn-cancel dublicate_home_section_btn builder_font ico-copy" tooltip="${texts.dublicateSection}" section="${section_key}"></button>
-                    <button class="btn btn-cancel swap_home_section_up_btn builder_font ico-arrowUp ${elem.sort == 0 ? 'none' :''}" tooltip="${texts.swapUp}" section="${section_key}"></button>
-                    <button class="btn btn-cancel swap_home_section_down_btn builder_font ico-arrowDown ${elem.sort == window.template.home.length - 1 ? 'none':''}" tooltip="${texts.swapDown}" section="${section_key}"></button>
-                    <button class="btn btn-delete delete_home_section_btn builder_font ico-delete" tooltip="${texts.deleteSection}" section="${section_key}"></button>
-                </div>
-                `;
-            }else if(elem.type == 'section_block'){
+                let section = get_key_tree(key_tree).elem;
+                html = `${html}<div class="select_section_title builder_font"><div class="ico-align_center contextMenu" key_tree="${key_tree}"></div><div>${section.name}</div></div>`;
+                html = `${html}<button class="btn btn-cancel add_home_section add_home_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>`
+            }else if(elem.type == 'home_section_block'){
                 elem.children.sort((a,b)=>{
                     return a.sort - b.sort;
                 })
-                html = `${html}<div class="section_block_edit_btns">
-                <button tooltip="${texts.edit_section_block}" key_tree="${key_tree}" class="btn btn-cancel section_block_edit_btn ico-edit"></button>
-                <button tooltip="${texts.add_element}" key_tree="${key_tree}" class="btn btn-cancel section_add_elem_btn ico-plus"></button>
-                </div>`;
+
+                // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-${elem.css['border-width']})` : ''}`; 
+                // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-${elem.css_mobile['border-width']})` : ''}`; 
+                // html = `${html}<div style="${window.current_view == 'desktop' ? section_block_title_desktop : window.current_view == 'mobile' ? section_block_title_mobile : ''}" style_desktop="${section_block_title_desktop}" style_mobile="${section_block_title_mobile}" class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
+                html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
             }
             else if(elem.type == 'home_elem'){
+                
                 let elem_parent = get_key_tree(key_tree).parent;
                 let contenteditable = elem.elem_type == 'title' ? true : elem.elem_type == 'paragraph' ? true : false;
 
@@ -300,13 +375,18 @@ create_html = function(elem,key_tree){
                 if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
                 if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
 
-                html = `${html}<div class="elem_edit_btns">
-                ${contenteditable ? `<button tooltip="${texts.edit_text}" class="btn btn-cancel elem_edit_btn edit_home_text_elem_text ico-edit_text "></button>` : ''}
-                <button tooltip="${texts.edit_element}" class="btn btn-cancel elem_edit_btn edit_home_elem_btn ico-edit "></button>
-                <button tooltip="${texts.swapUp}" class="${elem.sort == 1 ? 'none' : '' } btn btn-cancel elem_edit_btn swap_up_home_elem ${arrow_sort_back}"></button>
-                <button tooltip="${texts.swapDown}" class="${elem.sort == elem_parent.children.length ? 'none' : ''} btn btn-cancel elem_edit_btn swap_down_home_elem ${arrow_sort_next}"></button>
-                <button tooltip="${texts.styling.remove_element}" class="btn btn-cancel elem_edit_btn delete_home_elem ico-close"></button>
-                </div>`
+                // html = `${html}<div class="elem_edit_btns">
+                // ${contenteditable ? `<button tooltip="${texts.edit_text}" class="btn btn-cancel elem_edit_btn edit_home_text_elem_text ico-edit_text "></button>` : ''}
+                // <button tooltip="${texts.edit_element}" class="btn btn-cancel elem_edit_btn edit_home_elem_btn ico-edit "></button>
+                // <button tooltip="${texts.swapUp}" class="${elem.sort == 1 ? 'none' : '' } btn btn-cancel elem_edit_btn swap_up_home_elem ${arrow_sort_back}"></button>
+                // <button tooltip="${texts.swapDown}" class="${elem.sort == elem_parent.children.length ? 'none' : ''} btn btn-cancel elem_edit_btn swap_down_home_elem ${arrow_sort_next}"></button>
+                // <button tooltip="${texts.styling.remove_element}" class="btn btn-cancel elem_edit_btn delete_home_elem ico-close"></button>
+                // </div>`
+                // let elem_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `left:calc(-1px - ${elem.css['border-width']})` : ''}`; 
+                // let elem_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `left:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
+                // html = `${html}<div style="${window.current_view == 'desktop' ? elem_title_desktop : window.current_view == 'mobile' ? elem_title_mobile : ''}" style_desktop="${elem_title_desktop}" style_mobile="${elem_title_mobile}" class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
+                html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
+
             }
 
 
@@ -315,63 +395,30 @@ create_html = function(elem,key_tree){
             }
             html = `${html}</${elem.tag}>`;
 
+            if(elem.type == 'home_section_block'){
+                // html = `${html}</div>`;
+            }
         break;
     }
     return html;
 }
-
-require('./pages/home.js')
-
-deselect_all = function(){
-    window.selected_section = null;
-    window.selected_section_block = null;
-    window.selected_elem = null;
-    $('section').removeClass('section_selected')
-    $(`.section_block`).removeClass('section_block_selected')
-    $(`.edit_home_elem`).removeClass('edit_home_elem_selected')
-}
-
-heighlight_all = function(){
-    $('.set_show_metrics').addClass('header_icon_selected')
-    $('section[type="home_section"]').addClass('highlight')
-    $('.section_wrapper').addClass('highlight')
-    $('.section_block').addClass('highlight')
-    $('.website_header').addClass('header_highlight')
-    $('.edit_home_elem').addClass('header_highlight')
-}
-deheighlight_all = function(){
-    $('.set_show_metrics').removeClass('header_icon_selected')
-    $('section[type="home_section"]').removeClass('highlight')
-    $('.section_wrapper').removeClass('highlight')
-    $('.section_block').removeClass('highlight')
-    $('.website_header').removeClass('header_highlight')
-    $('.edit_home_elem').removeClass('header_highlight')
-}
-heighlight_all_toggle = function(){
-    if( $('.set_show_metrics').hasClass('header_icon_selected')){
-        deheighlight_all();
-    }else{
-        heighlight_all()
+reset_class_selectors = function(elem){
+    if('class_selector' in elem){
+        elem.class_selector = elem.class_selector+small_hash();
+    }
+    if('children' in elem){
+        for(const key in elem.children){
+            reset_class_selectors(elem.children[key])
+        }
     }
 }
-set_preview_mode = function(){
-    $('.set_preview_mode').addClass('header_icon_selected')
-    $('section').addClass('section_clear')
-    $('.website_header').addClass('selected_header_clear')
-}
-unset_preview_mode = function(){
-    $('.set_preview_mode').removeClass('header_icon_selected')
-    $('section').removeClass('section_clear')
-    $('.website_header').removeClass('selected_header_clear')
 
-}
-preview_mode_toggle = function(){
-
-    if( $('.set_preview_mode').hasClass('header_icon_selected')){
-        unset_preview_mode();
-    }else{
-        set_preview_mode()
-    }
-}
-//
+// deselect_all = function(){
+//     window.selected_section = null;
+//     window.selected_section_block = null;
+//     window.selected_elem = null;
+//     $('section').removeClass('section_selected')
+//     $(`.section_block`).removeClass('section_block_selected')
+//     $(`.home_elem`).removeClass('edit_home_elem_selected')
+// }
 

@@ -94,6 +94,7 @@ class generate_js
         self::add_to_file("open_page = function(callback=()=>{}){
             $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
             $('#page').addClass(`{$this->template['page_setup']['pageTransition']}_out`);
+            $('body').css('overflow-x','hidden');
             setTimeout(()=>{
                 $('body').scrollTop(0);
                 $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_out`).addClass(`{$this->template['page_setup']['pageTransition']}_in`);
@@ -101,6 +102,7 @@ class generate_js
                 set_website_data();
                 scroll_elem_animation('top');
                 setTimeout(()=>{
+                    $('body').css('overflow-x','');
                     $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
                 },{$page_transitionDuration});
             },{$page_transitionDuration} - 100);
@@ -217,41 +219,27 @@ class generate_js
                 }
                 if(array_key_exists('class_selector',$elem)){
                     $html_start = $html_start." ".$elem['class_selector'];
-                    // if(array_key_exists('animation',$elem) && is_array($elem['animation'])){
-                    //     $html_start = $html_start." ".$elem['class_selector']."_animationOut";
-                    // }
                 }
                 if(array_key_exists('font_style',$elem)){
                     $html_start = $html_start." ".$elem['font_style'];
                 }
-                if(array_key_exists('color_theme',$elem)){
-                    if(array_key_exists('background',$elem)){
-                        if($elem['background'] == 'color_theme'){
-                            $html_start = $html_start." ".$elem['color_theme'];
-                        }
-                    }else{
-                        $html_start = $html_start." ".$elem['color_theme'];
-                    }
-                }
-                // if(array_key_exists('animation',$elem)){
-                //     $html_start = $html_start." ".$elem['animation'];
-                // }
                 $html_start = $html_start."\"";
-                if(array_key_exists('animation',$elem) && is_array($elem['animation'])){
-                    if(
-                        $elem['animation']['animationUp'] == '1' ||
-                        $elem['animation_mobile']['animationUp'] == '1' ||
-                        $elem['animation']['animationDown'] == '1' ||
-                        $elem['animation_mobile']['animationDown'] == '1'
-                    ){
-                        $html_start = $html_start." animation=\"{$elem['class_selector']}\"";
-                        $html_start = $html_start." animate_on_desktop=\"{$elem['animation']['animate_on']}\"";
-                        $html_start = $html_start." animate_on_mobile=\"{$elem['animation_mobile']['animate_on']}\"";
+                if(array_key_exists('class_selector',$elem)){
+                    $html_start = $html_start." class_selector=\"{$elem['class_selector']}\"";
+                }
+                if(array_key_exists('animation',$elem)){
+                    if($elem['animation']['name'] != 'no_animation' || $elem['animation_mobile']['name'] != 'no_animation'){
+                        $html_start = $html_start." animation=\"true\" animation_repeat=\"{$elem['animation']['repeat']}\" animation_mobile_repeat=\"{$elem['animation_mobile']['repeat']}\"";
                     }
                 }
+  
                 if(array_key_exists('attr',$elem)){
                     foreach($elem['attr'] as $key =>  $attr){
-                        $html_start = $html_start." $key=\"{$attr}\"";
+                        if($key === 'href'){
+                            $html_start = $html_start." $key=\"/{$this->lang_code}{$attr}\"";
+                        }else{
+                            $html_start = $html_start." $key=\"{$attr}\"";
+                        }
                     }
                 }
 

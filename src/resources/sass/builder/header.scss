@@ -96,7 +96,7 @@
     overflow: auto;
     max-height:calc(100% - 100px);
 }
-.website_style_elem{
+.website_style_elem_css{
     font-size: .9em;
     box-sizing: border-box;
     width:100%;
@@ -105,7 +105,7 @@
     padding: 8px;
     border-bottom:1px solid var(--white-2);
 }
-.website_style_elem:hover{background-color: var(--white-2);}
+.website_style_elem_css:hover{background-color: var(--white-2);}
 //
 .website_tools_container{
     z-index: 190;

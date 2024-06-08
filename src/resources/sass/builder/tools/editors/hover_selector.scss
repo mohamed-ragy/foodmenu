@@ -1,0 +1,42 @@
+.hover_selector_container{
+    background-color: var(--white-3);
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:2px;
+    box-shadow: 0 0 1px var(--shdw-20) inset;
+    margin:auto;
+    width:270px;
+    gap:2px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.hover_selector{
+    width:calc(270px / 2);
+    height:30px;
+    box-sizing: border-box;
+    padding:5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color:var(--white-11);
+    transition-duration: 300ms;
+}
+.hover_selector div:nth-child(1){font-size: .95em;}
+.hover_selector div:nth-child(2){font-size: .82em;position: relative;}
+.hover_selector_selected{
+    background-color: var(--white);
+    color:var(--green);
+}
+.has_hover{
+    position: absolute;
+    height:5px;
+    width:5px;
+    border-radius: 50%;
+    background-color: var(--orange-80);
+    top: 0;
+    right: -5px;
+}

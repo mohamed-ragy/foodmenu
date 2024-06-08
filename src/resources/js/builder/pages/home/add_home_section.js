@@ -6,22 +6,21 @@ show_add_home_section_previews = function(type){
             let section_layouts = get_home_sections_layouts();
             for(const key in section_layouts){
                 let layout = section_layouts[key]
-                let section_wrapper = layout.section_wrapper;
                 let thisLayoutContainer;
                 $('.add_home_section_sections_container').append(
-                    $('<div/>',{class:'add_home_section_blank',layout:layout.layout}).append(
+                    $('<div/>',{class:'add_home_section_blank',layout:key}).append(
                         thisLayoutContainer = $('<div/>',{class:'section_layout_elem_L'})
                     )
                 )
                 thisLayoutContainer.css({
-                    'grid-template-areas':layout.section_wrapper.css['grid-template-areas'],
-                    'grid-template-columns':layout.section_wrapper.css['grid-template-columns'],
+                    'grid-template-areas':layout.css['grid-template-areas'],
+                    'grid-template-columns':layout.css['grid-template-columns'],
                 })
                 let children_counter = 0;
-                for(const key2 in section_wrapper.children){
+                for(const key2 in layout.children){
                     children_counter++;
                     thisLayoutContainer.append(
-                        $('<div/>',{class:'',style:`grid-area:elem${children_counter};outline:1px solid var(--white-6);`})
+                        $('<div/>',{class:'',style:`grid-area:elem${children_counter};background-color:var(--green-20)`})
                     )
                 }
             }
@@ -31,26 +30,30 @@ show_add_home_section_previews = function(type){
 }
 //
 $('body').on('click','.add_home_section_blank',function(e){
-    // e.stopImmediatePropagation();
     let section_layouts = get_home_sections_layouts();
-    let layout = JSON.parse(JSON.stringify(section_layouts.find(item=>item.layout == $(this).attr('layout')).section_wrapper));
+    let layout = section_layouts[$(this).attr('layout')];
     let blank_section = get_blank_home_section();
     let section = JSON.parse(JSON.stringify(blank_section))
     let new_section_sort = parseInt($('.popupBody').attr('section_sort')) + 1;
     section.sort = new_section_sort;
     section.children.section_wrapper = layout;
-
+    let section_name_num = 1
+    let section_name = `${texts.untitled_section} ${section_name_num}`
     for(const key in window.template.home){
+        if(window.template.home[key].name == section_name){
+            section_name_num++;
+            section_name = `${texts.untitled_section} ${section_name_num}`
+        }
         if(key >= new_section_sort){
             window.template.home[key].sort = parseInt(window.template.home[key].sort) + 1
         }
     }
+    section.name = section_name;
     window.template.home.push(JSON.parse(JSON.stringify(section)))
     new_action();
-
-    show_edit_home_section(new_section_sort)
     $('#website').animate({scrollTop:$(`section[key_tree="home.${new_section_sort}"]`).position().top - 50},300)
     close_popup();
+    select(`home.${new_section_sort}`)
 })
 //
 $('body').on('click','.add_home_section',function(e){

@@ -1,57 +1,89 @@
-.edit_home_elem:hover{
-    outline: 1px solid var(--metrics_color);
-    .elem_edit_btns{
-        display: flex;
-        top:0px;
-
-    }
+@import '../editable/add_home_elem.scss';
+.home_elem{
+    z-index: 100;
+}
+.home_elem::after{
+    content: '';
+    position: absolute;
+    inset:0 0 0 0;
+    pointer-events: none;
+    z-index: 100;
+    transition-duration: 300ms;
+}
+.home_elem:hover{
+    .select_edit_elem_title{display:flex;background-color: var(--orange-50);}
     z-index: 100 !important;
-    transition-duration: 0ms !important;
-    transition-delay: 0ms !important;
-
+}
+.home_elem:hover::after{
+    outline: 1px dashed var(--orange-50);
 }
 .edit_home_elem_selected{
-    outline: 2px solid var(--metrics_color);
-    .elem_edit_btns{
-        display: flex;
-        top:-25px;
-    }
+    .select_edit_elem_title{display:flex;background-color: var(--orange);}
 }
-
 .edit_home_elem_selected:hover{
-    outline: 2px solid var(--metrics_color);
-    .elem_edit_btns{
-        display: flex;
-        top:-25px;
-    }
-
+    .select_edit_elem_title{display:flex;background-color: var(--orange);}
 }
+.edit_home_elem_selected::after{
+    content: '';
+    position: absolute;
+    inset:0 0 0 0;
+    pointer-events: none;
+    z-index: 100;
+    transition-duration: 300ms;
+    outline: 1px solid var(--orange);
+}
+.edit_home_elem_selected:hover::after{
+    outline: 1px solid var(--orange);
+}
+.select_edit_elem_title{
+    white-space: nowrap;
+    background-color: var(--blue);
+    color:var(--blue-txt);
+    width:fit-content;
+    position: absolute;
+    left:-1px;
+    bottom:100%;
+    padding:3px 5px;
+    padding-left:1px;
+    padding-bottom: 2px;
+    border-radius: 0px 0px 0 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 300ms;
+}
+.select_edit_elem_title div:nth-child(1){font-size:.75rem;margin-bottom:2px;margin-inline-end: 1px;}
+.select_edit_elem_title div:nth-child(2){font-size:.8rem;}
+//
+
 .editing_edit_home_elem_editing{
     z-index:1000 !important;
     outline:1px solid var(--white-10) !important;
 }
+//
 
 //
-.elem_edit_btns{
-    display: none;
-    position: absolute;
-    top:-27px;
-    right:0;
-    margin:0;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-.elem_edit_btn{
-    box-sizing: border-box;
-    background-color: var(--white-1);
-    min-width:unset;
-    width:unset;
-    font-size:1rem;
-    margin: 0;
-    padding:3px;
-    border-radius: 2px;
-    height:25px;
-    width:25px;
-}
+// .elem_edit_btns{
+//     display: none;
+//     position: absolute;
+//     top:-27px;
+//     right:0;
+//     margin:0;
+//     align-items: center;
+//     justify-content: center;
+//     z-index: 1;
+// }
+// .elem_edit_btn{
+//     box-sizing: border-box;
+//     background-color: var(--white-1);
+//     min-width:unset;
+//     width:unset;
+//     font-size:1rem;
+//     margin: 0;
+//     padding:3px;
+//     border-radius: 2px;
+//     height:25px;
+//     width:25px;
+// }
 // .delete_home_elem{font-size: .7rem;}

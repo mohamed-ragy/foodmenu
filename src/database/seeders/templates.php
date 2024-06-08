@@ -23,7 +23,6 @@ class templates extends Seeder
             // 'css' => [],
             // 'css_mobile' => [],
             // 'background' => '',
-            // 'color_theme' => '',
             // 'background_image' => [],
             // 'class' => '',
             // 'attr' => [],
@@ -35,67 +34,58 @@ class templates extends Seeder
             'website_id' => 1,
             'name' => 'Test template',
             'settings' => json_encode([
-                'metrics_color' => 'rgba(102,155,188,1)',
                 'view' => 'desktop',
                 'mobile_view_width' => '414',
-                'mobile_view_height' => '736'
+                'mobile_view_height' => '736',
+                'animations' => [
+                    
+                ]
             ]),
             'website_colors' => json_encode([
-                "color_themes" => [
-                    'color_theme_1' =>  [
-                        'bg' => 'rgba(255,255,255,1)',
-                        'txt' => 'rgba(98,104,110,1)',
-                        'a' => 'rgba(23,27,31,1)',
-                        'adecoration' => 'unset',
-                        'a_hover' => 'rgba(98,104,110,1)',
-                        'adecoration_hover' => 'unset',
-                        'star' => 'rgba(255,190,11,1)',
-                        'success' => 'rgba(91,186,111,1)',
-                        'error' => 'rgba(193,18,31,1)',
-                        'warning' => 'rgba(251,86,7,1)',
-                    ],
-                    'color_theme_2' =>  [
-                        'bg' => 'rgba(255,249,249,1)',
-                        'txt' => 'rgba(98,104,110,1)',
-                        'a' => 'rgba(23,27,31,1)',
-                        'adecoration' => 'unset',
-                        'a_hover' => 'rgba(98,104,110,1)',
-                        'adecoration_hover' => 'unset',
-                        'star' => 'rgba(255,190,11,1)',
-                        'success' => 'rgba(91,186,111,1)',
-                        'error' => 'rgba(193,18,31,1)',
-                        'warning' => 'rgba(251,86,7,1)',
-                    ],
-                    'color_theme_3' =>  [
-                        'bg' => 'rgba(98,104,110,1)',
-                        'txt' => 'rgba(255,249,249,1)',
-                        'a' => 'rgba(255,255,255,1)',
-                        'adecoration' => 'unset',
-                        'a_hover' => 'rgba(255,249,249,1)',
-                        'adecoration_hover' => 'unset',
-                        'star' => 'rgba(255,190,11,1)',
-                        'success' => 'rgba(91,186,111,1)',
-                        'error' => 'rgba(193,18,31,1)',
-                        'warning' => 'rgba(251,86,7,1)',
-                    ],
-                    'color_theme_4' =>  [
-                        'bg' => 'rgba(164,22,26,1)',
-                        'txt' => 'rgba(255,249,249,1)',
-                        'a' => 'rgba(255,255,255,1)',
-                        'adecoration' => 'unset',
-                        'a_hover' => 'rgba(255,249,249,1)',
-                        'adecoration_hover' => 'unset',
-                        'star' => 'rgba(255,190,11,1)',
-                        'success' => 'rgba(91,186,111,1)',
-                        'error' => 'rgba(193,18,31,1)',
-                        'warning' => 'rgba(251,86,7,1)',
-                    ],
+                'gradation' => [
+                    'color_1_gradation' => '50',
+                    'color_2_gradation' => '50',
+                    'color_3_gradation' => '50',
+                    'color_4_gradation' => '50',
                 ],
-                "color_history" => [
-                    "rgba(0,0,0,1)",
-                    "rgba(18,87,102,1)",
-                    "rgba(24,123,143,1)",
-                    "rgba(133,139,140,1)",
+                'colors' => [
+                    'color_1_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+                    'color_1_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+                    'color_1_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+                    'color_1_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+                    'color_1_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+                    'color_1_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+                    'color_1_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+
+                    'color_2_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+                    'color_2_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+                    'color_2_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+                    'color_2_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+                    'color_2_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+                    'color_2_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+                    'color_2_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+
+                    'color_3_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+                    'color_3_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+                    'color_3_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+                    'color_3_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+                    'color_3_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+                    'color_3_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+                    'color_3_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+
+                    'color_4_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+                    'color_4_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+                    'color_4_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+                    'color_4_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+                    'color_4_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+                    'color_4_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+                    'color_4_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+                ],
+                'custom_colors' => [
+                    '_star' => ['r'=>'255','g'=>'190','b'=>'11'],
+                    '_success' => ['r'=>'91','g'=>'186','b'=>'111'],
+                    '_error' => ['r'=>'193','g'=>'18','b'=>'31'],
+                    '_warning' => ['r'=>'251','g'=>'86','b'=>'7'],
                 ],
             ]),
             'font_style' => json_encode([
@@ -122,7 +112,6 @@ class templates extends Seeder
             'page_setup' => json_encode([
                 'mobile_max_width' => '720px',
                 "max_width" => "1400px",
-                "page_color_theme" => "color_theme_1",
                 "pageTransition" => "fade",
                 "transitionDuration" => "648ms",
                 "smooth_scroll" => "0",
@@ -501,8 +490,6 @@ class templates extends Seeder
                 "elems" => [
                     "name" => "website_header",
                     "tag" => "header",
-                    "background" => "color_theme",
-                    "color_theme" => "color_theme_1",
                     "class_selector" => "website_header",
                     "css" => [
                         "position" => "sticky",
@@ -743,7 +730,7 @@ class templates extends Seeder
                                             'name' => 'header_drop_down_list',
                                             'tag' => 'div',
                                             'class_selector' => 'header_drop_down_list',
-                                            "animation" => "slide_down",
+                                            "animation_name" => "slide_down",
                                             'attr' => ['sort' => 0],
                                             'css' => [
                                                 'list-style-type' => 'none',
@@ -1067,8 +1054,7 @@ class templates extends Seeder
                             "name" => "popup_card",
                             "tag" => "div",
                             "class_selector" => "popup_card",
-                            "background" => "color_theme",
-                            "color_theme" => "color_theme_1",
+                            "background" => "none",
                             "background_image" => [
                                 "background-image" =>
                                 "/storage/websites/1/imgs/foodmenu-americandiner-9p7jk8q9ourn7ttfdkb1.jpeg",

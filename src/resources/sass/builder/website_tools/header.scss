@@ -1,35 +1,45 @@
 .website_header:hover{
-    .header_navList, .header_logo, .header_iconsList, .header_wrapper{
-        outline: 1px solid var(--metrics_color);
+    z-index: 120 !important;
+    .header_wrapper{
+        outline: 2px dashed var(--green-70);outline-offset: -2px;
     }
+    // .header_navList, .header_logo, .header_iconsList, .header_mobileNav_icon {
+    //     outline: 2px dashed var(--orange-70);outline-offset: -2px;
+    // }
 }
 .selected_header{
-    .header_navList, .header_logo, .header_iconsList, .header_wrapper{
-        outline: 2px solid var(--metrics_color);
+    .header_wrapper{
+        outline: 2px solid var(--green);outline-offset: -2px;
+    }
+    .header_navList, .header_logo, .header_iconsList, .header_mobileNav_icon {
+        outline: 2px dashed var(--orange-70);outline-offset: -2px;
     }
 }
 .selected_header:hover{
-    .header_navList, .header_logo, .header_iconsList, .header_wrapper{
-        outline: 2px solid var(--metrics_color);
+    .header_wrapper{
+        outline: 2px solid var(--green);outline-offset: -2px;
+    }
+    .header_navList, .header_logo, .header_iconsList, .header_mobileNav_icon {
+        outline: 2px dashed var(--orange-70);outline-offset: -2px;
     }
 }
-.header_highlight{
-    .header_navList, .header_logo, .header_iconsList, .header_wrapper{
-        outline: 2px solid var(--metrics_color) !important;
-    }
-    outline: 2px solid var(--metrics_color)
-}
-.header_highlight:hover{
-    .header_navList, .header_logo, .header_iconsList, .header_wrapper{
-        outline: 2px solid var(--metrics_color) !important;
-    }
-    outline: 2px solid var(--metrics_color);
-}
-.selected_header_clear{
-    .header_navList, .header_logo, .header_iconsList, .header_wrapper{
-        outline: none !important;
-    }
-}
+// .header_highlight{
+//     .header_navList, .header_logo, .header_iconsList, .header_wrapper{
+//         outline: 2px solid var(--metrics_color) !important;
+//     }
+//     outline: 2px solid var(--metrics_color)
+// }
+// .header_highlight:hover{
+//     .header_navList, .header_logo, .header_iconsList, .header_wrapper{
+//         outline: 2px solid var(--metrics_color) !important;
+//     }
+//     outline: 2px solid var(--metrics_color);
+// }
+// .selected_header_clear{
+//     .header_navList, .header_logo, .header_iconsList, .header_wrapper{
+//         outline: none !important;
+//     }
+// }
 //
 .header_preview_container{
     display: grid;

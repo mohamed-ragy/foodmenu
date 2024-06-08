@@ -17,12 +17,13 @@ draw_builder = function(template_id){
     }
     Coloris({
         format: 'rgb',
-        forceAlpha: true,
+        forceAlpha: false,
+        alpha: false,
         swatchesOnly: false,
         el:'.color_picker',
         focusInput:false,
         selectInput:false,
-        clearButton: true,
+        clearButton: false,
         clearLabel:texts.styling.remove_color,
         defaultColor: 'rgba(0,0,0,0)',
         swatches: [],
@@ -54,25 +55,20 @@ draw_builder = function(template_id){
     window.template.settings.view == 'desktop' ? desktop_view() : window.template.settings.view == 'mobile' ? mobile_view() : desktop_view();
     draw_website_header_html();
     $('#page').text('')
-    // setTimeout(()=>{
-        set_page('home')
-    // },500)
+    set_page('home')
     set_template_vars();
-    set_adapted_header();
     $('.website_logo').attr('src',window.website_data.logo)
     $('.restaurant_name').text(window.website_data.websiteNames[window.preview_language])
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
     set_view_style();
     $('#website').attr('dir',window.website_data.languages[window.preview_language].direction)
-    // setTimeout(()=>{
-    // //     show_editor_popup('website_header');
-    // },1000)
-    // $('#website').prepend(create_html(window.template.popup_window.elems,'popup_window.elems'))
 
+    setTimeout(()=>{
 
-    // setTimeout(()=>{
-    //     undo_redo_actions()
-    // },1000)
+        window.selected = 'home.0';
+        draw_editor_popup_background();
+    },1000)
+
 }
 //
 draw_builder_header = function(){
@@ -113,11 +109,11 @@ draw_builder_header = function(){
         $('<div/>',{class:'website_style_container none'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.website_style.websiteStyle}),
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_style.websiteStyle_des}),
-            $('<div/>',{class:'website_style_elem mT20',elem:'website_colors',text:texts.website_style.website_colors}),
-            $('<div/>',{class:'website_style_elem',elem:'font_style',text:texts.website_style.font_style}),
-            $('<div/>',{class:'website_style_elem',elem:'page_setup',text:texts.website_style.page_setup}),
-            $('<div/>',{class:'website_style_elem',elem:'form_elements',text:texts.website_style.form_elements}),
-            $('<div/>',{class:'website_style_elem brdrB0',elem:'loading_spinner',text:texts.website_style.loading_spinner}),
+            $('<div/>',{class:'website_style_elem website_style_elem_css mT20',elem:'website_colors',text:texts.website_style.website_colors}),
+            $('<div/>',{class:'website_style_elem website_style_elem_css',elem:'font_style',text:texts.website_style.font_style}),
+            $('<div/>',{class:'website_style_elem website_style_elem_css',elem:'page_setup',text:texts.website_style.page_setup}),
+            $('<div/>',{class:'website_style_elem website_style_elem_css',elem:'form_elements',text:texts.website_style.form_elements}),
+            $('<div/>',{class:'website_style_elem website_style_elem_css brdrB0',elem:'loading_spinner',text:texts.website_style.loading_spinner}),
         ),
         $('<div/>',{class:'preview_languages_container none'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.preview_language}),
@@ -137,17 +133,14 @@ draw_builder_header = function(){
             // $('<div/>',{class:'ico-page_settings show_page_settings header_icon'}),
 
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon ico-undo header_icon_disabled undo',tooltip:texts.undo}),
-            $('<div/>',{class:'header_icon ico-redo header_icon_disabled redo',tooltip:texts.redo}),
+            $('<div/>',{class:'header_icon ico-undo header_icon_disabled undo',tooltip:`${texts.undo} <span class="fs08 c_white-11">${texts.keyboard_shortcuts.undo}</span>`}),
+            $('<div/>',{class:'header_icon ico-redo header_icon_disabled redo',tooltip:`${texts.redo} <span class="fs08 c_white-11">${texts.keyboard_shortcuts.redo}</span>`}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon set_view_desktop ico-desktop header_icon_selected',tooltip:texts.desktopPreview}),
-            $('<div/>',{class:'header_icon set_view_mobile ico-mobile',tooltip:texts.mobilePreview}),
+            $('<div/>',{class:'header_icon set_view_desktop ico-desktop header_icon_selected',tooltip:`${texts.desktopPreview} <span class="fs08 c_white-10">${texts.keyboard_shortcuts.desktopPreview}</span>`}),
+            $('<div/>',{class:'header_icon set_view_mobile ico-mobile',tooltip:`${texts.mobilePreview} <span class="fs08 c_white-10">${texts.keyboard_shortcuts.mobilePreview}</span>`}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon set_preview_mode ico-eye',tooltip:texts.previewMode}),
-            $('<div/>',{class:'header_icon set_show_metrics ico-metrics',tooltip:texts.show_metrics}),
-            draw_color_picker({
-                keys_arr:[{key:'metrics_color',key_tree:'settings'}]
-}           ),
+            $('<div/>',{class:'header_icon set_preview_mode ico-eye',tooltip:`${texts.previewMode} <span class="fs08 c_white-10">${texts.keyboard_shortcuts.previewMode}</span>`}),
+            $('<div/>',{class:'header_icon set_show_metrics ico-metrics',tooltip:`${texts.show_metrics} <span class="fs08 c_white-10">${texts.keyboard_shortcuts.show_metrics}</span>`}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
             $('<div/>',{class:'header_icon2 showWebsitePreviewLangs row alnC jsfySB',tooltip:texts.preview_language}).append(
                 $('<div/>',{class:'',text:window.website_data.languages[window.preview_language].name}),
@@ -230,7 +223,7 @@ hide_show_preview_languages_menu = function(force=false){
 mobile_view = function(){
     window.current_view = 'mobile';
     set_view_style();
-    set_responsive_icons();
+    set_responsive_selector();
     $('#website').addClass('mobile_view_scroll')
     $('.desktop_view').css({
         'height':window.template.settings.mobile_view_height,
@@ -248,6 +241,12 @@ mobile_view = function(){
         }else{
             $('.popup_container').css('display','none')
         }
+        
+        $('#website').scrollTop(0)
+        if(window.selected){
+            $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)
+        }
+        set_editor_popup_editor();
     },500)
     window.template.settings.view = 'mobile';
     undo_redo_actions();
@@ -256,7 +255,7 @@ mobile_view = function(){
 desktop_view = function(){
     window.current_view = 'desktop';
     set_view_style();
-    set_responsive_icons();
+    set_responsive_selector();
     $('.desktop_view').css({
         'height':'',
         'width':'',
@@ -274,6 +273,11 @@ desktop_view = function(){
         }else{
             $('.popup_container').css('display','none')
         }
+        $('#website').scrollTop(0)
+        if(window.selected){
+            $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)
+        }
+        set_editor_popup_editor();
     },500)
     window.template.settings.view = 'desktop';
     undo_redo_actions();
@@ -320,6 +324,7 @@ $('body').on('click','.preview_languages_elem',function(e){
     hide_show_preview_languages_menu(true);
     set_website_variable_data()
     undo_redo_actions();
+    window.history.pushState({},'',`/?template_id=${window.template_id}&preview_language=${window.preview_language}`)
     $('.showWebsitePreviewLangs').children().first().text(window.website_data.languages[$(this).attr('key')].name)
 })
 //
@@ -348,12 +353,7 @@ $('body').on('click','.website_tools_elem',function(e){
     // e.stopImmediatePropagation();
     hide_website_tools_menu(true);
     show_editor_popup($(this).attr('key'));
-    // if($(this).attr('key') == 'popup_window'){
-    //     show_popup_window();
-    // }else if($(this).attr('key') == 'website_header'){
-    //     $('#website').scrollTop(0);
-    //     $('.website_header').addClass('selected_header')
-    // }
+
 })
 $('body').on('click','.select_website_page',function(e){
     // e.stopImmediatePropagation();
@@ -382,13 +382,13 @@ $('body').on('click','.set_show_metrics',function(e){
 var startX, startY, scrollTop;
 window.mobile_view_scroll = {
     scroll:false,
-    startX:0,
+    // startX:0,
     startY:0,
     scrollTop:0,
 }
 $('body').on('mousedown','.mobile_view', function(event) {
     window.mobile_view_scroll.scroll = true;
-    window.mobile_view_scroll.startX = event.pageX;
+    // window.mobile_view_scroll.startX = event.pageX;
     window.mobile_view_scroll.startY = event.pageY;
     window.mobile_view_scroll.scrollTop = $('#website').scrollTop();
     window.mobile_view_scroll.scrollLeft = $('#website').scrollLeft();
@@ -398,14 +398,14 @@ $('body').on('mouseup', function(event) {
 });
 $('body').on('mousemove','.mobile_view', function(event) {
     if(!window.mobile_view_scroll.scroll){return;}
-    let newX = event.pageX;
+    // let newX = event.pageX;
     let newY = event.pageY;
     let swipeDistanceY = newY - window.mobile_view_scroll.startY;
-    let swipeDistanceX = newX - window.mobile_view_scroll.startX;
+    // let swipeDistanceX = newX - window.mobile_view_scroll.startX;
     // if (Math.abs(swipeDistanceY) > Math.abs(newX - window.mobile_view_scroll.startX)) {
-        event.preventDefault();
-        $('#website').scrollTop(window.mobile_view_scroll.scrollTop - swipeDistanceY);
-        $('#website').scrollLeft(window.mobile_view_scroll.scrollLeft - swipeDistanceX);
+    event.preventDefault();
+    $('#website').scrollTop(window.mobile_view_scroll.scrollTop - swipeDistanceY);
+    // $('#website').scrollLeft(window.mobile_view_scroll.scrollLeft - swipeDistanceX);
     // }
 });
 //

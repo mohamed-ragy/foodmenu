@@ -37,10 +37,14 @@ tooltip = function(tooltipMsg,x,y){
 }
 updateToolTip = function(){
     if(typeof(window.toolTipElem) === 'undefined'){return;}
-    $('#tooltipDiv').html(window.toolTipElem.attr('tooltip'));
+    if(window.toolTipElem.attr('tooltip') == ''){
+        $('#tooltipDiv').css('display','none')
+    }else{
+        tooltip(window.toolTipElem.attr('tooltip'),window.pageX,window.pageY);
+    }
 }
 ///
-$('body').on('mouseleave','[tooltip]',function(e){
+$('body').on('mouseleave mouseout','[tooltip]',function(e){
     $('#tooltipDiv').text('');
     $('#tooltipDiv').hide();
 });

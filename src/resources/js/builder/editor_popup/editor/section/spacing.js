@@ -1,0 +1,67 @@
+draw_editor_popup_section_spacing = function(){
+    show_editor_popup('editor',function(){
+        $('#editor').find('.editor_popup_body').text('').append(
+            draw_editors_container({
+                is_responsive:true,
+                is_hover:false,
+                editors:[
+                    $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none`}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.margin_top}),
+                        draw_number_picker({
+                            key_tree:`${window.selected}.children.section_wrapper`,
+                            variable_key:'css',
+                            key:'margin-top',
+                            step:10,
+                            units:['px','em','%'],
+                        }),
+                    ),
+                    $('<div/>',{class:`editor_popup_col`}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.margin_bottom}),
+                        draw_number_picker({
+                            key_tree:`${window.selected}.children.section_wrapper`,
+                            variable_key:'css',
+                            key:'margin-bottom',
+                            step:10,
+                            units:['px','em','%'],
+                        }),
+                    ),
+                    $('<div/>',{class:`editor_popup_col`}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.padding_top}),
+                        draw_number_picker({
+                            key_tree:`${window.selected}.children.section_wrapper`,
+                            variable_key:'css',
+                            key:'padding-top',
+                            step:10,
+                            units:['px','em','%'],
+                        }),
+                    ),
+                    $('<div/>',{class:`editor_popup_col`}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.padding_bottom}),
+                        draw_number_picker({
+                            key_tree:`${window.selected}.children.section_wrapper`,
+                            variable_key:'css',
+                            key:'padding-bottom',
+                            step:10,
+                            units:['px','em','%'],
+                        }),
+                    ),
+                    $('<div/>',{class:`editor_popup_col`}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.blocks_gap}),
+                        draw_number_picker({
+                            key_tree:`${window.selected}.children.section_wrapper`,
+                            variable_key:'css',
+                            key:'grid-gap',
+                            step:10,
+                            units:['px','em','%'],
+                        }),
+                    ),
+                    
+                ]
+            })
+        )
+        $(`.editor_popup_body_shortcut.editor_section_spacing`).addClass('editor_popup_body_shortcut_selected')
+    });
+}
+$('body').on('click','.editor_section_spacing',function(e){
+    draw_editor_popup_section_spacing();
+})

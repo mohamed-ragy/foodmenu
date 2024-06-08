@@ -1,4 +1,5 @@
 set_template_vars = function(){
+    
     set_website_colors_vars();
     set_font_style_vars();
     set_page_setup_vars();
@@ -6,34 +7,17 @@ set_template_vars = function(){
     set_loading_spinner_vars();
 }
 set_website_colors_vars  = function(){
-    let swatches = [
-        window.template.website_colors.color_themes.color_theme_1.bg,
-        window.template.website_colors.color_themes.color_theme_2.bg,
-        window.template.website_colors.color_themes.color_theme_3.bg,
-    ];
-    if(window.template.website_colors.color_history == null){window.template.website_colors.color_history = []}
-    if(window.template.website_colors.color_history.length >= 9){
-        window.template.website_colors.color_history.splice(0,1);
+    for(const key in window.template.website_colors.colors){
+        let color = window.template.website_colors.colors[key];
+        $(':root').css(`--${key}`,`${color.r},${color.g},${color.b}`)
     }
-    for(const key in window.template.website_colors.color_history){
-        swatches.push(window.template.website_colors.color_history[key]);
+    for(const key in window.template.website_colors.custom_colors){
+        let color = window.template.website_colors.custom_colors[key];
+        $(':root').css(`--${key}`,`${color.r},${color.g},${color.b}`)
     }
-    Coloris.setInstance('.color_picker',{
-        swatches: swatches,
-    })
-    $(':root').css('--metrics_color',window.template.settings.metrics_color);
-    for(const color_theme_name in window.template.website_colors.color_themes){
-        let color_theme = window.template.website_colors.color_themes[color_theme_name];
-        for(const key in color_theme){
-            $(':root').css(`--${color_theme_name}_${key}`,color_theme[key])
-
-        }
-    }
-
-
-
 }
 set_font_style_vars = function(){
+    return;
     $(':root').css('--font_1_name',`'${window.template.font_style.font_1.name}', '${window.template.font_style.google_font.name}', sans-serif`);
     $(':root').css('--font_1_line_height',window.template.font_style.font_1.line_height);
     $(':root').css('--font_1_letter_spacing',window.template.font_style.font_1.letter_spacing);
@@ -55,13 +39,11 @@ set_page_setup_vars = function(){
     $(':root').css('--adapted_header_font_color',window.template.website_header.adapted_font_color);
     $(':root').css('--page_max_width',window.template.page_setup.max_width);
     //
-    $(':root').css('--body_color_theme_bg',`var(--${window.template.page_setup.page_color_theme}_bg)`);
-    $(':root').css('--body_color_theme_txt',`var(--${window.template.page_setup.page_color_theme}_txt)`);
-    //
     $(':root').css('--page_transition',window.template.page_setup.pageTransition);
     $(':root').css('--page_transitionDuration',window.template.page_setup.transitionDuration);
 }
 set_form_elements_vars = function(){
+    return;
     $(':root').css('--form_elem_spacing',window.template.form_elements.spacing);
     //
     for(const key in window.template.form_elements.elems){

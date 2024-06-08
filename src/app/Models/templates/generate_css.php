@@ -12,8 +12,11 @@ class generate_css
     }
     public function add_animation($animation){
         if(!in_array($animation,$this->animations)){
-            array_push($this->animations,templates_data::transitions()[$animation]);
+            array_push($this->animations,templates_data::animations()[$animation]);
         }
+    }
+    public function add_scroll_animation($animation){
+        
     }
     public function generate($template){
         $this->template = $template;
@@ -27,7 +30,7 @@ class generate_css
         string);
 
         self::add_to_file(self::generate_class($this->template['website_header']['elems']));
-        self::add_animation($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation']);
+        self::add_animation($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation_name']);
         self::add_to_file(self::generate_class($this->template['website_header']['header_drop_down_list_item']));
         //
         if(!empty($this->template['home'])){
@@ -62,11 +65,6 @@ class generate_css
         }
     }
     public function generate_class($elem){
-        if(array_key_exists('attr',$elem)){
-            // if(array_key_exists('animation',$elem['attr'])){
-            //     self::  add_animation($elem['attr']['animation']);
-            // }
-        }
         if(array_key_exists('class_selector',$elem)){
             if(array_key_exists('font_style',$elem)){
                 $elem['css']['font-family'] = "var(--{$elem['font_style']}_name)";
@@ -76,22 +74,35 @@ class generate_css
             if(!empty($elem['css'])){
                 $css_start = ".{$elem['class_selector']}{";
                 $css = '';
-                $css_hover = '';
+                // $css_hover = '';
                 foreach($elem['css'] as $key => $val){
                     if(array_key_exists('background', $elem)){
-                        if($elem['background'] == 'none' && $key == 'backdrop-filter'){
+                        if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
+                            $val = 'unset';
+                        }
+                        if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
+                            $key = 'background-color';
+                        }
+                        if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
                             $val = 'unset';
                         }
                     }
                     $css = $css."{$key}:{$val};";
-                    if(array_key_exists('css_hover', $elem)){
-                        $css_hover = $css_hover."{$key}:{$val};";
-                    }
                 }
-
                 $css = $css."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                 if(array_key_exists('css_mobile', $elem)){
                     foreach($elem['css_mobile'] as $key => $val){
+                        if(array_key_exists('background', $elem)){
+                            if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
+                                $val = 'unset';
+                            }
+                            if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
+                                $key = 'background-color';
+                            }
+                            if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+                                $val = 'unset';
+                            }
+                        }
                         $css = $css."{$key}:{$val};";
                     }
                 }
@@ -113,16 +124,158 @@ class generate_css
                         }
                     }
                 }
+
                 $css_end = "}";
                 $final_css = $css_start.$css.$css_end;
+
                 if(array_key_exists('css_hover', $elem)){
+                    $css_hover = '';
                     $css_hover_start = ".{$elem['class_selector']}:hover{";
                     foreach($elem['css_hover'] as $key => $val){
+                        if(array_key_exists('background', $elem)){
+                            if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
+                                $val = 'unset';
+                            }
+                            if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
+                                $key = 'background-color';
+                            }
+                            if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+                                $val = 'unset';
+                            }
+                        }
                         $css_hover = $css_hover."{$key}:{$val};";
                     }
+                    if(array_key_exists('css_mobile_hover',$elem)){
+                        $css_hover = $css_hover."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                            foreach($elem['css_mobile_hover'] as $key => $val){
+                                if(array_key_exists('background', $elem)){
+                                    if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
+                                        $val = 'unset';
+                                    }
+                                    if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
+                                        $key = 'background-color';
+                                    }
+                                    if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
+                                        $val = 'unset';
+                                    }
+                                }
+                                $css_hover = $css_hover."{$key}:{$val};";
+                            }
+                        $css_hover = $css_hover."}";
+                    }
+
                     $css_hover_end = "}";
-                    $final_css = $final_css.$css_hover_start.$css_hover.$css_hover_end;
+                    if(array_key_exists('animation',$elem)){
+                        if($elem['animation']['name'] != 'no_animation' || $elem['animation_mobile']['name'] != 'no_animation'){
+
+                            $css_animation_up_out = ".{$elem['class_selector']}_animation_up_out{";
+                            if($elem['animation']['name'] != 'no_animation'){
+                                $css_animation_up_out = $css_animation_up_out."transition-duration:{$elem['animation']['up_out_duration']};";
+                                $css_animation_up_out = $css_animation_up_out."transition-delay:{$elem['animation']['up_out_delay']};";
+                                $css_animation_up_out = $css_animation_up_out."transition-timing-function:{$elem['animation']['up_out_timing_function']};";
+                                $css_animation_up_out = $css_animation_up_out."transform:{$elem['animation']['up_out_transform']};";
+                                $css_animation_up_out = $css_animation_up_out."filter:{$elem['animation']['up_out_filter']};";
+                            }
+                            if($elem['animation_mobile']['name'] != 'no_animation'){
+                                $css_animation_up_out = $css_animation_up_out."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                                    $css_animation_up_out = $css_animation_up_out."transition-duration:{$elem['animation_mobile']['up_out_duration']};";
+                                    $css_animation_up_out = $css_animation_up_out."transition-delay:{$elem['animation_mobile']['up_out_delay']};";
+                                    $css_animation_up_out = $css_animation_up_out."transition-timing-function:{$elem['animation_mobile']['up_out_timing_function']};";
+                                    $css_animation_up_out = $css_animation_up_out."transform:{$elem['animation_mobile']['up_out_transform']};";
+                                    $css_animation_up_out = $css_animation_up_out."filter:{$elem['animation_mobile']['up_out_filter']};";
+                                $css_animation_up_out = $css_animation_up_out."}";
+                            }
+                            $css_animation_up_out = $css_animation_up_out."}";
+                            $final_css = $final_css.$css_animation_up_out;
+                            //
+                            $css_animation_up = ".{$elem['class_selector']}_animation_up{";
+                            if($elem['animation']['name'] != 'no_animation'){
+                                $css_animation_up = $css_animation_up."transition-duration:{$elem['animation']['up_duration']};";
+                                $css_animation_up = $css_animation_up."transition-delay:{$elem['animation']['up_delay']};";
+                                $css_animation_up = $css_animation_up."transition-timing-function:{$elem['animation']['up_timing_function']};";
+                                $css_animation_up = $css_animation_up."transform:{$elem['animation']['up_transform']};";
+                                $css_animation_up = $css_animation_up."filter:{$elem['animation']['up_filter']};";
+                            }
+                            if($elem['animation_mobile']['name'] != 'no_animation'){
+                                $css_animation_up = $css_animation_up."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                                    $css_animation_up = $css_animation_up."transition-duration:{$elem['animation_mobile']['up_duration']};";
+                                    $css_animation_up = $css_animation_up."transition-delay:{$elem['animation_mobile']['up_delay']};";
+                                    $css_animation_up = $css_animation_up."transition-timing-function:{$elem['animation_mobile']['up_timing_function']};";
+                                    $css_animation_up = $css_animation_up."transform:{$elem['animation_mobile']['up_transform']};";
+                                    $css_animation_up = $css_animation_up."filter:{$elem['animation_mobile']['up_filter']};";
+                                $css_animation_up = $css_animation_up."}";
+                            }
+                            $css_animation_up = $css_animation_up."}";
+                            $final_css = $final_css.$css_animation_up;
+                            //
+                            $css_animation_in = ".{$elem['class_selector']}_animation_in{";
+                            if($elem['animation']['name'] != 'no_animation'){
+                                $css_animation_in = $css_animation_in."transition-duration:{$elem['animation']['in_duration']};";
+                                $css_animation_in = $css_animation_in."transition-delay:{$elem['animation']['in_delay']};";
+                                $css_animation_in = $css_animation_in."transition-timing-function:{$elem['animation']['in_timing_function']};";
+                                $css_animation_in = $css_animation_in."transform:{$elem['animation']['in_transform']};";
+                                $css_animation_in = $css_animation_in."filter:{$elem['animation']['in_filter']};";
+                            }
+                            if($elem['animation_mobile']['name'] != 'no_animation'){
+                                $css_animation_in = $css_animation_in."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                                    $css_animation_in = $css_animation_in."transition-duration:{$elem['animation_mobile']['in_duration']};";
+                                    $css_animation_in = $css_animation_in."transition-delay:{$elem['animation_mobile']['in_delay']};";
+                                    $css_animation_in = $css_animation_in."transition-timing-function:{$elem['animation_mobile']['in_timing_function']};";
+                                    $css_animation_in = $css_animation_in."transform:{$elem['animation_mobile']['in_transform']};";
+                                    $css_animation_in = $css_animation_in."filter:{$elem['animation_mobile']['in_filter']};";
+                                $css_animation_in = $css_animation_in."}";
+                            }
+                            $css_animation_in = $css_animation_in."}";
+                            $final_css = $final_css.$css_animation_in;
+                            //
+                            $css_animation_down = ".{$elem['class_selector']}_animation_down{";
+                            if($elem['animation']['name'] != 'no_animation'){
+                                $css_animation_down = $css_animation_down."transition-duration:{$elem['animation']['down_duration']};";
+                                $css_animation_down = $css_animation_down."transition-delay:{$elem['animation']['down_delay']};";
+                                $css_animation_down = $css_animation_down."transition-timing-function:{$elem['animation']['down_timing_function']};";
+                                $css_animation_down = $css_animation_down."transform:{$elem['animation']['down_transform']};";
+                                $css_animation_down = $css_animation_down."filter:{$elem['animation']['down_filter']};";
+                            }
+                            if($elem['animation_mobile']['name'] != 'no_animation'){
+                                $css_animation_down = $css_animation_down."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                                    $css_animation_down = $css_animation_down."transition-duration:{$elem['animation_mobile']['down_duration']};";
+                                    $css_animation_down = $css_animation_down."transition-delay:{$elem['animation_mobile']['down_delay']};";
+                                    $css_animation_down = $css_animation_down."transition-timing-function:{$elem['animation_mobile']['down_timing_function']};";
+                                    $css_animation_down = $css_animation_down."transform:{$elem['animation_mobile']['down_transform']};";
+                                    $css_animation_down = $css_animation_down."filter:{$elem['animation_mobile']['down_filter']};";
+                                $css_animation_down = $css_animation_down."}";
+                            }
+                            $css_animation_down = $css_animation_down."}";
+                            $final_css = $final_css.$css_animation_down;
+                            //
+                            $css_animation_down_out = ".{$elem['class_selector']}_animation_down_out{";
+                            if($elem['animation']['name'] != 'no_animation'){
+                                $css_animation_down_out = $css_animation_down_out."transition-duration:{$elem['animation']['down_out_duration']};";
+                                $css_animation_down_out = $css_animation_down_out."transition-delay:{$elem['animation']['down_out_delay']};";
+                                $css_animation_down_out = $css_animation_down_out."transition-timing-function:{$elem['animation']['down_out_timing_function']};";
+                                $css_animation_down_out = $css_animation_down_out."transform:{$elem['animation']['down_out_transform']};";
+                                $css_animation_down_out = $css_animation_down_out."filter:{$elem['animation']['down_out_filter']};";
+                            }
+                            if($elem['animation_mobile']['name'] != 'no_animation'){
+                                $css_animation_down_out = $css_animation_down_out."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                                    $css_animation_down_out = $css_animation_down_out."transition-duration:{$elem['animation_mobile']['down_out_duration']};";
+                                    $css_animation_down_out = $css_animation_down_out."transition-delay:{$elem['animation_mobile']['down_out_delay']};";
+                                    $css_animation_down_out = $css_animation_down_out."transition-timing-function:{$elem['animation_mobile']['down_out_timing_function']};";
+                                    $css_animation_down_out = $css_animation_down_out."transform:{$elem['animation_mobile']['down_out_transform']};";
+                                    $css_animation_down_out = $css_animation_down_out."filter:{$elem['animation_mobile']['down_out_filter']};";
+                                $css_animation_down_out = $css_animation_down_out."}";
+                            }
+                            $css_animation_down_out = $css_animation_down_out."}";
+                            $final_css = $final_css.$css_animation_down_out;
+
+                        }else{
+                            $final_css = $final_css.$css_hover_start.$css_hover.$css_hover_end;
+                        }
+                    }else{
+                        $final_css = $final_css.$css_hover_start.$css_hover.$css_hover_end;
+                    }
                 }
+                
                 if(array_key_exists('css_focus', $elem)){
                     $css_focus = '';
                     $css_focus_start = ".{$elem['class_selector']}:focus{";
@@ -209,58 +362,6 @@ class generate_css
 
                 self::add_to_file($final_css);
             }
-            if(array_key_exists('animation',$elem) && is_array($elem['animation'])){
-                if($elem['animation']['animationUp'] == '1' || $elem['animation_mobile']['animationUp'] == '1'){
-                    $animationUp_css_start = ".{$elem['class_selector']}_animationUp{";
-                    $animationUp_css = "";
-                    $animationUp_css_end = "}";
-                    if($elem['animation']['animationUp'] == '1'){
-                        $animationUp_css = "{$animationUp_css}transform:{$elem['animation']['animationUp_transform']};";
-                        $animationUp_css = "{$animationUp_css}opacity:{$elem['animation']['animationUp_opacity']};";
-                        $animationUp_css = "{$animationUp_css}color:{$elem['animation']['animationUp_font_color']};";
-                        $animationUp_css = "{$animationUp_css}background-color:{$elem['animation']['animationUp_background_color']};";
-                        $animationUp_css = "{$animationUp_css}backdrop-filter:{$elem['animation']['animationUp_backdrop_filter']};";
-                    }
-                    $animationUp_css = "{$animationUp_css}@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
-                    if($elem['animation_mobile']['animationUp'] == '1'){
-                        $animationUp_css = "{$animationUp_css}transform:{$elem['animation_mobile']['animationUp_transform']};";
-                        $animationUp_css = "{$animationUp_css}opacity:{$elem['animation_mobile']['animationUp_opacity']};";
-                        $animationUp_css = "{$animationUp_css}color:{$elem['animation_mobile']['animationUp_font_color']};";
-                        $animationUp_css = "{$animationUp_css}background-color:{$elem['animation_mobile']['animationUp_background_color']};";
-                        $animationUp_css = "{$animationUp_css}backdrop-filter:{$elem['animation_mobile']['animationUp_backdrop_filter']};";
-                    }else{
-                        // $animationUp_css = "{$animationUp_css}transform:unset;";
-                        // $animationUp_css = "{$animationUp_css}opacity:unset;";
-                    }
-                    $animationUp_css = "{$animationUp_css}}";
-                    self::add_to_file("{$animationUp_css_start}{$animationUp_css}{$animationUp_css_end}");
-                }
-                if($elem['animation']['animationDown'] == '1' || $elem['animation_mobile']['animationDown'] == '1'){
-                    $animationUp_css_start = ".{$elem['class_selector']}_animationDown{";
-                    $animationUp_css = "";
-                    $animationUp_css_end = "}";
-                    if($elem['animation']['animationDown'] == '1'){
-                        $animationUp_css = "{$animationUp_css}transform:{$elem['animation']['animationDown_transform']};";
-                        $animationUp_css = "{$animationUp_css}opacity:{$elem['animation']['animationDown_opacity']};";
-                        $animationUp_css = "{$animationUp_css}color:{$elem['animation']['animationDown_font_color']};";
-                        $animationUp_css = "{$animationUp_css}background-color:{$elem['animation']['animationDown_background_color']};";
-                        $animationUp_css = "{$animationUp_css}backdrop-filter:{$elem['animation']['animationDown_backdrop_filter']};";
-                    }
-                    $animationUp_css = "{$animationUp_css}@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
-                    if($elem['animation_mobile']['animationDown'] == '1'){
-                        $animationUp_css = "{$animationUp_css}transform:{$elem['animation_mobile']['animationDown_transform']};";
-                        $animationUp_css = "{$animationUp_css}opacity:{$elem['animation_mobile']['animationDown_opacity']};";
-                        $animationUp_css = "{$animationUp_css}color:{$elem['animation_mobile']['animationDown_font_color']};";
-                        $animationUp_css = "{$animationUp_css}background-color:{$elem['animation_mobile']['animationDown_background_color']};";
-                        $animationUp_css = "{$animationUp_css}backdrop-filter:{$elem['animation_mobile']['animationDown_backdrop_filter']};";
-                    }else{
-                        // $animationUp_css = "{$animationUp_css}transform:unset;";
-                        // $animationUp_css = "{$animationUp_css}opacity:unset;";
-                    }
-                    $animationUp_css = "{$animationUp_css}}";
-                    self::add_to_file("{$animationUp_css_start}{$animationUp_css}{$animationUp_css_end}");
-                }
-            }
         }
         if(array_key_exists('children',$elem)){
             foreach($elem['children'] as $child){
@@ -273,9 +374,6 @@ class generate_css
         $css = <<<string
         :root{
         --adapted_header_font_color:{$this->template['website_header']['adapted_font_color']};
-
-        --body_color_theme_bg:var(--{$this->template['page_setup']['page_color_theme']}_bg);
-        --body_color_theme_txt:var(--{$this->template['page_setup']['page_color_theme']}_txt);
 
         --font_1_name:'{$this->template['font_style']['font_1']['name']}', '{$this->template['font_style']['google_font']['name']}', sans-serif;
         --font_1_line_height:{$this->template['font_style']['font_1']['line_height']};
@@ -296,10 +394,12 @@ class generate_css
 
         --form_elem_spacing:{$this->template['form_elements']['spacing']};
         string;
-        foreach($this->template['website_colors']['color_themes'] as $color_theme_name => $color_theme){
-            foreach($color_theme as $key => $val){
-                $css = $css."--{$color_theme_name}_{$key}:{$val};";
-            }
+
+        foreach($this->template['website_colors']['colors'] as $key => $val){
+            $css = $css."--{$key}:{$val['r']},{$val['g']},{$val['b']};";
+        }
+        foreach($this->template['website_colors']['custom_colors'] as $key => $val){
+            $css = $css."--{$key}:{$val['r']},{$val['g']},{$val['b']};";
         }
         foreach($this->template['loading_spinner']['colors'] as $key => $val){
             $css = $css."--{$key}:{$val};";
@@ -317,7 +417,7 @@ class generate_css
         $css = <<<string
         *{-webkit-tap-highlight-color: transparent;}
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
-        body{user-select: none;color: var(--body_color_theme_txt);background-color: var(--body_color_theme_bg);width:100%;height:100%;box-sizing: border-box;margin:auto;overflow: auto;font-family: var(--font_1_name);line-height: var(--font_1_line_height);letter-spacing: var(--font_1_letter_spacing);position: relative;}
+        body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;font-family: var(--font_1_name);line-height: var(--font_1_line_height);letter-spacing: var(--font_1_letter_spacing);position: relative;}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
         textarea{resize: none;}
         a{color:unset;text-decoration: unset;cursor: pointer;}
@@ -325,15 +425,8 @@ class generate_css
         .font_1{font-family: var(--font_1_name);line-height: var(--font_1_line_height);letter-spacing: var(--font_1_letter_spacing);}
         .font_2{font-family: var(--font_2_name);line-height: var(--font_2_line_height);letter-spacing: var(--font_2_letter_spacing);}
         .font_3{font-family: var(--font_3_name);line-height: var(--font_3_line_height);letter-spacing: var(--font_3_letter_spacing);}
-        .body_color_theme{background-color: var(--body_color_theme_bg);color: var(--body_color_theme_txt);}
         #page{ position: relative; width:100%;animation-duration: var(--page_transitionDuration); }
         .transparent{background-color: unset;color:unset;}
-        .color_theme_1{background-color: var(--color_theme_1_bg);color:var(--color_theme_1_txt);fill:var(--color_theme_1_txt);stroke:var(--color_theme_1_txt);a{color:var(--color_theme_1_a);text-decoration: var(--color_theme_1_adecoration);fill:var(--color_theme_1_a);stroke:var(--color_theme_1_a);}a:hover{color:var(--color_theme_1_a_hover);text-decoration: var(--color_theme_1_adecoration_hover);fill:var(--color_theme_1_a_hover);stroke:var(--color_theme_1_a_hover);}.color_star{fill:var(--color_theme_1_star);stroke:var(--color_theme_1_star);}.color_success{color:var(--color_theme_1_success);}.color_error{color:var(--color_theme_1_error);}.color_warning{color:var(--color_theme_1_warning)}}
-        .color_theme_2{background-color: var(--color_theme_2_bg);color:var(--color_theme_2_txt);fill:var(--color_theme_2_txt);stroke:var(--color_theme_2_txt);a{color:var(--color_theme_2_a);text-decoration: var(--color_theme_2_adecoration);fill:var(--color_theme_2_a);stroke:var(--color_theme_2_a);}a:hover{color:var(--color_theme_2_a_hover);text-decoration: var(--color_theme_2_adecoration_hover);fill:var(--color_theme_2_a_hover);stroke:var(--color_theme_2_a_hover);}.color_star{fill:var(--color_theme_2_star);stroke:var(--color_theme_2_star);}.color_success{color:var(--color_theme_2_success);}.color_error{color:var(--color_theme_2_error);}.color_warning{color:var(--color_theme_2_warning)}}
-        .color_theme_3{background-color: var(--color_theme_3_bg);color:var(--color_theme_3_txt);fill:var(--color_theme_3_txt);stroke:var(--color_theme_3_txt);a{color:var(--color_theme_3_a);text-decoration: var(--color_theme_3_adecoration);fill:var(--color_theme_3_a);stroke:var(--color_theme_3_a);}a:hover{color:var(--color_theme_3_a_hover);text-decoration: var(--color_theme_3_adecoration_hover);fill:var(--color_theme_3_a_hover);stroke:var(--color_theme_3_a_hover);}.color_star{fill:var(--color_theme_3_star);stroke:var(--color_theme_3_star);}.color_success{color:var(--color_theme_3_success);}.color_error{color:var(--color_theme_3_error);}.color_warning{color:var(--color_theme_3_warning)}}
-        .color_theme_4{background-color: var(--color_theme_4_bg);color:var(--color_theme_4_txt);fill:var(--color_theme_4_txt);stroke:var(--color_theme_4_txt);a{color:var(--color_theme_4_a);text-decoration: var(--color_theme_4_adecoration);fill:var(--color_theme_4_a);stroke:var(--color_theme_4_a);}a:hover{color:var(--color_theme_4_a_hover);text-decoration: var(--color_theme_4_adecoration_hover);fill:var(--color_theme_4_a_hover);stroke:var(--color_theme_4_a_hover);}.color_star{fill:var(--color_theme_4_star);stroke:var(--color_theme_4_star);}.color_success{color:var(--color_theme_4_success);}.color_error{color:var(--color_theme_4_error);}.color_warning{color:var(--color_theme_4_warning)}}
-        .color_theme_5{background-color: var(--color_theme_5_bg);color:var(--color_theme_5_txt);fill:var(--color_theme_5_txt);stroke:var(--color_theme_5_txt);a{color:var(--color_theme_5_a);text-decoration: var(--color_theme_5_adecoration);fill:var(--color_theme_5_a);stroke:var(--color_theme_5_a);}a:hover{color:var(--color_theme_5_a_hover);text-decoration: var(--color_theme_5_adecoration_hover);fill:var(--color_theme_5_a_hover);stroke:var(--color_theme_5_a_hover);}.color_star{fill:var(--color_theme_5_star);stroke:var(--color_theme_5_star);}.color_success{color:var(--color_theme_5_success);}.color_error{color:var(--color_theme_5_error);}.color_warning{color:var(--color_theme_5_warning)}}
-        .color_theme_6{background-color: var(--color_theme_6_bg);color:var(--color_theme_6_txt);fill:var(--color_theme_6_txt);stroke:var(--color_theme_6_txt);a{color:var(--color_theme_6_a);text-decoration: var(--color_theme_6_adecoration);fill:var(--color_theme_6_a);stroke:var(--color_theme_6_a);}a:hover{color:var(--color_theme_6_a_hover);text-decoration: var(--color_theme_6_adecoration_hover);fill:var(--color_theme_6_a_hover);stroke:var(--color_theme_6_a_hover);}.color_star{fill:var(--color_theme_6_star);stroke:var(--color_theme_6_star);}.color_success{color:var(--color_theme_6_success);}.color_error{color:var(--color_theme_6_error);}.color_warning{color:var(--color_theme_6_warning)}}
         string;
         self::add_to_file($css);
     }
