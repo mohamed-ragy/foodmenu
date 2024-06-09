@@ -1270,36 +1270,29 @@ draw_color_picker = function(data){
 set_color_picker = function(editor){
     if(editor.hasClass('dummy_editor')){return;}
     let val = get_editor_val(editor);
-    console.log(val)
     if(val == '--'){
         editor.css('background-color','');
     }else{
-        
+        editor.css('background-color',val);
     }
-    editor.css('background-color',val);
     if(!$('.color_picker_editor_popup').hasClass('none')){
         let val = get_editor_val(window.selected_color_picker_editor);
-        if(val == '--'){
-            $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
-            set_dummy_select_range($('.color_picker_editor_transparency'),'1',true);
-            set_color_picker_editor_colors();
-        }else{
+        try{
             val = val.replace('rgba(var(--','').replaceAll(')','').split(',') 
             $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
             $(`.color_picker_editor_color[key="${val[0]}"]`).addClass('color_picker_editor_color_selected')
             set_dummy_select_range($('.color_picker_editor_transparency'),val[1],true);
             set_color_picker_editor_colors();
+        }catch{
+            $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
+            set_dummy_select_range($('.color_picker_editor_transparency'),'1',true);
+            set_color_picker_editor_colors();
         }
     }
-    // $('.color_picker_editor_color').each(function(){
-        
-    // })
 }
 draw_color_picker_popup = function(){
     $('.color_picker_editor_popup').text('').append(
-        // $('<div/>',{class:'fs095 mB5',text:texts.website_style.color_palette}),
         $('<div/>',{class:'color_picker_editor_popup_palette'}),
-        // $('<div/>',{class:'fs095 mT20 mB5',text:texts.website_style.custom_colors}),
         $('<div/>',{class:'color_picker_editor_popup_custom_colors'}).append(
             $('<button/>',{class:'color_picker add_custom_color ico-plus m0',tooltip:texts.website_style.add_color}),
         ),
@@ -1321,7 +1314,7 @@ draw_color_picker_popup = function(){
     }
     for(const key in window.template.website_colors.custom_colors){
         $('.color_picker_editor_popup_custom_colors').find('.add_custom_color').before(
-            $('<div/>',{class:'color_picker_editor_color ',style:``,key:key,color_type:'custom'})
+            $('<input/>',{class:'color_picker_editor_color color_picker',style:``,key:key,custom_color_name:key,color_type:'custom'})
         )
     }
 }
@@ -1332,6 +1325,7 @@ set_color_picker_editor_colors = function(){
             color = window.template.website_colors.colors[$(this).attr('key')]
         }else if($(this).attr('color_type') == 'custom'){
             color = window.template.website_colors.custom_colors[$(this).attr('key')]
+            $(this).val(`rgb(${color.r},${color.g},${color.b})`);
         }
         $(this).css('background-color',`rgba(${color.r},${color.g},${color.b},${$('.color_picker_editor_transparency').find('.select_range_val').text()})`)
     })
@@ -1339,17 +1333,32 @@ set_color_picker_editor_colors = function(){
 $('body').on('click','.color_picker_editor',function(){
     window.selected_color_picker_editor = $(this);
     let val = get_editor_val(window.selected_color_picker_editor);
-    val = val.replace('rgba(var(--','').replaceAll(')','').split(',')    
-    $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
-    $(`.color_picker_editor_color[key="${val[0]}"]`).addClass('color_picker_editor_color_selected')
-    $('.color_picker_editor_popup').css({
-        left:parseFloat($(this).offset().left) + parseFloat($(this).outerWidth()),
-        top:$(this).offset().top 
-    }).removeClass('none')
-    set_dummy_select_range($('.color_picker_editor_transparency'),val[1],true)
-    set_color_picker_editor_colors();
+    console.log(val)
+    if(val == '--'){
+        $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
+        $('.color_picker_editor_popup').css({
+            left:parseFloat($(this).offset().left) + parseFloat($(this).outerWidth()),
+            top:$(this).offset().top 
+        }).removeClass('none')
+        set_dummy_select_range($('.color_picker_editor_transparency'),'1',true)
+        set_color_picker_editor_colors();
+    }else{
+        val = val.replace('rgba(var(--','').replaceAll(')','').split(',')    
+        $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
+        $(`.color_picker_editor_color[key="${val[0]}"]`).addClass('color_picker_editor_color_selected')
+        $('.color_picker_editor_popup').css({
+            left:parseFloat($(this).offset().left) + parseFloat($(this).outerWidth()),
+            top:$(this).offset().top 
+        }).removeClass('none')
+        set_dummy_select_range($('.color_picker_editor_transparency'),val[1],true)
+        set_color_picker_editor_colors();
+    }
+
 })
-$('body').on('click','.color_picker_editor_color',function(){
+$('body').on('click','.color_picker_editor_color',function(e){
+    if(!$(this).hasClass('color_picker_editor_color_selected')){
+        e.stopPropagation();
+    }
     let new_val;
     new_val = `rgba(var(--${$(this).attr('key')}),${$('.color_picker_editor_transparency').find('.select_range_val').text()})`;
     set_val(window.selected_color_picker_editor,new_val);
@@ -1364,49 +1373,6 @@ $('body').on('change','.color_picker_editor_transparency',function(){
     set_color_picker_editor_colors();
     new_action();
 })
-// draw_color_picker = function(data){
-//     return '';
-//     let elem_data = get_key_tree(data.keys_arr[0].key_tree);
-//     let elem_val = get_elem_val(elem_data,data.keys_arr[0].key,data.is_responsive ? '1':'0')
-//     let selector;
-//     // let val = get_key_tree(data.keys_arr[0].key_tree).elem[data.keys_arr[0].key]
-//     // let color_picker_input;
-//     let selector_container = $('<div/>',{class:`editor_popup_row ${data.selector_container_class === false ? '' : 'selector_container'} ${data.container_class ?? ''}`,is_responsive:data.is_responsive ? '1':'0',is_hover:data.is_hover ? '1':'0'}).append(
-//         draw_selector_name({data:data,name:data.name,responsive_class:elem_val.responsive_class}),
-//         selector = $('<div/>',{class:`selector color_picker_container mis-5`}).append(
-//             $('<input/>',{important:`${data.is_important ? '1' : '0'}`,class:`color_picker ${data.color_picker_class ?? ''}`,type:'text',style:`background-color:${elem_val.val} ${data.is_important ? '!important' : '' }`,value:elem_val.val}),
-//         ),
-//     );
-//     for(const key in data.keys_arr){
-//         for(const key2 in data.keys_arr[key]){
-//             selector.attr(key2,data.keys_arr[key][key2]);
-//             selector.attr(key2,data.keys_arr[key][key2]);
-//         }
-//     }
-//     if(data.name == null){
-//         return selector
-//     }else{
-//         return selector_container;
-//     }
-// }
-// draw_dummy_color_picker = function(data){
-//     return '';
-//     return dummy_selector_container = $('<div/>',{class:`editor_popup_row ${data.container_class ?? ''}`,}).append(
-//         $('<div/>',{class:'fs09',text:data.name}),
-//         dummy_selector = $('<div/>',{class:`dummy_selector dummy_color_picker color_picker_container mis-5`}).append(
-//             $('<input/>',{class:`color_picker ${data.color_picker_class ?? ''}`,type:'text',style:`background-color:${data.val}`,value:data.val}),
-//         ),
-//     );
-// }
-// set_color_picker = function(selector){
-//     if(selector.hasClass('dummy_color_picker')){return;}
-//     let val = get_selector_val(selector);
-//     selector.find('.color_picker').val(val);
-//     selector.find('.color_picker').css('background-color',val)
-// }
-// set_dummy_color_picker = function(color_picker,val){
-//     color_picker.val(val).css('background-color',val)
-// }
 //events
 $(document).on('open','.color_picker',function(){
     $('.color_picker').attr('is_selected','0')

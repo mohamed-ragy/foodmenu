@@ -4,8 +4,8 @@ require('./editors/inputList.js')//need to test dummy
 require('./editors/select_box.js')//need to test dummy
 require('./editors/switch_btn.js')//need to test dummy
 
-require('./editors/select_range.js')//
-require('./editors/color_picker.js')//
+require('./editors/select_range.js')//need to set the original set select range function
+require('./editors/color_picker.js')//need to set test dummy
 
 
 //responsive selectors

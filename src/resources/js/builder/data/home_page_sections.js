@@ -10,12 +10,16 @@ get_blank_home_section = function() {
             position: 'relative',
             'box-sizing': 'border-box',
             width: '100%',
-            'background-color':'rgba(var(--color_1_7),1)',
         },
-        css_mobile:{
-            'background-color':'rgba(var(--color_1_7),1)',
+        css_mobile:{},
+        background:{
+            background:'none',
+            color:'rgba(var(--color_1_7),1)',
         },
-        background: 'none',
+        background_mobile:{
+            background:'none',
+            color:'rgba(var(--color_1_7),1)',
+        },
         // background_image: get_default_style('background_image'),
         // background_image_mobile: get_default_style('background_image_mobile'),
         class: '',

@@ -12,16 +12,16 @@ draw_editor_popup_background = function(){
         //     )
         // }
         $('#editor').find('.editor_popup_body').text('').append(
-            $('<div/>',{class:'editor_popup_container w100p',key:'elem_background_image'}).append(
-                draw_editors_container({
-                    is_responsive:false,
-                    is_hover:false,
-                    editors:[
+            draw_editors_container({
+                is_responsive:true,
+                is_hover:false,
+                editors:[
+                    $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
                         $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.background}),
                             draw_select_box({
                                 key_tree:window.selected,
-                                variable_key:null,
+                                variable_key:'background',
                                 key:'background',
                                 selections:[
                                     {text:texts.styling.none,key:'none',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
@@ -31,20 +31,26 @@ draw_editor_popup_background = function(){
                                     {text:texts.styling.image,key:'image',show_elem:'editor_background_image',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter'},
                                 ],
                             }),
+                        ),
+
+                        $('<div/>',{class:'editor_background_color w100p'}).append(
+                            $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
+                                $('<div/>',{class:'fs09',text:texts.styling.background_color}),
+                                draw_color_picker({
+                                    key_tree:window.selected,
+                                    variable_key:'background',
+                                    key:'color',
+                                })
+                            ),
+                        ),
+                        $('<div/>',{class:'editor_background_gradient w100p'}).append(
+                            
                         )
-                    ]
-                }),
-                draw_editors_container({
-                    is_responsive:true,
-                    is_hover:false,
-                    editors:[
-                        draw_color_picker({
-                            key_tree:window.selected,
-                            variable_key:'css',
-                            key:'background-color',
-                        })
-                    ]
-                }),
+                    ),
+
+
+                ]
+            }),
 
                 // $('<div/>',{class:`elem_background_image 100p ${elem.background != 'image' ? 'none' : ''}`}).append(
                 //     draw_image_selector([{key:'background-image',key_tree:`${window.selected}.background_image`}]),
@@ -84,7 +90,7 @@ draw_editor_popup_background = function(){
             
                 // ),
                 // backdrop_filter_container,
-            ),
+            // ),
             // $('<div/>',{class:'editor_popup_container none w100p',key:'elem_background_filter',parent_key:'elem_background_image'}).append(
             //     draw_color_picker({
             //         keys_arr:[{key_tree:`${window.selected}.background_image`,key:'background-color'}],

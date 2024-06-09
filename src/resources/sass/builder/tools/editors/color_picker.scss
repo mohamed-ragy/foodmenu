@@ -735,7 +735,7 @@ input.clr-color{
   height:25px;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 0 15px var(--shdw-10);
+  box-shadow: 0 0 5px var(--shdw-10);
   overflow: hidden;
 }
 .color_picker_editor:after{
@@ -784,6 +784,8 @@ input.clr-color{
   grid-gap: 8px;
 }
 .color_picker_editor_color{
+  all:unset;
+  color:transparent !important;
   position: relative;
   border-radius: 1px;
   cursor: pointer;
@@ -796,6 +798,7 @@ input.clr-color{
   outline:2px solid var(--green-70);
   outline-offset: 2px;
 }
+
 .color_picker_editor_color:after{
   z-index: -1;
   content:'';

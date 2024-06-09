@@ -308,37 +308,30 @@ set_color_palette = function(color,color_key){
 
     switch(this_color){
         case '1':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_1.r},${color_1.g},${color_1.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
             break;
         case '2':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_2.r},${color_2.g},${color_2.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_2.r},${color_2.g},${color_2.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
         break;
         case '3':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_3.r},${color_3.g},${color_3.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_3.r},${color_3.g},${color_3.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
         break;
         case '4':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_4.r},${color_4.g},${color_4.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_4.r},${color_4.g},${color_4.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
         break;
         case '5':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_5.r},${color_5.g},${color_5.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_5.r},${color_5.g},${color_5.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
         break;
         case '6':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_6.r},${color_6.g},${color_6.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_6.r},${color_6.g},${color_6.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
         break;
         case '7':
-            // $(`.website_color_picker[key="${color_key}"]`).val(`rgb(${color_7.r},${color_7.g},${color_7.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
         break;
@@ -372,8 +365,6 @@ draw_custom_colors = function(){
     }
 }
 add_custom_color = function(color_name,color){
-    // $('<input/>',{custom_color_name:color_name,class:'website_custom_color color_picker',style:`background-color:rgb(${color.r},${color.g},${color.b})`,value:`rgb(${color.r},${color.g},${color.b})`})
-    // .before('.custom_colors_container.add_custom_color')
     $('.custom_colors_container').find('.add_custom_color').before(
         $('<input/>',{custom_color_name:color_name,class:'website_custom_color color_picker',style:`background-color:rgb(${color.r},${color.g},${color.b})`,value:`rgb(${color.r},${color.g},${color.b})`})
     )
@@ -501,14 +492,14 @@ $('body').on('click','.remove_custom_color',function(){
     new_action();
     Coloris.close();
 })
-$(document).on('input','.website_custom_color',function(e){
+$(document).on('input','.website_custom_color,.color_picker_editor_color_selected',function(e){
     let new_color = $(this).val();
     $(this).css('background-color',$(this).val())
     new_color = new_color.replace('rgb(','').replace(')','').split(',');
     window.template.website_colors.custom_colors[$(this).attr('custom_color_name')] = {r:new_color[0],g:new_color[1],b:new_color[2]}
     undo_redo_actions(false,true);
 })
-$(document).on('change','.website_custom_color',function(e){
+$(document).on('change','.website_custom_color,.color_picker_editor_color_selected',function(e){
     let new_color = $(this).val();
     new_color = new_color.replace('rgb(','').replace(')','').split(',');
     window.template.website_colors.custom_colors[$(this).attr('custom_color_name')] = {r:new_color[0],g:new_color[1],b:new_color[2]}

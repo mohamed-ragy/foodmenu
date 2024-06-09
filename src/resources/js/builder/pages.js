@@ -77,6 +77,7 @@ create_html = function(elem,key_tree){
             }
         }
         // if('background' in elem){
+
         //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
         //         val = 'unset';
         //     }
@@ -100,7 +101,12 @@ create_html = function(elem,key_tree){
         style_desktop_obj[key] = val;
     }
 
-    // if('background' in elem){
+    if('background' in elem){
+        if(elem.background.background == 'none'){
+            style_desktop_obj['background-color'] = 'unset';
+        }else if(elem.background.background == 'color'){
+            style_desktop_obj['background-color'] = elem.background.color;
+        }
     //     if(elem.background == 'image'){
     //         for(const key in elem.background_image){
     //             let val = elem.background_image[key];
@@ -108,7 +114,7 @@ create_html = function(elem,key_tree){
     //             style_desktop_obj[key] = val;
     //         }
     //     }
-    // }
+    }
     if('font_style' in elem){
         style_desktop_obj['font-family'] = `var(--${elem.font_style}_name)`;
         style_desktop_obj['line-height'] = `var(--${elem.font_style}_line_height)`;
@@ -151,7 +157,12 @@ create_html = function(elem,key_tree){
         }
         style_mobile_obj[key] = val;
     }
-    // if('background' in elem){
+    if('background_mobile' in elem){
+        if(elem.background_mobile.background == 'none'){
+            style_mobile_obj['background-color'] = 'unset';
+        }else if(elem.background_mobile.background == 'color'){
+            style_mobile_obj['background-color'] = elem.background_mobile.color;
+        }
     //     if(elem.background == 'image'){
     //         for(const key in elem.background_image_mobile){
     //             let val = elem.background_image_mobile[key];
@@ -159,7 +170,7 @@ create_html = function(elem,key_tree){
     //             style_mobile_obj[key] = val;
     //         }
     //     }
-    // }
+    }
     ///
     if(elem.type == 'home_section' && elem.has_driver == '1'){
         style_desktop_obj[`padding-${elem.driver.position}`] = elem.driver.css.height;
