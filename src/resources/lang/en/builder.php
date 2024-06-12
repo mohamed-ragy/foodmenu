@@ -269,10 +269,10 @@ return [
     ],
     'select_elems' => [
         //
-        '_auto' => 'Auto',
+        'auto' => 'Auto',
         '_100vh' => 'Screen height',
-        '_var(--screen_height)' => 'Screen height',
-        '_var(--screen_height_minus_header)' => 'Screen height minus header',
+        'screen_height' => 'Screen height',
+        'screen_height_minus_header' => 'Screen height minus header',
         '_50vh' => 'Half screen height',
         '_100p' => '100%',
         '_20px' => '20px',
@@ -624,6 +624,12 @@ return [
         'scale' => 'Scale',
         'opacity' => 'Opacity',
         'zindex' => 'Z-index',
+        'gradient_style' => 'Gradient style',
+        'linear' => 'Linear',
+        'radial' => 'Radial',
+        'angle' => 'Angle',
+        'colors_position' => 'Colors position',
+        'add_color' => 'Add color',
     ],
     'infos' => [
         'imageBlendMode' => 'The image blend mode depends on the chosen background color.',

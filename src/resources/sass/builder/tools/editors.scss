@@ -9,6 +9,10 @@
 @import '../tools/editors/select_range.scss';//
 @import '../tools/editors/color_picker.scss';
 
+@import '../tools/editors/gradient_editor.scss';
+@import '../tools/editors/imgs.scss';//
+
+
 @import '../tools/editors/border_style_selector.scss';//
 @import '../tools/editors/padding_selector.scss';//
 @import '../tools/editors/margin_selector.scss';//
@@ -17,7 +21,6 @@
 @import '../tools/editors/drop_shadow_selector.scss';//
 @import '../tools/editors/animations.scss';//
 // @import '../tools/selectors/color_selector.scss';
-@import '../tools/editors/imgs.scss';//
 @import '../tools/editors/icon_selector.scss';
 @import '../tools/editors/transform_selector.scss';
 @import '../tools/editors/image_position_selector.scss';//
@@ -31,28 +34,28 @@
 
 //
 
-// .tabs_container{
-//     display:flex;
-//     flex-direction:row;
-//     align-items:center;
-//     justify-content: flex-start;
-//     margin:20px;
-// }
-// .tab{
-//     margin-inline-end:20px;
-//     cursor: pointer;
-//     padding-bottom:5px;
-//     white-space: nowrap;
-//     display:flex;
-//     flex-direction: row;
-//     align-items: center;
-//     justify-content: center;
-// }
-// .tab_selected{
-//     border-bottom:1px solid var(--green);
-//     color:var(--green);
-//     font-weight: 700;
-// }
+.tabs_container{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: flex-start;
+    margin:20px;
+}
+.tab{
+    margin-inline-end:20px;
+    cursor: pointer;
+    padding-bottom:5px;
+    white-space: nowrap;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.tab_selected{
+    border-bottom:1px solid var(--green);
+    color:var(--green);
+    font-weight: 700;
+}
 //
 .show_selector_details, .selector_no_details, .selector_details {transition-duration: 100ms;}
 .show_selector_details {

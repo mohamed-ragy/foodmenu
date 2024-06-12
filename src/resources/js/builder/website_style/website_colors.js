@@ -391,7 +391,7 @@ $('body').on('click','.website_color_picker',function(){
 $('body').on('change','.website_color_picker_gradation',function(){
     let color_key = $(this).attr('key');
     let color = `rgb(${$('#color_picker_rgb_input_r').val()},${$('#color_picker_rgb_input_g').val()},${$('#color_picker_rgb_input_b').val()})`
-    window.template.website_colors.gradation[`${color_key}_gradation`] = $(this).closest('.editor').find('.select_range_val').text();
+    window.template.website_colors.gradation[`${color_key}_gradation`] = get_dummy_val($(this).closest('.select_range'));
     set_color_palette(color,color_key);
     new_action();
 })

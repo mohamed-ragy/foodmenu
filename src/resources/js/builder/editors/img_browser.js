@@ -2,42 +2,33 @@
 require('./img_browser/pexels.js')
 require('./img_browser/user_storage.js')
 
-draw_image_selector = function(keys_arr){
-    let elem_data = get_key_tree(keys_arr[0].key_tree);
-    let elem_val = get_elem_val(elem_data,keys_arr[0].key,'0')
-    let selector;
-    let selector_container =  $('<div/>',{class:`editor_popup_row selector_container`,is_responsive:'0'}).append(
-        $('<div/>',{class:'fs09',text:texts.styling.image}),
-        selector = $('<div/>',{class:'selector editor_popup_img_select select_img'}).append(
-            $('<img/>',{class:'editor_popup_img_select_img',src:elem_val.val}),
-            $('<div/>',{class:'ico-edit editor_popup_img_select_edit_icon'})
-        )
+draw_select_image = function(data){
+    let editor = $('<div/>',{
+        class:`editor select_image_editor`,
+        key_tree:data.key_tree,
+        variable_key:data.variable_key,
+        key:data.key,
+    }).append(
+        $('<img/>',{class:'select_image_editor_image'}),
+        $('<div/>',{class:'ico-edit select_image_editor_icon'})
     )
 
-    for(const key in keys_arr){
-        for(const key2 in keys_arr[key]){
-            selector.attr(key2,keys_arr[key][key2]);
-            selector.attr(key2,keys_arr[key][key2]);
-        }
-    }
-
-    return selector_container;
+    return editor;
 }
-set_image_selector = function(selector){
-    let val = get_selector_val(selector);
-    selector.find('.editor_popup_img_select_img').attr('src',val)
-
+set_select_image = function(editor){
+    let val = get_editor_val(editor);
+    editor.find('.select_image_editor_image').attr('src',val)
 }
 //
-$('body').on('click','.select_img',function(e){
-    //e.stopImmediatePropagation();
-    window.pexels_search_last = '';
+$('body').on('click','.select_image_editor',function(e){
+    // window.pexels_search_last = '';
     let key_tree = $(this).attr('key_tree');
+    let variable_key = $(this).attr('variable_key')
     let key = $(this).attr('key');
     show_popup(function(){
-        window.pexels_filters_orientation = '';
-        window.pexels_filters_size = '';
-        window.pexels_filters_color = '';
+        // window.pexels_filters_orientation = '';
+        // window.pexels_filters_size = '';
+        // window.pexels_filters_color = '';
         $('.popupTitle').text(window.texts.selectImg)
         $('.popupBody').addClass('').text('').append(
             $('<div/>',{class:'tabs_container'}).append(
@@ -51,13 +42,13 @@ $('body').on('click','.select_img',function(e){
                         $('<div/>',{class:'btnTxt',text:texts.uploadImg})
                     ),
                 ),
-                $('<div/>',{class:'row wrap alnC jstfyC',id:'imgBrowser_imgs_container_storage',key_tree:key_tree,key:key}),
+                $('<div/>',{class:'row wrap alnC jstfyC',id:'imgBrowser_imgs_container_storage',key_tree:key_tree,variable_key:variable_key,key:key}),
 
                 $('<div/>',{class:`w100p-20 row alnC jstfyE m10 ${window.imgs_noMore ? 'none' : ''}`}).append(
                     $('<a/>',{id:'imgs_loadMore',text:texts.load_more})
                 )
             ),
-            $('<div/>',{class:'tab_content none',tab_content:'img_browser_pexels',key_tree:key_tree,key:key}).append(
+            $('<div/>',{class:'tab_content none',tab_content:'img_browser_pexels',key_tree:key_tree,variable_key:variable_key,key:key}).append(
                 $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                     $('<div/>',{class:'w100p'}).append(
                         $('<div/>',{class:'pexels_search_container'}).append(

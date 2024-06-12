@@ -184,6 +184,7 @@
     border-top:1px solid var(--white-3);
     padding:18px 5px;
     margin:0px 10px;
+    width:calc(100% - 20px);
     box-sizing: border-box;
 }
 .editor_popup_row > div:nth-child(1){white-space: nowrap;text-align:start;margin-inline-end:10px;}
@@ -199,6 +200,7 @@
     border-top:1px solid var(--white-3);
     padding:18px 5px;
     margin:0px 10px;
+    width:calc(100% - 20px);
     box-sizing: border-box;
 }
 .editor_popup_col > div:nth-child(1){white-space: nowrap;text-align:start;margin-bottom:10px;}

@@ -106,6 +106,8 @@ create_html = function(elem,key_tree){
             style_desktop_obj['background-color'] = 'unset';
         }else if(elem.background.background == 'color'){
             style_desktop_obj['background-color'] = elem.background.color;
+        }else if(elem.background.background == 'gradient'){
+            style_desktop_obj['background'] = elem.background.gradient;
         }
     //     if(elem.background == 'image'){
     //         for(const key in elem.background_image){
@@ -162,6 +164,8 @@ create_html = function(elem,key_tree){
             style_mobile_obj['background-color'] = 'unset';
         }else if(elem.background_mobile.background == 'color'){
             style_mobile_obj['background-color'] = elem.background_mobile.color;
+        }else if(elem.background_mobile.background == 'gradient'){
+            style_mobile_obj['background'] = elem.background_mobile.gradient;
         }
     //     if(elem.background == 'image'){
     //         for(const key in elem.background_image_mobile){

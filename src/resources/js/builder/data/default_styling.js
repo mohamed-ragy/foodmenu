@@ -3,25 +3,25 @@ get_default_style = function(style,push_data){
         case 'section_wrapper':
 
         break;
-        case 'background_image':
-            return {
-                'background-image': '/storage/imgs/cpanel/noimg.png',
-                'background-attachment': 'local',
-                'background-position': '50% 50%',
-                'background-repeat': 'no-repeat',
-                'background-size': 'cover',
-                'background-blend-mode': 'normal',
-                // 'background-color': 'rgba(200,200,200,1)',
-            };
-        break;
-        case 'background_image_mobile':
-            return {
-                'background-attachment': 'local',
-                'background-position': '50% 50%',
-                'background-repeat': 'no-repeat',
-                'background-size': 'cover',
-            };
-        break;
+        // case 'background_image':
+        //     return {
+        //         'background-image': '/storage/imgs/cpanel/noimg.png',
+        //         'background-attachment': 'local',
+        //         'background-position': '50% 50%',
+        //         'background-repeat': 'no-repeat',
+        //         'background-size': 'cover',
+        //         'background-blend-mode': 'normal',
+        //         // 'background-color': 'rgba(200,200,200,1)',
+        //     };
+        // break;
+        // case 'background_image_mobile':
+        //     return {
+        //         'background-attachment': 'local',
+        //         'background-position': '50% 50%',
+        //         'background-repeat': 'no-repeat',
+        //         'background-size': 'cover',
+        //     };
+        // break;
         case 'backdrop-filter':
             return 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)';
         break;
@@ -67,11 +67,11 @@ get_default_style = function(style,push_data){
         case 'filter':
             return 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))';
         break;
-        case '':
-            return '';
+        case 'linear_gradient':
+            return 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
         break;
-        case '':
-            return '';
+        case 'radial_gradient':
+            return 'radial-gradient(circle, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
         break;
         case '':
             return '';

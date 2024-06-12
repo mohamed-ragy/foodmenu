@@ -1,8 +1,11 @@
-require('./editors/rename.js')//
+require('./editors/rename.js')//done
 require('./editors/number_picker.js')//need to test dummy
 require('./editors/inputList.js')//need to test dummy
 require('./editors/select_box.js')//need to test dummy
 require('./editors/switch_btn.js')//need to test dummy
+require('./editors/gradient_editor.js')//done
+require('./editors/img_browser.js')//
+
 
 require('./editors/select_range.js')//need to set the original set select range function
 require('./editors/color_picker.js')//need to set test dummy
@@ -26,7 +29,6 @@ require('./editors/opacity_selector.js')//
 
 //nonresponsive selectors
 require('./editors/font_style_selector.js')//
-require('./editors/img_browser.js')//
 require('./editors/icon_selector.js')//
 require('./editors/elem_text_selector.js')//
 //
@@ -41,7 +43,7 @@ require('./editors/hover.js')
 draw_editors_container = function(data){
     let editors_container;
     editors_container = $('<div/>',{class:`editors_container`,is_responsive:data.is_responsive ? '1' : '0',is_hover:data.is_hover ? '1' : '0'}).append(
-        $('<div/>',{class:'mT5 mB10 pX10'}).append(
+        $('<div/>',{class:'mT5 mB10'}).append(
             data.is_responsive ? draw_responsive_selector() : '',
             data.is_hover ? draw_hover_selector() : '',
         )
@@ -60,7 +62,7 @@ get_editor_val = function(editor){
     let key = editor.attr('key');
     let elem_data = get_elem_data(key_tree,variable_key,key);
     if(is_responsive == '0' && is_hover == '0'){
-        console.log(elem_data);
+        // console.log(elem_data);
         return elem_data.val;
     }else if(is_responsive == '1' && is_hover == '0'){
         if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
@@ -178,7 +180,26 @@ set_val= function(editor,new_val){
         }
     }
 }
+get_dummy_val = function(editor){
+    let val;
+    if(editor.hasClass('number_picker_editor')){
+        val = `${editor.find('.number_picker_input').val()}${editor.find('.number_picker_unit_select').text()}`
+    }else if(editor.hasClass('inputList_editor')){
+        val = editor.find('.inputList_val').text()
+    }else if(editor.hasClass('select_box_editor')){
+        val = editor.find('.select_box_selected').attr('key')
+    }else if(editor.hasClass('switch_btn')){
+        if(editor.hasClass('switch_btn_selected')){
+            val = '1';
+        }else{val = '0'}
+    }else if(editor.hasClass('select_range')){
+        val = editor.find('.select_range_val').text();
+    }else if(editor.hasClass('color_picker_editor')){
+        val = editor.attr('color_var')
+    }
 
+    return val;
+}
 
 
 draw_selector_name = function(data){
@@ -430,14 +451,6 @@ hidePopupSelectors = function(force = false){
 
 }
 
-
-// $('body').on('click','.tab',function(e){
-//     // e.stopImmediatePropagation();
-//     $('.tab').removeClass('tab_selected');
-//     $(this).addClass('tab_selected')
-//     $('.tab_content').addClass('none');
-//     $(`.tab_content[tab_content="${$(this).attr('tab')}"]`).removeClass('none')
-// })
 
 let turbo_interval = null;
 let turbo_level = 201;

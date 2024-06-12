@@ -1272,12 +1272,14 @@ set_color_picker = function(editor){
     let val = get_editor_val(editor);
     if(val == '--'){
         editor.css('background-color','');
+        editor.attr('color_var','--')
     }else{
         editor.css('background-color',val);
+        editor.attr('color_var',val)
     }
     if(!$('.color_picker_editor_popup').hasClass('none')){
-        let val = get_editor_val(window.selected_color_picker_editor);
         try{
+            let val = get_editor_val(window.selected_color_picker_editor);
             val = val.replace('rgba(var(--','').replaceAll(')','').split(',') 
             $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
             $(`.color_picker_editor_color[key="${val[0]}"]`).addClass('color_picker_editor_color_selected')
@@ -1287,8 +1289,14 @@ set_color_picker = function(editor){
             $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
             set_dummy_select_range($('.color_picker_editor_transparency'),'1',true);
             set_color_picker_editor_colors();
+            // $('.color_picker_editor_popup').text('').addClass('none')
         }
     }
+}
+set_dummy_color_picker = function(editor,val){
+    editor.css('background-color',val);
+    editor.attr('color_var',val)
+
 }
 draw_color_picker_popup = function(){
     $('.color_picker_editor_popup').text('').append(
@@ -1314,7 +1322,9 @@ draw_color_picker_popup = function(){
     }
     for(const key in window.template.website_colors.custom_colors){
         $('.color_picker_editor_popup_custom_colors').find('.add_custom_color').before(
-            $('<input/>',{class:'color_picker_editor_color color_picker',style:``,key:key,custom_color_name:key,color_type:'custom'})
+            $('<div/>',{class:'color_picker_editor_color_container'}).append(
+                $('<input/>',{class:'color_picker_editor_color color_picker',style:``,key:key,custom_color_name:key,color_type:'custom'})
+            )
         )
     }
 }
@@ -1327,13 +1337,17 @@ set_color_picker_editor_colors = function(){
             color = window.template.website_colors.custom_colors[$(this).attr('key')]
             $(this).val(`rgb(${color.r},${color.g},${color.b})`);
         }
-        $(this).css('background-color',`rgba(${color.r},${color.g},${color.b},${$('.color_picker_editor_transparency').find('.select_range_val').text()})`)
+        $(this).css('background-color',`rgba(${color.r},${color.g},${color.b},${get_dummy_val($('.color_picker_editor_transparency'))})`)
     })
 }
-$('body').on('click','.color_picker_editor',function(){
+$('body').on('mouseup','.color_picker_editor',function(){
     window.selected_color_picker_editor = $(this);
-    let val = get_editor_val(window.selected_color_picker_editor);
-    console.log(val)
+    let val;
+    if($(this).hasClass('dummy_editor')){
+        val = $(this).attr('color_var');
+    }else{
+        val = get_editor_val(window.selected_color_picker_editor);
+    }
     if(val == '--'){
         $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
         $('.color_picker_editor_popup').css({
@@ -1360,18 +1374,38 @@ $('body').on('click','.color_picker_editor_color',function(e){
         e.stopPropagation();
     }
     let new_val;
-    new_val = `rgba(var(--${$(this).attr('key')}),${$('.color_picker_editor_transparency').find('.select_range_val').text()})`;
-    set_val(window.selected_color_picker_editor,new_val);
-    new_action();
+    new_val = `rgba(var(--${$(this).attr('key')}),${get_dummy_val($('.color_picker_editor_transparency'))})`;
+    if(window.selected_color_picker_editor.hasClass('dummy_editor')){
+        $('.color_picker_editor_color').removeClass('color_picker_editor_color_selected')
+        $(this).addClass('color_picker_editor_color_selected')
+        set_dummy_color_picker(window.selected_color_picker_editor,new_val)
+    }else{
+        set_val(window.selected_color_picker_editor,new_val);
+        new_action();
+    }
+    window.selected_color_picker_editor.trigger('change')
 })
 $('body').on('change','.color_picker_editor_transparency',function(){
     let new_val;
-    let val = get_editor_val(window.selected_color_picker_editor);
+    let val;
+    if(window.selected_color_picker_editor.hasClass('dummy_editor')){
+        val = window.selected_color_picker_editor.attr('color_var')
+    }else{
+        val = get_editor_val(window.selected_color_picker_editor);
+    }
+    
     val = val.replace('rgba(var(--','').replaceAll(')','').split(',')  
-    new_val = `rgba(var(--${val[0]}),${$('.color_picker_editor_transparency').find('.select_range_val').text()})`;
-    set_val(window.selected_color_picker_editor,new_val);
-    set_color_picker_editor_colors();
-    new_action();
+    new_val = `rgba(var(--${val[0]}),${get_dummy_val($('.color_picker_editor_transparency'))})`;
+
+    if(window.selected_color_picker_editor.hasClass('dummy_editor')){
+        set_dummy_color_picker(window.selected_color_picker_editor,new_val)
+        set_color_picker_editor_colors();
+    }else{
+        set_val(window.selected_color_picker_editor,new_val);
+        set_color_picker_editor_colors();
+        new_action();
+    }
+    window.selected_color_picker_editor.trigger('change')
 })
 //events
 $(document).on('open','.color_picker',function(){

@@ -810,3 +810,15 @@ input.clr-color{
   background-size: 12.5px 12.5px;
   background-position: 0 0, 6.25px 6.25px;
 }
+.color_picker_editor_color_container{position: relative;}
+.color_picker_editor_color_container:after{
+  position: absolute;
+  inset:0 0 0 0;
+  z-index: -1;
+  content:'';
+  background-image: 
+  linear-gradient(45deg, rgba(128,128,128,0.5) 25%, transparent 25%, transparent 75%, rgba(128,128,128,0.5) 75%, rgba(128,128,128,0.5)),
+  linear-gradient(45deg, rgba(128,128,128,0.5) 25%, transparent 25%, transparent 75%, rgba(128,128,128,0.5) 75%, rgba(128,128,128,0.5));
+  background-size: 12.5px 12.5px;
+  background-position: 0 0, 6.25px 6.25px;
+}

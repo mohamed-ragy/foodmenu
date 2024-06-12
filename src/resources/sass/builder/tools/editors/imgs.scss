@@ -1,4 +1,5 @@
-.editor_popup_img_select{
+
+.select_image_editor{
     overflow: hidden;
     border-radius: 5px;
     border:1px solid var(--white-4);
@@ -7,13 +8,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width:50px;
+    height:50px;
 }
-.editor_popup_img_select_img{
+.select_image_editor_image{
     width:50px;
     height:50px;
     object-fit: cover;
 }
-.editor_popup_img_select_edit_icon{
+.select_image_editor_icon{
     display:none;
     position: absolute;
     background-color: var(--white-1);
@@ -23,7 +26,7 @@
     font-size: 1.5em;
     padding:10px;
 }
-.editor_popup_img_select:hover{
+.select_image_editor_image:hover{
     .editor_popup_img_select_edit_icon{display:block}
 }
 //

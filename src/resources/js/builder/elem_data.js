@@ -38,8 +38,6 @@ get_elem_data = function(key_tree,variable_key,key){
             if(key in elem_data_mobile_hover){val_mobile_hover = elem_data_mobile_hover[key]}
         }
     }
-
-
     return {
         elem:elem,
 
@@ -52,7 +50,6 @@ get_elem_data = function(key_tree,variable_key,key){
         val_mobile:val_mobile,
         val_hover:val_hover,
         val_mobile_hover:val_mobile_hover,
-
 
     }
 }

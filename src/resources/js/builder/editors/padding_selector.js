@@ -71,13 +71,19 @@ set_four_number_pickers = function(editor){
     }
 }
 $('body').on('change','.four_editor_0',function(){
-    let new_val = `${$(this).find('.number_picker_input').val()}${$(this).find('.number_picker_unit_select').text()}`;
+    let new_val = get_dummy_val($(this));
+    console.log(new_val);
+    return;
+    // let new_val = `${$(this).find('.number_picker_input').val()}${$(this).find('.number_picker_unit_select').text()}`;
     new_val = `${new_val} ${new_val} ${new_val} ${new_val}`;
     set_val($(this).closest('.four_number_pickers'),new_val)
     new_action();
 })
 $('body').on('change','.four_editor_1',function(){
-    let new_val = `${$(this).find('.number_picker_input').val()}${$(this).find('.number_picker_unit_select').text()}`;
+    let new_val = get_dummy_val($(this));
+    console.log(new_val);
+    return;
+    // let new_val = `${$(this).find('.number_picker_input').val()}${$(this).find('.number_picker_unit_select').text()}`;
     let editor = $(this).closest('.four_number_pickers');
     let val = get_editor_val(editor);
     if(val == '--'){

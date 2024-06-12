@@ -114,6 +114,12 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         $('.color_picker_editor').each(function(){
             set_color_picker($(this))
         })
+        $('.gradient_editor').each(function(){
+            set_gradient_editor($(this));
+        })
+        $('.select_image_editor').each(function(){
+            set_select_image($(this));
+        })
         // $('.input_editor_popup_section_name').each(function(){
         //     if(typeof($(this).attr('key_tree')) !== 'undefined'){
         //         try{

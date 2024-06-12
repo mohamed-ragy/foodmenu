@@ -13,7 +13,7 @@ draw_input_list = function(data){
     for(const key in data.selections){
         let selection = data.selections[key];
         inputList_elems_temp.append(
-            $('<div/>',{class:`inputList_elem ${selection.class}`,text:texts.select_elems[`_${selection.name}`],key:selection.val}),
+            $('<div/>',{class:`inputList_elem ${selection.class}`,text:selection.name,key:selection.val}),
         )
     }
     return editor;
@@ -75,17 +75,28 @@ $('body').on('click','.inputList_editor',function(e){
 })
 //
 $('body').on('keydown','.inputList_elems',function(e){
-    let selected_elem = $(this).find('.inputList_elem_selected')
+    let selected_elem = $(this).find('.inputList_elem_selected');
+    let target_elem;
     if(e.which == 38){
         if(!selected_elem.is(":first-child")){
             e.preventDefault();
-            selected_elem.prev().trigger('click')
+            target_elem = selected_elem.prev()
         }
     }else if(e.which == 40){
         if(!selected_elem.is(":last-child")){
             e.preventDefault();
-            selected_elem.next().trigger('click')
+            target_elem = selected_elem.next()
         }
+    }
+    if(typeof(target_elem) !== 'undefined'){
+        let new_val = target_elem.attr('key');
+        window.selected_inputList.find('.inputList_val').text(target_elem.text())
+        window.selected_inputList.attr('val',new_val);
+        $('.inputList_elems').find(`.inputList_elem`).removeClass("inputList_elem_selected");
+        target_elem.addClass("inputList_elem_selected")
+        $('.inputList_elems').scrollTop(0)
+        $('.inputList_elems').scrollTop(target_elem.position().top)
+        window.selected_inputList.trigger('change')
     }
 })
 //
@@ -98,4 +109,5 @@ $('body').on('click','.inputList_elem',function(e){
     $('.inputList_elems').scrollTop(0)
     $('.inputList_elems').scrollTop($(this).position().top)
     window.selected_inputList.trigger('change')
+    $('.inputList_elems').addClass('none')
 })

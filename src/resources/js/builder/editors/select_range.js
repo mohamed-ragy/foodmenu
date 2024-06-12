@@ -111,6 +111,7 @@ set_dummy_select_range = function(editor,val,immediate=false){
 //     }
 
 // }
+
 calc_select_range_ratio = function(select_range_slider,val){
     let min = parseFloat(select_range_slider.attr('min'));
     let max = parseFloat(select_range_slider.attr('max'));
@@ -131,7 +132,7 @@ set_select_range_marker = function(select_range_slider,slider_position){
     if(val < min){val = min}
     if(val > max){val = max}
     select_range_slider.find('.select_range_slider_selected').css('width',`${calc_select_range_ratio(select_range_slider,val)}px`);
-    select_range_slider.closest('.select_range').find('.select_range_val').text(val)
+    select_range_slider.closest('.select_range').find('.select_range_val').text(val+unit)
     editor.trigger('change')
     if(editor.hasClass('dummy_editor')){return;}
     // set_elem_val(selector,val+unit)
@@ -213,7 +214,7 @@ $('body').on('mousedown','.select_range_minus',function(e){
     select_range_slider.find('.select_range_marker').css('left',`${calc_select_range_ratio(select_range_slider,new_val) }px`);
     select_range_slider.find('.select_range_slider_selected').css('width',`${calc_select_range_ratio(select_range_slider,new_val)}px`);
     editor.find('.select_range_val').text(new_val+unit);
-    $(this).closest('.editor').trigger('change')
+    // $(this).closest('.editor').trigger('change')
 
 })
 $('body').on('mousedown','.select_range_plus',function(e){
@@ -233,8 +234,8 @@ $('body').on('mousedown','.select_range_plus',function(e){
     select_range_slider.find('.select_range_marker').css('left',`${calc_select_range_ratio(select_range_slider,new_val) }px`);
     select_range_slider.find('.select_range_slider_selected').css('width',`${calc_select_range_ratio(select_range_slider,new_val)}px`);
     editor.find('.select_range_val').text(new_val+unit);
-    $(this).closest('.editor').trigger('change')
+    // $(this).closest('.editor').trigger('change')
 })
 $('body').on('mouseup','.select_range_plus, .select_range_minus',function(e){
-    $(this).find('.number_picker_input').trigger('change')
+    $(this).closest('.editor').trigger('change')
 })

@@ -17,7 +17,7 @@ draw_editor_popup_background = function(){
                 is_hover:false,
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
-                        $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none`}).append(
+                        $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none mB20`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.background}),
                             draw_select_box({
                                 key_tree:window.selected,
@@ -44,16 +44,28 @@ draw_editor_popup_background = function(){
                             ),
                         ),
                         $('<div/>',{class:'editor_background_gradient w100p'}).append(
-                            
+                            draw_gradient_editor({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'gradient',
+                            })
+                        ),
+                        $('<div/>',{class:'editor_background_image w100p'}).append(
+                            $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
+                                $('<div/>',{class:'fs09',text:texts.styling.image}),
+                                draw_select_image({
+                                    key_tree:window.selected,
+                                    variable_key:'background',
+                                    key:'background_image',
+                                })
+                            )
                         )
                     ),
-
-
                 ]
             }),
 
                 // $('<div/>',{class:`elem_background_image 100p ${elem.background != 'image' ? 'none' : ''}`}).append(
-                //     draw_image_selector([{key:'background-image',key_tree:`${window.selected}.background_image`}]),
+                    // draw_image_selector([{key:'background-image',key_tree:`${window.selected}.background_image`}]),
                 //     draw_editor_show_container({
                 //         key:'elem_background_filter',
                 //         name:texts.styling.image_filter,
