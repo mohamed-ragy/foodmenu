@@ -92,7 +92,7 @@ drawArticlePage = function(){
                     $('<span/>',{class:`${article.icon} fs106 mie-10`}),
                     $('<span/>',{class:'bold inter fs107',text:article.title}),
                 ),
-                $('<div/>',{class:'mT10 fs102 mxw650',text:article.description}),
+                $('<div/>',{class:'fs101 mxw650',text:article.description}),
                 $('<div/>',{class:'articleSectionsContainer'}),
                 $('<div/>',{class:'articleRateContainerWrapepr'}).append(
                     $('<div/>',{class:'articleRateContainer'}).append(

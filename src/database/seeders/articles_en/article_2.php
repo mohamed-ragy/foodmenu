@@ -27,8 +27,8 @@ class article_2 extends Seeder
         help_en_articles::create([
             'id' => $article_id,
             'sort' => 2,
-            'title_id' => 'Your-Account-Help-Tickets',
-            'title' => 'Your Account’s Help Tickets',
+            'title_id' => 'your-accounts-help-tickets',
+            'title' => 'Your account’s help tickets',
             'description' => 'Check out this article to learn how to keep track of status changes for your support tickets in the ticket history.',
             'icon' => 'ico-ticket',
             'category' => 'basics',
@@ -42,11 +42,11 @@ class article_2 extends Seeder
         array_push($sections,[
             'sort'=>$sort,
             'article_id' => $article_id,
-            'title' => 'The Ticket History',
+            'title' => 'The ticket history',
             'keyWords' => 'support help ticket report issue problem',
             'html' => <<<string
                 <p>
-                All your submitted tickets are archived in the ticket history. To reach this part of the control panel, click on <b>Support</b> in the control panel menu, where a few subsections will appear, including <a href="{$cpanel}/?page=ticket_history" target="_blank"><b>Ticket History</b></a>. When you click on it, a page will open showing all the help tickets.</p>
+                All your submitted tickets are archived in the ticket history. To reach this part of the control panel, click on <b>Support</b> in the control panel menu, where a few subsections will appear, including <a href="{$cpanel}/?page=ticket_history" target="_blank"><b>Ticket history</b></a>. When you click on it, a page will open showing all the help tickets.</p>
                 <p>
                 <div>Each ticket is sorted into a row, which displays the ticket's key details. The details include<div>
                 <ul>
@@ -66,7 +66,7 @@ class article_2 extends Seeder
         array_push($sections,[
             'sort'=>$sort,
             'article_id' => $article_id,
-            'title' => 'Tickets Status',
+            'title' => 'Tickets status',
             'keyWords' => 'support help ticket report issue problem',
             'html' => <<<string
                 <p>
@@ -83,7 +83,7 @@ class article_2 extends Seeder
         array_push($sections,[
             'sort'=>$sort,
             'article_id' => $article_id,
-            'title' => 'Ticket Browser',
+            'title' => 'Ticket browser',
             'keyWords' => 'support help ticket report issue problem',
             'html' => <<<string
             <p>

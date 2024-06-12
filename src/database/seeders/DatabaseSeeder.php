@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             templates::class,
-            fake_articles::class,
-            // articles_en::class,
+            // fake_articles::class,
+            articles_en::class,
             demo::class,
             tickets::class,
             liveChats::class,

@@ -149,7 +149,9 @@ class helpController extends Controller
             }
         }
         else if($request->has('search')){
-            $results = help_en_sections::WhereFullText('keyWords',$request->search)->orWhereFullText('title',$request->search)->orderBy('priority','desc')->get();
+            $results = help_en_sections::WhereFullText('keyWords',$request->search)->orWhereFullText('title',$request->search)
+            // ->orderBy('priority','desc')
+            ->get();
             return response(['results'=>$results]);
         }
     }
