@@ -145,8 +145,8 @@ drawArticlePage = function(){
                     class:'row alnBL jstfyS fs09 mY5 bold openPage',
                     page:'article',
                     article:relatedArticles[key].title_id,
-                    cat:relatedArticles[key].helpCat,
-                    href:`/${lang}/articles/${relatedArticles[key].helpCat}/${relatedArticles[key].title_id}`,
+                    cat:relatedArticles[key].category,
+                    href:`/${lang}/articles/${relatedArticles[key].category}/${relatedArticles[key].title_id}`,
                     tooltip:'article',
                     tooltipStyle:'left'
                 }).append(

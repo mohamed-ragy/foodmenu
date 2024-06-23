@@ -109,6 +109,7 @@ drawSearchResault_Val = function(container,val){
 }
 
 drawSearchArticle = function(article,container){
+    console.log(article)
     let classs = '';
     if(container.hasClass('mobileNavSearchResults')){
         classs = 'brdrB1 br0 pY10';
