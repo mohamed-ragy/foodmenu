@@ -1,0 +1,39 @@
+.editor_popup_box_shadows{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+.box_shadow_preview{
+    position: relative;
+    width:200px;
+    height:100px;
+    margin:25px 10px;
+    border-radius: 1px;
+    background-color: var(--white-1);
+    cursor: pointer;
+}
+.box_shadow_preview:hover{
+    outline:2px solid var(--white-2);
+    outline-offset: 10px;
+}
+.box_shadow_preview_selected, .box_shadow_preview_selected:hover{
+    outline:2px solid var(--green-80);
+    outline-offset: 10px;
+}
+.editor_popup_box_shadow_row{
+    min-height: 40px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top:1px solid var(--white-3);
+    padding:10px 0;
+    width:calc(100%);
+    box-sizing: border-box;
+}
+.editor_popup_box_shadow_row > div:nth-child(1){white-space: nowrap;text-align:start;margin-inline-end:15px;}
+.editor_popup_box_shadow_row > div:nth-child(2){display: flex;align-items: center;justify-content: flex-end;}

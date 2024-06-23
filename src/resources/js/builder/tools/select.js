@@ -3,7 +3,8 @@ select = function(key_tree){
     if(key_tree != window.selected){
         hide_editor_popup('editor')
     }
-    let elem = get_key_tree(key_tree).elem;
+    // let elem = get_key_tree(key_tree).elem;
+    let elem = get_elem_data(key_tree).elem
     window.selected = key_tree;
     $('section').removeClass('section_selected');
     $(`.section_block`).removeClass('section_block_selected')
@@ -20,6 +21,7 @@ select = function(key_tree){
         break;
     }
 }
+
 heighlight_all = function(){
     $('section').addClass('section_selected');
     $(`.section_block`).addClass('section_block_selected')
@@ -63,6 +65,15 @@ preview_mode_toggle = function(){
     }else{
         set_preview_mode()
     }
+}
+window.temp_preview_mode_timeout = null;
+temp_preview_mode = function(){
+    console.log('gaga')
+    clearTimeout(window.temp_preview_mode_timeout);
+    set_preview_mode();
+    window.temp_preview_mode_timeout = setTimeout(()=>{
+        unset_preview_mode();
+    },2000)
 }
 //
 

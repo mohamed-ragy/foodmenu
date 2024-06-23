@@ -4,7 +4,6 @@ draw_editor_popup_filter = function(){
             draw_filter_selector({
                 keys_arr:[{key_tree:`${window.selected}.css`,key:'filter'}],
                 is_responsive:true,
-                is_hover:true,
             }),
         )
         $(`.editor_popup_body_shortcut.editor_filter`).addClass('editor_popup_body_shortcut_selected')

@@ -95,7 +95,6 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
             set_dummy_select_range($('.website_color_picker_gradation'),window.template.website_colors.gradation[`${$('.website_color_picker[is_selected="1"]').attr('key')}_gradation`])
         }
         // set_responsive_selector();
-        set_hover_selector();
         $('.rename_editor').each(function(){
             set_rename_editor($(this));
         })
@@ -119,6 +118,28 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         })
         $('.select_image_editor').each(function(){
             set_select_image($(this));
+        })
+        $('.image_position_editor').each(function(){
+            set_image_position_editor($(this))
+        })
+        $('.select_background_filter').each(function(){
+            set_select_background_filter($(this));
+        })
+        $('.backdrop_filter_editor').each(function(){
+            set_backdrop_filter_editor($(this));
+        })
+        $('.border_editor').each(function(){
+            set_border_editor($(this));
+        })
+        $('.box_shadow_editor').each(function(){
+            set_box_shadow_editor($(this));
+        })
+        $('.font_picker_editor').each(function(){
+            set_font_style_picker($(this));
+        })
+
+        $('.editor_details_head').each(function(){
+            set_editor_details($(this))
         })
         // $('.input_editor_popup_section_name').each(function(){
         //     if(typeof($(this).attr('key_tree')) !== 'undefined'){

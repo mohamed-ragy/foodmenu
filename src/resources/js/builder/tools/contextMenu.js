@@ -30,7 +30,7 @@ draw_contextMenu_line = function(){
 show_contextMenu = function(key_tree,cord){
     hide_contextMenu();
     $('#contextMenu').text('')
-    let elem_data = get_key_tree(key_tree);
+    let elem_data = get_elem_data(key_tree);
     select(key_tree)
     switch(elem_data.elem.type){
         case 'home_section':
@@ -41,6 +41,11 @@ show_contextMenu = function(key_tree,cord){
         case 'home_section_block':
             $('#contextMenu').append(
                 draw_home_section_block_contextMenu(elem_data)
+            )
+        break;
+        case 'home_elem':
+            $('#contextMenu').append(
+                draw_home_elem_contextMenu(elem_data)
             )
         break;
 

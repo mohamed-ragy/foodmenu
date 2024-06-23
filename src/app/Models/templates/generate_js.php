@@ -174,14 +174,14 @@ class generate_js
         //////////////////////////
         ////custom google font////
         //////////////////////////
-        if($this->template['font_style']['google_font']['link'] != ''){
-            self::add_to_file(<<<string
-                    let font_link = "{$this->template['font_style']['google_font']['link']}".split('family=')[1];
-                    font_link = font_link.split("')")[0];
-                    $('style').append(`@import url('https://fonts.googleapis.com/css2?family=\${font_link}')`)
-                string
-            );
-        }
+        // if($this->template['font_style']['google_font']['link'] != ''){
+        //     self::add_to_file(<<<string
+        //             let font_link = "{$this->template['font_style']['google_font']['link']}".split('family=')[1];
+        //             font_link = font_link.split("')")[0];
+        //             $('style').append(`@import url('https://fonts.googleapis.com/css2?family=\${font_link}')`)
+        //         string
+        //     );
+        // }
 
         ////////////////////
         ////save js file////
@@ -220,9 +220,9 @@ class generate_js
                 if(array_key_exists('class_selector',$elem)){
                     $html_start = $html_start." ".$elem['class_selector'];
                 }
-                if(array_key_exists('font_style',$elem)){
-                    $html_start = $html_start." ".$elem['font_style'];
-                }
+                // if(array_key_exists('font_style',$elem)){
+                //     $html_start = $html_start." ".$elem['font_style'];
+                // }
                 $html_start = $html_start."\"";
                 if(array_key_exists('class_selector',$elem)){
                     $html_start = $html_start." class_selector=\"{$elem['class_selector']}\"";
@@ -277,7 +277,6 @@ class generate_js
                             $html = $html."<path d='{$path['path']}' fill='{$path['color']}'></path>";
                         }
                         $html = $html."</svg>";
-
                     }
                 }
 

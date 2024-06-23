@@ -4,7 +4,7 @@ require('./img_browser/user_storage.js')
 
 draw_select_image = function(data){
     let editor = $('<div/>',{
-        class:`editor select_image_editor`,
+        class:`editor select_image_editor ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
@@ -17,18 +17,17 @@ draw_select_image = function(data){
 }
 set_select_image = function(editor){
     let val = get_editor_val(editor);
-    editor.find('.select_image_editor_image').attr('src',val)
+    if(val == '--'){
+        editor.find('.select_image_editor_image').attr('src','/storage/imgs/cpanel/noimg.png')
+    }else{
+        editor.find('.select_image_editor_image').attr('src',val)
+    }
 }
 //
 $('body').on('click','.select_image_editor',function(e){
-    // window.pexels_search_last = '';
-    let key_tree = $(this).attr('key_tree');
-    let variable_key = $(this).attr('variable_key')
-    let key = $(this).attr('key');
+    window.pexels_search_last = '';
+    window.select_image_editor = $(this);
     show_popup(function(){
-        // window.pexels_filters_orientation = '';
-        // window.pexels_filters_size = '';
-        // window.pexels_filters_color = '';
         $('.popupTitle').text(window.texts.selectImg)
         $('.popupBody').addClass('').text('').append(
             $('<div/>',{class:'tabs_container'}).append(
@@ -42,51 +41,27 @@ $('body').on('click','.select_image_editor',function(e){
                         $('<div/>',{class:'btnTxt',text:texts.uploadImg})
                     ),
                 ),
-                $('<div/>',{class:'row wrap alnC jstfyC',id:'imgBrowser_imgs_container_storage',key_tree:key_tree,variable_key:variable_key,key:key}),
+                $('<div/>',{class:'row wrap alnC jstfyC',id:'imgBrowser_imgs_container_storage'}),
 
                 $('<div/>',{class:`w100p-20 row alnC jstfyE m10 ${window.imgs_noMore ? 'none' : ''}`}).append(
                     $('<a/>',{id:'imgs_loadMore',text:texts.load_more})
                 )
             ),
-            $('<div/>',{class:'tab_content none',tab_content:'img_browser_pexels',key_tree:key_tree,variable_key:variable_key,key:key}).append(
+            $('<div/>',{class:'tab_content none',tab_content:'img_browser_pexels'}).append(
                 $('<div/>',{class:'row alnS jstfyS w100p'}).append(
                     $('<div/>',{class:'w100p'}).append(
                         $('<div/>',{class:'pexels_search_container'}).append(
                             $('<div/>',{class:'ico-search pexels_search_icon'}),
                             $('<input/>',{class:'builder_font pexels_search mie-5',id:'pexels_search',placeholder:texts.pexels_search_placeholder}),
                         ),
-                        $('<div/>',{class:'w100p row alnC jstfySB'}).append(
-                            $('<a/>',{href:'https://www.pexels.com',target:'_blank',class:'wFC mY5 mX15 row alnC jstfyS'}).append(
+                        $('<div/>',{class:'w100p-30 mX15 mY5 row alnC jstfySB'}).append(
+                            $('<a/>',{href:'https://www.pexels.com',target:'_blank',class:'wFC mY5 row alnC jstfyS'}).append(
                                 $('<img/>',{class:'br3 h20 w20 ofCover imgPL mie-5',src:'https://images.pexels.com/lib/api/pexels.png'}),
-                                $('<div/>',{class:'fs08 c_white-11',text:'Photos provided by Pexels'})
+                                $('<div/>',{class:'fs08 tnw c_white-11',text:'Photos provided by Pexels'})
                             ),
-                            $('<div/>',{class:'row alnC jstfyE mX10 mY5'}).append(
-                                $('<div/>',{class:'inputList_container_no_action',id:'imgBrowser_pexels_filters_orientation',key:'pexels_filters_orientation'}).append(
-                                    $('<div/>',{class:'inputList_container_no_action_selected',key:'pexels_filters_orientation',text:texts.allOrientations}),
-                                    $('<div/>',{class:'ico-arrowDown'}),
-                                    $('<div/>',{class:'none inputList_elems_temp'}).append(
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.allOrientations,key:''}),
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.landscape,key:'landscape'}),
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.portrait,key:'portrait'}),
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.square,key:'square'}),
-                                    )
-                                ),
-                                $('<div/>',{class:'inputList_container_no_action mX5',key:'pexels_filters_size'}).append(
-                                    $('<div/>',{class:'inputList_container_no_action_selected',key:'pexels_filters_size',text:texts.allSizes}),
-                                    $('<div/>',{class:'ico-arrowDown'}),
-                                    $('<div/>',{class:'none inputList_elems_temp'}).append(
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.allSizes,key:''}),
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.large,key:'large'}),
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.medium,key:'medium'}),
-                                        $('<div/>',{class:`inputList_elem_no_action`,text:texts.small,key:'small'}),
-                                    )
-                                ),
-                                $('<div/>',{class:'pexels_search_color'}).append(
-                                    $('<div/>',{class:'mX3 color_picker_pexels_search_txt',text:texts.allColors}),
-                                    $('<div/>',{class:'color_picker_container mis-5'}).append(
-                                        $('<input/>',{class:'color_picker color_picker_pexels_search none dummy_color_picker',type:'text',style:`background-color:transparent;`,value:''}),
-                                    ),
-                                )
+                            $('<div/>',{class:'pexels_search_filters_toggle'}).append(
+                                $('<div/>',{text:texts.filters}),
+                                $('<div/>',{class:'ico-search_filters'}),
                             )
                         ),
                     ),
@@ -95,8 +70,37 @@ $('body').on('click','.select_image_editor',function(e){
                         $('<div/>',{class:'btnTxt',text:texts.search})
                     ),
                 ),
-
-                $('<div/>',{class:'row wrap alnC jstfyC mY40',id:'imgBrowser_imgs_container_pexels',key_tree:key_tree,key:key}),
+                $('<div/>',{class:'pexels_search_filters none'}).append(
+                    draw_input_list({
+                        dummy:true,
+                        dummy_class:'pexels_filters_orientation',
+                        selections:[
+                            {name:texts.allOrientations,val:''},
+                            {name:texts.landscape,val:'landscape'},
+                            {name:texts.portrait,val:'portrait'},
+                            {name:texts.square,val:'square'},
+                        ]
+                    }),
+                    draw_input_list({
+                        dummy:true,
+                        dummy_class:'pexels_filters_size',
+                        selections:[
+                            {name:texts.allSizes,val:''},
+                            {name:texts.large,val:'large'},
+                            {name:texts.medium,val:'medium'},
+                            {name:texts.small,val:'small'},
+                        ]
+                    }),
+                    $('<div/>',{class:'pexels_filters_color_container',key:'allColors'}).append(
+                        $('<div/>',{class:'mX3 pexels_filters_color_txt',text:texts.allColors}),
+                        draw_color_picker({
+                            dummy:true,
+                            dummy_class:'pexels_filters_color',
+                            alpha:false,
+                        })
+                    )
+                ),
+                $('<div/>',{class:'row wrap alnC jstfyC mY40',id:'imgBrowser_imgs_container_pexels'}),
                 $('<div/>',{class:'row alnC jstfyC'}).append(
                     $('<div/>',{class:'imgBrowser_pexels_pagination none'}).append(
                         $('<div/>',{class:'imgBrowser_pexels_pagination_prev ico-arrowLeft'}),
@@ -107,6 +111,9 @@ $('body').on('click','.select_image_editor',function(e){
 
             )
         )
+        set_dummy_input_list($('.pexels_filters_orientation'),'')
+        set_dummy_input_list($('.pexels_filters_size'),'')
+        set_dummy_color_picker($('.pexels_filters_color'),'--')
         for(const key in window.imgs){
             appendToImgBrowser_storage(window.imgs[key],'append')
         }
@@ -136,25 +143,24 @@ draw_imgBrowser_loading_imgs = function(type){
     }
 }
 $('body').on('click','.imgsImgCard',function(e){
-    //e.stopImmediatePropagation();
     if($(this).find('.imgsimgBtns').is(':hover')){return;}
-    let elem = get_key_tree($('#imgBrowser_imgs_container_storage').attr('key_tree')).elem;
     let img_src = window.imgs.find(item=>item.id == $(this).find('img').attr('imgId')).url;
-    elem[$('#imgBrowser_imgs_container_storage').attr('key')] = img_src;
+    set_val(window.select_image_editor,img_src)
     new_action();
     close_popup();
+    window.select_image_editor.trigger('change');
+    window.select_image_editor = null;
 })
 //
 $('body').on('click','.copyImageLink',function(e){
-    //e.stopImmediatePropagation();
     let imgUrl = window.imgs.find(item=>item.id == $(this).attr('img')).url
-    navigator.clipboard.writeText(`https://${website.url}${imgUrl}`).then(function(){
-        showAlert('normal',texts.design.copyed,4000,true);
+    console.log(`https://${window.website_data.url}${imgUrl}`)
+    navigator.clipboard.writeText(`https://${window.website_data.url}${imgUrl}`).then(function(){
+        showAlert('normal',texts.copied,4000,true);
     });
 });
 //
 $('body').on('click','.deleteImg',function(e){
-    //e.stopImmediatePropagation();
      let img = window.imgs.find(item=> item.id == $(this).attr('img'));
      $('.popupContainer').append(
         $('<div/>',{class:'popupCard2'}).append(
@@ -177,10 +183,8 @@ $('body').on('click','.deleteImg',function(e){
             )
         )
     )
-
 })
 $('body').on('click','#deleteImage-confirmBtn',function(e){
-    //e.stopImmediatePropagation();
     let imgId = $(this).attr('img');
     showBtnLoading($('#deleteImage-confirmBtn'))
     $.ajax({

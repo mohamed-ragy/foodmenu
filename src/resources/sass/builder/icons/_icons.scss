@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-search_filters:before {
+  content: "\e96c";
+}
 .ico-remove_hover:before {
   content: "\e96b";
 }

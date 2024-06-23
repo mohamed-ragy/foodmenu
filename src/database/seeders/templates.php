@@ -117,6 +117,7 @@ class templates extends Seeder
                 "smooth_scroll" => "0",
                 "smooth_scroll_distance" => "678px",
                 "smooth_scroll_duration" => "835ms",
+                'font_style' => 'Rubik',
             ]),
             'form_elements' => json_encode([
                 'spacing' => '10px',
@@ -1054,7 +1055,7 @@ class templates extends Seeder
                             "name" => "popup_card",
                             "tag" => "div",
                             "class_selector" => "popup_card",
-                            "background" => "none",
+                            // "background" => "none",
                             "background_image" => [
                                 "background-image" =>
                                 "/storage/websites/1/imgs/foodmenu-americandiner-9p7jk8q9ourn7ttfdkb1.jpeg",

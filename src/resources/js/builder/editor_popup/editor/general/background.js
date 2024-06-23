@@ -1,38 +1,27 @@
 draw_editor_popup_background = function(){
+    let elem_data = get_elem_data(window.selected);
+    console.log(elem_data)
     show_editor_popup('editor',function(){
-        let elem = get_key_tree(window.selected).elem;
-        let backdrop_filter_container = '';
-        // if(elem.type !== 'home_section'){
-        //     backdrop_filter_container = $('<div/>',{class:`elem_backdrop_filter 100p ${elem.background != 'backdrop_filter' ? 'none' : ''}`}).append(
-        //         draw_backdrop_filter({
-        //             keys_arr:[{key_tree:`${window.selected}.css`,key:'backdrop-filter'}],
-        //             is_responsive:true,
-        //             is_hover:true,
-        //         })
-        //     )
-        // }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
-                is_hover:false,
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
                         $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none mB20`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.background}),
-                            draw_select_box({
+                            draw_input_list({
                                 key_tree:window.selected,
                                 variable_key:'background',
-                                key:'background',
+                                key:'type',
                                 selections:[
-                                    {text:texts.styling.none,key:'none',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
-                                    {text:texts.styling.color,key:'color',show_elem:'editor_background_color',hide_elem:'editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
-                                    {text:texts.styling.gradient,key:'gradient',show_elem:'editor_background_gradient',hide_elem:'editor_background_color.editor_background_backdrop_filter.editor_background_image'},
-                                    {text:texts.styling.backdrop_filter,class:`${elem.type == 'home_section' ? 'none' : ''}`,key:'backdrop_filter',show_elem:'editor_background_backdrop_filter',hide_elem:'editor_background_color.editor_background_gradient.editor_background_image'},
-                                    {text:texts.styling.image,key:'image',show_elem:'editor_background_image',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter'},
+                                    {name:texts.styling.none,val:'none',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
+                                    {name:texts.styling.color,val:'color',show_elem:'editor_background_color',hide_elem:'editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
+                                    {name:texts.styling.gradient,val:'gradient',show_elem:'editor_background_gradient',hide_elem:'editor_background_color.editor_background_backdrop_filter.editor_background_image'},
+                                    {name:texts.styling.backdrop_filter,class:`${elem_data.elem.type == 'home_section' ? 'none' : ''}`,val:'backdrop_filter',show_elem:'editor_background_backdrop_filter',hide_elem:'editor_background_color.editor_background_gradient.editor_background_image'},
+                                    {name:texts.styling.image,val:'image',show_elem:'editor_background_image',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter'},
                                 ],
                             }),
                         ),
-
                         $('<div/>',{class:'editor_background_color w100p'}).append(
                             $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.background_color}),
@@ -50,6 +39,21 @@ draw_editor_popup_background = function(){
                                 key:'gradient',
                             })
                         ),
+                        elem_data.elem.type != 'home_section' ? $('<div/>',{class:'editor_background_backdrop_filter w100p'}).append(
+                            $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
+                                $('<div/>',{class:'fs09',text:texts.styling.filter_color}),
+                                draw_color_picker({
+                                    key_tree:window.selected,
+                                    variable_key:'background',
+                                    key:'backdrop_filter_color',
+                                })
+                            ),
+                            draw_backdrop_filter_editor({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'backdrop_filter',
+                            })
+                        ) : '',
                         $('<div/>',{class:'editor_background_image w100p'}).append(
                             $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.image}),
@@ -57,97 +61,94 @@ draw_editor_popup_background = function(){
                                     key_tree:window.selected,
                                     variable_key:'background',
                                     key:'background_image',
-                                })
-                            )
+                                    editor_class:'background_image_editor'
+                                }),
+                            ),
+                            draw_editor_show_container({
+                                key:'editor_background_image_settings',
+                                name:texts.styling.image_settings,
+                                row_class:true,
+                            }),
+                            draw_editor_show_container({
+                                key:'editor_background_image_filter',
+                                name:texts.styling.image_filter,
+                                row_class:true,
+                            }),
                         )
                     ),
+                    $('<div/>',{class:'editor_popup_container w100p none',key:'editor_background_image_filter',parent_key:'editor_background'}).append(
+                        $('<div/>',{class:'editor_popup_row'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.filter_color}),
+                            draw_color_picker({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'background_blend_mode_color',
+                                editor_class:'background_blend_color_editor',
+                            })
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.filter_style}),
+                            draw_select_background_filter({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'background_blend_mode'
+                            })
+                        )
+                    ),
+                    $('<div/>',{class:'editor_popup_container w100p none',key:'editor_background_image_settings',parent_key:'editor_background'}).append(
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.imagePosition}),
+                            draw_image_position_editor({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'background_position'
+                            })
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.imageStyle}),
+                            draw_select_box({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'background_attachment',
+                                selections:[
+                                    {text:texts.styling.fixed,key:'fixed'},
+                                    {text:texts.styling.local,key:'local'},
+                                ]
+                            })
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.imageSize}),
+                            draw_select_box({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'background_size',
+                                selections:[
+                                    {text:texts.styling.cover,key:'cover'},
+                                    {text:texts.styling.contain,key:'contain'},
+                                ]
+                            })
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.imageRepeat}),
+                            draw_select_box({
+                                key_tree:window.selected,
+                                variable_key:'background',
+                                key:'background_repeat',
+                                selections:[
+                                    {text:texts.styling.repeat,key:'repeat'},
+                                    {text:texts.styling.no_repeat,key:'no-repeat'},
+                                ]
+                            })
+                        ),
+                    )
                 ]
             }),
-
-                // $('<div/>',{class:`elem_background_image 100p ${elem.background != 'image' ? 'none' : ''}`}).append(
-                    // draw_image_selector([{key:'background-image',key_tree:`${window.selected}.background_image`}]),
-                //     draw_editor_show_container({
-                //         key:'elem_background_filter',
-                //         name:texts.styling.image_filter,
-                //         row_class:true,
-                //     }),
-                //     draw_select_box({
-                //         keys_arr:[{key:'background-size',key_tree:`${window.selected}.background_image`}],
-                //         name:texts.styling.imageSize,
-                //         selections:[
-                //             {text:texts.styling.cover,key:'cover'},
-                //             {text:texts.styling.contain,key:'contain'},
-                //         ],
-                //         is_responsive:true,
-                //     }),
-                //     draw_select_box({
-                //         keys_arr:[{key:'background-attachment',key_tree:`${window.selected}.background_image`}],
-                //         name:texts.styling.imageStyle,
-                //         selections:[
-                //             {text:texts.styling.fixed,key:'fixed'},
-                //             {text:texts.styling.local,key:'local'},
-                //         ],
-                //         is_responsive:true,
-                //     }),
-                //     draw_select_box({
-                //         keys_arr:[{key:'background-repeat',key_tree:`${window.selected}.background_image`}],
-                //         name:texts.styling.imageRepeat,
-                //         selections:[
-                //             {text:texts.styling.repeat,key:'repeat'},
-                //             {text:texts.styling.no_repeat,key:'no-repeat'},
-                //         ],
-                //         is_responsive:true,
-                //     }),
-                //     draw_image_position_selector({keys_arr:[{key:'background-position',key_tree:`${window.selected}.background_image`}],is_responsive:true,container_class:'editor_popup_row_border_bottom',}),
-            
-                // ),
-                // backdrop_filter_container,
-            // ),
-            // $('<div/>',{class:'editor_popup_container none w100p',key:'elem_background_filter',parent_key:'elem_background_image'}).append(
-            //     draw_color_picker({
-            //         keys_arr:[{key_tree:`${window.selected}.background_image`,key:'background-color'}],
-            //         name:texts.styling.filter_color,
-            //         container_class:'editor_popup_row_border_bottom editor_popup_row_sticky',
-            //         color_picker_class:'background_filter_preview_color'
-            //     }),
-            //     $('<div/>',{class:'fs09 mX10 mY10',text:texts.styling.filter_style}),
-            //     $('<div/>',{class:'elem_background_filters row wrap alnC jstfyC w100p'})
-            // )
         )
-        // for(const key in window.inputList_arr.background_blend_mode){
-        //     let filter = window.inputList_arr.background_blend_mode[key];
-        //     $('.elem_background_filters').append(
-        //         $('<div/>',{
-        //             class:`background_filter_preview_container ${elem.background_image['background-blend-mode'] == filter.val ? 'background_filter_preview_selected' : ''}`,
-        //             filter_val:filter.val,
-        //         }).append(
-        //             $('<div/>',{
-        //                 class:`background_filter_preview`,
-        //                 style:`background-image:url(${elem.background_image['background-image']});background-blend-mode:${filter.val};background-color:${elem.background_image['background-color']}`
-        //             }),
-        //             $('<div/>',{class:'background_filter_preview_name',text:texts.select_elems[`_${filter.name}`]})
-        //         )
-    
-        //     )
-        // }
+
         $(`.editor_popup_body_shortcut.editor_background`).addClass('editor_popup_body_shortcut_selected')
     });
 
 }
-$('body').on('click','.editor_popup_show_container[key="elem_background_filter"]',function(){
-    let img_src = $('#editor').find('.editor_popup_img_select_img').attr('src');
-    $('.background_filter_preview').css('background-image',`url(${img_src})`)
-})
-$('body').on('input','.background_filter_preview_color',function(e){
-    $('.background_filter_preview').css('background-color',$(this).val())
-})
-$('body').on('click','.background_filter_preview_container',function(e){
-    get_key_tree(window.selected).elem.background_image['background-blend-mode'] = $(this).attr('filter_val')
-    new_action();
-    $('.background_filter_preview_container').removeClass('background_filter_preview_selected');
-    $(this).addClass('background_filter_preview_selected')
-})
 $('body').on('click','.editor_background',function(e){
-        draw_editor_popup_background();
-
+    draw_editor_popup_background();
 })

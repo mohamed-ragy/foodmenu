@@ -21,11 +21,11 @@ small_hash = function(){
     return `_${result}`;
 }
 require('./data/colors.js')
-require('./data/fonts.js')
+// require('./data/fonts.js')
 require('./data/links.js')
 require('./data/headers.js')
 require('./data/home_page_sections.js')
-require('./data/titles.js')
+// require('./data/titles.js')
 
 require('./data/default_styling.js')
 require('./data/page_transitions.js')
@@ -34,4 +34,5 @@ require('./data/scroll_animations.js')
 require('./data/drivers.js')
 require('./data/icons.js')
 require('./data/input_list_arrays.js')
+require('./data/box_shadows.js')
 

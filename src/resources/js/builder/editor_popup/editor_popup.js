@@ -111,7 +111,7 @@ show_editor_popup = function(elem,callback=()=>{}){
 hide_editor_popup = function(id){
     $(`#${id}`).addClass('none');
     if(id == 'editor'){
-
+        $('#editor').find('.editor_popup_body').text('')
     }else if(id == 'popup_window'){
         hide_popup_window();
     }else if(id == 'website_header'){

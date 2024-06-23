@@ -12,6 +12,7 @@ process_data = function(r) {
         window.texts = r.texts;
         window.templates = r.templates;
         window.website_texts_langs = r.website_texts;
+        window.fonts = r.fonts;
         // if(typeof(window.preview_language) === 'undefined' || window.preview_language == null){
         //     for(const key in window.website_data.languages){
         //         if(window.website_data.languages.websiteDefault == true){
@@ -30,6 +31,7 @@ process_data = function(r) {
         window.imgs_noMore = false;
         window.imgs_getMore = true;
         window.pexels_search_results = [];
+        window.select_image_editor = null;
         //
 
         // window.selected_section_block = null;

@@ -3,7 +3,6 @@ draw_editor_popup_section_spacing = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
-                is_hover:false,
                 editors:[
                     $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none`}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.margin_top}),

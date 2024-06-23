@@ -102,14 +102,7 @@
 .number_picker_input:focus{
     background-color: var(--green-10);
 }
-.number_picker_lock{
-    font-size:1.1em;
-    margin-inline-start:10px;
-    cursor: pointer;
-}
-.number_picker_lock.ico-lock:before{
-   color:var(--orange)
-}
+
 .number_picker_remove_hover{
     margin-inline-start: 10px;
     font-size: 1.45em;

@@ -56,7 +56,7 @@ class designController extends Controller
         if($request->has('getData')){
             $website = website::where('id',$this->website_id)
             ->select([
-                'id',
+                'id','url',
                 'icon','logo',
                 'languages',
                 'websiteNames','websiteDescriptions'
@@ -84,6 +84,7 @@ class designController extends Controller
                 'templates' => $templates,
                 'texts' => Lang::get('builder'),
                 'website_texts' => $website_texts,
+                'fonts' => templates_data::fonts(),
             ]);
         }
 

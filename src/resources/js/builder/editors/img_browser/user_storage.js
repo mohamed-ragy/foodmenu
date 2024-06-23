@@ -82,7 +82,6 @@ appendToImgBrowser_storage = function(img,append){
 //events
 
 $('body').on('click','#imgs_loadMore',function(e){
-    //e.stopImmediatePropagation();
     getImgs();
 })
 $('body').on('wheel','.popupBody',function(e){
@@ -94,12 +93,10 @@ $('body').on('wheel','.popupBody',function(e){
 })
 //
 $('body').on('click','.imgs-uploadImgBtn',function(e){
-    //e.stopImmediatePropagation();
     $('#imgs-uploadImg').trigger('click');
 });
 
 $('body').on('change','#imgs-uploadImg',function(e){
-    //e.stopImmediatePropagation();
     showBtnLoading($('.imgs-uploadImgBtn'))
     img = $('#imgs-uploadImg').prop('files')[0];
     if(img){

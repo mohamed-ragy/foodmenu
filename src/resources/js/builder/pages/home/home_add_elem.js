@@ -55,7 +55,24 @@ show_add_home_elem_popup = function(elem_type){
     draw_add_home_elem_previews(elem_type)
 }
 draw_add_home_elem_previews = function(elem_type){
-    
+    let elems;
+    $('.add_home_elem_preview_container').text('')
+    switch(elem_type){
+        case 'title':
+            elems = get_titles();
+            for(const key in elems){
+                let elem = elems[key];
+                let elem_style = '';
+                for(const key2 in elem.css){
+                    elem_style = `${elem_style}${key2}:${elem.css[key2]};`
+                }
+                $('.add_home_elem_preview_container').append(
+                    $(`<${elem.tag}/>`,{elem_type:elem_type,key:key,class:'add_home_elem_elem',style:elem_style,text:texts.elems.title_placholder})
+                )
+            }
+        break;
+    }
+
 }
 $('body').on('click','.add_home_elem',function(e){
     let elem_type = $(this).attr('elem_type');
@@ -66,4 +83,18 @@ $('body').on('click','.add_home_elem_type_elem',function(e){
     draw_add_home_elem_previews(elem_type);
     $('.add_home_elem_type_elem').removeClass('add_home_elem_type_elem_selected');
     $(this).addClass('add_home_elem_type_elem_selected')
+})
+$('body').on('click','.add_home_elem_elem',function(){
+    let new_elem;
+    switch($(this).attr('elem_type')){
+        case 'title':
+            new_elem = get_titles()[$(this).attr('key')]
+        break;
+    }
+    let elem = get_elem_data(window.selected).elem;
+    new_elem.sort = elem.children.length;
+    elem.children.push(new_elem);
+    new_action();
+    close_popup();
+    select(`${window.selected}.children.${new_elem.sort}`)
 })

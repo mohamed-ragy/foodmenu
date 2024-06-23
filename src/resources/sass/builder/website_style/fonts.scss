@@ -1,22 +1,145 @@
-
-@font-face {
-    font-family: 'inter';
-    src: url('/storage/fonts/inter.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'Nunito';
-    src: url('/storage/fonts/Nunito.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'rubik';
-    src: url('/storage/fonts/rubik.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'signikaNegative';
-    src: url('/storage/fonts/signikaNegative.ttf') format("truetype");
-}
-@font-face {
-    font-family: 'playfairDisplay';
-    src: url('/storage/fonts/playfairDisplay.ttf') format("truetype");
-}
-
+@font-face {font-family: 'AndadaPro';src: url('/storage/builder_fonts/latin/AndadaPro.ttf') format("truetype");}
+@font-face {font-family: 'Bitter';src: url('/storage/builder_fonts/latin/Bitter.ttf') format("truetype");}
+@font-face {font-family: 'BodoniModa';src: url('/storage/builder_fonts/latin/BodoniModa.ttf') format("truetype");}
+@font-face {font-family: 'Brygada1918';src: url('/storage/builder_fonts/latin/Brygada1918.ttf') format("truetype");}
+@font-face {font-family: 'Cinzel';src: url('/storage/builder_fonts/latin/Cinzel.ttf') format("truetype");}
+@font-face {font-family: 'Cormorant';src: url('/storage/builder_fonts/latin/Cormorant.ttf') format("truetype");}
+@font-face {font-family: 'CrimsonPro';src: url('/storage/builder_fonts/latin/CrimsonPro.ttf') format("truetype");}
+@font-face {font-family: 'Domine';src: url('/storage/builder_fonts/latin/Domine.ttf') format("truetype");}
+@font-face {font-family: 'EBGaramond';src: url('/storage/builder_fonts/latin/EBGaramond.ttf') format("truetype");}
+@font-face {font-family: 'Eczar';src: url('/storage/builder_fonts/latin/Eczar.ttf') format("truetype");}
+@font-face {font-family: 'Faustina';src: url('/storage/builder_fonts/latin/Faustina.ttf') format("truetype");}
+@font-face {font-family: 'FrankRuhlLibre';src: url('/storage/builder_fonts/latin/FrankRuhlLibre.ttf') format("truetype");}
+@font-face {font-family: 'Gelasio';src: url('/storage/builder_fonts/latin/Gelasio.ttf') format("truetype");}
+@font-face {font-family: 'GrenzeGotisch';src: url('/storage/builder_fonts/latin/GrenzeGotisch.ttf') format("truetype");}
+@font-face {font-family: 'Hahmlet';src: url('/storage/builder_fonts/latin/Hahmlet.ttf') format("truetype");}
+@font-face {font-family: 'HedvigLettersSerif';src: url('/storage/builder_fonts/latin/HedvigLettersSerif.ttf') format("truetype");}
+@font-face {font-family: 'IbarraRealNova';src: url('/storage/builder_fonts/latin/IbarraRealNova.ttf') format("truetype");}
+@font-face {font-family: 'Imbue';src: url('/storage/builder_fonts/latin/Imbue.ttf') format("truetype");}
+@font-face {font-family: 'Kalnia';src: url('/storage/builder_fonts/latin/Kalnia.ttf') format("truetype");}
+@font-face {font-family: 'Kreon';src: url('/storage/builder_fonts/latin/Kreon.ttf') format("truetype");}
+@font-face {font-family: 'Labrada';src: url('/storage/builder_fonts/latin/Labrada.ttf') format("truetype");}
+@font-face {font-family: 'LibreBodoni';src: url('/storage/builder_fonts/latin/LibreBodoni.ttf') format("truetype");}
+@font-face {font-family: 'Literata';src: url('/storage/builder_fonts/latin/Literata.ttf') format("truetype");}
+@font-face {font-family: 'Lora';src: url('/storage/builder_fonts/latin/Lora.ttf') format("truetype");}
+@font-face {font-family: 'Manuale';src: url('/storage/builder_fonts/latin/Manuale.ttf') format("truetype");}
+@font-face {font-family: 'MarkaziText';src: url('/storage/builder_fonts/latin/MarkaziText.ttf') format("truetype");}
+@font-face {font-family: 'Newsreader';src: url('/storage/builder_fonts/latin/Newsreader.ttf') format("truetype");}
+@font-face {font-family: 'NotoSerifDisplay';src: url('/storage/builder_fonts/latin/NotoSerifDisplay.ttf') format("truetype");}
+@font-face {font-family: 'NotoSerif';src: url('/storage/builder_fonts/latin/NotoSerif.ttf') format("truetype");}
+@font-face {font-family: 'Petrona';src: url('/storage/builder_fonts/latin/Petrona.ttf') format("truetype");}
+@font-face {font-family: 'Piazzolla';src: url('/storage/builder_fonts/latin/Piazzolla.ttf') format("truetype");}
+@font-face {font-family: 'Platypi';src: url('/storage/builder_fonts/latin/Platypi.ttf') format("truetype");}
+@font-face {font-family: 'Playfair';src: url('/storage/builder_fonts/latin/Playfair.ttf') format("truetype");}
+@font-face {font-family: 'PlayfairDisplay';src: url('/storage/builder_fonts/latin/PlayfairDisplay.ttf') format("truetype");}
+@font-face {font-family: 'Podkova';src: url('/storage/builder_fonts/latin/Podkova.ttf') format("truetype");}
+@font-face {font-family: 'PoltawskiNowy';src: url('/storage/builder_fonts/latin/PoltawskiNowy.ttf') format("truetype");}
+@font-face {font-family: 'Rasa';src: url('/storage/builder_fonts/latin/Rasa.ttf') format("truetype");}
+@font-face {font-family: 'RedRose';src: url('/storage/builder_fonts/latin/RedRose.ttf') format("truetype");}
+@font-face {font-family: 'RobotoSerif';src: url('/storage/builder_fonts/latin/RobotoSerif.ttf') format("truetype");}
+@font-face {font-family: 'SourceSerif4';src: url('/storage/builder_fonts/latin/SourceSerif4.ttf') format("truetype");}
+@font-face {font-family: 'STIXTwoText';src: url('/storage/builder_fonts/latin/STIXTwoText.ttf') format("truetype");}
+@font-face {font-family: 'Texturina';src: url('/storage/builder_fonts/latin/Texturina.ttf') format("truetype");}
+@font-face {font-family: 'Vollkorn';src: url('/storage/builder_fonts/latin/Vollkorn.ttf') format("truetype");}
+@font-face {font-family: 'Yrsa';src: url('/storage/builder_fonts/latin/Yrsa.ttf') format("truetype");}
+@font-face {font-family: 'AdventPro';src: url('/storage/builder_fonts/latin/AdventPro.ttf') format("truetype");}
+@font-face {font-family: 'Akshar';src: url('/storage/builder_fonts/latin/Akshar.ttf') format("truetype");}
+@font-face {font-family: 'Alegreya';src: url('/storage/builder_fonts/latin/Alegreya.ttf') format("truetype");}
+@font-face {font-family: 'Alexandria';src: url('/storage/builder_fonts/latin/Alexandria.ttf') format("truetype");}
+@font-face {font-family: 'AlumniSans';src: url('/storage/builder_fonts/latin/AlumniSans.ttf') format("truetype");}
+@font-face {font-family: 'Antonio';src: url('/storage/builder_fonts/latin/Antonio.ttf') format("truetype");}
+@font-face {font-family: 'Anybody';src: url('/storage/builder_fonts/latin/Anybody.ttf') format("truetype");}
+@font-face {font-family: 'Archivo';src: url('/storage/builder_fonts/latin/Archivo.ttf') format("truetype");}
+@font-face {font-family: 'ArchivoNarrow';src: url('/storage/builder_fonts/latin/ArchivoNarrow.ttf') format("truetype");}
+@font-face {font-family: 'Assistant';src: url('/storage/builder_fonts/latin/Assistant.ttf') format("truetype");}
+@font-face {font-family: 'BalooBhai2';src: url('/storage/builder_fonts/latin/BalooBhai2.ttf') format("truetype");}
+@font-face {font-family: 'BigShouldersDisplay';src: url('/storage/builder_fonts/latin/BigShouldersDisplay.ttf') format("truetype");}
+@font-face {font-family: 'BigShouldersInlineText';src: url('/storage/builder_fonts/latin/BigShouldersInlineText.ttf') format("truetype");}
+@font-face {font-family: 'BigShouldersText';src: url('/storage/builder_fonts/latin/BigShouldersText.ttf') format("truetype");}
+@font-face {font-family: 'Cabin';src: url('/storage/builder_fonts/latin/Cabin.ttf') format("truetype");}
+@font-face {font-family: 'Cairo';src: url('/storage/builder_fonts/latin/Cairo.ttf') format("truetype");}
+@font-face {font-family: 'Changa';src: url('/storage/builder_fonts/latin/Changa.ttf') format("truetype");}
+@font-face {font-family: 'Chivo';src: url('/storage/builder_fonts/latin/Chivo.ttf') format("truetype");}
+@font-face {font-family: 'Comfortaa';src: url('/storage/builder_fonts/latin/Comfortaa.ttf') format("truetype");}
+@font-face {font-family: 'EncodeSans';src: url('/storage/builder_fonts/latin/EncodeSans.ttf') format("truetype");}
+@font-face {font-family: 'Exo';src: url('/storage/builder_fonts/latin/Exo.ttf') format("truetype");}
+@font-face {font-family: 'Exo2';src: url('/storage/builder_fonts/latin/Exo2.ttf') format("truetype");}
+@font-face {font-family: 'ExpletusSans';src: url('/storage/builder_fonts/latin/ExpletusSans.ttf') format("truetype");}
+@font-face {font-family: 'FamiljenGrotesk';src: url('/storage/builder_fonts/latin/FamiljenGrotesk.ttf') format("truetype");}
+@font-face {font-family: 'GemunuLibre';src: url('/storage/builder_fonts/latin/GemunuLibre.ttf') format("truetype");}
+@font-face {font-family: 'Genos';src: url('/storage/builder_fonts/latin/Genos.ttf') format("truetype");}
+@font-face {font-family: 'Geologica';src: url('/storage/builder_fonts/latin/Geologica.ttf') format("truetype");}
+@font-face {font-family: 'Handjet';src: url('/storage/builder_fonts/latin/Handjet.ttf') format("truetype");}
+@font-face {font-family: 'Inter';src: url('/storage/builder_fonts/latin/Inter.ttf') format("truetype");}
+@font-face {font-family: 'Jaro';src: url('/storage/builder_fonts/latin/Jaro.ttf') format("truetype");}
+@font-face {font-family: 'JosefinSans';src: url('/storage/builder_fonts/latin/JosefinSans.ttf') format("truetype");}
+@font-face {font-family: 'Jura';src: url('/storage/builder_fonts/latin/Jura.ttf') format("truetype");}
+@font-face {font-family: 'Karla';src: url('/storage/builder_fonts/latin/Karla.ttf') format("truetype");}
+@font-face {font-family: 'KodeMono';src: url('/storage/builder_fonts/latin/KodeMono.ttf') format("truetype");}
+@font-face {font-family: 'Lemonada';src: url('/storage/builder_fonts/latin/Lemonada.ttf') format("truetype");}
+@font-face {font-family: 'Lexend';src: url('/storage/builder_fonts/latin/Lexend.ttf') format("truetype");}
+@font-face {font-family: 'LexendMega';src: url('/storage/builder_fonts/latin/LexendMega.ttf') format("truetype");}
+@font-face {font-family: 'Marhey';src: url('/storage/builder_fonts/latin/Marhey.ttf') format("truetype");}
+@font-face {font-family: 'MavenPro';src: url('/storage/builder_fonts/latin/MavenPro.ttf') format("truetype");}
+@font-face {font-family: 'MuseoModerno';src: url('/storage/builder_fonts/latin/MuseoModerno.ttf') format("truetype");}
+@font-face {font-family: 'NotoSans';src: url('/storage/builder_fonts/latin/NotoSans.ttf') format("truetype");}
+@font-face {font-family: 'Nunito';src: url('/storage/builder_fonts/latin/Nunito.ttf') format("truetype");}
+@font-face {font-family: 'Ojuju';src: url('/storage/builder_fonts/latin/Ojuju.ttf') format("truetype");}
+@font-face {font-family: 'OpenSans';src: url('/storage/builder_fonts/latin/OpenSans.ttf') format("truetype");}
+@font-face {font-family: 'Orbitron';src: url('/storage/builder_fonts/latin/Orbitron.ttf') format("truetype");}
+@font-face {font-family: 'Oswald';src: url('/storage/builder_fonts/latin/Oswald.ttf') format("truetype");}
+@font-face {font-family: 'Outfit';src: url('/storage/builder_fonts/latin/Outfit.ttf') format("truetype");}   
+@font-face {font-family: 'Oxanium';src: url('/storage/builder_fonts/latin/Oxanium.ttf') format("truetype");}
+@font-face {font-family: 'Phudu';src: url('/storage/builder_fonts/latin/Phudu.ttf') format("truetype");}
+@font-face {font-family: 'PixelifySans';src: url('/storage/builder_fonts/latin/PixelifySans.ttf') format("truetype");}
+@font-face {font-family: 'PlaypenSans';src: url('/storage/builder_fonts/latin/PlaypenSans.ttf') format("truetype");}
+@font-face {font-family: 'Quicksand';src: url('/storage/builder_fonts/latin/Quicksand.ttf') format("truetype");}
+@font-face {font-family: 'RadioCanadaBig';src: url('/storage/builder_fonts/latin/RadioCanadaBig.ttf') format("truetype");}
+@font-face {font-family: 'Recursive';src: url('/storage/builder_fonts/latin/Recursive.ttf') format("truetype");}
+@font-face {font-family: 'REM';src: url('/storage/builder_fonts/latin/REM.ttf') format("truetype");}
+@font-face {font-family: 'Rubik';src: url('/storage/builder_fonts/latin/Rubik.ttf') format("truetype");}
+@font-face {font-family: 'Saira';src: url('/storage/builder_fonts/latin/Saira.ttf') format("truetype");}
+@font-face {font-family: 'ShantellSans';src: url('/storage/builder_fonts/latin/ShantellSans.ttf') format("truetype");}
+@font-face {font-family: 'Signika';src: url('/storage/builder_fonts/latin/Signika.ttf') format("truetype");}
+@font-face {font-family: 'Sixtyfour';src: url('/storage/builder_fonts/latin/Sixtyfour.ttf') format("truetype");}
+@font-face {font-family: 'SmoochSans';src: url('/storage/builder_fonts/latin/SmoochSans.ttf') format("truetype");}
+@font-face {font-family: 'SometypeMono';src: url('/storage/builder_fonts/latin/SometypeMono.ttf') format("truetype");}
+@font-face {font-family: 'SpaceGrotesk';src: url('/storage/builder_fonts/latin/SpaceGrotesk.ttf') format("truetype");}
+@font-face {font-family: 'SplineSansMono';src: url('/storage/builder_fonts/latin/SplineSansMono.ttf') format("truetype");}
+@font-face {font-family: 'StickNoBills';src: url('/storage/builder_fonts/latin/StickNoBills.ttf') format("truetype");}
+@font-face {font-family: 'Syne';src: url('/storage/builder_fonts/latin/Syne.ttf') format("truetype");}
+@font-face {font-family: 'Teko';src: url('/storage/builder_fonts/latin/Teko.ttf') format("truetype");}
+@font-face {font-family: 'Tektur';src: url('/storage/builder_fonts/latin/Tektur.ttf') format("truetype");}
+@font-face {font-family: 'TiltNeon';src: url('/storage/builder_fonts/latin/TiltNeon.ttf') format("truetype");}
+@font-face {font-family: 'TiltPrism';src: url('/storage/builder_fonts/latin/TiltPrism.ttf') format("truetype");}
+@font-face {font-family: 'TiltWarp';src: url('/storage/builder_fonts/latin/TiltWarp.ttf') format("truetype");}
+@font-face {font-family: 'Truculenta';src: url('/storage/builder_fonts/latin/Truculenta.ttf') format("truetype");}
+@font-face {font-family: 'UbuntuSans';src: url('/storage/builder_fonts/latin/UbuntuSans.ttf') format("truetype");}
+@font-face {font-family: 'Unbounded';src: url('/storage/builder_fonts/latin/Unbounded.ttf') format("truetype");}
+@font-face {font-family: 'WixMadeforDisplay';src: url('/storage/builder_fonts/latin/WixMadeforDisplay.ttf') format("truetype");}
+@font-face {font-family: 'Workbench';src: url('/storage/builder_fonts/latin/Workbench.ttf') format("truetype");}
+@font-face {font-family: 'YsabeauOffice';src: url('/storage/builder_fonts/latin/YsabeauOffice.ttf') format("truetype");}
+@font-face {font-family: 'IndieFlower';src: url('/storage/builder_fonts/latin/IndieFlower.ttf') format("truetype");}
+@font-face {font-family: 'Arizonia';src: url('/storage/builder_fonts/latin/Arizonia.ttf') format("truetype");}
+@font-face {font-family: 'Cookie';src: url('/storage/builder_fonts/latin/Cookie.ttf') format("truetype");}
+@font-face {font-family: 'DeliciousHandrawn';src: url('/storage/builder_fonts/latin/DeliciousHandrawn.ttf') format("truetype");}
+@font-face {font-family: 'DeliusUnicase';src: url('/storage/builder_fonts/latin/DeliusUnicase.ttf') format("truetype");}
+@font-face {font-family: 'Englebert';src: url('/storage/builder_fonts/latin/Englebert.ttf') format("truetype");}
+@font-face {font-family: 'Festive';src: url('/storage/builder_fonts/latin/Festive.ttf') format("truetype");}
+@font-face {font-family: 'Flavors';src: url('/storage/builder_fonts/latin/Flavors.ttf') format("truetype");}
+@font-face {font-family: 'GochiHand';src: url('/storage/builder_fonts/latin/GochiHand.ttf') format("truetype");}
+@font-face {font-family: 'Grandstander';src: url('/storage/builder_fonts/latin/Grandstander.ttf') format("truetype");}
+@font-face {font-family: 'HachiMaruPop';src: url('/storage/builder_fonts/latin/HachiMaruPop.ttf') format("truetype");}
+@font-face {font-family: 'Kings';src: url('/storage/builder_fonts/latin/Kings.ttf') format("truetype");}
+@font-face {font-family: 'Kristi';src: url('/storage/builder_fonts/latin/Kristi.ttf') format("truetype");}
+@font-face {font-family: 'LuckiestGuy';src: url('/storage/builder_fonts/latin/LuckiestGuy.ttf') format("truetype");}
+@font-face {font-family: 'Neonderthaw';src: url('/storage/builder_fonts/latin/Neonderthaw.ttf') format("truetype");}
+@font-face {font-family: 'Qwigley';src: url('/storage/builder_fonts/latin/Qwigley.ttf') format("truetype");}
+@font-face {font-family: 'Rancho';src: url('/storage/builder_fonts/latin/Rancho.ttf') format("truetype");}
+@font-face {font-family: 'RockSalt';src: url('/storage/builder_fonts/latin/RockSalt.ttf') format("truetype");}
+@font-face {font-family: 'Satisfy';src: url('/storage/builder_fonts/latin/Satisfy.ttf') format("truetype");}
+@font-face {font-family: 'ShadowsIntoLight';src: url('/storage/builder_fonts/latin/ShadowsIntoLight.ttf') format("truetype");}
+@font-face {font-family: 'Updock';src: url('/storage/builder_fonts/latin/Updock.ttf') format("truetype");}
+@font-face {font-family: 'WalterTurncoat';src: url('/storage/builder_fonts/latin/WalterTurncoat.ttf') format("truetype");}
+@font-face {font-family: 'ZenLoop';src: url('/storage/builder_fonts/latin/ZenLoop.ttf') format("truetype");}
+@font-face {font-family: 'Zeyada';src: url('/storage/builder_fonts/latin/Zeyada.ttf') format("truetype");}

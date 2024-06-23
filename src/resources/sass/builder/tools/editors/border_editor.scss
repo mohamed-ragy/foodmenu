@@ -1,0 +1,16 @@
+.border_editor_lock{
+    font-size:1.1em;
+    margin-inline-start:10px;
+    cursor: pointer;
+}
+.border_editor_lock.ico-lock:before{
+   color:var(--orange)
+}
+.border_editor_remove_hover{
+    margin-inline-start: 10px;
+    font-size: 1.45em;
+    cursor: pointer;
+}
+.border_editor_remove_hover:hover{
+    color:var(--red);
+}

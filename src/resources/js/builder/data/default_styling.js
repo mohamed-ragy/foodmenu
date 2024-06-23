@@ -1,32 +1,57 @@
-get_default_style = function(style,push_data){
+get_default_style = function(style,push_data={}){
+    let data;
     switch(style){
         case 'section_wrapper':
+            data = {
+                'box-sizing': 'border-box',
+                'position': 'relative',
+                'display': 'grid',
+                'padding-right':'0px',
+                'padding-left':'0px',
+                'margin-right': 'auto',
+                'margin-left': 'auto',
 
+                'max-width': 'var(--page_max_width)',
+                'min-height': '500px',
+                'padding-top': '100px',
+                'padding-bottom': '100px',
+                'grid-gap': '10px',
+                'margin-top': '0px',
+                'margin-bottom': '0px',
+            }
         break;
-        // case 'background_image':
-        //     return {
-        //         'background-image': '/storage/imgs/cpanel/noimg.png',
-        //         'background-attachment': 'local',
-        //         'background-position': '50% 50%',
-        //         'background-repeat': 'no-repeat',
-        //         'background-size': 'cover',
-        //         'background-blend-mode': 'normal',
-        //         // 'background-color': 'rgba(200,200,200,1)',
-        //     };
-        // break;
-        // case 'background_image_mobile':
-        //     return {
-        //         'background-attachment': 'local',
-        //         'background-position': '50% 50%',
-        //         'background-repeat': 'no-repeat',
-        //         'background-size': 'cover',
-        //     };
-        // break;
-        case 'backdrop-filter':
-            return 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)';
+        case 'section_wrapper_mobile':
+            data = {
+                'max-width': 'var(--page_max_width)',
+                'min-height': '500px',
+                'padding-top': '100px',
+                'padding-bottom': '100px',
+                'grid-gap': '5px',
+                'margin-top': '0px',
+                'margin-bottom': '0px',
+            }
+        break;
+        case 'background':
+            data =  {
+                type:'none',
+                color:'rgba(var(--color_1_7),1)',
+                gradient:get_default_style('linear_gradient'),
+                backdrop_filter:get_default_style('backdrop_filter'),
+                backdrop_filter_color:'rgba(var(--color_1_7),.2)',
+                background_image: '/storage/imgs/cpanel/noimg.png',
+                background_attachment: 'local',
+                background_size: 'cover',
+                background_repeat: 'no-repeat',
+                background_position: '50% 50%',
+                background_blend_mode: 'normal',
+                background_blend_mode_color:'rgba(var(--color_1_2),1)',
+            };
+        break;
+        case 'backdrop_filter':
+            data = 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)';
         break;
         case 'animation':
-            return {
+            data = {
                 name:'no_animation',
                 repeat:'0',
     
@@ -62,43 +87,23 @@ get_default_style = function(style,push_data){
             };
         break;
         case 'transform':
-            return 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
+            data = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
         break;
         case 'filter':
-            return 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))';
+            data = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))';
         break;
         case 'linear_gradient':
-            return 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
+            data = 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
         break;
         case 'radial_gradient':
-            return 'radial-gradient(circle, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
+            data = 'radial-gradient(circle, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
         break;
         case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
-        break;
-        case '':
-            return '';
+            data = '';
         break;
     }
+    for(const key in push_data){
+        data[key] = push_data[key]
+    }
+    return data;
 }

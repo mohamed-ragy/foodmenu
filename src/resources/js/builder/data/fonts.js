@@ -1,7 +1,9 @@
 window.fonts = [
     {
-        text:'Inter',
-        name:'inter',
+        text:'Rubik',
+        name:'Rubik',
+        language:'latin',
+        stroke:'sans-serif',
     },{
         text:'Nunito',
         name:'Nunito',
@@ -11,8 +13,5 @@ window.fonts = [
     },{
         text:'Play fair display',
         name:'playfairDisplay',
-    },{
-        text:'Rubik',
-        name:'rubik',
-    },
+    }
 ]

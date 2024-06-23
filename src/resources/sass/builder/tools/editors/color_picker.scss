@@ -735,8 +735,9 @@ input.clr-color{
   height:25px;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 0 5px var(--shdw-10);
+  box-shadow: 0 0 0px 1px var(--shdw-10);
   overflow: hidden;
+  flex-shrink: 0;
 }
 .color_picker_editor:after{
   z-index: -1;

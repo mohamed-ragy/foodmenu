@@ -1,10 +1,21 @@
 request_pexels_search = function(search,page){
     $('#imgBrowser_imgs_container_pexels').text('');
     draw_imgBrowser_loading_imgs('pexels');
-    showBtnLoading($('#imgBrowser_pexels_search_btn'))
     $('.imgBrowser_pexels_pagination').removeClass('none');
     $('.imgBrowser_pexels_pagination_prev').addClass('imgBrowser_pexels_pagination_arrow_dump')
     $('.imgBrowser_pexels_pagination_next').addClass('imgBrowser_pexels_pagination_arrow_dump')
+    let orientation = get_dummy_val($('.pexels_filters_orientation')) ?? ''
+    let size = get_dummy_val($('.pexels_filters_size')) ?? ''
+    let color = '';
+    if($('.pexels_filters_color_container').attr('key') == 'color'){
+        color = get_dummy_val($('.pexels_filters_color'))
+        let color_nmae = color.replace('rgba(var(--','').replace('),1)','');
+        color = window.template.website_colors.colors[color_nmae];
+        if(typeof(color) === 'undefined'){
+            color = window.template.website_colors.custom_colors[color_nmae]
+        }
+        color = rgbToHex(`rgb(${color.r},${color.g},${color.b})`).replace('#','');
+    }
     $.ajax({
         url:'/imgs',
         type:'post',
@@ -12,9 +23,9 @@ request_pexels_search = function(search,page){
             _token:$('meta[name="csrf-token"]').attr('content'),
             search_pexels:search,
             page:page,
-            orientation:window.pexels_filters_orientation,
-            size:window.pexels_filters_size,
-            color:window.pexels_filters_color,
+            orientation:orientation,
+            size:size,
+            color:color,
         },success:function(r){
             window.pexels_search_last = search;
             hideBtnLoading($('#imgBrowser_pexels_search_btn'))
@@ -107,59 +118,57 @@ appendToImgBrowser_pexels = function(img){
 }
 
 //events
-$('body').on('click','#imgBrowser_pexels_search_btn',function(e){
-    //e.stopImmediatePropagation();
-    if($('.pexels_search').val() == ''){return;}
-    request_pexels_search($('.pexels_search').val(),1)
-})
-$(document).on('input','.color_picker_pexels_search',function(e){
-    $(this).css('background-color',$(this).val())
-    window.pexels_filters_color = rgbToHex($(this).val()).replace('#','')
-    $('.color_picker_pexels_search_txt').text('').append(
-        $('<span/>',{class:'ico-close fs085 mie-5'}),
-        $('<span/>',{text:texts.remove})
-    );
-    return;
-});
-$('body').on('click','.color_picker_pexels_search_txt',function(e){
-    //e.stopImmediatePropagation();
-    if($('.color_picker_pexels_search').val() == ''){
-        $('.color_picker_pexels_search').removeClass('none')
-        $('.color_picker_pexels_search').trigger('click')
+$('body').on('click','.pexels_search_filters_toggle',function(){
+    if($(this).hasClass('pexels_search_filters_toggle_selected')){
+        $(this).removeClass('pexels_search_filters_toggle_selected')
+        $('.pexels_search_filters').addClass('none')
     }else{
-        window.pexels_filters_color = '';
-        $('.color_picker_pexels_search').val('')
-        $('.color_picker_pexels_search').css('background-color','transparent')
-        $('.color_picker_pexels_search_txt').text(texts.allColors)
-        $('.color_picker_pexels_search').addClass('none')
+        $(this).addClass('pexels_search_filters_toggle_selected')
+        $('.pexels_search_filters').removeClass('none')
     }
+})
+$('body').on('change','.pexels_filters_color',function(){
+    $('.pexels_filters_color_container').attr('key','color');
+    $('.pexels_filters_color_txt').text('').append(
+        $('<span/>',{class:'ico-close pexels_filters_remove_color pointer fs08 mie-10 cR'}),
+        $('<span/>',{text:texts.website_style.remove_color})
+    )
+})
+$('body').on('click','.pexels_filters_remove_color',function(){
+    $('.pexels_filters_color_container').attr('key','allColors');
+    $('.pexels_filters_color_txt').text(texts.allColors)
+    set_dummy_color_picker($('.pexels_filters_color'),'--')
+})
+
+$('body').on('click','#imgBrowser_pexels_search_btn',function(e){
+    if($('.pexels_search').val() == ''){
+        showAlert('error',texts.responses.pexels_search_no_keywords,4000,true);
+        $('.pexels_search').focus();
+        return;
+    }
+    request_pexels_search($('.pexels_search').val(),1)
 })
 ///
 $('body').on('click','.imgBrowser_pexels_pagination_next',function(e){
-    //e.stopImmediatePropagation();
     if($(this).hasClass('imgBrowser_pexels_pagination_arrow_dump')){return;}
     request_pexels_search(window.pexels_search_last,parseInt(window.pexels_search_page) + 1)
 })
 $('body').on('click','.imgBrowser_pexels_pagination_prev',function(e){
-    //e.stopImmediatePropagation();
     if($(this).hasClass('imgBrowser_pexels_pagination_arrow_dump')){return;}
     request_pexels_search(window.pexels_search_last,parseInt(window.pexels_search_page) - 1)
 })
 //
 $('body').on('click','.pexels_ToLibrary',function(e){
-    //e.stopImmediatePropagation();
     showBtnLoading($('.pexels_ToLibrary_save'))
     showBtnLoading($('.pexels_ToLibrary'))
     add_pexel_image_to_library($(this).closest('.imgsImgCard_pexels').attr('imgId'))
 })
 $('body').on('click','.pexels_ToLibrary_save',function(e){
-    //e.stopImmediatePropagation();
     showBtnLoading($('.pexels_ToLibrary_save'))
     showBtnLoading($('.pexels_ToLibrary'))
     add_pexel_image_to_library($(this).closest('.imgsImgCard_pexels').attr('imgId'),function(img){
-        let key_tree = $('#imgBrowser_imgs_container_pexels').attr('key_tree');
         img_src = img.url;
-        get_key_tree(key_tree).elem[$('#imgBrowser_imgs_container_storage').attr('key')] = img_src;
+        set_val(window.select_image_editor,img_src)
         new_action();
         close_popup();
     })

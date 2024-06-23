@@ -15,6 +15,7 @@ draw_number_picker = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        editor_details: data.editor_details ? '1' : '0',
     }).append(
         $('<div/>',{class:'number_picker_val'}).append(
             $('<div/>',{class:'number_picker_btn turbo ico-minus',action:'minus'}),
@@ -22,8 +23,6 @@ draw_number_picker = function(data){
             $('<div/>',{class:'number_picker_btn turbo ico-plus',action:'plus'}),
         ),
         $('<div/>',{class:'number_picker_unit_select',text:''}),
-        data.lock ? $('<div/>',{class:'number_picker_lock ico-unlock'}) : '',
-        data.is_hover ? $('<div/>',{class:'remove_hover number_picker_remove_hover ico-remove_hover none',tooltip:texts.remove_hover}) : '',
     );
     return editor;
 }
@@ -44,24 +43,11 @@ set_number_picker = function(editor){
                 val_unit = val.replace(val_num,'');
             }
         }
-        editor.find('.number_picker_input').val(val_num)
         editor.find('.number_picker_unit_select').text(val_unit)
-    }
-
-    if(editor.find('.number_picker_lock').length > 0){
-        let is_locked = 0;
-        editor.closest('.editors_container').find('.number_picker_editor').each(function(){
-            if(
-                $(this).find('.number_picker_input').val() === editor.find('.number_picker_input').val() && 
-                $(this).find('.number_picker_unit_select').text() === editor.find('.number_picker_unit_select').text()
-            ){
-                is_locked++;
-            }
-        })
-        if(is_locked ==  editor.closest('.editors_container').find('.number_picker_lock').length){
-            editor.closest('.editors_container').find('.number_picker_lock').removeClass('ico-unlock').addClass('ico-lock')
+        if(val_unit == 'auto'){
+            editor.find('.number_picker_input').val('')
         }else{
-            editor.closest('.editors_container').find('.number_picker_lock').addClass('ico-unlock').removeClass('ico-lock')
+            editor.find('.number_picker_input').val(val_num)
         }
     }
 }
@@ -79,13 +65,23 @@ set_dummy_number_picker = function(editor,val){
                 val_unit = val.replace(val_num,'');
             }
         }
-        editor.find('.number_picker_input').val(val_num)
         editor.find('.number_picker_unit_select').text(val_unit)
+        if(val_unit == 'auto'){
+            editor.find('.number_picker_input').val('')
+        }else{
+            editor.find('.number_picker_input').val(val_num)
+        }
     }
 }
 //
 $('body').on('change','.number_picker_input',function(e){
     let editor = $(this).closest('.editor');
+    if(editor.find('.number_picker_unit_select').text() == 'auto'){
+        $(this).val('');
+        set_val($(this),'auto')
+        new_action();
+        return;
+    }
     $(this).val(parseFloat($(this).val()))
     if(isNaN($(this).val())){
         $(this).val(editor.attr('step'))
@@ -95,24 +91,10 @@ $('body').on('change','.number_picker_input',function(e){
         editor.find('.number_picker_unit_select').text(editor.attr('units').split('.')[0])
     }
     let new_val = `${$(this).val()}${editor.find('.number_picker_unit_select').text()}`;
-    let editors_container = editor.closest('.editors_container');
-    if(editors_container.find('.number_picker_lock').hasClass('ico-lock')){
-        editors_container.find('.number_picker_editor').each(function(){
-            set_val($(this),new_val)
-        })
-    }else{
-        set_val($(this),new_val)
-    }
+    set_val($(this),new_val)
     new_action();
 });
 //
-$('body').on('click','.number_picker_lock',function(){
-    if($(this).hasClass('ico-lock')){
-        $(this).closest('.editors_container').find('.number_picker_lock').removeClass('ico-lock').addClass('ico-unlock');
-    }else{
-        $(this).closest('.editors_container').find('.number_picker_lock').removeClass('ico-unlock').addClass('ico-lock');
-    }
-})
 $('body').on('click','.number_picker_unit_select',function(e){
     let editor = $(this).closest('.editor');
     let units = editor.attr('units').split('.');
@@ -137,7 +119,7 @@ $('body').on('click','.number_picker_units_elem',function(e){
     editor.find('.number_picker_unit_select').text($(this).text());
     $('.number_picker_units').addClass('none')
     window.selected_number_picker = null;
-    if(editor.find('.number_picker_input').val() === '--'){
+    if(editor.find('.number_picker_input').val() === '--' || editor.find('.number_picker_input').val() == ''){
         editor.find('.number_picker_input').val(editor.attr('step'))
     }
     editor.find('.number_picker_input').trigger('change')
@@ -146,6 +128,10 @@ $('body').on('click','.number_picker_units_elem',function(e){
 
 $('body').on('mousedown','.number_picker_btn',function(e){
     let editor = $(this).closest('.editor');
+    if(editor.find('.number_picker_unit_select').text() == 'auto'){
+        $(this).val('');
+        return;
+    }
     let step = parseFloat(editor.attr('step'));
     let val_num = editor.find('.number_picker_input').val();
     if(val_num == '--' ){
@@ -161,10 +147,13 @@ $('body').on('mousedown','.number_picker_btn',function(e){
         val_num = Math.round(val_num * 10) / 10;
     }
     editor.find('.number_picker_input').val(val_num)
-    // editor.find('.number_picker_input').trigger('change')
 })
 
 $('body').on('mouseup','.number_picker_btn',function(e){
     let editor = $(this).closest('.editor');
+    if(editor.find('.number_picker_unit_select').text() == 'auto'){
+        $(this).val('');
+        return;
+    }
     editor.find('.number_picker_input').trigger('change')
 })

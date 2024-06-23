@@ -12,9 +12,16 @@ draw_input_list = function(data){
     )
     for(const key in data.selections){
         let selection = data.selections[key];
+        let selection_elem;
         inputList_elems_temp.append(
-            $('<div/>',{class:`inputList_elem ${selection.class}`,text:selection.name,key:selection.val}),
+            selection_elem = $('<div/>',{class:`inputList_elem ${selection.class}`,text:selection.name,key:selection.val,style:selection.style ?? ''}),
         )
+        if('show_elem' in selection){
+            selection_elem.attr('show_elem',selection.show_elem)
+        }
+        if('hide_elem' in selection){
+            selection_elem.attr('hide_elem',selection.hide_elem)
+        }
     }
     return editor;
 }
@@ -26,7 +33,20 @@ set_input_list = function(editor){
     }else{
         let val_text = editor.find(`.inputList_elem[key="${val}"]`).text()
         editor.find('.inputList_val').text(val_text)
-        editor.attr('val',val);
+        editor.attr('val',val ?? '');
+
+        if(typeof(editor.find(`.inputList_elem[key="${val}"]`).attr('show_elem')) !== 'undefined'){
+            let show_elems = editor.find(`.inputList_elem[key="${val}"]`).attr('show_elem').split('.');
+            for(const key in show_elems){
+                $(`.${show_elems[key]}`).removeClass('none')
+            }
+        }
+        if(typeof(editor.find(`.inputList_elem[key="${val}"]`).attr('hide_elem')) !== 'undefined'){
+            let hide_elems = editor.find(`.inputList_elem[key="${val}"]`).attr('hide_elem').split('.')
+            for(const key in hide_elems){
+                $(`.${hide_elems[key]}`).addClass('none')
+            }
+        }
     }
 
     try{

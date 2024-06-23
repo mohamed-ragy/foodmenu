@@ -48,7 +48,7 @@ draw_page = function(page){
                 )
             }
             // try{
-                select(window.selected);
+            select(window.selected);
             // }catch{}
             // $(`section[key_tree="home.${window.selected_section}"]`).addClass('section_selected');
             // $(`.section_block[key_tree="${window.selected_section_block}"]`).addClass('section_block_selected')
@@ -76,18 +76,6 @@ create_html = function(elem,key_tree){
                 val = 'none';
             }
         }
-        // if('background' in elem){
-
-        //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
-        //         val = 'unset';
-        //     }
-        //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
-        //         key = 'background-color';
-        //     }
-        //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-        //         val = 'unset'
-        //     }
-        // }
         if('animation' in elem){
             if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation'){
                 if(key == 'transform'){
@@ -102,25 +90,34 @@ create_html = function(elem,key_tree){
     }
 
     if('background' in elem){
-        if(elem.background.background == 'none'){
+        if(elem.background.type == 'none'){
             style_desktop_obj['background-color'] = 'unset';
-        }else if(elem.background.background == 'color'){
+        }else if(elem.background.type == 'color'){
             style_desktop_obj['background-color'] = elem.background.color;
-        }else if(elem.background.background == 'gradient'){
+        }else if(elem.background.type == 'gradient'){
             style_desktop_obj['background'] = elem.background.gradient;
+        }else if(elem.background.type == 'backdrop_filter'){
+            style_desktop_obj['background-color'] = elem.background.backdrop_filter_color;
+            style_desktop_obj['backdrop-filter'] = elem.background.backdrop_filter;
+
+        }else if(elem.background.type == 'image'){
+            style_desktop_obj['background-image'] = `url('${elem.background.background_image}')`
+            style_desktop_obj['background-size'] = elem.background.background_size;
+            style_desktop_obj['background-attachment'] = elem.background.background_attachment;
+            style_desktop_obj['background-repeat'] = elem.background.background_repeat;
+            style_desktop_obj['background-position'] = elem.background.background_position;
+            style_desktop_obj['background-blend-mode'] = elem.background.background_blend_mode;
+            style_desktop_obj['background-color'] = elem.background.background_blend_mode_color;
         }
-    //     if(elem.background == 'image'){
-    //         for(const key in elem.background_image){
-    //             let val = elem.background_image[key];
-    //             if(key == 'background-image'){val = `url('${val}')`}
-    //             style_desktop_obj[key] = val;
-    //         }
-    //     }
     }
     if('font_style' in elem){
-        style_desktop_obj['font-family'] = `var(--${elem.font_style}_name)`;
-        style_desktop_obj['line-height'] = `var(--${elem.font_style}_line_height)`;
-        style_desktop_obj['letter-spacing'] = `var(--${elem.font_style}_letter_spacing)`;
+        if(typeof(elem.font_style) === 'object'){
+            if(window.preview_language in elem.font_style){
+                style_desktop_obj['font-family'] = elem.font_style[window.preview_language];
+            }
+        }
+    //     style_desktop_obj['line-height'] = `var(--${elem.font_style}_line_height)`;
+    //     style_desktop_obj['letter-spacing'] = `var(--${elem.font_style}_letter_spacing)`;
     }
 
 
@@ -136,17 +133,6 @@ create_html = function(elem,key_tree){
                 val = 'none';
             }
         }
-        // if('background' in elem){
-        //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
-        //         val = 'unset';
-        //     }
-        //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
-        //         key = 'background-color';
-        //     }
-        //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-        //         val = 'unset'
-        //     }
-        // }
         if('animation' in elem){
             if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation'){
                 if(key == 'transform'){
@@ -160,20 +146,25 @@ create_html = function(elem,key_tree){
         style_mobile_obj[key] = val;
     }
     if('background_mobile' in elem){
-        if(elem.background_mobile.background == 'none'){
+        if(elem.background_mobile.type == 'none'){
             style_mobile_obj['background-color'] = 'unset';
-        }else if(elem.background_mobile.background == 'color'){
+        }else if(elem.background_mobile.type == 'color'){
             style_mobile_obj['background-color'] = elem.background_mobile.color;
-        }else if(elem.background_mobile.background == 'gradient'){
+        }else if(elem.background_mobile.type == 'gradient'){
             style_mobile_obj['background'] = elem.background_mobile.gradient;
+        }else if(elem.background_mobile.type == 'backdrop_filter'){
+            style_mobile_obj['background-color'] = elem.background_mobile.backdrop_filter_color;
+            style_mobile_obj['backdrop-filter'] = elem.background_mobile.backdrop_filter;
+
+        }else if(elem.background_mobile.type == 'image'){
+            style_mobile_obj['background-image'] = `url('${elem.background_mobile.background_image}')`
+            style_mobile_obj['background-size'] = elem.background_mobile.background_size;
+            style_mobile_obj['background-attachment'] = elem.background_mobile.background_attachment;
+            style_mobile_obj['background-repeat'] = elem.background_mobile.background_repeat;
+            style_mobile_obj['background-position'] = elem.background_mobile.background_position;
+            style_mobile_obj['background-blend-mode'] = elem.background_mobile.background_blend_mode;
+            style_mobile_obj['background-color'] = elem.background_mobile.background_blend_mode_color;
         }
-    //     if(elem.background == 'image'){
-    //         for(const key in elem.background_image_mobile){
-    //             let val = elem.background_image_mobile[key];
-    //             if(key == 'background-image'){val = `url('${val}')`}
-    //             style_mobile_obj[key] = val;
-    //         }
-    //     }
     }
     ///
     if(elem.type == 'home_section' && elem.has_driver == '1'){
@@ -206,17 +197,6 @@ create_html = function(elem,key_tree){
         style_hover_desktop_obj = JSON.parse(JSON.stringify(style_desktop_obj));
         for(let key in elem.css_hover){
             let val = elem.css_hover[key];
-            // if('background' in elem){
-            //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
-            //         val = 'unset';
-            //     }
-            //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
-            //         key = 'background-color';
-            //     }
-            //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-            //         val = 'unset'
-            //     }
-            // }
             style_hover_desktop_obj[key] = val;
         }
     // }
@@ -224,17 +204,6 @@ create_html = function(elem,key_tree){
         style_hover_mobile_obj = JSON.parse(JSON.stringify(style_mobile_obj));
         for(let key in elem.css_mobile_hover){
             let val = elem.css_mobile_hover[key];
-            // if('background' in elem){
-            //     if(elem.background != 'backdrop_filter' && key == 'backdrop-filter'){
-            //         val = 'unset';
-            //     }
-            //     if(elem.background =='backdrop_filter' && key == 'backdrop_filter_color'){
-            //         key = 'background-color';
-            //     }
-            //     if(elem.background == 'backdrop_filter' && val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-            //         val = 'unset'
-            //     }
-            // }
             style_hover_mobile_obj[key] = val;
         }
     }
@@ -269,9 +238,9 @@ create_html = function(elem,key_tree){
         }
         classes = `${classes} ${elem.class_selector}`
     }
-    if('font_style' in elem){
-        classes = `${classes} ${elem.font_style}`
-    }
+    // if('font_style' in elem){
+    //     classes = `${classes} ${elem.font_style}`
+    // }
     if('class' in elem && elem.class != null){
         classes = `${classes} ${elem.class}`
     }
@@ -365,7 +334,7 @@ create_html = function(elem,key_tree){
                     html = `${html}</svg> `;
                 }
 
-                let section = get_key_tree(key_tree).elem;
+                let section = get_elem_data(key_tree).elem;
                 html = `${html}<div class="select_section_title builder_font"><div class="ico-align_center contextMenu" key_tree="${key_tree}"></div><div>${section.name}</div></div>`;
                 html = `${html}<button class="btn btn-cancel add_home_section add_home_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>`
             }else if(elem.type == 'home_section_block'){
@@ -418,8 +387,14 @@ create_html = function(elem,key_tree){
     return html;
 }
 reset_class_selectors = function(elem){
+    let _small_hash = small_hash();
     if('class_selector' in elem){
-        elem.class_selector = elem.class_selector+small_hash();
+        elem.class_selector = elem.class_selector+_small_hash;
+    }
+    if('text' in elem){
+        if('key' in elem.text){
+            elem.text.key = elem.text.key+_small_hash;
+        }
     }
     if('children' in elem){
         for(const key in elem.children){

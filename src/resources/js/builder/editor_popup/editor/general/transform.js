@@ -4,7 +4,6 @@ draw_editor_popup_transform = function(){
             draw_transform_selector({
                 keys_arr:[{key_tree:`${window.selected}.css`,key:'transform'}],
                 is_responsive:true,
-                is_hover:true,
             }),
         )
         $(`.editor_popup_body_shortcut.editor_transform`).addClass('editor_popup_body_shortcut_selected')

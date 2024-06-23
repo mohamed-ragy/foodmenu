@@ -1,0 +1,59 @@
+.select_background_filter{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.background_filter_preview{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:8px;
+    cursor: pointer;
+}
+.background_filter_preview_name{
+    margin:5px;
+    margin-top:10px;
+    font-size: .75em;
+}
+.background_filter_preview_img{
+    width:100px;
+    height:50px;
+    cursor: pointer;
+    border-radius: 1px;
+    padding:1px;
+    position: relative;
+    overflow: hidden;
+    outline:2px solid var(--white-2);
+    outline-offset: 2px;
+    transition-duration: 100ms;
+    background-attachment: local;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.background_filter_preview:hover{
+    .background_filter_preview_img{
+        outline:2px solid var(--white-3);
+    }
+}
+.background_filter_preview_selected{
+    .background_filter_preview_img{
+        outline:2px solid var(--green);
+    }
+    .background_filter_preview_name{
+        color:var(--green);
+        font-weight: bold;
+    }
+}
+.background_filter_preview_selected:hover{
+    .background_filter_preview_img{
+        outline:2px solid var(--green);
+    }
+    .background_filter_preview_name{
+        color:var(--green);
+        font-weight: bold;
+    }
+}

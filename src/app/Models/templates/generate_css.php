@@ -7,6 +7,7 @@ class generate_css
     public $template;
     public $css_file = '';
     public $animations;
+    public $fonts = [];
     public function add_to_file($css){
         $this->css_file = $this->css_file.$css;
     }
@@ -21,6 +22,7 @@ class generate_css
     public function generate($template){
         $this->template = $template;
         $this->animations = ['0' => templates_data::page_transitions()[$this->template['page_setup']['pageTransition']]];
+        $this->fonts = templates_data::fonts();
         self::generate_vars();
         self::generate_global_selectors();
 
@@ -66,65 +68,70 @@ class generate_css
     }
     public function generate_class($elem){
         if(array_key_exists('class_selector',$elem)){
-            if(array_key_exists('font_style',$elem)){
-                $elem['css']['font-family'] = "var(--{$elem['font_style']}_name)";
-                $elem['css']['line-height'] = "var(--{$elem['font_style']}_line_height)";
-                $elem['css']['letter-spacing'] = "var(--{$elem['font_style']}_letter_spacing)";
-            }
+
             if(!empty($elem['css'])){
                 $css_start = ".{$elem['class_selector']}{";
                 $css = '';
                 // $css_hover = '';
                 foreach($elem['css'] as $key => $val){
-                    if(array_key_exists('background', $elem)){
-                        if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
-                            $val = 'unset';
-                        }
-                        if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
-                            $key = 'background-color';
-                        }
-                        if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-                            $val = 'unset';
-                        }
-                    }
                     $css = $css."{$key}:{$val};";
+                }
+                if(array_key_exists('font-family',$elem['css'])){
+                    $font = $this->fonts[array_search($elem['css']['font-family'], array_column($this->fonts, 'name'))];
+                    self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
+                }
+                if(array_key_exists('background', $elem)){
+                    if($elem['background']['type'] == 'none'){
+                        $css = $css."background-color:unset;";
+                    }else if($elem['background']['type'] == 'color'){
+                        $css = $css."background-color:{$elem['background']['color']};";
+                    }else if($elem['background']['type'] == 'gradient'){
+                        $css = $css."background:{$elem['background']['gradient']};";
+                    }else if($elem['background']['type'] == 'backdrop_filter'){
+                        $css = $css."background-color:{$elem['background']['backdrop_filter_color']};";
+                        $css = $css."backdrop-filter:{$elem['background']['backdrop_filter']};";
+                    }else if($elem['background']['type'] == 'image'){
+                        $css = $css."background-image:url({$elem['background']['background_image']});";
+                        $css = $css."background-size:{$elem['background']['background_size']};";
+                        $css = $css."background-attachment:{$elem['background']['background_attachment']};";
+                        $css = $css."background-repeat:{$elem['background']['background_repeat']};";
+                        $css = $css."background-position:{$elem['background']['background_position']};";
+                        $css = $css."background-blend-mode:{$elem['background']['background_blend_mode']};";
+                        $css = $css."background-color:{$elem['background']['background_blend_mode_color']};";
+                    
+                    }
                 }
                 $css = $css."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                 if(array_key_exists('css_mobile', $elem)){
                     foreach($elem['css_mobile'] as $key => $val){
-                        if(array_key_exists('background', $elem)){
-                            if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
-                                $val = 'unset';
-                            }
-                            if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
-                                $key = 'background-color';
-                            }
-                            if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-                                $val = 'unset';
-                            }
-                        }
                         $css = $css."{$key}:{$val};";
                     }
-                }
-                if(array_key_exists('background', $elem)){
-                    if($elem['background'] == 'image'){
-                        foreach($elem['background_image_mobile'] as $key => $val){
-                            if($key == 'background-image'){$val = "url('".$val."')";}
-                            $css = $css."{$key}:{$val};";
+                    if(array_key_exists('font-family',$elem['css_mobile'])){
+                        $font = $this->fonts[array_search($elem['css_mobile']['font-family'], array_column($this->fonts, 'name'))];
+                        self::add_to_file("@font-face {font-family: 'Rubik';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
+                    }
+                    if(array_key_exists('background_mobile', $elem) ){
+                        if($elem['background_mobile']['type'] == 'none'){
+                            $css = $css."background-color:unset;";
+                        }else if($elem['background_mobile']['type'] == 'color'){
+                            $css = $css."background-color:{$elem['background_mobile']['color']};";
+                        }else if($elem['background_mobile']['type'] == 'gradient'){
+                            $css = $css."background:{$elem['background_mobile']['gradient']};";
+                        }else if($elem['background_mobile']['type'] == 'backdrop_filter'){
+                            $css = $css."background-color:{$elem['background_mobile']['backdrop_filter_color']};";
+                            $css = $css."backdrop-filter:{$elem['background_mobile']['backdrop_filter']};";
+                        }else if($elem['background_mobile']['type'] == 'image'){
+                            $css = $css."background-image:url({$elem['background_mobile']['background_image']});";
+                            $css = $css."background-size:{$elem['background_mobile']['background_size']};";
+                            $css = $css."background-attachment:{$elem['background_mobile']['background_attachment']};";
+                            $css = $css."background-repeat:{$elem['background_mobile']['background_repeat']};";
+                            $css = $css."background-position:{$elem['background_mobile']['background_position']};";
+                            $css = $css."background-blend-mode:{$elem['background_mobile']['background_blend_mode']};";
+                            $css = $css."background-color:{$elem['background_mobile']['background_blend_mode_color']};";
                         }
                     }
                 }
                 $css = $css."}";
-
-                if(array_key_exists('background', $elem)){
-                    if($elem['background'] == 'image'){
-                        foreach($elem['background_image'] as $key => $val){
-                            if($key == 'background-image'){$val = "url('".$val."')";}
-                            $css = $css."{$key}:{$val};";
-                        }
-                    }
-                }
-
                 $css_end = "}";
                 $final_css = $css_start.$css.$css_end;
 
@@ -132,33 +139,11 @@ class generate_css
                     $css_hover = '';
                     $css_hover_start = ".{$elem['class_selector']}:hover{";
                     foreach($elem['css_hover'] as $key => $val){
-                        if(array_key_exists('background', $elem)){
-                            if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
-                                $val = 'unset';
-                            }
-                            if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
-                                $key = 'background-color';
-                            }
-                            if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-                                $val = 'unset';
-                            }
-                        }
                         $css_hover = $css_hover."{$key}:{$val};";
                     }
                     if(array_key_exists('css_mobile_hover',$elem)){
                         $css_hover = $css_hover."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                             foreach($elem['css_mobile_hover'] as $key => $val){
-                                if(array_key_exists('background', $elem)){
-                                    if($elem['background'] != 'backdrop_filter' && $key == 'backdrop-filter'){
-                                        $val = 'unset';
-                                    }
-                                    if($elem['background'] =='backdrop_filter' && $key == 'backdrop_filter_color'){
-                                        $key = 'background-color';
-                                    }
-                                    if($elem['background'] == 'backdrop_filter' && $val == 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)'){
-                                        $val = 'unset';
-                                    }
-                                }
                                 $css_hover = $css_hover."{$key}:{$val};";
                             }
                         $css_hover = $css_hover."}";
@@ -271,7 +256,8 @@ class generate_css
                         }else{
                             $final_css = $final_css.$css_hover_start.$css_hover.$css_hover_end;
                         }
-                    }else{
+                    }
+                    else{
                         $final_css = $final_css.$css_hover_start.$css_hover.$css_hover_end;
                     }
                 }
@@ -375,18 +361,6 @@ class generate_css
         :root{
         --adapted_header_font_color:{$this->template['website_header']['adapted_font_color']};
 
-        --font_1_name:'{$this->template['font_style']['font_1']['name']}', '{$this->template['font_style']['google_font']['name']}', sans-serif;
-        --font_1_line_height:{$this->template['font_style']['font_1']['line_height']};
-        --font_1_letter_spacing:{$this->template['font_style']['font_1']['letter_spacing']};
-
-        --font_2_name:'{$this->template['font_style']['font_2']['name']}', '{$this->template['font_style']['google_font']['name']}', sans-serif;
-        --font_2_line_height:{$this->template['font_style']['font_2']['line_height']};
-        --font_2_letter_spacing:{$this->template['font_style']['font_2']['letter_spacing']};
-
-        --font_3_name:'{$this->template['font_style']['font_3']['name']}', '{$this->template['font_style']['google_font']['name']}', sans-serif;
-        --font_3_line_height:{$this->template['font_style']['font_3']['line_height']};
-        --font_3_letter_spacing:{$this->template['font_style']['font_3']['letter_spacing']};
-
         --page_max_width:{$this->template['page_setup']['max_width']};
 
         --page_transition:{$this->template['page_setup']['pageTransition']};
@@ -406,9 +380,6 @@ class generate_css
         }
         $css = $css.<<<string
         }
-        @font-face {font-family:'{$this->template['font_style']['font_1']['name']}';src:url('/storage/fonts/{$this->template['font_style']['font_1']['name']}.ttf')format('truetype');}
-        @font-face {font-family:'{$this->template['font_style']['font_2']['name']}';src:url('/storage/fonts/{$this->template['font_style']['font_2']['name']}.ttf')format('truetype');}
-        @font-face {font-family:'{$this->template['font_style']['font_3']['name']}';src:url('/storage/fonts/{$this->template['font_style']['font_3']['name']}.ttf')format('truetype');}
         string;
         self::add_to_file($css);
     }
@@ -417,14 +388,11 @@ class generate_css
         $css = <<<string
         *{-webkit-tap-highlight-color: transparent;}
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
-        body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;font-family: var(--font_1_name);line-height: var(--font_1_line_height);letter-spacing: var(--font_1_letter_spacing);position: relative;}
+        body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
         textarea{resize: none;}
         a{color:unset;text-decoration: unset;cursor: pointer;}
         a:hover{color:unset;text-decoration: unset;cursor: pointer;}
-        .font_1{font-family: var(--font_1_name);line-height: var(--font_1_line_height);letter-spacing: var(--font_1_letter_spacing);}
-        .font_2{font-family: var(--font_2_name);line-height: var(--font_2_line_height);letter-spacing: var(--font_2_letter_spacing);}
-        .font_3{font-family: var(--font_3_name);line-height: var(--font_3_line_height);letter-spacing: var(--font_3_letter_spacing);}
         #page{ position: relative; width:100%;animation-duration: var(--page_transitionDuration); }
         .transparent{background-color: unset;color:unset;}
         string;

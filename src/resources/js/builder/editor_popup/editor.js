@@ -5,7 +5,7 @@ require('./editor/section_block.js');
 set_editor_popup_editor = function(){
     if(typeof(window.selected) === 'undefined'){return;}
     if(window.selected == null){return;}
-    let elem_data = get_key_tree(window.selected);
+    let elem_data = get_elem_data(window.selected);
     $("#editor").css({
         top:'unset',
         bottom:'unset',
@@ -18,13 +18,20 @@ set_editor_popup_editor = function(){
     switch(elem_data.elem.type){
         case 'home_section':
             $('#editor').find('.editor_popup_title').text(elem_data.elem.name)
-            set_editor_popup_editor_position_home_section(elem_data.elem_key_tree);
+            set_editor_popup_editor_position_home_section(window.selected);
             draw_editor_popup_editor_shortcuts_home_section(elem_data);
         break;
         case 'home_section_block':
             $('#editor').find('.editor_popup_title').text(texts.section_block)
-            set_editor_popup_editor_position_home_section_block(elem_data.elem_key_tree);
+            set_editor_popup_editor_position_home_section_block(window.selected);
             draw_editor_popup_editor_shortcuts_home_section_block(elem_data);
+        break;
+        case 'home_elem':
+            if(elem_data.elem.elem_type == 'title'){
+                $('#editor').find('.editor_popup_title').text(texts.elems.title)
+                draw_editor_popup_editor_shortcuts_home_elem_title(elem_data);
+            }
+            set_editor_popup_editor_position_home_elem(window.selected);
         break;
     }
     fix_editor_popup_position($('#editor'))

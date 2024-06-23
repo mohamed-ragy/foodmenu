@@ -28,6 +28,25 @@ set_switch_btn = function(editor){
         }
     }
 }
+set_dummy_switch_btn = function(editor,val){
+    if(val == '1'){
+        editor.addClass('switch_btn_selected')
+    }else if(val == '0'){
+        editor.removeClass('switch_btn_selected')
+    }
+    if(typeof(editor.attr('show_hide')) !== 'undefined'){
+        let show_hide = editor.attr('show_hide').split('.');
+        if(val == '1'){
+            for(const key in show_hide){
+                $(`.${show_hide[key]}`).removeClass('none')
+            }
+        }else if(val == '0'){
+            for(const key in show_hide){
+                $(`.${show_hide[key]}`).addClass('none')
+            }
+        }
+    }
+}
 $('body').on('change','.switch_btn',function(e){
     if($(this).hasClass('dummy_editor')){return;}
     let new_val;

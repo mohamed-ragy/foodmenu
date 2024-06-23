@@ -65,7 +65,7 @@ $('body').on('mouseup touchend','section',function(e){
 })
 $('body').on('click','.swap_home_section_down_btn',function(e){
     hide_editor_popup('editor')
-    let section_from = get_key_tree(window.selected).elem;
+    let section_from = get_elem_data(window.selected).elem;
     let section_sort = section_from.sort
     let section_to = window.template.home.find(item=> item.sort == (section_sort) + (1));
     section_from.sort = (section_sort) + (1);
@@ -84,7 +84,7 @@ $('body').on('click','.swap_home_section_down_btn',function(e){
 })
 $('body').on('click','.swap_home_section_up_btn',function(e){
     hide_editor_popup('editor')
-    let section_from = get_key_tree(window.selected).elem;
+    let section_from = get_elem_data(window.selected).elem;
     let section_sort = section_from.sort
     let section_to = window.template.home.find(item=> item.sort == (section_sort) - (1));
     section_from.sort = (section_sort) - (1);
@@ -103,7 +103,7 @@ $('body').on('click','.swap_home_section_up_btn',function(e){
 
 $('body').on('click','.dublicate_home_section_btn',function(e){
     hide_editor_popup('editor')
-    let section = get_key_tree(window.selected).elem;
+    let section = get_elem_data(window.selected).elem;
     let new_section = JSON.parse(JSON.stringify(section));
     $(`section[key_tree="home.${$(this).attr('section')}"]`).css({
         'margin-bottom': `${ $(`section[key_tree="home.${$(this).attr('section')}"]`).height()}px`
@@ -128,7 +128,7 @@ $('body').on('click','.dublicate_home_section_btn',function(e){
 });
 $('body').on('click','.delete_home_section_btn',function(e){
     hide_editor_popup('editor')
-    let section = get_key_tree(window.selected).elem;
+    let section = get_elem_data(window.selected).elem;
     window.template.home.splice(section.sort,1)
     window.selected = undefined;
     for(const key in window.template.home){

@@ -347,7 +347,7 @@ set_color_palette = function(color,color_key){
 
     draw_color_palette(false);
 }
-//
+    //
 draw_custom_colors = function(){
     $('.website_custom_color').each(function(){
         if($(this).attr('custom_color_name') in window.template.website_colors.custom_colors){
@@ -456,10 +456,14 @@ $('body').on('click','.website_color_darken',function(e){
     new_action();
 })
 $('body').on('click','.copy_website_color_popup_rgb',function(){
-    navigator.clipboard.writeText($('.website_color_popup_rgb').text())
+    navigator.clipboard.writeText($('.website_color_popup_rgb').text()).then(function(){
+        showAlert('normal',texts.copied,4000,true);
+    });
 })
 $('body').on('click','.copy_website_color_popup_hex',function(){
-    navigator.clipboard.writeText($('.website_color_popup_hex').text())
+    navigator.clipboard.writeText($('.website_color_popup_hex').text()).then(function(){
+        showAlert('normal',texts.copied,4000,true);
+    });
 })
 //
 $('body').on('click','.add_custom_color',function(){

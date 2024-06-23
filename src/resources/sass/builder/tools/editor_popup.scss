@@ -96,6 +96,7 @@
     scrollbar-width: thin;
     direction: rtl;
     flex-shrink: 0;
+    width:50px;
 }
 .editor_popup_body_shortcut{
     font-size: 1.3em;
@@ -121,6 +122,7 @@
     flex-grow: 1;
     padding:0;
     height:100%;
+    width:calc(100% - 50px);
 }
 .editor_popup_OnMove{opacity:.8;transition-duration: 0ms;}
 .editor_popup_dump{
