@@ -39,6 +39,9 @@ class templates extends Seeder
                 'mobile_view_height' => '736',
                 'animations' => [
                     
+                ],
+                'font_styles' => [
+                    
                 ]
             ]),
             'website_colors' => json_encode([

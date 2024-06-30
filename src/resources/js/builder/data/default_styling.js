@@ -90,7 +90,7 @@ get_default_style = function(style,push_data={}){
             data = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
         break;
         case 'filter':
-            data = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))';
+            data = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(var(--color_4_1),0))';
         break;
         case 'linear_gradient':
             data = 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';

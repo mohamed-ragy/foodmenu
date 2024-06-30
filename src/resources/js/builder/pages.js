@@ -116,8 +116,6 @@ create_html = function(elem,key_tree){
                 style_desktop_obj['font-family'] = elem.font_style[window.preview_language];
             }
         }
-    //     style_desktop_obj['line-height'] = `var(--${elem.font_style}_line_height)`;
-    //     style_desktop_obj['letter-spacing'] = `var(--${elem.font_style}_letter_spacing)`;
     }
 
 
@@ -238,9 +236,7 @@ create_html = function(elem,key_tree){
         }
         classes = `${classes} ${elem.class_selector}`
     }
-    // if('font_style' in elem){
-    //     classes = `${classes} ${elem.font_style}`
-    // }
+
     if('class' in elem && elem.class != null){
         classes = `${classes} ${elem.class}`
     }
@@ -263,11 +259,11 @@ create_html = function(elem,key_tree){
     }
     //
     if(elem.type == 'home_elem'){
-        classes = `${classes} home_elem`
+        // classes = `${classes} home_elem`
         attrs = `${attrs} elem="${elem.elem_type}"`
 
         if(elem.elem_type == 'title' || elem.elem_type == 'paragraph'){
-            classes = `${classes} add_elem_popup_elem_contenteditable`
+            // classes = `${classes} add_elem_popup_elem_contenteditable`
         }
     }
     html = '';
@@ -278,20 +274,27 @@ create_html = function(elem,key_tree){
         //     )
         // break;
         default:
-            // if(elem.type == 'home_section_block'){
+            if(elem.type == 'home_elem'){
             //     elem.children.sort((a,b)=>{
             //         return a.sort - b.sort;
             //     })
 
-            //     // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-1px - ${elem.css['border-width']})` : ''}`; 
-            //     // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
+                // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-1px - ${elem.css['border-width']})` : ''}`; 
+                // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
             //     // html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div style="${window.current_view == 'desktop' ? section_block_title_desktop : window.current_view == 'mobile' ? section_block_title_mobile : ''}" style_desktop="${section_block_title_desktop}" style_mobile="${section_block_title_mobile}" class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
-            //     html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
-            //     style_desktop = `${style_desktop.replace('transform','')};height:100%;width:100%;`;
-            //     style_hover_desktop = `${style_hover_desktop.replace('transform','')};height:100%;width:100%;`;
-            //     style_mobile = `${style_mobile.replace('transform','')};height:100%;width:100%;`;
-            //     style_hover_mobile = `${style_hover_mobile.replace('transform','')};height:100%;width:100%;`;
-            // }
+                // html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
+                
+                let style_desktop_elem_home = `height:${style_desktop_obj['height']};max-height:${style_desktop_obj['max-height']};min-height:${style_desktop_obj['min-height']};width:${style_desktop_obj['width']};max-width:${style_desktop_obj['max-width']};min-width:${style_desktop_obj['min-width']};`
+                let style_mobile_elem_home = `height:${style_mobile_obj['height']};max-height:${style_mobile_obj['max-height']};min-height:${style_mobile_obj['min-height']};width:${style_mobile_obj['width']};max-width:${style_mobile_obj['max-width']};min-width:${style_mobile_obj['min-width']};`
+
+                html = `${html}<div class="home_elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style_mobile_elem_home : style_desktop_elem_home }" style_desktop="${style_desktop_elem_home}" style_mobile="${style_mobile_elem_home}">`;
+                html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_elem"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
+
+                style_desktop = `${style_desktop.replace('transform','')};height:100%;width:100%;`;
+                style_hover_desktop = `${style_hover_desktop.replace('transform','')};height:100%;width:100%;`;
+                style_mobile = `${style_mobile.replace('transform','')};height:100%;width:100%;`;
+                style_hover_mobile = `${style_hover_mobile.replace('transform','')};height:100%;width:100%;`;
+            }
 
 
             html = `${html}<${elem.tag} class="${classes}" style="${$('.desktop_view').hasClass('mobile_view') ? style_mobile : style_desktop }" key_tree="${key_tree}" style_desktop="${style_desktop}" style_mobile="${style_mobile}" ${attrs}`;
@@ -335,7 +338,7 @@ create_html = function(elem,key_tree){
                 }
 
                 let section = get_elem_data(key_tree).elem;
-                html = `${html}<div class="select_section_title builder_font"><div class="ico-align_center contextMenu" key_tree="${key_tree}"></div><div>${section.name}</div></div>`;
+                html = `${html}<div class="select_section_title builder_font"><div class="ico-align_center contextMenu" key_tree="${key_tree}" contextMenu_type="home_section"></div><div>${section.name}</div></div>`;
                 html = `${html}<button class="btn btn-cancel add_home_section add_home_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>`
             }else if(elem.type == 'home_section_block'){
                 elem.children.sort((a,b)=>{
@@ -345,19 +348,19 @@ create_html = function(elem,key_tree){
                 // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-${elem.css['border-width']})` : ''}`; 
                 // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-${elem.css_mobile['border-width']})` : ''}`; 
                 // html = `${html}<div style="${window.current_view == 'desktop' ? section_block_title_desktop : window.current_view == 'mobile' ? section_block_title_mobile : ''}" style_desktop="${section_block_title_desktop}" style_mobile="${section_block_title_mobile}" class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
-                html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
+                html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_section_block"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
             }
             else if(elem.type == 'home_elem'){
                 
-                let elem_parent = get_key_tree(key_tree).parent;
-                let contenteditable = elem.elem_type == 'title' ? true : elem.elem_type == 'paragraph' ? true : false;
+                // let elem_parent = get_key_tree(key_tree).parent;
+                // let contenteditable = elem.elem_type == 'title' ? true : elem.elem_type == 'paragraph' ? true : false;
 
-                let arrow_sort_back = 'ico-arrowUp';
-                let arrow_sort_next = 'ico-arrowDown';
-                if(window.current_view == 'mobile'){elem_parent.css_mobile['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
-                if(window.current_view == 'mobile'){elem_parent.css_mobile['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
-                if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
-                if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
+                // let arrow_sort_back = 'ico-arrowUp';
+                // let arrow_sort_next = 'ico-arrowDown';
+                // if(window.current_view == 'mobile'){elem_parent.css_mobile['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
+                // if(window.current_view == 'mobile'){elem_parent.css_mobile['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
+                // if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
+                // if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
 
                 // html = `${html}<div class="elem_edit_btns">
                 // ${contenteditable ? `<button tooltip="${texts.edit_text}" class="btn btn-cancel elem_edit_btn edit_home_text_elem_text ico-edit_text "></button>` : ''}
@@ -369,7 +372,7 @@ create_html = function(elem,key_tree){
                 // let elem_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `left:calc(-1px - ${elem.css['border-width']})` : ''}`; 
                 // let elem_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `left:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
                 // html = `${html}<div style="${window.current_view == 'desktop' ? elem_title_desktop : window.current_view == 'mobile' ? elem_title_mobile : ''}" style_desktop="${elem_title_desktop}" style_mobile="${elem_title_mobile}" class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
-                html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
+                // html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_elem"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
 
             }
 
@@ -379,8 +382,8 @@ create_html = function(elem,key_tree){
             }
             html = `${html}</${elem.tag}>`;
 
-            if(elem.type == 'home_section_block'){
-                // html = `${html}</div>`;
+            if(elem.type == 'home_elem'){
+                html = `${html}</div>`;
             }
         break;
     }

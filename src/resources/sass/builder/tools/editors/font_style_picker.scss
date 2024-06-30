@@ -2,12 +2,19 @@
     width:100%;
     margin-top:20px;
 }
+.recent_font_styles_list{
+    width:100%;
+    margin-bottom:20px;
+    margin-top:40px;
+}
 .font_styles_list_font{
     cursor: pointer;
-    margin: 0 20px;
-    padding:10px;
+    margin: 0;
+    padding:10px 20px;
+    // border-top:1px solid transparent;
     border-bottom:1px solid var(--white-2);
     font-size: .9em;
+    box-sizing: border-box;
 }
 .font_styles_list_font:hover{
     background-color: var(--white-2);
@@ -16,6 +23,8 @@
     // background-color: var(--green);
     // color:var(--green-txt);
     background-color: var(--white-2);
+    // border-top:1px solid var(--green);
+    // border-bottom:1px solid var(--green);
 }
 // .font_style_selector_container{
 //     display:flex;

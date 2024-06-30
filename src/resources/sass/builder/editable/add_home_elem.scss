@@ -52,9 +52,10 @@
     // gap:50px;
 }
 .add_home_elem_elem{
-    margin:30px;
+    margin:30px !important;
+    padding:0px !important;
     outline:1px solid var(--white-2);
-    outline-offset:20px;
+    // outline-offset:20px;
     cursor: pointer;
     // border-radius: 1px;
 }

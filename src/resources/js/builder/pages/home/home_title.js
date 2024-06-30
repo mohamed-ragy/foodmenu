@@ -19,41 +19,41 @@ show_edit_home_title = function(key_tree){
                 draw_editor_show_container({key:'title_animation',name:texts.styling.animation,row_class:true}),
                 //
             ),
-            $('<div/>',{class:'editor_popup_container none',key:'title_text',parent_key:'home_elem_title'}).append(
-                draw_color_picker({keys_arr:[{key_tree:`${key_tree}.css`,key:`color`}],name:texts.styling.font_color}),
-                draw_color_picker({keys_arr:[{key_tree:`${key_tree}.css`,key:`background-color`}],name:texts.styling.bg_color}),
-                draw_input_list({
-                    keys_arr:[{key:'font_style',key_tree:key_tree}],
-                    name:texts.styling.font_style,
-                    selections:[
-                        {name:'font_1',val:'font_1',class:'font_1'},
-                        {name:'font_2',val:'font_2',class:'font_2'},
-                        {name:'font_3',val:'font_3',class:'font_3'},
-                    ]
-                }),
-                draw_number_picker({
-                    keys_arr:[{key:'font-size',key_tree:`${key_tree}.css`}],
-                    name:texts.styling.font_size,
-                    units:['em'],
-                    step:'.1',
-                    is_responsive:true
-                }),
-                draw_select_box({
-                    keys_arr:[{key:'text-align',key_tree:`${key_tree}.css`}],
-                    name:texts.styling.text_align,
-                    selections:[
-                        {text:'',class:'ico-position_left',key:'left'},
-                        {text:'',class:'ico-position_hcenter',key:'center'},
-                        {text:'',class:'ico-position_right',key:'right'},
-                    ],
-                    is_responsive:true,
-                }),
-                draw_text_shadow_selector({
-                    keys_arr:[`${key_tree}.css`],
-                    is_responsive:true,
-                }),
-                draw_elem_text_selector(key_tree)
-            ),
+            // $('<div/>',{class:'editor_popup_container none',key:'title_text',parent_key:'home_elem_title'}).append(
+            //     draw_color_picker({keys_arr:[{key_tree:`${key_tree}.css`,key:`color`}],name:texts.styling.font_color}),
+            //     draw_color_picker({keys_arr:[{key_tree:`${key_tree}.css`,key:`background-color`}],name:texts.styling.bg_color}),
+            //     draw_input_list({
+            //         keys_arr:[{key:'font_style',key_tree:key_tree}],
+            //         name:texts.styling.font_style,
+            //         selections:[
+            //             {name:'font_1',val:'font_1',class:'font_1'},
+            //             {name:'font_2',val:'font_2',class:'font_2'},
+            //             {name:'font_3',val:'font_3',class:'font_3'},
+            //         ]
+            //     }),
+            //     draw_number_picker({
+            //         keys_arr:[{key:'font-size',key_tree:`${key_tree}.css`}],
+            //         name:texts.styling.font_size,
+            //         units:['em'],
+            //         step:'.1',
+            //         is_responsive:true
+            //     }),
+            //     draw_select_box({
+            //         keys_arr:[{key:'text-align',key_tree:`${key_tree}.css`}],
+            //         name:texts.styling.text_align,
+            //         selections:[
+            //             {text:'',class:'ico-position_left',key:'left'},
+            //             {text:'',class:'ico-position_hcenter',key:'center'},
+            //             {text:'',class:'ico-position_right',key:'right'},
+            //         ],
+            //         is_responsive:true,
+            //     }),
+            //     draw_text_shadow_selector({
+            //         keys_arr:[`${key_tree}.css`],
+            //         is_responsive:true,
+            //     }),
+            //     draw_elem_text_selector(key_tree)
+            // ),
             $('<div/>',{class:'editor_popup_container none',key:'title_positioning',parent_key:'home_elem_title'}).append(
                 draw_select_box({
                     keys_arr:[{key:'align-self',key_tree:`${key_tree}.css`}],
@@ -65,27 +65,27 @@ show_edit_home_title = function(key_tree){
                     ],
                     is_responsive:true
                 }),
-                draw_select_range({
-                    keys_arr:[{key:'max-width',key_tree:`${key_tree}.css`}],
-                    name:texts.styling.max_width,
-                    range:{max:100,min:10,step:1},
-                    unit:'%',
-                    is_responsive:true,
-                }),
-                draw_select_padding({key_tree:`${key_tree}.css`,step:1,units:['px'],is_responsive:true}),
-                draw_select_margin({key_tree:`${key_tree}.css`,step:1,units:['px'],is_responsive:true}),
+                // draw_select_range({
+                //     keys_arr:[{key:'max-width',key_tree:`${key_tree}.css`}],
+                //     name:texts.styling.max_width,
+                //     range:{max:100,min:10,step:1},
+                //     unit:'%',
+                //     is_responsive:true,
+                // }),
+                // draw_select_padding({key_tree:`${key_tree}.css`,step:1,units:['px'],is_responsive:true}),
+                // draw_select_margin({key_tree:`${key_tree}.css`,step:1,units:['px'],is_responsive:true}),
                 // draw_transform_selector({keys_arr:[{key_tree:`${key_tree}.css`,key:'transform'}],is_responsive:true}),
                 draw_zindex_selector({
                     keys_arr:[`${key_tree}.css`],
                     is_responsive:true,
                 }),
             ),
-            $('<div/>',{class:'editor_popup_container none',key:'title_backdrop_filter',parent_key:'home_elem_title'}).append(
-                draw_backdrop_filter({
-                    keys_arr:[{key_tree:`${key_tree}.css`,key:'backdrop-filter'}],
-                    is_responsive:true,
-                })
-            ),
+            // $('<div/>',{class:'editor_popup_container none',key:'title_backdrop_filter',parent_key:'home_elem_title'}).append(
+            //     draw_backdrop_filter({
+            //         keys_arr:[{key_tree:`${key_tree}.css`,key:'backdrop-filter'}],
+            //         is_responsive:true,
+            //     })
+            // ),
             $('<div/>',{class:'editor_popup_container none',key:'title_border',parent_key:'home_elem_title'}).append(
                 draw_color_picker({
                     keys_arr:[{key_tree:`${key_tree}.css`,key:'border-color'}],

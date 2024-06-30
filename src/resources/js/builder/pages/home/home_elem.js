@@ -13,6 +13,10 @@ draw_home_elem_contextMenu = function(elem_data){
         draw_contextMenu_elem({icon:'ico-edit_text',class:`editor_text`,child1_text:texts.styling.text})
         : '',
         draw_contextMenu_elem({icon:'ico-sizing',child1_text:texts.sizing,child2_class:'ico-arrowRight',submenu:draw_home_elem_sizing_contextMenu(elem_data.elem.elem_type)}),
+        draw_contextMenu_elem({icon:'ico-spacing',child1_text:texts.spacing,child2_class:'ico-arrowRight',submenu:draw_home_elem_spacing_contextMenu()}),
+        draw_contextMenu_elem({icon:'ico-styling',child1_text:texts._styling,child2_class:'ico-arrowRight',submenu:draw_home_elem_styling_contextMenu()}),
+        // draw_contextMenu_line(),
+        draw_contextMenu_elem({icon:'ico-background',class:'editor_background',child1_text:texts.styling.block_background}),
     )
 }
 draw_home_elem_sizing_contextMenu = function(elem_type){
@@ -23,12 +27,38 @@ draw_home_elem_sizing_contextMenu = function(elem_type){
         draw_contextMenu_elem({icon:'ico-height',class:`editor_height ${height_dummy}`,child1_text:texts.styling.height}),
     ) 
 }
+draw_home_elem_spacing_contextMenu = function(){
+    return $('<div/>',{class:'w100p'}).append(
+        draw_contextMenu_elem({icon:'ico-padding',class:`editor_padding`,child1_text:texts.styling.padding}),
+        draw_contextMenu_elem({icon:'ico-margin',class:`editor_margin`,child1_text:texts.styling.margin}),
+    ) 
+}
+draw_home_elem_styling_contextMenu = function(){
+    return $('<div/>',{class:'w100p'}).append(
+        draw_contextMenu_elem({icon:'ico-filter',class:`editor_filter`,child1_text:texts.styling.filter}),
+        draw_contextMenu_elem({icon:'ico-border',class:`editor_border`,child1_text:texts.styling.border}),
+        draw_contextMenu_elem({icon:'ico-border_radius',class:`editor_border_radius`,child1_text:texts.styling.border_radius}),
+        draw_contextMenu_elem({icon:'ico-box_shadow',class:`editor_box_shadow`,child1_text:texts.styling.box_shadow}),
+    )
+}
 //
 draw_editor_popup_editor_shortcuts_home_elem_title = function(){
     $('#editor').find('.editor_popup_body_shortcuts').append(
+        
         $('<div/>',{class:`editor_popup_body_shortcut ico-edit_text editor_text`,tooltip:texts.styling.text}),
+
         $('<div/>',{class:`editor_popup_body_shortcut ico-width editor_width`,tooltip:texts.styling.width}),
         $('<div/>',{class:`editor_popup_body_shortcut ico-height editor_height`,tooltip:texts.styling.height}),
+
+        $('<div/>',{class:`editor_popup_body_shortcut ico-padding editor_padding`,tooltip:texts.styling.padding}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-margin editor_margin`,tooltip:texts.styling.margin}),
+
+        $('<div/>',{class:`editor_popup_body_shortcut ico-filter editor_filter`,tooltip:texts.styling.filter}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-border editor_border`,tooltip:texts.styling.border}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-border_radius editor_border_radius`,tooltip:texts.styling.border_radius}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-box_shadow editor_box_shadow`,tooltip:texts.styling.box_shadow}),
+
+        $('<div/>',{class:`editor_popup_body_shortcut ico-background editor_background`,tooltip:texts.styling.background}),
 
     )
 }
@@ -48,7 +78,7 @@ set_editor_popup_editor_position_home_elem = function(key_tree){
 
 //
 $('body').on('contextmenu','.home_elem',function(e){
-    show_contextMenu($(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+    show_contextMenu('home_elem',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })
 $('body').on('dblclick','.home_elem',function(e){
     let elem_data = get_elem_data(window.selected);
@@ -117,4 +147,7 @@ $('body').on('click','.delete_home_elem_btn',function(){
     parent.children = new_children;
     window.selected = undefined;
     new_action();
+})
+$('body').on('dblclick','.home_elem',function(e){
+    draw_editor_popup_text();
 })

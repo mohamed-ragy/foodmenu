@@ -157,6 +157,47 @@ class templates_data
             ['name' => 'WalterTurncoat','language' => 'latin'],
             ['name' => 'ZenLoop','language' => 'latin'],
             ['name' => 'Zeyada','language' => 'latin'],
+            ///chinese
+            ['name' => 'MaShanZheng','language' => 'chinese'],
+            ['name' => 'NotoSansHK','language' => 'chinese'],
+            ['name' => 'ZCOOLQingKeHuangYou','language' => 'chinese'],
+            ['name' => 'ZhiMangXing','language' => 'chinese'],
+            ['name' => 'ChocolateClassicalSans','language' => 'chinese'],
+            ///japanese
+            ['name' => 'Murecho','language' => 'japanese'],
+            ['name' => 'NotoSerifJP','language' => 'japanese'],
+            ['name' => 'RampartOne','language' => 'japanese'],
+            ['name' => 'MPLUS1p','language' => 'japanese'],
+            //korean
+            ['name' => 'NotoSerifKR','language' => 'korean'],
+            ['name' => 'Hahmlet_korean','language' => 'korean'],
+            //cyrillic
+            ['name' => 'Caveat','language' => 'cyrillic'],
+            ['name' => 'Manrope','language' => 'cyrillic'],
+            ['name' => 'Nunito_cyrillic','language' => 'cyrillic'],
+            ['name' => 'Oswald_cyrillic','language' => 'cyrillic'],
+            ['name' => 'YanoneKaffeesatz','language' => 'cyrillic'],
+            //greek
+            ['name' => 'Brygada1918_greek','language' => 'greek'],
+            ['name' => 'Comfortaa_greek','language' => 'greek'],
+            ['name' => 'SofiaSansCondensed','language' => 'greek'],
+            ['name' => 'Vollkorn_greek','language' => 'greek'],
+            ///arabic
+            ['name' => 'Alexandria_arabic','language' => 'arabic'],
+            ['name' => 'Cairo_arabic','language' => 'arabic'],
+            ['name' => 'Changa_arabic','language' => 'arabic'],
+            ['name' => 'ElMessiri','language' => 'arabic'],
+            ['name' => 'Kufam','language' => 'arabic'],
+            ['name' => 'Lemonada_arabic','language' => 'arabic'],
+            ['name' => 'Mada','language' => 'arabic'],
+            ['name' => 'Marhey_arabic','language' => 'arabic'],
+            ['name' => 'NotoNastaliqUrdu','language' => 'arabic'],
+            ['name' => 'ReemKufi','language' => 'arabic'],
+            //indian
+            ['name' => 'NotoSans_indian','language' => 'indian'],
+            ['name' => 'TiroDevanagariHindi','language' => 'indian'],
+            ['name' => 'BalooDa2','language' => 'indian'],
+
         ];
     }
     public static function animations(){

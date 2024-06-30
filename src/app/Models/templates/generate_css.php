@@ -69,6 +69,16 @@ class generate_css
     public function generate_class($elem){
         if(array_key_exists('class_selector',$elem)){
 
+            if(array_key_exists('font_style',$elem)){
+                if(is_array($elem['font_style'])){
+                    foreach($elem['font_style'] as $key => $val){
+                        $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
+                        self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
+                        self::add_to_file(".font_{$val}{font-family:{$val};}");
+                    }
+                }
+            }
+
             if(!empty($elem['css'])){
                 $css_start = ".{$elem['class_selector']}{";
                 $css = '';
@@ -76,10 +86,10 @@ class generate_css
                 foreach($elem['css'] as $key => $val){
                     $css = $css."{$key}:{$val};";
                 }
-                if(array_key_exists('font-family',$elem['css'])){
-                    $font = $this->fonts[array_search($elem['css']['font-family'], array_column($this->fonts, 'name'))];
-                    self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
-                }
+                // if(array_key_exists('font-family',$elem['css'])){
+                    // $font = $this->fonts[array_search($elem['css']['font-family'], array_column($this->fonts, 'name'))];
+                    // self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
+                // }
                 if(array_key_exists('background', $elem)){
                     if($elem['background']['type'] == 'none'){
                         $css = $css."background-color:unset;";
@@ -106,10 +116,10 @@ class generate_css
                     foreach($elem['css_mobile'] as $key => $val){
                         $css = $css."{$key}:{$val};";
                     }
-                    if(array_key_exists('font-family',$elem['css_mobile'])){
-                        $font = $this->fonts[array_search($elem['css_mobile']['font-family'], array_column($this->fonts, 'name'))];
-                        self::add_to_file("@font-face {font-family: 'Rubik';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
-                    }
+                    // if(array_key_exists('font-family',$elem['css_mobile'])){
+                    //     $font = $this->fonts[array_search($elem['css_mobile']['font-family'], array_column($this->fonts, 'name'))];
+                    //     self::add_to_file("@font-face {font-family: 'Rubik';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
+                    // }
                     if(array_key_exists('background_mobile', $elem) ){
                         if($elem['background_mobile']['type'] == 'none'){
                             $css = $css."background-color:unset;";
@@ -391,8 +401,8 @@ class generate_css
         body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
         textarea{resize: none;}
-        a{color:unset;text-decoration: unset;cursor: pointer;}
-        a:hover{color:unset;text-decoration: unset;cursor: pointer;}
+        a{color:unset;text-decoration: underline;cursor: pointer;}
+        a:hover{color:unset;text-decoration: underline;cursor: pointer;}
         #page{ position: relative; width:100%;animation-duration: var(--page_transitionDuration); }
         .transparent{background-color: unset;color:unset;}
         string;

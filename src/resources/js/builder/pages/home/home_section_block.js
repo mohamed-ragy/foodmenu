@@ -81,7 +81,7 @@ set_editor_popup_editor_position_home_section_block = function(key_tree){
 }
 $('body').on('contextmenu','.section_block',function(e){
     if($('.home_elem:hover').length > 0){return}
-    show_contextMenu($(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+    show_contextMenu('home_section_block',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })
 $('body').on('dblclick','.section_block',function(e){
     if($('.home_elem:hover').length > 0){return}

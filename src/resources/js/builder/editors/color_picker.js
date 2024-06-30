@@ -1378,6 +1378,9 @@ $('body').on('mouseup','.color_picker_editor',function(){
         set_dummy_select_range($('.color_picker_editor_transparency'),'1',true)
         set_color_picker_editor_colors();
     }else{
+        if(typeof(val) === 'undefined' || val == ''){
+            val = 'rgba(var(--),1)'
+        }
         val = val.replace('rgba(var(--','').replaceAll(')','').split(',')    
         $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
         $(`.color_picker_editor_color[key="${val[0]}"]`).addClass('color_picker_editor_color_selected')
@@ -1422,7 +1425,9 @@ $('body').on('change','.color_picker_editor_transparency',function(){
     }else{
         val = get_editor_val(window.selected_color_picker_editor);
     }
-    
+    if(typeof(val) === 'undefined'){
+        val = 'rgba(var(--),1)'
+    }
     val = val.replace('rgba(var(--','').replaceAll(')','').split(',')  
     new_val = `rgba(var(--${val[0]}),${get_dummy_val($('.color_picker_editor_transparency'))})`;
 

@@ -66,8 +66,17 @@ draw_add_home_elem_previews = function(elem_type){
                 for(const key2 in elem.css){
                     elem_style = `${elem_style}${key2}:${elem.css[key2]};`
                 }
+                if('font_style' in elem){
+                    if(window.preview_language in elem.font_style){
+                        elem_style = `${elem_style}font-family:${elem.font_style[window.preview_language]}`
+                    }
+                }
                 $('.add_home_elem_preview_container').append(
-                    $(`<${elem.tag}/>`,{elem_type:elem_type,key:key,class:'add_home_elem_elem',style:elem_style,text:texts.elems.title_placholder})
+                    $(`<div/>`,{elem_type:elem_type,key:key,class:'add_home_elem_elem',}).append(
+                        $(`<${elem.tag}/>`,{
+                            style:elem_style,text:texts.elems.title_placholder
+                        })
+                    )
                 )
             }
         break;

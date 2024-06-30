@@ -1,6 +1,7 @@
 @import '../editable/add_home_elem.scss';
 .home_elem{
     z-index: 100;
+    position: relative;
 }
 .home_elem::after{
     content: '';

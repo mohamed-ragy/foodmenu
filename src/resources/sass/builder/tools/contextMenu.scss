@@ -17,28 +17,28 @@
     0%{transform: translateY(0px);opacity:0;}
     100%{transform: translateY(0px);opacity:1;}
 }
-.contextMenu_scrollIcon_up, .contextMenu_scrollIcon_down{
+.contextMenu_scrollIcon_up, .contextMenu_scrollIcon_down, .contextSubmenu_scrollIcon_up, .contextSubmenu_scrollIcon_down{
     position: sticky;
     width: 100%;
     text-align: center;
     left:0;
     height:25px;
     opacity: .5;
-    cursor: pointer;
+    // cursor: pointer;
     background-color: var(--white-1);
     padding:5px;
     box-sizing: border-box;
     z-index: 1000;
 }
-.contextMenu_scrollIcon_up:hover, .contextMenu_scrollIcon_down:hover{
+.contextMenu_scrollIcon_up:hover, .contextMenu_scrollIcon_down:hover, .contextSubmenu_scrollIcon_up:hover, .contextSubmenu_scrollIcon_down:hover{
     background-color: var(--white-2);
     opacity: 1;
 }
-.contextMenu_scrollIcon_up{
+.contextMenu_scrollIcon_up, .contextSubmenu_scrollIcon_up{
     top: -10px;
     margin-top: -10px;
 }
-.contextMenu_scrollIcon_down{
+.contextMenu_scrollIcon_down, .contextSubmenu_scrollIcon_down{
     bottom:-10px;
     margin-bottom: -10px;
 }
@@ -54,6 +54,8 @@
     min-width: 150px;
     padding:10px 0;
     cursor: auto;
+    overflow-y: hidden;
+    overflow-x: visible;
 }
 .contextMenu_elem{
     white-space: nowrap;

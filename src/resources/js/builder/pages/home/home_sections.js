@@ -53,7 +53,7 @@ set_adapted_header = function(){
 //events
 $('body').on('contextmenu','section',function(e){
     if($('.section_block:hover').length > 0){return}
-    show_contextMenu($(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+    show_contextMenu('home_section',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })
 $('body').on('dblclick','section',function(e){
     if($('.section_block:hover').length > 0){return}

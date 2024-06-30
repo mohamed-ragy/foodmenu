@@ -82,6 +82,7 @@ get_home_section_block = function(child_num) {
             'border-bottom-left-radius': '0px',
             //
             'box-shadow': 'none',
+            //
         },
         css_mobile: {
             //
@@ -490,14 +491,15 @@ default_title = function(){
         empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.title_placholder}</span>`
         font_styles[window.website_data.languages[key].code] = 'default';
     }
-    console.log(font_styles)
     let this_hash = hash();
     return {
         type: 'home_elem',
         elem_type: 'title',
         tag: 'h1',
         class_selector: `h1${this_hash}`,
-        font_style: font_styles,
+        font_style: {},
+        background:get_default_style('background'),
+        background_mobile:get_default_style('background'),
         css:{
             'box-sizing': 'border-box',
             'position': 'relative',
@@ -510,6 +512,35 @@ default_title = function(){
             'max-height': '100%',
             //
             'font-weight':'normal',
+            'line-height':'1.3em',
+            'letter-spacing':'0.05em',
+            'font-size':'1.5em',
+            'text-align':'start',
+            //
+            'padding-top': '5px',
+            'padding-right': '5px',
+            'padding-bottom': '5px',
+            'padding-left': '5px',
+            //
+            'margin-top': '5px',
+            'margin-right': '5px',
+            'margin-bottom': '5px',
+            'margin-left': '5px',
+            //
+            'border-top':'0px none rgba(var(--color_4_1),1)',
+            'border-right':'0px none rgba(var(--color_4_1),1)',
+            'border-bottom':'0px none rgba(var(--color_4_1),1)',
+            'border-left':'0px none rgba(var(--color_4_1),1)',
+            //
+            'border-top-left-radius': '0px',
+            'border-top-right-radius': '0px',
+            'border-bottom-right-radius': '0px',
+            'border-bottom-left-radius': '0px',
+            //
+            'box-shadow': 'none',
+            //
+            'filter':get_default_style('filter'),
+
         },
         css_mobile:{
             'width': 'auto',
@@ -520,6 +551,35 @@ default_title = function(){
             'max-height': '100%',
             //
             'font-weight':'normal',
+            'line-height':'1.3em',
+            'letter-spacing':'0.05em',
+            'font-size':'1.5em',
+            'text-align':'start',
+            //
+            'padding-top': '5px',
+            'padding-right': '5px',
+            'padding-bottom': '5px',
+            'padding-left': '5px',
+            //
+            'margin-top': '5px',
+            'margin-right': '5px',
+            'margin-bottom': '5px',
+            'margin-left': '5px',
+            //
+            'border-top':'0px none rgba(var(--color_4_1),1)',
+            'border-right':'0px none rgba(var(--color_4_1),1)',
+            'border-bottom':'0px none rgba(var(--color_4_1),1)',
+            'border-left':'0px none rgba(var(--color_4_1),1)',
+            //
+            'border-top-left-radius': '0px',
+            'border-top-right-radius': '0px',
+            'border-bottom-right-radius': '0px',
+            'border-bottom-left-radius': '0px',
+            //
+            'box-shadow': 'none',
+            //
+            'filter':get_default_style('filter'),
+
         },
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
@@ -535,6 +595,15 @@ get_titles = function(){
     titles[0] = default_title();
     titles[1] = default_title();
     titles[2] = default_title();
+
+    titles[0].css['box-shadow'] = 'rgba(var(--color_4_1),0.1) 0px 1px 10px 0px, rgba(var(--color_4_1),0.1) 0px 1px 2px 0px';
+    titles[0].css['font-size'] = '3.5em';
+    titles[0].css['font-weight'] = 'bold';
+    titles[0].css['padding-top'] = '20px';
+    titles[0].css['padding-bottom'] = '20px';
+    titles[0].css['padding-right'] = '20px';
+    titles[0].css['padding-left'] = '20px';
+    titles[0].font_style.en = 'Marhey';
     
     return titles;
 }

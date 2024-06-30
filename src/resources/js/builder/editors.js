@@ -13,16 +13,18 @@ require('./editors/backdrop_filter.js')//done
 require('./editors/border_editor.js')//done
 require('./editors/box_shadow_editor.js')//done
 
-require('./editors/font_style_picker.js')//
+require('./editors/font_style_picker.js')//done
+require('./editors/elem_text_selector.js')//done
+
+require('./editors/filter.js')//
 
 //responsive selectors
 require('./editors/padding_selector.js')//need to be removed
 require('./editors/border_radius_selector.js')//need to be removed
 require('./editors/margin_selector.js')//need to be removed
 require('./editors/transform_selector.js')//
-require('./editors/filter.js')//
 require('./editors/timing_function.js')//
-require('./editors/text_shadow_selector.js')//
+require('./editors/text_shadow_selector.js')//need to be removed
 require('./editors/animation_selector.js')//
 require('./editors/zindex_selector.js')//
 require('./editors/opacity_selector.js')//
@@ -30,7 +32,6 @@ require('./editors/opacity_selector.js')//
 //nonresponsive selectors
 require('./editors/font_style_picker.js')//
 require('./editors/icon_selector.js')//
-require('./editors/elem_text_selector.js')//
 //
 
 

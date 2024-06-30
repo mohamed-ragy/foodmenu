@@ -19,7 +19,6 @@ class websiteController extends Controller
     private $website_id;
     private $website;
     private $lang;
-    private $website_direction;
     private $request_host;
     private $user = 'null';
     private $guest = 'null';
@@ -66,7 +65,6 @@ class websiteController extends Controller
         return view("website.index",[
             'website_id' => $this->website_id,
             'lang' => $this->lang,
-            'website_direction' => $this->website_direction,
             'title' => $this->website->websiteNames[$this->lang] ?? '',
             'description' => $this->website->websiteDescriptions[$this->lang] ?? '',
             'logo' => $this->website->logo,
@@ -98,11 +96,9 @@ class websiteController extends Controller
         foreach($this->website->languages as $lang){
             if($lang['websiteDefault']){
                 $defaultLang = $lang['code'];
-                // $this->website_direction = $lang['direction'];
             }
             if($request_lang === $lang['code']){
                 $request_lang_check = true;
-                $this->website_direction = $lang['direction'];
             }
         }
         if($request_lang_check){

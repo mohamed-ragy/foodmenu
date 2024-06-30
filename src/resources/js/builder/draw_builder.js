@@ -62,7 +62,6 @@ draw_builder = function(template_id){
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
     set_view_style();
     // $('#website').attr('dir',window.website_data.languages[window.preview_language].direction)
-
     setTimeout(()=>{
         window.selected = 'home.0.children.section_wrapper.children.2.children.0'
         draw_editor_popup_text();

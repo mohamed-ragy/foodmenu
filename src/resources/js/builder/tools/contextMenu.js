@@ -11,7 +11,7 @@ hide_contextMenu = function(force=false){
     }
 }
 draw_contextMenu_elem = function(data){
-    let context_elem =  $('<div/>',{class:`contextMenu_elem ${data.submenu ? 'contextMenu_elem_submenu' : ''} ${data.class}`}).append(
+    let context_elem =  $('<div/>',{class:`contextMenu_elem ${data.submenu ? 'contextMenu_elem_submenu' : ''} ${data.class}`,key:data.key ?? ''}).append(
         $('<div/>',{class:'row alnC jstfyC'}).append(
             $('<div/>',{class:`contextMenu_elem_icon ${data.icon ? `${data.icon}` : ''}`}),
             $('<div/>',{class:`fs09 ${data.child1_class ?? ''}`,text:data.child1_text ?? ''}),
@@ -27,12 +27,12 @@ draw_contextMenu_elem = function(data){
 draw_contextMenu_line = function(){
     return $('<div/>',{class:'contextMenu_line'})
 }
-show_contextMenu = function(key_tree,cord){
+show_contextMenu = function(type,key_tree,cord){
     hide_contextMenu();
     $('#contextMenu').text('')
     let elem_data = get_elem_data(key_tree);
     select(key_tree)
-    switch(elem_data.elem.type){
+    switch(type){
         case 'home_section':
             $('#contextMenu').append(
                 draw_home_section_contextMenu(elem_data)
@@ -46,6 +46,16 @@ show_contextMenu = function(key_tree,cord){
         case 'home_elem':
             $('#contextMenu').append(
                 draw_home_elem_contextMenu(elem_data)
+            )
+        break;
+        case 'text_editor_hyperlink':
+            $('#contextMenu').append(
+                draw_text_editor_hyperlinks_contextMenu()
+            )
+        break;
+        case 'text_editor_font_size':
+            $('#contextMenu').append(
+                draw_text_editor_font_size_contextMenu()
             )
         break;
 
@@ -103,6 +113,13 @@ scroll_contextMenu = function(direction){
         },{duration:250},{specialEasing: {width: "easeOutQuint",height: "easeOutQuint"}})
     },250)
 }
+scroll_contextSubmenu = function(direction){
+    contextMenu_scroll_interval = setInterval(()=>{
+        $('#contextSubmenu').animate({
+            scrollTop:direction == 'up' ? ($('#contextSubmenu').scrollTop()) - 50 : direction == 'down' ? ($('#contextSubmenu').scrollTop()) + 50 : 0,
+        },{duration:250},{specialEasing: {width: "easeOutQuint",height: "easeOutQuint"}})
+    },250)
+}
 
 $('body').on('mouseenter','.contextMenu_scrollIcon_up',function(e){
     scroll_contextMenu('up')
@@ -110,21 +127,30 @@ $('body').on('mouseenter','.contextMenu_scrollIcon_up',function(e){
 $('body').on('mouseenter','.contextMenu_scrollIcon_down',function(e){
     scroll_contextMenu('down')
 })
-$('body').on('mouseleave','.contextMenu_scrollIcon_down, .contextMenu_scrollIcon_up',function(){
-        clearInterval(contextMenu_scroll_interval)
+$('body').on('mouseenter','.contextSubmenu_scrollIcon_up',function(e){
+    scroll_contextSubmenu('up')
 })
+$('body').on('mouseenter','.contextSubmenu_scrollIcon_down',function(e){
+    scroll_contextSubmenu('down')
+})
+$('body').on('mouseleave','.contextMenu_scrollIcon_down, .contextMenu_scrollIcon_up, .contextSubmenu_scrollIcon_up, .contextSubmenu_scrollIcon_down',function(){
+    clearInterval(contextMenu_scroll_interval)
+})
+
+
 $('body').on('click','.contextMenu_elem',function(e){
     if($(this).hasClass('contextMenu_elem_submenu')){return;}
     hide_contextMenu(true);
-})
+})                                                                                                                                                                                                                                                                                                                                                                
 $('body').on('click','.contextMenu',function(e){
-    show_contextMenu($(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
-})
+    show_contextMenu($(this).attr('contextMenu_type'),$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+})                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 $('body').on('mouseenter','.contextMenu_elem_submenu',function(e){
     $('#contextSubmenu').text('').append($(this).find('.contextSubmenu').html());
 
     $('#contextSubmenu').css({
         top:($(this).offset().top) - (40),
+        bottom:'unset',
         left:($(this).offset().left) + ($(this).outerWidth()) - 10,
     }).removeClass('none')
 
@@ -132,6 +158,15 @@ $('body').on('mouseenter','.contextMenu_elem_submenu',function(e){
         $('#contextSubmenu').css({
             left:($(this).offset().left) - ($('#contextSubmenu').outerWidth()) + 10,
         })
+    }
+
+    if(($('#contextSubmenu').offset().top ) + ($('#contextSubmenu').height()) >= $(window).height()){
+        $('#contextSubmenu').css('bottom',20);
+        $('#contextSubmenu').prepend(
+            $('<div/>',{class:'contextSubmenu_scrollIcon_up ico-arrowUp'}),
+        ).append(
+            $('<div/>',{class:'contextSubmenu_scrollIcon_down ico-arrowDown'})
+        )
     }
 })
 $('body').on('mouseleave','.contextMenu_elem_submenu, #contextSubmenu',function(e){

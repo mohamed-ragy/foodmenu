@@ -137,6 +137,12 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         $('.font_picker_editor').each(function(){
             set_font_style_picker($(this));
         })
+        $('.text_editor').each(function(){
+            set_text_editor($(this));
+        })
+        $('.filter_editor').each(function(){
+            set_filter_editor($(this));
+        })
 
         $('.editor_details_head').each(function(){
             set_editor_details($(this))

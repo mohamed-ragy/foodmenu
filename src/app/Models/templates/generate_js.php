@@ -220,9 +220,12 @@ class generate_js
                 if(array_key_exists('class_selector',$elem)){
                     $html_start = $html_start." ".$elem['class_selector'];
                 }
-                // if(array_key_exists('font_style',$elem)){
-                //     $html_start = $html_start." ".$elem['font_style'];
-                // }
+                if(array_key_exists('font_style',$elem)){
+                    if(is_array($elem['font_style'])){
+                        if(array_key_exists($this->lang_code,$elem['font_style']))
+                        $html_start = $html_start." font_".$elem['font_style'][$this->lang_code] ?? '';
+                    }
+                }
                 $html_start = $html_start."\"";
                 if(array_key_exists('class_selector',$elem)){
                     $html_start = $html_start." class_selector=\"{$elem['class_selector']}\"";
