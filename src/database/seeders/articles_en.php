@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Database\Seeders\articles_en\basics\foodmenu_customer_support;
 use Database\Seeders\articles_en\basics\your_accounts_help_tickets;
 use Database\Seeders\articles_en\basics\the_share_tool;
+use Database\Seeders\articles_en\basics\the_control_panels_navigation_bar;
+use Database\Seeders\articles_en\basics\employing_live_chat_on_your_website;
 use Illuminate\Database\Seeder;
 
 class articles_en extends Seeder
@@ -17,8 +19,10 @@ class articles_en extends Seeder
     public function run()
     {
         //basics
-        $this->call([foodmenu_customer_support::class]); // Foodmenu’s Customer Support
-        $this->call([your_accounts_help_tickets::class]); // Your-Accounts-Help-Tickets
-        $this->call([the_share_tool::class]); // The Share Tool
+        $this->call([foodmenu_customer_support::class]); //
+        $this->call([your_accounts_help_tickets::class]); //
+        $this->call([the_share_tool::class]); //
+        $this->call([the_control_panels_navigation_bar::class]); //
+        $this->call([employing_live_chat_on_your_website::class]); //
     }
 }
