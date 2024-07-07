@@ -101,6 +101,9 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         $('.number_picker_editor').each(function(){
             set_number_picker($(this));
         })
+        $('.select_range').each(function(){
+            set_select_range($(this))
+        })
         $('.inputList_editor').each(function(){
             set_input_list($(this))
         })
@@ -142,6 +145,15 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         })
         $('.filter_editor').each(function(){
             set_filter_editor($(this));
+        })
+        $('.transform_editor').each(function(){
+            set_transform_editor($(this));
+        })
+        $('.animation_editor').each(function(){
+            set_animation_editor($(this));
+        })
+        $('.timing_function_editor').each(function(){
+            set_timing_function_editor($(this));
         })
 
         $('.editor_details_head').each(function(){

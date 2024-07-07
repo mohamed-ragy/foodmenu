@@ -9,7 +9,7 @@ draw_number_picker = function(data){
         }
     }
     let editor = $('<div/>',{
-        class:`editor number_picker_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''}`,
+        class:`editor number_picker_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.container_class ?? ''}`,
         units:units,
         step:data.step,
         key_tree:data.key_tree,

@@ -12,20 +12,20 @@ require('./editors/color_picker.js')//need to set test dummy
 require('./editors/backdrop_filter.js')//done
 require('./editors/border_editor.js')//done
 require('./editors/box_shadow_editor.js')//done
+require('./editors/filter.js')//done
 
 require('./editors/font_style_picker.js')//done
 require('./editors/elem_text_selector.js')//done
 
-require('./editors/filter.js')//
+require('./editors/transform_selector.js')//
+require('./editors/animation/animation_editor.js')//
+require('./editors/timing_function.js')//
 
 //responsive selectors
 require('./editors/padding_selector.js')//need to be removed
 require('./editors/border_radius_selector.js')//need to be removed
 require('./editors/margin_selector.js')//need to be removed
-require('./editors/transform_selector.js')//
-require('./editors/timing_function.js')//
 require('./editors/text_shadow_selector.js')//need to be removed
-require('./editors/animation_selector.js')//
 require('./editors/zindex_selector.js')//
 require('./editors/opacity_selector.js')//
 
@@ -367,10 +367,6 @@ hidePopupSelectors = function(force = false){
 
     if($('.font_style_selector_elems:hover').length == 0 && $('.font_style_selector_container:hover').length == 0 || force){
         $('.font_style_selector_elems').addClass('none')
-    }
-
-    if($('.elem_text_selector_format_btn2:hover').length == 0 && $('.elem_text_selector_format_btn2_dropDown:hover').length == 0 || force){
-        $('.elem_text_selector_format_btn2_dropDown').addClass('none')
     }
 
     $('.editing_edit_home_elem_editing').each(function(){

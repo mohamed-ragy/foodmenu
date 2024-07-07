@@ -27,10 +27,10 @@ set_editor_popup_editor = function(){
             draw_editor_popup_editor_shortcuts_home_section_block(elem_data);
         break;
         case 'home_elem':
-            if(elem_data.elem.elem_type == 'title'){
-                $('#editor').find('.editor_popup_title').text(texts.elems.title)
-                draw_editor_popup_editor_shortcuts_home_elem_title(elem_data);
-            }
+            // if(elem_data.elem.elem_type == 'title' || elem_data.elem.elem_type == 'paragraph'){
+                $('#editor').find('.editor_popup_title').text(texts.elems[elem_data.elem.elem_type])
+                draw_editor_popup_editor_shortcuts_home_elem(elem_data);
+            // }
             set_editor_popup_editor_position_home_elem(window.selected);
         break;
     }

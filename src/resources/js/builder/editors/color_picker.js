@@ -1301,8 +1301,7 @@ set_dummy_color_picker = function(editor,val){
         editor.css('background-color',val);
     }
     editor.attr('color_var',val)
-
-    if(!$('.color_picker_editor_popup').hasClass('none')){
+    if(editor.is(window.selected_color_picker_editor)){
         try{
             val = val.replace('rgba(var(--','').replaceAll(')','').split(',') 
             $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')

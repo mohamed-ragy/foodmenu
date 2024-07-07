@@ -1,7 +1,7 @@
 draw_input_list = function(data){
     let inputList_elems_temp;
     let editor = $('<div/>',{
-        class:`editor inputList_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''}`,
+        class:`editor inputList_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.container_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,

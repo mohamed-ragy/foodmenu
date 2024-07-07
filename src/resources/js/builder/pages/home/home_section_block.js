@@ -15,6 +15,7 @@ draw_home_section_block_contextMenu = function(elem_data){
         draw_contextMenu_elem({icon:'ico-styling',child1_text:texts._styling,child2_class:'ico-arrowRight',submenu:draw_home_section_block_styling_contextMenu()}),
         // draw_contextMenu_elem({icon:'ico-animation',class:`editor_animation`,child1_text:texts.styling.animation }),
         draw_contextMenu_elem({icon:'ico-background',class:'editor_background',child1_text:texts.styling.block_background}),
+        draw_contextMenu_elem({icon:'ico-layers',child1_text:texts.styling.elements,class:`${elem_data.elem.children.length == '0' ? 'contextMenu_elem_dummy' : ''}`,child2_class:'ico-arrowRight',submenu:draw_home_section_block_elements_contextMenu()}),
 
 
     )
@@ -50,6 +51,16 @@ draw_home_section_block_styling_contextMenu = function(){
         draw_contextMenu_elem({icon:'ico-border_radius',class:`editor_border_radius`,child1_text:texts.styling.border_radius}),
         draw_contextMenu_elem({icon:'ico-box_shadow',class:`editor_box_shadow`,child1_text:texts.styling.box_shadow}),
     )
+}
+draw_home_section_block_elements_contextMenu = function(){
+    let container =  $('<div/>',{class:'w100p'})
+    let elements = get_elem_data(window.selected).elem.children;
+    for(const key in elements){
+        container.append(
+            draw_contextMenu_elem({icon:`ico-${elements[key].elem_type}`,class:'select',child1_text:texts.elems[elements[key].elem_type],attrs:{key_tree:`${window.selected}.children.${key}`}})
+        )
+    }
+    return container;
 }
 draw_editor_popup_editor_shortcuts_home_section_block = function(elem_data){
     $('#editor').find('.editor_popup_body_shortcuts').append(

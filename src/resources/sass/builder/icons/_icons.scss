@@ -25,6 +25,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-layers:before {
+  content: "\e970";
+}
+.ico-overflow:before {
+  content: "\e96e";
+}
+.ico-display:before {
+  content: "\e96f";
+}
 .ico-search_filters:before {
   content: "\e96c";
 }

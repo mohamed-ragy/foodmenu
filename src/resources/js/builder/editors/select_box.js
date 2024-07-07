@@ -19,7 +19,6 @@ draw_select_box = function(data){
         }
     }
     return editor;
-
 }
 set_select_box = function(editor){
     if(editor.hasClass('dummy_editor')){return;}

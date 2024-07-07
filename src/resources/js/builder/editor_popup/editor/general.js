@@ -1,4 +1,5 @@
 require('./general/alignment.js')
+require('./general/display.js')
 require('./general/padding.js')
 require('./general/margin.js')
 require('./general/border.js')
@@ -9,6 +10,7 @@ require('./general/height.js')
 require('./general/text.js')
 require('./general/background.js')
 require('./general/filter.js')
+require('./general/image.js')
 
 require('./general/hover_settings.js')
 require('./general/transform.js')

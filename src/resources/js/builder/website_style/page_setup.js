@@ -95,6 +95,7 @@ set_elem_animation_styles = function(elem,animation,keyframe,immediate){
         'transition-delay':animation[`${keyframe}_delay`],
         'transition-timing-function':animation[`${keyframe}_timing_function`],
         'transform':animation[`${keyframe}_transform`],
+        'transform-origin':animation[`${keyframe}_transform_origin`],
         'filter':animation[`${keyframe}_filter`],
     })
     if(immediate){

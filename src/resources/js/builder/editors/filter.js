@@ -1,6 +1,6 @@
 draw_filter_editor = function(data){
     let editor = $('<div/>',{
-        class:`editor filter_editor`,
+        class:`editor filter_editor ${data.container_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
@@ -134,7 +134,6 @@ draw_filter_editor = function(data){
 }
 set_filter_editor = function(editor){
     let val = get_editor_val(editor);
-    console.log(val)
     if(val == '--'){
         val = get_default_style('filter').split(' ')
     }else{
@@ -326,7 +325,6 @@ set_filter_val = function(editor,filter,filter_val,is_new_action=true){
     }else{
         undo_redo_actions();
     }
-    // preview_elem_animation_on_website(selector.closest('.editor_popup_container').attr('parent_key'))
 }
 //
 $('body').on('change','.filter_range_opacity',function(e){

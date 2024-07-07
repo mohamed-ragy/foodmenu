@@ -14,6 +14,8 @@
 @import '../tools/editors/box_shadow_editor.scss';//
 @import '../tools/editors/backdrop_filter_selector.scss';
 @import '../tools/editors/border_editor.scss';
+@import '../tools/editors/transform_selector.scss';
+@import '../tools/editors/animations.scss';//
 
 @import '../tools/editors/font_style_picker.scss';
 @import '../tools/editors/elem_text_selector.scss';
@@ -22,10 +24,8 @@
 @import '../tools/editors/padding_selector.scss';//
 @import '../tools/editors/margin_selector.scss';//
 @import '../tools/editors/border_radius_selector.scss';//
-@import '../tools/editors/animations.scss';//
 // @import '../tools/selectors/color_selector.scss';
 @import '../tools/editors/icon_selector.scss';
-@import '../tools/editors/transform_selector.scss';
 @import '../tools/editors/filter_selector.scss';
 @import '../tools/editors/text_shadow_selector.scss';
 @import '../tools/editors/zindex_selector.scss';

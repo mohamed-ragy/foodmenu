@@ -1,25 +1,27 @@
 select = function(key_tree){
-    if(typeof(key_tree) === 'undefined'){return;}
-    if(key_tree != window.selected){
-        hide_editor_popup('editor')
-    }
-    // let elem = get_key_tree(key_tree).elem;
-    let elem = get_elem_data(key_tree).elem
-    window.selected = key_tree;
-    $('section').removeClass('section_selected');
-    $(`.section_block`).removeClass('section_block_selected')
-    $(`.home_elem`).removeClass('edit_home_elem_selected')
-    switch(elem.type){
-        case 'home_section':
-            $(`section[key_tree="${key_tree}"]`).addClass('section_selected')
-        break;
-        case 'home_section_block':
-            $(`.section_block[key_tree="${key_tree}"]`).addClass('section_block_selected')
-        break;
-        case 'home_elem':
-            $(`.home_elem[key_tree="${key_tree}"]`).addClass('edit_home_elem_selected')
-        break;
-    }
+    try{
+        if(typeof(key_tree) === 'undefined'){return;}
+        if(key_tree != window.selected){
+            hide_editor_popup('editor')
+        }
+        // let elem = get_key_tree(key_tree).elem;
+        let elem = get_elem_data(key_tree).elem
+        window.selected = key_tree;
+        $('section').removeClass('section_selected');
+        $(`.section_block`).removeClass('section_block_selected')
+        $(`.home_elem`).removeClass('edit_home_elem_selected')
+        switch(elem.type){
+            case 'home_section':
+                $(`section[key_tree="${key_tree}"]`).addClass('section_selected')
+            break;
+            case 'home_section_block':
+                $(`.section_block[key_tree="${key_tree}"]`).addClass('section_block_selected')
+            break;
+            case 'home_elem':
+                $(`.home_elem[key_tree="${key_tree}"]`).addClass('edit_home_elem_selected')
+            break;
+        }
+    }catch{}
 }
 
 heighlight_all = function(){
@@ -78,12 +80,14 @@ temp_preview_mode = function(){
 //
 
 ///
-
-
-
-$('body').on('mouseup touchend','.home_elem',function(e){
-    if($(this).hasClass('editing_edit_home_elem_editing')){return;}
-    select($(this).attr('key_tree'))
+$('body').on('click','.select',function(){
+    let key_tree = $(this).attr('key_tree');
+    select(key_tree);
+    $('#website').animate({
+        scrollTop: $(`#website`).find(`[key_tree="${key_tree}"]`).first().offset().top - $('#website').offset().top + $('#website').scrollTop() - 300
+    },500)
 })
+
+
 
 //

@@ -18,7 +18,18 @@ draw_select_range = function(data){
     return editor;
 }
 set_select_range = function(editor){
-
+    if(editor.hasClass('dummy_editor')){return;}
+    let select_range_slider = editor.find('.select_range_slider')
+    let val = get_editor_val(editor);
+    if(val == '--'){
+        select_range_slider.find('.select_range_marker').css('left',`0px`);
+        select_range_slider.find('.select_range_slider_selected').css('width',`0px`);
+        select_range_slider.closest('.select_range').find('.select_range_val').text('--')
+    }else{
+        select_range_slider.find('.select_range_marker').css('left',`${calc_select_range_ratio(select_range_slider,parseFloat(val))}px`);
+        select_range_slider.find('.select_range_slider_selected').css('width',`${calc_select_range_ratio(select_range_slider,parseFloat(val))}px`);
+        select_range_slider.closest('.select_range').find('.select_range_val').text(val)
+    }
 }
 set_dummy_select_range = function(editor,val,immediate=false){
     let select_range_slider = editor.find('.select_range_slider')
@@ -153,6 +164,8 @@ clac_select_range_val = function(select_range_slider,slider_position){
 //
 $('body').on('change','.select_range',function(){
     if($(this).hasClass('dummy_editor')){return;}
+    let new_val = $(this).find('.select_range_val').text();
+    set_val($(this),new_val)
     new_action();
 })
 $('body').on('mousedown','.select_range_slider',function(e){
@@ -214,7 +227,7 @@ $('body').on('mousedown','.select_range_minus',function(e){
     select_range_slider.find('.select_range_marker').css('left',`${calc_select_range_ratio(select_range_slider,new_val) }px`);
     select_range_slider.find('.select_range_slider_selected').css('width',`${calc_select_range_ratio(select_range_slider,new_val)}px`);
     editor.find('.select_range_val').text(new_val+unit);
-    // $(this).closest('.editor').trigger('change')
+    // $(this).closest('.select_range').trigger('change')
 
 })
 $('body').on('mousedown','.select_range_plus',function(e){
@@ -234,8 +247,8 @@ $('body').on('mousedown','.select_range_plus',function(e){
     select_range_slider.find('.select_range_marker').css('left',`${calc_select_range_ratio(select_range_slider,new_val) }px`);
     select_range_slider.find('.select_range_slider_selected').css('width',`${calc_select_range_ratio(select_range_slider,new_val)}px`);
     editor.find('.select_range_val').text(new_val+unit);
-    // $(this).closest('.editor').trigger('change')
+    // $(this).closest('.select_range').trigger('change')
 })
 $('body').on('mouseup','.select_range_plus, .select_range_minus',function(e){
-    $(this).closest('.editor').trigger('change')
+    $(this).closest('.select_range').trigger('change')
 })

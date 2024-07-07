@@ -138,9 +138,7 @@ $('body').on('click','.delete_home_section_btn',function(e){
 })
 
 //
-$('body').on('click','.elem_text_selector_editor a',function(e){
-    e.stopImmediatePropagation();
-})
+
 $('body').on('click','.scroll_to_section',function(e){
     // e.stopImmediatePropagation();
     e.preventDefault();
