@@ -25,7 +25,7 @@ class your_restaurants_website_domain extends Seeder // please replace the artic
         help_en_sections::where('article_id',$old_article_id)->delete();
 
         $sections = [];
-        
+
         $article = help_en_articles::create([
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
@@ -33,7 +33,7 @@ class your_restaurants_website_domain extends Seeder // please replace the artic
             'description' => "Your website's domain name is an essential part of your website. This article will show you how to set up your domain name and your options based on your subscription plan.",
             'icon' => "ico-link",// i will set the icon unit i will provide you a list of all the icons
             'category' => "basics",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
-            'keyWords' => "website.domain",//the article keywords spreat them using . 
+            'keyWords' => "website_domain",//the article keywords spreat them using .
             'rating' => 0,
         ]);
         $sort = 0;

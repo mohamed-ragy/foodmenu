@@ -25,7 +25,7 @@ class live_chat_features extends Seeder // please replace the article_id with th
         help_en_sections::where('article_id',$old_article_id)->delete();
 
         $sections = [];
-        
+
         $article = help_en_articles::create([
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
@@ -33,7 +33,7 @@ class live_chat_features extends Seeder // please replace the article_id with th
             'description' => " This article provides a step-by-step guide on utilizing the live chat features for convenient communication with your website visitors.",
             'icon' => "ico-chat",// i will set the icon unit i will provide you a list of all the icons
             'category' => "basics",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
-            'keyWords' => "live.chat.features",//the article keywords spreat them using . 
+            'keyWords' => "live_chat",//the article keywords spreat them using .
             'rating' => 0,
         ]);
         $sort = 0;
@@ -79,7 +79,7 @@ class live_chat_features extends Seeder // please replace the article_id with th
         ]);
 
     //
-    $sort++; 
+    $sort++;
     array_push($sections,[
         'sort'=>$sort,
         'article_id' => $article->id,

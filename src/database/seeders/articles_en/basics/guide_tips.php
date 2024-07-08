@@ -25,7 +25,7 @@ class guide_tips extends Seeder // please replace the article_id with the articl
         help_en_sections::where('article_id',$old_article_id)->delete();
 
         $sections = [];
-        
+
         $article = help_en_articles::create([
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
@@ -33,7 +33,7 @@ class guide_tips extends Seeder // please replace the article_id with the articl
             'description' => "Understanding the tools and features of the control panel is the key to utilizing them most efficiently. Guide tips will assist you in understanding how to use all the tools.",
             'icon' => "ico-lamp",// i will set the icon unit i will provide you a list of all the icons
             'category' => "basics",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
-            'keyWords' => "guide.tips",//the article keywords spreat them using . 
+            'keyWords' => "guide_tips",//the article keywords spreat them using .
             'rating' => 0,
         ]);
         $sort = 0;
@@ -46,8 +46,16 @@ class guide_tips extends Seeder // please replace the article_id with the articl
             'title' => 'What are the guide tips?',
             'keyWords' => 'guide tips control panel guidance',
             'html' => <<<string
-            <p>Guide tips are helpful instructions that teach you how to use the different features and functions of the control panel. You can access these guide tips in two ways: through <a>Auto help</a> and <a>Help icons</a>. </p>
-            <p>Guide tips are presented in the form of cards. The area where you can find guide tips is found on the right pane of the control panel when the <a>guide mode</a> is activated.</p>
+            <p>
+            <div>Guide tips are helpful instructions that teach you how to use the different features and functions of the control panel. You can access these guide tips in two ways:</div>
+            <div>
+            <ul>
+            <li><a>Auto help:</a> The control panel automatically displays guide tips when you interact with certain elements.</li>
+            <li><a>Help icons:</a> Look for the help icon (usually a question mark) next to various controls - clicking these will show a guide tip.</li>
+            </ul>
+            </div>
+            </p>
+            <p>The guide tips are presented in the form of cards that appear in the right pane of the control panel when the guide mode is activated. This mode can be enabled to provide step-by-step walkthroughs and explanations as you use the control panel.</p>
             <img class="articleImg" src="/storage/imgs/help/articles/guide_tips.png" />
             string,
         ]);
@@ -64,11 +72,11 @@ class guide_tips extends Seeder // please replace the article_id with the articl
             <div>Each guide tip card has icons located on it that help you manage a guide tip easily. The icons are as follows:</div>
             <div>
             <ul>
-            <li>Minimize/Maximize: This icon <span class="ico-minimize"></span> minimizes the guide tip. Alternatively, You can maximize it by clicking on this icon <span class="ico-maximize"></span>.</li>
-            <li>Close: You can close a guide tip by clicking on this icon <span class="ico-close"></span>. Closing a guide tip will unpin it if it was already pinned.</li>
-            <li>Full screen: This icon  <span class="ico-fullScreen"></span> opens the selected tip in a bigger window.</li>
-            <li>Pin/Unpin: The Pin icon <span class="ico-pin"></span>  pins the guide tip so that it remains in the guide tip area every time you log into your control panel account. You can click on the same icon  <span class="ico-unbin"></span> again to unpin the tip.</li>
-            <li>Helpful/Unhelpful: These icons <span class="ico-thumbsUp"></span> <span class="ico-thumbsDown"></span> allow you to assess a guide tip as helpful or unhelpful by clicking on the thumbs-up or thumbs-down icon. This helps us to improve our services constantly.</li>
+            <li><b>Minimize/Maximize:</b> This icon <span class="ico-minimize"></span> minimizes the guide tip. Alternatively, You can maximize it by clicking on this icon <span class="ico-maximize"></span>.</li>
+            <li><b>Close:</b> You can close a guide tip by clicking on this icon <span class="ico-close"></span>. Closing a guide tip will unpin it if it was already pinned.</li>
+            <li><b>Full screen:</b> This icon  <span class="ico-fullScreen"></span> opens the selected tip in a bigger window.</li>
+            <li><b>Pin/Unpin:</b> The Pin icon <span class="ico-pin"></span>  pins the guide tip so that it remains in the guide tip area every time you log into your control panel account. You can click on the same icon  <span class="ico-unbin"></span> again to unpin the tip.</li>
+            <li><b>Helpful/Unhelpful:</b> These icons <span class="ico-thumbsUp"></span> <span class="ico-thumbsDown"></span> allow you to assess a guide tip as helpful or unhelpful by clicking on the thumbs-up or thumbs-down icon. This helps us to improve our services constantly.</li>
             </ul>
             </div>
             </p>
@@ -92,10 +100,10 @@ class guide_tips extends Seeder // please replace the article_id with the articl
             <div>Each guide tip card has icons located on it that help you manage a guide tip easily. The icons are as follows:</div>
             <div>
             <ul>
-            <li>Minimize all: You can minimize all the guide tips by clicking on this icon <span class="ico-minimize"></span> or using this shortcut instead (alt+N).</li>
-            <li>Maximize all: You can maximize all the guide tips by clicking on this icon <span class="ico-maximize"></span> or using this shortcut instead (alt+M).</li>
-            <li>Clear unpinned guide tips: You can clear all the unpinned guide tips by clicking on this icon <span class="ico-eraser"></span> or using this shortcut instead (alt+C).</li>
-            <li>Clear all: You can clear all the guide tips by clicking on this icon <span class="ico-delete"></span> or using this shortcut instead (alt+X).</li>
+            <li><b>Minimize all:</b> You can minimize all the guide tips by clicking on this icon <span class="ico-minimize"></span> or using this shortcut instead (alt+N).</li>
+            <li><b>Maximize all:</b> You can maximize all the guide tips by clicking on this icon <span class="ico-maximize"></span> or using this shortcut instead (alt+M).</li>
+            <li><b>Clear unpinned guide tips:</b> You can clear all the unpinned guide tips by clicking on this icon <span class="ico-eraser"></span> or using this shortcut instead (alt+C).</li>
+            <li><b>Clear all:</b> You can clear all the guide tips by clicking on this icon <span class="ico-delete"></span> or using this shortcut instead (alt+X).</li>
             </ul>
             </div>
             </p>
