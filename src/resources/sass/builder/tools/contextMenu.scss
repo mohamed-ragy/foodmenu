@@ -81,6 +81,13 @@
     align-items: center;
     justify-content: center;
 }
+.contextMenu_elem_img{
+    margin-inline-end:10px;
+    width:25px;
+    height:25px;
+    object-fit: cover;
+    border-radius: 3px;
+}
 .contextSubmenu{
     // position: absolute;
     // left:calc(100% - 10px);

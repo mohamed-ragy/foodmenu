@@ -13,9 +13,10 @@ require('./editors/backdrop_filter.js')//done
 require('./editors/border_editor.js')//done
 require('./editors/box_shadow_editor.js')//done
 require('./editors/filter.js')//done
-
+require('./editors/aspect_ratio_editor.js')//done
 require('./editors/font_style_picker.js')//done
-require('./editors/elem_text_selector.js')//done
+require('./editors/elem_text_editor.js')//done
+require('./editors/button_function.js')//done
 
 require('./editors/transform_selector.js')//
 require('./editors/animation/animation_editor.js')//

@@ -1,0 +1,18 @@
+.aspect_ratio_item{
+    width:100px;
+    outline:2px solid var(--white-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
+    margin:8px;
+    position: relative;
+}
+.aspect_ratio_item:hover{
+    outline:2px solid var(--white-4);
+}
+.aspect_ratio_item_selected, .aspect_ratio_item_selected:hover{
+    outline:2px solid var(--green);
+
+}

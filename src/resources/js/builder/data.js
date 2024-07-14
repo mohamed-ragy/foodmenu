@@ -35,4 +35,5 @@ require('./data/drivers.js')
 require('./data/icons.js')
 require('./data/input_list_arrays.js')
 require('./data/box_shadows.js')
+require('./data/buttons.js')
 

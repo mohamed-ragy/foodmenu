@@ -20,7 +20,7 @@ set_select_image = function(editor){
     if(val == '--'){
         editor.find('.select_image_editor_image').attr('src','/storage/imgs/cpanel/noimg.png')
     }else{
-        editor.find('.select_image_editor_image').attr('src',val)
+        editor.find('.select_image_editor_image').attr('src',val.replace('.','_thumbnail.'))
     }
 }
 //
@@ -154,7 +154,6 @@ $('body').on('click','.imgsImgCard',function(e){
 //
 $('body').on('click','.copyImageLink',function(e){
     let imgUrl = window.imgs.find(item=>item.id == $(this).attr('img')).url
-    console.log(`https://${window.website_data.url}${imgUrl}`)
     navigator.clipboard.writeText(`https://${window.website_data.url}${imgUrl}`).then(function(){
         showAlert('normal',texts.copied,4000,true);
     });

@@ -1,6 +1,6 @@
 @import '../editable/add_home_elem.scss';
 .home_elem{
-    z-index: 100;
+    // z-index: 100;
     position: relative;
 }
 .home_elem::after{
@@ -8,12 +8,12 @@
     position: absolute;
     inset:0 0 0 0;
     pointer-events: none;
-    z-index: 100;
+    // z-index: 100;
     transition-duration: 300ms;
 }
 .home_elem:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange-50);}
-    z-index: 100 !important;
+    // z-index: 100 !important;
 }
 .home_elem:hover::after{
     outline: 1px dashed var(--orange-50);
@@ -29,7 +29,7 @@
     position: absolute;
     inset:0 0 0 0;
     pointer-events: none;
-    z-index: 100;
+    // z-index: 100;
     transition-duration: 300ms;
     outline: 1px solid var(--orange);
 }
@@ -59,7 +59,7 @@
 //
 
 .editing_edit_home_elem_editing{
-    z-index:1000 !important;
+    // z-index:1000 !important;
     outline:1px solid var(--white-10) !important;
 }
 //

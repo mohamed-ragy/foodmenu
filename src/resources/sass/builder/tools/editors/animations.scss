@@ -1,3 +1,15 @@
+.animation_preview_container_dump{
+    width:120px;
+    height:60px;
+    cursor: pointer;
+    margin:10px 5px;
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 100ms;
+    outline:2px solid var(--white-2);
+    outline-offset: 2px;
+}
 
 .animation_preview_container{
     width:120px;

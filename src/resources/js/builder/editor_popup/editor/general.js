@@ -11,6 +11,7 @@ require('./general/text.js')
 require('./general/background.js')
 require('./general/filter.js')
 require('./general/image.js')
+require('./general/button.js')
 
 require('./general/hover_settings.js')
 require('./general/transform.js')

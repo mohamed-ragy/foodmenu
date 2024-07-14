@@ -300,7 +300,7 @@ class generate_js
                 $html_end = "</{$elem['tag']}>";
             break;
         }
-        return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p']);
+        return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p','button']);
     }
 
 }

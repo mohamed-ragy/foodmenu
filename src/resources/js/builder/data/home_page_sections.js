@@ -503,6 +503,7 @@ home_elem_title = function(){
         css:{
             'box-sizing': 'border-box',
             'position': 'relative',
+            'z-index':'1',
             //
             'display':'block',
             'overflow':'visible',
@@ -621,6 +622,7 @@ home_elem_paragraph = function(){
         css:{
             'box-sizing': 'border-box',
             'position': 'relative',
+            'z-index':'1',
             //
             'display':'block',
             'overflow':'visible',
@@ -727,12 +729,13 @@ home_elem_image = function(){
         elem_type: 'image',
         tag: 'img',
         class_selector: `img${this_hash}`,
-        font_style: {},
-        background:get_default_style('background'),
-        background_mobile:get_default_style('background'),
+        // font_style: {},
+        // background:get_default_style('background'),
+        // background_mobile:get_default_style('background'),
         css:{
             'box-sizing': 'border-box',
             'position': 'relative',
+            'z-index':'1',
             //
             'display':'block',
             'overflow':'hidden',
@@ -770,7 +773,10 @@ home_elem_image = function(){
             'filter':get_default_style('filter'),
             'transform':get_default_style('transform'),
             'transform-origin':'center',
-
+            //
+            'object-position':'center',
+            'object-fit':'contain',
+            'aspect-ratio':'auto',
         },
         css_mobile:{
             'display':'block',
@@ -809,7 +815,10 @@ home_elem_image = function(){
             'filter':get_default_style('filter'),
             'transform':get_default_style('transform'),
             'transform-origin':'center',
-
+            //
+            'object-position':'center',
+            'object-fit':'contain',
+            'aspect-ratio':'auto',
         },
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
@@ -817,6 +826,135 @@ home_elem_image = function(){
         attr:{
             src:'/storage/imgs/cpanel/noimg.png'
         }
+    }
+}
+home_elem_button = function(){
+    let empty_langs = {};
+    let font_styles = {};
+    for (const key in window.website_data.languages) {
+        empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.button_placholder}</span>`
+        font_styles[window.website_data.languages[key].code] = 'default';
+    }
+    let this_hash = hash();
+    return {
+        type: 'home_elem',
+        elem_type: 'button',
+        tag: 'a',
+        class_selector: `btn${this_hash}`,
+        font_style: {},
+        css:{
+            'text-decoration':'none',
+            'box-sizing': 'border-box',
+            'position': 'relative',
+            'cursor':'pointer',
+            'z-index':'1',
+            //
+            'display':'block',
+            'overflow':'visible',
+            'align-self':'auto',
+            //
+            'width': 'auto',
+            'min-width': 'auto',
+            'max-width': '100%',
+            'height': 'auto',
+            'min-height': 'auto',
+            'max-height': '100%',
+            //
+            'font-weight':'normal',
+            'line-height':'1.3em',
+            'letter-spacing':'0.05em',
+            'font-size':'1.2em',
+            'text-align':'center',
+            //
+            'padding-top': '5px',
+            'padding-right': '20px',
+            'padding-bottom': '5px',
+            'padding-left': '20px',
+            //
+            'margin-top': '5px',
+            'margin-right': '5px',
+            'margin-bottom': '5px',
+            'margin-left': '5px',
+            //
+            'border-top':'0px none rgba(var(--color_4_1),1)',
+            'border-right':'0px none rgba(var(--color_4_1),1)',
+            'border-bottom':'0px none rgba(var(--color_4_1),1)',
+            'border-left':'0px none rgba(var(--color_4_1),1)',
+            //
+            'border-top-left-radius': '0px',
+            'border-top-right-radius': '0px',
+            'border-bottom-right-radius': '0px',
+            'border-bottom-left-radius': '0px',
+            //
+            'box-shadow': 'none',
+            //
+            'filter':get_default_style('filter'),
+            'transform':get_default_style('transform'),
+            'transform-origin':'center',
+
+        },
+        css_mobile:{
+            'display':'block',
+            'overflow':'visible',
+            'align-self':'auto',
+            //
+            'width': 'auto',
+            'min-width': 'auto',
+            'max-width': '100%',
+            'height': 'auto',
+            'min-height': 'auto',
+            'max-height': '100%',
+            //
+            'font-weight':'normal',
+            'line-height':'1.3em',
+            'letter-spacing':'0.05em',
+            'font-size':'1.2em',
+            'text-align':'start',
+            //
+            'padding-top': '5px',
+            'padding-right': '20px',
+            'padding-bottom': '5px',
+            'padding-left': '20px',
+            //
+            'margin-top': '5px',
+            'margin-right': '5px',
+            'margin-bottom': '5px',
+            'margin-left': '5px',
+            //
+            'border-top':'0px none rgba(var(--color_4_1),1)',
+            'border-right':'0px none rgba(var(--color_4_1),1)',
+            'border-bottom':'0px none rgba(var(--color_4_1),1)',
+            'border-left':'0px none rgba(var(--color_4_1),1)',
+            //
+            'border-top-left-radius': '0px',
+            'border-top-right-radius': '0px',
+            'border-bottom-right-radius': '0px',
+            'border-bottom-left-radius': '0px',
+            //
+            'box-shadow': 'none',
+            //
+            'filter':get_default_style('filter'),
+            'transform':get_default_style('transform'),
+            'transform-origin':'center',
+
+        },
+        css_hover:{
+            'text-decoration':'none',
+
+        },
+        css_hover_mobile:{},
+        css_click:{},
+        css_click_mobile:{},
+        animation: get_default_style('animation'),
+        animation_mobile: get_default_style('animation'),
+        class:'',
+        text: {
+            key: `btn${this_hash}`,
+            val: empty_langs
+        },
+        attr:{
+            href:'null',
+        },
     }
 }
 // get_titles = function(){

@@ -70,7 +70,6 @@ preview_mode_toggle = function(){
 }
 window.temp_preview_mode_timeout = null;
 temp_preview_mode = function(){
-    console.log('gaga')
     clearTimeout(window.temp_preview_mode_timeout);
     set_preview_mode();
     window.temp_preview_mode_timeout = setTimeout(()=>{

@@ -16,6 +16,7 @@
 @import '../tools/editors/border_editor.scss';
 @import '../tools/editors/transform_selector.scss';
 @import '../tools/editors/animations.scss';//
+@import '../tools/editors/button_function.scss';//
 
 @import '../tools/editors/font_style_picker.scss';
 @import '../tools/editors/elem_text_selector.scss';
@@ -31,7 +32,7 @@
 @import '../tools/editors/zindex_selector.scss';
 @import '../tools/editors/opacity_selector.scss';
 @import '../tools/editors/timing_functions.scss';
-
+@import '../tools/editors/aspect_ratio_editor.scss';
 //
 
 .tabs_container{

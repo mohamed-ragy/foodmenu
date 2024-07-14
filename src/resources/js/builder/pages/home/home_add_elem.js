@@ -95,9 +95,19 @@ $('body').on('click','.add_home_elem',function(e){
         case 'image':
             new_elem = home_elem_image()
         break;
+        case 'button':
+            new_elem = home_elem_button()
+        break;
     }
     let elem = get_elem_data(window.selected).elem;
     new_elem.sort = elem.children.length;
+    let new_elem_zindex = 1;
+    for(const key in elem.children){
+        if(elem.children[key].css['z-index'] >= new_elem_zindex){
+            new_elem_zindex = parseInt(elem.children[key].css['z-index']) + 1;
+        }
+    }
+    new_elem.css['z-index'] = new_elem_zindex;
     elem.children.push(new_elem);
     new_action();
     close_popup();

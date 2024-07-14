@@ -1,4 +1,9 @@
 draw_text_editors = function(data){
+    let show_all_buttons = true;
+    let elem_data = get_elem_data(window.selected);
+    if(elem_data.elem.elem_type == 'button'){
+        show_all_buttons = false;
+    }
     let editors = $('<div/>',{
         class:`w100p`,
     });
@@ -17,17 +22,17 @@ draw_text_editors = function(data){
                         $('<button/>',{tooltip:texts.styling.bold,class:'text_editor_format text_editor_format_style ico-bold',format_action:'bold',format_tag:'span'}),
                         $('<button/>',{tooltip:texts.styling.italic,class:'text_editor_format text_editor_format_style ico-italic',format_action:'italic',format_tag:'span'}),
                         $('<button/>',{tooltip:texts.styling.underline,class:'text_editor_format text_editor_format_style ico-underline',format_action:'underline',format_tag:'span'}),
-                        draw_color_picker({
+                        show_all_buttons ? draw_color_picker({
                             dummy:true,
                             dummy_class:'text_editor_format_color',
-                        }),
-                        $('<button/>',{tooltip:texts.styling.font_color,class:'text_editor_format text_editor_format_style ico-text_color fs08',format_action:'font_color',format_tag:'span'}),
-                        draw_color_picker({
+                        }) : '',
+                        show_all_buttons ? $('<button/>',{tooltip:texts.styling.font_color,class:'text_editor_format text_editor_format_style ico-text_color fs08',format_action:'font_color',format_tag:'span'}) : '',
+                        show_all_buttons ? draw_color_picker({
                             dummy:true,
                             dummy_class:'text_editor_format_bgcolor',
-                        }),
-                        $('<button/>',{tooltip:texts.styling.bg_color,class:'text_editor_format text_editor_format_style ico-background_color fs085',format_action:'bg_color',format_tag:'span'}),
-                        $('<button/>',{tooltip:texts.styling.hyperlink,class:'text_editor_format_style text_editor_format_hyperlink ico-link fs08 contextMenu',contextMenu_type:'text_editor_hyperlink',key_tree:window.selected}),
+                        }) : '',
+                        show_all_buttons ? $('<button/>',{tooltip:texts.styling.bg_color,class:'text_editor_format text_editor_format_style ico-background_color fs085',format_action:'bg_color',format_tag:'span'}) : '',
+                        show_all_buttons ? $('<button/>',{tooltip:texts.styling.hyperlink,class:'text_editor_format_style text_editor_format_hyperlink ico-link fs08 contextMenu',contextMenu_type:'text_editor_hyperlink',key_tree:window.selected}) : '',
                         $('<button/>',{tooltip:texts.styling.clear_formating,class:'text_editor_format text_editor_format_style ico-no fs08',format_action:'remove_format',format_tag:'span'}),
                     ),
                     $('<div/>',{class:'text_editor_editor',contenteditable:true})
@@ -56,16 +61,16 @@ draw_text_editor_font_size_contextMenu = function(){
 }
 draw_text_editor_hyperlinks_contextMenu = function(){
     return $('<div/>',{class:'w100p'}).append(
-        draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:texts.website_pages.home,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'home'}}),
-        draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:texts.website_pages.about_us,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'about_us'}}),
-        draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:texts.website_pages.all_products,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'all_products'}}),
-        draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:texts.website_pages.cart,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'cart'}}),
-        draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:texts.website_pages.track_order,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'track_order'}}),
-        draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:texts.website_pages.privacy_policy,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'privacy_policy'}}),
-        draw_contextMenu_elem({icon:'',child1_text:texts.website_pages.category_pages,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_categories_contextMenu()}),
-        draw_contextMenu_elem({icon:'',child1_text:texts.website_pages.product_pages,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_products_contextMenu()}),
-        draw_contextMenu_elem({icon:'',child1_text:texts.website_pages.add_to_cart,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_add_to_cart_contextMenu()}),
-        window.selected_page == 'home' ? draw_contextMenu_elem({icon:'',child1_text:texts.website_pages.scroll_to_section,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_scroll_to_section_contextMenu()}) : '',
+        draw_contextMenu_elem({icon:'ico-home',class:`text_editor_format`,child1_text:texts.website_pages.home,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'home'}}),
+        draw_contextMenu_elem({icon:'ico-about_us',class:`text_editor_format`,child1_text:texts.website_pages.about_us,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'about_us'}}),
+        draw_contextMenu_elem({icon:'ico-product fs101',class:`text_editor_format`,child1_text:texts.website_pages.all_products,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'all_products'}}),
+        draw_contextMenu_elem({icon:'ico-cart',class:`text_editor_format`,child1_text:texts.website_pages.cart,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'cart'}}),
+        draw_contextMenu_elem({icon:'ico-order',class:`text_editor_format`,child1_text:texts.website_pages.track_order,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'track_order'}}),
+        draw_contextMenu_elem({icon:'ico-privacy_policy',class:`text_editor_format`,child1_text:texts.website_pages.privacy_policy,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:'privacy_policy'}}),
+        draw_contextMenu_elem({child1_text:texts.website_pages.category_pages,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_categories_contextMenu()}),
+        draw_contextMenu_elem({child1_text:texts.website_pages.product_pages,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_products_contextMenu()}),
+        draw_contextMenu_elem({child1_text:texts.website_pages.add_to_cart,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_add_to_cart_contextMenu()}),
+        window.selected_page == 'home' ? draw_contextMenu_elem({child1_text:texts.website_pages.scroll_to_section,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_scroll_to_section_contextMenu()}) : '',
         
         
     )
@@ -75,7 +80,7 @@ draw_text_editor_hyperlinks_categories_contextMenu = function(){
     for(const key in window.website_data.categories){
         let category = window.website_data.categories[key];
         contextMenu.append(
-            draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:category.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:category.name}})
+            draw_contextMenu_elem({img:category.img.replace('.','_thumbnail.'),class:`text_editor_format`,child1_text:category.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:category.name}})
         )
     }
     return contextMenu;
@@ -85,7 +90,7 @@ draw_text_editor_hyperlinks_products_contextMenu = function(){
     for(const key in window.website_data.products){
         let product = window.website_data.products[key];
         contextMenu.append(
-            draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:product.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:product.name}})
+            draw_contextMenu_elem({img:product.img.replace('.','_thumbnail.'),class:`text_editor_format`,child1_text:product.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:product.name}})
         )
     }
     return contextMenu;
@@ -95,7 +100,7 @@ draw_text_editor_hyperlinks_add_to_cart_contextMenu = function(){
     for(const key in window.website_data.products){
         let product = window.website_data.products[key];
         contextMenu.append(
-            draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:product.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:`addToCart_${product.name}`}})
+            draw_contextMenu_elem({img:product.img.replace('.','_thumbnail.'),class:`text_editor_format`,child1_text:product.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:`addToCart_${product.name}`}})
         )
     }
     return contextMenu;
@@ -105,7 +110,7 @@ draw_text_editor_hyperlinks_scroll_to_section_contextMenu = function(){
     for(const key in window.template.home){
         let section = window.template.home[key];
         contextMenu.append(
-            draw_contextMenu_elem({icon:'',class:`text_editor_format`,child1_text:section.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:`scroll_to_${section.name}`}})
+            draw_contextMenu_elem({icon:'ico-section',class:`text_editor_format`,child1_text:section.name,attrs:{format_action:'hyperlink',format_tag:'a',hyperlink_key:`scroll_to_${section.name}`}})
         )
     }
     return contextMenu;

@@ -64,8 +64,8 @@ draw_builder = function(template_id){
     
     // $('#website').attr('dir',window.website_data.languages[window.preview_language].direction)
     setTimeout(()=>{
-        // window.selected = 'home.1.children.section_wrapper.children.2.children.0'
-        // draw_editor_popup_animation();
+        window.selected = 'home.0.children.section_wrapper.children.0.children.0'
+        draw_editor_popup_button();
     },1000)
 
 }

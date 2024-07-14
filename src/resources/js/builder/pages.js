@@ -289,28 +289,21 @@ create_html = function(elem,key_tree){
         // break;
         default:
             if(elem.type == 'home_elem'){
-            //     elem.children.sort((a,b)=>{
-            //         return a.sort - b.sort;
-            //     })
-
-                // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-1px - ${elem.css['border-width']})` : ''}`; 
-                // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
-            //     // html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div style="${window.current_view == 'desktop' ? section_block_title_desktop : window.current_view == 'mobile' ? section_block_title_mobile : ''}" style_desktop="${section_block_title_desktop}" style_mobile="${section_block_title_mobile}" class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
-                // html = `${html}<div key_tree="${key_tree}" class="section_block" style="transform:${window.current_view == 'desktop' ? style_desktop_obj['transform'] : window.current_view == 'mobile' ? style_mobile_obj['transform'] : ''};grid-area:${window.current_view == 'desktop' ? style_desktop_obj['grid-area'] : window.current_view == 'mobile' ? style_mobile_obj['grid-area'] : ''}" style_desktop="transform:${style_desktop_obj['transform']};grid-area:${style_desktop_obj['grid-area']}" style_mobile="transform:${style_mobile_obj['transform']};grid-area:${style_mobile_obj['grid-area']}"><div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
-                
                 if(style_desktop_obj['display'] == 'none'){
-                    style_desktop_obj['margin-top'] = '0px';
-                    style_desktop_obj['margin-right'] = '0px';
-                    style_desktop_obj['margin-bottom'] = '0px';
-                    style_desktop_obj['margin-left'] = '0px';
+                    for(const key in style_desktop_obj){
+                        if(key != 'display'){
+                            style_desktop_obj[key] = '';
+                        }
+                    }
                 }
                 if(style_mobile_obj['display'] == 'none'){
-                    style_mobile_obj['margin-top'] = '0px';
-                    style_mobile_obj['margin-right'] = '0px';
-                    style_mobile_obj['margin-bottom'] = '0px';
-                    style_mobile_obj['margin-left'] = '0px';
+                    for(const key in style_mobile_obj){
+                        if(key != 'display'){
+                            style_mobile_obj[key] = '';
+                        }
+                    }
                 }
-                let style_desktop_elem_home = `height:${style_desktop_obj['height']};max-height:${style_desktop_obj['max-height']};min-height:${style_desktop_obj['min-height']};width:${style_desktop_obj['width']};max-width:${style_desktop_obj['max-width']};min-width:${style_desktop_obj['min-width']};transform:${style_desktop_obj['transform']};transform-origin:${style_desktop_obj['transform-origin']};margin-top:${style_desktop_obj['margin-top']};margin-bottom:${style_desktop_obj['margin-bottom']};margin-left:${style_desktop_obj['margin-left']};margin-right:${style_desktop_obj['margin-right']};align-self:${style_desktop_obj['align-self']};`
+                let style_desktop_elem_home = `height:${style_desktop_obj['height']};max-height:${style_desktop_obj['max-height']};min-height:${style_desktop_obj['min-height']};width:${style_desktop_obj['width']};max-width:${style_desktop_obj['max-width']};min-width:${style_desktop_obj['min-width']};transform:${style_desktop_obj['transform']};transform-origin:${style_desktop_obj['transform-origin']};margin-top:${style_desktop_obj['margin-top']};margin-bottom:${style_desktop_obj['margin-bottom']};margin-left:${style_desktop_obj['margin-left']};margin-right:${style_desktop_obj['margin-right']};align-self:${style_desktop_obj['align-self']};z-index:${style_desktop_obj['z-index']}`
                 let style_mobile_elem_home = `height:${style_mobile_obj['height']};max-height:${style_mobile_obj['max-height']};min-height:${style_mobile_obj['min-height']};width:${style_mobile_obj['width']};max-width:${style_mobile_obj['max-width']};min-width:${style_mobile_obj['min-width']};transform:${style_mobile_obj['transform']};transform-origin:${style_mobile_obj['transform-origin']};margin-top:${style_mobile_obj['margin-top']};margin-bottom:${style_mobile_obj['margin-bottom']};margin-left:${style_mobile_obj['margin-left']};margin-right:${style_mobile_obj['margin-right']};align-self:${style_mobile_obj['align-self']};`
 
                 html = `${html}<div class="home_elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style_mobile_elem_home : style_desktop_elem_home }" style_desktop="${style_desktop_elem_home}" style_mobile="${style_mobile_elem_home}">`;
@@ -371,35 +364,10 @@ create_html = function(elem,key_tree){
                     return a.sort - b.sort;
                 })
 
-                // let section_block_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `right:calc(-${elem.css['border-width']})` : ''}`; 
-                // let section_block_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `right:calc(-${elem.css_mobile['border-width']})` : ''}`; 
-                // html = `${html}<div style="${window.current_view == 'desktop' ? section_block_title_desktop : window.current_view == 'mobile' ? section_block_title_mobile : ''}" style_desktop="${section_block_title_desktop}" style_mobile="${section_block_title_mobile}" class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
                 html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_section_block"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
             }
             else if(elem.type == 'home_elem'){
                 
-                // let elem_parent = get_key_tree(key_tree).parent;
-                // let contenteditable = elem.elem_type == 'title' ? true : elem.elem_type == 'paragraph' ? true : false;
-
-                // let arrow_sort_back = 'ico-arrowUp';
-                // let arrow_sort_next = 'ico-arrowDown';
-                // if(window.current_view == 'mobile'){elem_parent.css_mobile['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
-                // if(window.current_view == 'mobile'){elem_parent.css_mobile['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
-                // if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_back = 'ico-arrowLeft' : ''}
-                // if(window.current_view == 'desktop'){elem_parent.css['flex-direction'] == 'row' ? arrow_sort_next = 'ico-arrowRight' : ''}
-
-                // html = `${html}<div class="elem_edit_btns">
-                // ${contenteditable ? `<button tooltip="${texts.edit_text}" class="btn btn-cancel elem_edit_btn edit_home_text_elem_text ico-edit_text "></button>` : ''}
-                // <button tooltip="${texts.edit_element}" class="btn btn-cancel elem_edit_btn edit_home_elem_btn ico-edit "></button>
-                // <button tooltip="${texts.swapUp}" class="${elem.sort == 1 ? 'none' : '' } btn btn-cancel elem_edit_btn swap_up_home_elem ${arrow_sort_back}"></button>
-                // <button tooltip="${texts.swapDown}" class="${elem.sort == elem_parent.children.length ? 'none' : ''} btn btn-cancel elem_edit_btn swap_down_home_elem ${arrow_sort_next}"></button>
-                // <button tooltip="${texts.styling.remove_element}" class="btn btn-cancel elem_edit_btn delete_home_elem ico-close"></button>
-                // </div>`
-                // let elem_title_desktop = `${elem.css['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css['border-width']});` : ''}${elem.css['border-style'].split(' ')[1] !== 'none' ? `left:calc(-1px - ${elem.css['border-width']})` : ''}`; 
-                // let elem_title_mobile = `${elem.css_mobile['border-style'].split(' ')[0] !== 'none' ? `bottom:calc(100% + ${elem.css_mobile['border-width']})` : ''};${elem.css_mobile['border-style'].split(' ')[1] !== 'none' ?  `left:calc(-1px - ${elem.css_mobile['border-width']})` : ''}`; 
-                // html = `${html}<div style="${window.current_view == 'desktop' ? elem_title_desktop : window.current_view == 'mobile' ? elem_title_mobile : ''}" style_desktop="${elem_title_desktop}" style_mobile="${elem_title_mobile}" class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
-                // html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_elem"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
-
             }
 
 

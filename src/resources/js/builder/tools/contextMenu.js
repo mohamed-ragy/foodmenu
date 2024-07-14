@@ -13,7 +13,12 @@ hide_contextMenu = function(force=false){
 draw_contextMenu_elem = function(data){
     let context_elem =  $('<div/>',{class:`contextMenu_elem ${data.submenu ? 'contextMenu_elem_submenu' : ''} ${data.class}`,key:data.key ?? ''}).append(
         $('<div/>',{class:'row alnC jstfyC'}).append(
-            $('<div/>',{class:`contextMenu_elem_icon ${data.icon ? `${data.icon}` : ''}`}),
+            data.icon ? 
+            $('<div/>',{class:`contextMenu_elem_icon ${data.icon}`})
+            : data.img ? 
+            $('<img/>',{class:`contextMenu_elem_img`,src:data.img})
+            :
+            $('<div/>',{class:`contextMenu_elem_icon`}),
             $('<div/>',{class:`fs09 ${data.child1_class ?? ''}`,text:data.child1_text ?? ''}),
         ),
         $('<div/>',{class:`fs07 ${data.child2_class ?? ''}`,text:data.child2_text ?? ''}),
@@ -30,20 +35,23 @@ draw_contextMenu_line = function(){
 show_contextMenu = function(type,key_tree,cord){
     hide_contextMenu();
     $('#contextMenu').text('')
-    let elem_data = get_elem_data(key_tree);
     select(key_tree)
+    let elem_data;
     switch(type){
         case 'home_section':
+            elem_data = get_elem_data(key_tree);
             $('#contextMenu').append(
                 draw_home_section_contextMenu(elem_data)
             )
         break;
         case 'home_section_block':
+            elem_data = get_elem_data(key_tree);
             $('#contextMenu').append(
                 draw_home_section_block_contextMenu(elem_data)
             )
         break;
         case 'home_elem':
+            elem_data = get_elem_data(key_tree);
             $('#contextMenu').append(
                 draw_home_elem_contextMenu(elem_data)
             )
@@ -58,12 +66,18 @@ show_contextMenu = function(type,key_tree,cord){
                 draw_text_editor_font_size_contextMenu()
             )
         break;
-
+        case 'button_function':
+            $('#contextMenu').append(
+                draw_button_function_hyperlinks_contextMenu()
+            )
+        break;
     }
-    if(elem_has_animation(key_tree,false)){
-        $('.editor_transform').addClass('contextMenu_elem_dummy')
-        $('.editor_filter').addClass('contextMenu_elem_dummy')
-    }
+    try{
+        if(elem_has_animation(key_tree,false)){
+            $('.editor_transform').addClass('contextMenu_elem_dummy')
+            $('.editor_filter').addClass('contextMenu_elem_dummy')
+        }
+    }catch{}
 
     setTimeout(()=>{
         let x = cord.x;

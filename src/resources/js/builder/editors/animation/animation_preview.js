@@ -59,6 +59,12 @@ draw_animation_preview_model = function(animation){
                     $('<div/>',{class:'fs08 mT5 c_white-10',text:texts.select_elems._no_animation})
                 )
         break;
+        case 'custom':
+            return $('<div/>',{animation_name:'customized_animation',class:`editor_popup_show_container animation_preview_container_dump column alnC jstfyC`,key:'customize_animation'}).append(
+                $('<div/>',{class:'ico-edit cG fs103'}),
+                $('<div/>',{class:'fs08 mT5 c_white-10',text:texts.select_elems._custom_animation})
+            )
+        break;
         case '1':
             return draw_animation_preview_model_1(animation)
         break;

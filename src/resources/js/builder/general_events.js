@@ -33,21 +33,17 @@ $('body').on('contextmenu',function(e){
 $('body').on('keydown',function(e){
     
     if(e.shiftKey && e.ctrlKey && e.which == 90){
-        // e.stopImmediatePropagation();
         e.preventDefault();
         redo();
     }
     else if(e.ctrlKey && e.which == 90){
-        // e.stopImmediatePropagation();
         e.preventDefault();
         undo();
     }
     else if(e.altKey && e.which == 88){
-        // e.stopImmediatePropagation();
         view_toggle()
     }
     else if(e.ctrlKey && e.which == 83){
-        // e.stopImmediatePropagation();
         e.preventDefault();
         if(!is_saved_checker()){
             $('#save').trigger('click')
@@ -93,18 +89,28 @@ $('body').on('keydown',function(e){
         })
     }
     if(e.altKey){
-        // e.stopImmediatePropagation();
         e.preventDefault();
     }
     if(e.altKey && e.which == 83){
-        // e.stopImmediatePropagation();
         set_preview_mode();
     }
     else if(e.altKey  && e.which == 65){
-        // e.stopImmediatePropagation();
         heighlight_all();
     }
 
+    if(e.shiftKey && e.ctrlKey && e.which == 38){
+        e.preventDefault();
+        editor_home_elem_bring_to_front();
+    }else if(e.shiftKey && e.ctrlKey && e.which == 40){
+        e.preventDefault();
+        editor_home_elem_send_to_back();
+    }else if(e.ctrlKey && e.which == 38){
+        e.preventDefault();
+        editor_home_elem_bring_forward();
+    }else if(e.ctrlKey && e.which == 40){
+        e.preventDefault();
+        editor_home_elem_send_backward();
+    }
 
 })
 $('body').on('mousemove',function(e){

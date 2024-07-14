@@ -155,6 +155,12 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         $('.timing_function_editor').each(function(){
             set_timing_function_editor($(this));
         })
+        $('.aspect_ratio_editor').each(function(){
+            set_aspect_ratio_editor($(this));
+        })
+        $('.button_function_editor').each(function(){
+            set_button_function_editor($(this));
+        })
 
         $('.editor_details_head').each(function(){
             set_editor_details($(this))

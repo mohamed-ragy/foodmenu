@@ -1,0 +1,31 @@
+.button_function_editor{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end ;
+}
+.button_function_preview_container{
+    box-shadow: 0 0 2px var(--shdw-20);
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding:5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+}
+.button_function_preview_img{
+    width:20px;
+    height:20px;
+    object-fit: cover;
+    border-radius: 3px;
+    
+}
+.button_function_preview_icon{
+    width:20px;
+    height:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+}

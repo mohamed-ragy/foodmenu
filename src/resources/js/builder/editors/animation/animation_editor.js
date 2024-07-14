@@ -9,14 +9,14 @@ draw_animation_editor = function(data){
         key:data.key,
     }).append(
         $('<div/>',{class:'editor_popup_container w100p',key:'select_animation'}).append(
-            draw_editor_show_container({
-                name:texts.styling.customize_animation,
-                key:'customize_animation',
-                row_class:true,
-                container_class:'editor_popup_brdrT_none editor_popup_brdrB',
-            }),
+            // draw_editor_show_container({
+            //     name:texts.styling.customize_animation,
+            //     key:'customize_animation',
+            //     row_class:true,
+            //     container_class:'editor_popup_brdrT_none editor_popup_brdrB',
+            // }),
             // $('<div/>',{class:'editor_popup_col'}).append(
-                $('<div/>',{class:'m20 fs09',text:texts.styling.select_animation}),
+                $('<div/>',{class:'mX20 mY10 mT20 bold',text:texts.styling.select_animation}),
                 animations_preview_container = $('<div/>',{class:'selector animations_preview_container w100p row wrap alnC jstfyC',key_tree:data.key_tree,key:'name'})
             // )
         ),
@@ -152,13 +152,23 @@ draw_animation_editor = function(data){
         animations_preview_container.append(
             draw_animation_preview_model(window.animations_previews[key])
         )
+        if(window.animations_previews[key].name == 'no_animation'){
+            animations_preview_container.append(
+                draw_animation_preview_model({preview_model:'custom'})
+            )
+        }
     }
     return editor;
 }
 set_animation_editor = function(editor){
     let animation_name = get_editor_val(editor);
     $('.animation_preview_container').removeClass('animation_preview_container_selected')
-    $(`.animation_preview_container[animation_name="${animation_name}"]`).addClass('animation_preview_container_selected')
+    $('.animation_preview_container_dump').removeClass('animation_preview_container_selected')
+    if(animation_name == 'customized_animation'){
+        $(`.animation_preview_container_dump[animation_name="${animation_name}"]`).addClass('animation_preview_container_selected')
+    }else{
+        $(`.animation_preview_container[animation_name="${animation_name}"]`).addClass('animation_preview_container_selected')
+    }
 }
 
 //
@@ -206,165 +216,6 @@ $('body').on('change','.editor_preview_animation2',function(){
     preview_elem_animation_on_website($(this).closest('.editor_popup_container').attr('parent_key'))
 })
 //
-// draw_animation_selector = function(data){
-//     return '';
-//     let elem_data = get_key_tree(data.key_tree);
-//     let elem_val = get_elem_val(elem_data,'name',data.is_responsive ? '1':'0');
-//     let animations_preview_container;
-//     let selector_container = $('<div/>',{class:` ${data.selector_container_class === false ? '' : 'selector_container'} ${data.container_class ?? ''}`,is_responsive:data.is_responsive ? '1':'0'}).append(
-//         draw_selector_name({data:data,name:'',responsive_class:elem_val.responsive_class,container_class:'m10 pX5 bold w100p-20 fs101'}),
-//         $('<div/>',{class:'selector w100p',key_tree:data.key_tree,key:'name'}).append(
-//             $('<div/>',{class:'editor_popup_container w100p',key:'select_animation'}).append(
-//                 draw_editor_show_container({
-//                     name:texts.styling.customize_animation,
-//                     key:'customize_animation',
-//                     row_class:true,
-//                 }),
-//                 $('<div/>',{class:'editor_popup_col'}).append(
-//                     $('<div/>',{class:' fs09',text:texts.styling.select_animation}),
-//                     animations_preview_container = $('<div/>',{class:'selector animations_preview_container w100p row wrap alnC jstfyC',key_tree:data.key_tree,key:'name'})
-//                 )
-//             ),
-//         ),
-
-//         $('<div/>',{class:'editor_popup_container w100p none',key:'customize_animation',parent_key:'select_animation'}).append(
-//             // draw_rename_selector({
-//             //     keys_arr:[{key_tree:data.key_tree,key:'name'}],
-//             //     name:texts.styling.animation_name,
-//             // }),
-//             draw_switch_btn({
-//                 keys_arr:[{key_tree:data.key_tree,key:'repeat'}],
-//                 name:texts.styling.repeat_animation,
-//                 show_hide:'editor_popup_show_container[key="animation_up"].editor_popup_show_container[key="animation_up_out.editor_popup_show_container[key="animation_down"]',
-//                 is_responsive:true,
-//                 responsive_icon:false,
-//                 hover_icon:false,
-//                 selector_container_class:false,
-//             }),
-//             draw_editor_show_container({
-//                 name:texts.styling.animation_up_out,
-//                 key:'animation_up_out',
-//                 row_class:true,
-//             }),
-//             draw_editor_show_container({
-//                 name:texts.styling.animation_up,
-//                 key:'animation_up',
-//                 row_class:true,
-//             }),
-//             draw_editor_show_container({
-//                 name:texts.styling.animation_in,
-//                 key:'animation_in',
-//                 row_class:true,
-//             }),
-//             draw_editor_show_container({
-//                 name:texts.styling.animation_down,
-//                 key:'animation_down',
-//                 row_class:true,
-//             }),
-//             draw_editor_show_container({
-//                 name:texts.styling.animation_down_out,
-//                 key:'animation_down_out',
-//                 row_class:true,
-//                 container_class:'editor_popup_row_border_bottom'
-//             }),
-//         ),
-//     )
-//     let keyframes = ['up_out','up','in','down','down_out'];
-//     for(const key in keyframes){
-//         let keyframe = keyframes[key];
-//         selector_container.append(
-//             $('<div/>',{class:'editor_popup_container w100p none',key:`animation_${keyframe}`,parent_key:'customize_animation'}).append(
-//                 $('<div/>',{class:'mX15 fs1 mB20 bold',text:texts.styling[`animation_${keyframe}`]}),
-//                 draw_select_range({
-//                     keys_arr:[{key_tree:data.key_tree,key:`${keyframe}_duration`}],
-//                     unit:'ms',
-//                     range:{min:0,max:3000,step:1},
-//                     name:texts.styling.duration,
-//                     is_responsive:data.is_responsive,
-//                     selector_container_class:false,
-//                     responsive_icon:false,
-//                     hover_icon:false,
-//                     container_class:'editor_popup_row_border_top_none animation_select_range'
-//                 }),
-//                 draw_select_range({
-//                     keys_arr:[{key_tree:data.key_tree,key:`${keyframe}_delay`}],
-//                     unit:'ms',
-//                     range:{min:0,max:3000,step:1},
-//                     name:texts.styling.delay,
-//                     is_responsive:data.is_responsive,
-//                     selector_container_class:false,
-//                     responsive_icon:false,
-//                     hover_icon:false,
-//                     container_class:'animation_select_range'
-//                 }),
-//                 draw_editor_show_container({
-//                     name:texts.styling.animation_timing_function,
-//                     key:`animation_${keyframe}_timing_function`,
-//                     row_class:true,
-//                 }),
-//                 draw_editor_show_container({
-//                     name:texts.styling.transform,
-//                     key:`animation_${keyframe}_transform`,
-//                     row_class:true,
-//                 }),
-//                 draw_editor_show_container({
-//                     name:texts.styling.filter,
-//                     key:`animation_${keyframe}_filter`,
-//                     row_class:true,
-//                     container_class:'editor_popup_row_border_bottom'
-//                 }),    
-//             ),
-//             $('<div/>',{class:'editor_popup_container w100p none',key:`animation_${keyframe}_timing_function`,parent_key:`animation_${keyframe}`}).append(
-//                 draw_timing_function_selector({
-//                     keys_arr:[{key_tree:data.key_tree,key:`${keyframe}_timing_function`}],
-//                     name:texts.styling.select_animation_timing,
-//                     is_responsive:data.is_responsive,
-//                     selector_container_class:false,
-//                     responsive_icon:false,
-//                     hover_icon:false,
-//                 })
-//             ),
-//             $('<div/>',{class:'editor_popup_container w100p none',key:`animation_${keyframe}_transform`,parent_key:`animation_${keyframe}`}).append(
-//                 draw_transform_selector({
-//                     keys_arr:[{key_tree:data.key_tree,key:`${keyframe}_transform`}],
-//                     selector_container_class:false,
-//                     is_responsive:data.is_responsive,
-//                     selector_container_class:false,
-//                     responsive_icon:false,
-//                     hover_icon:false,
-//                 }),
-//             ),
-//             $('<div/>',{class:'editor_popup_container w100p none',key:`animation_${keyframe}_filter`,parent_key:`animation_${keyframe}`}).append(
-//                 draw_filter_selector({
-//                     keys_arr:[{key_tree:data.key_tree,key:`${keyframe}_filter`}],
-//                     selector_container_class:false,
-//                     is_responsive:data.is_responsive,
-//                     selector_container_class:false,
-//                     responsive_icon:false,
-//                     hover_icon:false,
-//                 })
-//             )
-//         )
-//     }
-//     for(const key in window.animations_previews){
-//         let is_selected;
-//         if(window.animations_previews[key].name == elem_val.val){
-//             is_selected = true;
-//         }
-//         animations_preview_container.append(
-//             draw_animation_preview_model(window.animations_previews[key],is_selected)
-//         )
-//     }
-
-//     return selector_container
-// }
-// set_animation_selector = function(selector){
-//     let val = get_selector_val(selector);
-//     selector.find('.animation_preview_container').removeClass('animation_preview_container_selected');
-//     if(val != null){
-//         selector.find(`.animation_preview_container[animation_name="${val}"]`).addClass('animation_preview_container_selected')
-//     }
-// }
 
 
 //events

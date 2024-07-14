@@ -1372,7 +1372,7 @@ $('body').on('mouseup','.color_picker_editor',function(){
         $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
         $('.color_picker_editor_popup').css({
             left:parseFloat($(this).offset().left) + parseFloat($(this).outerWidth()),
-            top:$(this).offset().top 
+            top:$(this).offset().top,
         }).removeClass('none')
         set_dummy_select_range($('.color_picker_editor_transparency'),'1',true)
         set_color_picker_editor_colors();
@@ -1397,6 +1397,10 @@ $('body').on('mouseup','.color_picker_editor',function(){
         $('.color_picker_editor_transparency_container').addClass('none')
     }else{
         $('.color_picker_editor_transparency_container').removeClass('none')
+    }
+
+    if(parseFloat($('.color_picker_editor_popup').offset().top) + parseFloat($('.color_picker_editor_popup').height()) > $(window).height()){
+        $('.color_picker_editor_popup').css('top',parseFloat($(this).offset().top) - parseFloat($('.color_picker_editor_popup').outerHeight()) - $(this).outerHeight())
     }
 
 })

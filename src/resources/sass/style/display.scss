@@ -9,6 +9,9 @@
 .column-400{@media (max-width:400px){flex-direction: column;}}
 .column-639{@media (max-width:639px) {flex-direction: column;}}
 
+.gap3{gap:3px;}
+.gap5{gap:5px;}
+
 .alnS{align-items:flex-start}
 .alnSH{align-items:stretch}
 .alnC{align-items:center}

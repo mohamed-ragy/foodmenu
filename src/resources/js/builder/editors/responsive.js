@@ -1,16 +1,13 @@
 draw_responsive_selector = function(){
     return $('<div/>',{class:'responsive_selector_container'}).append(
-        $('<div/>',{class:'responsive_selector',key:'general'}).append(
+        $('<div/>',{class:'responsive_selector',key:'general',tooltip:texts.general}).append(
             $('<div/>',{class:'ico-responsive mie-5'}),
-            $('<div/>',{text:texts.general})
         ),
-        $('<div/>',{class:'responsive_selector',key:'desktop'}).append(
+        $('<div/>',{class:'responsive_selector',key:'desktop',tooltip:texts.desktop}).append(
             $('<div/>',{class:'ico-desktop mie-5'}),
-            $('<div/>',{text:texts.desktop})
         ),
-        $('<div/>',{class:'responsive_selector',key:'mobile'}).append(
+        $('<div/>',{class:'responsive_selector',key:'mobile',tooltip:texts.mobile}).append(
             $('<div/>',{class:'ico-mobile mie-5'}),
-            $('<div/>',{text:texts.mobile})
         ),
     )
 }

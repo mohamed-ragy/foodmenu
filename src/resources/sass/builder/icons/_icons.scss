@@ -25,6 +25,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-section:before {
+  content: "\e97b";
+}
+.ico-privacy_policy:before {
+  content: "\e975";
+}
+.ico-order:before {
+  content: "\e976";
+}
+.ico-cart:before {
+  content: "\e977";
+}
+.ico-product:before {
+  content: "\e978";
+}
+.ico-about_us:before {
+  content: "\e979";
+}
+.ico-home:before {
+  content: "\e97a";
+}
+.ico-bring_forward:before {
+  content: "\e971";
+}
+.ico-bring_to_front:before {
+  content: "\e972";
+}
+.ico-send_backward:before {
+  content: "\e973";
+}
+.ico-send_to_back:before {
+  content: "\e974";
+}
 .ico-layers:before {
   content: "\e970";
 }
