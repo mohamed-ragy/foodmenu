@@ -25,15 +25,15 @@ class the_activity_log extends Seeder // please replace the article_id with the 
         help_en_sections::where('article_id',$old_article_id)->delete();
 
         $sections = [];
-        
+
         $article = help_en_articles::create([
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
             'title' => "The activity log",
             'description' => "The activity log allows you to view all activities taking place on your account and website. Check out this guide to learn how to use it.",
-            'icon' => "ico-",// i will set the icon unit i will provide you a list of all the icons
+            'icon' => "ico-activity_log",// i will set the icon unit i will provide you a list of all the icons
             'category' => "basics",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
-            'keyWords' => "activity_log.website_activity",//the article keywords spreat them using . 
+            'keyWords' => "activity_log.website_activity",//the article keywords spreat them using .
             'rating' => 0,
         ]);
         $sort = 0;
@@ -50,7 +50,7 @@ class the_activity_log extends Seeder // please replace the article_id with the 
             string,
         ]);
 
-        
+
         //
         $sort++;
         array_push($sections,[

@@ -25,15 +25,15 @@ class financial_reports extends Seeder // please replace the article_id with the
         help_en_sections::where('article_id',$old_article_id)->delete();
 
         $sections = [];
-        
+
         $article = help_en_articles::create([
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
             'title' => "Financial reports",
             'description' => "In this article, we explore how you can generate monthly financial reports using our tools to provide valuable insights into your business’s financial health.",
-            'icon' => "ico-",// i will set the icon unit i will provide you a list of all the icons
+            'icon' => "ico-financial_reports",// i will set the icon unit i will provide you a list of all the icons
             'category' => "basics",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
-            'keyWords' => "financial_reports",//the article keywords spreat them using . 
+            'keyWords' => "financial",//the article keywords spreat them using .
             'rating' => 0,
         ]);
         $sort = 0;
@@ -65,9 +65,9 @@ class financial_reports extends Seeder // please replace the article_id with the
             <div>Each report is presented in its row and features three icons for actions you can perform:</div>
             <div>
             <ul>
-            <li><b>Download PDF file <span class="ico-"></span>:</b> This option lets you download the report to your device.</li>
-            <li><b>View PDF file <span class="ico-"></span>:</b> If you prefer to view the report without downloading, this icon opens it in a new tab for immediate viewing.</li>
-            <li><b>Delete <span class="ico-"></span>:</b> If you no longer need a particular report, you can permanently remove it from your account by selecting this option.</li>
+            <li><b>Download PDF file <span class="ico-pdf"></span>:</b> This option lets you download the report to your device.</li>
+            <li><b>View PDF file <span class="ico-download"></span>:</b> If you prefer to view the report without downloading, this icon opens it in a new tab for immediate viewing.</li>
+            <li><b>Delete <span class="ico-delete"></span>:</b> If you no longer need a particular report, you can permanently remove it from your account by selecting this option.</li>
             </ul>
             </div>
             </p>
@@ -83,7 +83,7 @@ class financial_reports extends Seeder // please replace the article_id with the
             'title' => 'How do the financial reports get generated?',
             'keyWords' => 'restaurant costs financial reports',
             'html' => <<<string
-            <p>Our tools leverage the account data you provide to generate comprehensive financial reports. The revenue calculations are based on the sales and performance of the products and services you offer.</p>
+            <p>Our tools use the account information you provide to make detailed financial reports. The revenue calculations are based on the sales and performance of the products and services you offer.</p>
             <p>The expense data is derived directly from the restaurant-specific costs you specify in your account. This ensures the financial reports we generate accurately reflect the operational expenses incurred by your business.</p>
             string,
         ]);

@@ -14,6 +14,8 @@ use Database\Seeders\articles_en\basics\your_restaurants_website_domain;
 use Database\Seeders\articles_en\basics\the_activity_log;
 use Database\Seeders\articles_en\basics\financial_reports;
 use Database\Seeders\articles_en\basics\restaurant_expenses;
+use Database\Seeders\articles_en\basics\your_websites_privacy_policy;
+
 use Illuminate\Database\Seeder;
 
 class articles_en extends Seeder
@@ -38,5 +40,6 @@ class articles_en extends Seeder
         $this->call([the_activity_log::class]); //
         $this->call([financial_reports::class]); //
         $this->call([restaurant_expenses::class]); //
+        $this->call([your_websites_privacy_policy::class]); //
     }
 }

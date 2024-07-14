@@ -25,15 +25,15 @@ class restaurant_expenses extends Seeder // please replace the article_id with t
         help_en_sections::where('article_id',$old_article_id)->delete();
 
         $sections = [];
-        
+
         $article = help_en_articles::create([
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
             'title' => "Restaurant expenses ",
             'description' => "In this article, you’ll learn how to record all your restaurant expenses on your account to help generate concise financial reports every month.",
-            'icon' => "ico-",// i will set the icon unit i will provide you a list of all the icons
+            'icon' => "ico-restaurant_expenses",// i will set the icon unit i will provide you a list of all the icons
             'category' => "basics",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
-            'keyWords' => "restaurant_expenses",//the article keywords spreat them using . 
+            'keyWords' => "financial",//the article keywords spreat them using .
             'rating' => 0,
         ]);
         $sort = 0;
@@ -64,7 +64,7 @@ class restaurant_expenses extends Seeder // please replace the article_id with t
             'html' => <<<string
             <p>Fixed expenses are the recurring costs that you consistently pay every month, such as employee salaries and rent.</p>
             <p>In the <b>Monthly fixed expenses</b> tab, you’ll find the list of fixed expenses you have added before (if any).</p>
-            <img class ="articleImg" src="/sto rage/imgs/help/articles/fixed_expense.png" /> 
+            <img class ="articleImg" src="/sto rage/imgs/help/articles/fixed_expense.png" />
             <p>To add a new fixed expense, click on the <b>Add new expense</b> button. A window will appear where you can enter the expense name and amount in their respective input boxes.</p>
             <img class="articleImg" src="/sto rage/imgs/help/articles/add_new_expense.png" />
             <p>Then this expense will instantly be reflected in the expenses list.</p>
