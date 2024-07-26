@@ -1,56 +1,65 @@
-get_buttons = function(key=null){
+get_buttons = function(c,key=null){
     let buttons = [
         {
             'css':{
-                'color':'rgba(var(--color_1_7),1)',
-                'background-color':'rgba(var(--color_1_1),1)',
-                'box-shadow': 'none',
+                'color':`rgba(var(--color_${c}_7),1)`,
+                'background-color':`rgba(var(--color_${c}_4),1)`,
                 //
-                'border-top':'0px none rgba(var(--color_4_1),1)',
-                'border-right':'0px none rgba(var(--color_4_1),1)',
-                'border-bottom':'0px none rgba(var(--color_4_1),1)',
-                'border-left':'0px none rgba(var(--color_4_1),1)',
-                //
-                'border-top-left-radius': '0px',
-                'border-top-right-radius': '0px',
-                'border-bottom-right-radius': '0px',
-                'border-bottom-left-radius': '0px',
-                //
+                'border-radius': `3px 3px 3px 3px`,
             },
             'css_hover':{
-                'color':'rgba(var(--color_1_7),1)',
-                'background-color':'rgba(var(--color_1_2),1)',
-                'box-shadow': 'none',
-                //
-                'border-top':'0px none rgba(var(--color_4_1),1)',
-                'border-right':'0px none rgba(var(--color_4_1),1)',
-                'border-bottom':'0px none rgba(var(--color_4_1),1)',
-                'border-left':'0px none rgba(var(--color_4_1),1)',
-                //
-                'border-top-left-radius': '0px',
-                'border-top-right-radius': '0px',
-                'border-bottom-right-radius': '0px',
-                'border-bottom-left-radius': '0px',
+                'color':`rgba(var(--color_${c}_7),1)`,
+                'background-color':`rgba(var(--color_${c}_3),1)`,
                 //
             },
             'css_click':{
-                'color':'rgba(var(--color_1_7),1)',
-                'background-color':'rgba(var(--color_1_1),1)',
-                'box-shadow': 'none',
+                'color':`rgba(var(--color_${c}_7),1)`,
+                'background-color':`rgba(var(--color_${c}_4),1)`,
                 //
-                'border-top':'0px none rgba(var(--color_4_1),1)',
-                'border-right':'0px none rgba(var(--color_4_1),1)',
-                'border-bottom':'0px none rgba(var(--color_4_1),1)',
-                'border-left':'0px none rgba(var(--color_4_1),1)',
-                //
-                'border-top-left-radius': '0px',
-                'border-top-right-radius': '0px',
-                'border-bottom-right-radius': '0px',
-                'border-bottom-left-radius': '0px',
-                //
+            },
+            'css_disabled':{
+                'color':`rgba(var(--color_4_3),1)`,
+                'background-color':`rgba(var(--color_4_4),1)`,
             },
 
         },
+        {
+            'css':{
+                'color':`rgba(var(--color_${c}_4),1)`,
+                'background-color':`rgba(var(--color_${c}_4),.1)`,
+                //
+                'border-top':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-right':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-bottom':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-left':`1px solid rgba(var(--color_${c}_4),.5)`,
+                //
+                'border-radius': `3px 3px 3px 3px`,
+            },
+            'css_hover':{
+                'color':`rgba(var(--color_${c}_4),1)`,
+                'background-color':`rgba(var(--color_${c}_4),.2)`,
+                //
+                'border-top':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-right':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-bottom':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-left':`1px solid rgba(var(--color_${c}_4),.5)`,
+                //
+            },
+            'css_click':{
+                'color':`rgba(var(--color_${c}_4),1)`,
+                'background-color':`rgba(var(--color_${c}_4),.1)`,
+                //
+                'border-top':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-right':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-bottom':`1px solid rgba(var(--color_${c}_4),.5)`,
+                'border-left':`1px solid rgba(var(--color_${c}_4),.5)`,
+                //
+            },
+            'css_disabled':{
+                'color':`rgba(var(--color_4_3),1)`,
+                'background-color':`rgba(var(--color_4_4),1)`,
+            }
+        }
     ]
 
     if(key == null){

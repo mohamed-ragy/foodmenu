@@ -1,6 +1,5 @@
-@import '../editable/add_home_elem.scss';
+@import '../editable/elem/add_home_elem.scss';
 .home_elem{
-    // z-index: 100;
     position: relative;
 }
 .home_elem::after{
@@ -8,12 +7,10 @@
     position: absolute;
     inset:0 0 0 0;
     pointer-events: none;
-    // z-index: 100;
     transition-duration: 300ms;
 }
 .home_elem:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange-50);}
-    // z-index: 100 !important;
 }
 .home_elem:hover::after{
     outline: 1px dashed var(--orange-50);
@@ -29,7 +26,6 @@
     position: absolute;
     inset:0 0 0 0;
     pointer-events: none;
-    // z-index: 100;
     transition-duration: 300ms;
     outline: 1px solid var(--orange);
 }
@@ -59,32 +55,6 @@
 //
 
 .editing_edit_home_elem_editing{
-    // z-index:1000 !important;
     outline:1px solid var(--white-10) !important;
 }
 //
-
-//
-// .elem_edit_btns{
-//     display: none;
-//     position: absolute;
-//     top:-27px;
-//     right:0;
-//     margin:0;
-//     align-items: center;
-//     justify-content: center;
-//     z-index: 1;
-// }
-// .elem_edit_btn{
-//     box-sizing: border-box;
-//     background-color: var(--white-1);
-//     min-width:unset;
-//     width:unset;
-//     font-size:1rem;
-//     margin: 0;
-//     padding:3px;
-//     border-radius: 2px;
-//     height:25px;
-//     width:25px;
-// }
-// .delete_home_elem{font-size: .7rem;}

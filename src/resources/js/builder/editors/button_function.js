@@ -8,6 +8,13 @@ draw_button_function_editor = function(data){
 
     return editor;
 }
+set_button_function_editor = function(editor){
+    let val = get_editor_val(editor);
+    let elem = get_elem_data(window.selected).elem;
+    editor.text('').append(
+        draw_button_function_preview(elem)
+    )
+}
 draw_button_function_hyperlinks_contextMenu = function(){
     return $('<div/>',{class:'w100p'}).append(
         draw_contextMenu_elem({icon:'ico-home',class:`editor_set_function`,child1_text:texts.website_pages.home,attrs:{hyperlink_key:'home'}}),
@@ -62,16 +69,10 @@ draw_button_function_hyperlinks_scroll_to_section_contextMenu = function(){
     }
     return contextMenu;
 }
-set_button_function_editor = function(editor){
-    let val = get_editor_val(editor);
-    let elem = get_elem_data(window.selected).elem;
-    editor.text('').append(
-        draw_button_function_preview(elem)
-    )
-}
+
 draw_button_function_preview = function(elem){
     let img;
-    elem.attr.href == 'null' ? img = '/storage/imgs/cpanel/noimg.png' : '';
+    elem.attr.href == 'null' ? img = $('<div/>',{class:'button_function_preview_icon cR ico-no'}) : '';
     let text;
     elem.attr.href == 'null' ? text = texts.styling.no_action : '';
     let hyperlink = elem.attr.href == 'null' ? '' : elem.attr.href;

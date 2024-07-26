@@ -61,6 +61,10 @@
     font-size: .9em;
     position: relative;
 }
+.inputList_elem_dummy{
+    color:var(--white-10);
+    pointer-events: none;
+}
 .inputList_elem:hover{
     background-color: var(--green-10);
 }

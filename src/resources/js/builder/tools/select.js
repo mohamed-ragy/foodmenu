@@ -4,7 +4,6 @@ select = function(key_tree){
         if(key_tree != window.selected){
             hide_editor_popup('editor')
         }
-        // let elem = get_key_tree(key_tree).elem;
         let elem = get_elem_data(key_tree).elem
         window.selected = key_tree;
         $('section').removeClass('section_selected');
@@ -21,7 +20,9 @@ select = function(key_tree){
                 $(`.home_elem[key_tree="${key_tree}"]`).addClass('edit_home_elem_selected')
             break;
         }
-    }catch{}
+    }catch{
+        hide_editor_popup('editor')
+    }
 }
 
 heighlight_all = function(){
@@ -50,14 +51,10 @@ heighlight_all_toggle = function(){
 set_preview_mode = function(){
     $('.set_preview_mode').addClass('header_icon_selected')
     $('#website').addClass('preview_mode')
-    // $('section').addClass('section_clear')
-    // $('.website_header').addClass('selected_header_clear')
 }
 unset_preview_mode = function(){
     $('.set_preview_mode').removeClass('header_icon_selected')
     $('#website').removeClass('preview_mode')
-    // $('section').removeClass('section_clear')
-    // $('.website_header').removeClass('selected_header_clear')
 
 }
 preview_mode_toggle = function(){

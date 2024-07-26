@@ -1,6 +1,6 @@
-@import '../editable/section_layouts.scss';
-@import '../editable/section_drivers.scss';
-@import '../editable/add_section.scss';
+@import '../editable/section/section_layouts.scss';
+@import '../editable/section/section_drivers.scss';
+@import '../editable/section/add_section.scss';
 
 
 section {
@@ -20,9 +20,6 @@ section::after{
 section:hover {
     z-index: 2;
     .select_section_title{display:flex;background-color: var(--green-70);}
-    // .section_block::after{
-    //     outline: 1px dashed var(--blue-50);
-    // }
     .add_home_section_btn_style {
         transform: scale(1);
         opacity: 1;
@@ -69,17 +66,10 @@ section:hover::after{
     justify-content: center;
     box-shadow: 0 0 10px 0px var(--shdw-10);
     z-index: 110;
-    // transition-duration: 300ms;
-    // animation-name: select_section_title_animation;
-    // animation-duration: 200ms;
 
 }
 .select_section_title div:nth-child(1){font-size:.8rem;margin-inline-end:7px;cursor: pointer;}
 .select_section_title div:nth-child(2){font-size:.9rem}
-// @keyframes select_section_title_animation {
-//     0%{transform: scale(.95);}
-//     100%{transform: scale(1);}
-// }
 
 .add_home_section_btn_style {
     z-index: 101;

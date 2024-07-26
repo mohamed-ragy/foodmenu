@@ -8,10 +8,6 @@ class templates_data
     public static function fonts(){
         return [
             //latin
-
-
-
-
             ['name' => 'AdventPro','language' => 'latin'],
             ['name' => 'Akshar','language' => 'latin'],
             ['name' => 'Alegreya','language' => 'latin'],

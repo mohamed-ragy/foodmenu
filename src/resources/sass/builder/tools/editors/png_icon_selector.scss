@@ -1,0 +1,23 @@
+
+.png_icon_selector_container{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin:20px 0;
+}
+.png_icon_preview{
+    width:60px;
+    height:auto;
+    padding: 8px;
+    margin:5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.png_icon_preview:hover{
+    outline:2px solid var(--white-2)
+}
+.png_icon_preview_selected, .png_icon_preview_selected:hover{
+    outline:2px solid var(--green)
+}

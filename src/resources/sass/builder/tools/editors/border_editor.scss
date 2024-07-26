@@ -1,16 +1,11 @@
-.border_editor_lock{
-    font-size:1.1em;
-    margin-inline-start:10px;
+.border_editor_details_toggle{
     cursor: pointer;
+    font-size: .9em;
+    margin-inline-end:5px;
 }
-.border_editor_lock.ico-lock:before{
-   color:var(--orange)
-}
-.border_editor_remove_hover{
-    margin-inline-start: 10px;
-    font-size: 1.45em;
-    cursor: pointer;
-}
-.border_editor_remove_hover:hover{
-    color:var(--red);
+.border_editor_detail_container{
+    transform: translateY(-10px);
+    transition-duration: 100ms;
+    opacity: 0;
+    height:0px;
 }

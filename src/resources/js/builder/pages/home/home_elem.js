@@ -39,14 +39,17 @@ draw_home_elem_contextMenu = function(elem_data){
         elem_data.elem.elem_type == 'image' ? 
         draw_contextMenu_elem({icon:'ico-image',class:`editor_image`,child1_text:texts.styling.image})
         :'',
+        elem_data.elem.elem_type == 'icon' ? 
+        draw_contextMenu_elem({icon:'ico-icon',class:`editor_icon`,child1_text:texts.styling.icon})
+        :'',
         draw_contextMenu_elem({icon:'ico-display',class:`editor_display`,child1_text:texts.styling.display}),
         draw_contextMenu_elem({icon:'ico-layers fs101',child1_text:texts.arrange,child2_class:'ico-arrowRight',submenu:draw_home_elem_arrange_contextMenu(elem_data)}),
-        draw_contextMenu_elem({icon:'ico-sizing',child1_text:texts.sizing,child2_class:'ico-arrowRight',submenu:draw_home_elem_sizing_contextMenu(elem_data.elem.elem_type)}),
+        draw_contextMenu_elem({icon:'ico-sizing',child1_text:texts.sizing,child2_class:'ico-arrowRight',class:elem_data.elem.elem_type == 'icon' ? `contextMenu_elem_dummy` : '',submenu:draw_home_elem_sizing_contextMenu(elem_data.elem.elem_type)}),
         draw_contextMenu_elem({icon:'ico-spacing',child1_text:texts.spacing,child2_class:'ico-arrowRight',submenu:draw_home_elem_spacing_contextMenu()}),
         draw_contextMenu_elem({icon:'ico-styling',child1_text:texts._styling,child2_class:'ico-arrowRight',submenu:draw_home_elem_styling_contextMenu(elem_data.elem.elem_type)}),
         // draw_contextMenu_line(),
         draw_contextMenu_elem({icon:'ico-animation',class:`editor_animation`,child1_text:texts.styling.animation }),
-        elem_data.elem.elem_type != 'image' && elem_data.elem.elem_type != 'button'?
+        elem_data.elem.elem_type != 'image' && elem_data.elem.elem_type != 'button' && elem_data.elem.elem_type != 'icon' ?
         draw_contextMenu_elem({icon:'ico-background',class:'editor_background',child1_text:texts.styling.block_background})
         : '',
     )
@@ -71,10 +74,10 @@ draw_home_elem_arrange_contextMenu = function(elem_data){
         }
     }
     return $('<div/>',{class:'w100p'}).append(
-        draw_contextMenu_elem({icon:'ico-bring_to_front',class:`editor_home_elem_bring_to_front ${bring_to_front_dummy}`,child1_text:texts.bring_to_front,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.bring_to_front}),
-        draw_contextMenu_elem({icon:'ico-bring_forward',class:`editor_home_elem_bring_forward ${bring_forward_dummy}`,child1_text:texts.bring_forward,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.bring_forward}),
-        draw_contextMenu_elem({icon:'ico-send_backward',class:`editor_home_elem_send_backward ${send_backward_dummy}`,child1_text:texts.send_backward,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.send_backward}),
-        draw_contextMenu_elem({icon:'ico-send_to_back',class:`editor_home_elem_send_to_back ${send_to_back_dummy}`,child1_text:texts.send_to_back,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.send_to_back}),
+        draw_contextMenu_elem({icon:'ico-bring_to_front',class:`editor_bring_to_front ${bring_to_front_dummy}`,child1_text:texts.bring_to_front,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.bring_to_front}),
+        draw_contextMenu_elem({icon:'ico-bring_forward',class:`editor_bring_forward ${bring_forward_dummy}`,child1_text:texts.bring_forward,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.bring_forward}),
+        draw_contextMenu_elem({icon:'ico-send_backward',class:`editor_send_backward ${send_backward_dummy}`,child1_text:texts.send_backward,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.send_backward}),
+        draw_contextMenu_elem({icon:'ico-send_to_back',class:`editor_send_to_back ${send_to_back_dummy}`,child1_text:texts.send_to_back,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.send_to_back}),
     ) 
 }
 draw_home_elem_sizing_contextMenu = function(elem_type){
@@ -95,10 +98,10 @@ draw_home_elem_styling_contextMenu = function(elem_type){
     let button_dummy_class = '';
     if(elem_type == 'button'){button_dummy_class = 'contextMenu_elem_dummy'}
     return $('<div/>',{class:'w100p'}).append(
-        draw_contextMenu_elem({icon:'ico-filter',class:`${button_dummy_class} editor_filter`,child1_text:texts.styling.filter}),
+        draw_contextMenu_elem({icon:'ico-filter',class:`editor_filter`,child1_text:texts.styling.filter}),
         draw_contextMenu_elem({icon:'ico-border',class:`${button_dummy_class} editor_border`,child1_text:texts.styling.border}),
-        draw_contextMenu_elem({icon:'ico-border_radius',class:`${button_dummy_class} editor_border_radius`,child1_text:texts.styling.border_radius}),
-        draw_contextMenu_elem({icon:'ico-box_shadow',class:`${button_dummy_class} editor_box_shadow`,child1_text:texts.styling.box_shadow}),
+        draw_contextMenu_elem({icon:'ico-border_radius',class:`editor_border_radius`,child1_text:texts.styling.border_radius}),
+        draw_contextMenu_elem({icon:'ico-box_shadow',class:`editor_box_shadow`,child1_text:texts.styling.box_shadow}),
         draw_contextMenu_elem({icon:'ico-transform',class:`editor_transform`,child1_text:texts.styling.transform}),
     )
 }
@@ -115,24 +118,26 @@ draw_editor_popup_editor_shortcuts_home_elem = function(elem_data){
         elem_data.elem.elem_type == 'image' ? 
         $('<div/>',{class:`editor_popup_body_shortcut ico-image editor_image`,tooltip:texts.styling.image})
         :'',
-        
+        elem_data.elem.elem_type == 'icon' ? 
+        $('<div/>',{class:`editor_popup_body_shortcut ico-icon editor_icon`,tooltip:texts.styling.icon})
+        :'',
         $('<div/>',{class:`editor_popup_body_shortcut ico-display editor_display`,tooltip:texts.styling.display}),
 
-        $('<div/>',{class:`editor_popup_body_shortcut ico-width editor_width`,tooltip:texts.styling.width}),
-        $('<div/>',{class:`editor_popup_body_shortcut ico-height editor_height`,tooltip:texts.styling.height}),
+        elem_data.elem.elem_type != 'icon' ? $('<div/>',{class:`editor_popup_body_shortcut ico-width editor_width`,tooltip:texts.styling.width}) : '',
+        elem_data.elem.elem_type != 'icon' ? $('<div/>',{class:`editor_popup_body_shortcut ico-height editor_height`,tooltip:texts.styling.height}) : '',
 
         $('<div/>',{class:`editor_popup_body_shortcut ico-padding editor_padding`,tooltip:texts.styling.padding}),
         $('<div/>',{class:`editor_popup_body_shortcut ico-margin editor_margin`,tooltip:texts.styling.margin}),
 
-        elem_data.elem.elem_type != 'button' ? $('<div/>',{class:`editor_popup_body_shortcut ico-filter editor_filter`,tooltip:texts.styling.filter}) : '',
+        $('<div/>',{class:`editor_popup_body_shortcut ico-filter editor_filter`,tooltip:texts.styling.filter}),
         elem_data.elem.elem_type != 'button' ? $('<div/>',{class:`editor_popup_body_shortcut ico-border editor_border`,tooltip:texts.styling.border}) : '',
-        elem_data.elem.elem_type != 'button' ? $('<div/>',{class:`editor_popup_body_shortcut ico-border_radius editor_border_radius`,tooltip:texts.styling.border_radius}) : '',
-        elem_data.elem.elem_type != 'button' ? $('<div/>',{class:`editor_popup_body_shortcut ico-box_shadow editor_box_shadow`,tooltip:texts.styling.box_shadow}) : '',
+        $('<div/>',{class:`editor_popup_body_shortcut ico-border_radius editor_border_radius`,tooltip:texts.styling.border_radius}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-box_shadow editor_box_shadow`,tooltip:texts.styling.box_shadow}),
         $('<div/>',{class:`editor_popup_body_shortcut ico-transform editor_transform`,tooltip:texts.styling.transform}),
 
         $('<div/>',{class:`editor_popup_body_shortcut ico-animation editor_animation`,tooltip:texts.styling.animation}),
 
-        elem_data.elem.elem_type != 'image' && elem_data.elem.elem_type != 'button'?
+        elem_data.elem.elem_type != 'image' && elem_data.elem.elem_type != 'button' ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-background editor_background`,tooltip:texts.styling.background})
         :'',
     )
@@ -166,6 +171,8 @@ $('body').on('dblclick','.home_elem',function(e){
         draw_editor_popup_image()
     }else if(elem_data.elem.elem_type == 'button'){
         draw_editor_popup_button();
+    }else if(elem_data.elem.elem_type == 'icon'){
+        draw_editor_popup_icon();
     }
     // draw_editor_popup_width();
 })
@@ -230,100 +237,5 @@ $('body').on('click','.delete_home_elem_btn',function(){
     window.selected = undefined;
     new_action();
 })
-// $('body').on('dblclick','.home_elem',function(e){
-//     draw_editor_popup_text();
-// })
 
-editor_home_elem_bring_to_front = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
-    let new_zindex = elem.css['z-index'];
-    for(const key in parent.children){
-        let child = parent.children[key];
-        if(parseInt(child.sort) != parseInt(elem.sort)){
-            if(parseInt(child.css['z-index']) >= parseInt(new_zindex)){
-                new_zindex = parseInt(child.css['z-index']) + 1;
-            }
-        }
-    }
-    elem.css['z-index'] = new_zindex;
-    new_action();
-}
-$('body').on('click','.editor_home_elem_bring_to_front',function(){
-    editor_home_elem_bring_to_front()
 
-})
-//
-editor_home_elem_bring_forward = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
-    let zindex_arr = [];
-    for(const key in parent.children){
-        let child = parent.children[key];
-        if(parseInt(child.sort) != parseInt(elem.sort)){
-            if(parseInt(child.css['z-index']) >= parseInt(elem.css['z-index'])){
-                zindex_arr.push(parseInt(child.css['z-index']))
-            }
-        }
-    }
-    let new_zindex = elem.css['z-index'];
-    if(zindex_arr.length > 0){
-        new_zindex = Math.min(...zindex_arr) +1;
-    }
-    elem.css['z-index'] = new_zindex;
-    new_action();
-}
-$('body').on('click','.editor_home_elem_bring_forward',function(){
-    editor_home_elem_bring_forward();
-})
-//
-editor_home_elem_send_to_back = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
-    let new_zindex = elem.css['z-index'];
-    for(const key in parent.children){
-        let child = parent.children[key];
-        if(parseInt(child.sort) != parseInt(elem.sort)){
-            if(parseInt(child.css['z-index']) <= parseInt(new_zindex)){
-                if(child.css['z-index'] == 1){
-                    child.css['z-index'] = 2;
-                    new_zindex = 1;
-                }else{
-                    new_zindex = parseInt(child.css['z-index']) - 1;
-                }
-            }
-        }
-    }
-    elem.css['z-index'] = new_zindex;
-    new_action();
-}
-$('body').on('click','.editor_home_elem_send_to_back',function(){
-    editor_home_elem_send_to_back();
-})
-//
-editor_home_elem_send_backward = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
-    let zindex_arr = [];
-    for(const key in parent.children){
-        let child = parent.children[key];
-        if(parseInt(child.sort) != parseInt(elem.sort)){
-            if(parseInt(child.css['z-index']) <= parseInt(elem.css['z-index'])){
-                zindex_arr.push(parseInt(child.css['z-index']))
-            }
-        }
-    }
-    let new_zindex = elem.css['z-index'];
-    if(zindex_arr.length > 0){
-        new_zindex = Math.min(...zindex_arr) -1;
-    }
-    if(new_zindex >= 0){
-        new_zindex = 1;
-    }
-    elem.css['z-index'] = new_zindex;
-    new_action();
-}
-$('body').on('click','.editor_home_elem_send_backward',function(){
-    editor_home_elem_send_backward();
-})
-// 

@@ -75,7 +75,7 @@ class designController extends Controller
             //     if($lang['websiteDefault'] == true){$default_language = $lang['code'];}
             // }
             // if($preview_language != null){
-                $website_texts = websiteText::where(['website_id'=>$this->website_id ])->get();
+            $website_texts = websiteText::where(['website_id'=>$this->website_id ])->get();
             // }else{
                 // $website_texts = websiteText::where(['website_id'=>$this->website_id ,'lang'=>$default_language])->first();
             // }

@@ -1,10 +1,9 @@
 set_template_vars = function(){
-    
     set_website_colors_vars();
-    set_font_style_vars();
+    // set_font_style_vars();
     set_page_setup_vars();
-    set_form_elements_vars();
-    set_loading_spinner_vars();
+    // set_form_elements_vars();
+    // set_loading_spinner_vars();
 }
 set_website_colors_vars  = function(){
     for(const key in window.template.website_colors.colors){
@@ -16,6 +15,7 @@ set_website_colors_vars  = function(){
         $(':root').css(`--${key}`,`${color.r},${color.g},${color.b}`)
     }
 }
+
 set_font_style_vars = function(){
     return;
     $(':root').css('--font_1_name',`'${window.template.font_style.font_1.name}', '${window.template.font_style.google_font.name}', sans-serif`);
@@ -74,6 +74,7 @@ set_form_elements_vars = function(){
     }
 }
 set_loading_spinner_vars = function(){
+    return;
     $(':root').css(`--loading_spinner_c1`,window.template.loading_spinner.colors.loading_spinner_c1 ?? 'rgba(200,200,200,1)');
     $(':root').css(`--loading_spinner_c2`,window.template.loading_spinner.colors.loading_spinner_c2 ?? 'rgba(170,170,170,1)');
     $(':root').css(`--loading_spinner_c3`,window.template.loading_spinner.colors.loading_spinner_c3 ?? 'rgba(140,140,140,1)');

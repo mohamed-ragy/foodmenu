@@ -134,13 +134,37 @@ class generate_css
                     if(array_key_exists('background_mobile', $elem) ){
                         if($elem['background_mobile']['type'] == 'none'){
                             $css = $css."background-color:unset;";
+                            $css = $css."background-image:unset;";
+                            $css = $css."background-size:unset;";
+                            $css = $css."background-attachment:unset;";
+                            $css = $css."background-repeat:unset;";
+                            $css = $css."background-position:unset;";
+                            $css = $css."background-blend-mode:unset;";
                         }else if($elem['background_mobile']['type'] == 'color'){
                             $css = $css."background-color:{$elem['background_mobile']['color']};";
+                            $css = $css."background-image:unset;";
+                            $css = $css."background-size:unset;";
+                            $css = $css."background-attachment:unset;";
+                            $css = $css."background-repeat:unset;";
+                            $css = $css."background-position:unset;";
+                            $css = $css."background-blend-mode:unset;";
                         }else if($elem['background_mobile']['type'] == 'gradient'){
                             $css = $css."background:{$elem['background_mobile']['gradient']};";
+                            $css = $css."background-image:unset;";
+                            $css = $css."background-size:unset;";
+                            $css = $css."background-attachment:unset;";
+                            $css = $css."background-repeat:unset;";
+                            $css = $css."background-position:unset;";
+                            $css = $css."background-blend-mode:unset;";
                         }else if($elem['background_mobile']['type'] == 'backdrop_filter'){
                             $css = $css."background-color:{$elem['background_mobile']['backdrop_filter_color']};";
                             $css = $css."backdrop-filter:{$elem['background_mobile']['backdrop_filter']};";
+                            $css = $css."background-image:unset;";
+                            $css = $css."background-size:unset;";
+                            $css = $css."background-attachment:unset;";
+                            $css = $css."background-repeat:unset;";
+                            $css = $css."background-position:unset;";
+                            $css = $css."background-blend-mode:unset;";
                         }else if($elem['background_mobile']['type'] == 'image'){
                             $css = $css."background-image:url({$elem['background_mobile']['background_image']});";
                             $css = $css."background-size:{$elem['background_mobile']['background_size']};";
@@ -281,9 +305,9 @@ class generate_css
                     foreach($elem['css_hover'] as $key => $val){
                         $css_hover = $css_hover."{$key}:{$val};";
                     }
-                    if(array_key_exists('css_mobile_hover',$elem)){
+                    if(array_key_exists('css_hover_mobile',$elem)){
                         $css_hover = $css_hover."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
-                            foreach($elem['css_mobile_hover'] as $key => $val){
+                            foreach($elem['css_hover_mobile'] as $key => $val){
                                 $css_hover = $css_hover."{$key}:{$val};";
                             }
                         $css_hover = $css_hover."}";
@@ -294,6 +318,27 @@ class generate_css
                     $final_css = $final_css.$css_hover_start.$css_hover.$css_hover_end;
                     // }
                 }
+
+                if(array_key_exists('css_click', $elem)){
+                    $css_click = '';
+                    $css_click_start = ".{$elem['class_selector']}:active{";
+                    foreach($elem['css_click'] as $key => $val){
+                        $css_click = $css_click."{$key}:{$val};";
+                    }
+                    if(array_key_exists('css_click_mobile',$elem)){
+                        $css_click = $css_click."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                            foreach($elem['css_click_mobile'] as $key => $val){
+                                $css_click = $css_click."{$key}:{$val};";
+                            }
+                        $css_click = $css_click."}";
+                    }
+
+                    $css_click_end = "}";
+                    // else{
+                    $final_css = $final_css.$css_click_start.$css_click.$css_click_end;
+                    // }
+                }
+
                 if(array_key_exists('css_focus', $elem)){
                     $css_focus = '';
                     $css_focus_start = ".{$elem['class_selector']}:focus{";
@@ -312,15 +357,15 @@ class generate_css
                     $css_read_only_end = "}";
                     $final_css = $final_css.$css_read_only_start.$css_read_only.$css_read_only_end;
                 }
-                if(array_key_exists('css_active', $elem)){
-                    $css_active = '';
-                    $css_active_start = ".{$elem['class_selector']}:active{";
-                    foreach($elem['css_active'] as $key => $val){
-                        $css_active = $css_active."{$key}:{$val};";
-                    }
-                    $css_active_end = "}";
-                    $final_css = $final_css.$css_active_start.$css_active.$css_active_end;
-                }
+                // if(array_key_exists('css_active', $elem)){
+                //     $css_active = '';
+                //     $css_active_start = ".{$elem['class_selector']}:active{";
+                //     foreach($elem['css_active'] as $key => $val){
+                //         $css_active = $css_active."{$key}:{$val};";
+                //     }
+                //     $css_active_end = "}";
+                //     $final_css = $final_css.$css_active_start.$css_active.$css_active_end;
+                // }
                 if(array_key_exists('css_disabled', $elem)){
                     $css_disabled = '';
                     $css_disabled_start = ".{$elem['class_selector']}:disabled{";

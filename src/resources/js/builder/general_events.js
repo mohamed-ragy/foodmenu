@@ -7,7 +7,6 @@ $('body').on('click',function(e){
     hide_show_preview_languages_menu();
     hidePopupSelectors();
     hide_contextMenu();
-    
 })
 $(window).on('focus', function() {
     play_preview_animations();
@@ -125,7 +124,6 @@ $('body').on('keyup',function(e){
     else if(e.altKey  && e.which == 65){
         deheighlight_all();
     }
-
 });
 
 ///

@@ -33,7 +33,6 @@ hide_editor_details = function(editors_container){
     editors_container.find('.editor_details_toggle').addClass('ico-arrowRight2').removeClass('ico-arrowDown2')
     editors_container.find('.editor_detail_container').removeClass('editor_detail_container_show')
     editors_container.find('.editor_details_head').removeClass('none')
-
 }
 $('body').on('click','.editor_details_toggle',function(e){
     if($(this).hasClass('ico-arrowRight2')){

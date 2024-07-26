@@ -1,6 +1,6 @@
 draw_website_header_html = function(){
     $('.website_header').remove();
-    $('#page').before(create_html(window.template.website_header.elems,'website_header.elems'))
+    $('#page').before(generate_html(window.template.website_header.elems,'website_header.elems'))
     $('.website_header').addClass('stop_transitions')
     let sorted_header_navList = $('.header_navList').children().sort((a,b)=>{
         return parseInt($(a).attr('sort')) - parseInt($(b).attr('sort'))
@@ -243,7 +243,7 @@ draw_website_header = function(){
             draw_input_list({
                 keys_arr:[{key:'animation',key_tree:'website_header.elems.children.header_wrapper.children.header_navList.children.header_drop_down_list'}],
                 name:texts.styling.animation,
-                selections:window.inputList_arr.transtions,
+                selections:get_inputList_obj('transtions'),
                 after:$('<div/>',{class:'header_drop_down_list_animation_preview mis-5 fs101 pointer ico-play',})
             }),
             draw_number_picker({

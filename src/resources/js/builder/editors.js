@@ -1,46 +1,37 @@
-require('./editors/rename.js')//done
-require('./editors/number_picker.js')//need to test dummy
-require('./editors/inputList.js')//need to test dummy
-require('./editors/select_box.js')//need to test dummy
-require('./editors/switch_btn.js')//need to test dummy
-require('./editors/gradient_editor.js')//done
-require('./editors/img_browser.js')//done
-require('./editors/image_position.js')//
-require('./editors/background_filter.js')//
-require('./editors/select_range.js')//need to set the original set select range function
-require('./editors/color_picker.js')//need to set test dummy
-require('./editors/backdrop_filter.js')//done
-require('./editors/border_editor.js')//done
-require('./editors/box_shadow_editor.js')//done
-require('./editors/filter.js')//done
-require('./editors/aspect_ratio_editor.js')//done
-require('./editors/font_style_picker.js')//done
-require('./editors/elem_text_editor.js')//done
-require('./editors/button_function.js')//done
-
-require('./editors/transform_selector.js')//
 require('./editors/animation/animation_editor.js')//
-require('./editors/timing_function.js')//
-
-//responsive selectors
-require('./editors/padding_selector.js')//need to be removed
-require('./editors/border_radius_selector.js')//need to be removed
-require('./editors/margin_selector.js')//need to be removed
-require('./editors/text_shadow_selector.js')//need to be removed
-require('./editors/zindex_selector.js')//
-require('./editors/opacity_selector.js')//
-
-//nonresponsive selectors
+require('./editors/animation/animation_preview.js')//
+require('./editors/img_browser/img_browser.js')//
+require('./editors/img_browser/pexels.js')//
+require('./editors/img_browser/user_storage.js')//
+require('./editors/aspect_ratio_editor.js')//
+require('./editors/backdrop_filter.js')//
+require('./editors/background_filter.js')//
+require('./editors/border_editor.js')//
+require('./editors/box_shadow_editor.js')//
+require('./editors/button_function.js')//
+require('./editors/color_picker.js')//
+require('./editors/elem_text_editor.js')//
+require('./editors/filter.js')//
 require('./editors/font_style_picker.js')//
-require('./editors/icon_selector.js')//
-//
-
-
+require('./editors/four_number_pickers.js')//
+require('./editors/gradient_editor.js')//
+require('./editors/icon_selector.js')//need to be done
+require('./editors/image_position.js')//
+require('./editors/inputList.js')//
+require('./editors/number_picker.js')//
+require('./editors/png_icon_selector.js')//
+require('./editors/rename.js')//
+require('./editors/select_box.js')//
+require('./editors/select_range.js')//
+require('./editors/switch_btn.js')//
+require('./editors/timing_function.js')//
+require('./editors/transform_editor.js')//
 
 //tools
-require('./editors/editor_popup_show_container.js')
-require('./editors/responsive.js')
-require('./editors/editor_details.js')
+require('./editors/editor_details.js')//not used yet
+require('./editors/editor_popup_show_container.js')//
+require('./editors/responsive.js')//
+
 
 draw_editors_container = function(data){
     let editors_container;
@@ -147,208 +138,7 @@ set_dummy_val = function(editor,val){
     }
 }
 
-// draw_selector_name = function(data){
-//     return $('<div/>',{class:`selector_name_container ${data.container_class ?? ''}`}).append(
-//         $('<div/>',{class:'row alnBL jstfyS'}).append(
-//             data.data.before_name ?? '',
-//             $('<div/>',{class:`fs09 ${data.name_class ?? ''}`,text:data.name}),
-//             data.data.after_name ?? '',
-//         ),
-//         $('<div/>',{class:`selector_responsive_hover_container ${data.data.responsive_icon === false && data.data.hover_icon === false ? 'none' : ''} ${data.data.is_responsive !== true && data.data.is_hover !== true ? 'none' : ''}`}).append(
-//             data.data.is_responsive && data.data.responsive_icon !== false ? responsive_icon(data.responsive_class) : '',
-//             data.data.is_hover && data.data.hover_icon !== false ? hover_icon() : '',
-//         )
-//     )
-// }
-// get_val = function(selector){
-//     let selector_container = selector.closest('.selector_container')
-//     let key_tree = selector.attr('key_tree');
-//     let key = selector.attr('key');
-//     let elem_data = get_key_tree(key_tree);
-
-// }
-// get_selector_val = function(selector){
-//     let selector_container = selector.closest('.selector_container')
-//     let key_tree = selector.attr('key_tree');
-//     let key = selector.attr('key');
-//     let elem_data = get_key_tree(key_tree);
-//     let val;
-//     let val_hover;
-//     if(selector_container.attr('is_responsive') == '1'){
-//         if(selector_container.find('.responsive').hasClass('responsive_desktop')){
-//             val = elem_data.elem[key]
-//             if(key in elem_data.elem_hover){val_hover = elem_data.elem_hover[key];}
-//         }else if(selector_container.find('.responsive').hasClass('responsive_mobile')){
-//             val = elem_data.elem_mobile[key];
-//             if(key in elem_data.elem_mobile_hover){val_hover = elem_data.elem_mobile_hover[key]}
-//         }else if(selector_container.find('.responsive').hasClass('responsive_desktop_mobile') ){
-//             // if(elem_data.elem[key] === elem_data.elem_mobile[key]){
-//             if(JSON.stringify(elem_data.elem[key]) === JSON.stringify(elem_data.elem_mobile[key])){
-//                 val = elem_data.elem[key];
-//                 // if(key in elem_data.elem_hover){val_hover = elem_data.elem_hover[key];}
-//             }else{
-//                 val = null;
-//                 // val_hover = null;
-//             }
-//             if(key in elem_data.elem_hover){
-//                 if(elem_data.elem_hover[key] === elem_data.elem_mobile_hover[key]){
-//                     val_hover = elem_data.elem_hover[key];
-//                 }else{
-//                     val_hover = null;
-//                 }
-//             }
-//         }
-//     }else{
-//         val = elem_data.elem[key]
-//         if(key in elem_data.elem_hover){val_hover = elem_data.elem_hover[key];}
-//     }
-
-
-//     // if(key_tree == 'home.1.children.section_wrapper.children.2.css'){
-//         // console.log(elem_data)
-//     // console.log(val_hover)
-//     // }
-
-//     if(selector_container.attr('is_hover') == '1'){
-//         if(selector_container.find('.hover').hasClass('hover_hover')){
-//             return val_hover;
-//         }else{
-//             return val;
-//         }
-//     }else{
-//         return val;
-//     }
-// }
-// get_elem_val = function(elem_data,key_val,is_responsive){
-//     if(is_responsive == '1'){
-//         let responsive_class = '';
-//         let val = null;
-//         let val_hover = null;
-//         let val_desktop = elem_data.elem[key_val];
-//         let val_mobile = elem_data.elem_mobile[key_val];
-//         let val_desktop_hover = elem_data.elem_hover[key_val];
-//         let val_mobile_hover = elem_data.elem_mobile_hover[key_val];
-
-//         if(JSON.stringify(val_desktop) == JSON.stringify(val_mobile)){
-//             val = val_desktop;
-//             val_hover = val_desktop_hover;
-//             responsive_class = 'responsive_desktop_mobile'
-//         }else{
-//             if(window.current_view == 'mobile'){
-//                 responsive_class = 'responsive_mobile'
-//                 val = val_mobile;
-//                 val_hover = val_mobile_hover;
-//             }else if(window.current_view == 'desktop'){
-//                 responsive_class = 'responsive_desktop'
-//                 val = val_desktop;
-//                 val_hover = val_desktop_hover;
-//             }
-//         }
-//         return {
-//             val:val,
-//             val_hover:val_hover,
-//             val_desktop:val_desktop,
-//             val_mobile:val_mobile,
-//             val_desktop_hover:val_desktop_hover,
-//             val_mobile_hover:val_mobile_hover,
-//             responsive_class:responsive_class,
-//         }
-//     }else{
-//         return {
-//             val:elem_data.elem[key_val],
-//             val_hover:elem_data.elem_hover[key_val],
-//             val_desktop:null,
-//             val_mobile:null,
-//             val_desktop_hover:null,
-//             val_mobile_hover:null,
-//             responsive_class:''
-//         }
-//     }
-
-// }
-// set_elem_val = function(elem,new_val){
-//     let responsive_elem = elem.closest('.selector_container').find('.responsive');
-//     $.each(elem.closest('.selector')[0].attributes, function(index, attr) {
-//         if(/key_tree\d+$/.test(attr.name) || attr.name == 'key_tree'){
-//             let key_tree = attr.value;
-//             let key = elem.closest('.selector').attr(`key${attr.name.replace('key_tree','')}`);
-//             let elem_data = get_key_tree(key_tree);
-//             let is_hover = false;
-//             let save_hover = false;
-
-//             if(elem.closest('.selector_container').attr('is_hover') == '1'){
-//                 is_hover = true;
-//                 if(elem.closest('.selector_container').find('.hover').hasClass('hover_hover')){
-//                     save_hover = true;
-//                 }
-//             }
-
-//             if(responsive_elem.hasClass('responsive_desktop_mobile')){
-//                 if(save_hover){
-//                     elem_data.elem_hover[key] = new_val;
-//                     elem_data.elem_mobile_hover[key] = new_val;
-//                 }else{
-//                     if(is_hover){
-//                         if(elem_data.elem[key] === elem_data.elem_hover[key]){
-//                             elem_data.elem_hover[key] = new_val;
-//                         }
-//                         if(elem_data.elem_mobile[key] === elem_data.elem_mobile_hover[key]){
-//                             elem_data.elem_mobile_hover[key] = new_val;
-//                         }
-//                     }
-//                     elem_data.elem[key] = new_val;
-//                     elem_data.elem_mobile[key] = new_val;
-//                 }
-//             }else if(responsive_elem.hasClass('responsive_desktop')){
-//                 if(save_hover){
-//                     elem_data.elem_hover[key] = new_val;
-//                 }else{
-//                     if(is_hover){
-//                         if(elem_data.elem[key] === elem_data.elem_hover[key]){
-//                             elem_data.elem_hover[key] = new_val;
-//                         }
-//                     }
-//                     elem_data.elem[key] = new_val;
-//                 }
-//             }else if(responsive_elem.hasClass('responsive_mobile')){
-//                 if(save_hover){
-//                     elem_data.elem_mobile_hover[key] = new_val;
-//                 }else{
-//                     if(is_hover){
-//                         if(elem_data.elem_mobile[key] === elem_data.elem_mobile_hover[key]){
-//                             elem_data.elem_mobile_hover[key] = new_val;
-//                         }
-//                     }
-//                     elem_data.elem_mobile[key] = new_val;
-//                 }
-//             }else{
-//                 if(save_hover){
-//                     elem_data.elem_hover[key] = new_val;
-//                 }else{
-//                     if(is_hover){
-//                         if(elem_data.elem[key] === elem_data.elem_hover[key]){
-//                             elem_data.elem_hover[key] = new_val;
-//                         }
-//                     }
-//                     elem_data.elem[key] = new_val;
-//                 }
-//             }
-//         }
-//     })
-//     if(responsive_elem.hasClass('responsive_desktop')){
-//         if(window.current_view == 'mobile'){
-//             desktop_view();
-//         }
-//     }else if(responsive_elem.hasClass('responsive_mobile')){
-//         if(window.current_view == 'desktop'){
-//             mobile_view();
-//         }
-//     }
-// }
-
-
 hidePopupSelectors = function(force = false){
-    // console.log('hidePopupSelectors triggered')
 
     if($('.number_picker_units:hover').length == 0 && $('.number_picker_unit_select:hover').length == 0 || force){
         $('.number_picker_units').addClass('none')
@@ -372,7 +162,7 @@ hidePopupSelectors = function(force = false){
 
     $('.editing_edit_home_elem_editing').each(function(){
         if($(this).is(':hover') == false || force){
-            let new_elem = create_html(get_elem_data($(this).attr('key_tree')).elem,$(this).attr('key_tree'));
+            let new_elem = generate_html(get_elem_data($(this).attr('key_tree')).elem,$(this).attr('key_tree'));
             $(this).before($(new_elem).addClass('animated'));
             $(this).remove();
 
@@ -392,7 +182,6 @@ hidePopupSelectors = function(force = false){
 
 }
 
-
 let turbo_interval = null;
 let turbo_level = 201;
 turbo_interval_function = function(elem){
@@ -406,7 +195,6 @@ turbo_interval_function = function(elem){
     },turbo_level)
 }
 $('body').on('mousedown','.turbo',function(e){
-    // e.stopImmediatePropagation();
     clearInterval(turbo_interval);
     turbo_interval_function($(this))
 })

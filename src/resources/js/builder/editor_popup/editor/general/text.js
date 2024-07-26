@@ -29,18 +29,18 @@ draw_editor_popup_text = function(){
                         draw_editors_container({
                             is_responsive:true,
                             editors:[
-                                $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
-                                    draw_select_box({
-                                        key_tree:window.selected,
-                                        variable_key:'css',
-                                        key:'font-weight',
-                                        selections:[
-                                            {text:texts.styling.normal,key:'normal'},
-                                            {text:texts.styling.bold,key:'bold'},
-                                        ]
-                                    })
-                                ),
+                                // $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
+                                //     $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
+                                //     draw_select_box({
+                                //         key_tree:window.selected,
+                                //         variable_key:'css',
+                                //         key:'font-weight',
+                                //         selections:[
+                                //             {text:texts.styling.normal,key:'normal'},
+                                //             {text:texts.styling.bold,key:'bold'},
+                                //         ]
+                                //     })
+                                // ),
                                 $('<div/>',{class:'editor_popup_col'}).append(
                                     $('<div/>',{class:'fs09',text:texts.styling.text_align}),
                                     draw_select_box({

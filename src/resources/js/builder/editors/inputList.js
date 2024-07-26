@@ -28,6 +28,7 @@ draw_input_list = function(data){
 set_input_list = function(editor){
     if(editor.hasClass('dummy_editor')){return;}
     let val = get_editor_val(editor)
+    console.log(val)
     if(val == '--' || typeof(val) === 'undefined'){
         editor.find('.inputList_val').text('--')
     }else{

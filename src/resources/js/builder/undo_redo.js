@@ -51,7 +51,6 @@ redo = function() {
 }
 
 undo_redo_actions = function(set_selectors = true, draw_website = true) {
-    // console.log('undo_redo_actions triggered')
     set_template_vars();
     //
     if (draw_website) {
@@ -75,11 +74,6 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         draw_page(window.selected_page)
         set_adapted_header();
         draw_website_checkbox()
-            // $('*').not('.format').addClass('stop_transitions');
-            // scroll_elem_animation('top');
-            // setTimeout(()=>{
-            // $('*').removeClass('stop_transitions')
-            // },10)
     }
     //
     set_view_style();
@@ -94,7 +88,6 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         if($('.website_color_picker[is_selected="1"]').length > 0){
             set_dummy_select_range($('.website_color_picker_gradation'),window.template.website_colors.gradation[`${$('.website_color_picker[is_selected="1"]').attr('key')}_gradation`])
         }
-        // set_responsive_selector();
         $('.rename_editor').each(function(){
             set_rename_editor($(this));
         })
@@ -131,8 +124,8 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         $('.backdrop_filter_editor').each(function(){
             set_backdrop_filter_editor($(this));
         })
-        $('.border_editor').each(function(){
-            set_border_editor($(this));
+        $('.border_editors').each(function(){
+            set_border_editors($(this));
         })
         $('.box_shadow_editor').each(function(){
             set_box_shadow_editor($(this));
@@ -161,191 +154,26 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         $('.button_function_editor').each(function(){
             set_button_function_editor($(this));
         })
+        $('.four_number_pickers_editor').each(function(){
+            set_four_number_pickers($(this));
+        })
+        $('.png_icon_selector_editor').each(function(){
+            set_png_icon_selector($(this));
+        })
 
         $('.editor_details_head').each(function(){
             set_editor_details($(this))
         })
-        // $('.input_editor_popup_section_name').each(function(){
-        //     if(typeof($(this).attr('key_tree')) !== 'undefined'){
-        //         try{
-        //             let section_name = get_key_tree($(this).attr('key_tree')).elem.name;
-        //             $(this).val(section_name);
-        //         }catch{}
-        //     }
-        // })
-        // $('.number_picker_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_number_picker($(this));
-        //         } catch {}
-        //     }
-        // })
-        // $('.select_box_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_select_box($(this))
-        //         } catch {}
-
-        //     }
-        // })
-        // $('.select_range_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_select_range_slider($(this));
-        //         } catch {}
-
-        //     }
-        // })
-        // $('.transform_selector_container').each(function() {
-        //     // if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_transform_selector($(this))
-        //         } catch {}
-        //     // }
-        // })
-        // $('.image_position_btns_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_image_position_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.inputList_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_input_list($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.font_style_selector_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_font_style_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.color_picker_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_color_picker($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.switch_btn_action').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_switch_btn($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.border_style_selector_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_border_style_selector($(this));
-        //         } catch {}
-        //     }
-        // })
-        // $('.drop_shadow_selector_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_drop_shadow_select($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.editor_popup_img_select').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_image_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.backdrop_filter_selector_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_backdrop_filter_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.filter_selector_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_filter_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.timing_functions_preview_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_timing_function_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.rename_selector').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_rename_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.select_icon').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_icon_selctor($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.text_shadow_settings_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_text_shadow_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-
-
-        // $('.zindex_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_zindex_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.opacity_container').each(function() {
-        //     if (typeof($(this).closest('.selector').attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             set_opacity_selector($(this))
-        //         } catch {}
-        //     }
-        // })
-        // $('.elem_text_selector_editor').each(function() {
-        //     if (typeof($(this).attr('key_tree')) !== 'undefined') {
-        //         try {
-        //             if ($(this).is(':hover') == false) {
-        //                 $(this).html(get_key_tree($(this).attr('key_tree')).elem.text.val[$(this).attr('lang')])
-        //             }
-        //         } catch {}
-        //     }
-        // })
-        // $('.animations_preview_container').each(function(){
-        //     if(typeof($(this).attr('key_tree')) !== 'undefined'){
-        //         try{
-        //             set_animation_selector($(this))
-        //         }catch{}
-        //     }
-        // })
     }
 
 }
 
 //events
 $('body').on('click', '.undo', function(e) {
-        // e.stopImmediatePropagation();
-        if ($('.undo').hasClass('header_icon_disabled')) { return; }
-        undo();
-    })
-    //events
+    if ($('.undo').hasClass('header_icon_disabled')) { return; }
+    undo();
+})
 $('body').on('click', '.redo', function(e) {
-    // e.stopImmediatePropagation();
     if ($('.redo').hasClass('header_icon_disabled')) { return; }
     redo();
 })

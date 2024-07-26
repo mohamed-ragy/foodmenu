@@ -1,0 +1,16 @@
+.four_number_pickers_details_toggle{
+    cursor: pointer;
+    font-size: .9em;
+    margin-inline-end:5px;
+}
+.four_number_pickers_detail_container{
+    transform: translateY(-10px);
+    transition-duration: 100ms;
+    opacity: 0;
+    height:0px;
+}
+.four_number_pickers_detail_container_show{
+    opacity: 1;
+    transform: translateY(0px);
+    height:auto;
+}

@@ -703,27 +703,7 @@ input.clr-color{
   border-bottom:2px solid var(--green-80);
 
 }
-// .color_picker{
-//     padding:0;
-//     outline: none;
-//     color:transparent ;
-//     width: 20px !important;
-//     height: 20px !important;
-//     border-radius: 5px ;
-//     border: 2px solid transparent !important;
-//     outline: 2px solid var(--white-3) !important;
-//     cursor: pointer ;
-//     user-select: none ;
-//     box-sizing: content-box;
-// }
-// .color_picker:focus{
-    // padding:0;
-    // outline: none;
-    // color:transparent  ;
-    // border: 2px solid transparent !important;
-    // outline: 2px solid var(--white-3) !important;
-    // user-select: none;
-// }
+
 .color_picker::selection {
     background-color:transparent;
 }

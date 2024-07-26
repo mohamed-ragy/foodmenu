@@ -23,7 +23,7 @@ $('body').on('click','.editor_animation',function(e){
 })
 
 elem_has_animation = function(key_tree,show_error=false){
-    let elem_data = get_key_tree(key_tree);
+    let elem_data = get_elem_data(key_tree);
     if('animation' in elem_data.elem){
         if(elem_data.elem.animation.name != 'no_animation' || elem_data.elem.animation_mobile.name != 'no_animation'){
             if(show_error){

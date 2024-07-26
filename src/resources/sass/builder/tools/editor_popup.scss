@@ -25,16 +25,7 @@
     50%{box-shadow: 0 0 1px 0px var(--shdw-10), 0 0 5px 0px var(--shdw-10);}
     100%{box-shadow: 0 0 1px 0px var(--shdw-10), 0 0 15px 0px var(--shdw-20);}
 }
-// .editor_popup_resizeIcon{
-//     position: absolute;
-//     bottom:-10px;
-//     right:-10px;
-//     padding:10px;
-//     font-size: .5em;
-//     z-index: 10;
-//     cursor:nwse-resize;
-//     opacity: .5;
-// }
+
 .editor_popup_head{
     width:calc(100% - 10px);
     text-align: center;
@@ -57,24 +48,6 @@
     cursor: pointer;
     font-size: 1.1em;
 }
-// .input_editor_popup{
-//     outline:none;
-//     border:1px solid var(--white-5);
-//     background-color: var(--white-1);
-//     padding:8px;
-//     border-radius: 3px;
-//     font-size: .8em;
-//     width:250px;
-// }
-// .input_editor_popup_100p{
-//     outline:none;
-//     border:1px solid var(--white-5);
-//     background-color: var(--white-1);
-//     padding:8px;
-//     border-radius: 3px;
-//     font-size: .8em;
-//     width:calc(100% - 12px);
-// }
 .editor_popup_body_wrapper{
     display: flex;
     align-items: flex-start;
@@ -223,49 +196,9 @@
 .editor_popup_brdrB_none{
     border-bottom:none !important;
 }
-
-//
-.editor_popup_col_child{
-    min-height: 35px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    // border:none;
-    padding:18px 5px;
-    margin:0px 10px;
-    margin-inline-start:15px;
-    box-sizing: border-box;
-    .selector_responsive_hover_container{display: none;}
-}
-.editor_popup_col_child div:nth-child(1){
-    // margin-inline-start: 5px;
-}
 .editor_popup_row_sticky{
     position: sticky;
     top: 0;
     z-index: 5;
     background-color: var(--white-1);
 }
-// .editor_popup_row_sticky:hover{background-color: var(--white-2);}
-//
-.editor_popup_small_btn{
-    position: relative;
-    height:25px;
-    width:25px;
-    margin: 1px;
-    font-size: .8em;
-    background-color: var(--white-1);
-    color:var(--txt-1);
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 2px 1px var(--shdw-5);
-    font-weight: bold;
-    font-size:1.1em;
-}
-//

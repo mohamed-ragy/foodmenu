@@ -49,7 +49,6 @@ $('body').on('mouseleave mouseout','[tooltip]',function(e){
     $('#tooltipDiv').hide();
 });
 $('body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
-    // //e.stopImmediatePropagation();
     if($(this).attr('tooltip') == ''){return;}
     window.toolTipElem = $(this);
     tooltip($(this).attr('tooltip'),e.pageX,e.pageY);

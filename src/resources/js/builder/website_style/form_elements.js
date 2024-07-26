@@ -806,7 +806,7 @@ $('body').on('click','.checkbox',function(e){
 draw_website_checkbox = function(){
     $('.checkbox_container').each(function(){
         $(this).text('').append(
-            create_html(window.template.form_elements.elems.checkbox)
+            generate_html(window.template.form_elements.elems.checkbox)
         )
         $(this).find('.checkbox').addClass('checkbox_checked')
     })

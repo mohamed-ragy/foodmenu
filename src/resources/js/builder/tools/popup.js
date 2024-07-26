@@ -15,10 +15,8 @@ close_popup = function(){
     window.is_imgBrowser_opened = false;
 }
 $('body').on('click','.popupClose',function(e){
-    //e.stopImmediatePropagation();
     close_popup();
 })
 $('body').on('click','.popup2Close',function(e){
-    //e.stopImmediatePropagation();
     $('.popupCard2').remove();
 })

@@ -6,28 +6,28 @@ $.ajaxSetup({
         'X-Csrf-Token':$('meta[name="csrf-token"]').attr('content'),
     },
 });
+
 require('../page_loading.js')
+require('./select_template.js')
+require('./process_data.js');
+require('./set_template_vars.js');
+require('./general_events.js');
+require('./draw_builder.js')
 require('./elem_data.js');
-require('./editors.js');
-require('./key_tree.js');
-
-require('../builder/data.js');
-
-require('../builder/process_data.js');
-require('../builder/set_template_vars.js');
-require('../builder/undo_redo.js');
-require('../builder/general_events.js');
+require('./undo_redo.js');
 
 require('../cpanel/tools/loading.js');
 require('../cpanel/functions/coolDown.js');
 
+require('./editors.js');
+require('./data.js');
 
 
-require('../builder/tools/alerts.js');
-require('../builder/tools/tooltip.js');
-require('../builder/tools/popup.js');
-require('../builder/tools/is_saved_checker.js');
-require('../builder/tools/save.js');
+require('./tools/alerts.js');
+require('./tools/tooltip.js');
+require('./tools/popup.js');
+require('./tools/is_saved_checker.js');
+require('./tools/save.js');
 require('./tools/select.js')
 require('./tools/contextMenu.js')
 require('./tools/copy.js')
@@ -35,17 +35,15 @@ require('./tools/copy.js')
 require('./editor_popup/editor_popup.js');
 require('./editor_popup/editor.js');
 
-require('./website_style.js')
-
-require('./website_tools.js')
+require('./website_style.js')/////
+require('./website_tools.js')/////
 
 
 require('./pages.js')
+require('./generate_html.js')
 
-require('./draw_builder.js')
-require('./select_template.js')
 
-require('./pages/home.js')
+
 
 
 let params = new URLSearchParams(window.location.search)

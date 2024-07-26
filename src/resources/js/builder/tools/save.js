@@ -70,8 +70,6 @@ save = function(){
 
 }
 $('body').on('click','#save',function(e){
-    //e.stopImmediatePropagation();
-
     showBtnLoading($('#save'))
     save().then(function(){
         hideBtnLoading($('#save'))
@@ -79,14 +77,3 @@ $('body').on('click','#save',function(e){
         showAlert('success',texts.responses.templateSaved,4000,true);
     })
 })
-
-// setInterval(()=>{
-//     // if(!is_saved_checker()){
-//     //     save();
-//     // }
-//     console.log(Object.keys(flattenObject(get_template_changes(window.template,window.last_saved_template,[]))).length)
-//     if(Object.keys(flattenObject(get_template_changes(window.template,window.last_saved_template,[]))).length > 500){
-//         save();
-//         is_saved_checker()
-//     }
-// },1000)

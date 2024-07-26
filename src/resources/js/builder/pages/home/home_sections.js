@@ -140,7 +140,6 @@ $('body').on('click','.delete_home_section_btn',function(e){
 //
 
 $('body').on('click','.scroll_to_section',function(e){
-    // e.stopImmediatePropagation();
     e.preventDefault();
     $('#website').animate({
         scrollTop:$(`.${$(this).attr('section')}`).position().top,

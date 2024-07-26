@@ -38,7 +38,6 @@ paste = function(){
 }
 $('body').on('click','.paste',function(){paste()})
 paste_home_section = function(paste_elem){
-    // let selected_elem = get_key_tree(window.selected).elem;
     if(typeof(window.selected) === 'undefined'){return;}
     if(window.selected == null){return;}
     let selected_home_section_key = get_key_tree(window.selected).home_section_key;

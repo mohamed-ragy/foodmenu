@@ -1,78 +1,121 @@
 draw_page_setup = function(){
-    return;
     $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
-    $('#page_setup').addClass(' h500').find('.editor_popup_body').text('').append(
+    $('#page_setup').find('.editor_popup_body_shortcuts').append(
+        $('<div/>',{class:`editor_popup_body_shortcut ico-color_theme editor_page_setup`,tooltip:texts.website_style.page_colors,key:'page_colors'}),
+        $('<div/>',{class:`editor_popup_body_shortcut editor_popup_body_shortcut_selected ico-sizing editor_page_setup`,tooltip:texts.sizing,key:'sizing'}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-pageTransition editor_page_setup`,tooltip:texts.website_style.pageTransition,key:'pageTransition'}),
+    )
+    $('#page_setup').addClass('w350 h600').find('.editor_popup_body').text('').append(
+        draw_editors_container({
+            is_responsive:false,
+            editors:[
+                $('<div/>',{class:'w100p editor_popup_page_setup_container',key:'sizing'}).append(
+                    $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.max_content_width}),
+                        draw_input_list({
+                            key_tree:'page_setup',
+                            variable_key:null,
+                            key:'max_width',
+                            selections:[
+                                {name:'800px',val:'800px',class:''},
+                                {name:'1000px',val:'1000px',class:''},
+                                {name:'1200px',val:'1200px',class:''},
+                                {name:'1400px',val:'1400px',class:''},
+                                {name:'1600px',val:'1600px',class:''},
+                                {name:'1800px',val:'1800px',class:''},
+                                {name:'2000px',val:'2000px',class:''},
+                                {name:'2200px',val:'2200px',class:''},
+                                {name:'2400px',val:'2400px',class:''},
+                                {name:'2600px',val:'2600px',class:''},
+                                {name:'2800px',val:'2800px',class:''},
+                                {name:'3000px',val:'3000px',class:''},
+                            ]
+                        }),
+                    ),
+                    $('<div/>',{class:'editor_popup_col'}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.mobile_max_width}),
+                        draw_number_picker({
+                            key_tree:'page_setup',
+                            variable_key:null,
+                            key:'mobile_max_width',
+                            step:'10',
+                            units:['px'],
+                        })
+                    )
+                ),
+                $('<div/>',{class:'w100p editor_popup_page_setup_container none',key:'pageTransition'}).append(
+                    $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
+                        $('<div/>',{class:'fs09',text:texts.website_style.pageTransition}),
+                        $('<div/>',{class:'row alnC jstfySB'}).append(
+                            draw_input_list({
+                                key_tree:'page_setup',
+                                variable_key:null,
+                                key:'pageTransition',
+                                selections:get_inputList_obj('pageTransition'),
+                            }),
+                            $('<div/>',{class:'pageTransition_preview mis-5 fs105 pointer ico-play'})
+                        )
+                    ),
+                    $('<div/>',{class:'editor_popup_col'}).append(
+                        $('<div/>',{class:'fs09',text:texts.website_style.transitionDuration}),
+                        draw_select_range({
+                            key_tree:'page_setup',
+                            variable_key:null,
+                            key:'transitionDuration',
+                            keys_arr:[{key:'',key_tree:'page_setup'}],
+                            range:{min:100,max:1500,step:1},
+                            unit:'ms'
+                        }),
+                    ),
+                )
+
+            ]
+        })
         // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
         // $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
-        $('<div/>',{class:'w100p mB40'}).append(
-            draw_input_list({
-                keys_arr:[{key:'max_width',key_tree:'page_setup'}],
-                name:texts.styling.max_content_width,
-                selections:[
-                    {name:'800px',val:'800px',class:''},
-                    {name:'1000px',val:'1000px',class:''},
-                    {name:'1200px',val:'1200px',class:''},
-                    {name:'1400px',val:'1400px',class:''},
-                    {name:'1600px',val:'1600px',class:''},
-                    {name:'1800px',val:'1800px',class:''},
-                    {name:'2000px',val:'2000px',class:''},
-                    {name:'2200px',val:'2200px',class:''},
-                    {name:'2400px',val:'2400px',class:''},
-                    {name:'2600px',val:'2600px',class:''},
-                    {name:'2800px',val:'2800px',class:''},
-                    {name:'3000px',val:'3000px',class:''},
-                ]
-            }),
-            draw_number_picker({
-                keys_arr:[{key:'mobile_max_width',key_tree:'page_setup'}],
-                name:texts.styling.mobile_max_width,
-                step:'10',
-                units:['px'],
-            }),
-            draw_input_list({
-                keys_arr:[{key:'pageTransition',key_tree:'page_setup'}],
-                name:texts.website_style.pageTransition,
-                selections:window.inputList_arr.pageTransition,
-                after:$('<div/>',{class:'pageTransition_preview mis-5 fs101 cG pointer ico-play'})
-            }),
-            draw_select_range({
-                keys_arr:[{key:'transitionDuration',key_tree:'page_setup'}],
-                name:texts.website_style.transitionDuration,
-                range:{min:100,max:1500,step:1},
-                unit:'ms'
-            }),
-            draw_switch_btn({
-                keys_arr:[{key:'smooth_scroll',key_tree:'page_setup'}],
-                name:texts.website_style.smoothScroll,
-                show_hide:'smoothScrollDistance_inputList'
-            }),
-            $('<div/>',{class:`smoothScrollDistance_inputList ${window.template.page_setup.smooth_scroll == '0' ? 'none' : '' } w100p`}).append(
-                draw_select_range({
-                    keys_arr:[{key:'smooth_scroll_distance',key_tree:'page_setup'}],
-                    name:texts.website_style.smoothScrollDistance,
-                    range:{min:100,max:1000,step:1},
-                    unit:'px'
-                }),
-                draw_select_range({
-                    keys_arr:[{key:'smooth_scroll_duration',key_tree:'page_setup'}],
-                    name:texts.website_style.smoothScrollDuration,
-                    range:{min:100,max:1500,step:1},
-                    unit:'ms'
-                }),
-            )
+        // $('<div/>',{class:'w100p mB40'}).append(
 
-        )
+
+
+            // draw_switch_btn({
+            //     keys_arr:[{key:'smooth_scroll',key_tree:'page_setup'}],
+            //     name:texts.website_style.smoothScroll,
+            //     show_hide:'smoothScrollDistance_inputList'
+            // }),
+            // $('<div/>',{class:`smoothScrollDistance_inputList ${window.template.page_setup.smooth_scroll == '0' ? 'none' : '' } w100p`}).append(
+            //     draw_select_range({
+            //         keys_arr:[{key:'smooth_scroll_distance',key_tree:'page_setup'}],
+            //         name:texts.website_style.smoothScrollDistance,
+            //         range:{min:100,max:1000,step:1},
+            //         unit:'px'
+            //     }),
+            //     draw_select_range({
+            //         keys_arr:[{key:'smooth_scroll_duration',key_tree:'page_setup'}],
+            //         name:texts.website_style.smoothScrollDuration,
+            //         range:{min:100,max:1500,step:1},
+            //         unit:'ms'
+            //     }),
+            // )
+
+        // )
     )
+
 }
 
 //events
-
+$('body').on('click','.editor_page_setup',function(){
+    let shortcut = $(this).attr('key');
+    $('.editor_popup_page_setup_container').addClass('none');
+    $(`.editor_popup_page_setup_container[key="${shortcut}"]`).removeClass('none')
+    // let editor_popup = $(this).closest('.editor_popup');
+    // editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
+    // editor_popup.find('.editor_popup_body_shortcut').removeClass('editor_popup_body_shortcut_selected')
+    // $(this).addClass('editor_popup_body_shortcut_selected')
+})
 $('body').on('click','.pageTransition_preview',function(e){
     //e.stopImmediatePropagation();
     play_page_transition($('#page'),window.template.page_setup.pageTransition,window.template.page_setup.transitionDuration)
 })
-
-
 
 $('#website').on('wheel', function(e){
     if($('#website').css('overflow-y') == 'hidden'){return;}
@@ -118,7 +161,7 @@ set_elem_animation_styles = function(elem,animation,keyframe,immediate){
 apply_scroll_animation = function(elem,scroll_direction){
     let elem_offset_top = elem.offset().top;
     let elem_offset_bottom = elem_offset_top + elem.height();
-    let elem_data = get_key_tree(elem.attr('key_tree')).elem;
+    let elem_data = get_elem_data(elem.attr('key_tree')).elem;
     let animation;
     window.current_view == 'desktop' ? animation = elem_data.animation : window.current_view == 'mobile' ? animation = elem_data.animation_mobile : null;
 

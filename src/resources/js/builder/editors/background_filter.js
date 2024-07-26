@@ -5,8 +5,10 @@ draw_select_background_filter = function(data){
         variable_key:data.variable_key,
         key:data.key,
     });
-    for(const key in window.inputList_arr.background_blend_mode){
-        let filter = window.inputList_arr.background_blend_mode[key];
+    let background_blend_mode = get_inputList_obj('background_blend_mode');
+    for(const key in background_blend_mode){
+        let filter = background_blend_mode[key];
+
         editor.append(
             $('<div/>',{
                 class:`background_filter_preview`,

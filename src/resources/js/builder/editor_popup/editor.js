@@ -1,6 +1,5 @@
 require('./editor/general.js');
 require('./editor/section.js');
-require('./editor/section_block.js');
 
 set_editor_popup_editor = function(){
     if(typeof(window.selected) === 'undefined'){return;}
@@ -27,10 +26,8 @@ set_editor_popup_editor = function(){
             draw_editor_popup_editor_shortcuts_home_section_block(elem_data);
         break;
         case 'home_elem':
-            // if(elem_data.elem.elem_type == 'title' || elem_data.elem.elem_type == 'paragraph'){
-                $('#editor').find('.editor_popup_title').text(texts.elems[elem_data.elem.elem_type])
-                draw_editor_popup_editor_shortcuts_home_elem(elem_data);
-            // }
+            $('#editor').find('.editor_popup_title').text(texts.elems[elem_data.elem.elem_type])
+            draw_editor_popup_editor_shortcuts_home_elem(elem_data);
             set_editor_popup_editor_position_home_elem(window.selected);
         break;
     }
@@ -39,8 +36,11 @@ set_editor_popup_editor = function(){
 
 $('body').on('click','.editor_popup_body_shortcut',function(e){
     // undo_redo_actions(true,false);
-    $('#editor').find('.editor_popup_body_wrapper').scrollTop(0)
-    $('#editor').find('.editor_popup_head_btn').addClass('none');
+    let editor_popup = $(this).closest('.editor_popup');
+    editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
+    editor_popup.find('.editor_popup_head_btn').addClass('none');
+    editor_popup.find('.editor_popup_body_shortcut').removeClass('editor_popup_body_shortcut_selected');
+    $(this).addClass('editor_popup_body_shortcut_selected')
     stop_preview_animations();
     if($(this).hasClass('editor_animation')){
         play_preview_animations();

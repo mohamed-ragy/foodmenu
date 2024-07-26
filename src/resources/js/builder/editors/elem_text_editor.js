@@ -299,7 +299,6 @@ clean_unformated_text = function(text_editor,selection,selection_string){
 //     console.log('gaga')
 //     console.log($(this).html());
 // })
-
 $('body').on('keydown','.text_editor_editor',function(e){
     if(e.ctrlKey ){
         if(

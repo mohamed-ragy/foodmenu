@@ -85,12 +85,7 @@ apply_scroll_animation = function(elem,scroll_direction){
         return; 
     }
     if(scroll_direction == 'top'){
-        if(elem_offset_top > up_out_start && elem_offset_top < down_out_end){
-            set_elem_animation(class_selector,'up_out',true)
-            setTimeout(()=>{
-                set_elem_animation(class_selector,'in',false)
-            },100)
-        }
+
         if(elem_offset_top > down_out_start){
             set_elem_animation(class_selector,'down_out',true)
         }
@@ -98,6 +93,12 @@ apply_scroll_animation = function(elem,scroll_direction){
             if(elem.attr('animation_repeat') == '1' && $(window).width() > parseInt(window.mobile_max_width) || elem.attr('animation_mobile_repeat') == '1' && $(window).width() <= parseInt(window.mobile_max_width)){
                 set_elem_animation(class_selector,'up_out',true)
             }
+        }
+        else if(elem_offset_top > up_out_start && elem_offset_top < down_out_end ){
+            set_elem_animation(class_selector,'up_out',true)
+            setTimeout(()=>{
+                set_elem_animation(class_selector,'in',false)
+            },100)
         }
     }
 

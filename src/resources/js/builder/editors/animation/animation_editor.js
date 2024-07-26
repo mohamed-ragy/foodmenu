@@ -1,4 +1,3 @@
-require('./animation_preview.js')
 
 draw_animation_editor = function(data){
     let animations_preview_container;
@@ -9,16 +8,8 @@ draw_animation_editor = function(data){
         key:data.key,
     }).append(
         $('<div/>',{class:'editor_popup_container w100p',key:'select_animation'}).append(
-            // draw_editor_show_container({
-            //     name:texts.styling.customize_animation,
-            //     key:'customize_animation',
-            //     row_class:true,
-            //     container_class:'editor_popup_brdrT_none editor_popup_brdrB',
-            // }),
-            // $('<div/>',{class:'editor_popup_col'}).append(
-                $('<div/>',{class:'mX20 mY10 mT20 bold',text:texts.styling.select_animation}),
-                animations_preview_container = $('<div/>',{class:'selector animations_preview_container w100p row wrap alnC jstfyC',key_tree:data.key_tree,key:'name'})
-            // )
+            $('<div/>',{class:'mX20 mY10 mT20 bold',text:texts.styling.select_animation}),
+            animations_preview_container = $('<div/>',{class:'selector animations_preview_container w100p row wrap alnC jstfyC',key_tree:data.key_tree,key:'name'})
         ),
         $('<div/>',{class:'editor_popup_container w100p none',key:'customize_animation',parent_key:'select_animation'}).append(
             $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(

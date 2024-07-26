@@ -80,6 +80,7 @@ return [
     'downgradeFail_deliveryAccounts' => 'The <b>:plan:</b> allows you to have a maximum of <b>:max:</b> delivery accounts. You already have <b>:created:</b> accounts created.',
     'downgradeFail_websiteLangs' => 'The <b>:plan:</b> allows you to have <b>:max:</b> language(s) available for your website. You currently have <b>:created:</b> languages used.',
     'downgradeFail_promocodes' => 'The <b>:plan:</b> allows for a maximum of <b>:max:</b> promo code(s) to be created. You already have <b>:created:</b> promo codes created.',
+    'downgradeFail_templates' => 'The <b>:plan:</b> allows for a maximum of <b>:max:</b> template(s) to be created. You already have <b>:created:</b> templates created.',
 
     'calc_update_subscription' => 'Change subscription plan',
     'updatePlanTxt1' => 'By confirming, the following invoice will be generated.',

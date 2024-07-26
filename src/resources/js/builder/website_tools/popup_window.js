@@ -22,7 +22,7 @@ draw_popup_window = function(){
                 draw_input_list({
                     keys_arr:[{key:'transition',key_tree:'popup_window'}],
                     name:texts.styling.transition,
-                    selections:window.inputList_arr.transtions,
+                    selections:get_inputList_obj('transtions'),
                     after:$('<div/>',{class:'popupTransition_preview mis-5 fs101 pointer ico-play',})
                 }),
                 draw_select_range({
@@ -137,7 +137,7 @@ draw_popup_window = function(){
             draw_input_list({
                 keys_arr:[{key:'background-blend-mode',key_tree:`popup_window.elems.children.popup_card.background_image`}],
                 name:texts.styling.imageBlendMode,
-                selections:window.inputList_arr.background_blend_mode
+                selections:get_inputList_obj('background_blend_mode'),
             }),
             draw_color_picker({keys_arr:[{key_tree:`popup_window.elems.children.popup_card.background_image`,key:`background-color`}],name:texts.styling.background_color}),
         )
@@ -147,7 +147,7 @@ draw_popup_window = function(){
 show_popup_window = function(callback=()=>{}){
     window.website_popup_opened = true;
     $('#website').find('.popup_container').remove();
-    $('#website').prepend(create_html(window.template.popup_window.elems,'popup_window.elems'))
+    $('#website').prepend(generate_html(window.template.popup_window.elems,'popup_window.elems'))
     $('#website').css('overflow-y','hidden')
     $('.popup_container').css({
         'top':$('#website').scrollTop()+'px',
@@ -168,7 +168,7 @@ $('body').on('click','.popup_close',function(e){
     hide_editor_popup('popup_window')
     hide_popup_window();
 })
-$('body').on('click','.popupTransition_preview',function(e){
-    //e.stopImmediatePropagation();
-    play_transition($('.popup_card'),window.template.popup_window.transition,window.template.popup_window.elems.children.popup_card.css['animation-duration'])
-})
+// $('body').on('click','.popupTransition_preview',function(e){
+//     //e.stopImmediatePropagation();
+//     play_transition($('.popup_card'),window.template.popup_window.transition,window.template.popup_window.elems.children.popup_card.css['animation-duration'])
+// })

@@ -93,10 +93,30 @@ $('body').on('click','.add_home_elem',function(e){
             new_elem = home_elem_paragraph()
         break;
         case 'image':
-            new_elem = home_elem_image()
+            new_elem = home_elem_image();
         break;
         case 'button':
-            new_elem = home_elem_button()
+            new_elem = home_elem_button();
+            let button_style = get_buttons('1',0);
+            for(const key in button_style.css){
+                new_elem.css[key] = button_style.css[key];
+                new_elem.css_mobile[key] = button_style.css[key];
+                new_elem.css_click[key] = button_style.css[key];
+                new_elem.css_click_mobile[key] = button_style.css[key];
+            }
+            for(const key in button_style.css_hover){
+                new_elem.css_hover[key] = button_style.css_hover[key];
+                new_elem.css_hover_mobile[key] = button_style.css_hover[key];
+            }
+            for(const key in button_style.css_disabled){
+                new_elem.css_disabled[key] = button_style.css_disabled[key];
+            }
+            new_elem.attr.href = '/home';
+            new_elem.attr.page = 'home';
+            new_elem.class = `${new_elem.class} open_page`
+        break;
+        case 'icon':
+            new_elem = home_elem_icon();
         break;
     }
     let elem = get_elem_data(window.selected).elem;
@@ -112,6 +132,30 @@ $('body').on('click','.add_home_elem',function(e){
     new_action();
     close_popup();
     select(`${window.selected}.children.${new_elem.sort}`)
+    switch($(this).attr('elem_type')){
+        case 'title':
+            draw_editor_popup_text();
+        break;
+        case 'paragraph':
+            draw_editor_popup_text();
+        break;
+        case 'image':
+            setTimeout(()=>{
+                draw_editor_popup_image();
+                $('.select_image_editor').trigger('click')
+            })
+        break;
+        case 'button':
+            draw_editor_popup_button();
+        break;
+        case 'icon':
+            setTimeout(()=>{
+                draw_editor_popup_icon();
+                $('.png_icon_selector_editor').trigger('click')
+            })
+        break;
+
+    }
 })
 // $('body').on('click','.add_home_elem',function(e){
 //     let elem_type = $(this).attr('elem_type');

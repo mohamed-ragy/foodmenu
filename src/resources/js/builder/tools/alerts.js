@@ -59,7 +59,6 @@ showAlert = function(type,text,time=4000,sound=false){
 }
 
 $('#alertsContainer').on('click','.closeAlert',function(e){
-    // e.stopImmediatePropagation();
     randomId=$(this).attr('randomId');
     $('#alert-'+randomId).remove();
 

@@ -5,7 +5,7 @@
     justify-content: flex-end ;
 }
 .button_function_preview_container{
-    box-shadow: 0 0 2px var(--shdw-20);
+    box-shadow: 0 0 2px var(--shdw-30);
     border-radius: 3px;
     box-sizing: border-box;
     padding:5px;
@@ -19,7 +19,6 @@
     height:20px;
     object-fit: cover;
     border-radius: 3px;
-    
 }
 .button_function_preview_icon{
     width:20px;
@@ -28,4 +27,21 @@
     align-items: center;
     justify-content: center;
     font-size: 1em;
+}
+//
+.button_preview_color{
+    position: relative;
+    width:28px;
+    height: 28px;
+    border-radius: 3px;
+    margin:4px;
+    cursor: pointer;
+    outline-offset: 2px;
+}
+
+.button_preview_color:hover{
+    outline: 1px solid var(--white-5);
+}
+.button_preview_color_selected{
+    outline: 1px solid var(--white-11);
 }

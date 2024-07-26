@@ -284,6 +284,15 @@ draw_Change_plan_failed = function(key){
                     $('<li/>',{html:promocodesTxt})
                 )
             break;
+            case 'templates':
+                let templatesTxt = texts.downgradeFail_templates;
+                templatesTxt = templatesTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
+                templatesTxt = templatesTxt.replace(':max:',`${key.errors[key2].plan_request}`)
+                templatesTxt = templatesTxt.replace(':created:',`${key.errors[key2].current}`)
+                $('#downgradeReasonsList').append(
+                    $('<li/>',{html:templatesTxt})
+                )
+            break;
         }
     }
 }

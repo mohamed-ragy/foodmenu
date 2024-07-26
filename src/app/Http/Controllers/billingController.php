@@ -12,6 +12,7 @@ use App\Models\payment_method;
 use App\Models\product;
 use App\Models\product_option;
 use App\Models\promocode;
+use App\Models\template;
 use App\Models\website;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -130,6 +131,7 @@ class billingController extends Controller
         $downGradeValid = true;
         $errors = new stdClass();
         $is_downGrade = true;
+        $website_id = Auth::guard('account')->user()->website_id;
         switch($website->plan){
             case 'small':
                 if($plan_request_name == 'small' || $plan_request_name == 'standard' || $plan_request_name == 'large' || $plan_request_name === 'premium'){
@@ -154,9 +156,9 @@ class billingController extends Controller
         }
 
         if($is_downGrade){
-            $subaccounts = Account::where(['website_id'=>Auth::guard('account')->user()->website_id,'is_master'=>false])->count();
-            $categories = categories::where('website_id',Auth::guard('account')->user()->website_id)->count();
-            $products = product::where('website_id',Auth::guard('account')->user()->website_id)->select(['id','website_id'])->with(['product_options'=>function($q){
+            $subaccounts = Account::where(['website_id'=>$website_id,'is_master'=>false])->count();
+            $categories = categories::where('website_id',$website_id)->count();
+            $products = product::where('website_id',$website_id)->select(['id','website_id'])->with(['product_options'=>function($q){
                 $q->select(['id','product_id']);
             }])->get();
             $productOptions = 0;
@@ -171,10 +173,11 @@ class billingController extends Controller
                 }
             }
             $specialDomainName = $website->specialDomainName;
-            $storage =(img::where('website_id',Auth::guard('account')->user()->website_id)->sum('size') / 1024 / 1024 );
-            $deliveryAccounts = delivery::where('website_id',Auth::guard('account')->user()->website_id)->count();
+            $storage =(img::where('website_id',$website_id)->sum('size') / 1024 / 1024 );
+            $deliveryAccounts = delivery::where('website_id',$website_id)->count();
             $websiteLangs = count($website->languages);
-            $promocodes = promocode::where('website_id',Auth::guard('account')->user()->website_id)->count();
+            $promocodes = promocode::where('website_id',$website_id)->count();
+            $templates = template::where('website_id',$website_id)->count();
             if($subaccounts > $plan_request['subAccounts']){
                 $errors->subAccounts = [
                     'current' => $subaccounts,
@@ -236,6 +239,13 @@ class billingController extends Controller
                 $errors->promocodes = [
                     'current' => $promocodes,
                     'plan_request' =>$plan_request['promocodes']
+                ];
+                $downGradeValid = false;
+            }
+            if($templates > $plan_request['templates']){
+                $errors->templates = [
+                    'current' => $templates,
+                    'plan_request' => $plan_request['templates'],
                 ];
                 $downGradeValid = false;
             }
