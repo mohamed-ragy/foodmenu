@@ -25,6 +25,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-mobile_navbar_icon:before {
+  content: "\e97e";
+}
+.ico-drop_down_list:before {
+  content: "\e97f";
+}
+.ico-navigation_icons:before {
+  content: "\e980";
+  color: #4a4a4a;
+}
+.ico-navigation_list:before {
+  content: "\e981";
+}
+.ico-logo_restaurant_name:before {
+  content: "\e982";
+}
+.ico-header_layout:before {
+  content: "\e983";
+}
+.ico-smoothScroll:before {
+  content: "\e97c";
+}
+.ico-pageTransition:before {
+  content: "\e97d";
+}
 .ico-section:before {
   content: "\e97b";
 }

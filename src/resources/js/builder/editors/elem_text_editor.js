@@ -465,21 +465,21 @@ $('body').on('click','.text_editor_format',function(e){
     }
 });
 $('body').on('change','.text_editor_format_color',function(){
-        let span = get_text_selection_span($(this).closest('.text_editor'));
-        if(typeof(span) == 'undefined'){return;}
-        let selection = window.getSelection();
-        let newRange = document.createRange();
-        newRange.selectNodeContents(span);
-        selection.removeAllRanges();
-        selection.addRange(newRange);
-        span = selection.anchorNode;
-        let selection_string = selection.toString();
-        let new_val = get_dummy_val($(this));
-        $(span).css('color',new_val);
-        $(span).children().css('color',new_val);
-        set_text_selection_format_btns($(this).closest('.text_editor'));
-        clean_unformated_text($(this).closest('.text_editor'),selection,selection_string);
-        $(this).closest('.text_editor').find('.text_editor_editor').trigger('input')
+    let span = get_text_selection_span($(this).closest('.text_editor'));
+    if(typeof(span) == 'undefined'){return;}
+    let selection = window.getSelection();
+    let newRange = document.createRange();
+    newRange.selectNodeContents(span);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+    span = selection.anchorNode;
+    let selection_string = selection.toString();
+    let new_val = get_dummy_val($(this));
+    $(span).css('color',new_val);
+    $(span).children().css('color',new_val);
+    set_text_selection_format_btns($(this).closest('.text_editor'));
+    clean_unformated_text($(this).closest('.text_editor'),selection,selection_string);
+    $(this).closest('.text_editor').find('.text_editor_editor').trigger('input')
 })
 $('body').on('change','.text_editor_format_bgcolor',function(){
     let span = get_text_selection_span($(this).closest('.text_editor'));

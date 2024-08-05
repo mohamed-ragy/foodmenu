@@ -1,4 +1,5 @@
 require('./generate_html/generate_style.js')
+require('./generate_html/generate_editing_elems.js')
 require('./generate_html/events.js')
 
 
@@ -48,81 +49,52 @@ generate_html = function(elem,key_tree){
         }
     }
     //
-    if(elem.type == 'home_elem'){
+    if(elem.type == 'elem'){
         attrs = `${attrs} elem="${elem.elem_type}"`
     }
     html = '';
-    switch(elem.type){
-        // case 'loading_spinner':
-        //     html = $('<div/>',{key_tree:key_tree,type:elem.type,class:`loading_spinner_container ${classes}`,size:elem.size,style:style}).append(
-        //         window.template.loading_spinner.elem.replace(':size:',elem.size)
-        //     )
-        // break;
-        default:
-            if(elem.type == 'home_elem'){
-                html = `${html}<div class="home_elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile_container : style.desktop_container }" style_desktop="${style.desktop_container}" style_mobile="${style.mobile_container}">`;
-                html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_elem"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
-            }
-            if(elem.type == 'home_section_block'){
-                elem.children.sort((a,b)=>{
-                    return a.sort - b.sort;
-                })
-                html = `${html}<div class="section_block" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile_container : style.desktop_container }" style_desktop="${style.desktop_container}" style_mobile="${style.mobile_container}">`;
-                html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="home_section_block"><div class="ico-see_more"></div><div>${texts.section_block}</div></div>`;
-            }
-
-            html = `${html}<${elem.tag} class="${classes}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" style_desktop="${style.desktop}" style_mobile="${style.mobile}" ${attrs}`;
-
-            if('css_hover' in elem){
-                html = `${html} hover_style="null"`
-            }
-            if('css_click' in elem){
-                html = `${html} click_style="null"`
-            }
-            html = `${html}">${text}${elem_html}`
-
-            if(elem.type == 'home_section'){
-                if(elem.has_driver == '1'){
-                    let driver_style = '';
-                    let driver_style_desktop = `height:${elem.driver.css.height};${elem.driver.position == 'top' ? `top:0;transform:${elem.driver.flip == '1' ? 'rotateY(180deg)' : ''};` : elem.driver.position == 'bottom' ? `bottom:0;transform:rotateZ(180deg) ${elem.driver.flip == '1' ? 'rotateY(180deg)' : ''};` : ''}`
-                    let driver_style_mobile = `height:${elem.driver.css_mobile.height};${elem.driver.position == 'top' ? `top:0;transform:${elem.driver.flip == '1' ? 'rotateY(180deg)' : ''};` : elem.driver.position == 'bottom' ? `bottom:0;transform:rotateZ(180deg) ${elem.driver.flip == '1' ? 'rotateY(180deg)' : ''};` : ''}`
-                    for(const key in elem.driver.svg_style){
-                        driver_style_desktop = `${driver_style_desktop} ${key}:${elem.driver.svg_style[key]};`
-                        driver_style_mobile = `${driver_style_mobile} ${key}:${elem.driver.svg_style[key]};`
-                    }
-                    if($('.desktop_view').hasClass('mobile_view')){
-                        driver_style = driver_style_mobile
-                    }else{
-                        driver_style = driver_style_desktop;
-                    }
-                    html = `${html}<svg style="${driver_style}" style_desktop="${driver_style_desktop}" style_mobile="${driver_style_mobile}" `;
-                    for(const key in elem.driver.svg_attr){
-                        html = `${html} ${key}="${elem.driver.svg_attr[key]}"`
-                    }
-                    html = `${html}">`;
-                    for(const key in elem.driver.paths){
-                        html = `${html}<path d="${elem.driver.paths[key].path}" fill="${elem.driver.paths[key].color}"></path>`;
-                    }
-                    html = `${html}</svg> `;
-                }
-
-                let section = get_elem_data(key_tree).elem;
-                html = `${html}<div class="select_section_title builder_font"><div class="ico-align_center contextMenu" key_tree="${key_tree}" contextMenu_type="home_section"></div><div>${section.name}</div></div>`;
-                html = `${html}<button class="btn btn-cancel add_home_section add_home_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>`
-            }
-            // }
+    let select_class = elem.type;
 
 
-            for(const key in elem.children){
-                html = `${html}${generate_html(elem.children[key],`${key_tree}.children.${key}`)}`;
-            }
-            html = `${html}</${elem.tag}>`;
-
-            if(elem.type == 'home_elem' || elem.type == 'home_section_block'){
-                html = `${html}</div>`;
-            }
-        break;
+    if(elem.type == 'elem'){
+        html = `${html}${generate_editing_elems_elem(elem,key_tree,style)}`;
     }
+    else if(elem.type == 'section_block'){
+        html = `${html}${generate_editing_elems_section_block(elem,key_tree,style)}`;
+    }
+    // html = `${html}<${elem.tag} class="${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" style_desktop="${style.desktop}" style_mobile="${style.mobile}" ${attrs}`;
+    html = `${html}<${elem.tag} class="edit ${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" ${attrs}`;
+
+    if('css_hover' in elem){
+        html = `${html} hover_style="null"`
+    }
+    if('css_click' in elem){
+        html = `${html} click_style="null"`
+    }
+    html = `${html}">${text ?? ''}${elem_html ?? ''}`
+
+    if(elem.type == 'section_wrapper'){
+        html = `${html}${generate_editing_elems_section_wrapper(elem,key_tree,style)}`;
+    }
+    else if(elem.type == 'section'){
+        html = `${html}${generate_editing_elems_section(elem,key_tree,style)}`;
+    }else if(elem.type == 'header_wrapper'){
+        html = `${html}${generate_editing_elems_header_wrapper(elem,key_tree,style)}`;
+    }else if(elem.type == 'header_component'){
+        html = `${html}${generate_editing_elems_header_components(elem,key_tree,style)}`;
+    }
+
+
+
+    for(const key in elem.children){
+        html = `${html}${generate_html(elem.children[key],`${key_tree}.children.${key}`)}`;
+    }
+    html = `${html}</${elem.tag}>`;
+
+    if(elem.type == 'elem' || elem.type == 'section_block'){
+        html = `${html}</div>`;
+    }
+
     return html;
 }
 

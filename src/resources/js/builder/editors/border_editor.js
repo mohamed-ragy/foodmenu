@@ -106,7 +106,6 @@ set_border_editors = function(editors_container){
     set_dummy_select_box(border_left_editor.find('.border_editor_style'),border_left[1]);
     set_dummy_color_picker(border_left_editor.find('.border_editor_color'),border_left[2]);
 
-    temp_preview_mode();
 }
 
 //events
@@ -124,6 +123,7 @@ $('body').on('change','.border_editor',function(e){
         set_val($(this),new_val);
         new_action();
     }
+    temp_preview_mode();
 })
 $('body').on('change','.border_editor_width, .border_editor_style, .border_editor_color',function(e){
     $(this).closest('.border_editor').trigger('change')

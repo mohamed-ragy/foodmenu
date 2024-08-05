@@ -187,7 +187,7 @@ draw_buttons_preview_container =function(){
     $('.buttons_preview_container').text('')
     for(const key in buttons){
         let button = buttons[key];
-        let button_style_arr = home_elem_button().css;
+        let button_style_arr = elem_button().css;
         let button_style = '';
         let button_style_hover = '';
         let button_style_click = '';
@@ -237,7 +237,7 @@ $('body').on('click','.button_preview_color',function(e){
 $('body').on('click','.button_preview',function(){
     let button_style = get_buttons($('.button_preview_color_selected').attr('color'),$(this).attr('button_key'));
     let elem = get_elem_data(window.selected).elem;
-    let button_default = home_elem_button();
+    let button_default = elem_button();
     elem.css = button_default.css;
     elem.css_mobile = button_default.css_mobile;
     elem.css_hover = button_default.css_hover;

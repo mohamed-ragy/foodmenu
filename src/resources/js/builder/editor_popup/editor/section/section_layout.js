@@ -1,15 +1,16 @@
 draw_editor_popup_section_layout = function(){
+    if(!accessibility_check(window.selected,'section_layout')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             $('<div/>',{class:'fs09 mX10 mT10 ',text:texts.change_layout}),
-            $('<div/>',{class:'row wrap alnC jstfyC mT10',id:'home_section_editor_settings_change_layout'})
+            $('<div/>',{class:'row wrap alnC jstfyC mT10',id:'section_editor_settings_change_layout'})
         )
-        let section_layouts = get_home_sections_layouts();
+        let section_layouts = get_sections_layouts();
         for(const key in section_layouts){
             let layout = section_layouts[key]
             let thisLayoutContainer;
-            $('#home_section_editor_settings_change_layout').append(
-                $('<div/>',{class:'change_home_section_layout_elem',layout:key}).append(
+            $('#section_editor_settings_change_layout').append(
+                $('<div/>',{class:'change_section_layout_elem',layout:key}).append(
                     thisLayoutContainer = $('<div/>',{class:'section_layout_elem_S'})
                 )
             )
@@ -31,11 +32,11 @@ draw_editor_popup_section_layout = function(){
 $('body').on('click','.editor_section_layout',function(e){
     draw_editor_popup_section_layout();
 })
-$('body').on('click','.change_home_section_layout_elem',function(e){
-    let section_data = get_key_tree(window.selected);
+$('body').on('click','.change_section_layout_elem',function(e){
+    let section_data = get_elem_data(window.selected);
     let section = section_data.elem;
     let old_section = JSON.parse(JSON.stringify(section));
-    let section_layouts = get_home_sections_layouts();
+    let section_layouts = get_sections_layouts();
     let layout = section_layouts[$(this).attr('layout')];
     section.children.section_wrapper = layout ;
     if(old_section.children.section_wrapper.children.length <= section.children.section_wrapper.children.length){

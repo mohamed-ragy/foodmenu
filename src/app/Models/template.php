@@ -26,7 +26,7 @@ class template extends Model
     protected $fillable = [
         'website_id','name',
 
-        'website_colors','font_style','page_setup','form_elements',
+        'website_colors','page_setup',
 
         'home','category','product','about_us','privacy_policy','all_products',
         'cart','place_order','track_order','order_history','addToCart',
@@ -43,9 +43,7 @@ class template extends Model
         $template = $this->getAttributes();
         $template['settings'] = json_decode($template['settings'],true);
         $template['website_colors'] = json_decode($template['website_colors'],true);
-        $template['font_style'] = json_decode($template['font_style'],true);
         $template['page_setup'] = json_decode($template['page_setup'],true);
-        $template['form_elements'] = json_decode($template['form_elements'],true);
         $template['loading_spinner'] = json_decode($template['loading_spinner'],true);
         $template['website_header'] = json_decode($template['website_header'],true);
         $template['popup_window'] = json_decode($template['popup_window'],true);

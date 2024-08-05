@@ -20,7 +20,7 @@ section::after{
 section:hover {
     z-index: 2;
     .select_section_title{display:flex;background-color: var(--green-70);}
-    .add_home_section_btn_style {
+    .add_section_btn_style {
         transform: scale(1);
         opacity: 1;
     }
@@ -29,6 +29,11 @@ section:hover::after{
     outline: 2px dashed var(--green-50);
 }
 .section_selected{
+    .edit_padding_top_section{display: block;}
+    .edit_padding_bottom_section{display: block;}
+    .edit_margin_top_section{display: block;}
+    .edit_margin_bottom_section{display: block;}
+
     .select_section_title{display:flex;background-color: var(--green);}
     .section_block::after{
         outline: 1px dashed var(--blue-50);
@@ -68,10 +73,10 @@ section:hover::after{
     z-index: 110;
 
 }
-.select_section_title div:nth-child(1){font-size:.8rem;margin-inline-end:7px;cursor: pointer;}
-.select_section_title div:nth-child(2){font-size:.9rem}
+.select_section_title div:nth-child(1){font-size:.8rem;cursor: pointer;}
+.select_section_title div:nth-child(2){font-size:.9rem;margin-inline-start:7px;}
 
-.add_home_section_btn_style {
+.add_section_btn_style {
     z-index: 101;
     position: absolute;
     bottom: calc(-.5em - 13px);

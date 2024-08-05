@@ -16,7 +16,7 @@ $(window).on('blur', function() {
     stop_preview_animations();
 });
 $(window).resize(function(){
-    $(':root').css('--screen_height',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px - ${$('.website_header').outerHeight()}px)`)
+    $(':root').css('--screen_height',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px - ${$('.website_header').outerHeight() ?? 0}px)`)
     fix_header_nav_list();
 })
 window.addEventListener("beforeunload", function (e) {
@@ -78,6 +78,11 @@ $('body').on('keydown',function(e){
         }catch{}
 
     }
+
+    if(e.which == '46'){
+        delete_selected();
+    }
+
     if(e.which == 27){
         hidePopupSelectors(true);
         $('.editor_popup').each(function(){
@@ -99,16 +104,19 @@ $('body').on('keydown',function(e){
 
     if(e.shiftKey && e.ctrlKey && e.which == 38){
         e.preventDefault();
-        editor_home_elem_bring_to_front();
+        editor_bring_to_front();
     }else if(e.shiftKey && e.ctrlKey && e.which == 40){
         e.preventDefault();
-        editor_home_elem_send_to_back();
+        editor_send_to_back();
     }else if(e.ctrlKey && e.which == 38){
         e.preventDefault();
-        editor_home_elem_bring_forward();
+        editor_bring_forward();
     }else if(e.ctrlKey && e.which == 40){
         e.preventDefault();
-        editor_home_elem_send_backward();
+        editor_send_backward();
+    }
+    if(e.ctrlKey){
+        window.ctrl_pressed = true;
     }
 
 })
@@ -124,12 +132,28 @@ $('body').on('keyup',function(e){
     else if(e.altKey  && e.which == 65){
         deheighlight_all();
     }
+    window.ctrl_pressed = false;
+
 });
 
 ///
 $('body').on('click','a',function(e){
     e.preventDefault();
 })
+$('body').on('click','.open_page',function(e){
+    e.preventDefault();
+    if(!is_preview_mode()){return;}
+    set_page($(this).attr('page'))
+})
+$('body').on('click','.scroll_to_section',function(e){
+    e.preventDefault();
+    if(!is_preview_mode()){return;}
+    $('#website').animate({
+        scrollTop:$(`.${$(this).attr('section')}`).position().top,
+    },500)
+})
+
+
 //
 document.execCommand = function(command, showUI, value) {
     throw new Error("execCommand is disabled");

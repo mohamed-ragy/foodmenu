@@ -41,7 +41,7 @@ draw_editor_popup_text = function(){
                                 //         ]
                                 //     })
                                 // ),
-                                $('<div/>',{class:'editor_popup_col'}).append(
+                                $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                                     $('<div/>',{class:'fs09',text:texts.styling.text_align}),
                                     draw_select_box({
                                         key_tree:window.selected,

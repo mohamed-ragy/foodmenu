@@ -1,4 +1,5 @@
 draw_editor_popup_section_spacing = function(){
+    if(!accessibility_check(window.selected,'section_spacing')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({

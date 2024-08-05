@@ -1,10 +1,71 @@
-get_blank_home_section = function() {
+//accessibility
+
+//copy
+//add_section
+//section_swap
+//section_dublicate
+//section_delete
+//section_rename
+//section_sizing
+//section_spacing
+//section_adapt_header
+//section_layout
+//section_driver
+//add_elem
+//add_elem_title
+//add_elem_paragraph
+//add_elem_image
+//add_elem_button
+//add_elem_icon
+//alignment
+//sizing
+//width
+//height
+//spacing
+//padding
+//margin
+//styling
+//filter
+//border
+//border_radius
+//box_shadow
+//transform
+//animation
+//background
+//block_elems
+//block_arrange
+//elem_swap
+//elem_dublicate
+//elem_delete
+//button
+//text
+//image
+//icon
+//display
+//elem_arrange
+//header_sizing
+//header_layout
+//header_logo_alignment
+get_blank_section = function() {
     return {
         name: ``,
         sort: 0,
-        adapt_header: '0',
-        type: 'home_section',
+        type: 'section',
         tag: 'section',
+        accessibility:[
+            'copy',
+            'add_section',
+            'section_swap',
+            'section_dublicate',
+            'section_delete',
+            'section_rename',
+            'section_sizing',
+            'section_spacing',
+            'section_adapt_header',
+            'section_layout',
+            'section_driver',
+            'background',
+        ],
         class_selector: hash(),
         css: {
             position: 'relative',
@@ -12,6 +73,10 @@ get_blank_home_section = function() {
             width: '100%',
         },
         css_mobile:{},
+        attr:{
+            adapt_header: '0',
+            adapt_header_color: 'rgba(var(--color_4_7),1)',
+        },
         background:get_default_style('background'),
         background_mobile:get_default_style('background'),
         class: '',
@@ -44,13 +109,25 @@ get_blank_home_section = function() {
             position: 'bottom',
             flip: '0',
         },
+
     };
 }
-get_home_section_block = function(child_num) {
+get_section_block = function(child_num) {
     let child_key = hash();
     return {
-        type: 'home_section_block',
+        type: 'section_block',
         tag: 'div',
+        accessibility:[
+            'add_elem','add_elem_title','add_elem_paragraph','add_elem_image','add_elem_button','add_elem_icon',
+            'copy',
+            'alignment',
+            'block_arrange',
+            'spacing','margin','padding',
+            'styling','border','border_radius','box_shadow',
+            'animation',
+            'background',
+            'block_elems',
+        ],
         class: '',
         class_selector: `section_block${child_key}`,
         background:get_default_style('background'),
@@ -107,9 +184,10 @@ get_home_section_block = function(child_num) {
         children: []
     }
 }
-get_home_sections_layouts = function() {
+get_sections_layouts = function() {
     return [{
             tag: 'div',
+            type: 'section_wrapper',
             class_selector: `section_wrapper${hash()}`,
             css:get_default_style('section_wrapper',{
                 'grid-template-areas': `'elem1'`,
@@ -120,7 +198,7 @@ get_home_sections_layouts = function() {
                 'grid-template-columns': 'repeat(1, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
+                get_section_block('elem1'),
             ]
         },
         {
@@ -137,8 +215,8 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
             ]
         },
         {
@@ -156,9 +234,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(3, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -176,9 +254,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(3, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -196,9 +274,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(3, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -216,9 +294,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(3, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -236,8 +314,8 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
             ]
         },
         {
@@ -255,9 +333,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(3, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -275,9 +353,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(3, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -295,10 +373,10 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(4, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
             ]
         },
         {
@@ -315,9 +393,9 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'auto',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
             ]
         },
         {
@@ -335,10 +413,10 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(4, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
             ]
         },
         {
@@ -356,10 +434,10 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(4, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
             ]
         },
         {
@@ -377,10 +455,10 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(4, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
             ]
         },
         {
@@ -398,11 +476,11 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(5, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
-                get_home_section_block('elem5'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
+                get_section_block('elem5'),
             ]
         },
         {
@@ -420,11 +498,11 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(5, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
-                get_home_section_block('elem5'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
+                get_section_block('elem5'),
             ]
         },
         {
@@ -442,11 +520,11 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(5, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
-                get_home_section_block('elem5'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
+                get_section_block('elem5'),
             ]
         },
         {
@@ -464,19 +542,19 @@ get_home_sections_layouts = function() {
                 'grid-template-rows': 'repeat(6, 1fr)',
             }),
             children: [
-                get_home_section_block('elem1'),
-                get_home_section_block('elem2'),
-                get_home_section_block('elem3'),
-                get_home_section_block('elem4'),
-                get_home_section_block('elem5'),
-                get_home_section_block('elem6'),
+                get_section_block('elem1'),
+                get_section_block('elem2'),
+                get_section_block('elem3'),
+                get_section_block('elem4'),
+                get_section_block('elem5'),
+                get_section_block('elem6'),
             ]
         },
 
     ]
 }
 
-home_elem_title = function(){
+elem_title = function(){
     let empty_langs = {};
     let font_styles = {};
     for (const key in window.website_data.languages) {
@@ -485,9 +563,21 @@ home_elem_title = function(){
     }
     let this_hash = hash();
     return {
-        type: 'home_elem',
+        type: 'elem',
         elem_type: 'title',
         tag: 'h1',
+        accessibility:[
+            'elem_swap','elem_dublicate','elem_delete',
+            'copy',
+            'text',
+            'display',
+            'elem_arrange',
+            'sizing','width','height',
+            'spacing','margin','padding',
+            'styling','filter','border','border_radius','box_shadow','transform',
+            'animation',
+            'background',
+        ],
         class_selector: `h1${this_hash}`,
         font_style: {},
         background:get_default_style('background'),
@@ -578,7 +668,7 @@ home_elem_title = function(){
         },
     }
 }
-home_elem_paragraph = function(){
+elem_paragraph = function(){
     let empty_langs = {};
     let font_styles = {};
     for (const key in window.website_data.languages) {
@@ -587,9 +677,21 @@ home_elem_paragraph = function(){
     }
     let this_hash = hash();
     return {
-        type: 'home_elem',
+        type: 'elem',
         elem_type: 'paragraph',
         tag: 'p',
+        accessibility:[
+            'elem_swap','elem_dublicate','elem_delete',
+            'copy',
+            'text',
+            'display',
+            'elem_arrange',
+            'sizing','width','height',
+            'spacing','margin','padding',
+            'styling','filter','border','border_radius','box_shadow','transform',
+            'animation',
+            'background',
+        ],
         class_selector: `p${this_hash}`,
         font_style: {},
         background:get_default_style('background'),
@@ -681,12 +783,23 @@ home_elem_paragraph = function(){
         },
     }
 }
-home_elem_image = function(){
+elem_image = function(){
     let this_hash = hash();
     return {
-        type: 'home_elem',
+        type: 'elem',
         elem_type: 'image',
         tag: 'img',
+        accessibility:[
+            'elem_swap','elem_dublicate','elem_delete',
+            'copy',
+            'image',
+            'display',
+            'elem_arrange',
+            'sizing','width','height',
+            'spacing','margin','padding',
+            'styling','filter','border','border_radius','box_shadow','transform',
+            'animation',
+        ],
         class_selector: `img${this_hash}`,
         css:{
             'box-sizing': 'border-box',
@@ -764,11 +877,12 @@ home_elem_image = function(){
         animation_mobile: get_default_style('animation'),
         class: '',
         attr:{
-            src:''
+            src:'',
+            alt:`img${this_hash}`,
         }
     }
 }
-home_elem_button = function(){
+elem_button = function(){
     let empty_langs = {};
     let font_styles = {};
     for (const key in window.website_data.languages) {
@@ -777,9 +891,21 @@ home_elem_button = function(){
     }
     let this_hash = hash();
     return {
-        type: 'home_elem',
+        type: 'elem',
         elem_type: 'button',
         tag: 'button',
+        accessibility:[
+            'elem_swap','elem_dublicate','elem_delete',
+            'copy',
+            'button',
+            'text',
+            'display',
+            'elem_arrange',
+            'sizing','width','height',
+            'spacing','margin','padding',
+            'styling','filter','border','border_radius','box_shadow','transform',
+            'animation',
+        ],
         class_selector: `btn${this_hash}`,
         font_style: {},
         css:{
@@ -911,12 +1037,22 @@ home_elem_button = function(){
         },
     }
 }
-home_elem_icon = function(){
+elem_icon = function(){
     let this_hash = hash();
     return {
-        type: 'home_elem',
+        type: 'elem',
         elem_type: 'icon',
         tag: 'img',
+        accessibility:[
+            'elem_swap','elem_dublicate','elem_delete',
+            'copy',
+            'icon',
+            'display',
+            'elem_arrange',
+            'spacing','margin','padding',
+            'styling','filter','border','border_radius','box_shadow','transform',
+            'animation',
+        ],
         class_selector: `icon${this_hash}`,
         css:{
             'box-sizing': 'border-box',

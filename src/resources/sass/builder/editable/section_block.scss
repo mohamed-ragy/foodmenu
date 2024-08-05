@@ -16,11 +16,21 @@
     outline: 1px dashed var(--blue-50);
 }
 .section_block_selected {
+    .edit_section_block_margin_top{display: block;}
+    .edit_section_block_margin_right{display: block;}
+    .edit_section_block_margin_bottom{display: block;}
+    .edit_section_block_margin_left{display: block;}
+
+    .edit_section_block_padding_top{display: block;}
+    .edit_section_block_padding_right{display: block;}
+    .edit_section_block_padding_bottom{display: block;}
+    .edit_section_block_padding_left{display: block;}
+
     .select_section_block_title{display:flex;background-color: var(--blue);}
-    .home_elem:hover::after{
+    .elem:hover::after{
         outline: 1px dashed var(--orange-50);
     }
-    .home_elem:after{
+    .elem:after{
         outline: 1px dashed var(--orange-50);
     }
 }

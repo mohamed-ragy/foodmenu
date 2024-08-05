@@ -1,7 +1,8 @@
 .website_header:hover{
     z-index: 120 !important;
     .header_wrapper{
-        outline: 2px dashed var(--green-70);outline-offset: -2px;
+        outline: 2px dashed var(--green-50);
+        outline-offset: -2px;
     }
     // .header_navList, .header_logo, .header_iconsList, .header_mobileNav_icon {
     //     outline: 2px dashed var(--orange-70);outline-offset: -2px;
@@ -12,16 +13,36 @@
         outline: 2px solid var(--green);outline-offset: -2px;
     }
     .header_navList, .header_logo, .header_iconsList, .header_mobileNav_icon {
-        outline: 2px dashed var(--orange-70);outline-offset: -2px;
+        outline: 1px dashed var(--orange-70);outline-offset: -1px;
     }
+    .edit_header_padding_top{display: block;}
+    .edit_header_padding_right{display: block;}
+    .edit_header_padding_bottom{display: block;}
+    .edit_header_padding_left{display: block;}
+
+
 }
 .selected_header:hover{
     .header_wrapper{
         outline: 2px solid var(--green);outline-offset: -2px;
     }
-    .header_navList, .header_logo, .header_iconsList, .header_mobileNav_icon {
-        outline: 2px dashed var(--orange-70);outline-offset: -2px;
+    .header_component {
+        outline: 1px dashed var(--orange-70);outline-offset: -1px;
     }
+}
+.header_component:hover{
+    outline: 1px dashed var(--orange-70);outline-offset: -1px;
+}
+.header_component_selected, .header_component_selected:hover{
+    outline: 1px solid var(--orange-70);outline-offset: -1px;
+    .edit_header_components_padding_top{display: block;}
+    .edit_header_components_padding_right{display: block;}
+    .edit_header_components_padding_bottom{display: block;}
+    .edit_header_components_padding_left{display: block;}
+    .edit_header_components_margin_top{display: block;}
+    .edit_header_components_margin_right{display: block;}
+    .edit_header_components_margin_bottom{display: block;}
+    .edit_header_components_margin_left{display: block;}
 }
 // .header_highlight{
 //     .header_navList, .header_logo, .header_iconsList, .header_wrapper{
@@ -44,10 +65,9 @@
 .header_preview_container{
     display: grid;
     position: relative;
-    // height:50px;
     padding: 15px 10px;
     border:1px solid var(--white-3);
-    margin:25px 0;
+    margin:25px 10px;
     cursor: pointer;
     transition-duration: 100ms;
 }

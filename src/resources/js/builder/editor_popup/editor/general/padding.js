@@ -8,7 +8,7 @@ draw_editor_popup_padding = function(){
                         key_tree:window.selected,
                         variable_key:'css',
                         key:'padding',
-                        units:['px','em','%'],
+                        units:['px'],
                         step:1,
                         names:[texts.styling.padding,texts.styling.padding_top,texts.styling.padding_right,texts.styling.padding_bottom,texts.styling.padding_left]
                     })

@@ -7,20 +7,23 @@ a:hover{color:unset;text-decoration: underline;cursor: pointer;}
 
 ///
 .adapted_header {
-    background-color: transparent;
+    background-color: transparent !important;
+    background: transparent !important;
     box-shadow: none !important;
-    color: var(--adapted_header_font_color);
-    fill: var(--adapted_header_font_color);
-    stroke: var(--adapted_header_font_color);
+    color: var(--adapt_header_color);
+    fill: var(--adapt_header_color);
+    stroke: var(--adapt_header_color);
+    .header_wrapper{border-color:transparent !important;}
+    backdrop-filter: unset !important;
     a {
-        color: var(--adapted_header_font_color);
-        fill: var(--adapted_header_font_color);
-        stroke: var(--adapted_header_font_color);
+        color: var(--adapt_header_color);
+        fill: var(--adapt_header_color);
+        stroke: var(--adapt_header_color);
     }
     a:hover {
-        color: var(--adapted_header_font_color);
-        fill: var(--adapted_header_font_color);
-        stroke: var(--adapted_header_font_color);
+        color: var(--adapt_header_color);
+        fill: var(--adapt_header_color);
+        stroke: var(--adapt_header_color);
     }
 }
 

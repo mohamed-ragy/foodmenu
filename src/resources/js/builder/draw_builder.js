@@ -31,7 +31,6 @@ draw_builder = function(template_id){
     //
     create_editor_popup('website_colors').then(()=>{draw_website_colors();});
     create_editor_popup('page_setup').then(()=>{draw_page_setup()});
-    create_editor_popup('form_elements').then(()=>{draw_form_elements()});
     create_editor_popup('loading_spinner').then(()=>{draw_loading_spinner()});
     //
     create_editor_popup('popup_window').then(()=>{
@@ -40,24 +39,22 @@ draw_builder = function(template_id){
             hide_popup_window();
         }
     );
-    create_editor_popup('website_header').then(()=>{draw_website_header();});
     //
     create_editor_popup('editor')
     //
     draw_builder_header();
     window.template.settings.view == 'desktop' ? desktop_view() : window.template.settings.view == 'mobile' ? mobile_view() : desktop_view();
-    draw_website_header_html();
+    // draw_website_header_html();
     $('#page').text('')
     set_page('home')
     set_template_vars();
-    $('.website_logo').attr('src',window.website_data.logo)
-    $('.restaurant_name').text(window.website_data.websiteNames[window.preview_language])
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
     set_view_style();
     
     setTimeout(()=>{
-    //     window.selected = 'home.0.children.section_wrapper.children.0.children.0'
-        show_editor_popup('page_setup');
+        window.selected = 'website_header.elems.children.header_wrapper'
+        // show_editor_popup('page_setup');
+        // draw_editor_popup_header_logo();
     },1000)
 
 }
@@ -80,7 +77,6 @@ draw_builder_header = function(){
             $('<div/>',{class:'select_website_page',key:'order_history',text:texts.website_pages.order_history}),
             $('<div/>',{class:'select_website_page',key:'addToCart',text:texts.website_pages.addToCart}),
             $('<div/>',{class:'mT20 bold m5',text:texts.website_pages.other}),
-            $('<div/>',{class:'select_website_page',key:'loading_screen',text:texts.website_pages.loading_screen}),
             $('<div/>',{class:'select_website_page',key:'privacy_policy',text:texts.website_pages.privacy_policy}),
             $('<div/>',{class:'select_website_page',key:'signup',text:texts.website_pages.signup}),
             $('<div/>',{class:'select_website_page',key:'login',text:texts.website_pages.login}),
@@ -102,7 +98,6 @@ draw_builder_header = function(){
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_style.websiteStyle_des}),
             $('<div/>',{class:'website_style_elem website_style_elem_css mT20',elem:'website_colors',text:texts.website_style.website_colors}),
             $('<div/>',{class:'website_style_elem website_style_elem_css',elem:'page_setup',text:texts.website_style.page_setup}),
-            $('<div/>',{class:'website_style_elem website_style_elem_css',elem:'form_elements',text:texts.website_style.form_elements}),
             $('<div/>',{class:'website_style_elem website_style_elem_css brdrB0',elem:'loading_spinner',text:texts.website_style.loading_spinner}),
         ),
         $('<div/>',{class:'preview_languages_container none'}).append(
@@ -274,6 +269,7 @@ desktop_view = function(){
     // new_action();
 }
 set_view_style = function(){
+    return;
     if(window.current_view == 'mobile'){
         // $('.desktop_view_editors').addClass('none');
         // $('.mobile_view_editors').removeClass('none');

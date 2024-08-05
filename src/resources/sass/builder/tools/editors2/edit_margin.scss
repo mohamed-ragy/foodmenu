@@ -1,0 +1,66 @@
+
+.edit_margin_top, .edit_margin_top_section{
+    display: none;
+    position: absolute;
+    left:0;
+    right:0;
+    z-index: 100;
+    background-color: rgba(96, 24, 130, 0.1);
+    cursor: n-resize;
+    min-height:2px;
+}
+.edit_margin_top:hover, .edit_margin_right:hover, .edit_margin_bottom:hover, .edit_margin_left:hover, .edit_margin_bottom_section:hover, .edit_margin_top_section:hover{
+    background-color: rgba(96, 24, 130, 0.5);
+}
+.edit_margin_right{
+    display: none;
+    position: absolute;
+    top:0;
+    bottom:0;
+    z-index: 100;
+    background-color: rgba(96, 24, 130, 0.1);
+    cursor: e-resize;
+    min-width:2px;
+}
+.edit_margin_bottom, .edit_margin_bottom_section{
+    display: none;
+    position: absolute;
+    left:0;
+    right:0;
+    z-index: 100;
+    background-color: rgba(96, 24, 130, 0.1);
+    cursor: s-resize;
+    min-height:2px;
+}
+.edit_margin_left{
+    display: none;
+    position: absolute;
+    top:0;
+    bottom:0;
+    z-index: 100;
+    background-color: rgba(96, 24, 130, 0.1);
+    cursor: w-resize;
+    min-width:2px;
+}
+
+.edit_margin_selected{
+    background-color: rgba(96, 24, 130, 0.5) !important;
+    z-index: 101;
+    color:rgba(96, 24, 130,1);
+    text-align: center;
+    font-size: .65em;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+.edit_margin_symmetry{
+    display: block !important;
+    background-color: rgba(96, 24, 130, 0);
+    border:1px solid rgba(96, 24, 130, .5);
+    color:rgba(96, 24, 130,1);
+    text-align: center;
+    font-size: .65em;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}

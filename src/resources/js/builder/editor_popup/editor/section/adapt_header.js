@@ -1,4 +1,5 @@
 draw_editor_popup_section_adapt_header = function(){
+    if(!accessibility_check(window.selected,'section_adapt_header')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
@@ -7,7 +8,7 @@ draw_editor_popup_section_adapt_header = function(){
                     $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.adapt_header}),
                         draw_switch_btn({
-                            key_tree:window.selected,
+                            key_tree:`${window.selected}.attr`,
                             variable_key:null,
                             key:'adapt_header',
                         }),
@@ -15,9 +16,9 @@ draw_editor_popup_section_adapt_header = function(){
                     $('<div/>',{class:`editor_popup_row`}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.adapted_font_color}),
                         draw_color_picker({
-                            key_tree:'website_header',
+                            key_tree:`${window.selected}.attr`,
                             variable_key:null,
-                            key:'adapted_font_color',
+                            key:'adapt_header_color',
                         })
                     ),
                 ]

@@ -20,6 +20,7 @@ require('../cpanel/tools/loading.js');
 require('../cpanel/functions/coolDown.js');
 
 require('./editors.js');
+require('./editors2.js');
 require('./data.js');
 
 
@@ -31,6 +32,7 @@ require('./tools/save.js');
 require('./tools/select.js')
 require('./tools/contextMenu.js')
 require('./tools/copy.js')
+require('./tools/accessibility_check.js')
 
 require('./editor_popup/editor_popup.js');
 require('./editor_popup/editor.js');

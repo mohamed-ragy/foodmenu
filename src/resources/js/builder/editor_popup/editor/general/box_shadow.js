@@ -5,7 +5,7 @@ draw_editor_popup_box_shadow = function(){
                 is_responsive:true,
                 editors:[
                     draw_box_shadow_editor({
-                        key_tree:window.selected,
+                        key_tree:window.selected == 'website_header.elems.children.header_wrapper' ? 'website_header.elems' : window.selected,
                         variable_key:'css',
                         key:'box-shadow',
                     })

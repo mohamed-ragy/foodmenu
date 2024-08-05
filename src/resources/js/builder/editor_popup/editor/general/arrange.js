@@ -1,6 +1,9 @@
 editor_bring_to_front = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
+    let elem_data = get_elem_data(window.selected);
+    let elem = elem_data.elem;
+    let parent;
+    if(elem.type == 'elem'){parent = elem_data.section_block;}
+    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
     let new_zindex = elem.css['z-index'];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -19,8 +22,11 @@ $('body').on('click','.editor_bring_to_front',function(){
 })
 //
 editor_bring_forward = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
+    let elem_data = get_elem_data(window.selected);
+    let elem = elem_data.elem;
+    let parent;
+    if(elem.type == 'elem'){parent = elem_data.section_block;}
+    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
     let zindex_arr = [];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -42,8 +48,11 @@ $('body').on('click','.editor_bring_forward',function(){
 })
 //
 editor_send_to_back = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
+    let elem_data = get_elem_data(window.selected);
+    let elem = elem_data.elem;
+    let parent;
+    if(elem.type == 'elem'){parent = elem_data.section_block;}
+    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
     let new_zindex = elem.css['z-index'];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -66,8 +75,11 @@ $('body').on('click','.editor_send_to_back',function(){
 })
 //
 editor_send_backward = function(){
-    let elem = get_elem_data(window.selected).elem;
-    let parent = get_home_elem_parent(window.selected);
+    let elem_data = get_elem_data(window.selected);
+    let elem = elem_data.elem;
+    let parent;
+    if(elem.type == 'elem'){parent = elem_data.section_block;}
+    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
     let zindex_arr = [];
     for(const key in parent.children){
         let child = parent.children[key];

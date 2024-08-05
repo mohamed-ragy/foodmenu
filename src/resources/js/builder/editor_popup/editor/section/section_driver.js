@@ -1,7 +1,7 @@
 draw_editor_popup_section_driver = function(){
+    if(!accessibility_check(window.selected,'section_driver')){return;}
     show_editor_popup('editor',function(){
         let section = get_elem_data(window.selected).elem;
-        console.log(section)
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:false,
@@ -70,7 +70,6 @@ draw_editor_popup_section_driver = function(){
 
 
         for(const key in section.driver.paths){
-            console.log(`${window.selected}.driver.paths.${key}`)
             $('.editor_popup_section_driver_colors').append(
                 $('<div/>',{class:'mX5'}).append(
                     draw_color_picker({

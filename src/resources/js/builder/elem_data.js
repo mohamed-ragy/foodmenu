@@ -1,10 +1,20 @@
 get_elem_data = function(key_tree,variable_key,key){
     let keys = key_tree.split('.');
     let elem = window.template;
+    let section = null;
+    let section_wrapper = null;
+    let section_block = null;
     for(const key in keys){
         elem = elem[keys[key]];
-    }
+        if(elem.type == 'section'){
+            section = elem;
+        }else if(elem.type == 'section_wrapper'){
+            section_wrapper = elem;
+        }else if(elem.type == 'section_block'){
+            section_block = elem;
+        }
 
+    }
 
     let elem_data;
     let elem_data_mobile;
@@ -28,19 +38,19 @@ get_elem_data = function(key_tree,variable_key,key){
     }
     return {
         elem:elem,
-
         data:elem_data,
         data_mobile:elem_data_mobile,
-
         val:val,
         val_mobile:val_mobile,
-
+        section:section,
+        section_wrapper:section_wrapper,
+        section_block:section_block,
     }
 }
 
-get_home_elem_parent = function(elem_key_tree){
-    let lastDotIndex = elem_key_tree.lastIndexOf('.');
-    let secondLastDotIndex = elem_key_tree.lastIndexOf('.', lastDotIndex - 1);
-    let parent_key_tree = elem_key_tree.slice(0, secondLastDotIndex);
-    return get_elem_data(parent_key_tree).elem;
-}
+// get_elem_parent = function(elem_key_tree){
+//     let lastDotIndex = elem_key_tree.lastIndexOf('.');
+//     let secondLastDotIndex = elem_key_tree.lastIndexOf('.', lastDotIndex - 1);
+//     let parent_key_tree = elem_key_tree.slice(0, secondLastDotIndex);
+//     return get_elem_data(parent_key_tree).elem;
+// }

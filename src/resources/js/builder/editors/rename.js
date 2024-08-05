@@ -16,7 +16,7 @@ set_rename_editor = function(editor){
     let key = editor.attr('key');
     let elem_data = get_elem_data(key_tree,variable_key,key);
 
-    if(elem_data.elem.type == 'home_section'){
+    if(elem_data.elem.type == 'section'){
         $('#editor').find('.editor_popup_title').text(val)
     }
 }
@@ -30,7 +30,7 @@ $('body').on('change','.rename_editor',function(e){
     let key = editor.attr('key');
     let elem_data = get_elem_data(key_tree,variable_key,key);
 
-    if(elem_data.elem.type == 'home_section'){
+    if(elem_data.elem.type == 'section'){
         $('#editor').find('.editor_popup_title').text(new_val)
     }
 })

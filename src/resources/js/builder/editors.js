@@ -160,15 +160,6 @@ hidePopupSelectors = function(force = false){
         $('.font_style_selector_elems').addClass('none')
     }
 
-    $('.editing_edit_home_elem_editing').each(function(){
-        if($(this).is(':hover') == false || force){
-            let new_elem = generate_html(get_elem_data($(this).attr('key_tree')).elem,$(this).attr('key_tree'));
-            $(this).before($(new_elem).addClass('animated'));
-            $(this).remove();
-
-        }
-    })
-
     if($('.add_elem_popup:hover').length == 0 && $('.section_add_elem_btn:hover').length == 0 || force){
         $('.add_elem_popup').addClass('none')
     }

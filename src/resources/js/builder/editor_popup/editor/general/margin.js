@@ -8,7 +8,7 @@ draw_editor_popup_margin = function(){
                         key_tree:window.selected,
                         variable_key:'css',
                         key:'margin',
-                        units:['px','em','%'],
+                        units:['px'],
                         step:1,
                         names:[texts.styling.margin,texts.styling.margin_top,texts.styling.margin_right,texts.styling.margin_bottom,texts.styling.margin_left]
                     })

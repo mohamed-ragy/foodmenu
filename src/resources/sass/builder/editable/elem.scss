@@ -1,27 +1,37 @@
 @import '../editable/elem/add_home_elem.scss';
-.home_elem{
+.elem{
     position: relative;
 }
-.home_elem::after{
+.elem::after{
     content: '';
     position: absolute;
     inset:0 0 0 0;
     pointer-events: none;
     transition-duration: 300ms;
 }
-.home_elem:hover{
+.elem:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange-50);}
 }
-.home_elem:hover::after{
+.elem:hover::after{
     outline: 1px dashed var(--orange-50);
 }
-.edit_home_elem_selected{
+.edit_elem_selected{
+    .select_edit_elem_title{display:flex;background-color: var(--orange);}
+    
+    .edit_elem_padding_top{display: block;}
+    .edit_elem_padding_right{display: block;}
+    .edit_elem_padding_bottom{display: block;}
+    .edit_elem_padding_left{display: block;}
+
+    .edit_elem_margin_top{display: block;}
+    .edit_elem_margin_right{display: block;}
+    .edit_elem_margin_bottom{display: block;}
+    .edit_elem_margin_left{display: block;}
+}
+.edit_elem_selected:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange);}
 }
-.edit_home_elem_selected:hover{
-    .select_edit_elem_title{display:flex;background-color: var(--orange);}
-}
-.edit_home_elem_selected::after{
+.edit_elem_selected::after{
     content: '';
     position: absolute;
     inset:0 0 0 0;
@@ -29,7 +39,7 @@
     transition-duration: 300ms;
     outline: 1px solid var(--orange);
 }
-.edit_home_elem_selected:hover::after{
+.edit_elem_selected:hover::after{
     outline: 1px solid var(--orange);
 }
 .select_edit_elem_title{
@@ -52,9 +62,4 @@
 }
 .select_edit_elem_title div:nth-child(1){font-size:.75rem;margin-bottom:2px;margin-inline-end: 1px;}
 .select_edit_elem_title div:nth-child(2){font-size:.8rem;}
-//
-
-.editing_edit_home_elem_editing{
-    outline:1px solid var(--white-10) !important;
-}
 //

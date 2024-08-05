@@ -791,7 +791,7 @@ input.clr-color{
   background-size: 12.5px 12.5px;
   background-position: 0 0, 6.25px 6.25px;
 }
-.color_picker_editor_color_container{position: relative;}
+.color_picker_editor_color_container{position: relative;pointer-events: none;}
 .color_picker_editor_color_container:after{
   position: absolute;
   inset:0 0 0 0;

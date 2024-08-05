@@ -67,21 +67,23 @@ class websiteController extends Controller
             'lang' => $this->lang,
             'title' => $this->website->websiteNames[$this->lang] ?? '',
             'description' => $this->website->websiteDescriptions[$this->lang] ?? '',
-            'logo' => $this->website->logo,
-            'icon' => $this->website->icon,
-            'style_version' => $this->website->style_version,
+            // 'logo' => $this->website->logo,
+            // 'icon' => $this->website->icon,
+            // 'style_version' => $this->website->style_version,
             // 'metaImg' => $this->website->template['page_setup']['social_image'] == null ? $this->website->logo : $this->website->template['page_setup']['social_image'],
-            'url' => $this->website->url,
+            // 'url' => $this->website->url,
             'guest' => $this->guest,
             'user' => $this->user,
+            'website' => $this->website,
         ]);
     }
 
     public function get_website_data(){
         $domain = explode('.', $this->request_host);
         $this->website = website::where('url' , preg_replace('/^www./', '',$this->request_host))->orWhere('domainName' , $domain[0] )
-        ->select('id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','style_version')
-        ->first();
+        ->select([
+            'id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','style_version'])
+        ->with(['categories'])->with(['products'])->first();
         if(!$this->website){
             return abort(404);
         }
@@ -182,16 +184,17 @@ class websiteController extends Controller
         }
     }
     public function website(Request $request){
-        if($request->has('get_website_data')){
-            $website = website::where('id',$this->website_id)->select([
-                'id',
-                'websiteNames',
-                'websiteDescriptions',
-                'logo','icon',
-                'languages',
-            ])->with(['categories'])->with(['products'])->first();
-            return response($website);
-        }else if($request->has('change_language')){
+        // if($request->has('get_website_data')){
+        //     $website = website::where('id',$this->website_id)->select([
+        //         'id',
+        //         'websiteNames',
+        //         'websiteDescriptions',
+        //         'logo','icon',
+        //         'languages',
+        //     ])->with(['categories'])->with(['products'])->first();
+        //     return response($website);
+        // }else 
+        if($request->has('change_language')){
             $website_languages = website::where('id',$this->website_id)->pluck('languages')->first();
             $language_check = false;
             foreach($website_languages as $language){

@@ -54,13 +54,8 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
     set_template_vars();
     //
     if (draw_website) {
-        draw_website_header_html()
         $('.website_logo').attr('src', window.website_data.logo)
         $('.restaurant_name').text(window.website_data.websiteNames[window.preview_language]);
-        //
-        if (window.is_header_selected) {
-            $('.website_header').addClass('selected_header')
-        }
         //
         if (window.website_popup_opened) {
             show_popup_window();
@@ -73,7 +68,6 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         //
         draw_page(window.selected_page)
         set_adapted_header();
-        draw_website_checkbox()
     }
     //
     set_view_style();
@@ -86,83 +80,135 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         draw_custom_colors();
         draw_color_picker_popup();
         if($('.website_color_picker[is_selected="1"]').length > 0){
-            set_dummy_select_range($('.website_color_picker_gradation'),window.template.website_colors.gradation[`${$('.website_color_picker[is_selected="1"]').attr('key')}_gradation`])
+            try{
+                set_dummy_select_range($('.website_color_picker_gradation'),window.template.website_colors.gradation[`${$('.website_color_picker[is_selected="1"]').attr('key')}_gradation`])
+            }catch{}
         }
         $('.rename_editor').each(function(){
-            set_rename_editor($(this));
+            try{
+                set_rename_editor($(this));
+            }catch{}
         })
         $('.number_picker_editor').each(function(){
-            set_number_picker($(this));
+            try{
+                set_number_picker($(this));
+            }catch{}
         })
         $('.select_range').each(function(){
-            set_select_range($(this))
+            try{
+                set_select_range($(this))
+            }catch{}
         })
         $('.inputList_editor').each(function(){
-            set_input_list($(this))
+            try{
+                set_input_list($(this))
+            }catch{}
         })
         $('.select_box_editor').each(function(){
-            set_select_box($(this))
+            try{
+                set_select_box($(this))
+            }catch{}
         })
         $('.switch_btn').each(function(){
-            set_switch_btn($(this))
+            try{
+                set_switch_btn($(this))
+            }catch{}
         })
         $('.color_picker_editor').each(function(){
-            set_color_picker($(this))
+            try{
+                set_color_picker($(this))
+            }catch{}
         })
         $('.gradient_editor').each(function(){
-            set_gradient_editor($(this));
+            try{
+                set_gradient_editor($(this));
+            }catch{}
         })
         $('.select_image_editor').each(function(){
-            set_select_image($(this));
+            try{
+                set_select_image($(this));
+            }catch{}
         })
         $('.image_position_editor').each(function(){
-            set_image_position_editor($(this))
+            try{
+                set_image_position_editor($(this))
+            }catch{}
         })
         $('.select_background_filter').each(function(){
-            set_select_background_filter($(this));
+            try{
+                set_select_background_filter($(this));
+            }catch{}
         })
         $('.backdrop_filter_editor').each(function(){
-            set_backdrop_filter_editor($(this));
+            try{
+                set_backdrop_filter_editor($(this));
+            }catch{}
         })
         $('.border_editors').each(function(){
-            set_border_editors($(this));
+            try{
+                set_border_editors($(this));
+            }catch{}
         })
         $('.box_shadow_editor').each(function(){
-            set_box_shadow_editor($(this));
+            try{
+                set_box_shadow_editor($(this));
+            }catch{}
         })
         $('.font_picker_editor').each(function(){
-            set_font_style_picker($(this));
+            try{
+                set_font_style_picker($(this));
+            }catch{}
         })
         $('.text_editor').each(function(){
-            set_text_editor($(this));
+            try{
+                set_text_editor($(this));
+            }catch{}
         })
         $('.filter_editor').each(function(){
-            set_filter_editor($(this));
+            try{
+                set_filter_editor($(this));
+            }catch{}
         })
         $('.transform_editor').each(function(){
-            set_transform_editor($(this));
+            try{
+                set_transform_editor($(this));
+            }catch{}
         })
         $('.animation_editor').each(function(){
-            set_animation_editor($(this));
+            try{
+                set_animation_editor($(this));
+            }catch{}
         })
         $('.timing_function_editor').each(function(){
-            set_timing_function_editor($(this));
+            try{
+                set_timing_function_editor($(this));
+            }catch{}
         })
         $('.aspect_ratio_editor').each(function(){
-            set_aspect_ratio_editor($(this));
+            try{
+                set_aspect_ratio_editor($(this));
+            }catch{}
         })
         $('.button_function_editor').each(function(){
-            set_button_function_editor($(this));
+            try{
+                set_button_function_editor($(this));
+            }catch{}
         })
         $('.four_number_pickers_editor').each(function(){
-            set_four_number_pickers($(this));
+            try{
+                set_four_number_pickers($(this));
+            }catch{}
         })
         $('.png_icon_selector_editor').each(function(){
-            set_png_icon_selector($(this));
+            try{
+                set_png_icon_selector($(this));
+            }catch{}
         })
 
         $('.editor_details_head').each(function(){
-            set_editor_details($(this))
+            try{
+                set_editor_details($(this))
+            }catch{}
         })
     }
 

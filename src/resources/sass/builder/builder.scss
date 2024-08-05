@@ -100,6 +100,7 @@ body{
 @import 'tools/editor_popup.scss';
 @import 'tools/contextMenu.scss';
 @import 'tools/editors.scss';
+@import 'tools/editors2.scss';
 @import 'tools/animations/animation.scss';
 
 
@@ -133,7 +134,7 @@ body{
     height: 736px;
     box-shadow: 0 0 20px var(--shdw-20), 0 0 1px 0px var(--shdw-10);
     border-radius: 5px;
-    cursor: url('/storage/imgs/mobile_cursor.png') 16 16, auto;
+    cursor: url('/storage/cursors/mobile_cursor.png') 16 16, auto;
     position: relative;
     .resize_mobile_view{display: block;}
 }
@@ -165,16 +166,31 @@ body{
     background-color:var(--white-6);
 }
 .preview_mode{
+    .edit_padding_top_section{display: none;}
+    .edit_padding_bottom_section{display: none;}
+    .edit_margin_top_section{display: none;}
+    .edit_margin_bottom_section{display: none;}
+
+    .edit_padding_top{display: none;}
+    .edit_padding_right{display: none;}
+    .edit_padding_bottom{display: none;}
+    .edit_padding_left{display: none;}
+
+    .edit_margin_top{display: none;}
+    .edit_margin_right{display: none;}
+    .edit_margin_bottom{display: none;}
+    .edit_margin_left{display: none;}
+
     section::after{outline: none !important;}
     section::after:hover{outline: none !important;}
     section{
         .select_section_title{display: none !important}
-        .add_home_section{display: none !important;}
+        .add_section{display: none !important;}
         .select_section_block_title{display: none !important;}
         .section_block::after{outline: none !important;}
         .section_block::after:hover{outline: none !important;}
-        .home_elem::after{outline: none !important;}
-        .home_elem::after:hover{outline: none !important;}
+        .elem::after{outline: none !important;}
+        .elem::after:hover{outline: none !important;}
         .select_edit_elem_title{display: none !important}
     }
     .website_header {

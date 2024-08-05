@@ -130,11 +130,11 @@ generate_style = function(elem){
 
     //
 
-    if(elem.type == 'home_section' && elem.has_driver == '1'){
+    if(elem.type == 'section' && elem.has_driver == '1'){
         style_desktop_obj[`padding-${elem.driver.position}`] = elem.driver.css.height;
         style_mobile_obj[`padding-${elem.driver.position}`] = elem.driver.css_mobile.height;
     }
-    if(elem.type == 'home_section' && elem.sort == 0 && elem.adapt_header == '1'){
+    if(elem.type == 'section' && elem.sort == 0 && elem.attr.adapt_header == '1'){
         style_desktop_obj[`margin-top`] = `-${$('.website_header').outerHeight()}px`;
         style_mobile_obj[`margin-top`] = `-${$('.website_header').outerHeight()}px`;
         if(elem.has_driver == '1' && elem.driver.position == 'top'){
@@ -174,7 +174,7 @@ generate_style = function(elem){
 
 
 
-    if(elem.type == 'home_elem'){
+    if(elem.type == 'elem'){
         desktop_container = `${desktop_container}height:${style_desktop_obj['height']};`
         mobile_container = `${mobile_container}height:${style_mobile_obj['height']};`
 
@@ -244,7 +244,7 @@ generate_style = function(elem){
         style_desktop_obj['transition-duration'] = '0ms';
         style_mobile_obj['transition-duration'] = '0ms';
     }
-    if(elem.type == 'home_section_block'){
+    if(elem.type == 'section_block'){
         desktop_container = `${desktop_container}transform:${style_desktop_obj['transform']};`
         mobile_container = `${mobile_container}transform:${style_mobile_obj['transform']};`
 

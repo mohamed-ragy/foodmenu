@@ -1,3 +1,5 @@
+require('./contextMenu/draw_contextMenu.js')
+
 let contextMenu_scroll_interval = null;
 hide_contextMenu = function(force=false){
     if(force){
@@ -32,30 +34,31 @@ draw_contextMenu_elem = function(data){
 draw_contextMenu_line = function(){
     return $('<div/>',{class:'contextMenu_line'})
 }
+
 show_contextMenu = function(type,key_tree,cord){
     hide_contextMenu();
     $('#contextMenu').text('')
     select(key_tree)
     let elem_data;
     switch(type){
-        case 'home_section':
-            elem_data = get_elem_data(key_tree);
-            $('#contextMenu').append(
-                draw_home_section_contextMenu(elem_data)
-            )
-        break;
-        case 'home_section_block':
-            elem_data = get_elem_data(key_tree);
-            $('#contextMenu').append(
-                draw_home_section_block_contextMenu(elem_data)
-            )
-        break;
-        case 'home_elem':
-            elem_data = get_elem_data(key_tree);
-            $('#contextMenu').append(
-                draw_home_elem_contextMenu(elem_data)
-            )
-        break;
+        // case 'section':
+        //     elem_data = get_elem_data(key_tree);
+        //     $('#contextMenu').append(
+        //         draw_section_contextMenu(elem_data)
+        //     )
+        // break;
+        // case 'section_block':
+        //     elem_data = get_elem_data(key_tree);
+        //     $('#contextMenu').append(
+        //         draw_section_block_contextMenu(elem_data)
+        //     )
+        // break;
+        // case 'elem':
+        //     elem_data = get_elem_data(key_tree);
+        //     $('#contextMenu').append(
+        //         draw_elem_contextMenu(elem_data)
+        //     )
+        // break;
         case 'text_editor_hyperlink':
             $('#contextMenu').append(
                 draw_text_editor_hyperlinks_contextMenu()
@@ -69,6 +72,11 @@ show_contextMenu = function(type,key_tree,cord){
         case 'button_function':
             $('#contextMenu').append(
                 draw_button_function_hyperlinks_contextMenu()
+            )
+        break;
+        default:
+            $('#contextMenu').append(
+                draw_contextMenu()
             )
         break;
     }
@@ -155,7 +163,10 @@ $('body').on('mouseleave','.contextMenu_scrollIcon_down, .contextMenu_scrollIcon
 $('body').on('click','.contextMenu_elem',function(e){
     if($(this).hasClass('contextMenu_elem_submenu')){return;}
     hide_contextMenu(true);
-})                                                                                                                                                                                                                                                                                                                                                                
+})          
+$('body').on('contextmenu','.contextMenu_r',function(e){
+    show_contextMenu($(this).attr('contextMenu_type'),$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+})                                                                                                                                                                                                                                                                                                                                                         
 $('body').on('click','.contextMenu',function(e){
     show_contextMenu($(this).attr('contextMenu_type'),$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

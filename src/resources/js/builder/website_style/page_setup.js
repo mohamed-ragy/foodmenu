@@ -1,15 +1,48 @@
 draw_page_setup = function(){
     $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
     $('#page_setup').find('.editor_popup_body_shortcuts').append(
-        $('<div/>',{class:`editor_popup_body_shortcut ico-color_theme editor_page_setup`,tooltip:texts.website_style.page_colors,key:'page_colors'}),
-        $('<div/>',{class:`editor_popup_body_shortcut editor_popup_body_shortcut_selected ico-sizing editor_page_setup`,tooltip:texts.sizing,key:'sizing'}),
-        $('<div/>',{class:`editor_popup_body_shortcut ico-pageTransition editor_page_setup`,tooltip:texts.website_style.pageTransition,key:'pageTransition'}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-styling editor_popup_show_shortcut editor_popup_body_shortcut_selected`,tooltip:texts._styling,key:'styling'}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-sizing editor_popup_show_shortcut`,tooltip:texts.sizing,key:'sizing'}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-pageTransition editor_popup_show_shortcut`,tooltip:texts.website_style.pageTransition,key:'pageTransition'}),
+        $('<div/>',{class:`editor_popup_body_shortcut ico-smoothScroll editor_popup_show_shortcut`,tooltip:texts.website_style.smoothScroll,key:'smoothScroll'}),
     )
     $('#page_setup').addClass('w350 h600').find('.editor_popup_body').text('').append(
         draw_editors_container({
             is_responsive:false,
             editors:[
-                $('<div/>',{class:'w100p editor_popup_page_setup_container',key:'sizing'}).append(
+                $('<div/>',{class:'w100p editor_popup_shortcut_content',key:'styling'}).append(
+                    $('<div/>',{class:'editor_popup_container w100p',key:'page_setup_styling'}).append(
+                        $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.default_font_color}),
+                            draw_color_picker({
+                                key_tree:'page_setup',
+                                variable_key:null,
+                                key:'font_color',
+                            })
+                        ),
+                        $('<div/>',{class:'editor_popup_row'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.default_bg_color}),
+                            draw_color_picker({
+                                key_tree:'page_setup',
+                                variable_key:null,
+                                key:'bg_color',
+                            })
+                        ),
+                        draw_editor_show_container({
+                            key:'page_setup_font_style',
+                            name:texts.styling.default_font_style,
+                            row_class:true,
+                        }),
+                    ),
+                    $('<div/>',{class:'editor_popup_container none w100p',key:'page_setup_font_style',parent_key:'page_setup_styling'}).append(
+                        draw_font_style_picker({
+                            key_tree:'page_setup.font_style',
+                            variable_key:null,
+                        })
+                    )
+
+                ),
+                $('<div/>',{class:'w100p editor_popup_shortcut_content none',key:'sizing'}).append(
                     $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.max_content_width}),
                         draw_input_list({
@@ -43,7 +76,7 @@ draw_page_setup = function(){
                         })
                     )
                 ),
-                $('<div/>',{class:'w100p editor_popup_page_setup_container none',key:'pageTransition'}).append(
+                $('<div/>',{class:'w100p editor_popup_shortcut_content none',key:'pageTransition'}).append(
                     $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                         $('<div/>',{class:'fs09',text:texts.website_style.pageTransition}),
                         $('<div/>',{class:'row alnC jstfySB'}).append(
@@ -67,72 +100,82 @@ draw_page_setup = function(){
                             unit:'ms'
                         }),
                     ),
-                )
+                ),
+                $('<div/>',{class:'w100p editor_popup_shortcut_content none',key:'smoothScroll'}).append(
+                    $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
+                        $('<div/>',{class:'fs09',text:texts.website_style.smoothScroll}),
+                        draw_switch_btn({
+                            key_tree:'page_setup',
+                            variable_key:null,
+                            key:'smooth_scroll',
+                            show_hide:'smoothScrollDistance_inputList'
+                        }),
+                    ),
+                    $('<div/>',{class:'editor_popup_col smoothScrollDistance_inputList'}).append(
+                        $('<div/>',{class:'fs09',text:texts.website_style.smoothScrollDistance}),
+                        draw_select_range({
+                            key_tree:'page_setup',
+                            variable_key:null,
+                            key:'smooth_scroll_distance',
+                            range:{min:100,max:1000,step:1},
+                            unit:'px'
+                        }),
+                    ),
+                    $('<div/>',{class:'editor_popup_col smoothScrollDistance_inputList'}).append(
+                        $('<div/>',{class:'fs09',text:texts.website_style.smoothScrollDuration}),
+                        draw_select_range({
+                            key_tree:'page_setup',
+                            variable_key:null,
+                            key:'smooth_scroll_duration',
+                            range:{min:100,max:1500,step:1},
+                            unit:'ms'
+                        }),
+                    )
+                ),
 
             ]
         })
-        // $('<div/>',{class:'inter fs1 bold',text:texts.website_style.page_setup}),
-        // $('<div/>',{class:'fs085 mB20 c_white-11',text:texts.website_style.page_setup_des}),
-        // $('<div/>',{class:'w100p mB40'}).append(
-
-
-
-            // draw_switch_btn({
-            //     keys_arr:[{key:'smooth_scroll',key_tree:'page_setup'}],
-            //     name:texts.website_style.smoothScroll,
-            //     show_hide:'smoothScrollDistance_inputList'
-            // }),
-            // $('<div/>',{class:`smoothScrollDistance_inputList ${window.template.page_setup.smooth_scroll == '0' ? 'none' : '' } w100p`}).append(
-            //     draw_select_range({
-            //         keys_arr:[{key:'smooth_scroll_distance',key_tree:'page_setup'}],
-            //         name:texts.website_style.smoothScrollDistance,
-            //         range:{min:100,max:1000,step:1},
-            //         unit:'px'
-            //     }),
-            //     draw_select_range({
-            //         keys_arr:[{key:'smooth_scroll_duration',key_tree:'page_setup'}],
-            //         name:texts.website_style.smoothScrollDuration,
-            //         range:{min:100,max:1500,step:1},
-            //         unit:'ms'
-            //     }),
-            // )
-
-        // )
     )
 
 }
 
 //events
-$('body').on('click','.editor_page_setup',function(){
-    let shortcut = $(this).attr('key');
-    $('.editor_popup_page_setup_container').addClass('none');
-    $(`.editor_popup_page_setup_container[key="${shortcut}"]`).removeClass('none')
-    // let editor_popup = $(this).closest('.editor_popup');
-    // editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
-    // editor_popup.find('.editor_popup_body_shortcut').removeClass('editor_popup_body_shortcut_selected')
-    // $(this).addClass('editor_popup_body_shortcut_selected')
-})
+// $('body').on('click','.editor_page_setup',function(){
+//     let shortcut = $(this).attr('key');
+//     $('.editor_popup_page_setup_container').addClass('none');
+//     $(`.editor_popup_page_setup_container[key="${shortcut}"]`).removeClass('none');
+//     $(this).closest('.editor_popup').find('.editor_popup_container').removeClass('none')
+//     $(this).closest('.editor_popup').find('.editor_popup_container[parent_key]').addClass('none')
+// })
 $('body').on('click','.pageTransition_preview',function(e){
-    //e.stopImmediatePropagation();
     play_page_transition($('#page'),window.template.page_setup.pageTransition,window.template.page_setup.transitionDuration)
 })
-
+window.scrolling = false;
 $('#website').on('wheel', function(e){
+    if(window.window.scrolling == true){
+        e.preventDefault()
+        return;
+    }
     if($('#website').css('overflow-y') == 'hidden'){return;}
     // if(!$('.popup_container').hasClass('none')){return;}
     if(window.template.page_setup.smooth_scroll == '0'){return;}
     if(event.wheelDelta < 0){
+        window.scrolling = true;
         $('#website').stop(true,false).animate({scrollTop:$('#website').scrollTop() + parseFloat(window.template.page_setup.smooth_scroll_distance.replace('px',''))},{duration: parseInt(window.template.page_setup.smooth_scroll_duration.replace('ms','')),specialEasing: {width: "easeOutQuint",height: "easeOutQuint"}})
+        setTimeout(()=>{
+            window.scrolling = false;
+        },window.template.page_setup.smooth_scroll_duration.replace('ms',''))
     }else{
+        window.scrolling = true;
         $('#website').stop(true,false).animate({scrollTop:$('#website').scrollTop() - parseFloat(window.template.page_setup.smooth_scroll_distance.replace('px',''))},{duration: parseInt(window.template.page_setup.smooth_scroll_duration.replace('ms','')),specialEasing: {width: "easeOutQuint",height: "easeOutQuint"}})
+        setTimeout(()=>{
+            window.scrolling = false;
+        },window.template.page_setup.smooth_scroll_duration.replace('ms',''))
     }
-
+    
 });
 
 set_elem_animation_styles = function(elem,animation,keyframe,immediate){
-    // for(const key in styles){
-    //     elem.css(key,styles[key])
-    // }
     elem.css({
         'transition-duration':animation[`${keyframe}_duration`],
         'transition-delay':animation[`${keyframe}_delay`],
@@ -148,14 +191,6 @@ set_elem_animation_styles = function(elem,animation,keyframe,immediate){
         })
     }
 }
-// remove_elem_animation_styles = function(elem,duration,delay){
-//     setTimeout(()=>{
-//         if(window.current_view == 'desktop'){
-//             elem.attr('style',elem.attr('style_desktop'))
-//         }else if(window.current_view == 'mobile'){
-//             elem.attr('style',elem.attr('style_mobile'))
-//         }
-//     },(parseInt(duration)) + (parseInt(delay)) + 100)
 
 // }
 apply_scroll_animation = function(elem,scroll_direction){

@@ -24,7 +24,6 @@ process_data = function(r) {
 
         window.selected_page = null;
         window.website_popup_opened = false;//maybe will be deleted and use window.selected
-        window.is_header_selected = false;//maybe will be deleted and use window.selected
         window.selected;
         window.builder_clipboard = null;
         //
@@ -40,10 +39,13 @@ process_data = function(r) {
         }
         hide_page_loading();
 
+
+        window.ctrl_pressed = false;
     }
     //
 set_website_variable_data = function() {
     window.website_texts = window.website_texts_langs.find(item => item.lang == window.preview_language);
-    window.website_texts.text.page_title = window.website_data.websiteNames[window.preview_language];
-    window.website_texts.text.page_description = window.website_data.websiteDescriptions[window.preview_language];
+    window.website_texts.text.page = {};
+    // window.website_texts.text.page.title = window.website_data.websiteNames[window.preview_language];
+    // window.website_texts.text.page.description = window.website_data.websiteDescriptions[window.preview_language];
 }

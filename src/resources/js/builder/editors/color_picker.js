@@ -1342,9 +1342,7 @@ draw_color_picker_popup = function(){
     }
     for(const key in window.template.website_colors.custom_colors){
         $('.color_picker_editor_popup_custom_colors').find('.add_custom_color').before(
-            $('<div/>',{class:'color_picker_editor_color_container'}).append(
-                $('<input/>',{class:'color_picker_editor_color color_picker',style:``,key:key,custom_color_name:key,color_type:'custom'})
-            )
+            $('<div/>',{class:'color_picker_editor_color',style:``,key:key,custom_color_name:key,color_type:'custom'})
         )
     }
 }

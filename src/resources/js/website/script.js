@@ -11,10 +11,35 @@ require('./events/general_events.js')
 
 require('./components/header.js')
 
+set_website_data = function(){
+    $('.website_logo').attr('src',window.website.logo);
+    $('.restaurant_name').text(window.website.websiteNames[window.lang]);
+    $('.page_title').text(window.title);
+    $('.page_description').text(window.description);
+}
+set_adapt_header = function(){
+    if($('body').scrollTop() == 0 && $('section').first().attr('adapt_header') == '1'){
+        $(':root').css('--adapt_header_color',$('section').first().attr('adapt_header_color'))
+        $('header').addClass("adapted_header")
+    }else{
+        $('header').removeClass("adapted_header")
+    }
+}
+set_adapt_header();
+
+
+
 $(document).ready(function(){
-    // $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
-    // $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
-    // $(':root').css('--header_height',`${$('header').outerHeight()}px`)
+
+    set_website_data();
+    $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
+    $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
+    $(':root').css('--header_height',`${$('header').outerHeight()}px`)
+    fix_header_nav_list();
+
+    window.text.page.title = window.title;
+    window.text.page.description = window.description;
+
     $(window).resize(function(){
         $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
         $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
@@ -22,20 +47,28 @@ $(document).ready(function(){
         fix_header_nav_list();
     })
 
-    // window.text = window.texts
-    text.page_title = window.title;
-    text.page_description = window.description;
+    // set_website_data();
+    // $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
+    // $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
+    // $(':root').css('--header_height',`${$('header').outerHeight()}px`)
+    // fix_header_nav_list();
 
+    // window.text = window.texts
+    // text.page.title = window.title;
+    // text.page.description = window.description;
+    
 
     // open_page(function(){
     //     $('#page').append(draw_home_page())
     // })
 
     // call this function after getting the website data
-    set_website_data = function(){
-        $('.website_logo').attr('src',window.website.logo)
-        $('.restaurant_name').text(window.website.websiteNames[window.lang])
-    }
+    // set_website_data = function(){
+    //     $('.website_logo').attr('src',window.website.logo);
+    //     $('.restaurant_name').text(window.website.websiteNames[window.lang]);
+    //     $('.page_title').text(window.title);
+    //     $('.page_description').text(window.description);
+    // }
 })
 
 set_elem_animation = function(class_selector,animation,immediate=false){
@@ -157,22 +190,22 @@ $('body').on('scroll',function(e){
     }
     window.last_scroll_top = $('body').scrollTop();
     scroll_elem_animation(scroll_direction);
+    set_adapt_header();
 })
 
 
-get_website_data = function(){
-    $.ajax({
-        'url':'/api/website',
-        data:{
-            get_website_data:true,
-        },success:function(r){
-            window.website = r;
-            set_website_data();
-            $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
-            $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
-            $(':root').css('--header_height',`${$('header').outerHeight()}px`)
-            hide_loading_screen();
-            fix_header_nav_list();
-        }
-    })
-}
+// get_website_data = function(){
+//     $.ajax({
+//         'url':'/api/website',
+//         data:{
+//             get_website_data:true,
+//         },success:function(r){
+//             window.website = r;
+//             set_website_data();
+//             $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
+//             $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
+//             $(':root').css('--header_height',`${$('header').outerHeight()}px`)
+//             fix_header_nav_list();
+//         }
+//     })
+// }

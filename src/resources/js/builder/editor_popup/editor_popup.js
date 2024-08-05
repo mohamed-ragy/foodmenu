@@ -1,6 +1,6 @@
 create_editor_popup = function(id){
     let editor_popup_body_shortcuts = 'none';
-    if(id == 'editor' || id == 'page_setup'){editor_popup_body_shortcuts = ''}
+    if(id == 'editor' || id == 'page_setup' || id == 'website_header'){editor_popup_body_shortcuts = ''}
     return new Promise((success,reject)=>{
         $('body').append(
             $('<div/>',{class:'editor_popup none',id:id}).append(
@@ -67,9 +67,8 @@ show_editor_popup = function(elem,callback=()=>{}){
             show_popup_window();
         break;
         case 'website_header':
-            window.is_header_selected = true;
-            $('#website').scrollTop(0);
-            $('.website_header').addClass('selected_header')
+            window.selected = 'website_header.elems.children.header_wrapper';
+            select(window.selected);
         break;
         default:
 
@@ -115,9 +114,6 @@ hide_editor_popup = function(id){
         $('#editor').find('.editor_popup_body').text('')
     }else if(id == 'popup_window'){
         hide_popup_window();
-    }else if(id == 'website_header'){
-        window.is_header_selected = false;
-        $('.website_header').removeClass('selected_header')
     }
     stop_preview_animations();
 }
@@ -225,4 +221,12 @@ $('body').on('click','.editor_popup_close',function(e){
     hide_editor_popup($(this).closest('.editor_popup').attr('id'));
 })
 
-// ///
+//
+$('body').on('click','.editor_popup_show_shortcut',function(){
+    let editor_popup = $(this).closest('.editor_popup')
+    let shortcut = $(this).attr('key');
+    editor_popup.find('.editor_popup_shortcut_content').addClass('none');
+    editor_popup.find(`.editor_popup_shortcut_content[key="${shortcut}"]`).removeClass('none');
+    editor_popup.find('.editor_popup_container').removeClass('none')
+    editor_popup.find('.editor_popup_container[parent_key]').addClass('none')
+})

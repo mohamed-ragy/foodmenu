@@ -27,39 +27,33 @@ class generate_css
         self::generate_vars();
         self::generate_global_selectors();
 
-        self::add_to_file(<<<string
-            .website_loading{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;display:flex;align-items:center;justify-content:center;}
-            .loading_screen{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;animation-duration: var(--page_transitionDuration);h3{max-width:500px;text-align:center;margin:0;font-weight:normal}h1{margin:0;margin-bottom:5px;margin:20px;}}
-        string);
-
         self::add_to_file(self::generate_class($this->template['website_header']['elems']));
         self::add_animation($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation_name']);
         self::add_to_file(self::generate_class($this->template['website_header']['header_drop_down_list_item']));
         //
-        if(!empty($this->template['home'])){
-            if($this->template['home'][0]['adapt_header'] == '1'){
-                self::add_to_file(<<<string
-                .adapted_header{background-color: transparent;box-shadow: none;color:var(--adapted_header_font_color);fill:var(--adapted_header_font_color);stroke:var(--adapted_header_font_color);a{color:var(--adapted_header_font_color);fill:var(--adapted_header_font_color);stroke:var(--adapted_header_font_color);}a:hover{color:var(--adapted_header_font_color);fill:var(--adapted_header_font_color);stroke:var(--adapted_header_font_color);}}
-                string);
-            }
-        }
 
-        foreach($this->template['form_elements']['elems'] as $elem){
-            self::add_to_file(self::generate_class($elem));
-        }
-        self::add_to_file(templates_data::loading_spinners()[$this->template['loading_spinner']['key']]['css']);
+
+        // self::add_to_file(templates_data::loading_spinners()[$this->template['loading_spinner']['key']]['css']);
         self::add_to_file(self::generate_class($this->template['popup_window']['elems']));
         self::add_animation($this->template['popup_window']['transition']);
 
         foreach($this->template['home'] as $section){
             self::generate_class($section);
         }
-
+        
+        //
         foreach($this->animations as $animation){
             self::add_to_file($animation);
         }
         self::add_to_file('.none{display:none}.nowrap{white-space:nowrap;}');
 
+        foreach($this->template['page_setup']['font_style'] as $key => $val){
+            $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
+            if(!array_key_exists($font['name'],$this->selected_fonts)){
+                $this->selected_fonts[$font['name']] = $font;
+            }
+        }
+        
         foreach($this->selected_fonts as $font){
             self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
             self::add_to_file(".font_{$font['name']}{font-family:{$font['name']};}");
@@ -375,11 +369,12 @@ class generate_css
                     $css_disabled_end = "}";
                     $final_css = $final_css.$css_disabled_start.$css_disabled.$css_disabled_end;
                 }
+
                 if(array_key_exists('type', $elem)){
-                    if($elem['type'] == 'home_section'){
+                    if($elem['type'] == 'section'){
                         $css_driver_section = ".{$elem['class_selector']}{";
                         $css_driver_section_mobile = "@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
-                        if($elem['adapt_header'] == 1){
+                        if($elem['attr']['adapt_header'] == 1){
                             $css_driver_section = $css_driver_section."margin-top:calc(var(--header_height) * -1);";
                             $css_driver_section_mobile = $css_driver_section_mobile."margin-top:calc(var(--header_height) * -1);";
                             $css_driver_section = $css_driver_section."padding-top:var(--header_height);";
@@ -436,14 +431,11 @@ class generate_css
     public function generate_vars(){
         $css = <<<string
         :root{
-        --adapted_header_font_color:{$this->template['website_header']['adapted_font_color']};
-
         --page_max_width:{$this->template['page_setup']['max_width']};
 
         --page_transition:{$this->template['page_setup']['pageTransition']};
         --page_transitionDuration:{$this->template['page_setup']['transitionDuration']};
 
-        --form_elem_spacing:{$this->template['form_elements']['spacing']};
         string;
 
         foreach($this->template['website_colors']['colors'] as $key => $val){
@@ -465,13 +457,14 @@ class generate_css
         $css = <<<string
         *{-webkit-tap-highlight-color: transparent;}
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
-        body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;}
+        body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;color:{$this->template['page_setup']['font_color']};background-color:{$this->template['page_setup']['bg_color']}}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
         textarea{resize: none;}
         a{color:unset;text-decoration: underline;cursor: pointer;}
         a:hover{color:unset;text-decoration: underline;cursor: pointer;}
         #page{ position: relative; width:100%;animation-duration: var(--page_transitionDuration); }
         .transparent{background-color: unset;color:unset;}
+        .adapted_header{background-color: transparent;background: transparent !important;backdrop-filter: unset !important;.header_wrapper{border-color:transparent !important;}box-shadow: none !important;color:var(--adapt_header_color);fill:var(--adapt_header_color);stroke:var(--adapt_header_color);a{color:var(--adapt_header_color);fill:var(--adapt_header_color);stroke:var(--adapt_header_color);}a:hover{color:var(--adapt_header_color);fill:var(--adapt_header_color);stroke:var(--adapt_header_color);}}
         string;
         self::add_to_file($css);
     }

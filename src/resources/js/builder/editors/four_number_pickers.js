@@ -79,7 +79,6 @@ set_four_number_pickers = function(editor){
         set_dummy_number_picker(editor.find('.four_number_pickers_0'),'--')
         show_four_number_pickers_details(editor);
     }
-    // temp_preview_mode();
 }
 //
 $('body').on('change','.four_number_pickers_0',function(){
@@ -87,6 +86,7 @@ $('body').on('change','.four_number_pickers_0',function(){
     let val = get_dummy_val($(this))
     set_val(editor,`${val} ${val} ${val} ${val}`);
     new_action();
+    temp_preview_mode();
 })
 $('body').on('change','.four_number_pickers_1, .four_number_pickers_2, .four_number_pickers_3, .four_number_pickers_4',function(){
     let editor = $(this).closest('.four_number_pickers_editor');
@@ -96,7 +96,7 @@ $('body').on('change','.four_number_pickers_1, .four_number_pickers_2, .four_num
     let val_4 = get_dummy_val(editor.find('.four_number_pickers_4'));
      set_val(editor,`${val_1} ${val_2} ${val_3} ${val_4}`)
      new_action();
-
+     temp_preview_mode();
 })
 //
 $('body').on('click','.four_number_pickers_details_toggle',function(){

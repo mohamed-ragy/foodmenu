@@ -1,0 +1,68 @@
+.edit_padding_top, .edit_padding_top_section{
+    display: none;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 100;
+    background-color: rgba(24, 130, 84, 0.1);
+    cursor: n-resize;
+    min-height:2px;
+}
+.edit_padding_right{
+    display: none;
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    z-index: 100;
+    background-color: rgba(24, 130, 84, 0.1);
+    cursor: e-resize;
+    min-width:2px;
+}
+.edit_padding_bottom, .edit_padding_bottom_section{
+    display: none;
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: 100;
+    background-color: rgba(24, 130, 84, 0.1);
+    cursor: s-resize;
+    min-height:2px;
+}
+.edit_padding_left{
+    display: none;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index: 100;
+    background-color: rgba(24, 130, 84, 0.1);
+    cursor: w-resize;
+    min-width:2px;
+}
+.edit_padding_top:hover, .edit_padding_right:hover, .edit_padding_bottom:hover, .edit_padding_left:hover, .edit_padding_bottom_section:hover, .edit_padding_top_section:hover{
+    background-color: rgba(24, 130, 84, 0.5);
+}
+.edit_padding_selected{
+    background-color: rgba(24, 130, 84, 0.5);
+    z-index: 101;
+    color:rgba(24, 130, 84,1);
+    text-align: center;
+    font-size: .65em;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+.edit_padding_symmetry{
+    display: block !important;
+    background-color: rgba(24, 130, 84, 0);
+    border:1px solid rgba(24, 130, 84, .5);
+    color:rgba(24, 130, 84,1);
+    text-align: center;
+    font-size: .65em;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}

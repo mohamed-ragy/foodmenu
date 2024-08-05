@@ -124,12 +124,13 @@ class designController extends Controller
             // }
             if($request->template_data['settings'] != 0){$update_data['settings'] = $request->template_data['settings'];}
             if($request->template_data['website_colors'] != 0){$update_data['website_colors'] = $request->template_data['website_colors'];}
-            if($request->template_data['font_style'] != 0){$update_data['font_style'] = $request->template_data['font_style'];}
+            // if($request->template_data['font_style'] != 0){$update_data['font_style'] = $request->template_data['font_style'];}
             if($request->template_data['page_setup'] != 0){$update_data['page_setup'] = $request->template_data['page_setup'];}
-            if($request->template_data['form_elements'] != 0){$update_data['form_elements'] = $request->template_data['form_elements'];}
+            // if($request->template_data['form_elements'] != 0){$update_data['form_elements'] = $request->template_data['form_elements'];}
             if($request->template_data['loading_spinner'] != 0){$update_data['loading_spinner'] = $request->template_data['loading_spinner'];}
             if($request->template_data['website_header'] != 0){$update_data['website_header'] = $request->template_data['website_header'];}
             if($request->template_data['popup_window'] != 0){$update_data['popup_window'] = $request->template_data['popup_window'];}
+            // if($request->template_data['loading_screen'] != 0){$update_data['loading_screen'] = $request->template_data['loading_screen'];}
             if($request->template_data['home'] != 0){$update_data['home'] = $request->template_data['home'];}
             // if($request->changed_data != null){
             //     foreach($request->changed_data as $key => $val){
@@ -144,24 +145,10 @@ class designController extends Controller
             if($save_tempalte){
 
                 $template = template::where('_id',$request->template_id)->first()->encode();
-                // $template['settings'] = json_decode($template['settings'],true);
-                // $template['website_colors'] = json_decode($template['website_colors'],true);
-                // $template['font_style'] = json_decode($template['font_style'],true);
-                // $template['page_setup'] = json_decode($template['page_setup'],true);
-                // $template['form_elements'] = json_decode($template['form_elements'],true);
-                // $template['loading_spinner'] = json_decode($template['loading_spinner'],true);
-                // $template['website_header'] = json_decode($template['website_header'],true);
-                // $template['popup_window'] = json_decode($template['popup_window'],true);
-                // $template['home'] = json_decode($template['home'],true);
-                // $template_home = [];
-                // foreach ($template['home'] as $section) {
-                //   $decodedSection = json_decode($section, true);
-                //   array_push($template_home, $decodedSection);
-                // }
-                // $template['home'] = $template_home;
-
+                $languages = website::where('id',$this->website_id)->pluck('languages')->first();
                 $website_langs = websiteText::where('website_id',$this->website_id)->select(['text','lang'])->get();
-                foreach($website_langs as $lang){
+                foreach($languages as $language){
+                    $lang = $website_langs->where('lang',$language['code'])->first();
                     (new generate_js)->generate($template,$lang->lang,$lang->text,null);
                 }
                 (new generate_css)->generate($template);

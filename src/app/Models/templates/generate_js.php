@@ -36,24 +36,16 @@ class generate_js
         }
         $this->lang_code = $lang_code;
         $this->lang_text = $lang_text;
+        $this->lang_text['page'] = ['title' => '','description' => ''];
 
         self::add_to_file("window.mobile_max_width = '{$this->template['page_setup']['mobile_max_width']}';");
         //////////////////////
         ////loading////
         //////////////////////
-        $loading_spinner_html = str_replace(':size:','L',$this->template['loading_spinner']['elem']);
-        $loading_html = "{$loading_spinner_html}";
-        Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/loading_spinner.html', $loading_html);
-        $page_transitionDuration = str_replace('ms','',$this->template['page_setup']['transitionDuration']);
-        self::add_to_file(<<<string
-        hide_loading_screen = function(){
-            $('.loading_screen').addClass(`{$this->template['page_setup']['pageTransition']}_out`);
-            scroll_elem_animation('top');
-            setTimeout(()=>{
-                $('.loading_screen').addClass('none');
-            },{$page_transitionDuration} - 100);
-        };
-        string);
+        // $loading_spinner_html = str_replace(':size:','L',$this->template['loading_spinner']['elem']);
+        // $loading_html = "{$loading_spinner_html}";
+        // Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/loading_spinner.html', $loading_html);
+
         //////////////////////
         ////draw header////
         //////////////////////
@@ -66,26 +58,27 @@ class generate_js
         $headrer_view_html = '';
         $headrer_view_html = $headrer_view_html.self::generate_html_elem($this->template['website_header']['elems'],true);
         Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/website_header.html', $headrer_view_html);
-        if(!empty($this->template['home'])){
-            if($this->template['home'][0]['adapt_header'] == '1'){
-                self::add_to_file(<<<string
-                $(document).ready(function(e){
-                    if(window.route == 'home' && $('body').scrollTop() == 0){
-                        $('header').addClass('adapted_header');
-                    }else{
-                        $('header').removeClass('adapted_header');
-                    }
-                });
-                $('body').on('scroll',function(e){
-                    if(window.route == 'home' && $('body').scrollTop() == 0){
-                        $('header').addClass('adapted_header');
-                    }else{
-                        $('header').removeClass('adapted_header');
-                    }
-                });
-                string);
-            }
-        }
+
+        // if(!empty($this->template['home'])){
+        //     if($this->template['home'][0]['adapt_header'] == '1'){
+        //         self::add_to_file(<<<string
+        //         $(document).ready(function(e){
+        //             if(window.route == 'home' && $('body').scrollTop() == 0){
+        //                 $('header').addClass('adapted_header');
+        //             }else{
+        //                 $('header').removeClass('adapted_header');
+        //             }
+        //         });
+        //         $('body').on('scroll',function(e){
+        //             if(window.route == 'home' && $('body').scrollTop() == 0){
+        //                 $('header').addClass('adapted_header');
+        //             }else{
+        //                 $('header').removeClass('adapted_header');
+        //             }
+        //         });
+        //         string);
+        //     }
+        // }
 
         /////////////////
         ////open_page////
@@ -151,39 +144,57 @@ class generate_js
         ///////////////////////
         ////loading spinner////
         ///////////////////////
-        $loading_spinner_html = $this->template['loading_spinner']['elem'];
-        self::add_to_file("draw_loading_spinner = function(size){return `{$loading_spinner_html}`.replace(':size:',size);};");
+        // $loading_spinner_html = $this->template['loading_spinner']['elem'];
+        // self::add_to_file("draw_loading_spinner = function(size){return `{$loading_spinner_html}`.replace(':size:',size);};");
         ///////////////////////
         /////smooth scrolling
         ///////////////////////
         if($this->template['page_setup']['smooth_scroll'] == '1'){
             $scroll_duration = str_replace('ms','',$this->template['page_setup']['smooth_scroll_duration']);
             $scroll_distance = str_replace('px','',$this->template['page_setup']['smooth_scroll_distance']);
-            self::add_to_file("$('body').on('wheel', function(e){
-                    if(!$('.popup_container').hasClass('none')){return;}
-                    $('body').stop(true,false);
-                    if(event.wheelDelta < 0){
-                        $('body').animate({scrollTop:$('body').scrollTop() + parseFloat({$scroll_distance})},{duration: {$scroll_duration},specialEasing: {width: 'easeOutQuint',height: 'easeOutQuint'}});
-                    }else{
-                        $('body').animate({scrollTop:$('body').scrollTop() - parseFloat({$scroll_distance})},{duration: {$scroll_duration},specialEasing: {width: 'easeOutQuint',height: 'easeOutQuint'}});
+            self::add_to_file("
+                $('body, html').off('wheel');
+                document.body.addEventListener('wheel', function(event) {
+                    if(window.window.scrolling == true){
+                        event.preventDefault();
+                        return;
                     }
-                });
+                    if(!$('.popup_container').hasClass('none')){return;}
+                    if(event.wheelDelta < 0){
+                        window.scrolling = true;
+                        $('body').stop(true,false).animate({scrollTop:$('body').scrollTop() + parseFloat({$scroll_distance})},{duration: {$scroll_duration},specialEasing: {width: 'easeOutQuint',height: 'easeOutQuint'}});
+                        setTimeout(()=>{
+                            window.scrolling = false;
+                        },{$scroll_duration})
+                    }else{
+                        window.scrolling = true;
+                        $('body').stop(true,false).animate({scrollTop:$('body').scrollTop() - parseFloat({$scroll_distance})},{duration: {$scroll_duration},specialEasing: {width: 'easeOutQuint',height: 'easeOutQuint'}});
+                        setTimeout(()=>{
+                            window.scrolling = false;
+                        },{$scroll_duration})
+                    }
+                }, { passive: false });
             ");
 
         }
         //////////////////////////
-        ////custom google font////
+        ////apply page_setup styling////
         //////////////////////////
-        // if($this->template['font_style']['google_font']['link'] != ''){
-        //     self::add_to_file(<<<string
-        //             let font_link = "{$this->template['font_style']['google_font']['link']}".split('family=')[1];
-        //             font_link = font_link.split("')")[0];
-        //             $('style').append(`@import url('https://fonts.googleapis.com/css2?family=\${font_link}')`)
-        //         string
-        //     );
-        // }
+        // dd($this->template['page_setup']['font_style']);
+        // try{
+            if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
+                self::add_to_file("
+                    $('body').css({
+                        'font-family':'{$this->template['page_setup']['font_style'][$this->lang_code]}'
+                    });
+                ");
+            }
 
-        ////////////////////
+            
+
+
+        // }catch (\Exception $e){}
+            ////////////////////
         ////save js file////
         ////////////////////
         $this->js_file = "window.text = ".json_encode($this->lang_text).";".$this->js_file;
@@ -270,7 +281,7 @@ class generate_js
                     $html = $html.$elem['html'];
                 }
                 if(array_key_exists('type',$elem)){
-                    if($elem['type'] == 'home_section' && $elem['has_driver'] == '1'){
+                    if($elem['type'] == 'section' && $elem['has_driver'] == '1'){
                         $html = $html."<svg class='{$elem['class_selector']}_driver' ";
                         foreach($elem['driver']['svg_attr'] as $key => $val){
                             $html = $html." {$key}='{$val}'";

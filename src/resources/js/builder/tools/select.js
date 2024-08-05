@@ -8,16 +8,24 @@ select = function(key_tree){
         window.selected = key_tree;
         $('section').removeClass('section_selected');
         $(`.section_block`).removeClass('section_block_selected')
-        $(`.home_elem`).removeClass('edit_home_elem_selected')
+        $(`.elem`).removeClass('edit_elem_selected')
+        $('.website_header').removeClass('selected_header')
+        $('.header_component').removeClass('header_component_selected')
         switch(elem.type){
-            case 'home_section':
+            case 'section':
                 $(`section[key_tree="${key_tree}"]`).addClass('section_selected')
             break;
-            case 'home_section_block':
+            case 'section_block':
                 $(`.section_block[key_tree="${key_tree}"]`).addClass('section_block_selected')
             break;
-            case 'home_elem':
-                $(`.home_elem[key_tree="${key_tree}"]`).addClass('edit_home_elem_selected')
+            case 'elem':
+                $(`.elem[key_tree="${key_tree}"]`).addClass('edit_elem_selected')
+            break;
+            case 'header_wrapper':
+                $('.website_header').addClass('selected_header')
+            break;
+            case 'header_component':
+                $(`.header_component[key_tree="${key_tree}"]`).addClass('header_component_selected')
             break;
         }
     }catch{
@@ -28,17 +36,15 @@ select = function(key_tree){
 heighlight_all = function(){
     $('section').addClass('section_selected');
     $(`.section_block`).addClass('section_block_selected')
-    $(`.home_elem`).addClass('edit_home_elem_selected')
+    $(`.elem`).addClass('edit_elem_selected')
     $('.website_header').addClass('selected_header')
     $('.set_show_metrics').addClass('header_icon_selected')
 }
 deheighlight_all = function(){
     $('section').removeClass('section_selected');
     $(`.section_block`).removeClass('section_block_selected')
-    $(`.home_elem`).removeClass('edit_home_elem_selected')
-    if(!window.is_header_selected){
-        $('.website_header').removeClass('selected_header')
-    }
+    $(`.elem`).removeClass('edit_elem_selected')
+    $('.website_header').removeClass('selected_header')
     $('.set_show_metrics').removeClass('header_icon_selected')
 }
 heighlight_all_toggle = function(){
@@ -64,6 +70,9 @@ preview_mode_toggle = function(){
     }else{
         set_preview_mode()
     }
+}
+is_preview_mode = function(){
+    if($('.set_preview_mode').hasClass('header_icon_selected')){return true;}else{return false}
 }
 window.temp_preview_mode_timeout = null;
 temp_preview_mode = function(){
