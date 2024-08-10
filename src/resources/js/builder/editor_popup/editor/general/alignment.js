@@ -34,6 +34,7 @@ draw_editor_popup_section_block_alignment = function(){
                             key_tree:window.selected,
                             variable_key:'css',
                             key:'align-items',
+                            editor_class:'editor_alignments_align_items',
                             selections:[
                                 {text:texts.select_elems.start,key:'flex-start'},
                                 {text:texts.select_elems.center,key:'center'},
@@ -62,4 +63,22 @@ draw_editor_popup_section_block_alignment = function(){
 }
 $('body').on('click','.editor_alignment',function(e){
     draw_editor_popup_section_block_alignment();
+})
+$('body').on('change','.editor_alignments_align_items',function(){
+    let elem = get_elem_data(window.selected).elem;
+    let responsive_key = get_responseive_key($(this));
+    for(const key in elem.children){
+        let child = elem.children[key];
+        if(responsive_key == '0' || responsive_key == 'desktop'){
+            child.css['align-self'] = 'auto';
+        }else if(responsive_key == 'general'){
+            child.css['align-self'] = 'auto';
+            child.css_mobile['align-self'] = 'auto';
+        }else if(responsive_key == 'desktop'){
+            child.css['align-self'] = 'auto';
+        }else if(responsive_key == 'mobile'){
+            child.css_mobile['align-self'] = 'auto';
+        }
+    }
+    undo_redo_actions();
 })

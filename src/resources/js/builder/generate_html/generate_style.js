@@ -30,25 +30,26 @@ generate_style = function(elem){
         style_desktop_obj[key] = val;
     }
     if('background' in elem){
-        if(elem.background.type == 'none'){
-            style_desktop_obj['background-color'] = 'unset';
-        }else if(elem.background.type == 'color'){
-            style_desktop_obj['background-color'] = elem.background.color;
-        }else if(elem.background.type == 'gradient'){
-            style_desktop_obj['background'] = elem.background.gradient;
-        }else if(elem.background.type == 'backdrop_filter'){
-            style_desktop_obj['background-color'] = elem.background.backdrop_filter_color;
-            style_desktop_obj['backdrop-filter'] = elem.background.backdrop_filter;
+       set_background_style(elem.background,style_desktop_obj);
+            // if(elem.background.type == 'none'){
+            //     style_desktop_obj['background-color'] = 'unset';
+            // }else if(elem.background.type == 'color'){
+            //     style_desktop_obj['background-color'] = elem.background.color;
+            // }else if(elem.background.type == 'gradient'){
+            //     style_desktop_obj['background'] = elem.background.gradient;
+            // }else if(elem.background.type == 'backdrop_filter'){
+            //     style_desktop_obj['background-color'] = elem.background.backdrop_filter_color;
+            //     style_desktop_obj['backdrop-filter'] = elem.background.backdrop_filter;
 
-        }else if(elem.background.type == 'image'){
-            style_desktop_obj['background-image'] = `url('${elem.background.background_image}')`
-            style_desktop_obj['background-size'] = elem.background.background_size;
-            style_desktop_obj['background-attachment'] = elem.background.background_attachment;
-            style_desktop_obj['background-repeat'] = elem.background.background_repeat;
-            style_desktop_obj['background-position'] = elem.background.background_position;
-            style_desktop_obj['background-blend-mode'] = elem.background.background_blend_mode;
-            style_desktop_obj['background-color'] = elem.background.background_blend_mode_color;
-        }
+            // }else if(elem.background.type == 'image'){
+            //     style_desktop_obj['background-image'] = `url('${elem.background.background_image}')`
+            //     style_desktop_obj['background-size'] = elem.background.background_size;
+            //     style_desktop_obj['background-attachment'] = elem.background.background_attachment;
+            //     style_desktop_obj['background-repeat'] = elem.background.background_repeat;
+            //     style_desktop_obj['background-position'] = elem.background.background_position;
+            //     style_desktop_obj['background-blend-mode'] = elem.background.background_blend_mode;
+            //     style_desktop_obj['background-color'] = elem.background.background_blend_mode_color;
+            // }
     }
     if('font_style' in elem){
         if(typeof(elem.font_style) === 'object'){
@@ -83,49 +84,50 @@ generate_style = function(elem){
         style_mobile_obj[key] = val;
     }
     if('background_mobile' in elem){
-        if(elem.background_mobile.type == 'none'){
-            style_mobile_obj['background-color'] = 'unset';
-            style_mobile_obj['background-image'] = `unset`
-            style_mobile_obj['background-size'] = `unset`
-            style_mobile_obj['background-attachment'] = `unset`
-            style_mobile_obj['background-repeat'] = `unset`
-            style_mobile_obj['background-position'] = `unset`
-            style_mobile_obj['background-blend-mode'] = `unset`
-        }else if(elem.background_mobile.type == 'color'){
-            style_mobile_obj['background-color'] = elem.background_mobile.color;
-            style_mobile_obj['background-image'] = `unset`
-            style_mobile_obj['background-size'] = `unset`
-            style_mobile_obj['background-attachment'] = `unset`
-            style_mobile_obj['background-repeat'] = `unset`
-            style_mobile_obj['background-position'] = `unset`
-            style_mobile_obj['background-blend-mode'] = `unset`
-        }else if(elem.background_mobile.type == 'gradient'){
-            style_mobile_obj['background'] = elem.background_mobile.gradient;
-            style_mobile_obj['background-image'] = `unset`
-            style_mobile_obj['background-size'] = `unset`
-            style_mobile_obj['background-attachment'] = `unset`
-            style_mobile_obj['background-repeat'] = `unset`
-            style_mobile_obj['background-position'] = `unset`
-            style_mobile_obj['background-blend-mode'] = `unset`
-        }else if(elem.background_mobile.type == 'backdrop_filter'){
-            style_mobile_obj['background-color'] = elem.background_mobile.backdrop_filter_color;
-            style_mobile_obj['backdrop-filter'] = elem.background_mobile.backdrop_filter;
-            style_mobile_obj['background-image'] = `unset`
-            style_mobile_obj['background-size'] = `unset`
-            style_mobile_obj['background-attachment'] = `unset`
-            style_mobile_obj['background-repeat'] = `unset`
-            style_mobile_obj['background-position'] = `unset`
-            style_mobile_obj['background-blend-mode'] = `unset`
+        set_background_style(elem.background_mobile,style_mobile_obj);
+        // if(elem.background_mobile.type == 'none'){
+        //     style_mobile_obj['background-color'] = 'unset';
+        //     style_mobile_obj['background-image'] = `unset`
+        //     style_mobile_obj['background-size'] = `unset`
+        //     style_mobile_obj['background-attachment'] = `unset`
+        //     style_mobile_obj['background-repeat'] = `unset`
+        //     style_mobile_obj['background-position'] = `unset`
+        //     style_mobile_obj['background-blend-mode'] = `unset`
+        // }else if(elem.background_mobile.type == 'color'){
+        //     style_mobile_obj['background-color'] = elem.background_mobile.color;
+        //     style_mobile_obj['background-image'] = `unset`
+        //     style_mobile_obj['background-size'] = `unset`
+        //     style_mobile_obj['background-attachment'] = `unset`
+        //     style_mobile_obj['background-repeat'] = `unset`
+        //     style_mobile_obj['background-position'] = `unset`
+        //     style_mobile_obj['background-blend-mode'] = `unset`
+        // }else if(elem.background_mobile.type == 'gradient'){
+        //     style_mobile_obj['background'] = elem.background_mobile.gradient;
+        //     style_mobile_obj['background-image'] = `unset`
+        //     style_mobile_obj['background-size'] = `unset`
+        //     style_mobile_obj['background-attachment'] = `unset`
+        //     style_mobile_obj['background-repeat'] = `unset`
+        //     style_mobile_obj['background-position'] = `unset`
+        //     style_mobile_obj['background-blend-mode'] = `unset`
+        // }else if(elem.background_mobile.type == 'backdrop_filter'){
+        //     style_mobile_obj['background-color'] = elem.background_mobile.backdrop_filter_color;
+        //     style_mobile_obj['backdrop-filter'] = elem.background_mobile.backdrop_filter;
+        //     style_mobile_obj['background-image'] = `unset`
+        //     style_mobile_obj['background-size'] = `unset`
+        //     style_mobile_obj['background-attachment'] = `unset`
+        //     style_mobile_obj['background-repeat'] = `unset`
+        //     style_mobile_obj['background-position'] = `unset`
+        //     style_mobile_obj['background-blend-mode'] = `unset`
 
-        }else if(elem.background_mobile.type == 'image'){
-            style_mobile_obj['background-image'] = `url('${elem.background_mobile.background_image}')`
-            style_mobile_obj['background-size'] = elem.background_mobile.background_size;
-            style_mobile_obj['background-attachment'] = elem.background_mobile.background_attachment;
-            style_mobile_obj['background-repeat'] = elem.background_mobile.background_repeat;
-            style_mobile_obj['background-position'] = elem.background_mobile.background_position;
-            style_mobile_obj['background-blend-mode'] = elem.background_mobile.background_blend_mode;
-            style_mobile_obj['background-color'] = elem.background_mobile.background_blend_mode_color;
-        }
+        // }else if(elem.background_mobile.type == 'image'){
+        //     style_mobile_obj['background-image'] = `url('${elem.background_mobile.background_image}')`
+        //     style_mobile_obj['background-size'] = elem.background_mobile.background_size;
+        //     style_mobile_obj['background-attachment'] = elem.background_mobile.background_attachment;
+        //     style_mobile_obj['background-repeat'] = elem.background_mobile.background_repeat;
+        //     style_mobile_obj['background-position'] = elem.background_mobile.background_position;
+        //     style_mobile_obj['background-blend-mode'] = elem.background_mobile.background_blend_mode;
+        //     style_mobile_obj['background-color'] = elem.background_mobile.background_blend_mode_color;
+        // }
     }
 
     //
@@ -208,6 +210,17 @@ generate_style = function(elem){
         desktop_container = `${desktop_container}z-index:${style_desktop_obj['z-index']};`
         mobile_container = `${mobile_container}z-index:${style_mobile_obj['z-index']};`
 
+        desktop_container = `${desktop_container}transition-duration:${style_desktop_obj['transition-duration']};`
+        mobile_container = `${mobile_container}transition-duration:${style_mobile_obj['transition-duration']};`
+
+        desktop_container = `${desktop_container}transition-delay:${style_desktop_obj['transition-delay']};`
+        mobile_container = `${mobile_container}transition-delay:${style_mobile_obj['transition-delay']};`
+
+
+        desktop_container = `${desktop_container}transition-timing-function:${style_desktop_obj['transition-timing-function']};`
+        mobile_container = `${mobile_container}transition-timing-function:${style_mobile_obj['transition-timing-function']};`
+
+
         delete style_desktop_obj['transform']
         delete style_mobile_obj['transform']
 
@@ -260,6 +273,16 @@ generate_style = function(elem){
         desktop_container = `${desktop_container}grid-area:${style_desktop_obj['grid-area']};`
         mobile_container = `${mobile_container}grid-area:${style_mobile_obj['grid-area']};`
 
+        desktop_container = `${desktop_container}transition-duration:${style_desktop_obj['transition-duration']};`
+        mobile_container = `${mobile_container}transition-duration:${style_mobile_obj['transition-duration']};`
+
+        desktop_container = `${desktop_container}transition-delay:${style_desktop_obj['transition-delay']};`
+        mobile_container = `${mobile_container}transition-delay:${style_mobile_obj['transition-delay']};`
+
+
+        desktop_container = `${desktop_container}transition-timing-function:${style_desktop_obj['transition-timing-function']};`
+        mobile_container = `${mobile_container}transition-timing-function:${style_mobile_obj['transition-timing-function']};`
+
         delete style_desktop_obj['transform']
         delete style_mobile_obj['transform']
 
@@ -294,5 +317,25 @@ generate_style = function(elem){
         mobile:mobile,
         desktop_container:desktop_container,
         mobile_container:mobile_container,
+    }
+}
+set_background_style = function(background,style_obj){
+    if(background.type == 'none'){
+
+    }else if(background.type == 'color'){
+        style_obj['background-color'] = background.color;
+    }else if(background.type == 'gradient'){
+        style_obj['background'] = background.gradient;
+    }else if(background.type == 'backdrop_filter'){
+        style_obj['background-color'] = background.backdrop_filter_color;
+        style_obj['backdrop-filter'] = background.backdrop_filter;
+    }else if(background.type == 'image'){
+        style_obj['background-image'] = `url('${background.background_image}')`
+        style_obj['background-size'] = background.background_size;
+        style_obj['background-attachment'] = background.background_attachment;
+        style_obj['background-repeat'] = background.background_repeat;
+        style_obj['background-position'] = background.background_position;
+        style_obj['background-blend-mode'] = background.background_blend_mode;
+        style_obj['background-color'] = background.background_blend_mode_color;
     }
 }

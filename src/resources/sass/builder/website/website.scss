@@ -10,11 +10,18 @@ a:hover{color:unset;text-decoration: underline;cursor: pointer;}
     background-color: transparent !important;
     background: transparent !important;
     box-shadow: none !important;
+    backdrop-filter: unset !important;
+    border-color:transparent !important;
+
     color: var(--adapt_header_color);
     fill: var(--adapt_header_color);
     stroke: var(--adapt_header_color);
-    .header_wrapper{border-color:transparent !important;}
-    backdrop-filter: unset !important;
+
+    .header_logo_restaurant_name ,a ,a:hover{
+        color: var(--adapt_header_color) !important;
+        fill: var(--adapt_header_color) !important;
+        stroke: var(--adapt_header_color) !important;
+    }
     a {
         color: var(--adapt_header_color);
         fill: var(--adapt_header_color);

@@ -3,6 +3,7 @@ draw_editor_popup_transform = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
+                interactions:['hover','click','focus','disabled'],
                 editors:[
                     $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.transform_origin}),
@@ -33,9 +34,11 @@ draw_editor_popup_transform = function(){
             })
         )
         $(`.editor_popup_body_shortcut.editor_transform`).addClass('editor_popup_body_shortcut_selected')
+        $(`.editor_popup_body_shortcut.editor_transform`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     });
 }
 $('body').on('click','.editor_transform',function(e){
-    if(elem_has_animation(window.selected,true)){return;}
+    // if(elem_has_animation(window.selected,true)){return;}
+    console.log('gaga')
     draw_editor_popup_transform();
 })

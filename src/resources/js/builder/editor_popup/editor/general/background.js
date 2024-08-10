@@ -1,7 +1,6 @@
 draw_editor_popup_background = function(){
     if(!accessibility_check(window.selected,'background')){return;}
     let selected_key_tree = window.selected;
-    console.log(window.selected)
     if(window.selected == 'website_header.elems.children.header_wrapper'){
         selected_key_tree = 'website_header.elems';
     }
@@ -10,11 +9,13 @@ draw_editor_popup_background = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
+                interactions:['hover'],
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
                         $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none mB20`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.background}),
                             draw_input_list({
+                                container_class:'background_type_inputList',
                                 key_tree:selected_key_tree,
                                 variable_key:'background',
                                 key:'type',
@@ -156,4 +157,25 @@ draw_editor_popup_background = function(){
 }
 $('body').on('click','.editor_background',function(e){
     draw_editor_popup_background();
+})
+$('body').on('change','.background_type_inputList',function(){
+    let val = get_editor_val($(this))
+    let elem = get_elem_data($(this).attr('key_tree')).elem;
+    let responsive_key = get_responseive_key($(this));
+    let interaction = get_interaction_key($(this));
+    let interaction_key;
+    if(!elem.accessibility.includes('hover')){return;}
+    if(interaction == '0'){return;}else{
+        interaction == 'hover' ? interaction_key = '' : interaction == 'regular' ? interaction_key = '_hover' : null; 
+    }
+    if(responsive_key == '0' || responsive_key == 'desktop'){
+        elem[`background${interaction_key}`]['type'] = val;
+    }else if(responsive_key == 'general'){
+        elem[`background${interaction_key}`]['type'] = val;
+        elem[`background${interaction_key}_mobile`]['type'] = val;
+    }else if(responsive_key == 'mobile'){
+        elem[`background${interaction_key}_mobile`]['type'] = val;
+    }
+
+    undo_redo_actions();
 })

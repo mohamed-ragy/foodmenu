@@ -64,14 +64,27 @@ generate_html = function(elem,key_tree){
     }
     // html = `${html}<${elem.tag} class="${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" style_desktop="${style.desktop}" style_mobile="${style.mobile}" ${attrs}`;
     html = `${html}<${elem.tag} class="edit ${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" ${attrs}`;
+    if('accessibility' in elem){
+        if(elem.accessibility.includes('hover')){
+            html = `${html} hover_style="null"`
+        }
+        if(elem.accessibility.includes('click') ){
+            html = `${html} click_style="null"`
+        }
+    }
+    let parent_hover = null;
+    if('children' in elem){
+        for(const key in elem.children){
+            if('accessibility' in elem.children[key]){
+                if(elem.children[key].accessibility.includes('parent_hover')){
+                    parent_hover == null ? parent_hover = `${key_tree}.children.${key}` : parent_hover = `${parent_hover}#${key_tree}.children.${key}`;
+                }
+            }
+        }
+    }
+    parent_hover !== null ? html = `${html} parent_hover="${parent_hover}"` : null;
 
-    if('css_hover' in elem){
-        html = `${html} hover_style="null"`
-    }
-    if('css_click' in elem){
-        html = `${html} click_style="null"`
-    }
-    html = `${html}">${text ?? ''}${elem_html ?? ''}`
+    html = `${html}>${text ?? ''}${elem_html ?? ''}`
 
     if(elem.type == 'section_wrapper'){
         html = `${html}${generate_editing_elems_section_wrapper(elem,key_tree,style)}`;

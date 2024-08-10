@@ -21,7 +21,7 @@ select = function(key_tree){
             case 'elem':
                 $(`.elem[key_tree="${key_tree}"]`).addClass('edit_elem_selected')
             break;
-            case 'header_wrapper':
+            case 'website_header':
                 $('.website_header').addClass('selected_header')
             break;
             case 'header_component':

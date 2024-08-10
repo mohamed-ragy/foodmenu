@@ -69,8 +69,8 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                     is_responsive:false,
                     editors:[
                         draw_font_style_picker({
-                            key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name.font_style',
-                            variable_key:null,
+                            key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                            variable_key:'font_style',
                         })
                     ]
                 })

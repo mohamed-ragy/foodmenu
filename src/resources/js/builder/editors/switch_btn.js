@@ -1,6 +1,6 @@
 draw_switch_btn = function(data){
     let editor = $('<div/>',{
-        class:`editor switch_btn ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''}`,
+        class:`editor switch_btn ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.disabled ? 'switch_btn_disabled' : ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
@@ -35,7 +35,7 @@ set_dummy_switch_btn = function(editor,val){
     }else if(val == '0'){
         editor.removeClass('switch_btn_selected')
     }
-    if(typeof(editor.attr('show_hide')) !== 'undefined' ){
+    if(typeof(editor.attr('show_hide')) !== 'undefined' && editor.attr('show_hide') !== ''){
         let show_hide = editor.attr('show_hide').split('.');
         if(val == '1'){
             for(const key in show_hide){
@@ -60,6 +60,9 @@ $('body').on('change','.switch_btn',function(e){
     new_action();
 })
 $('body').on('click','.switch_btn',function(e){
+    if($(this).hasClass('switch_btn_disabled')){
+        return;
+    }
     let new_val;
     if($(this).hasClass('switch_btn_selected')){
         $(this).removeClass('switch_btn_selected')

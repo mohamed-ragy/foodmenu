@@ -137,6 +137,7 @@ body{
     cursor: url('/storage/cursors/mobile_cursor.png') 16 16, auto;
     position: relative;
     .resize_mobile_view{display: block;}
+    .edit_container_alignment_left{left:0 !important; top:0 !important}
 }
 .resize_mobile_view{
     display: none;;
@@ -180,6 +181,10 @@ body{
     .edit_margin_right{display: none;}
     .edit_margin_bottom{display: none;}
     .edit_margin_left{display: none;}
+
+    .edit_container_alignment_top{display: none;}
+    .edit_container_alignment_left{display: none;}
+    .edit_alignment_btn_self{display: none;}
 
     section::after{outline: none !important;}
     section::after:hover{outline: none !important;}

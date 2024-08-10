@@ -27,7 +27,6 @@ draw_select_background_filter = function(data){
 }
 set_select_background_filter = function(editor){
     let val = get_editor_val(editor);
-    console.log(val)
     $(`.background_filter_preview`).removeClass('background_filter_preview_selected')
     $(`.background_filter_preview[filter_val="${val}"]`).addClass('background_filter_preview_selected')
     let image_url = $('.background_image_editor').find('img').attr('src');

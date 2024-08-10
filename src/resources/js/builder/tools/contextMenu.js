@@ -80,12 +80,13 @@ show_contextMenu = function(type,key_tree,cord){
             )
         break;
     }
-    try{
-        if(elem_has_animation(key_tree,false)){
-            $('.editor_transform').addClass('contextMenu_elem_dummy')
-            $('.editor_filter').addClass('contextMenu_elem_dummy')
-        }
-    }catch{}
+    // try{
+    //     if(elem_has_animation(key_tree,false)){
+    //         $('.editor_transform').addClass('contextMenu_elem_dummy')
+    //         $('.editor_filter').addClass('contextMenu_elem_dummy')
+    //         $('.editor_interactions').addClass('contextMenu_elem_dummy')
+    //     }
+    // }catch{}
 
     setTimeout(()=>{
         let x = cord.x;

@@ -1,6 +1,6 @@
-require('./editor/general.js');
 require('./editor/section.js');
 require('./editor/header.js');
+require('./editor/general.js');
 
 set_editor_popup_editor = function(){
     if(typeof(window.selected) === 'undefined'){return;}
@@ -31,7 +31,7 @@ set_editor_popup_editor = function(){
             // draw_editor_popup_editor_shortcuts_elem(elem_data);
             set_editor_popup_editor_position_elem(window.selected);
         break;
-        case 'header_wrapper': 
+        case 'website_header': 
             $('#editor').find('.editor_popup_title').text(texts.website_tools.header)
             set_editor_popup_editor_position_header();
         break;
@@ -52,7 +52,11 @@ $('body').on('click','.editor_popup_body_shortcut',function(e){
     editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
     editor_popup.find('.editor_popup_head_btn').addClass('none');
     editor_popup.find('.editor_popup_body_shortcut').removeClass('editor_popup_body_shortcut_selected');
+    editor_popup.find('.editor_popup_body_shortcut_open_group').removeClass('editor_popup_body_shortcut_open_group_selected')
     $(this).addClass('editor_popup_body_shortcut_selected')
+    if($(this).hasClass('editor_popup_body_shortcut_group_elem')){
+        $(this).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
+    }
     stop_preview_animations();
     if($(this).hasClass('editor_animation')){
         play_preview_animations();
@@ -68,6 +72,9 @@ draw_editor_popup_editor_shortcuts = function(){
         :'',
         accessibility.includes('header_logo_alignment') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-alignment editor_header_logo_alignment`,tooltip:texts.styling.alignment})
+        :'',
+        accessibility.includes('header_navList') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-navigation_list editor_header_navList`,tooltip:texts.styling.header_navList})
         :'',
         accessibility.includes('header_logo_logo') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-logo_restaurant_name editor_header_logo_logo`,tooltip:texts.styling.restauran_logo})
@@ -111,35 +118,33 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('alignment') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-alignment editor_alignment`,tooltip:texts.styling.alignment})
         : '',
-        //sizing
-        accessibility.includes('width') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-width editor_width`,tooltip:texts.styling.width})        
+        //styling
+        accessibility.includes('styling') ?
+        $('<div/>',{class:'editor_popup_body_shortcut_group'}).append(
+            $('<div/>',{class:`editor_popup_body_shortcut_open_group ico-styling `,tooltip:texts.styling.styling}),
+            $('<div/>',{class:`${accessibility.includes('filter') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-filter editor_filter`,tooltip:texts.styling.filter}),   
+            $('<div/>',{class:`${accessibility.includes('border') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-border editor_border`,tooltip:texts.styling.border}),   
+            $('<div/>',{class:`${accessibility.includes('border_radius') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-border_radius editor_border_radius`,tooltip:texts.styling.border_radius}),   
+            $('<div/>',{class:`${accessibility.includes('box_shadow') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-box_shadow editor_box_shadow`,tooltip:texts.styling.box_shadow}),   
+            $('<div/>',{class:`${accessibility.includes('transform') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-transform editor_transform`,tooltip:texts.styling.transform}),   
+
+        )
         : '',
-        accessibility.includes('height') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-height editor_height`,tooltip:texts.styling.height})        
+        //sizing
+        accessibility.includes('sizing') ?
+        $('<div/>',{class:'editor_popup_body_shortcut_group'}).append(
+            $('<div/>',{class:`editor_popup_body_shortcut_open_group ico-sizing `,tooltip:texts.styling.sizing}),
+            $('<div/>',{class:`${accessibility.includes('width') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-width editor_width`,tooltip:texts.styling.width}),   
+            $('<div/>',{class:`${accessibility.includes('height') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-height editor_height`,tooltip:texts.styling.height}),
+        )
         : '',
         //spacing
-        accessibility.includes('padding') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-padding editor_padding`,tooltip:texts.styling.padding})
-        : '',
-        accessibility.includes('margin') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-margin editor_margin`,tooltip:texts.styling.margin})
-        : '',
-        //styling
-        accessibility.includes('filter') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-filter editor_filter`,tooltip:texts.styling.filter})
-        : '',
-        accessibility.includes('border') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-border editor_border`,tooltip:texts.styling.border})
-        : '',
-        accessibility.includes('border_radius') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-border_radius editor_border_radius`,tooltip:texts.styling.border_radius})
-        : '',
-        accessibility.includes('box_shadow') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-box_shadow editor_box_shadow`,tooltip:texts.styling.box_shadow})
-        : '',
-        accessibility.includes('transform') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-transform editor_transform`,tooltip:texts.styling.transform})
+        accessibility.includes('spacing') ?
+         $('<div/>',{class:'editor_popup_body_shortcut_group'}).append(
+            $('<div/>',{class:`editor_popup_body_shortcut_open_group ico-spacing `,tooltip:texts.styling.spacing}),
+            $('<div/>',{class:`${accessibility.includes('padding') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-padding editor_padding`,tooltip:texts.styling.padding}),   
+            $('<div/>',{class:`${accessibility.includes('margin') ? '' : 'editor_popup_body_shortcut_dump'} editor_popup_body_shortcut_group_elem editor_popup_body_shortcut ico-margin editor_margin`,tooltip:texts.styling.margin}),   
+         )
         : '',
         //
         accessibility.includes('animation') ?
@@ -148,6 +153,8 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('background') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-background editor_background`,tooltip:texts.styling.background})
         : '',
-
+        accessibility.includes('interactions') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-interactions editor_interactions`,tooltip:texts.interactions})
+        : '',
     )
 }

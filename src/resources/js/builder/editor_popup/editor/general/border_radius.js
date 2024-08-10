@@ -3,6 +3,7 @@ draw_editor_popup_border_radius = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
+                interactions:['hover','click','focus','disabled'],
                 editors:[
                     draw_four_number_pickers({
                         key_tree:window.selected,
@@ -16,6 +17,7 @@ draw_editor_popup_border_radius = function(){
             })
         )
         $(`.editor_popup_body_shortcut.editor_border_radius`).addClass('editor_popup_body_shortcut_selected')
+        $(`.editor_popup_body_shortcut.editor_border_radius`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     });
 }
 $('body').on('click','.editor_border_radius',function(e){

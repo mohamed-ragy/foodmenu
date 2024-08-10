@@ -20,7 +20,7 @@ draw_editor_popup_width = function(){
                             key_tree:window.selected,
                             variable_key:'css',
                             key:'max-width',
-                            units:['auto','px','%'],
+                            units:['px','%'],
                             step:1,
                         })
                     ),
@@ -39,6 +39,7 @@ draw_editor_popup_width = function(){
         )
     })
     $(`.editor_popup_body_shortcut.editor_width`).addClass('editor_popup_body_shortcut_selected')
+    $(`.editor_popup_body_shortcut.editor_width`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
 }
 $('body').on('click','.editor_width',function(e){
     draw_editor_popup_width();

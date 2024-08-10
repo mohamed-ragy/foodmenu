@@ -12,7 +12,8 @@ draw_editor_popup_icon = function(){
                             container_class:'editor_popup_brdrT_none'
                         }),
                         draw_png_icon_selector({
-                            key_tree:`${window.selected}.attr`,
+                            key_tree:`${window.selected}`,
+                            variable_key:'attr',
                             key:'src'
                         })
                     ),

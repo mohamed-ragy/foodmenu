@@ -204,6 +204,11 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
                 set_png_icon_selector($(this));
             }catch{}
         })
+        $('.interactions_picker').each(function(){
+            try{
+                set_interactions_picker($(this));
+            }catch{}
+        })
 
         $('.editor_details_head').each(function(){
             try{

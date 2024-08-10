@@ -16,6 +16,7 @@ draw_editor_popup_margin = function(){
             })
         )
         $(`.editor_popup_body_shortcut.editor_margin`).addClass('editor_popup_body_shortcut_selected')
+        $(`.editor_popup_body_shortcut.editor_margin`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     });
 }
 $('body').on('click','.editor_margin',function(e){

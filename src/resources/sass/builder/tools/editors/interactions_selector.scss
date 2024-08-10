@@ -1,0 +1,35 @@
+.interactions_selector{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:calc(100% - 20px);
+    margin:10px;
+    margin-bottom: 20px;;
+    overflow: hidden;
+}
+.interaction_elem{
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding:10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 300ms;
+    border-bottom:2px solid var(--white-3);
+    font-size: 1.3em;;
+}
+.interaction_elem:hover{
+    border-bottom:2px solid var(--green-40);
+}
+.interaction_elem_selected, .interaction_elem_selected:hover{
+    color:var(--green);
+    border-bottom:2px solid var(--green-80);
+}
+.interaction_elem_disabled, .interaction_elem_disabled:hover{
+    // pointer-events: none;
+    color:var(--white-4);
+    border-bottom:2px solid var(--white-3);
+    cursor: auto;
+}

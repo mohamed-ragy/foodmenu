@@ -63,23 +63,30 @@
     position: sticky;
     top:0;
     max-height: 10000px;
-    background-color: var(--white-3);
+    background-color: var(--white-2);
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
     direction: rtl;
     flex-shrink: 0;
-    width:50px;
+    width:55px;
+    
 }
 .editor_popup_body_shortcut{
     font-size: 1.3em;
     padding:15px;
+    height:50px;
+    box-sizing: border-box;
     cursor: pointer;
     margin-right:-1px;
     color:var(--white-11);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.editor_popup_body_shortcut_dump{
+    color:var(--white-5);
+    pointer-events: none;
 }
 .editor_popup_body_shortcut:hover{
     background-color: var(--white-3);
@@ -93,12 +100,44 @@
 .editor_popup_body_shortcut_selected:hover{
     background-color: var(--white-1);
 }
+.editor_popup_body_shortcut_group{
+    max-height:50px;
+    overflow: hidden;
+    transition-duration: 400ms;
+    border-top:2px solid transparent;
+    border-bottom:2px solid transparent;
+}
+.editor_popup_body_shortcut_group:hover{
+    max-height: 300px;
+    height:auto;
+    border-top:2px solid var(--orange-50);
+    border-bottom:2px solid var(--orange-50);
+}
+.editor_popup_body_shortcut_open_group{
+    font-size: 1.3em;
+    padding:15px;
+    height:50px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-right:-1px;
+    color:var(--white-11);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.editor_popup_body_shortcut_open_group_selected{
+    background-color: var(--white-1);
+    border:1px solid var(--white-3);
+    border-right:none;
+    color:var(--txt-1);
+}
+//
 .editor_popup_body{
     position: relative;
     flex-grow: 1;
     padding:0;
     height:100%;
-    width:calc(100% - 50px);
+    width:calc(100% - 55px);
 }
 .editor_popup_OnMove{opacity:.8;transition-duration: 0ms;}
 .editor_popup_dump{

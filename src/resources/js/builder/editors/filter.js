@@ -5,7 +5,7 @@ draw_filter_editor = function(data){
         variable_key:data.variable_key,
         key:data.key,
     }).append(
-        $('<div/>',{class:'editor_popup_col'}).append(
+        $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
             $('<div/>',{class:'fs09',text:texts.styling.opacity}),
             draw_select_range({
                 dummy:true,

@@ -8,8 +8,8 @@ draw_editor_popup_button = function(){
                         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.button_function}),
                             draw_button_function_editor({
-                                key_tree:`${window.selected}.attr`,
-                                variable_key:null,
+                                key_tree:`${window.selected}`,
+                                variable_key:'attr',
                                 key:'href'
                             })
                         ),
@@ -30,40 +30,9 @@ draw_editor_popup_button = function(){
                         )
                     ),
                     $('<div/>',{class:'editor_popup_container w100p none',key:'editor_button_customize',parent_key:'editor_button'}).append(
-                        draw_editor_show_container({
-                            key:'editor_button_regular',
-                            name:texts.regular_style,
-                            row_class:true,
-                            container_class:'editor_popup_brdrT_none'
-                        }),
-                        draw_editor_show_container({
-                            key:'editor_button_hover',
-                            name:texts.hover_style,
-                            row_class:true,
-                        }),
-                        draw_editor_show_container({
-                            key:'editor_button_click',
-                            name:texts.click_style,
-                            row_class:true,
-                        }),
-                        draw_editor_show_container({
-                            key:'editor_button_disabled',
-                            name:texts.disabled_style,
-                            row_class:true,
-                        }),
-                        $('<div/>',{class:'editor_popup_col'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.transition_duration}),
-                            draw_number_picker({
-                                key_tree:`${window.selected}.css`,
-                                key:'transition-duration',
-                                step:'1',
-                                units:['s','ms'],
-                            }),
-                        ),
-                    ),
-                    $('<div/>',{class:'editor_popup_container w100p none',key:'editor_button_regular',parent_key:'editor_button_customize'}).append(
                         draw_editors_container({
                             is_responsive:true,
+                            interactions:['hover','click','disabled'],
                             editors:[
                                 $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                     $('<div/>',{class:'fs09',text:texts.styling.font_color}),
@@ -87,88 +56,6 @@ draw_editor_popup_button = function(){
                                 })
                             ]
                         })
-                    ),
-                    $('<div/>',{class:'editor_popup_container w100p none',key:'editor_button_hover',parent_key:'editor_button_customize'}).append(
-                        draw_editors_container({
-                            is_responsive:true,
-                            editors:[
-                                $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.font_color}),
-                                    draw_color_picker({
-                                        key_tree:window.selected,
-                                        variable_key:'css_hover',
-                                        key:'color',
-                                    }),
-                                ),
-                                $('<div/>',{class:'editor_popup_row editor_popup_brdrB'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.bg_color}),
-                                    draw_color_picker({
-                                        key_tree:window.selected,
-                                        variable_key:'css_hover',
-                                        key:'background-color',
-                                    }),
-                                ),
-                                draw_border_editor({
-                                    key_tree:window.selected,
-                                    variable_key:'css_hover',
-                                })
-                            ]
-                        })
-                    ),
-                    $('<div/>',{class:'editor_popup_container w100p none',key:'editor_button_click',parent_key:'editor_button_customize'}).append(
-                        draw_editors_container({
-                            is_responsive:true,
-                            editors:[
-                                $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.font_color}),
-                                    draw_color_picker({
-                                        key_tree:window.selected,
-                                        variable_key:'css_click',
-                                        key:'color',
-                                    }),
-                                ),
-                                $('<div/>',{class:'editor_popup_row editor_popup_brdrB'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.bg_color}),
-                                    draw_color_picker({
-                                        key_tree:window.selected,
-                                        variable_key:'css_click',
-                                        key:'background-color',
-                                    }),
-                                ),
-                                draw_border_editor({
-                                    key_tree:window.selected,
-                                    variable_key:'css_click',
-                                })
-                            ]
-                        })
-                    ),
-                    $('<div/>',{class:'editor_popup_container w100p none',key:'editor_button_disabled',parent_key:'editor_button_customize'}).append(
-                        draw_editors_container({
-                            is_responsive:false,
-                            editors:[
-                                $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.font_color}),
-                                    draw_color_picker({
-                                        key_tree:`${window.selected}.css_disabled`,
-                                        variable_key:null,
-                                        key:'color',
-                                    }),
-                                ),
-                                $('<div/>',{class:'editor_popup_row editor_popup_brdrB'}).append(
-                                    $('<div/>',{class:'fs09',text:texts.styling.bg_color}),
-                                    draw_color_picker({
-                                        key_tree:`${window.selected}.css_disabled`,
-                                        variable_key:null,
-                                        key:'background-color',
-                                    }),
-                                ),
-                                draw_border_editor({
-                                    key_tree:window.selected,
-                                    variable_key:'css_click',
-                                })
-                            ]
-                        })
-
                     ),
                 ]
             }),

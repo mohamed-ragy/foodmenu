@@ -5,7 +5,7 @@ draw_editor_popup_padding = function(){
                 is_responsive:true,
                 editors:[
                     draw_four_number_pickers({
-                        key_tree:window.selected,
+                        key_tree:window.selected == 'website_header.elems' ? 'website_header.elems.children.header_wrapper' : window.selected,
                         variable_key:'css',
                         key:'padding',
                         units:['px'],
@@ -16,6 +16,7 @@ draw_editor_popup_padding = function(){
             })
         )
         $(`.editor_popup_body_shortcut.editor_padding`).addClass('editor_popup_body_shortcut_selected')
+        $(`.editor_popup_body_shortcut.editor_padding`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     });
 }
 $('body').on('click','.editor_padding',function(e){

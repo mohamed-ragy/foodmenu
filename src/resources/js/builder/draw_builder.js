@@ -52,9 +52,9 @@ draw_builder = function(template_id){
     set_view_style();
     
     setTimeout(()=>{
-        window.selected = 'website_header.elems.children.header_wrapper'
+        // window.selected = 'home.0.children.section_wrapper.children.0.children.2'
         // show_editor_popup('page_setup');
-        // draw_editor_popup_header_logo();
+        // draw_editor_popup_button();
     },1000)
 
 }
@@ -338,7 +338,12 @@ $('body').on('click','.website_style_elem',function(e){
 $('body').on('click','.website_tools_elem',function(e){
     // e.stopImmediatePropagation();
     hide_website_tools_menu(true);
-    show_editor_popup($(this).attr('key'));
+    if($(this).attr('key') == 'website_header'){
+        select('website_header.elems');
+        draw_editor_popup_header_settings()
+    }else{
+        show_editor_popup($(this).attr('key'));
+    }
 
 })
 $('body').on('click','.select_website_page',function(e){

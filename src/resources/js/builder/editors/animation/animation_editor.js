@@ -167,35 +167,30 @@ $('body').on('mouseup','.animation_preview_container',function(){
     if($(this).hasClass('animation_preview_container_selected')){return;}
     let animation = JSON.parse(JSON.stringify(window.animations.find(item=>item.name == $(this).attr('animation_name'))));
     let editor = $(this).closest('.animation_editor');
-    let editors_container = editor.closest('.editors_container')
-    let is_responsive = editors_container.attr('is_responsive');
+    let responsive_key = get_responseive_key(editor)
     let key_tree = editor.attr('key_tree');
     let variable_key = editor.attr('variable_key');
     let elem_data = get_elem_data(key_tree,variable_key);
-    if(is_responsive == '0'){
+    if(responsive_key == '0'){
         elem_data.elem.animation = {};
-    }else if(is_responsive == '1'){
-        if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
-            elem_data.elem.animation = {};
-            elem_data.elem.animation_mobile = {};
-        }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
-            elem_data.elem.animation = {};
-        }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
-            elem_data.elem.animation_mobile = {};
-        }
+    }else if(responsive_key == 'general'){
+        elem_data.elem.animation = {};
+        elem_data.elem.animation_mobile = {};
+    }else if(responsive_key == 'desktop'){
+        elem_data.elem.animation = {};
+    }else if(responsive_key == 'mobile'){
+        elem_data.elem.animation_mobile = {};
     }
     for(const key in animation){
-        if(is_responsive == '0'){
+        if(responsive_key == '0'){
             elem_data.elem.animation[key] = animation[key];
-        }else if(is_responsive == '1'){
-            if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
-                elem_data.elem.animation[key] = animation[key];
-                elem_data.elem.animation_mobile[key] = animation[key];
-            }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
-                elem_data.elem.animation[key] = animation[key];
-            }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
-                elem_data.elem.animation_mobile[key] = animation[key];
-            }
+        }else if(responsive_key == 'general'){
+            elem_data.elem.animation[key] = animation[key];
+            elem_data.elem.animation_mobile[key] = animation[key];
+        }else if(responsive_key == 'desktop'){
+            elem_data.elem.animation[key] = animation[key];
+        }else if(responsive_key == 'mobile'){
+            elem_data.elem.animation_mobile[key] = animation[key];
         }
     }    
     new_action();

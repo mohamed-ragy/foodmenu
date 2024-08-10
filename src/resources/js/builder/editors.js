@@ -26,19 +26,22 @@ require('./editors/select_range.js')//
 require('./editors/switch_btn.js')//
 require('./editors/timing_function.js')//
 require('./editors/transform_editor.js')//
+require('./editors/interactions_picker.js')//
 
 //tools
 require('./editors/editor_details.js')//not used yet
 require('./editors/editor_popup_show_container.js')//
 require('./editors/responsive.js')//
+require('./editors/interactions.js')//
 
 
 draw_editors_container = function(data){
     let editors_container;
-    editors_container = $('<div/>',{class:`editors_container`,is_responsive:data.is_responsive ? '1' : '0'}).append(
+    editors_container = $('<div/>',{class:`editors_container`,is_responsive:data.is_responsive ? '1' : '0',is_interactions:data.interactions ? '1' : '0'}).append(
         $('<div/>',{class:'mT5 mB10'}).append(
             data.is_responsive ? draw_responsive_selector() : '',
-        )
+            data.interactions ? draw_interactions_selector(data.interactions) : '',
+        ),
     )
     for(const key in data.editors){
         editors_container.append(data.editors[key])
@@ -51,6 +54,12 @@ get_editor_val = function(editor){
     let key_tree = editor.attr('key_tree');
     let variable_key = editor.attr('variable_key');
     let key = editor.attr('key');
+    if(editors_container.attr('is_interactions') == '1'){
+        let variable_key2 = editors_container.find('.interaction_elem_selected').attr('key');
+        if(variable_key2 != 'regular'){
+            variable_key = `${variable_key}_${variable_key2}`
+        }
+    }
     let elem_data = get_elem_data(key_tree,variable_key,key);
     if(is_responsive == '0'){
         return elem_data.val;
@@ -79,9 +88,16 @@ set_val= function(editor,new_val){
     let key_tree = editor.attr('key_tree');
     let variable_key = editor.attr('variable_key');
     let key = editor.attr('key');
+    if(editors_container.attr('is_interactions') == '1'){
+        let variable_key2 = editors_container.find('.interaction_elem_selected').attr('key');
+        if(variable_key2 != 'regular'){
+            variable_key = `${variable_key}_${variable_key2}`
+        }
+    }
     let elem_data = get_elem_data(key_tree,variable_key,key);
     if(is_responsive == '0'){
         elem_data.data[key] = new_val;
+        
     }else if(is_responsive == '1'){
         if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
             elem_data.data[key] = new_val;

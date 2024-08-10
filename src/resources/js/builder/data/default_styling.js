@@ -47,9 +47,6 @@ get_default_style = function(style,push_data={}){
                 background_blend_mode_color:'rgba(var(--color_1_2),1)',
             };
         break;
-        case 'backdrop_filter':
-            data = 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)';
-        break;
         case 'animation':
             data = {
                 name:'no_animation',
@@ -91,11 +88,9 @@ get_default_style = function(style,push_data={}){
                 down_out_filter:'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
             };
         break;
-        case 'transform':
-            data = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
-        break;
-        case 'filter':
-            data = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(var(--color_4_1),0))';
+        ///
+        case 'backdrop_filter':
+            data = 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)';
         break;
         case 'linear_gradient':
             data = 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
@@ -103,12 +98,85 @@ get_default_style = function(style,push_data={}){
         case 'radial_gradient':
             data = 'radial-gradient(circle, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
         break;
+        //
+        case 'transition-timing-function':
+            data = 'linear';
+        break;
+        case 'transition-duration':
+            data = '0ms';
+        break;
+        case 'transition-delay':
+            data = '0ms';
+        break;
+        case 'padding':
+            data = '20px 20px 20px 20px';
+        break;
+        case 'margin':
+            data = '20px 20px 20px 20px';
+        break;
+        case 'border-top':
+            data = '0px none rgba(var(--color_4_1),1)';
+        break;
+        case 'border-right':
+            data = '0px none rgba(var(--color_4_1),1)';
+        break;
+        case 'border-bottom':
+            data = '0px none rgba(var(--color_4_1),1)';
+        break;
+        case 'border-left':
+            data = '0px none rgba(var(--color_4_1),1)';
+        break;
+        case 'border-radius':
+            data = '0px 0px 0px 0px';
+        break;
+        case 'box-shadow':
+            data = 'none';
+        break;
         case '':
             data = '';
+        break;
+        case '':
+            data = '';
+        break;
+        case '':
+            data = '';
+        break;
+        case 'transform-origin':
+            data = 'center';
+        break;
+
+        case 'transform':
+            data = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
+        break;
+        case 'filter':
+            data = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(var(--color_4_1),0))';
         break;
     }
     for(const key in push_data){
         data[key] = push_data[key]
+    }
+    return data;
+}
+get_default_styles = function(styles_keys,data={}){
+    for(const key in styles_keys){
+        if(styles_keys[key] == 'border'){
+            data['border-top'] = get_default_style('border-top');
+            data['border-right'] = get_default_style('border-right');
+            data['border-bottom'] = get_default_style('border-bottom');
+            data['border-left'] = get_default_style('border-left');
+        }else if(styles_keys[key] == 'width'){
+            data['width'] = 'auto';
+            data['min-width'] = 'auto';
+            data['max-width'] = '100%';
+        }else if(styles_keys[key] == 'height'){
+            data['height'] = 'auto';
+            data['min-height'] = 'auto';
+            data['max-height'] = '100%';
+        }
+        
+        else{
+            data[styles_keys[key]] = get_default_style(styles_keys[key]);
+        }
     }
     return data;
 }

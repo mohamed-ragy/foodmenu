@@ -20,6 +20,11 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-title',class:`editor_header_logo_restaurant_name`,child1_text:texts.styling.restaurant_name})
         )
     }
+    if(accessibility.includes('header_navList')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-navigation_list fs101',class:`editor_header_navList`,child1_text:texts.styling.header_navList})
+        )
+    }
     if(accessibility.includes('add_elem')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-add_elem',child1_text:texts.add_element,child2_class:'ico-arrowRight',submenu:draw_section_block_add_elem_contextMenu(accessibility)}),
@@ -178,6 +183,11 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-layers fs101',child1_text:texts.arrange,child2_class:'ico-arrowRight',submenu:draw_section_block_arrange_contextMenu(elem_data)}),
         )
     }
+    if(accessibility.includes('styling')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-styling',child1_text:texts._styling,child2_class:'ico-arrowRight',submenu:draw_styling_contextMenu(accessibility)}),
+        )
+    }
     if(accessibility.includes('sizing')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-sizing',child1_text:texts.sizing,child2_class:'ico-arrowRight',class:elem_data.elem.elem_type == 'icon' ? `contextMenu_elem_dummy` : '',submenu:draw_sizing_contextMenu(accessibility)}),
@@ -186,11 +196,6 @@ draw_contextMenu = function(){
     if(accessibility.includes('spacing')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-spacing',child1_text:texts.spacing,child2_class:'ico-arrowRight',submenu:draw_spacing_contextMenu(accessibility)}),
-        )
-    }
-    if(accessibility.includes('styling')){
-        contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-styling',child1_text:texts._styling,child2_class:'ico-arrowRight',submenu:draw_styling_contextMenu(accessibility)}),
         )
     }
     if(accessibility.includes('animation')){
@@ -208,7 +213,11 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-layers',child1_text:texts.styling.elements,class:`${elem_data.elem.children.length == '0' ? 'contextMenu_elem_dummy' : ''}`,child2_class:'ico-arrowRight',submenu:draw_section_block_elements_contextMenu()}),
         )
     }
- 
+    if(accessibility.includes('interactions')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-interactions fs101',class:'editor_interactions',child1_text:texts.interactions}),
+        )
+    }
 
 
 

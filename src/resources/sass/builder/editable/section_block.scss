@@ -26,6 +26,9 @@
     .edit_section_block_padding_bottom{display: block;}
     .edit_section_block_padding_left{display: block;}
 
+    .edit_container_alignment_top{display: flex;}
+    .edit_container_alignment_left{display: flex;}
+
     .select_section_block_title{display:flex;background-color: var(--blue);}
     .elem:hover::after{
         outline: 1px dashed var(--orange-50);
@@ -67,6 +70,7 @@
     z-index: 2;
     cursor: pointer;
     transition-duration: 300ms;
+    z-index: 111;
 }
 .select_section_block_title div:nth-child(1){font-size:.75rem;margin-bottom:2px;margin-inline-end: 1px;}
 .select_section_block_title div:nth-child(2){font-size:.75rem;}

@@ -38,6 +38,20 @@ set_responsive_selector = function(){
         }
     })
 }
+get_responseive_key = function(editor){
+    let editors_container = editor.closest('.editors_container')
+    let is_responsive = editors_container.attr('is_responsive');
+    if(is_responsive == '0'){return '0'}
+    else if(is_responsive == '1'){
+        if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
+            return 'general'
+        }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
+            return 'desktop'
+        }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
+            return 'mobile'
+        }
+    }
+}
 $('body').on('click','.responsive_selector',function(){
     $('.responsive_selector').removeClass('responsive_selector_selected');
     $(this).addClass('responsive_selector_selected')

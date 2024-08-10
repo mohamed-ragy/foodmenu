@@ -22,6 +22,13 @@
     transition-timing-function: ease-in-out;
     box-shadow: 0 0 2px var(--shdw-10), 0 0 1px 2px var(--shdw-10);
 }
+.switch_btn_disabled{
+    cursor: not-allowed;
+
+}
+.switch_btn_disabled::after{
+    background-color: var(--white-2) !important;
+}
 .switch_btn_selected{
     background-color: var(--green);
 }

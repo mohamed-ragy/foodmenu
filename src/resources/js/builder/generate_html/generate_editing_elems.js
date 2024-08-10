@@ -1,6 +1,5 @@
 generate_editing_elems_elem = function(elem,key_tree,style){
     let html = '';
-    select_class = '';
     // html = `${html}<div class="elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile_container : style.desktop_container }" style_desktop="${style.desktop_container}" style_mobile="${style.mobile_container}">`;
     html = `${html}<div class="elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile_container : style.desktop_container }">`;
     html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="elem"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
@@ -18,11 +17,39 @@ generate_editing_elems_elem = function(elem,key_tree,style){
         html = `${html}<div class="edit_margin_bottom edit_elem_margin_bottom" style="height:${margin[2]};bottom:-${margin[2]};" key_tree="${key_tree}"></div>`;
         html = `${html}<div class="edit_margin_left edit_elem_margin_left" style="width:${margin[3]};left:-${margin[3]};" key_tree="${key_tree}"></div>`;
     }
+    let parent = get_elem_data(key_tree).section_block;
+    let variable_key = 'css';
+    window.current_view == 'mobile' ? variable_key = 'css_mobile' : null;
+    if(parent[variable_key]['flex-direction'] == 'column'){
+        align_self_backward_icon = 'ico-position_left';
+        align_self_backward_style = 'right:unset;left:-40px;top:calc(50% - 17px);';
+        if(parent[variable_key]['align-items'] == 'flex-start' && elem[variable_key]['align-self'] == 'auto'){align_self_backward_style = `${align_self_backward_style}display:none !important;`}
+        else if(elem[variable_key]['align-self'] == 'flex-start'){align_self_backward_style = `${align_self_backward_style}display:none !important;`}
+
+        align_self_forward_icon = 'ico-position_right';
+        align_self_forward_style = 'left:unset;right:-40px;top:calc(50% - 17px);'
+        if(parent[variable_key]['align-items'] == 'flex-end' && elem[variable_key]['align-self'] == 'auto'){align_self_forward_style = `${align_self_forward_style}display:none !important;`}
+        else if(elem[variable_key]['align-self'] == 'flex-end'){align_self_forward_style = `${align_self_forward_style}display:none !important;`}
+
+    }else if(parent[variable_key]['flex-direction'] == 'row'){
+        align_self_backward_icon = 'ico-position_top';
+        align_self_backward_style = 'top:-40px;left:calc(50% - 17px);';
+        if(parent[variable_key]['align-items'] == 'flex-start' && elem[variable_key]['align-self'] == 'auto'){align_self_backward_style = `${align_self_backward_style}display:none !important;`}
+        else if(elem[variable_key]['align-self'] == 'flex-start'){align_self_backward_style = `${align_self_backward_style}display:none !important;`}
+
+        align_self_forward_icon = 'ico-position_bottom';
+        align_self_forward_style = 'bottom:-40px;left:calc(50% - 17px);'
+        if(parent[variable_key]['align-items'] == 'flex-end' && elem[variable_key]['align-self'] == 'auto'){align_self_forward_style = `${align_self_forward_style}display:none !important;`}
+        else if(elem[variable_key]['align-self'] == 'flex-end'){align_self_forward_style = `${align_self_forward_style}display:none !important;`}
+
+    }
+    html = `${html}<div key_tree="${key_tree}" key="backward" class="edit_alignment_btn edit_alignment_btn_self ${align_self_backward_icon}" style="${align_self_backward_style}"></div>`
+    html = `${html}<div key_tree="${key_tree}" key="forward" class="edit_alignment_btn edit_alignment_btn_self ${align_self_forward_icon}" style="${align_self_forward_style}"></div>`
+
     return html;
 }
 generate_editing_elems_section_block = function(elem,key_tree,style){
     let html = '';
-    select_class = '';
     elem.children.sort((a,b)=>{
         return a.sort - b.sort;
     })
@@ -43,6 +70,58 @@ generate_editing_elems_section_block = function(elem,key_tree,style){
         html = `${html}<div class="edit_margin_bottom edit_section_block_margin_bottom" style="height:${margin[2]};bottom:-${margin[2]};" key_tree="${key_tree}"></div>`;
         html = `${html}<div class="edit_margin_left edit_section_block_margin_left" style="width:${margin[3]};left:-${margin[3]};" key_tree="${key_tree}"></div>`;
     }
+
+    let variable_key = 'css';
+    let align_self_check = true;
+    window.current_view == 'mobile' ? variable_key = 'css_mobile' : null; 
+    for(const key in elem.children){
+        if(elem.children[key][variable_key]['align-self'] != 'auto'){
+            align_self_check = false;
+        }
+    }
+
+    alignment_top_start_disabled = '';
+    alignment_top_center_disabled = '';
+    alignment_top_end_disabled = '';
+    alignment_left_start_disabled = '';
+    alignment_left_center_disabled = '';
+    alignment_left_end_disabled = '';
+
+    if(elem.css['flex-direction'] == 'column'){
+        alignment_top_key = 'align-items';
+        alignment_left_key = 'justify-content';
+        if(align_self_check){
+            if(elem[variable_key]['align-items'] == 'flex-start'){alignment_top_start_disabled = 'disabled'}
+            if(elem[variable_key]['align-items'] == 'center'){alignment_top_center_disabled = 'disabled'}
+            if(elem[variable_key]['align-items'] == 'flex-end'){alignment_top_end_disabled = 'disabled'}
+        }
+        if(elem[variable_key]['justify-content'] == 'flex-start'){alignment_left_start_disabled = 'disabled'}
+        if(elem[variable_key]['justify-content'] == 'center'){alignment_left_center_disabled = 'disabled'}
+        if(elem[variable_key]['justify-content'] == 'flex-end'){alignment_left_end_disabled = 'disabled'}
+
+    }else if(elem.css['flex-direction'] == 'row'){
+        alignment_top_key = 'justify-content';
+        alignment_left_key = 'align-items';
+        if(align_self_check){
+            if(elem[variable_key]['align-items'] == 'flex-start'){alignment_left_start_disabled = 'disabled'}
+            if(elem[variable_key]['align-items'] == 'center'){alignment_left_center_disabled = 'disabled'}
+            if(elem[variable_key]['align-items'] == 'flex-end'){alignment_left_end_disabled = 'disabled'}
+        }
+        if(elem[variable_key]['justify-content'] == 'flex-start'){alignment_top_start_disabled = 'disabled'}
+        if(elem[variable_key]['justify-content'] == 'center'){alignment_top_center_disabled = 'disabled'}
+        if(elem[variable_key]['justify-content'] == 'flex-end'){alignment_top_end_disabled = 'disabled'}
+    }
+    html = `${html}<div key="${alignment_top_key}" class="edit_container_alignment_top" key_tree="${key_tree}">
+        <button ${alignment_top_start_disabled} key="flex-start" class="edit_alignment_btn edit_alignment_btn_container ico-position_left"></button>
+        <button ${alignment_top_center_disabled} key="center" class="edit_alignment_btn edit_alignment_btn_container ico-position_hcenter"></button>
+        <button ${alignment_top_end_disabled} key="flex-end" class="edit_alignment_btn edit_alignment_btn_container ico-position_right"></button>
+    </div>`;
+    html = `${html}<div key="${alignment_left_key}" class="edit_container_alignment_left" key_tree="${key_tree}">
+        <button ${alignment_left_start_disabled} key="flex-start" class="edit_alignment_btn edit_alignment_btn_container ico-position_top"></button>
+        <button ${alignment_left_center_disabled} key="center" class="edit_alignment_btn edit_alignment_btn_container ico-position_vcenter"></button>
+        <button ${alignment_left_end_disabled} key="flex-end" class="edit_alignment_btn edit_alignment_btn_container ico-position_bottom"></button>
+    </div>`
+
     return html;
 }
 generate_editing_elems_section_wrapper = function(elem,key_tree,style){

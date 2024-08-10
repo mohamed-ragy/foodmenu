@@ -12,8 +12,8 @@ draw_editor_popup_header_settings = function(){
                         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.position}),
                             draw_select_box({
-                                key_tree:'website_header.elems.css',
-                                variable_key:null,
+                                key_tree:'website_header.elems',
+                                variable_key:'css',
                                 key:'position',
                                 selections:[{text:texts.styling.local,key:'relative'},{text:texts.styling.fixed,key:'sticky'}],
                             }),
@@ -21,8 +21,8 @@ draw_editor_popup_header_settings = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.max_width}),
                             draw_select_box({
-                                key_tree:'website_header.elems.children.header_wrapper.css',
-                                variable_key:null,
+                                key_tree:'website_header.elems.children.header_wrapper',
+                                variable_key:'css',
                                 key:'max-width',
                                 selections:[{text:texts.styling.max_content,key:'var(--page_max_width)'},{text:texts.styling.full_page,key:'100%'}],
                             }),

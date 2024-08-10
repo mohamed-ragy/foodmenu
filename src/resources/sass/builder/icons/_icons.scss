@@ -25,6 +25,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-interactions:before {
+  content: "\e986";
+}
+.ico-transition_timing:before {
+  content: "\e985";
+}
 .ico-mobile_navbar_icon:before {
   content: "\e97e";
 }
@@ -33,7 +39,6 @@
 }
 .ico-navigation_icons:before {
   content: "\e980";
-  color: #4a4a4a;
 }
 .ico-navigation_list:before {
   content: "\e981";
@@ -151,6 +156,9 @@
 }
 .ico-hover:before {
   content: "\e95e";
+}
+.ico-click:before {
+  content: "\e984";
 }
 .ico-color_theme:before {
   content: "\e957";

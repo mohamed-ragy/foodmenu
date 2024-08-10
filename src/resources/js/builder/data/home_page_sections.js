@@ -1,5 +1,10 @@
 //accessibility
-
+//interactions,can_hover,can_click,can_focus,can_disabled,can_parent_hover
+//hover
+//parent_hover
+//click
+//focus
+//disabled
 //copy
 //add_section
 //section_swap
@@ -53,6 +58,7 @@ get_blank_section = function() {
         type: 'section',
         tag: 'section',
         accessibility:[
+            'interactions','can_hover',
             'copy',
             'add_section',
             'section_swap',
@@ -67,18 +73,20 @@ get_blank_section = function() {
             'background',
         ],
         class_selector: hash(),
-        css: {
+        css:get_default_styles(['transition-duration','transition-delay','transition-timing-function'],{
             position: 'relative',
             'box-sizing': 'border-box',
             width: '100%',
-        },
-        css_mobile:{},
+        }),
+        css_mobile:get_default_styles(['transition-duration','transition-delay','transition-timing-function'],{}),
         attr:{
             adapt_header: '0',
             adapt_header_color: 'rgba(var(--color_4_7),1)',
         },
         background:get_default_style('background'),
         background_mobile:get_default_style('background'),
+        background_hover:get_default_style('background'),
+        background_hover_mobile:get_default_style('background'),
         class: '',
         children: {},
         has_driver: '0',
@@ -118,6 +126,7 @@ get_section_block = function(child_num) {
         type: 'section_block',
         tag: 'div',
         accessibility:[
+            'interactions','can_hover',
             'add_elem','add_elem_title','add_elem_paragraph','add_elem_image','add_elem_button','add_elem_icon',
             'copy',
             'alignment',
@@ -132,53 +141,29 @@ get_section_block = function(child_num) {
         class_selector: `section_block${child_key}`,
         background:get_default_style('background'),
         background_mobile:get_default_style('background'),
-        css: {
+        background_hover:get_default_style('background'),
+        background_hover_mobile:get_default_style('background'),
+        css:get_default_styles(['padding','border','border-radius','box-shadow','transition-duration','transition-delay','transition-timing-function'],{
             'display': 'flex',
             'position': 'relative',
             'box-sizing': 'border-box',
             'grid-area': child_num,
             'z-index':child_num.replace('elem',''),
-            //
             'flex-direction': 'column',
             'flex-wrap': 'nowrap',
             'align-items': 'center',
             'justify-content': 'center',
-            //
-            'padding':'10px 20px 10px 20px',
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-        },
-        css_mobile: {
-            //
+            'margin':'0px 0px 0px 0px',
+        }),
+        css_mobile:get_default_styles(['padding','border','border-radius','box-shadow','transition-duration','transition-delay','transition-timing-function'],{
             'flex-direction': 'column',
             'flex-wrap': 'nowrap',
             'align-items': 'center',
             'justify-content': 'center',
-            //
-            'padding':'10px 20px 10px 20px',
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-        },
+            'margin':'0px 0px 0px 0px',
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow'],{}),
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
         children: []
@@ -212,7 +197,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(2, 1fr)',
+                'grid-template-rows': 'repeat(2, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -231,7 +216,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(3, 1fr)',
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -251,7 +236,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(3, 1fr)',
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -271,7 +256,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(3, 1fr)',
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -291,7 +276,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(3, 1fr)',
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -311,7 +296,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(2, 1fr)',
+                'grid-template-rows': 'repeat(2, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -330,7 +315,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(3, 1fr)',
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -350,7 +335,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(3, 1fr)',
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -370,7 +355,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(4, 1fr)',
+                'grid-template-rows': 'repeat(4, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -389,8 +374,8 @@ get_sections_layouts = function() {
             }),
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
-                'grid-template-columns': 'auto',
-                'grid-template-rows': 'auto',
+                'grid-template-columns': 'repeat(1, 1fr)',/////
+                'grid-template-rows': 'repeat(3, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -410,7 +395,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(4, 1fr)',
+                'grid-template-rows': 'repeat(4, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -431,7 +416,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(4, 1fr)',
+                'grid-template-rows': 'repeat(4, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -452,7 +437,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(4, 1fr)',
+                'grid-template-rows': 'repeat(4, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -473,7 +458,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(5, 1fr)',
+                'grid-template-rows': 'repeat(5, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -495,7 +480,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(5, 1fr)',
+                'grid-template-rows': 'repeat(5, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -517,7 +502,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(5, 1fr)',
+                'grid-template-rows': 'repeat(5, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -539,7 +524,7 @@ get_sections_layouts = function() {
             css_mobile:get_default_style('section_wrapper_mobile',{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5''elem6'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-                'grid-template-rows': 'repeat(6, 1fr)',
+                'grid-template-rows': 'repeat(6, auto)',
             }),
             children: [
                 get_section_block('elem1'),
@@ -567,6 +552,7 @@ elem_title = function(){
         elem_type: 'title',
         tag: 'h1',
         accessibility:[
+            'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'text',
@@ -582,83 +568,37 @@ elem_title = function(){
         font_style: {},
         background:get_default_style('background'),
         background_mobile:get_default_style('background'),
-        css:{
+        background_hover:get_default_style('background'),
+        background_hover_mobile:get_default_style('background'),
+        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
-            //
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
-            //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
             //
             'font-weight':'normal',
             'line-height':'1.3em',
             'letter-spacing':'0.05em',
             'font-size':'1.5em',
             'text-align':'start',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-
-        },
-        css_mobile:{
+        }),
+        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
-            //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
             //
             'font-weight':'normal',
             'line-height':'1.3em',
             'letter-spacing':'0.05em',
             'font-size':'1.5em',
             'text-align':'start',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-
-        },
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
         class: '',
@@ -681,6 +621,7 @@ elem_paragraph = function(){
         elem_type: 'paragraph',
         tag: 'p',
         accessibility:[
+            'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'text',
@@ -696,84 +637,35 @@ elem_paragraph = function(){
         font_style: {},
         background:get_default_style('background'),
         background_mobile:get_default_style('background'),
-        css:{
+        background_hover:get_default_style('background'),
+        background_hover_mobile:get_default_style('background'),
+        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
-            //
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
             //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
-            //
-            // 'font-weight':'normal',
             'line-height':'1.3em',
             'letter-spacing':'0.05em',
             'font-size':'1em',
             'text-align':'start',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-
-        },
-        css_mobile:{
+        }),
+        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
             //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
-            //
-            // 'font-weight':'normal',
             'line-height':'1.3em',
             'letter-spacing':'0.05em',
             'font-size':'1em',
             'text-align':'start',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-
-        },
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
         class: '',
@@ -790,6 +682,7 @@ elem_image = function(){
         elem_type: 'image',
         tag: 'img',
         accessibility:[
+            'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'image',
@@ -801,78 +694,29 @@ elem_image = function(){
             'animation',
         ],
         class_selector: `img${this_hash}`,
-        css:{
+        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
-            //
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
-            //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-            //
             'object-position':'center',
             'object-fit':'contain',
             'aspect-ratio':'auto',
-        },
-        css_mobile:{
+        }),
+        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
-            //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-            //
             'object-position':'center',
             'object-fit':'contain',
             'aspect-ratio':'auto',
-        },
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
         class: '',
@@ -895,6 +739,7 @@ elem_button = function(){
         elem_type: 'button',
         tag: 'button',
         accessibility:[
+            'interactions','hover','click','disabled','can_hover','can_click','can_disabled','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'button',
@@ -908,123 +753,45 @@ elem_button = function(){
         ],
         class_selector: `btn${this_hash}`,
         font_style: {},
-        css:{
-            'text-decoration':'none',
+        css:get_default_styles(['width','height','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'cursor':'pointer',
             'z-index':'1',
-            //
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
-            //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
-            //
             'font-weight':'normal',
             'line-height':'1.3em',
             'letter-spacing':'0.05em',
             'font-size':'1em',
             'text-align':'center',
-            //
             'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-            //
-            'transition-duration':'200ms',
-
-        },
-        css_mobile:{
+        }),
+        css_mobile:get_default_styles(['width','height','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
-            //
-            'width': 'auto',
-            'min-width': 'auto',
-            'max-width': '100%',
-            'height': 'auto',
-            'min-height': 'auto',
-            'max-height': '100%',
-            //
             'font-weight':'normal',
             'line-height':'1.3em',
             'letter-spacing':'0.05em',
             'font-size':'1em',
-            'text-align':'start',
-            //
+            'text-align':'center',
             'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            //
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-            //
-
-        },
-        css_hover:{
-            'text-decoration':'none',
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-        },
-        css_hover_mobile:{
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-        },
-        css_click:{
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-        },
-        css_click_mobile:{
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-        },
-        css_disabled:{
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_disabled:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{
             'cursor':'not-allowed',
             'color':`rgba(var(--color_4_3),1)`,
             'background-color':`rgba(var(--color_4_4),1)`,
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-        },
+        }),
+        css_disabled_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{
+            'color':`rgba(var(--color_4_3),1)`,
+            'background-color':`rgba(var(--color_4_4),1)`,
+        }),
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
         class:'',
@@ -1044,6 +811,7 @@ elem_icon = function(){
         elem_type: 'icon',
         tag: 'img',
         accessibility:[
+            'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'icon',
@@ -1054,63 +822,27 @@ elem_icon = function(){
             'animation',
         ],
         class_selector: `icon${this_hash}`,
-        css:{
+        css:get_default_styles(['padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
-            //
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
-            //
             'width': '150px',
             'height': 'auto',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-            //
-        },
-        css_mobile:{
+        }),
+        css_mobile:get_default_styles(['padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
-            //
             'width': '150px',
             'height': 'auto',
-            //
-            'padding':'10px 20px 10px 20px',
-            //
-            'margin':'5px 5px 5px 5px',
-            
-            'border-top':'0px none rgba(var(--color_4_1),1)',
-            'border-right':'0px none rgba(var(--color_4_1),1)',
-            'border-bottom':'0px none rgba(var(--color_4_1),1)',
-            'border-left':'0px none rgba(var(--color_4_1),1)',
-            //
-            'border-radius':'0px 0px 0px 0px',
-
-            //
-            'box-shadow': 'none',
-            //
-            'filter':get_default_style('filter'),
-            'transform':get_default_style('transform'),
-            'transform-origin':'center',
-            //
-        },
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
         animation: get_default_style('animation'),
         animation_mobile: get_default_style('animation'),
         class: '',

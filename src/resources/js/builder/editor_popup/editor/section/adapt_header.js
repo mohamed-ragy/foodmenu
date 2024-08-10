@@ -8,16 +8,16 @@ draw_editor_popup_section_adapt_header = function(){
                     $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.adapt_header}),
                         draw_switch_btn({
-                            key_tree:`${window.selected}.attr`,
-                            variable_key:null,
+                            key_tree:`${window.selected}`,
+                            variable_key:'attr',
                             key:'adapt_header',
                         }),
                     ),
                     $('<div/>',{class:`editor_popup_row`}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.adapted_font_color}),
                         draw_color_picker({
-                            key_tree:`${window.selected}.attr`,
-                            variable_key:null,
+                            key_tree:`${window.selected}`,
+                            variable_key:'attr',
                             key:'adapt_header_color',
                         })
                     ),

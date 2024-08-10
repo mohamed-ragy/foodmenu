@@ -27,7 +27,8 @@ draw_editor_popup_section_driver = function(){
                         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.driver_position}),
                             draw_select_box({
-                                key_tree:`${window.selected}.driver`,
+                                key_tree:`${window.selected}`,
+                                variable_key:'driver',
                                 key:'position',
                                 selections:[
                                     {text:texts.styling.top,key:'top'},
@@ -38,7 +39,8 @@ draw_editor_popup_section_driver = function(){
                         $('<div/>',{class:'editor_popup_row'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.flip}),
                             draw_switch_btn({
-                                key_tree:`${window.selected}.driver`,
+                                key_tree:`${window.selected}`,
+                                variable_key:'driver',
                                 key:'flip'
                             }),
                         ),
@@ -73,7 +75,8 @@ draw_editor_popup_section_driver = function(){
             $('.editor_popup_section_driver_colors').append(
                 $('<div/>',{class:'mX5'}).append(
                     draw_color_picker({
-                        key_tree:`${window.selected}.driver.paths.${key}`,
+                        key_tree:`${window.selected}.driver.paths`,
+                        variable_key:key,
                         key:'color',
                     })
                 )
@@ -138,7 +141,8 @@ $('body').on('click','.section_driver_preview',function(e){
         $('.editor_popup_section_driver_colors').append(
             $('<div/>',{class:'mX5'}).append(
                 draw_color_picker({
-                    key_tree:`${window.selected}.driver.paths.${key}`,
+                    key_tree:`${window.selected}.driver.paths`,
+                    variable_key:key,
                     key:'color',
                 })
             )

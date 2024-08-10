@@ -15,6 +15,7 @@ draw_text_editors = function(data){
                 $('<div/>',{
                     class:'editor text_editor',
                     key_tree:data.key_tree,
+                    variable_key:data.variable_key,
                     key:language.code,
                 }).append(
                     $('<div/>',{class:'text_editor_btns'}).append(

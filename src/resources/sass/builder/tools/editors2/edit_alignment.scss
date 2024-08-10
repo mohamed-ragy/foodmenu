@@ -1,0 +1,62 @@
+.edit_container_alignment_top{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top:-40px;
+    left:0px;
+    display: none;
+    z-index: 101;
+}
+.edit_container_alignment_left{
+    position: absolute;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left:-40px;
+    top:-5px;
+    display: none;
+    z-index: 101;
+}
+.edit_alignment_btn_self{
+    position: absolute;
+    z-index: 101;
+    display: none;
+}
+.edit_alignment_btn{
+    width:28px;
+    height:28px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    outline:none;
+    border:none;
+    font-size: 1.2em;
+    padding:4px;
+    margin:3px;
+    cursor: pointer;
+    box-shadow: 0 0 2px var(--shdw-20);
+    color:var(--green-80);
+    background-color: var(--white-1);
+}
+.edit_alignment_btn:hover{
+    outline:none;
+    border:none;
+    color:var(--green);
+    background-color: var(--white-2);
+}
+.edit_alignment_btn:active{
+    outline:none;
+    border:none;
+    box-shadow: 0 0 2px var(--shdw-10);
+    background-color: var(--white-1);
+}
+.edit_alignment_btn:disabled, .edit_alignment_btn:disabled:hover{
+    outline:none;
+    border:none;
+    box-shadow: 0 0 1px var(--shdw-10);
+    background-color: var(--white-2);
+    color:var(--white-8);
+    cursor: auto;
+}

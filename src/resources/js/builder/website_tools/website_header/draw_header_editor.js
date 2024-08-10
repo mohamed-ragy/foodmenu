@@ -155,15 +155,15 @@ __draw_website_header_editor11 = function(){
             //     selections:[{text:texts.styling.show,key:'block'},{text:texts.styling.hide,key:'none'}],
             //     selection_class:'pX10'
             // }),
-            draw_input_list({
-                keys_arr:[{key:'font_style',key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name'}],
-                name:texts.styling.font_style,
-                selections:[
-                    {name:'font_1',val:'font_1',class:'font_1'},
-                    {name:'font_2',val:'font_2',class:'font_2'},
-                    {name:'font_3',val:'font_3',class:'font_3'},
-                ]
-            }),
+            // draw_input_list({
+            //     keys_arr:[{key:'font_style',key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name'}],
+            //     name:texts.styling.font_style,
+            //     selections:[
+            //         {name:'font_1',val:'font_1',class:'font_1'},
+            //         {name:'font_2',val:'font_2',class:'font_2'},
+            //         {name:'font_3',val:'font_3',class:'font_3'},
+            //     ]
+            // }),
             // draw_select_box({
             //     keys_arr:[{key:'font-weight',key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name.css'}],
             //     name:texts.styling.font_weight,

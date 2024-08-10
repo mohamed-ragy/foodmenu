@@ -17,12 +17,14 @@ draw_editor_popup_text = function(){
                             row_class:true,
                         }),
                         draw_text_editors({
-                            key_tree:`${window.selected}.text.val`,
+                            key_tree:`${window.selected}.text`,
+                            variable_key:'val',
                         })
                     ),
                     $('<div/>',{class:'editor_popup_container none w100p',key:'text_font_style',parent_key:'editor_text'}).append(
                         draw_font_style_picker({
-                            key_tree:`${window.selected}.font_style`,
+                            key_tree:`${window.selected}`,
+                            variable_key:'font_style',
                         })
                     ),
                     $('<div/>',{class:'editor_popup_container none w100p',key:'text_font_settings',parent_key:'editor_text'}).append(

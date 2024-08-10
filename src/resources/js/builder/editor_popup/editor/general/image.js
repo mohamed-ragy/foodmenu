@@ -9,7 +9,8 @@ draw_editor_popup_image = function(){
                         $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.image}),
                             draw_select_image({
-                                key_tree:`${window.selected}.attr`,
+                                key_tree:`${window.selected}`,
+                                variable_key:'attr',
                                 key:'src',
                             }),
                         ),
@@ -23,7 +24,7 @@ draw_editor_popup_image = function(){
                         draw_editors_container({
                             is_responsive:true,
                             editors:[
-                                $('<div/>',{class:'editor_popup_col'}).append(
+                                $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                                     $('<div/>',{class:'fs09',text:texts.styling.imagePosition}),
                                     draw_image_position_editor({
                                         key_tree:window.selected,
