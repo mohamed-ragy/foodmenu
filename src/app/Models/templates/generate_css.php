@@ -19,7 +19,7 @@ class generate_css
         }
     }
     public function add_scroll_animation($animation){
-        
+
     }
     public function generate($template){
         $this->template = $template;
@@ -41,7 +41,7 @@ class generate_css
         foreach($this->template['home'] as $section){
             self::generate_class($section);
         }
-        
+
         //
         foreach($this->animations as $animation){
             self::add_to_file($animation);
@@ -54,7 +54,7 @@ class generate_css
                 $this->selected_fonts[$font['name']] = $font;
             }
         }
-        
+
         foreach($this->selected_fonts as $font){
             self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
             self::add_to_file(".font_{$font['name']}{font-family:{$font['name']};}");
@@ -401,9 +401,11 @@ class generate_css
             backdrop-filter: unset !important;
             border-color:transparent !important;
 
-            color: var(--adapt_header_color);
-            fill: var(--adapt_header_color);
-            stroke: var(--adapt_header_color);
+            .header_iconsList_icon, .header_icon_cart_num {
+                color: var(--adapt_header_color) !important;
+                fill: var(--adapt_header_color) !important;
+                stroke: var(--adapt_header_color) !important;
+            }
 
             .header_logo_restaurant_name ,a ,a:hover{
                 color: var(--adapt_header_color) !important;
@@ -423,7 +425,7 @@ class generate_css
                     $margin = explode(' ',$styles['margin']);
                     $val = "calc({$val} - {$margin[1]} - {$margin[3]})";
                 }catch (\Exception $e){
-    
+
                 }
             }
             $return_style = $return_style."{$key}:{$val};";

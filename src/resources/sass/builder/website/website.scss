@@ -13,9 +13,11 @@ a:hover{color:unset;text-decoration: unset;cursor: pointer;}
     backdrop-filter: unset !important;
     border-color:transparent !important;
 
-    color: var(--adapt_header_color);
-    fill: var(--adapt_header_color);
-    stroke: var(--adapt_header_color);
+    .header_iconsList_icon, .header_icon_cart_num {
+        color: var(--adapt_header_color) !important;
+        fill: var(--adapt_header_color) !important;
+        stroke: var(--adapt_header_color) !important;
+    }
 
     .header_logo_restaurant_name ,a ,a:hover{
         color: var(--adapt_header_color) !important;
