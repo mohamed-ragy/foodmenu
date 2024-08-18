@@ -17,9 +17,9 @@ $('body').on('mousedown','.elem',function(e){
     select($(this).attr('key_tree'))
 })
 $('body').on('contextmenu','.elem.edit',function(e){
-    // if($(this).attr('contenteditable') != 'true'){
+    if($(this).attr('contenteditable') != 'true'){
         show_contextMenu('elem',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
-    // }
+    }
 })
 $('body').on('dblclick','.elem',function(e){
     let elem_data = get_elem_data(window.selected);
@@ -82,7 +82,7 @@ $('body').on('click','.dublicate_elem_btn',function(){
     let parent = elem_data.section_block;
     let new_elem = JSON.parse(JSON.stringify(elem));
     reset_class_selectors(new_elem);
-    new_elem.sort = parseInt(elem.sort) + (1); 
+    new_elem.sort = parseInt(elem.sort) + (1);
     for(const key in parent.children){
         if(parent.children[key].sort >= new_elem.sort){
             parent.children[key].sort = parseInt(parent.children[key].sort) + (1)

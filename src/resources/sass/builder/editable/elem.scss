@@ -18,7 +18,7 @@
 }
 .edit_elem_selected{
     .select_edit_elem_title{display:flex;background-color: var(--orange);}
-    
+
     .edit_elem_padding_top{display: block;}
     .edit_elem_padding_right{display: block;}
     .edit_elem_padding_bottom{display: block;}
@@ -32,6 +32,7 @@
     .edit_alignment_btn_self{display: flex;}
 
     .select_edit_elem_btns{display: flex;}
+    z-index:10 !important ;
 }
 .edit_elem_selected:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange);}

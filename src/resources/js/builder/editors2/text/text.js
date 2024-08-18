@@ -97,7 +97,7 @@ set_text_format_popup_btns = function(){
     }
 
     let elem_data = get_elem_data(window.selected).elem;
-    let text_align; 
+    let text_align;
     window.current_view == 'desktop' ? text_align = elem_data.css['text-align'] : window.current_view == 'mobile' ? text_align = elem_data.css_mobile['text-align'] : null;
     $('.text_format_popup').find(`.text_format_btn[action="text_align"]`).removeClass('text_format_btn_selected')
     $('.text_format_popup').find(`.text_format_btn[action="text_align"][key="${text_align}"]`).addClass('text_format_btn_selected')
@@ -139,7 +139,7 @@ create_element = function(tag){
     newElement.style['font-size'] = newElement.parentNode.style['font-size'];
     setTimeout(()=>{
         range.selectNodeContents(newElement);
-        selection.addRange(range);  
+        selection.addRange(range);
     })
     return newElement;
 }
@@ -156,12 +156,12 @@ clear_format_text = function(element){
     }
     if(!element.hasClass('elem')){
         if(
-            element.prop('tagName') == 'SPAN' && 
+            element.prop('tagName') == 'SPAN' &&
             element.parent().prop('tagName') == 'SPAN' &&
             element.css('font-weight') == element.parent().css('font-weight') &&
             element.css('font-style') == element.parent().css('font-style') &&
-            element.css('text-decoration') == element.parent().css('text-decoration') && 
-            element.css('font-size') == element.parent().css('font-size') 
+            element.css('text-decoration') == element.parent().css('text-decoration') &&
+            element.css('font-size') == element.parent().css('font-size')
         ){
             remove_elem = true;
         }
@@ -376,9 +376,10 @@ $('body').on('keydown','[contenteditable]',function(e){
     else if((e.ctrlKey || e.metaKey) && e.which == 65){
 
     }
-    keyboard_shortcuts(e)
-    if((e.ctrlKey || e.metaKey) || e.shiftKey || e.altKey){
+    else if((e.ctrlKey || e.metaKey) || e.altKey){
         e.preventDefault();
+    }else{
+        keyboard_shortcuts(e)
     }
 })
 $('body').on('paste','[contenteditable]',function(e){
@@ -415,8 +416,8 @@ draw_text_editor_hyperlinks_contextMenu = function(){
         draw_contextMenu_elem({child1_text:texts.website_pages.product_pages,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_products_contextMenu()}),
         draw_contextMenu_elem({child1_text:texts.website_pages.add_to_cart,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_add_to_cart_contextMenu()}),
         window.selected_page == 'home' ? draw_contextMenu_elem({child1_text:texts.website_pages.scroll_to_section,child2_class:'ico-arrowRight',submenu:draw_text_editor_hyperlinks_scroll_to_section_contextMenu()}) : '',
-        
-        
+
+
     )
 }
 draw_text_editor_hyperlinks_categories_contextMenu = function(){

@@ -27,9 +27,9 @@ window.addEventListener("beforeunload", function (e) {
     }
 });
 $('body').on('contextmenu',function(e){
-    // if(!$(this).attr('contenteditable') == 'true'){
+    if(!$(this).attr('contenteditable') !== 'true'){
         e.preventDefault()
-    // }
+    }
 })
 keyboard_shortcuts = function(e){
     if(e.shiftKey && (e.ctrlKey || e.metaKey) && e.which == 90){
@@ -57,7 +57,7 @@ keyboard_shortcuts = function(e){
     }
     else if((e.ctrlKey || e.metaKey) && e.which == 86	){
         paste()
-    } 
+    }
     else if(
         (e.ctrlKey || e.metaKey) && e.which == 49 ||
         (e.ctrlKey || e.metaKey) && e.which == 50 ||

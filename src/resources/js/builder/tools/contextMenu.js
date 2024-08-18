@@ -15,9 +15,9 @@ hide_contextMenu = function(force=false){
 draw_contextMenu_elem = function(data){
     let context_elem =  $('<div/>',{class:`contextMenu_elem ${data.submenu ? 'contextMenu_elem_submenu' : ''} ${data.class}`,key:data.key ?? '',key_tree:data.key_tree ?? ''}).append(
         $('<div/>',{class:'row alnC jstfyC'}).append(
-            data.icon ? 
+            data.icon ?
             $('<div/>',{class:`contextMenu_elem_icon ${data.icon}`})
-            : data.img ? 
+            : data.img ?
             $('<img/>',{class:`contextMenu_elem_img`,src:data.img})
             :
             $('<div/>',{class:`contextMenu_elem_icon`}),
@@ -164,13 +164,13 @@ $('body').on('mouseleave','.contextMenu_scrollIcon_down, .contextMenu_scrollIcon
 $('body').on('click','.contextMenu_elem',function(e){
     if($(this).hasClass('contextMenu_elem_submenu')){return;}
     hide_contextMenu(true);
-})          
+})
 $('body').on('contextmenu','.contextMenu_r',function(e){
     show_contextMenu($(this).attr('contextMenu_type'),$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
-})                                                                                                                                                                                                                                                                                                                                                         
+})
 $('body').on('click','.contextMenu',function(e){
     show_contextMenu($(this).attr('contextMenu_type'),$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
-})                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+})
 $('body').on('mouseenter','.contextMenu_elem_submenu',function(e){
     $('#contextSubmenu').text('').append($(this).find('.contextSubmenu').html());
 
