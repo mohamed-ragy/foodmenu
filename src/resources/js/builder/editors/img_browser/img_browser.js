@@ -1,5 +1,9 @@
 // 
-
+$('body').on('click','.select_image',function(e){
+    draw_editor_popup_image();
+    $('#editor').find('.editor_image_select_image').find('.select_image_editor').trigger('click');
+})
+//
 draw_select_image = function(data){
     let editor = $('<div/>',{
         class:`editor select_image_editor ${data.editor_class ?? ''}`,
@@ -22,9 +26,7 @@ set_select_image = function(editor){
     }
 }
 //
-$('body').on('click','.select_image_editor',function(e){
-    window.pexels_search_last = '';
-    window.select_image_editor = $(this);
+show_select_image_popup = function(){
     show_popup(function(){
         $('.popupTitle').text(window.texts.selectImg)
         $('.popupBody').addClass('').text('').append(
@@ -120,6 +122,11 @@ $('body').on('click','.select_image_editor',function(e){
         }
         window.is_imgBrowser_opened = true;
     });
+}
+$('body').on('click','.select_image_editor',function(e){
+    window.pexels_search_last = '';
+    window.select_image_editor = $(this);
+    show_select_image_popup();
 })
 //
 //

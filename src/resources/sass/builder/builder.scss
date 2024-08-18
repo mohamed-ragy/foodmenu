@@ -35,7 +35,7 @@ body{
 #tooltipDiv{
     background-color: var(--white-1);
     color:var(--txt-1);
-    box-shadow: 0 0 1px 1px var(--shdw-10);
+    box-shadow: 0 0 10px 2px var(--shdw-20);
     border-radius: 3px;
     padding: 5px 8px;
     position: fixed;
@@ -167,24 +167,24 @@ body{
     background-color:var(--white-6);
 }
 .preview_mode{
-    .edit_padding_top_section{display: none;}
-    .edit_padding_bottom_section{display: none;}
-    .edit_margin_top_section{display: none;}
-    .edit_margin_bottom_section{display: none;}
+    .edit_padding_top_section{display: none !important;}
+    .edit_padding_bottom_section{display: none !important;}
+    .edit_margin_top_section{display: none !important;}
+    .edit_margin_bottom_section{display: none !important;}
 
-    .edit_padding_top{display: none;}
-    .edit_padding_right{display: none;}
-    .edit_padding_bottom{display: none;}
-    .edit_padding_left{display: none;}
+    .edit_padding_top{display: none !important;}
+    .edit_padding_right{display: none !important;}
+    .edit_padding_bottom{display: none !important;}
+    .edit_padding_left{display: none !important;}
 
-    .edit_margin_top{display: none;}
-    .edit_margin_right{display: none;}
-    .edit_margin_bottom{display: none;}
-    .edit_margin_left{display: none;}
+    .edit_margin_top{display: none !important;}
+    .edit_margin_right{display: none !important;}
+    .edit_margin_bottom{display: none !important;}
+    .edit_margin_left{display: none !important;}
 
-    .edit_container_alignment_top{display: none;}
-    .edit_container_alignment_left{display: none;}
-    .edit_alignment_btn_self{display: none;}
+    .edit_container_alignment_top{display: none !important;}
+    .edit_container_alignment_left{display: none !important;}
+    .edit_alignment_btn_self{display: none !important;}
 
     section::after{outline: none !important;}
     section::after:hover{outline: none !important;}
@@ -202,7 +202,10 @@ body{
         .header_wrapper{
             outline: none !important;
         }
-        .header_navList, .header_logo, .header_iconsList{
+        .header_component{
+            outline: none !important;
+        }
+        .header_component:hover{
             outline: none !important;
         }
     }

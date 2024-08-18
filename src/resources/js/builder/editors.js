@@ -10,12 +10,13 @@ require('./editors/border_editor.js')//
 require('./editors/box_shadow_editor.js')//
 require('./editors/button_function.js')//
 require('./editors/color_picker.js')//
-require('./editors/elem_text_editor.js')//
+// require('./editors/elem_text_editor.js')//
+// require('./editors/elem_text_editor_.js')//
 require('./editors/filter.js')//
 require('./editors/font_style_picker.js')//
 require('./editors/four_number_pickers.js')//
 require('./editors/gradient_editor.js')//
-require('./editors/icon_selector.js')//need to be done
+require('./editors/svg_icon_picker.js')//need to be done
 require('./editors/image_position.js')//
 require('./editors/inputList.js')//
 require('./editors/number_picker.js')//

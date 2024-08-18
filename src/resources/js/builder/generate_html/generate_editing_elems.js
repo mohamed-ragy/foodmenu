@@ -2,7 +2,13 @@ generate_editing_elems_elem = function(elem,key_tree,style){
     let html = '';
     // html = `${html}<div class="elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile_container : style.desktop_container }" style_desktop="${style.desktop_container}" style_mobile="${style.mobile_container}">`;
     html = `${html}<div class="elem" key_tree="${key_tree}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile_container : style.desktop_container }">`;
-    html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}" contextMenu_type="elem"><div class="ico-see_more"></div><div>${texts.elems[elem.elem_type]}</div></div>`;
+    html = `${html}<div class="select_edit_elem_btns builder_font">`;
+    elem.accessibility.includes('edit_text') ? html = `${html}<button class="ico-edit_text edit_text" key_tree="${key_tree}"></button>` :null;
+    elem.accessibility.includes('select_image') ? html = `${html}<button class="ico-select_image select_image" key_tree="${key_tree}"></button>` :null;
+    elem.accessibility.includes('select_icon') ? html = `${html}<button class="ico-select_image editor_icon" key_tree="${key_tree}"></button>` :null;
+    html = `${html}<button class="ico-settings contextMenu" key_tree="${key_tree}"></button>`;
+    html = `${html}</div>`;
+    html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}">${texts.elems[elem.elem_type]}</div>`;
     if(elem.accessibility.includes('padding')){
         let padding = window.current_view == 'desktop' ? elem.css.padding.split(' ') : elem.css_mobile.padding.split(' '); 
         html = `${html}<div class="edit_padding_top edit_elem_padding_top" style="height:${padding[0]}" key_tree="${key_tree}"></div>`;

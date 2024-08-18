@@ -24,6 +24,7 @@ edit_margin_right_fun = function(x){
     }
     margin[1] = ((parseInt(x) - parseInt(window.edit_margin_right.x))) + parseInt(window.edit_margin_right.val);
     if(margin[1] < 0){margin[1] = 0}
+    if(margin[1] > 100){margin[1] = 100}
 
     margin[1] = spacing_symmetry_x(margin[1]);
     window.edit_margin_right.elem.removeClass('edit_margin_symmetry')

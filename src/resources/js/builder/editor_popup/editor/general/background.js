@@ -150,8 +150,9 @@ draw_editor_popup_background = function(){
                 ]
             }),
         )
-
-        $(`.editor_popup_body_shortcut.editor_background`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_background`).addClass('editor_popup_body_shortcut_selected')
+        });
     });
 
 }

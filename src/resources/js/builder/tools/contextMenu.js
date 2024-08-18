@@ -13,7 +13,7 @@ hide_contextMenu = function(force=false){
     }
 }
 draw_contextMenu_elem = function(data){
-    let context_elem =  $('<div/>',{class:`contextMenu_elem ${data.submenu ? 'contextMenu_elem_submenu' : ''} ${data.class}`,key:data.key ?? ''}).append(
+    let context_elem =  $('<div/>',{class:`contextMenu_elem ${data.submenu ? 'contextMenu_elem_submenu' : ''} ${data.class}`,key:data.key ?? '',key_tree:data.key_tree ?? ''}).append(
         $('<div/>',{class:'row alnC jstfyC'}).append(
             data.icon ? 
             $('<div/>',{class:`contextMenu_elem_icon ${data.icon}`})

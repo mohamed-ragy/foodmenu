@@ -24,7 +24,9 @@ draw_editor_popup_section_adapt_header = function(){
                 ]
             }),
         )
-        $(`.editor_popup_body_shortcut.editor_section_adapt_header`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_section_adapt_header`).addClass('editor_popup_body_shortcut_selected')
+        });
     });
 }
 $('body').on('click','.editor_section_adapt_header',function(e){

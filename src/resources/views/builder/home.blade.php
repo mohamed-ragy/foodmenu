@@ -39,6 +39,7 @@
     <div class="font_style_selector_elems none"></div>
     <div class="color_selector_palette_colors none"></div>
     <div class="icons_browser"></div>
+    <div class="text_format_popup none"></div>
     <div id="alertsContainer"></div>
     <audio id="alert_normal"><source src="./storage/audio/cpanelAlerts/normal.wav" type="audio/mpeg" /></audio>
     <audio id="alert_error"><source id="notificationErrorSource" src="./storage/audio/cpanelAlerts/error.wav" type="audio/mpeg" /></audio>

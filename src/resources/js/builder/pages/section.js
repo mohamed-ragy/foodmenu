@@ -16,7 +16,7 @@ $('body').on('contextmenu','section',function(e){
     if($(this).find('.section_block:hover').length > 0){return}
     show_contextMenu('section',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })
-$('body').on('click','.section',function(e){
+$('body').on('mousedown','.section',function(e){
     if($('.section_block:hover').length > 0){return}
     select($(this).attr('key_tree'));
 })

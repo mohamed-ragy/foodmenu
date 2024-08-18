@@ -40,7 +40,9 @@ draw_editor_popup_section_sizing = function(){
                 ],
             })
     )
-    $(`.editor_popup_body_shortcut.editor_section_sizing`).addClass('editor_popup_body_shortcut_selected')
+    setTimeout(()=>{
+        $(`.editor_popup_body_shortcut.editor_section_sizing`).addClass('editor_popup_body_shortcut_selected')
+    });
 });
 }
 $('body').on('click','.editor_section_sizing',function(e){

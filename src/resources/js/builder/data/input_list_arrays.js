@@ -35,13 +35,13 @@ get_inputList_obj = function(key){
         break;
         case 'transtions':
             return [
-                {name:'no_animation',val:'no_animation',class:''},
-                {name:'fade',val:'fade',class:''},
-                {name:'zoom',val:'zoom',class:''},
-                {name:'slide_up',val:'slide_up',class:''},
-                {name:'slide_down',val:'slide_down',class:''},
-                {name:'slide_left',val:'slide_left',class:''},
-                {name:'slide_right',val:'slide_right',class:''},
+                {name:texts.select_elems._no_animation,val:'no_animation',class:''},
+                {name:texts.select_elems._fade,val:'fade',class:''},
+                {name:texts.select_elems._zoom,val:'zoom',class:''},
+                {name:texts.select_elems._slide_up,val:'slide_up',class:''},
+                {name:texts.select_elems._slide_down,val:'slide_down',class:''},
+                {name:texts.select_elems._slide_left,val:'slide_left',class:''},
+                {name:texts.select_elems._slide_right,val:'slide_right',class:''},
             ]
         break;
     }

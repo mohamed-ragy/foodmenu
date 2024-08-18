@@ -16,8 +16,10 @@ draw_editor_popup_section_rename = function(){
                 ]
             })
         )
-        $('.rename_editor').select();
-        $(`.editor_popup_body_shortcut.editor_section_rename`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $('.rename_editor').select();
+            $(`.editor_popup_body_shortcut.editor_section_rename`).addClass('editor_popup_body_shortcut_selected')
+        });
     });
 }
 $('body').on('click','.editor_section_rename',function(e){

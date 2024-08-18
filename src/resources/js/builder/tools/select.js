@@ -1,4 +1,5 @@
 select = function(key_tree){
+
     try{
         if(typeof(key_tree) === 'undefined'){return;}
         if(key_tree != window.selected){
@@ -11,6 +12,11 @@ select = function(key_tree){
         $(`.elem`).removeClass('edit_elem_selected')
         $('.website_header').removeClass('selected_header')
         $('.header_component').removeClass('header_component_selected')
+        $('.header_navList_item').removeClass('header_component_selected')
+        hide_header_drop_down_list();   
+        let selection = window.getSelection();
+        selection.removeAllRanges();
+        $('[contenteditable]').attr('contenteditable',false)
         switch(elem.type){
             case 'section':
                 $(`section[key_tree="${key_tree}"]`).addClass('section_selected')
@@ -19,7 +25,7 @@ select = function(key_tree){
                 $(`.section_block[key_tree="${key_tree}"]`).addClass('section_block_selected')
             break;
             case 'elem':
-                $(`.elem[key_tree="${key_tree}"]`).addClass('edit_elem_selected')
+                $(`.elem[key_tree="${key_tree}"]`).addClass('edit_elem_selected');
             break;
             case 'website_header':
                 $('.website_header').addClass('selected_header')
@@ -27,12 +33,26 @@ select = function(key_tree){
             case 'header_component':
                 $(`.header_component[key_tree="${key_tree}"]`).addClass('header_component_selected')
             break;
+            case 'header_navList_item':
+                $('.header_navList_item').addClass('header_component_selected')
+                $(`.header_navList `).addClass('header_component_selected')
+            break;
+            case 'header_navList_item':
+                $('.header_navList_item').addClass('header_component_selected')
+                $(`.header_navList `).addClass('header_component_selected')
+            break;
+            case 'header_drop_down_list':
+                show_header_drop_down_list('foodmenu');
+            break;
+            case 'header_drop_down_list_item':
+                show_header_drop_down_list('foodmenu');
+            break;
         }
     }catch{
         hide_editor_popup('editor')
     }
 }
-
+//
 heighlight_all = function(){
     $('section').addClass('section_selected');
     $(`.section_block`).addClass('section_block_selected')
@@ -88,9 +108,11 @@ temp_preview_mode = function(){
 $('body').on('click','.select',function(){
     let key_tree = $(this).attr('key_tree');
     select(key_tree);
-    $('#website').animate({
-        scrollTop: $(`#website`).find(`[key_tree="${key_tree}"]`).first().offset().top - $('#website').offset().top + $('#website').scrollTop() - 300
-    },500)
+    try{
+        $('#website').animate({
+            scrollTop: $(`#website`).find(`[key_tree="${key_tree}"]`).first().offset().top - $('#website').offset().top + $('#website').scrollTop() - 300
+        },500)
+    }catch{}
 })
 
 

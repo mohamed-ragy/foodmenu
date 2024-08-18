@@ -18,7 +18,7 @@ $('body').on('dblclick','.section_block',function(e){
     if($('.elem:hover').length > 0){return}
     draw_editor_popup_section_block_alignment();
 })
-$('body').on('click','.section_block',function(e){
+$('body').on('mousedown','.section_block',function(e){
     if($('.elem:hover').length > 0){return}
     select($(this).attr('key_tree'));
 })

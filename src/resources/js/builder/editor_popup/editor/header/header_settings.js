@@ -96,7 +96,9 @@ draw_editor_popup_header_settings = function(){
                 )
             )
         }
-        $(`.editor_popup_body_shortcut.editor_header_settings`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_header_settings`).addClass('editor_popup_body_shortcut_selected')
+        });
     });
 }
 $('body').on('click','.editor_header_settings',function(e){

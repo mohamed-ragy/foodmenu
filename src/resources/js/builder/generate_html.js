@@ -4,6 +4,7 @@ require('./generate_html/events.js')
 
 
 generate_html = function(elem,key_tree){
+
     let html = '';
     let style = generate_style(elem);
 
@@ -52,61 +53,84 @@ generate_html = function(elem,key_tree){
     if(elem.type == 'elem'){
         attrs = `${attrs} elem="${elem.elem_type}"`
     }
-    html = '';
-    let select_class = elem.type;
 
-
-    if(elem.type == 'elem'){
-        html = `${html}${generate_editing_elems_elem(elem,key_tree,style)}`;
-    }
-    else if(elem.type == 'section_block'){
-        html = `${html}${generate_editing_elems_section_block(elem,key_tree,style)}`;
-    }
-    // html = `${html}<${elem.tag} class="${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" style_desktop="${style.desktop}" style_mobile="${style.mobile}" ${attrs}`;
-    html = `${html}<${elem.tag} class="edit ${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" ${attrs}`;
-    if('accessibility' in elem){
-        if(elem.accessibility.includes('hover')){
-            html = `${html} hover_style="null"`
+    if(typeof(elem.tag) !== 'undefined'){
+        html = '';
+        let select_class = elem.type;
+        if(elem.type == 'elem'){
+            html = `${html}${generate_editing_elems_elem(elem,key_tree,style)}`;
         }
-        if(elem.accessibility.includes('click') ){
-            html = `${html} click_style="null"`
+        else if(elem.type == 'section_block'){
+            html = `${html}${generate_editing_elems_section_block(elem,key_tree,style)}`;
         }
-    }
-    let parent_hover = null;
-    if('children' in elem){
-        for(const key in elem.children){
-            if('accessibility' in elem.children[key]){
-                if(elem.children[key].accessibility.includes('parent_hover')){
-                    parent_hover == null ? parent_hover = `${key_tree}.children.${key}` : parent_hover = `${parent_hover}#${key_tree}.children.${key}`;
+        html = `${html}<${elem.tag} class="edit ${classes} ${select_class}" style="${$('.desktop_view').hasClass('mobile_view') ? style.mobile : style.desktop }" key_tree="${key_tree}" ${attrs}`;
+        if('accessibility' in elem){
+            if(elem.accessibility.includes('hover') && !elem.accessibility.includes('parent_hover')){
+                html = `${html} hover_style="null"`
+            }
+            if(elem.accessibility.includes('click') ){
+                html = `${html} click_style="null"`
+            }
+        }
+        let parent_hover = null;
+        if('children' in elem){
+            for(const key in elem.children){
+                if('accessibility' in elem.children[key]){
+                    if(elem.children[key].accessibility.includes('parent_hover')){
+                        parent_hover == null ? parent_hover = `${key_tree}.children.${key}` : parent_hover = `${parent_hover}#${key_tree}.children.${key}`;
+                    }
                 }
             }
         }
+        parent_hover !== null ? html = `${html} parent_hover="${parent_hover}"` : null;
+    
+        if('accessibility' in elem){
+            if(elem.accessibility.includes('edit_text')){
+                html = `${html} contenteditable="false"`
+            }
+        }
+        html = `${html}>`
+    
+        if(elem.type == 'section_wrapper'){
+            html = `${html}${generate_editing_elems_section_wrapper(elem,key_tree,style)}`;
+        }
+        else if(elem.type == 'section'){
+            html = `${html}${generate_editing_elems_section(elem,key_tree,style)}`;
+        }else if(elem.type == 'header_wrapper'){
+            html = `${html}${generate_editing_elems_header_wrapper(elem,key_tree,style)}`;
+        }else if(elem.type == 'header_component'){
+            html = `${html}${generate_editing_elems_header_components(elem,key_tree,style)}`;
+        }
+    
+    
+        for(const key in elem.children){
+            html = `${html}${generate_html(elem.children[key],`${key_tree}.children.${key}`)}`;
+        }
+
+        html = `${html}${text ?? ''}${elem_html ?? ''}</${elem.tag}>`;
+    
+        if(elem.type == 'elem' || elem.type == 'section_block'){
+            html = `${html}</div>`;
+        }
+    
     }
-    parent_hover !== null ? html = `${html} parent_hover="${parent_hover}"` : null;
 
-    html = `${html}>${text ?? ''}${elem_html ?? ''}`
+    
+    setTimeout(()=>{
+        if(elem.general_class == '1'){
+            let elem_atyle = generate_style(elem);
+            $(`.${elem.class_selector}`).each(function(){
+                $(this).attr('style',`${$(this).attr('style')}${elem_atyle.desktop}`)
+            })
 
-    if(elem.type == 'section_wrapper'){
-        html = `${html}${generate_editing_elems_section_wrapper(elem,key_tree,style)}`;
-    }
-    else if(elem.type == 'section'){
-        html = `${html}${generate_editing_elems_section(elem,key_tree,style)}`;
-    }else if(elem.type == 'header_wrapper'){
-        html = `${html}${generate_editing_elems_header_wrapper(elem,key_tree,style)}`;
-    }else if(elem.type == 'header_component'){
-        html = `${html}${generate_editing_elems_header_components(elem,key_tree,style)}`;
-    }
-
-
-
-    for(const key in elem.children){
-        html = `${html}${generate_html(elem.children[key],`${key_tree}.children.${key}`)}`;
-    }
-    html = `${html}</${elem.tag}>`;
-
-    if(elem.type == 'elem' || elem.type == 'section_block'){
-        html = `${html}</div>`;
-    }
+            if(elem.accessibility.includes('hover')){
+                $(`.${elem.class_selector}`).attr('hover_style',key_tree)
+            }
+            if(elem.accessibility.includes('click')){
+                $(`.${elem.class_selector}`).attr('click_style',key_tree)
+            }
+        }
+    },100)
 
     return html;
 }

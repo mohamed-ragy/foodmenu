@@ -12,18 +12,33 @@ set_editor_popup_editor_position_elem = function(key_tree){
 }
 
 //
-$('body').on('click','.elem',function(e){
+$('body').on('mousedown','.elem',function(e){
+    if($(this).hasClass('edit_elem_selected')){return;}
     select($(this).attr('key_tree'))
 })
-$('body').on('contextmenu','.elem',function(e){
-    show_contextMenu('elem',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+$('body').on('contextmenu','.elem.edit',function(e){
+    // if($(this).attr('contenteditable') != 'true'){
+        show_contextMenu('elem',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
+    // }
 })
 $('body').on('dblclick','.elem',function(e){
     let elem_data = get_elem_data(window.selected);
-    if(elem_data.elem.elem_type == 'title' || elem_data.elem.elem_type == 'paragraph'){
-        draw_editor_popup_text();
+    if(elem_data.elem.accessibility.includes('edit_text')){
+        if($(this).find('.edit').attr('contenteditable') == 'false'){
+            $(this).find('.edit').attr('contenteditable',true);
+            setTimeout(()=>{
+                let selection = window.getSelection();
+                let range = document.createRange();
+                range.selectNodeContents($(this).find('.format_container')[0]);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                show_text_format_popup()
+            })
+        }
+
     }else if(elem_data.elem.elem_type == 'image'){
         draw_editor_popup_image()
+        // $('.select_image_editor').trigger('click')
     }else if(elem_data.elem.elem_type == 'button'){
         draw_editor_popup_button();
     }else if(elem_data.elem.elem_type == 'icon'){

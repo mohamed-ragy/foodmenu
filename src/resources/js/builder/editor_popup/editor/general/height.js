@@ -38,8 +38,10 @@ draw_editor_popup_height = function(){
             })
         )
     })
-    $(`.editor_popup_body_shortcut.editor_height`).addClass('editor_popup_body_shortcut_selected')
-    $(`.editor_popup_body_shortcut.editor_height`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
+    setTimeout(()=>{
+        $(`.editor_popup_body_shortcut.editor_height`).addClass('editor_popup_body_shortcut_selected')
+        $(`.editor_popup_body_shortcut.editor_height`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
+    });
 }
 $('body').on('click','.editor_height',function(e){
     draw_editor_popup_height();

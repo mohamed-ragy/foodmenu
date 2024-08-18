@@ -1,6 +1,10 @@
 require('./header/header_settings.js')
+require('./header/header_components.js')
 require('./header/header_logo_alignment.js')
 require('./header/header_logo_logo.js')
 require('./header/header_logo_restaurant_name.js')
 require('./header/header_navList.js')
+require('./header/header_iconsList.js')
+require('./header/header_drop_down_list.js')
+require('./header/mobile_navbar_icon.js')
 

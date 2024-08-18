@@ -24,6 +24,7 @@ edit_margin_bottom_fun = function(y){
     }
     margin[2] = ( parseInt(y) - parseInt(window.edit_margin_bottom.y)) + parseInt(window.edit_margin_bottom.val);
     if(margin[2] < 0){margin[2] = 0}
+    if(margin[2] > 100){margin[2] = 100}
 
     margin[2] = spacing_symmetry_y(margin[2]);
     window.edit_margin_bottom.elem.removeClass('edit_margin_symmetry')

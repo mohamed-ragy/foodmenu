@@ -140,26 +140,26 @@ guideHintsToggle = function(action){
 hotkeys = function(){
     $(document).bind('keydown', function(e) {
         ////guide mode
-        if (e.ctrlKey && e.which == 71) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 71) {
             e.preventDefault();
             if(window.history.state.page == 'statistics_and_analytics' ||window.history.state.page == 'home'){
                 return;
             }
             settings_temp.guideMode ?  guideModeToggle(false) : guideModeToggle(true);
         }
-        if (e.ctrlKey && e.which == 73) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 73) {
             e.preventDefault();
             settings_temp.helpIcons ? helpIconsToggle(false) : helpIconsToggle(true);
         }
-        if (e.ctrlKey && e.which == 72) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 72) {
             e.preventDefault();
             settings_temp.autoHelp ? autoHelpToggle(false) : autoHelpToggle(true);
         }
-        if (e.ctrlKey && e.which == 65) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 65) {
             e.preventDefault();
             settings_temp.guideHints ? guideHintsToggle(false) : guideHintsToggle(true);
         }
-        if(e.ctrlKey && e.which == 66){
+        if((e.ctrlKey || e.metaKey) && e.which == 66){
             e.preventDefault();
             $('.autoHelpContainer').each(function(){
                 if($(this).is(':hover')){
@@ -216,26 +216,26 @@ hotkeys = function(){
                 $('#windowsCover_autoHelp').hide();
             }
         }
-        if(e.shiftKey && e.ctrlKey && e.which == 76){
+        if(e.shiftKey && (e.ctrlKey || e.metaKey) && e.which == 76){
             $('#logoutForm').trigger('submit');
         }
         if(e.altKey && e.which == 65){
             $('#alertsContainer').text('')
         }
         //view settings
-        if (e.ctrlKey && e.which == 75 ) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 75 ) {
             e.preventDefault();
             settings_temp.hotKeys ? hotKeysToggle(false) : hotKeysToggle(true);
         }
-        if (e.ctrlKey && e.which == 77 ) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 77 ) {
             e.preventDefault();
             settings_temp.bigSideMenu ? sideMenuIconsToggle(false) : sideMenuIconsToggle(true);
         }
-        if (e.ctrlKey && e.which == 83 ) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 83 ) {
             e.preventDefault();
             settings_temp.statusBar ? statusBarToggle(false) : statusBarToggle(true);
         }
-        if (e.ctrlKey && e.which == 68 ) {
+        if ((e.ctrlKey || e.metaKey) && e.which == 68 ) {
             e.preventDefault();
             settings_temp.darkMode ? darkModeToogle(false) : darkModeToogle(true) ;
         }

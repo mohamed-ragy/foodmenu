@@ -24,6 +24,7 @@ edit_padding_right_fun = function(x){
     }
     padding[1] = ((parseInt(window.edit_padding_right.x) - parseInt(x))) + parseInt(window.edit_padding_right.val);
     if(padding[1] < 0){padding[1] = 0}
+    if(padding[1] > 100){padding[1] = 100}
 
     padding[1] = spacing_symmetry_x(padding[1]);
     window.edit_padding_right.elem.removeClass('edit_padding_symmetry')

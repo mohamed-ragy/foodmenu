@@ -178,8 +178,6 @@ scroll_elem_animation = function(scroll_direction){
         apply_scroll_animation($(this),scroll_direction)
     })
 }
-
-
 window.last_scroll_top = 0;
 $('body').on('scroll',function(e){
     let scroll_direction;

@@ -55,10 +55,24 @@ draw_editor_popup_section_block_alignment = function(){
                             ]
                         })
                     ),
+                    $('<div/>',{class:'editor_popup_col'}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.overflow}),
+                        draw_select_box({
+                            key_tree:window.selected,
+                            variable_key:'css',
+                            key:'overflow',
+                            selections:[
+                                {text:texts.styling.visible,key:'visible'},
+                                {text:texts.styling.hidden,key:'hidden'},
+                            ]
+                        })
+                    )
                 ]
             }),
         )
-        $(`.editor_popup_body_shortcut.editor_alignment`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_alignment`).addClass('editor_popup_body_shortcut_selected')
+        });
     });
 }
 $('body').on('click','.editor_alignment',function(e){

@@ -27,46 +27,47 @@ window.addEventListener("beforeunload", function (e) {
     }
 });
 $('body').on('contextmenu',function(e){
-    e.preventDefault()
+    // if(!$(this).attr('contenteditable') == 'true'){
+        e.preventDefault()
+    // }
 })
-$('body').on('keydown',function(e){
-    
-    if(e.shiftKey && e.ctrlKey && e.which == 90){
+keyboard_shortcuts = function(e){
+    if(e.shiftKey && (e.ctrlKey || e.metaKey) && e.which == 90){
         e.preventDefault();
         redo();
     }
-    else if(e.ctrlKey && e.which == 90){
+    else if((e.ctrlKey || e.metaKey) && e.which == 90){
         e.preventDefault();
         undo();
     }
     else if(e.altKey && e.which == 88){
         view_toggle()
     }
-    else if(e.ctrlKey && e.which == 83){
+    else if((e.ctrlKey || e.metaKey) && e.which == 83){
         e.preventDefault();
         if(!is_saved_checker()){
             $('#save').trigger('click')
         }
     }
-    else if(e.ctrlKey && e.which == 67){
+    else if((e.ctrlKey || e.metaKey) && e.which == 67){
         copy()
     }
-    else if(e.ctrlKey && e.which == 88){
+    else if((e.ctrlKey || e.metaKey) && e.which == 88){
         cut()
     }
-    else if(e.ctrlKey && e.which == 86	){
+    else if((e.ctrlKey || e.metaKey) && e.which == 86	){
         paste()
-    }
+    } 
     else if(
-        e.ctrlKey && e.which == 49 ||
-        e.ctrlKey && e.which == 50 ||
-        e.ctrlKey && e.which == 51 ||
-        e.ctrlKey && e.which == 52 ||
-        e.ctrlKey && e.which == 53 ||
-        e.ctrlKey && e.which == 54 ||
-        e.ctrlKey && e.which == 55 ||
-        e.ctrlKey && e.which == 56 ||
-        e.ctrlKey && e.which == 57
+        (e.ctrlKey || e.metaKey) && e.which == 49 ||
+        (e.ctrlKey || e.metaKey) && e.which == 50 ||
+        (e.ctrlKey || e.metaKey) && e.which == 51 ||
+        (e.ctrlKey || e.metaKey) && e.which == 52 ||
+        (e.ctrlKey || e.metaKey) && e.which == 53 ||
+        (e.ctrlKey || e.metaKey) && e.which == 54 ||
+        (e.ctrlKey || e.metaKey) && e.which == 55 ||
+        (e.ctrlKey || e.metaKey) && e.which == 56 ||
+        (e.ctrlKey || e.metaKey) && e.which == 57
     ){
         e.preventDefault();
         try{
@@ -102,23 +103,26 @@ $('body').on('keydown',function(e){
         heighlight_all();
     }
 
-    if(e.shiftKey && e.ctrlKey && e.which == 38){
+    if(e.shiftKey && (e.ctrlKey || e.metaKey) && e.which == 38){
         e.preventDefault();
         editor_bring_to_front();
-    }else if(e.shiftKey && e.ctrlKey && e.which == 40){
+    }else if(e.shiftKey && (e.ctrlKey || e.metaKey) && e.which == 40){
         e.preventDefault();
         editor_send_to_back();
-    }else if(e.ctrlKey && e.which == 38){
+    }else if((e.ctrlKey || e.metaKey) && e.which == 38){
         e.preventDefault();
         editor_bring_forward();
-    }else if(e.ctrlKey && e.which == 40){
+    }else if((e.ctrlKey || e.metaKey) && e.which == 40){
         e.preventDefault();
         editor_send_backward();
     }
-    if(e.ctrlKey){
+    if((e.ctrlKey || e.metaKey)){
         window.ctrl_pressed = true;
     }
 
+}
+$('body').on('keydown',function(e){
+    keyboard_shortcuts(e)
 })
 $('body').on('mousemove',function(e){
     window.pageX = e.pageX;
@@ -152,9 +156,55 @@ $('body').on('click','.scroll_to_section',function(e){
         scrollTop:$(`.${$(this).attr('section')}`).position().top,
     },500)
 })
-
-
 //
+$('body').on('mouseenter','a',function(){
+    if($(this).hasClass('open_page')){
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}${$(this).attr('href')}</div>`)
+    }else if($(this).hasClass('open_popup')){
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
+    }else if($(this).hasClass('scroll_to_section')){
+        let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
+        let section_name = '';
+        try{
+            section_name = section.name;
+        }catch{}
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.scroll_to_section}:</div><div class="fs101 cB underline">${section_name}</div>`)
+    }
+})
+$('body').on('mouseenter','button',function(){
+    if($(this).hasClass('open_page')){
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}${$(this).attr('href')}</div>`)
+    }else if($(this).hasClass('open_popup')){
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
+
+    }else if($(this).hasClass('scroll_to_section')){
+        let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
+        let section_name = '';
+        try{
+            section_name = section.name;
+        }catch{}
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.scroll_to_section}:</div><div class="fs101 cB underline">${section_name}</div>`)
+    }
+})
+// $('body').on('mosueleave','a',function(){
+// })
+//
+// document.execCommand = function(command, showUI, value) {
+//     throw new Error("execCommand is disabled");
+// };
+
+const originalExecCommand = document.execCommand;
+
 document.execCommand = function(command, showUI, value) {
-    throw new Error("execCommand is disabled");
+    // Convert command to lowercase to ensure case-insensitive comparison
+    const allowedCommands = ['copy', 'cut','paste', 'selectall'];
+    command = command.toLowerCase();
+
+    if (allowedCommands.includes(command)) {
+        // If the command is allowed, call the original execCommand
+        return originalExecCommand.call(document, command, showUI, value);
+    } else {
+        // Otherwise, throw an error or handle the disallowed command
+        throw new Error(`execCommand "${command}" is disabled`);
+    }
 };

@@ -52,9 +52,9 @@ draw_builder = function(template_id){
     set_view_style();
     
     setTimeout(()=>{
-        // window.selected = 'home.0.children.section_wrapper.children.0.children.2'
+        // window.selected = 'home.0.children.section_wrapper.children.0.children.0'
         // show_editor_popup('page_setup');
-        // draw_editor_popup_button();
+        // draw_editor_popup_text();
     },1000)
 
 }

@@ -55,6 +55,14 @@ fix_editor_popup_position = function(editor_popup){
             right:'20px',
         })
     }
+    if(window.current_view == 'mobile'){
+        editor_popup.css({
+            top:$('#website').offset().top,
+            bottom:'unset',
+            left:$('#website').offset().left + $('#website').width() + 10,
+            right:'unset',
+        })
+    }
 }
 show_editor_popup = function(elem,callback=()=>{}){
     $('.editor_popup').addClass('editor_popup_dump')

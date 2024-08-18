@@ -24,6 +24,7 @@ edit_margin_top_section_fun = function(y){
     }
     margin_top = ((parseInt(y) - parseInt(window.edit_margin_top_section.y))) + parseInt(window.edit_margin_top_section.val);
     if(margin_top < 0){margin_top = 0}
+    if(margin_top > 200){margin_top = 200}
 
     margin_top = spacing_symmetry_y(margin_top);
     window.edit_margin_top_section.elem.removeClass('edit_margin_symmetry')

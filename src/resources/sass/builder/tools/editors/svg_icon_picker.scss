@@ -1,6 +1,6 @@
-.select_icon{
+.svg_icon_picker{
     padding:5px;
-    box-shadow: 0 0 1px var(--shdw-20), 0 0 30px var(--shdw-10);
+    box-shadow: 0 0 2px 1px var(--shdw-10);
     border-radius: 3px;
     display: flex;
     align-items: center;
@@ -10,8 +10,8 @@
     box-sizing: border-box;
     width:30px;
     height:30px;
-    background-color: var(--white-2);
 }
+
 .set_icon{
     padding:5px;
     border-radius: 3px;
@@ -28,7 +28,6 @@
 }
 .set_icon:hover{
     background-color: var(--white-2);
-
 }
 .icons_browser{
     position: fixed;

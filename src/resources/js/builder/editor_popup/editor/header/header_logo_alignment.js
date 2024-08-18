@@ -36,10 +36,11 @@ draw_editor_popup_header_logo_alignment = function(){
                 ]
             })
         )
-        $(`.editor_popup_body_shortcut.editor_header_logo_alignment`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_header_logo_alignment`).addClass('editor_popup_body_shortcut_selected')
+        })
     })
 }
 $('body').on('click','.editor_header_logo_alignment',function(e){
-    
     draw_editor_popup_header_logo_alignment();
 })

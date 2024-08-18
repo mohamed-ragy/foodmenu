@@ -196,7 +196,7 @@ class templates_data
 
         ];
     }
-    public static function animations(){
+    public static function transitions(){
         return [
             'no_animation' => '',
             'fade' => '.fade{ animation-name: fade; animation-timing-function: ease-in-out; animation-iteration-count: 1; } @keyframes fade {0%{opacity:0}100%{opacity: 1}}',

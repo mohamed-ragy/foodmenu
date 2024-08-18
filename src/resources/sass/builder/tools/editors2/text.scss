@@ -1,0 +1,54 @@
+.elem[contenteditable="true"]{
+    outline:none;
+}
+.text_format_popup{
+    z-index: 500;
+    position: fixed;
+    animation-name: text_format_popup_animation;
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    background-color: var(--white-1);
+    padding:3px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px var(--shdw-20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+@keyframes text_format_popup_animation {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+.text_format_popup button{
+    outline:none;
+    // border:1px solid var(--white-2);
+    border:none;
+    box-sizing: border-box;
+    font-size:.9em;
+    margin: 0 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:30px;
+    height:30px;
+    background-color: var(--white-1);
+    color: var(--white-11);
+    cursor: pointer;
+    border-radius: 4px;
+}
+.text_format_popup button:hover{
+    background-color: var(--white-2);
+}
+.text_format_btn_selected, .text_format_btn_selected:hover{
+    background-color: var(--white-4) !important;
+    color:var(--txt-1) !important;
+}
+.text_format_btn_font_color, .text_format_btn_bg_color{height: 0px;width:0px;box-shadow: none;}
+.text_format_btn_split{
+    height:25px;
+    box-sizing: border-box;
+    margin: 0 2px;
+    border-left:1px solid var(--white-4)
+}

@@ -46,7 +46,9 @@ draw_editor_popup_display = function(){
             })
         )
     })
-    $(`.editor_popup_body_shortcut.editor_display`).addClass('editor_popup_body_shortcut_selected')
+    setTimeout(()=>{
+        $(`.editor_popup_body_shortcut.editor_display`).addClass('editor_popup_body_shortcut_selected')
+    });
 }
 $('body').on('click','.editor_display',function(e){
     draw_editor_popup_display();

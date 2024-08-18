@@ -12,6 +12,7 @@ draw_editor_popup_image = function(){
                                 key_tree:`${window.selected}`,
                                 variable_key:'attr',
                                 key:'src',
+                                editor_class:'editor_image_select_image'
                             }),
                         ),
                         draw_editor_show_container({
@@ -58,7 +59,9 @@ draw_editor_popup_image = function(){
                 ]
             })
         )
-        $(`.editor_popup_body_shortcut.editor_image`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_image`).addClass('editor_popup_body_shortcut_selected')
+        });
     })
 }
 $('body').on('click','.editor_image',function(e){

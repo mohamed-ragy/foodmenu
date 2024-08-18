@@ -1,8 +1,14 @@
 draw_editor_popup_interactions = function(){
     show_editor_popup('editor',function(){
+        let key_tree = window.selected;
+        let is_responsive = true;
+        let elem = get_elem_data(key_tree).elem;
+        if(elem.is_responsive == '0'){
+            is_responsive = false;
+        }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
-                is_responsive:false,
+                is_responsive:is_responsive,
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'interactions'}).append(
                         draw_editor_show_container({
@@ -12,17 +18,17 @@ draw_editor_popup_interactions = function(){
                             container_class:'editor_popup_brdrT_none editor_popup_brdrB'
                         }),
                         draw_interactions_picker({
-                            key_tree:window.selected
+                            key_tree:key_tree
                         })
                     ),
                     $('<div/>',{class:'editor_popup_container none w100p',key:'interactions_transition_timing',parent_key:'interactions'}).append(
-                        draw_editors_container({
-                            is_responsive:true,
-                            editors:[
+                        // draw_editors_container({
+                            // is_responsive:is_responsive,
+                            // editors:[
                                 $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                                     $('<div/>',{class:'fs09',text:texts.styling.transition_duration}),
                                     draw_number_picker({
-                                        key_tree:window.selected,
+                                        key_tree:key_tree,
                                         variable_key:'css',
                                         key:'transition-duration',
                                         step:1,
@@ -32,7 +38,7 @@ draw_editor_popup_interactions = function(){
                                 $('<div/>',{class:'editor_popup_col'}).append(
                                     $('<div/>',{class:'fs09',text:texts.styling.transition_delay}),
                                     draw_number_picker({
-                                        key_tree:window.selected,
+                                        key_tree:key_tree,
                                         variable_key:'css',
                                         key:'transition-delay',
                                         step:1,
@@ -44,15 +50,15 @@ draw_editor_popup_interactions = function(){
                                     name:texts.styling.transition_timing_function,
                                     row_class:true,
                                 }),
-                            ]
-                        })
+                            // ]
+                        // })
                     ),
                     $('<div/>',{class:'editor_popup_container none w100p',key:'transition_timing_function',parent_key:'interactions_transition_timing'}).append(
                         draw_editors_container({
-                            is_responsive:true,
+                            is_responsive:is_responsive,
                             editors:[
                                 draw_timing_function_editor({
-                                    key_tree:window.selected,
+                                    key_tree:key_tree,
                                     variable_key:'css',
                                     key:'transition-timing-function'
                                 })
@@ -62,7 +68,9 @@ draw_editor_popup_interactions = function(){
                 ]
             })
         )
-        $(`.editor_popup_body_shortcut.editor_interactions`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_interactions`).addClass('editor_popup_body_shortcut_selected')
+        });
     })
 }
 $('body').on('click','.editor_interactions',function(e){

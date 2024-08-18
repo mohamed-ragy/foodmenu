@@ -44,8 +44,11 @@
 //elem_delete
 //button
 //text
+//edit_text
 //image
+//select_image
 //icon
+//select_icon
 //display
 //elem_arrange
 //header_sizing
@@ -154,6 +157,7 @@ get_section_block = function(child_num) {
             'align-items': 'center',
             'justify-content': 'center',
             'margin':'0px 0px 0px 0px',
+            'overflow':'visible',
         }),
         css_mobile:get_default_styles(['padding','border','border-radius','box-shadow','transition-duration','transition-delay','transition-timing-function'],{
             'flex-direction': 'column',
@@ -161,6 +165,7 @@ get_section_block = function(child_num) {
             'align-items': 'center',
             'justify-content': 'center',
             'margin':'0px 0px 0px 0px',
+            'overflow':'visible',
         }),
         css_hover:get_default_styles(['border','border-radius','box-shadow'],{}),
         css_hover_mobile:get_default_styles(['border','border-radius','box-shadow'],{}),
@@ -543,7 +548,7 @@ elem_title = function(){
     let empty_langs = {};
     let font_styles = {};
     for (const key in window.website_data.languages) {
-        empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.title_placholder}</span>`
+        empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.title_placholder}</span>`
         font_styles[window.website_data.languages[key].code] = 'default';
     }
     let this_hash = hash();
@@ -555,7 +560,7 @@ elem_title = function(){
             'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
-            'text',
+            'text','edit_text',
             'display',
             'elem_arrange',
             'sizing','width','height',
@@ -612,7 +617,7 @@ elem_paragraph = function(){
     let empty_langs = {};
     let font_styles = {};
     for (const key in window.website_data.languages) {
-        empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.paragraph_placholder}</span>`
+        empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.paragraph_placholder}</span>`
         font_styles[window.website_data.languages[key].code] = 'default';
     }
     let this_hash = hash();
@@ -624,7 +629,7 @@ elem_paragraph = function(){
             'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
-            'text',
+            'text','edit_text',
             'display',
             'elem_arrange',
             'sizing','width','height',
@@ -685,7 +690,7 @@ elem_image = function(){
             'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
-            'image',
+            'image','select_image',
             'display',
             'elem_arrange',
             'sizing','width','height',
@@ -743,7 +748,7 @@ elem_button = function(){
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'button',
-            'text',
+            'text','edit_text',
             'display',
             'elem_arrange',
             'sizing','width','height',
@@ -814,7 +819,7 @@ elem_icon = function(){
             'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
-            'icon',
+            'icon','select_icon',
             'display',
             'elem_arrange',
             'spacing','margin','padding',

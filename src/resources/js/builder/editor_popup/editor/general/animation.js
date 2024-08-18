@@ -12,7 +12,9 @@ draw_editor_popup_animation = function(){
                 ]
             })
         )
-        $(`.editor_popup_body_shortcut.editor_animation`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_animation`).addClass('editor_popup_body_shortcut_selected')
+        });
         
         play_preview_animations();
     });

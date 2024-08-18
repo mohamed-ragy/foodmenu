@@ -25,6 +25,27 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-navigation_list fs101',class:`editor_header_navList`,child1_text:texts.styling.header_navList})
         )
     }
+    if(accessibility.includes('header_iconsList')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-icon',class:`editor_header_iconsList`,child1_text:texts.styling.header_iconsList})
+        )
+    }
+    if(accessibility.includes('header_settings')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-header',child1_text:texts.header_settings,class:`editor_header_settings`}),
+        )
+    }
+    if(accessibility.includes('header_components')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-header_layout',child1_text:texts.styling.header_components,child2_class:'ico-arrowRight',submenu:draw_header_componenets_contextMenu()}),
+        )
+    }
+    if(accessibility.includes('header_mobileNav_icon')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-mobile_navbar_icon',child1_text:texts.styling.header_mobileNav_icon,class:'editor_header_mobileNav_icon'})
+        )
+    }
+
     if(accessibility.includes('add_elem')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-add_elem',child1_text:texts.add_element,child2_class:'ico-arrowRight',submenu:draw_section_block_add_elem_contextMenu(accessibility)}),
@@ -107,11 +128,6 @@ draw_contextMenu = function(){
     }
     contextMenu.append(draw_contextMenu_line())
     //main edits
-    if(accessibility.includes('header_settings')){
-        contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-header',child1_text:texts.header_settings,class:`editor_header_settings`}),
-        )
-    }
     if(accessibility.includes('button')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-button',class:`editor_button`,child1_text:texts.styling.button})
@@ -119,7 +135,7 @@ draw_contextMenu = function(){
     }
     if(accessibility.includes('text')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-edit_text',class:`editor_text`,child1_text:texts.styling.text})
+            draw_contextMenu_elem({icon:'ico-text',class:`editor_text`,child1_text:texts.styling.text})
         )
     }
     if(accessibility.includes('image')){
@@ -242,7 +258,17 @@ draw_contextMenu = function(){
     }
     return contextMenu;
 }
+draw_header_componenets_contextMenu =function(){
+    return $('<div/>',{class:'w100p'}).append(
+        draw_contextMenu_elem({icon:'ico-logo_restaurant_name',class:`set_editor_popup_editor editor_header_logo_alignment select`,key_tree:'website_header.elems.children.header_wrapper.children.header_logo',child1_text:texts.styling.restauran_logo}),
+        draw_contextMenu_elem({icon:'ico-navigation_list',class:`set_editor_popup_editor editor_header_navList select`,key_tree:'website_header.elems.children.header_wrapper.children.header_navList',child1_text:texts.styling.header_navList}),
+        draw_contextMenu_elem({icon:'ico-icon',class:`set_editor_popup_editor editor_header_iconsList select`,key_tree:'website_header.elems.children.header_wrapper.children.header_iconsList',child1_text:texts.styling.header_iconsList}),
+        draw_contextMenu_elem({icon:'ico-drop_down_list',class:`set_editor_popup_editor editor_header_drop_down_list select`,key_tree:'website_header.elems.children.header_drop_down_list',child1_text:texts.styling.drop_down_list}),
+        draw_contextMenu_elem({icon:'ico-list',class:`set_editor_popup_editor editor_header_drop_down_list_item select`,key_tree:'website_header.elems.children.header_drop_down_list_item',child1_text:texts.styling.drop_down_list_item}),
+        draw_contextMenu_elem({icon:'ico-mobile_navbar_icon',class:`set_editor_popup_editor editor_header_mobileNav_icon select`,key_tree:'website_header.elems.children.header_wrapper.children.header_mobileNav_icon',child1_text:texts.styling.header_mobileNav_icon}),
 
+    )
+}
 draw_sizing_contextMenu = function(accessibility){
     return $('<div/>',{class:'w100p'}).append(
         draw_contextMenu_elem({icon:'ico-width',class:`editor_width ${!accessibility.includes('width') ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.styling.width}),

@@ -25,6 +25,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-edit_text:before {
+  content: "\e988";
+}
+.ico-settings:before {
+  content: "\e942";
+}
+.ico-select_image:before {
+  content: "\e989";
+}
+.ico-list:before {
+  content: "\e987";
+}
 .ico-interactions:before {
   content: "\e986";
 }
@@ -232,9 +244,6 @@
 .ico-width:before {
   content: "\e946";
 }
-.ico-settings:before {
-  content: "\e942";
-}
 .ico-erase:before {
   content: "\e940";
 }
@@ -397,7 +406,7 @@
 .ico-check1:before {
   content: "\e90a";
 }
-.ico-edit_text:before {
+.ico-text:before {
   content: "\e941";
 }
 .ico-edit:before {

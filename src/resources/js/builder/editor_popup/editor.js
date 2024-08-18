@@ -39,6 +39,18 @@ set_editor_popup_editor = function(){
             $('#editor').find('.editor_popup_title').text(texts.styling[elem_data.elem.header_component])
             set_editor_popup_editor_position_header();
         break;
+        case 'header_navList_item':
+            $('#editor').find('.editor_popup_title').text(texts.styling.header_navList)
+            set_editor_popup_editor_position_header();
+        break;
+        case 'header_drop_down_list':
+            $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list)
+            set_editor_popup_editor_position_header();
+        break;
+        case 'header_drop_down_list_item':
+            $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list_item)
+            set_editor_popup_editor_position_header();
+        break;
     }
     fix_editor_popup_position($('#editor'))
     draw_editor_popup_editor_shortcuts();
@@ -62,6 +74,9 @@ $('body').on('click','.editor_popup_body_shortcut',function(e){
         play_preview_animations();
     }
 })
+$('body').on('click','.set_editor_popup_editor',function(){
+    set_editor_popup_editor();
+})
 draw_editor_popup_editor_shortcuts = function(){
     let elem_data = get_elem_data(window.selected);
     let accessibility = elem_data.elem.accessibility;
@@ -70,11 +85,17 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('header_settings') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-header editor_header_settings`,tooltip:texts.header_settings})
         :'',
+        accessibility.includes('header_components') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-header_layout editor_header_components`,tooltip:texts.styling.header_components})
+        :'',
         accessibility.includes('header_logo_alignment') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-alignment editor_header_logo_alignment`,tooltip:texts.styling.alignment})
         :'',
         accessibility.includes('header_navList') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-navigation_list editor_header_navList`,tooltip:texts.styling.header_navList})
+        :'',
+        accessibility.includes('header_iconsList') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-icon editor_header_iconsList`,tooltip:texts.styling.header_iconsList})
         :'',
         accessibility.includes('header_logo_logo') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-logo_restaurant_name editor_header_logo_logo`,tooltip:texts.styling.restauran_logo})
@@ -82,11 +103,20 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('header_logo_restaurant_name') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-title editor_header_logo_restaurant_name`,tooltip:texts.styling.restaurant_name})
         :'',
+        accessibility.includes('header_drop_down_list') ? 
+        $('<div/>',{class:`editor_popup_body_shortcut ico-drop_down_list editor_header_drop_down_list`,tooltip:texts.styling.drop_down_list})
+        :'',
+        accessibility.includes('header_drop_down_list_item') ? 
+        $('<div/>',{class:`editor_popup_body_shortcut ico-list editor_header_drop_down_list_item`,tooltip:texts.styling.drop_down_list_item})
+        :'',
+        accessibility.includes('header_mobileNav_icon') ?
+        $('<div/>',{class:'editor_popup_body_shortcut ico-mobile_navbar_icon editor_header_mobileNav_icon',tooltip:texts.styling.header_mobileNav_icon})
+        :'',
         accessibility.includes('button') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-button editor_button`,tooltip:texts.styling.button})
         : '',
         accessibility.includes('text') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-edit_text editor_text`,tooltip:texts.styling.text})
+        $('<div/>',{class:`editor_popup_body_shortcut ico-text editor_text`,tooltip:texts.styling.text})
         : '',
         accessibility.includes('image') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-image editor_image`,tooltip:texts.styling.image})

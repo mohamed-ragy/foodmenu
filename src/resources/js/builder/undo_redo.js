@@ -62,16 +62,17 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
         } else {
             $('.popup_container').css('display', 'none')
         }
-        if (window.show_header_drop_down_list == true) {
-            show_header_drop_down('foodmenu');
+
+        if (!$('.header_drop_down_list').hasClass('none') && $('.header_drop_down_list').length > 0) {
+            show_header_drop_down_list('foodmenu');
         }
         //
         draw_page(window.selected_page)
         set_adapted_header();
+        select(window.selected);
     }
     //
     set_view_style();
-    select(window.selected);
 
     set_website_colors_vars();
     //
@@ -208,6 +209,11 @@ undo_redo_actions = function(set_selectors = true, draw_website = true) {
             try{
                 set_interactions_picker($(this));
             }catch{}
+        })
+        $('.svg_icon_picker').each(function(){
+            // try{
+                set_svg_icon_picker($(this))
+            // }catch{}
         })
 
         $('.editor_details_head').each(function(){

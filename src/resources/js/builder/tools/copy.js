@@ -1,8 +1,17 @@
 window.builder_clipboard
+can_copy = function(){
+    if(typeof(window.selected) === 'undefined'){return false;}
+    if(window.selected == null){return false;}
+    if(!accessibility_check(window.selected,'copy')){return false;}
+    if(
+        $(`.${get_elem_data(window.selected).elem.class_selector}`).attr('contenteditable') == 'true'
+    ){
+        return false;
+    }
+    return true;    
+}
 copy = function(){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
-    if(!accessibility_check(window.selected,'copy')){return;}
+    if(!can_copy()){return;}
     let copy_elem = get_elem_data(window.selected).elem
     window.builder_clipboard = JSON.parse(JSON.stringify(copy_elem));   
     let copied_section_name = texts.copy_untitled_section.replace(':name:',window.builder_clipboard.name)
@@ -10,9 +19,7 @@ copy = function(){
 }
 //
 cut = function(){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
-    if(!accessibility_check(window.selected,'copy')){return;}
+    if(!can_copy()){return;}
     let cut_elem = get_elem_data(window.selected).elem;
     window.builder_clipboard = JSON.parse(JSON.stringify(cut_elem));   
     remove_cut_elem(cut_elem)
@@ -39,8 +46,7 @@ remove_cut_elem = function(cut_elem){
 }
 //
 paste = function(){
-    if(window.builder_clipboard == null){return;}
-    if(!accessibility_check(window.selected,'copy')){return;}
+    if(!can_copy()){return;}
     let _paste_elem = window.builder_clipboard;
     if(_paste_elem.type == 'section'){
         paste_section(_paste_elem)

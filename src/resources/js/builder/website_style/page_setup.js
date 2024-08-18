@@ -86,7 +86,7 @@ draw_page_setup = function(){
                                 key:'pageTransition',
                                 selections:get_inputList_obj('pageTransition'),
                             }),
-                            $('<div/>',{class:'pageTransition_preview mis-5 fs105 pointer ico-play'})
+                            $('<div/>',{class:'pageTransition_preview  fs103 pointer ico-play'})
                         )
                     ),
                     $('<div/>',{class:'editor_popup_col'}).append(

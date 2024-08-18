@@ -1,4 +1,5 @@
 @import '../editable/elem/add_home_elem.scss';
+
 .elem{
     position: relative;
 }
@@ -29,6 +30,8 @@
     .edit_elem_margin_left{display: block;}
 
     .edit_alignment_btn_self{display: flex;}
+
+    .select_edit_elem_btns{display: flex;}
 }
 .edit_elem_selected:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange);}
@@ -44,6 +47,11 @@
 .edit_elem_selected:hover::after{
     outline: 1px solid var(--orange);
 }
+.elem[contenteditable="true"]{
+    outline: 2px solid black;
+    outline-offset: -2px;
+    cursor: text !important;
+}
 .select_edit_elem_title{
     white-space: nowrap;
     background-color: var(--blue);
@@ -52,9 +60,8 @@
     position: absolute;
     left:-1px;
     bottom:100%;
-    padding:3px 5px;
-    padding-left:1px;
-    padding-bottom: 2px;
+    padding:2px 8px;
+    padding-bottom: 1px;
     border-radius: 0px 0px 0 0;
     display: none;
     align-items: center;
@@ -62,7 +69,48 @@
     cursor: pointer;
     transition-duration: 300ms;
     z-index: 111;
+    font-size:.75rem;
 }
-.select_edit_elem_title div:nth-child(1){font-size:.75rem;margin-bottom:2px;margin-inline-end: 1px;}
-.select_edit_elem_title div:nth-child(2){font-size:.8rem;}
+.select_edit_elem_btns{
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    bottom:calc(100% + 5px);
+    right:0px;
+    z-index: 200;
+    box-shadow: 0 0 10px 2px var(--shdw-20);
+    overflow: hidden;
+    background-color: var(--white-1);
+    padding:3px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px var(--shdw-20);
+    animation-name: select_edit_elem_btns_animation;
+    animation-duration: 100ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes select_edit_elem_btns_animation {
+    0%{opacity:0;transform:translateY(3px)}
+    100%{opacity:1;transform:translateY(0px)}
+}
 //
+.select_edit_elem_btns button{
+    outline:none;
+    border:none;
+    box-sizing: border-box;
+    font-size:1em;
+    margin: 0 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:30px;
+    height:30px;
+    background-color: var(--white-1);
+    color: var(--white-11);
+    cursor: pointer;
+    border-radius: 4px;
+}
+.select_edit_elem_btns button:hover{
+    background-color: var(--white-2);
+}

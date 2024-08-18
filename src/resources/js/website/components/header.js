@@ -31,13 +31,16 @@ show_header_drop_down = function(list){
         break;
         case 'language':
             for(const key in window.website.languages){
-                let langauge = window.website.languages[key];
+                let language = window.website.languages[key];
                 $('.header_drop_down_list').append(
                     $('<a/>',{
                         class:'header_drop_down_list_item change_language',
-                        text:langauge.name,
-                        href:`/${langauge.code}/home`
-                    })
+                        href:`/${language.code}/home`,
+                        style:`display:flex;align-items:center;justify-content:flex-start;`,
+                    }).append(
+                        $('<img/>',{style:'margin-inline-end:10px;width:20px;height:20px;border-radius:50%;object-fit:cover;',src:`/storage/imgs/flags/${language.flag}.png`}),
+                        $('<span/>',{text:language.name})
+                    )
                 )
             }
         break;
@@ -67,7 +70,7 @@ $('body').on('mouseleave','header',function(e){
 $('body').on('mouseover','.show_header_drop_down_list',function(e){
     show_header_drop_down($(this).attr('header_list'));
     $('.header_drop_down_list').css({
-        'top':$(this).position().top + $(this).outerHeight(),
+        'top':$(this).offset().top + $(this).height() + 5,
         'left':$(this).offset().left,
     })
     if($('.header_drop_down_list').offset().left + $('.header_drop_down_list').outerWidth() > $(window).width()){

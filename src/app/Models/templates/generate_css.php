@@ -13,9 +13,9 @@ class generate_css
     public function add_to_file($css){
         $this->css_file = $this->css_file.$css;
     }
-    public function add_animation($animation){
+    public function add_transition($animation){
         if(!in_array($animation,$this->animations)){
-            array_push($this->animations,templates_data::animations()[$animation]);
+            array_push($this->animations,templates_data::transitions()[$animation]);
         }
     }
     public function add_scroll_animation($animation){
@@ -29,14 +29,14 @@ class generate_css
         self::generate_global_selectors();
 
         self::add_to_file(self::generate_class($this->template['website_header']['elems']));
-        self::add_animation($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation_name']);
-        self::add_to_file(self::generate_class($this->template['website_header']['header_drop_down_list_item']));
+        // self::add_transition($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation_name']);
+        // self::add_to_file(self::generate_class($this->template['website_header']['header_drop_down_list_item']));
         //
 
 
         // self::add_to_file(templates_data::loading_spinners()[$this->template['loading_spinner']['key']]['css']);
         self::add_to_file(self::generate_class($this->template['popup_window']['elems']));
-        self::add_animation($this->template['popup_window']['transition']);
+        self::add_transition($this->template['popup_window']['transition']);
 
         foreach($this->template['home'] as $section){
             self::generate_class($section);
@@ -68,19 +68,20 @@ class generate_css
         }
     }
     public function generate_class($elem){
-        if(array_key_exists('class_selector',$elem)){
-
-            if(array_key_exists('font_style',$elem)){
-                if(is_array($elem['font_style'])){
-                    foreach($elem['font_style'] as $key => $val){
-                        $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
-                        if(!array_key_exists($font['name'],$this->selected_fonts)){
-                            $this->selected_fonts[$font['name']] = $font;
-                        }
+        if(array_key_exists('font_style',$elem)){
+            if(is_array($elem['font_style'])){
+                foreach($elem['font_style'] as $key => $val){
+                    $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
+                    if(!array_key_exists($font['name'],$this->selected_fonts)){
+                        $this->selected_fonts[$font['name']] = $font;
                     }
                 }
             }
-
+        }
+        if(array_key_exists('transition',$elem)){
+            self::add_transition($elem['transition']);
+        }
+        if(array_key_exists('class_selector',$elem)){
             $css_start = ".{$elem['class_selector']}{";
             $css = '';
             if(array_key_exists('css', $elem)){
@@ -294,9 +295,7 @@ class generate_css
                     $css_disabled_end = "}";
                     $final_css = $final_css.$css_disabled_start.$css_disabled.$css_disabled_end;
                 }
-
             }
-
 
             if(array_key_exists('type', $elem)){
                 if($elem['type'] == 'section'){
@@ -349,11 +348,7 @@ class generate_css
             self::add_to_file($final_css);
 
         }
-        if(array_key_exists('general_classes',$elem)){
-            foreach($elem['general_classes'] as $class){
-                self::generate_class($class);
-            }
-        }
+
 
         if(array_key_exists('children',$elem)){
             $this->parent_class_selector = $elem['class_selector'];

@@ -109,34 +109,30 @@ set_interactions_picker = function(editor){
 $('body').on('change','.interactions_hover',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    let elem = get_elem_data(editor.attr('key_tree')).elem;
-    set_interactions_accessibility(elem,val,'hover')
+    set_interactions_accessibility(editor.attr('key_tree'),val,'hover')
 })
 $('body').on('change','.interactions_parent_hover',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    let elem = get_elem_data(editor.attr('key_tree')).elem;
-    set_interactions_accessibility(elem,val,'parent_hover')
+    set_interactions_accessibility(editor.attr('key_tree'),val,'parent_hover')
 })
 $('body').on('change','.interactions_click',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    let elem = get_elem_data(editor.attr('key_tree')).elem;
-    set_interactions_accessibility(elem,val,'click')
+    set_interactions_accessibility(editor.attr('key_tree'),val,'click')
 })
 $('body').on('change','.interactions_focus',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    let elem = get_elem_data(editor.attr('key_tree')).elem;
-    set_interactions_accessibility(elem,val,'focus')
+    set_interactions_accessibility(editor.attr('key_tree'),val,'focus')
 })
 $('body').on('change','.interactions_disabled',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    let elem = get_elem_data(editor.attr('key_tree')).elem;
-    set_interactions_accessibility(elem,val,'disabled')
+    set_interactions_accessibility(editor.attr('key_tree'),val,'disabled')
 })
-set_interactions_accessibility = function(elem,val,key){
+set_interactions_accessibility = function(key_tree,val,key){
+    let elem = get_elem_data(key_tree).elem;
     if(val == '0'){
         let index = elem.accessibility.indexOf(key);
         if (index !== -1) {
@@ -145,5 +141,11 @@ set_interactions_accessibility = function(elem,val,key){
     }else if(val == '1'){
         elem.accessibility.push(key);
     }
-    new_action();
+    if(key_tree == 'website_header.elems.children.header_wrapper.children.header_navList'){
+        set_interactions_accessibility('website_header.elems.children.header_wrapper.children.header_navList.children.header_navList_item',val,key)
+    }else if(key_tree == 'website_header.elems.children.header_wrapper.children.header_iconsList'){
+        set_interactions_accessibility('website_header.elems.children.header_wrapper.children.header_iconsList.children.header_iconsList_icon',val,key)
+    }else{
+        new_action();
+    }
 }

@@ -7,7 +7,7 @@ draw_editor_popup_icon = function(){
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_icon'}).append(
                         draw_editor_show_container({
                             key:'editor_icon_size',
-                            name:texts.styling.select_icon,
+                            name:texts.styling.icon_size,
                             row_class:true,
                             container_class:'editor_popup_brdrT_none'
                         }),
@@ -37,7 +37,9 @@ draw_editor_popup_icon = function(){
                 ]
             })
         )
-        $(`.editor_popup_body_shortcut.editor_icon`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_icon`).addClass('editor_popup_body_shortcut_selected')
+        });
     })
 }
 $('body').on('click','.editor_icon',function(e){

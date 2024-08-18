@@ -1,16 +1,20 @@
 let unchangeable_styles = ['transform','transform-origin','max-width','max-height','min-width','min-height','margin','align-self','height','width'];
 $('body').on('mouseenter','[hover_style]',function(){
-    let elem = get_elem_data($(this).attr('key_tree')).elem;
-    apply_hover_style(elem);
+    let key_tree = $(this).attr('key_tree');
+    if($(this).attr('hover_style') !== 'null'){
+        key_tree = $(this).attr('hover_style')
+    }
+    let elem = get_elem_data(key_tree).elem;
+    apply_hover_style(elem,$(this));
 })
 $('body').on('mouseenter','[parent_hover]',function(){
     let elems = $(this).attr('parent_hover').split('#');
     for(const key in elems){
         let elem = get_elem_data(elems[key]).elem;
-        apply_hover_style(elem);
+        apply_hover_style(elem,$(`.${elem.class_selector}`));
     }
 })
-apply_hover_style = function(elem){
+apply_hover_style = function(elem,_elem){
     let hover_styling = {};
     if(window.current_view == 'desktop'){
         for(const key in elem.css_hover){
@@ -32,28 +36,32 @@ apply_hover_style = function(elem){
     for(const key in hover_styling){
         if(elem.type == 'elem' || elem.type == 'section_block'){
             if(key == 'transform' || key == 'transform-origin'){
-                $(`.${elem.class_selector}`).parent().css(key,hover_styling[key])
+                _elem.parent().css(key,hover_styling[key])
             }
             if(!unchangeable_styles.includes(key) ){
-                $(`.${elem.class_selector}`).css(key,hover_styling[key])
+                _elem.css(key,hover_styling[key])
             }
         }else{
-            $(`.${elem.class_selector}`).css(key,hover_styling[key])
+            _elem.css(key,hover_styling[key])
         }
     }
 }
 $('body').on('mouseleave','[hover_style]',function(){
-    let elem = get_elem_data($(this).attr('key_tree')).elem;
-    remove_hover_style(elem);
+    let key_tree = $(this).attr('key_tree');
+    if($(this).attr('hover_style') !== 'null'){
+        key_tree = $(this).attr('hover_style')
+    }
+    let elem = get_elem_data(key_tree).elem;
+    remove_hover_style(elem,$(this));
 })
 $('body').on('mouseleave','[parent_hover]',function(){
     let elems = $(this).attr('parent_hover').split('#');
     for(const key in elems){
         let elem = get_elem_data(elems[key]).elem;
-        remove_hover_style(elem);
+        remove_hover_style(elem,$(`.${elem.class_selector}`));
     }
 })
-remove_hover_style = function(elem){
+remove_hover_style = function(elem,_elem){
     let styling = {};
     if(window.current_view == 'desktop'){
         for(const key in elem.css){
@@ -74,19 +82,23 @@ remove_hover_style = function(elem){
     for(const key in styling){
         if(elem.type == 'elem' || elem.type == 'section_block'){
             if(key == 'transform' || key == 'transform-origin'){
-                $(`.${elem.class_selector}`).parent().css(key,styling[key])
+                _elem.parent().css(key,styling[key])
             }
             if(!unchangeable_styles.includes(key) ){
-                $(`.${elem.class_selector}`).css(key,styling[key])
+                _elem.css(key,styling[key])
             }
         }else{
-            $(`.${elem.class_selector}`).css(key,styling[key])
+            _elem.css(key,styling[key])
         }
 
     }
 }
 $('body').on('mousedown','[click_style]',function(){
-    let elem = get_elem_data($(this).attr('key_tree')).elem;
+    let key_tree = $(this).attr('key_tree');
+    if($(this).attr('click_style') !== 'null'){
+        key_tree = $(this).attr('click_style')
+    }
+    let elem = get_elem_data(key_tree).elem;
     let click_styling;
     if(window.current_view == 'desktop'){click_styling = elem.css_click}
     else if(window.current_view == 'mobile'){click_styling = elem.css_click_mobile}
@@ -105,7 +117,11 @@ $('body').on('mousedown','[click_style]',function(){
     }
 })
 $('body').on('mouseup','[click_style]',function(){
-    let elem = get_elem_data($(this).attr('key_tree')).elem;
+    let key_tree = $(this).attr('key_tree');
+    if($(this).attr('click_style') !== 'null'){
+        key_tree = $(this).attr('click_style')
+    }
+    let elem = get_elem_data(key_tree).elem;
     let hover_styling;
     if(window.current_view == 'desktop'){
         hover_styling = elem.css_hover;

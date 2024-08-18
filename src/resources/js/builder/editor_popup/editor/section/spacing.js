@@ -59,7 +59,10 @@ draw_editor_popup_section_spacing = function(){
                 ]
             })
         )
-        $(`.editor_popup_body_shortcut.editor_section_spacing`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_section_spacing`).addClass('editor_popup_body_shortcut_selected')
+        });
+
     });
 }
 $('body').on('click','.editor_section_spacing',function(e){

@@ -77,7 +77,9 @@ draw_editor_popup_header_logo_restaurant_name = function(){
             )
         )
     })
-    $(`.editor_popup_body_shortcut.editor_header_logo_restaurant_name`).addClass('editor_popup_body_shortcut_selected')
+    setTimeout(()=>{
+        $(`.editor_popup_body_shortcut.editor_header_logo_restaurant_name`).addClass('editor_popup_body_shortcut_selected')
+    });
 }
 $('body').on('click','.editor_header_logo_restaurant_name',function(e){
     draw_editor_popup_header_logo_restaurant_name();

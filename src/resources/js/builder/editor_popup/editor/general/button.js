@@ -61,8 +61,9 @@ draw_editor_popup_button = function(){
             }),
         )
         draw_buttons_preview_container();
-
-        $(`.editor_popup_body_shortcut.editor_button`).addClass('editor_popup_body_shortcut_selected')
+        setTimeout(()=>{
+            $(`.editor_popup_body_shortcut.editor_button`).addClass('editor_popup_body_shortcut_selected')
+        });
     });
 }
 $('body').on('click','.editor_button',function(e){
