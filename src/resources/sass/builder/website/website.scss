@@ -13,13 +13,12 @@ a:hover{color:unset;text-decoration: unset;cursor: pointer;}
     backdrop-filter: unset !important;
     border-color:transparent !important;
 
-    .header_iconsList_icon, .header_icon_cart_num {
+    .header_navList_item , .header_iconsList_icon, .header_icon_cart_num, .header_mobileNav_icon_svg, .header_logo_restaurant_name {
         color: var(--adapt_header_color) !important;
         fill: var(--adapt_header_color) !important;
         stroke: var(--adapt_header_color) !important;
     }
-
-    .header_logo_restaurant_name ,a ,a:hover{
+    .header_navList_item:hover , .header_iconsList_icon:hover, .header_icon_cart_num:hover, .header_mobileNav_icon_svg:hover, .header_logo_restaurant_name:hover {
         color: var(--adapt_header_color) !important;
         fill: var(--adapt_header_color) !important;
         stroke: var(--adapt_header_color) !important;
