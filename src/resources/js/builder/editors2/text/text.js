@@ -1,11 +1,18 @@
 
 //////
-show_text_format_popup = function(){
+show_text_format_popup = async function(){
     let selection = window.getSelection();
     let range = selection.getRangeAt(0);
     let rect = range.getBoundingClientRect();
     let top = rect.top + $(window).scrollTop();
     let left = rect.left + $(window).scrollLeft();
+    let isClipboardEmpty
+    try{
+        let clipboardText = await navigator.clipboard.readText();
+        isClipboardEmpty = !clipboardText.trim();
+    }catch{
+        isClipboardEmpty = true;
+    }
     $('.text_format_popup').css({
         top:top - 50,
         left:left,
@@ -30,13 +37,13 @@ show_text_format_popup = function(){
         $('<button/>',{tooltip:texts.styling.hyperlink,class:'ico-link text_format_btn_hyperlink contextMenu',tag:'A',contextMenu_type:'text_editor_hyperlink'}),
         $('<button/>',{tooltip:texts.styling.remove_hyperlink,class:'ico-unlink none text_format_btn',tag:'SPAN',action:'remove_hyperlink'}),
         $('<div/>',{class:'text_format_btn_split'}),
-        $('<button/>',{tooltip:texts.copy,class:'ico-copy2 fs101',click:async function(){
+        $('<button/>',{tooltip:texts.copy,class:`ico-copy2 ${selection.toString().trim() == '' || selection.toString().length == 0 ? 'text_format_btn_dummy' : ''}`,click:async function(){
             try {
                 let selectedText = window.getSelection().toString();
                 await navigator.clipboard.writeText(selectedText);
             }catch{}
         }}),
-        $('<button/>',{tooltip:texts.cut,class:'ico-cut2',click:async function(){
+        $('<button/>',{tooltip:texts.cut,class:`ico-cut2 ${selection.toString().trim() == '' || selection.toString().length == 0 ? 'text_format_btn_dummy' : ''}`,click:async function(){
                 try {
                     var selectedText = window.getSelection();
                     if (selectedText.toString()) {
@@ -45,7 +52,7 @@ show_text_format_popup = function(){
                     }
                 }catch{}
             }}),
-        $('<button/>',{tooltip:texts.paste,class:'ico-paste2',click:async function(){
+        $('<button/>',{tooltip:texts.paste,class:`ico-paste2 ${isClipboardEmpty ? 'text_format_btn_dummy' : ''}`,click:async function(){
             try {
                 let editableDiv = document.querySelector('[contenteditable="true"]');
                 if (editableDiv) {

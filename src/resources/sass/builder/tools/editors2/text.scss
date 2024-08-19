@@ -52,3 +52,7 @@
     margin: 0 2px;
     border-left:1px solid var(--white-4)
 }
+.text_format_btn_dummy{
+    pointer-events: none;
+    color:var(--white-4) !important;
+}
