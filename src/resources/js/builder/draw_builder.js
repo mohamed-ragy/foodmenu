@@ -50,7 +50,7 @@ draw_builder = function(template_id){
     set_template_vars();
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
     set_view_style();
-    
+
     setTimeout(()=>{
         // window.selected = 'home.0.children.section_wrapper.children.0.children.0'
         // show_editor_popup('page_setup');
@@ -226,7 +226,7 @@ mobile_view = function(){
         }else{
             $('.popup_container').css('display','none')
         }
-        
+
         $('#website').scrollTop(0)
         if(window.selected){
             $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)

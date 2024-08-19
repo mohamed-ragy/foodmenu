@@ -8,12 +8,12 @@ can_copy = function(){
     ){
         return false;
     }
-    return true;    
+    return true;
 }
 copy = function(){
     if(!can_copy()){return;}
     let copy_elem = get_elem_data(window.selected).elem
-    window.builder_clipboard = JSON.parse(JSON.stringify(copy_elem));   
+    window.builder_clipboard = JSON.parse(JSON.stringify(copy_elem));
     let copied_section_name = texts.copy_untitled_section.replace(':name:',window.builder_clipboard.name)
     window.builder_clipboard.name = copied_section_name
 }
@@ -21,7 +21,7 @@ copy = function(){
 cut = function(){
     if(!can_copy()){return;}
     let cut_elem = get_elem_data(window.selected).elem;
-    window.builder_clipboard = JSON.parse(JSON.stringify(cut_elem));   
+    window.builder_clipboard = JSON.parse(JSON.stringify(cut_elem));
     remove_cut_elem(cut_elem)
 }
 remove_cut_elem = function(cut_elem){
@@ -39,7 +39,7 @@ remove_cut_elem = function(cut_elem){
         for(const key in section_block.children){
             section_block.children[key].sort = parseInt(key);
         }
-        
+
     }
     hide_editor_popup('editor')
     new_action();
