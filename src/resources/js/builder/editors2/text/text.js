@@ -49,7 +49,7 @@ show_text_format_popup = async function(){
                     if (selectedText.toString()) {
                         await navigator.clipboard.writeText(selectedText.toString());
                         selectedText.deleteFromDocument();
-                        new_action(false,true)
+                        $('[contenteditable="true"]').trigger('input')
                     }
                 }catch{}
             }}),
@@ -69,7 +69,7 @@ show_text_format_popup = async function(){
                     range.setEndAfter(textNode);
                     selection.removeAllRanges();
                     selection.addRange(range);
-                    new_action(false,true)
+                    $('[contenteditable="true"]').trigger('input')
                 }
             }catch{}
         }}),
