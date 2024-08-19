@@ -35,9 +35,38 @@ show_text_format_popup = function(){
         $('<button/>',{tooltip:texts.styling.align_end,class:'ico-align_end text_format_btn',tag:'SPAN',action:'text_align',key:'end'}),
         $('<div/>',{class:'text_format_btn_split'}),
         $('<button/>',{tooltip:texts.copy,class:'ico-copy',click:async function(){
-            //i want here a function to copy selection text
-            var selectedText = window.getSelection().toString();
-            await navigator.clipboard.writeText(selectedText);
+            // try {
+                let selectedText = window.getSelection().toString();
+                await navigator.clipboard.writeText(selectedText);
+            // }catch{}
+        }}),
+        $('<button/>',{tooltip:texts.cut,class:'ico-cut',click:async function(){
+            // try {
+                var selectedText = window.getSelection();
+                if (selectedText.toString()) {
+                    await navigator.clipboard.writeText(selectedText.toString());
+                    selectedText.deleteFromDocument();
+                }
+            // }catch{}
+            }}),
+        $('<button/>',{tooltip:texts.paste,class:'ico-paste',click:async function(){
+            // try {
+                let editableDiv = document.querySelector('[contenteditable="true"]');
+                if (editableDiv) {
+                    let clipboardText = await navigator.clipboard.readText();
+                    let selection = window.getSelection();
+                    let range = selection.getRangeAt(0);
+                    range.deleteContents();
+                    
+                    let textNode = document.createTextNode(clipboardText);
+                    range.insertNode(textNode);
+    
+                    range.setStartAfter(textNode);
+                    range.setEndAfter(textNode);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            // }catch{}
         }})
     ).removeClass('none')
     set_text_format_popup_btns();
