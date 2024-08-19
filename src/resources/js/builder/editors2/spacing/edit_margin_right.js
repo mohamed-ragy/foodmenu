@@ -26,7 +26,9 @@ edit_margin_right_fun = function(x){
     if(margin[1] < 0){margin[1] = 0}
     if(margin[1] > 100){margin[1] = 100}
 
-    margin[1] = spacing_symmetry_x(margin[1]);
+    if(margin[0] > 5){
+        margin[0] = spacing_symmetry_x(margin[1]);
+    }
     window.edit_margin_right.elem.removeClass('edit_margin_symmetry')
     window.edit_margin_right.elem.text(margin[1])
 

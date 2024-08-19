@@ -33,6 +33,12 @@ show_text_format_popup = function(){
         $('<button/>',{tooltip:texts.styling.align_start,class:'ico-align_start text_format_btn',tag:'SPAN',action:'text_align',key:'start'}),
         $('<button/>',{tooltip:texts.styling.align_center,class:'ico-align_center text_format_btn',tag:'SPAN',action:'text_align',key:'center'}),
         $('<button/>',{tooltip:texts.styling.align_end,class:'ico-align_end text_format_btn',tag:'SPAN',action:'text_align',key:'end'}),
+        $('<div/>',{class:'text_format_btn_split'}),
+        $('<button/>',{tooltip:texts.copy,class:'ico-copy',click:async function(){
+            //i want here a function to copy selection text
+            var selectedText = window.getSelection().toString();
+            await navigator.clipboard.writeText(selectedText);
+        }})
     ).removeClass('none')
     set_text_format_popup_btns();
     if($('.text_format_popup').offset().left + $('.text_format_popup').width() > $(window).width()){
@@ -385,7 +391,6 @@ $('body').on('keydown','[contenteditable]',function(e){
 $('body').on('paste','[contenteditable]',function(e){
     e.preventDefault();
     paste_text();
-
 })
 paste_text = function(){
     let clipboardData = (event.clipboardData || window.clipboardData).getData('text/plain');

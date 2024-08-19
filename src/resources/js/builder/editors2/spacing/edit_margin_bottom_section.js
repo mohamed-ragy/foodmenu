@@ -27,7 +27,9 @@ edit_margin_bottom_section_fun = function(y){
     if(margin_bottom < 0){margin_bottom = 0}
     if(margin_bottom > 200){margin_bottom = 200}
 
-    margin_bottom = spacing_symmetry_y(margin_bottom);
+    if(margin_bottom > 5){
+        margin_bottom = spacing_symmetry_y(margin_bottom);
+    }
     window.edit_margin_bottom_section.elem.removeClass('edit_margin_symmetry')
     window.edit_margin_bottom_section.elem.text(margin_bottom)
 

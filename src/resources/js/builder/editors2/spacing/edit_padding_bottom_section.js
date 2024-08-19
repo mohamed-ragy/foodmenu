@@ -27,7 +27,9 @@ edit_padding_bottom_section_fun = function(y){
     if(padding_bottom < 0){padding_bottom = 0}
     if(padding_bottom > 200){padding_bottom = 200}
 
-    padding_bottom = spacing_symmetry_y(padding_bottom);
+    if(padding_bottom > 5){
+        padding_bottom = spacing_symmetry_y(padding_bottom);
+    }
     window.edit_padding_bottom_section.elem.removeClass('edit_padding_symmetry')
     window.edit_padding_bottom_section.elem.text(padding_bottom)
 
