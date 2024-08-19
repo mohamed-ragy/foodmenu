@@ -30,27 +30,23 @@ show_text_format_popup = function(){
         $('<button/>',{tooltip:texts.styling.hyperlink,class:'ico-link text_format_btn_hyperlink contextMenu',tag:'A',contextMenu_type:'text_editor_hyperlink'}),
         $('<button/>',{tooltip:texts.styling.remove_hyperlink,class:'ico-unlink none text_format_btn',tag:'SPAN',action:'remove_hyperlink'}),
         $('<div/>',{class:'text_format_btn_split'}),
-        $('<button/>',{tooltip:texts.styling.align_start,class:'ico-align_start text_format_btn',tag:'SPAN',action:'text_align',key:'start'}),
-        $('<button/>',{tooltip:texts.styling.align_center,class:'ico-align_center text_format_btn',tag:'SPAN',action:'text_align',key:'center'}),
-        $('<button/>',{tooltip:texts.styling.align_end,class:'ico-align_end text_format_btn',tag:'SPAN',action:'text_align',key:'end'}),
-        $('<div/>',{class:'text_format_btn_split'}),
-        $('<button/>',{tooltip:texts.copy,class:'ico-copy',click:async function(){
-            // try {
+        $('<button/>',{tooltip:texts.copy,class:'ico-copy2 fs101',click:async function(){
+            try {
                 let selectedText = window.getSelection().toString();
                 await navigator.clipboard.writeText(selectedText);
-            // }catch{}
+            }catch{}
         }}),
-        $('<button/>',{tooltip:texts.cut,class:'ico-cut',click:async function(){
-            // try {
-                var selectedText = window.getSelection();
-                if (selectedText.toString()) {
-                    await navigator.clipboard.writeText(selectedText.toString());
-                    selectedText.deleteFromDocument();
-                }
-            // }catch{}
+        $('<button/>',{tooltip:texts.cut,class:'ico-cut2',click:async function(){
+                try {
+                    var selectedText = window.getSelection();
+                    if (selectedText.toString()) {
+                        await navigator.clipboard.writeText(selectedText.toString());
+                        selectedText.deleteFromDocument();
+                    }
+                }catch{}
             }}),
-        $('<button/>',{tooltip:texts.paste,class:'ico-paste',click:async function(){
-            // try {
+        $('<button/>',{tooltip:texts.paste,class:'ico-paste2',click:async function(){
+            try {
                 let editableDiv = document.querySelector('[contenteditable="true"]');
                 if (editableDiv) {
                     let clipboardText = await navigator.clipboard.readText();
@@ -66,8 +62,12 @@ show_text_format_popup = function(){
                     selection.removeAllRanges();
                     selection.addRange(range);
                 }
-            // }catch{}
-        }})
+            }catch{}
+        }}),
+        $('<div/>',{class:'text_format_btn_split'}),
+        $('<button/>',{tooltip:texts.styling.align_start,class:'ico-align_start text_format_btn',tag:'SPAN',action:'text_align',key:'start'}),
+        $('<button/>',{tooltip:texts.styling.align_center,class:'ico-align_center text_format_btn',tag:'SPAN',action:'text_align',key:'center'}),
+        $('<button/>',{tooltip:texts.styling.align_end,class:'ico-align_end text_format_btn',tag:'SPAN',action:'text_align',key:'end'}),
     ).removeClass('none')
     set_text_format_popup_btns();
     if($('.text_format_popup').offset().left + $('.text_format_popup').width() > $(window).width()){

@@ -25,6 +25,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-paste2:before {
+  content: "\e98a";
+}
+.ico-cut2:before {
+  content: "\e98b";
+}
+.ico-copy2:before {
+  content: "\e98c";
+}
 .ico-edit_text:before {
   content: "\e988";
 }
