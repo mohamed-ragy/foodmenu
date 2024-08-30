@@ -10,7 +10,7 @@
 //section_swap
 //section_dublicate
 //section_delete
-//section_rename
+//rename
 //section_sizing
 //section_spacing
 //section_adapt_header
@@ -38,7 +38,7 @@
 //animation
 //background
 //block_elems
-//block_arrange
+//arrange
 //elem_swap
 //elem_dublicate
 //elem_delete
@@ -50,7 +50,6 @@
 //icon
 //select_icon
 //display
-//elem_arrange
 //header_sizing
 //header_layout
 //header_logo_alignment
@@ -67,7 +66,7 @@ get_blank_section = function() {
             'section_swap',
             'section_dublicate',
             'section_delete',
-            'section_rename',
+            'rename',
             'section_sizing',
             'section_spacing',
             'section_adapt_header',
@@ -130,10 +129,10 @@ get_section_block = function(child_num) {
         tag: 'div',
         accessibility:[
             'interactions','can_hover',
-            'add_elem','add_elem_title','add_elem_paragraph','add_elem_image','add_elem_button','add_elem_icon',
+            'add_elem','add_elem_title','add_elem_paragraph','add_elem_image','add_elem_button','add_elem_icon','add_elem_container',
             'copy',
             'alignment',
-            'block_arrange',
+            'arrange',
             'spacing','margin','padding',
             'styling','border','border_radius','box_shadow',
             'animation',
@@ -543,14 +542,13 @@ get_sections_layouts = function() {
 
     ]
 }
-
 elem_title = function(){
-    let empty_langs = {};
-    let font_styles = {};
-    for (const key in window.website_data.languages) {
-        empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.title_placholder}</span>`
-        font_styles[window.website_data.languages[key].code] = 'default';
-    }
+    // let empty_langs = {};
+    // let font_styles = {};
+    // for (const key in window.website_data.languages) {
+    //     // empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.title_placeholder}</span>`
+    //     // font_styles[window.website_data.languages[key].code] = 'default';
+    // }
     let this_hash = hash();
     return {
         type: 'elem',
@@ -560,9 +558,9 @@ elem_title = function(){
             'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
-            'text','edit_text',
+            'text','edit_text','select_font',
             'display',
-            'elem_arrange',
+            'arrange',
             'sizing','width','height',
             'spacing','margin','padding',
             'styling','filter','border','border_radius','box_shadow','transform',
@@ -609,17 +607,17 @@ elem_title = function(){
         class: '',
         text: {
             key: `h1${this_hash}`,
-            val: empty_langs
+            val: {}
         },
     }
 }
 elem_paragraph = function(){
-    let empty_langs = {};
-    let font_styles = {};
-    for (const key in window.website_data.languages) {
-        empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.paragraph_placholder}</span>`
-        font_styles[window.website_data.languages[key].code] = 'default';
-    }
+    // let empty_langs = {};
+    // let font_styles = {};
+    // for (const key in window.website_data.languages) {
+    //     empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.paragraph_placeholder}</span>`
+    //     font_styles[window.website_data.languages[key].code] = 'default';
+    // }
     let this_hash = hash();
     return {
         type: 'elem',
@@ -629,9 +627,9 @@ elem_paragraph = function(){
             'interactions','can_hover','can_click','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
-            'text','edit_text',
+            'text','edit_text','select_font',
             'display',
-            'elem_arrange',
+            'arrange',
             'sizing','width','height',
             'spacing','margin','padding',
             'styling','filter','border','border_radius','box_shadow','transform',
@@ -676,7 +674,7 @@ elem_paragraph = function(){
         class: '',
         text: {
             key: `p${this_hash}`,
-            val: empty_langs
+            val: {}
         },
     }
 }
@@ -692,13 +690,13 @@ elem_image = function(){
             'copy',
             'image','select_image',
             'display',
-            'elem_arrange',
+            'arrange',
             'sizing','width','height',
             'spacing','margin','padding',
             'styling','filter','border','border_radius','box_shadow','transform',
             'animation',
         ],
-        class_selector: `img${this_hash}`,
+        class_selector: `image${this_hash}`,
         css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
             'box-sizing': 'border-box',
             'position': 'relative',
@@ -732,12 +730,12 @@ elem_image = function(){
     }
 }
 elem_button = function(){
-    let empty_langs = {};
-    let font_styles = {};
-    for (const key in window.website_data.languages) {
-        empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.button_placholder}</span>`
-        font_styles[window.website_data.languages[key].code] = 'default';
-    }
+    // let empty_langs = {};
+    // let font_styles = {};
+    // for (const key in window.website_data.languages) {
+    //     empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.button_placholder}</span>`
+    //     font_styles[window.website_data.languages[key].code] = 'default';
+    // }
     let this_hash = hash();
     return {
         type: 'elem',
@@ -748,9 +746,9 @@ elem_button = function(){
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'button',
-            'text','edit_text',
+            'text','edit_text','select_font',
             'display',
-            'elem_arrange',
+            'arrange',
             'sizing','width','height',
             'spacing','margin','padding',
             'styling','filter','border','border_radius','box_shadow','transform',
@@ -802,7 +800,7 @@ elem_button = function(){
         class:'',
         text: {
             key: `btn${this_hash}`,
-            val: empty_langs
+            val: {}
         },
         attr:{
             href:'null',
@@ -821,7 +819,7 @@ elem_icon = function(){
             'copy',
             'icon','select_icon',
             'display',
-            'elem_arrange',
+            'arrange',
             'spacing','margin','padding',
             'styling','filter','border','border_radius','box_shadow','transform',
             'animation',
@@ -855,4 +853,60 @@ elem_icon = function(){
             src:''
         }
     }
+}
+elem_container = function(){
+    let child_key = hash();
+    return {
+        type:'container',
+        name:texts.elems.container,
+        tag:'div',
+        accessibility:[
+            'interactions','can_hover','can_parent_hover',
+            'add_elem','add_elem_title','add_elem_paragraph','add_elem_image','add_elem_button','add_elem_icon',
+            'rename',
+            'copy',
+            'elem_swap','elem_dublicate','elem_delete',
+            'alignment',
+            'display',
+            'arrange',
+            'sizing','width','height',
+            'spacing','margin','padding',
+            'styling','border','border_radius','box_shadow','transform','filter',
+            'animation',
+            'background',
+            'block_elems',
+        ],  
+        class: '',
+        class_selector: `container${child_key}`,
+        background:get_default_style('background'),
+        background_mobile:get_default_style('background'),
+        background_hover:get_default_style('background'),
+        background_hover_mobile:get_default_style('background'),
+        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','transform','filter','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+            'display': 'flex',
+            'position': 'relative',
+            'box-sizing': 'border-box',
+            'z-index':'1',
+            'flex-direction': 'column',
+            'flex-wrap': 'nowrap',
+            'align-items': 'center',
+            'justify-content': 'center',
+            'align-self':'auto',
+            'overflow':'visible',
+        }),
+        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','transform','filter','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+            'flex-direction': 'column',
+            'flex-wrap': 'nowrap',
+            'align-items': 'center',
+            'justify-content': 'center',
+            'align-self':'auto',
+            'overflow':'visible',
+        }),
+        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
+        animation: get_default_style('animation'),
+        animation_mobile: get_default_style('animation'),
+        children: []
+    }
+
 }

@@ -1,11 +1,13 @@
 draw_svg_icon_picker = function(data){
     let editor = $('<div/>',{
-        class:`editor svg_icon_picker`,
+        class:`editor svg_icon_picker w100p`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
         icon_type:data.icon_type,
-    });
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
+    })
     return editor;
 }
 set_svg_icon_picker = function(editor){
@@ -30,7 +32,9 @@ draw_svg_icon_picker_icon = function(val){
     val_icon = `${val_icon}</svg>`;
     return val_icon;
 }
-$('body').on('click','.svg_icon_picker',function(e){
+$('body').on('mouseup','.svg_icon_picker',function(e){
+    let editor = $(this)
+    window.selected_svg_icon_picker = editor;
     $('.icons_browser').text('').css({
         right:$(window).width() - $(this).offset().left - $(this).outerWidth(),
         top:$(this).offset().top,
@@ -38,7 +42,7 @@ $('body').on('click','.svg_icon_picker',function(e){
     setTimeout(()=>{
         $('.icons_browser').addClass('icons_browser_show')
     },50)
-    let icons = get_icons($(this).attr('icon_type'));
+    let icons = get_icons(editor.attr('icon_type'));
     for(const key in icons){
         let icon_data = icons[key];
         let icon = '<svg width="25px" height="25px" fill="rgb(75,75,75)" stroke="rgb(75,75,75)" ';
@@ -55,24 +59,24 @@ $('body').on('click','.svg_icon_picker',function(e){
         }
         icon = `${icon}</svg>`;
         $('.icons_browser').append(
-            $('<div/>',{class:'set_icon',key_tree:$(this).attr('key_tree'),key:$(this).attr('key'),icon_type:$(this).attr('icon_type'),icon_key:key}).append(
+            $('<div/>',{class:'set_icon',key_tree:editor.attr('key_tree'),key:editor.attr('key'),icon_type:editor.attr('icon_type'),icon_key:key}).append(
                 icon
             )
         )
     }
 })
 $('body').on('click','.set_icon',function(e){
-    // e.stopImmediatePropagation();
-    let key_tree = $(this).attr('key_tree')
-    let elem = get_elem_data(key_tree).elem;
+    let key_tree = window.selected_svg_icon_picker.attr('key_tree')
+    let elem = get_element_data(key_tree);
     let icon_data = get_icons($(this).attr('icon_type'))[$(this).attr('icon_key')];
-    elem[$(this).attr('key')].attr = {};
-    elem[$(this).attr('key')].children = [];
+    elem[window.selected_svg_icon_picker.attr('key')].attr = {};
+    elem[window.selected_svg_icon_picker.attr('key')].children = [];
     for(const key in icon_data.svg_attr){
-        elem[$(this).attr('key')].attr[key] = icon_data.svg_attr[key];
+        elem[window.selected_svg_icon_picker.attr('key')].attr[key] = icon_data.svg_attr[key];
     }
     for(const key in icon_data.paths_attrs){
-        elem[$(this).attr('key')].children.push(icon_data.paths_attrs[key])
+        elem[window.selected_svg_icon_picker.attr('key')].children.push(icon_data.paths_attrs[key])
     }
-    new_action();
+    new_action(window.selected_svg_icon_picker.attr('generate_style'),window.selected_svg_icon_picker.attr('render'));
+    set_svg_icon_picker(window.selected_svg_icon_picker);
 })

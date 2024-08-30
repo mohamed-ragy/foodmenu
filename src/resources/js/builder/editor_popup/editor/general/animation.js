@@ -7,12 +7,13 @@ draw_editor_popup_animation = function(){
                     draw_animation_editor({
                         key_tree:window.selected,
                         variable_key:'animation',
-                        key:'name'
+                        key:'name',
                     })
                 ]
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.animation)
             $(`.editor_popup_body_shortcut.editor_animation`).addClass('editor_popup_body_shortcut_selected')
         });
         
@@ -25,9 +26,9 @@ $('body').on('click','.editor_animation',function(e){
 })
 
 elem_has_animation = function(key_tree,show_error=false){
-    let elem_data = get_elem_data(key_tree);
-    if('animation' in elem_data.elem){
-        if(elem_data.elem.animation.name != 'no_animation' || elem_data.elem.animation_mobile.name != 'no_animation'){
+    let elem = get_element_data(key_tree);
+    if('animation' in elem){
+        if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation'){
             if(show_error){
                 showAlert('error',texts.not_allowed_animation,5000,true)
             }

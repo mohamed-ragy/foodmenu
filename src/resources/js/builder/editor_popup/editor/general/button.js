@@ -62,6 +62,7 @@ draw_editor_popup_button = function(){
         )
         draw_buttons_preview_container();
         setTimeout(()=>{
+            $('.editor_popup_title2').text('')
             $(`.editor_popup_body_shortcut.editor_button`).addClass('editor_popup_body_shortcut_selected')
         });
     });
@@ -124,7 +125,7 @@ $('body').on('click','.button_preview_color',function(e){
 })
 $('body').on('click','.button_preview',function(){
     let button_style = get_buttons($('.button_preview_color_selected').attr('color'),$(this).attr('button_key'));
-    let elem = get_elem_data(window.selected).elem;
+    let elem = get_element_data(window.selected);
     let button_default = elem_button();
     elem.css = button_default.css;
     elem.css_mobile = button_default.css_mobile;
@@ -148,5 +149,6 @@ $('body').on('click','.button_preview',function(){
     for(const key in button_style.css_disabled){
         elem.css_disabled[key] = button_style.css_disabled[key]
     }
-    new_action();
+    new_action(window.selected,'');
+
 })

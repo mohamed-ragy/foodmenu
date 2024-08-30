@@ -28,7 +28,9 @@ $('body').on('mousedown','.website_header',function(e){
     if($('.header_logo:hover').length > 0){return}
     if($('.header_iconsList:hover').length > 0){return}
     if($('.header_mobileNav_icon:hover').length > 0){return}
+    if($(this).hasClass('selected_header')){return;}
     select($(this).attr('key_tree'));
+    $(this).find('.edit_btns').addClass('edit_btns_animation_slide_down')
 })
 //
 $('body').on('dblclick','.header_logo',function(e){

@@ -1,7 +1,7 @@
 draw_editor_popup_section_driver = function(){
     if(!accessibility_check(window.selected,'section_driver')){return;}
     show_editor_popup('editor',function(){
-        let section = get_elem_data(window.selected).elem;
+        let section = get_element_data(window.selected);
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:false,
@@ -119,6 +119,7 @@ draw_editor_popup_section_driver = function(){
         }
         ///
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.section_driver)
             $(`.editor_popup_body_shortcut.editor_section_driver`).addClass('editor_popup_body_shortcut_selected')
         });
     });
@@ -127,7 +128,7 @@ $('body').on('click','.editor_section_driver',function(e){
     draw_editor_popup_section_driver();
 })
 $('body').on('click','.section_driver_preview',function(e){
-    let section = get_elem_data(window.selected).elem;
+    let section = get_element_data(window.selected);
     section.has_driver = '1';
     section.driver.paths = [];
     section.driver.svg_style = JSON.parse(JSON.stringify(window.drivers[$(this).attr('key')].svg_style));
@@ -150,17 +151,17 @@ $('body').on('click','.section_driver_preview',function(e){
             )
         )
     }
-    new_action();
+    new_action('','page');
     $('.section_driver_preview').removeClass('section_driver_preview_selected');
     $('.section_driver_preview_none').removeClass('section_driver_preview_selected');
     $(this).addClass('section_driver_preview_selected')
 })
 $('body').on('click','.section_driver_preview_none',function(e){
-    let section = get_elem_data(window.selected).elem;
+    let section = get_element_data(window.selected);
     section.driver.paths = [];
     $('.editor_popup_section_driver_colors').text('')
     section.has_driver = '0';
-    new_action();
+    new_action('','page');
     $('.section_driver_preview').removeClass('section_driver_preview_selected');
     $(this).addClass('section_driver_preview_selected')
 })

@@ -4,6 +4,8 @@ draw_select_background_filter = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     });
     let background_blend_mode = get_inputList_obj('background_blend_mode');
     for(const key in background_blend_mode){
@@ -54,5 +56,6 @@ $('body').on('click','.background_filter_preview',function(){
     let new_val = $(this).attr('filter_val');
     let editor = $(this).closest('.select_background_filter');
     set_val(editor,new_val);
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_select_background_filter(editor)
 })

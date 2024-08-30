@@ -9,10 +9,13 @@ $('body').on('click','.open_page',function(e){
 //
 $('body').on('click','.open_popup',function(e){
     e.preventDefault();
+    $('.popup_card').children().not('.popup_close').remove();
     switch($(this).attr('popup')){
-        case '':
+        case 'login':
+            $('.popup_card').append(draw_login_popup());
         break;
     }
+    open_popup();
 })
 $('body').on('click','.popup_close',function(e){
     close_popup();

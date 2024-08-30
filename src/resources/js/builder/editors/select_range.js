@@ -4,6 +4,8 @@ draw_select_range = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'select_range_minus turbo ico-minus',step:data.range.step}),
         $('<div/>',{class:'w100p'}).append(
@@ -81,9 +83,6 @@ set_select_range_marker = function(select_range_slider,slider_position){
     select_range_slider.closest('.select_range').find('.select_range_val').text(val+unit)
     editor.trigger('change')
     if(editor.hasClass('dummy_editor')){return;}
-    // set_elem_val(selector,val+unit)
-    // new_action();
-    // select_range_slider.closest('.selector').trigger('slide')
 }
 clac_select_range_val = function(select_range_slider,slider_position){
     let min = select_range_slider.attr('min');
@@ -98,10 +97,12 @@ clac_select_range_val = function(select_range_slider,slider_position){
 }
 //
 $('body').on('change','.select_range',function(){
-    if($(this).hasClass('dummy_editor')){return;}
-    let new_val = $(this).find('.select_range_val').text();
-    set_val($(this),new_val)
-    new_action();
+    let editor = $(this);
+    if(editor.hasClass('dummy_editor')){return;}
+    let new_val = editor.find('.select_range_val').text();
+    set_val(editor,new_val)
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_select_range(editor);
 })
 $('body').on('mousedown','.select_range_slider',function(e){
     $(this).find('.select_range_marker').attr('onmove','1')

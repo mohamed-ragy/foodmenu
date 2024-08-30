@@ -4,6 +4,8 @@ draw_image_position_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         draw_input_list({
             dummy:true,
@@ -82,12 +84,16 @@ $('body').on('change','.image_position_input_list',function(){
         let new_val = new_val.split(' ');
         set_dummy_select_range(editor.find('.image_position_x'),new_val[0])
         set_dummy_select_range(editor.find('.image_position_y'),new_val[1])
-        new_action();
+        new_action(editor.attr('generate_style'),editor.attr('render'));
+        set_image_position_editor(editor)
+
     }
 })
 $('body').on('change','.image_position_x, .image_position_y',function(){
     let editor = $(this).closest('.image_position_editor');
     let new_val = `${get_dummy_val(editor.find('.image_position_x'))} ${get_dummy_val(editor.find('.image_position_y'))}`;
     set_val(editor,new_val);
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_image_position_editor(editor)
+
 })

@@ -21,7 +21,7 @@ draw_contextMenu_elem = function(data){
             $('<img/>',{class:`contextMenu_elem_img`,src:data.img})
             :
             $('<div/>',{class:`contextMenu_elem_icon`}),
-            $('<div/>',{class:`fs09 ${data.child1_class ?? ''}`,text:data.child1_text ?? ''}),
+            $('<div/>',{class:`fs09 contextMenu_elem_text ${data.child1_class ?? ''}`,text:data.child1_text ?? ''}),
         ),
         $('<div/>',{class:`fs07 ${data.child2_class ?? ''}`,text:data.child2_text ?? ''}),
         data.submenu ? $('<div/>',{class:'contextSubmenu'}).append(data.submenu) : '',
@@ -38,27 +38,10 @@ draw_contextMenu_line = function(){
 show_contextMenu = function(type,key_tree,cord){
     hide_contextMenu();
     $('#contextMenu').text('')
-    select(key_tree)
-    let elem_data;
+    if(window.selected != key_tree){
+        select(key_tree)
+    }
     switch(type){
-        // case 'section':
-        //     elem_data = get_elem_data(key_tree);
-        //     $('#contextMenu').append(
-        //         draw_section_contextMenu(elem_data)
-        //     )
-        // break;
-        // case 'section_block':
-        //     elem_data = get_elem_data(key_tree);
-        //     $('#contextMenu').append(
-        //         draw_section_block_contextMenu(elem_data)
-        //     )
-        // break;
-        // case 'elem':
-        //     elem_data = get_elem_data(key_tree);
-        //     $('#contextMenu').append(
-        //         draw_elem_contextMenu(elem_data)
-        //     )
-        // break;
         case 'text_editor_hyperlink':
             $('#contextMenu').append(
                 draw_text_editor_hyperlinks_contextMenu()

@@ -1,0 +1,63 @@
+.edit_btns{
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    z-index: 200;
+    overflow: hidden;
+    background-color: var(--white-1);
+    padding:3px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px var(--shdw-20);
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+.edit_btns_animation_slide_up{
+    animation-name: edit_btns_animation_slide_up;
+}
+@keyframes edit_btns_animation_slide_up {
+    0%{opacity:0;transform:translateY(5px)}
+    100%{opacity:1;transform:translateY(0px)}
+}
+.edit_btns_animation_slide_right{
+    animation-name: edit_btns_animation_slide_right;
+}
+@keyframes edit_btns_animation_slide_right {
+    0%{opacity:0;transform:translateX(-5px)}
+    100%{opacity:1;transform:translateX(0px)}
+}
+.edit_btns_animation_slide_down{
+    animation-name: edit_btns_animation_slide_down;
+}
+.edit_btns_animation_slide_left{
+    animation-name: edit_btns_animation_slide_left;
+}
+@keyframes edit_btns_animation_slide_left {
+    0%{opacity:0;transform:translateX(5px)}
+    100%{opacity:1;transform:translateX(0px)}
+}
+@keyframes edit_btns_animation_slide_down {
+    0%{opacity:0;transform:translateY(-5px)}
+    100%{opacity:1;transform:translateY(0px)}
+}
+//
+.edit_btns button{
+    outline:none;
+    border:none;
+    box-sizing: border-box;
+    font-size:1em;
+    margin: 0 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:30px;
+    height:30px;
+    background-color: var(--white-1);
+    color: var(--white-11);
+    cursor: pointer;
+    border-radius: 4px;
+}
+.edit_btns button:hover{
+    background-color: var(--white-2);
+}

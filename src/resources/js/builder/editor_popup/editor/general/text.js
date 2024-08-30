@@ -1,15 +1,22 @@
 draw_editor_popup_text = function(){
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
+            $('<div/>',{class:'editor_popup_container w100p',key:'editor_text'}).append(
             draw_editors_container({
-                is_responsive:false,
+                is_responsive:true,
                 editors:[
-                    $('<div/>',{class:'editor_popup_container w100p',key:'editor_text'}).append(
+                        $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.color}),
+                            draw_color_picker({
+                                key_tree:window.selected,
+                                variable_key:'css',
+                                key:'color',
+                            })
+                        ),
                         draw_editor_show_container({
                             key:'text_font_style',
                             name:texts.styling.font_style,
                             row_class:true,
-                            container_class:'editor_popup_brdrT_none'
                         }),
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.text_align}),
@@ -55,36 +62,25 @@ draw_editor_popup_text = function(){
                                 step:1,
                             }),
                         )
-
-                        // draw_editor_show_container({
-                        //     key:'text_font_settings',
-                        //     name:texts.styling.font_settings,
-                        //     row_class:true,
-                        // }),
-                        // draw_text_editors({
-                        //     key_tree:`${window.selected}.text`,
-                        //     variable_key:'val',
-                        // })
-                    ),
-                    $('<div/>',{class:'editor_popup_container none w100p',key:'text_font_style',parent_key:'editor_text'}).append(
+                    ]
+                }),
+            ),
+            $('<div/>',{class:'editor_popup_container none w100p',key:'text_font_style',parent_key:'editor_text'}).append(
+            draw_editors_container({
+                is_responsive:false,
+                editors:[
                         draw_font_style_picker({
                             key_tree:`${window.selected}`,
                             variable_key:'font_style',
                         })
-                    ),
-                    // $('<div/>',{class:'editor_popup_container none w100p',key:'text_font_settings',parent_key:'editor_text'}).append(
-                    //     draw_editors_container({
-                    //         is_responsive:true,
-                    //         editors:[
-  
-                    //         ]
-                    //     })
-                    // )
-                ]
-            })
+                    ]
+                })
+            ),
+ 
         )
     })
     setTimeout(()=>{
+        $('.editor_popup_title2').text(texts.styling.text)
         $(`.editor_popup_body_shortcut.editor_text`).addClass('editor_popup_body_shortcut_selected')
     });
 }

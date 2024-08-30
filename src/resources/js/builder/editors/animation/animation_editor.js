@@ -6,6 +6,8 @@ draw_animation_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_container w100p',key:'select_animation'}).append(
             $('<div/>',{class:'mX20 mY10 mT20 bold',text:texts.styling.select_animation}),
@@ -170,30 +172,31 @@ $('body').on('mouseup','.animation_preview_container',function(){
     let responsive_key = get_responseive_key(editor)
     let key_tree = editor.attr('key_tree');
     let variable_key = editor.attr('variable_key');
-    let elem_data = get_elem_data(key_tree,variable_key);
+    let elem = get_element_data(key_tree,variable_key);
     if(responsive_key == '0'){
-        elem_data.elem.animation = {};
+        elem.animation = {};
     }else if(responsive_key == 'general'){
-        elem_data.elem.animation = {};
-        elem_data.elem.animation_mobile = {};
+        elem.animation = {};
+        elem.animation_mobile = {};
     }else if(responsive_key == 'desktop'){
-        elem_data.elem.animation = {};
+        elem.animation = {};
     }else if(responsive_key == 'mobile'){
-        elem_data.elem.animation_mobile = {};
+        elem.animation_mobile = {};
     }
     for(const key in animation){
         if(responsive_key == '0'){
-            elem_data.elem.animation[key] = animation[key];
+            elem.animation[key] = animation[key];
         }else if(responsive_key == 'general'){
-            elem_data.elem.animation[key] = animation[key];
-            elem_data.elem.animation_mobile[key] = animation[key];
+            elem.animation[key] = animation[key];
+            elem.animation_mobile[key] = animation[key];
         }else if(responsive_key == 'desktop'){
-            elem_data.elem.animation[key] = animation[key];
+            elem.animation[key] = animation[key];
         }else if(responsive_key == 'mobile'){
-            elem_data.elem.animation_mobile[key] = animation[key];
+            elem.animation_mobile[key] = animation[key];
         }
     }    
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_animation_editor(editor)
 })
 $('body').on('change','.editor_preview_animation',function(){
     preview_elem_animation_on_website($(this).closest('.editor_popup_container').attr('key'))
@@ -206,8 +209,9 @@ $('body').on('change','.editor_preview_animation2',function(){
 
 //events
 $('body').on('click','.editor_popup_show_container[key="customize_animation"]',function(e){
-    // return;
-    set_val($(this).closest('.animation_editor'),'customized_animation')
-    new_action();
+    let editor = $(this).closest('.animation_editor')
+    set_val(editor,'customized_animation')
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_animation_editor(editor)
 })
 

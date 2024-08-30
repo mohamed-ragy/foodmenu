@@ -29,6 +29,13 @@ class generate_js
             File::makeDirectory(storage_path("app/public/websites/{$this->template['website_id']}/views/$lang"));
         }
     }
+    public function filter_text($text){
+        $text = str_replace('contenteditable','',$text);
+        $text = str_replace('="true"','',$text);
+        $text = str_replace('="false"','',$text);
+
+        return $text;
+    }
     public function generate($template,$lang_code,$lang_text,$add_lang){
         $this->template = $template;
         if($add_lang != null){
@@ -49,14 +56,14 @@ class generate_js
         //////////////////////
         ////draw header////
         //////////////////////
-        usort($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children'], function ($a, $b){
+        usort($this->template['website_header']['children']['header_wrapper']['children']['header_navList']['children'], function ($a, $b){
             return $a['attr']['sort'] <=> $b['attr']['sort'];
         });
-        usort($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_iconsList']['children'], function ($a, $b){
+        usort($this->template['website_header']['children']['header_wrapper']['children']['header_iconsList']['children'], function ($a, $b){
             return $a['attr']['sort'] <=> $b['attr']['sort'];
         });
         $headrer_view_html = '';
-        $headrer_view_html = $headrer_view_html.self::generate_html_elem($this->template['website_header']['elems'],true);
+        $headrer_view_html = $headrer_view_html.self::generate_html_elem($this->template['website_header'],true);
         Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/website_header.html', $headrer_view_html);
 
         // if(!empty($this->template['home'])){
@@ -124,23 +131,28 @@ class generate_js
         ////create popup window html file////
         /////////////////////////////////////
         // foreach($this->langs as $lang){
-            $popup_html = self::generate_html_elem($this->template['popup_window']['elems'],true);
+            $popup_html = self::generate_html_elem($this->template['popup_window'],true);
             Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/popup_window.html', $popup_html);
         // }
         //////////////////
         ////open_popup////
         //////////////////
         self::add_to_file("open_popup = function(callback=()=>{}){
-            $('.popup_card').addClass('{$this->template['popup_window']['transition']}');
             $('.popup_container').removeClass('none');
+            $('.popup_card').addClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
         };");
         ///////////////////
         ////close_popup////
         ///////////////////
         self::add_to_file("close_popup = function(callback=()=>{}){
             $('.popup_container').addClass('none');
-            $('.popup_card').removeClass('{$this->template['popup_window']['transition']}');
+            $('.popup_card').removeClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
         };");
+        ///////////////////
+        ////login_popup////
+        ///////////////////
+        $login_popup_html = self::generate_html_elem($this->template['login_popup'],false);
+        self::add_to_file("draw_login_popup = function(){ return `{$login_popup_html}`; };");
         ///////////////////////
         ////loading spinner////
         ///////////////////////
@@ -182,13 +194,13 @@ class generate_js
         //////////////////////////
         // dd($this->template['page_setup']['font_style']);
         // try{
-            if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
-                self::add_to_file("
-                    $('body').css({
-                        'font-family':'{$this->template['page_setup']['font_style'][$this->lang_code]}'
-                    });
-                ");
-            }
+        if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
+            self::add_to_file("
+                $('body').css({
+                    'font-family':'{$this->template['page_setup']['font_style'][$this->lang_code]}'
+                });
+            ");
+        }
 
             
 
@@ -259,20 +271,22 @@ class generate_js
                             }
                         }
                     }
-    
+                    if(array_key_exists('placeholder',$elem)){
+                        $keys = explode('.',$elem['placeholder']['key']);
+                        $html_start = $html_start." placeholder=\"{$this->lang_text[$keys[0]][$keys[1]]}\"";
+                    }
                     $html_start = $html_start.">";
                     if(array_key_exists('text',$elem)){
+                        $text = self::filter_text($elem['text']['val'][$this->lang_code] ?? '');
                         if($is_html == false){
                             $html_start = $html_start."\${window.text.{$elem['text']['key']} ?? ''}";
                             if(array_key_exists('val',$elem['text'])){
-                                // foreach($this->langs as $lang){
-                                    $this->lang_text[$elem['text']['key']] = $elem['text']['val'][$this->lang_code] ?? '';
-                                // }
+                                $this->lang_text[$elem['text']['key']] = $text;
                             }
                         }else{
                             if(array_key_exists('val',$elem['text'])){
                                 if(array_key_exists($this->lang_code,$elem['text']['val'])){
-                                    $html_start = $html_start.$elem['text']['val'][$this->lang_code];
+                                    $html_start = $html_start.$text;
                                 }
                             }else{
                                 $keys = explode('.',$elem['text']['key']);
@@ -315,7 +329,7 @@ class generate_js
                 break;
             }
         }
-        return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p','button']);
+        return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p','button','input']);
     }
 
 }

@@ -1,5 +1,5 @@
 draw_interactions_selector = function(interactions){
-    let accessibility = get_elem_data(window.selected).elem.accessibility;
+    let accessibility = get_element_data(window.selected).accessibility;
     return $('<div/>',{class:'interactions_selector'}).append(
         $('<div/>',{key:'regular',class:`interaction_elem interaction_elem_selected ico-regular`,tooltip:texts.regular_style}),
         $('<div/>',{key:'hover',class:`${interactions.includes('hover') && accessibility.includes('hover') ? '' : 'interaction_elem_disabled'} interaction_elem ico-hover`,tooltip:texts.hover_style}),
@@ -12,7 +12,7 @@ $('body').on('click','.interaction_elem',function(){
     if($(this).hasClass('interaction_elem_disabled')){return;}
     $(this).closest('.interactions_selector').find('.interaction_elem').removeClass('interaction_elem_selected');
     $(this).addClass('interaction_elem_selected');
-    undo_redo_actions(true,false);
+    set_all_editors();
 })
 get_interaction_key = function(editor){
     let editors_container = editor.closest('.editors_container');

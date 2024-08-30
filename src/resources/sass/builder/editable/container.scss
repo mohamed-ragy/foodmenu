@@ -1,0 +1,84 @@
+.container{
+    position: relative;
+}
+.container::after{
+    content: '';
+    position: absolute;
+    inset:0 0 0 0;
+    pointer-events: none;
+    transition-duration: 300ms;
+}
+.container:hover{
+    .select_edit_container_title{display:flex;background-color: var(--violet-50);}
+}
+.container:hover::after{
+    outline: 1px dashed var(--violet-50);
+}
+.edit_container_selected{
+    .select_edit_container_title{display:flex;background-color: var(--violet);}
+
+    .edit_container_padding_top{display: block;}
+    .edit_container_padding_right{display: block;}
+    .edit_container_padding_bottom{display: block;}
+    .edit_container_padding_left{display: block;}
+
+    .edit_container_margin_top{display: block;}
+    .edit_container_margin_right{display: block;}
+    .edit_container_margin_bottom{display: block;}
+    .edit_container_margin_left{display: block;}
+
+    .edit_container_alignment_btn_self{display: flex;}
+
+    .edit_container_alignment_top{display: flex;}
+    .edit_container_alignment_left{display: flex;}
+
+    .edit_btns_container{display: flex;}
+
+    .elem:hover::after{
+        outline: 1px dashed var(--orange-50);
+    }
+    .elem:after{
+        outline: 1px dashed var(--orange-50);
+    }
+    // z-index:10 !important ;
+}
+.edit_container_selected:hover{
+    .select_edit_container_title{display:flex;background-color: var(--violet);}
+}
+.edit_container_selected::after{
+    content: '';
+    position: absolute;
+    inset:0 0 0 0;
+    pointer-events: none;
+    transition-duration: 300ms;
+    outline: 1px solid var(--violet);
+}
+.edit_container_selected:hover::after{
+    outline: 1px solid var(--violet);
+}
+.select_edit_container_title{
+    white-space: nowrap;
+    background-color: var(--violet);
+    color:var(--violet-txt);
+    width:fit-content;
+    position: absolute;
+    left:-1px;
+    bottom:100%;
+    padding:2px 8px;
+    padding-bottom: 1px;
+    border-radius: 0px 0px 0 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 300ms;
+    // z-index: 111;
+    font-size:.75rem;
+}
+.container .edit:empty::after {
+    content: '';
+    width:200px;
+    height:200px;
+    position: relative;
+
+}

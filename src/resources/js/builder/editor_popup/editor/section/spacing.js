@@ -60,6 +60,7 @@ draw_editor_popup_section_spacing = function(){
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.spacing)
             $(`.editor_popup_body_shortcut.editor_section_spacing`).addClass('editor_popup_body_shortcut_selected')
         });
 

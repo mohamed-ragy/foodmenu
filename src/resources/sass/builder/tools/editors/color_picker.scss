@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     position: absolute;
     width: 200px;
-    z-index: 1000;
+    z-index: 2503;
     border-radius: 5px;
     background-color: #fff;
     justify-content: flex-end;
@@ -738,8 +738,8 @@ input.clr-color{
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 20px, 0 0 4px rgba(0,0,0,.1);
   position: fixed;
   z-index: 1000;
-z-index: 2502;
-background-color: var(--white-1);
+  z-index: 2502;
+  background-color: var(--white-1);
   border-radius: 4px;
   padding:10px;
   box-sizing: border-box;

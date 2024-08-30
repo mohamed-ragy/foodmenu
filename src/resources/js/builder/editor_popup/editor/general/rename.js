@@ -1,5 +1,5 @@
-draw_editor_popup_section_rename = function(){
-    if(!accessibility_check(window.selected,'section_rename')){return;}
+draw_editor_popup_rename = function(){
+    if(!accessibility_check(window.selected,'rename')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
@@ -18,10 +18,11 @@ draw_editor_popup_section_rename = function(){
         )
         setTimeout(()=>{
             $('.rename_editor').select();
-            $(`.editor_popup_body_shortcut.editor_section_rename`).addClass('editor_popup_body_shortcut_selected')
+            $('.editor_popup_title2').text(texts.styling.rename_section)
+            $(`.editor_popup_body_shortcut.editor_rename`).addClass('editor_popup_body_shortcut_selected')
         });
     });
 }
-$('body').on('click','.editor_section_rename',function(e){
-    draw_editor_popup_section_rename();
+$('body').on('click','.editor_rename',function(e){
+    draw_editor_popup_rename();
 })

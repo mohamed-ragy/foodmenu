@@ -20,8 +20,9 @@ set_responsive_selector = function(){
                 let key_tree = $(this).attr('key_tree');
                 let variable_key = $(this).attr('variable_key');
                 let key = $(this).attr('key');
-                let elem_data = get_elem_data(key_tree,variable_key,key);
-                if(elem_data.val !== elem_data.val_mobile && typeof(elem_data.val_mobile) !== 'undefined'){
+                let elem = get_element_data(key_tree);
+                let val = get_element_val(elem,variable_key,key)
+                if(val.val !== val.val_mobile && typeof(val.val_mobile) !== 'undefined'){
                     is_general = false;
                 }
             }
@@ -37,6 +38,7 @@ set_responsive_selector = function(){
             }
         }
     })
+    set_all_editors();
 }
 get_responseive_key = function(editor){
     let editors_container = editor.closest('.editors_container')
@@ -55,5 +57,5 @@ get_responseive_key = function(editor){
 $('body').on('click','.responsive_selector',function(){
     $('.responsive_selector').removeClass('responsive_selector_selected');
     $(this).addClass('responsive_selector_selected')
-    undo_redo_actions(true,false)
+    set_all_editors();
 })

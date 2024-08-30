@@ -12,7 +12,7 @@ draw_editor_popup_image = function(){
                                 key_tree:`${window.selected}`,
                                 variable_key:'attr',
                                 key:'src',
-                                editor_class:'editor_image_select_image'
+                                editor_class:'editor_image_select_image',
                             }),
                         ),
                         draw_editor_show_container({
@@ -30,7 +30,7 @@ draw_editor_popup_image = function(){
                                     draw_image_position_editor({
                                         key_tree:window.selected,
                                         variable_key:'css',
-                                        key:'object-position'
+                                        key:'object-position',
                                     })
                                 ),
                                 $('<div/>',{class:'editor_popup_col'}).append(
@@ -50,7 +50,7 @@ draw_editor_popup_image = function(){
                                     draw_aspect_ratio_editor({
                                         key_tree:window.selected,
                                         variable_key:'css',
-                                        key:'aspect-ratio'
+                                        key:'aspect-ratio',
                                     })
                                 )
                             ]
@@ -60,6 +60,7 @@ draw_editor_popup_image = function(){
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text('')
             $(`.editor_popup_body_shortcut.editor_image`).addClass('editor_popup_body_shortcut_selected')
         });
     })

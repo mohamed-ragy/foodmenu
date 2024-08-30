@@ -31,6 +31,12 @@ set_page_setup_vars = function(){
         'background-color':window.template.page_setup.bg_color,
         'color':window.template.page_setup.font_color,
     })
+    for(const key in window.template.page_setup.font_style){
+        let font_name = window.template.page_setup.font_style[key];
+        if(font_name != '' && !window.loaded_fonts.includes(font_name)){
+            load_font_style(font_name)
+        }
+    }
 }
 
 set_loading_spinner_vars = function(){

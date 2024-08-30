@@ -29,10 +29,10 @@
     .edit_elem_margin_bottom{display: block;}
     .edit_elem_margin_left{display: block;}
 
-    .edit_alignment_btn_self{display: flex;}
+    .edit_elem_alignment_btn_self{display: flex;}
 
-    .select_edit_elem_btns{display: flex;}
-    z-index:10 !important ;
+    .edit_btns_elem{display: flex;}
+    // z-index:10 !important ;
 }
 .edit_elem_selected:hover{
     .select_edit_elem_title{display:flex;background-color: var(--orange);}
@@ -48,15 +48,17 @@
 .edit_elem_selected:hover::after{
     outline: 1px solid var(--orange);
 }
-.elem[contenteditable="true"]{
-    outline: 2px solid black;
-    outline-offset: -2px;
+[contenteditable="true"]{
+    outline: 2px solid rgb(32, 32, 32);
+    outline-offset: 2px;
     cursor: text !important;
+    display:inline-block !important;
+    white-space: pre-wrap !important;
 }
 .select_edit_elem_title{
     white-space: nowrap;
-    background-color: var(--blue);
-    color:var(--blue-txt);
+    background-color: var(--orange);
+    color:var(--orange-txt);
     width:fit-content;
     position: absolute;
     left:-1px;
@@ -72,46 +74,4 @@
     z-index: 111;
     font-size:.75rem;
 }
-.select_edit_elem_btns{
-    display: none;
-    align-items: center;
-    justify-content: flex-end;
-    position: absolute;
-    bottom:calc(100% + 5px);
-    right:0px;
-    z-index: 200;
-    box-shadow: 0 0 10px 2px var(--shdw-20);
-    overflow: hidden;
-    background-color: var(--white-1);
-    padding:3px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 2px var(--shdw-20);
-    animation-name: select_edit_elem_btns_animation;
-    animation-duration: 100ms;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: 1;
-}
-@keyframes select_edit_elem_btns_animation {
-    0%{opacity:0;transform:translateY(3px)}
-    100%{opacity:1;transform:translateY(0px)}
-}
 //
-.select_edit_elem_btns button{
-    outline:none;
-    border:none;
-    box-sizing: border-box;
-    font-size:1em;
-    margin: 0 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width:30px;
-    height:30px;
-    background-color: var(--white-1);
-    color: var(--white-11);
-    cursor: pointer;
-    border-radius: 4px;
-}
-.select_edit_elem_btns button:hover{
-    background-color: var(--white-2);
-}

@@ -92,6 +92,8 @@ body{
 
 @import '../cpanel/tools/loading.scss';
 @import '../cpanel/tools/alert.scss';
+#alertsContainer{z-index: 2502;}
+@import '../cpanel/form/textarea.scss';
 @import 'header.scss';
 
 @import 'tools/btn.scss';
@@ -112,6 +114,7 @@ body{
 @import 'editable/section.scss';
 @import 'editable/section_block.scss';
 @import 'editable/elem.scss';
+@import 'editable/container.scss';
 
 @import 'icons/icons';
 @import '../style/style.scss';
@@ -182,13 +185,15 @@ body{
     .edit_margin_bottom{display: none !important;}
     .edit_margin_left{display: none !important;}
 
-    .edit_container_alignment_top{display: none !important;}
-    .edit_container_alignment_left{display: none !important;}
+    .edit_alignment_btns_top{display: none !important;}
+    .edit_alignment_btns_left{display: none !important;}
     .edit_alignment_btn_self{display: none !important;}
+
+    .edit_btns{display: none !important;}
 
     section::after{outline: none !important;}
     section::after:hover{outline: none !important;}
-    section{
+    // section{
         .select_section_title{display: none !important}
         .add_section{display: none !important;}
         .select_section_block_title{display: none !important;}
@@ -197,7 +202,10 @@ body{
         .elem::after{outline: none !important;}
         .elem::after:hover{outline: none !important;}
         .select_edit_elem_title{display: none !important}
-    }
+        .container::after{outline: none !important;}
+        .container::after:hover{outline: none !important;}
+        .select_edit_container_title{display: none !important}
+    // }
     .website_header {
         .header_wrapper{
             outline: none !important;
@@ -208,6 +216,11 @@ body{
         .header_component:hover{
             outline: none !important;
         }
+        .select_website_header_title{display: none !important;}
+    }
+    .popup_container{
+        .popup_card::after{outline:none !important}
+        .select_popup_title{display: none !important;}
     }
 }
 
@@ -229,6 +242,26 @@ body{
 }
 .save_btn:hover{
     background-color: var(--green-20);
+}
+.saving_screen{
+    position: absolute;
+    inset: 0 0 0 0;
+    background-color: var(--shdw-70);
+    backdrop-filter: blur(10px);
+    color:var(--txt-2);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation-name: saving_screen;
+    animation-duration: 200ms;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+}
+@keyframes saving_screen {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
 }
 //
 .driver{

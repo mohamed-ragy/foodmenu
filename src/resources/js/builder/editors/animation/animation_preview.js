@@ -221,7 +221,7 @@ window.preview_elem_animation_on_website_timeout = null;
 window.preview_elem_animation_on_website_timeout2 = null;
 preview_elem_animation_on_website = function(keyframe){
     let elem = $('#website').find(`[key_tree="${window.selected}"]`);
-    let elem_data = get_elem_data(window.selected).elem;
+    let elem_data = get_element_data(window.selected);
     let animation = elem_data.animation;
     window.current_view == 'mobile' ? animation = elem_data.animation_mobile : null;
 
@@ -229,7 +229,7 @@ preview_elem_animation_on_website = function(keyframe){
     clearTimeout(window.preview_elem_animation_on_website_timeout2)
 
     window.preview_elem_animation_on_website_timeout2 = setTimeout(()=>{
-        undo_redo_actions(false,true)
+        // render_all()
     },500 + parseInt(animation[`${keyframe.replace('animation_','')}_duration`]) + parseInt(animation[`${keyframe.replace('animation_','')}_delay`]))
 
     switch (keyframe) {

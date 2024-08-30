@@ -4,6 +4,8 @@ draw_filter_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
             $('<div/>',{class:'fs09',text:texts.styling.opacity}),
@@ -167,7 +169,7 @@ set_filter_editor = function(editor){
     set_dummy_color_picker(editor.find('.filter_box_shadow_color'),shadow_color)
 }
 
-set_filter_val = function(editor,filter,filter_val,is_new_action=true){
+set_filter_val = function(editor,filter,filter_val){
     let val = get_editor_val(editor);
     if(val === null){
         val = get_default_style('filter').split(' ')
@@ -205,11 +207,8 @@ set_filter_val = function(editor,filter,filter_val,is_new_action=true){
     }
     new_val = `opacity(${opacity}) blur(${blur}) brightness(${brightness}) contrast(${contrast}) saturate(${saturate}) grayscale(${grayscale}) hue-rotate(${hue_rotate}) invert(${invert}) sepia(${sepia}) drop-shadow(${parseInt(shadow_x)}px ${parseInt(shadow_y)}px ${shadow_blur} ${shadow_color})`
     set_val(editor,new_val)
-    if(is_new_action){
-        new_action();
-    }else{
-        undo_redo_actions();
-    }
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_filter_editor(editor)
 }
 //
 $('body').on('change','.filter_range_opacity',function(e){
@@ -255,5 +254,6 @@ $('body').on('click','.reset_filter',function(e){
     let new_val = get_default_style('filter');
     let editor = $(this).closest('.filter_editor')
     set_val(editor,new_val)
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_filter_editor(editor)
 })

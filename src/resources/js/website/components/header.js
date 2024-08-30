@@ -18,7 +18,8 @@ show_header_drop_down = function(list){
             if(window.auth.type == 'guest'){
                 $('.header_drop_down_list').append(
                     $('<a/>',{
-                        class:'header_drop_down_list_item',
+                        class:'header_drop_down_list_item open_popup',
+                        popup:'login',
                         text:window.text.authentication.login,
                     }),
                     $('<a/>',{

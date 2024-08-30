@@ -71,7 +71,7 @@
     overflow: auto;
     max-height:calc(100% - 100px);
 }
-.select_website_page{
+.select_website_page, .select_website_popup{
     font-size: .9em;
     box-sizing: border-box;
     width:100%;
@@ -80,7 +80,7 @@
     padding: 8px;
     border-bottom:1px solid var(--white-2);
 }
-.select_website_page:hover{background-color: var(--white-2);}
+.select_website_page:hover, .select_website_popup:hover{background-color: var(--white-2);}
 //
 .website_style_container{
     z-index: 190;

@@ -4,6 +4,8 @@ draw_transform_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_row'}).append(
             $('<div/>',{class:''}).append(
@@ -101,7 +103,7 @@ set_transform_editor = function(editor){
 }
 
 $('body').on('change','.transform_editor',function(){
-    new_action();
+    new_action($(this).attr('generate_style'),$(this).attr('render'));
 })
 $('body').on('mousedown','.transform_btn',function(e){
     let editor = $(this).closest('.transform_editor');
@@ -192,7 +194,8 @@ $('body').on('mousedown','.transform_btn',function(e){
 
     let new_transform = `translate(${translate[0]}px,${translate[1]}px) rotateX(${rotate_x}deg) rotateY(${rotate_y}deg) rotateZ(${rotate_z}deg) scaleX(${scale_x}) scaleY(${scale_y})`;
     set_val(editor,new_transform);
-    undo_redo_actions();
+    set_transform_editor(editor);
+    generate_website_style(editor.attr('key_tree'))
 })
 $('body').on('mouseup','.transform_btn',function(e){
     $(this).closest('.transform_editor').trigger('change')

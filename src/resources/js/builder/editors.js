@@ -10,13 +10,11 @@ require('./editors/border_editor.js')//
 require('./editors/box_shadow_editor.js')//
 require('./editors/button_function.js')//
 require('./editors/color_picker.js')//
-// require('./editors/elem_text_editor.js')//
-// require('./editors/elem_text_editor_.js')//
 require('./editors/filter.js')//
 require('./editors/font_style_picker.js')//
 require('./editors/four_number_pickers.js')//
 require('./editors/gradient_editor.js')//
-require('./editors/svg_icon_picker.js')//need to be done
+require('./editors/svg_icon_picker.js')//
 require('./editors/image_position.js')//
 require('./editors/inputList.js')//
 require('./editors/number_picker.js')//
@@ -61,28 +59,29 @@ get_editor_val = function(editor){
             variable_key = `${variable_key}_${variable_key2}`
         }
     }
-    let elem_data = get_elem_data(key_tree,variable_key,key);
+    let elem = get_element_data(key_tree);
+    let val = get_element_val(elem,variable_key,key)
     if(is_responsive == '0'){
-        return elem_data.val;
+        return val.val;
     }else if(is_responsive == '1'){
         if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
-            if(elem_data.val === elem_data.val_mobile || typeof(elem_data.val_mobile) === 'undefined'){
-                return elem_data.val;
+            if(val.val === val.val_mobile || typeof(val.val_mobile) === 'undefined'){
+                return val.val;
             }else{
                 return '--';
             }
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
-            return elem_data.val;
+            return val.val;
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
-            if(typeof(elem_data.val_mobile) === 'undefined'){
-                return elem_data.val;
+            if(typeof(val.val_mobile) === 'undefined'){
+                return val.val;
             }else{
-                return elem_data.val_mobile;
+                return val.val_mobile;
             }
         }
     }
 }
-set_val= function(editor,new_val){
+set_val = function(editor,new_val){
     editor = editor.closest('.editor');
     let editors_container = editor.closest('.editors_container')
     let is_responsive = editors_container.attr('is_responsive');
@@ -95,22 +94,42 @@ set_val= function(editor,new_val){
             variable_key = `${variable_key}_${variable_key2}`
         }
     }
-    let elem_data = get_elem_data(key_tree,variable_key,key);
+    let elem = get_element_data(key_tree);
     if(is_responsive == '0'){
-        elem_data.data[key] = new_val;
+        if(variable_key === undefined){
+            elem[key] = new_val;
+        }else{
+            elem[variable_key][key] = new_val;
+        }
         
     }else if(is_responsive == '1'){
         if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
-            elem_data.data[key] = new_val;
-            elem_data.data_mobile[key] = new_val;
-            // delete elem_data.data_mobile[key]
-        }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
-            if(typeof(elem_data.data_mobile[key]) === 'undefined'){
-                elem_data.data_mobile[key] = elem_data.data[key];
+            if(variable_key === undefined){
+                elem[key] = new_val;
+                elem[`${key}_mobile`] = new_val;
+            }else{
+                elem[variable_key][key] = new_val;
+                elem[`${variable_key}_mobile`][key] = new_val;
             }
-            elem_data.data[key] = new_val;
+
+        }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
+            if(variable_key === undefined){
+                if(typeof(elem[`${key}_mobile`]) === 'undefined'){
+                    elem[`${key}_mobile`] = elem[key];
+                }
+                elem[variable_key][key] = new_val;
+            }else{
+                if(typeof(elem[`${variable_key}_mobile`][key]) === 'undefined'){
+                    elem[`${variable_key}_mobile`][key] = elem[variable_key][key];
+                }
+                elem[variable_key][key] = new_val;
+            }
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
-            elem_data.data_mobile[key] = new_val;
+            if(variable_key === undefined){
+                elem[`${key}_mobile`] = new_val;
+            }else{
+                elem[`${variable_key}_mobile`][key] = new_val;
+            }
         }
     }
 
@@ -156,7 +175,6 @@ set_dummy_val = function(editor,val){
 }
 
 hidePopupSelectors = function(force = false){
-
     if($('.number_picker_units:hover').length == 0 && $('.number_picker_unit_select:hover').length == 0 || force){
         $('.number_picker_units').addClass('none')
         window.selected_number_picker = null;
@@ -172,10 +190,6 @@ hidePopupSelectors = function(force = false){
     }
 
     $('.icons_browser').removeClass('icons_browser_show');
-
-    if($('.font_style_selector_elems:hover').length == 0 && $('.font_style_selector_container:hover').length == 0 || force){
-        $('.font_style_selector_elems').addClass('none')
-    }
 
     if($('.add_elem_popup:hover').length == 0 && $('.section_add_elem_btn:hover').length == 0 || force){
         $('.add_elem_popup').addClass('none')

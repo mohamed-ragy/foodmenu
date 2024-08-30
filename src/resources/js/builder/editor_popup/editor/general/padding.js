@@ -1,11 +1,11 @@
 draw_editor_popup_padding = function(){
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
-         if(key_tree == 'website_header.elems'){
-            key_tree = 'website_header.elems.children.header_wrapper'
+         if(key_tree == 'website_header'){
+            key_tree = 'website_header.children.header_wrapper'
         }
         let is_responsive = true;
-        let elem = get_elem_data(key_tree).elem;
+        let elem = get_element_data(key_tree);
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
@@ -20,12 +20,13 @@ draw_editor_popup_padding = function(){
                         key:'padding',
                         units:['px'],
                         step:1,
-                        names:[texts.styling.padding,texts.styling.padding_top,texts.styling.padding_right,texts.styling.padding_bottom,texts.styling.padding_left]
+                        names:[texts.styling.padding,texts.styling.padding_top,texts.styling.padding_right,texts.styling.padding_bottom,texts.styling.padding_left],
                     })
                 ]
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.padding)
             $(`.editor_popup_body_shortcut.editor_padding`).addClass('editor_popup_body_shortcut_selected')
             $(`.editor_popup_body_shortcut.editor_padding`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
         });

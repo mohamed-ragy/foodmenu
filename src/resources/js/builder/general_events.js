@@ -75,7 +75,7 @@ keyboard_shortcuts = function(e){
             $('.showWebsitePreviewLangs').children().first().text(window.website_data.languages[window.preview_language].name)
             window.history.pushState({},'',`/?template_id=${window.template_id}&preview_language=${window.preview_language}`)
             set_website_variable_data()
-            undo_redo_actions();
+            render_all();
         }catch{}
 
     }
@@ -85,13 +85,15 @@ keyboard_shortcuts = function(e){
     }
 
     if(e.which == 27){
-        hidePopupSelectors(true);
+        hidePopupSelectors(true);   
         $('.editor_popup').each(function(){
             if(!$(this).hasClass('editor_popup_dump')){
                 hide_editor_popup($(this).attr('id'));
                 return false;
             }
         })
+        hide_popup_window();
+        window.selected = null;
     }
     if(e.altKey){
         e.preventDefault();
@@ -208,3 +210,6 @@ document.execCommand = function(command, showUI, value) {
         throw new Error(`execCommand "${command}" is disabled`);
     }
 };
+
+
+//

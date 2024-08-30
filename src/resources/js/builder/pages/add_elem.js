@@ -74,7 +74,7 @@
 //                 $('.add_elem_preview_container').append(
 //                     $(`<div/>`,{elem_type:elem_type,key:key,class:'add_elem_elem',}).append(
 //                         $(`<${elem.tag}/>`,{
-//                             style:elem_style,text:texts.elems.title_placholder
+//                             style:elem_style,text:texts.elems.title_placeholder
 //                         })
 //                     )
 //                 )
@@ -118,8 +118,11 @@ $('body').on('click','.add_elem',function(e){
         case 'icon':
             new_elem = elem_icon();
         break;
+        case 'container': 
+            new_elem = elem_container();
+        break;
     }
-    let section_block = get_elem_data(window.selected).elem;
+    let section_block = get_element_data(window.selected);
     new_elem.sort = section_block.children.length;
     let new_elem_zindex = 1;
     for(const key in section_block.children){
@@ -129,7 +132,7 @@ $('body').on('click','.add_elem',function(e){
     }
     new_elem.css['z-index'] = new_elem_zindex;
     section_block.children.push(new_elem);
-    new_action();
+    new_action('','page.popup');
     close_popup();
     select(`${window.selected}.children.${new_elem.sort}`)
     switch($(this).attr('elem_type')){
@@ -174,7 +177,7 @@ $('body').on('click','.add_elem',function(e){
 //             new_elem = get_titles()[$(this).attr('key')]
 //         break;
 //     }
-//     let elem = get_elem_data(window.selected).elem;
+//     let elem = get_element_data(window.selected);
 //     new_elem.sort = elem.children.length;
 //     elem.children.push(new_elem);
 //     new_action();

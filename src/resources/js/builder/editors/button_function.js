@@ -4,13 +4,15 @@ draw_button_function_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     });
 
     return editor;
 }
 set_button_function_editor = function(editor){
     let val = get_editor_val(editor);
-    let elem = get_elem_data(window.selected).elem;
+    let elem = get_element_data(window.selected);
     editor.text('').append(
         draw_button_function_preview(elem)
     )
@@ -145,7 +147,7 @@ $('body').on('click','.button_function_preview_container',function(){
 })
 $('body').on('click','.editor_set_function',function(){
     let action = $(this).attr('action_key');
-    let elem = get_elem_data(window.selected).elem;
+    let elem = get_element_data(window.selected);
     elem.class = elem.class.replaceAll('open_page','').replaceAll('open_popup','').replaceAll('scroll_to_section','');
     delete elem.attr.href;
     delete elem.attr.page;
@@ -153,10 +155,24 @@ $('body').on('click','.editor_set_function',function(){
     delete elem.attr.section;
     delete elem.attr.product;
     delete elem.attr.category;
+    let elem_class_selector = get_element_data(window.selected).class_selector;
+    $(`.${elem_class_selector}`).attr('href','')
+    $(`.${elem_class_selector}`).attr('page','')
+    $(`.${elem_class_selector}`).attr('popup','')
+    $(`.${elem_class_selector}`).attr('section','')
+    $(`.${elem_class_selector}`).attr('product','')
+    $(`.${elem_class_selector}`).attr('category','')
+    $(`.${elem_class_selector}`).removeClass('open_page')
+    $(`.${elem_class_selector}`).removeClass('open_popup')
+    $(`.${elem_class_selector}`).removeClass('scroll_to_section')
+
     let hyperlink = get_hyperlinks()[$(this).attr('hyperlink_key')];
     for(const key in hyperlink.attr){
         elem.attr[key] = hyperlink.attr[key];
+        $(`.${elem_class_selector}`).attr(key,hyperlink.attr[key])
     }
+    $(`.${elem_class_selector}`).addClass(hyperlink.class)
     elem.class = `${elem.class} ${hyperlink.class}`;
-    new_action();
+    new_action(window.selected_button_function_editor.attr('generate_style'),window.selected_button_function_editor.attr('render'));
+    set_button_function_editor(window.selected_button_function_editor);
 })

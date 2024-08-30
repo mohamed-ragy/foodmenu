@@ -12,6 +12,8 @@ process_data = function(r) {
         window.templates = r.templates;
         window.website_texts_langs = r.website_texts;
         window.fonts = r.fonts;
+        window.loaded_fonts = [];
+        window.used_font_styles = [];
         //
         // window.loading_spinners = [];
         //
@@ -23,7 +25,8 @@ process_data = function(r) {
         //
 
         window.selected_page = null;
-        window.website_popup_opened = false;//maybe will be deleted and use window.selected
+        window.selected_popup = 'popup_window';
+        window.website_popup_opened = false;
         window.selected;
         window.builder_clipboard = null;
         //

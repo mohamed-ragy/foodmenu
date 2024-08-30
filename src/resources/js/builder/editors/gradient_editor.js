@@ -4,6 +4,8 @@ draw_gradient_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
             $('<div/>',{class:'fs09',text:texts.styling.gradient_style}),
@@ -105,7 +107,7 @@ set_gradient_editor_val = function(editor,colors=[]){
     }
     new_val = `${new_val})`
     set_val(editor,new_val);
-    new_action(false,true)
+    new_action(editor.attr('generate_style'),editor.attr('render'));
     color_gradient_editor_colors_position(editor);
 }
 //events

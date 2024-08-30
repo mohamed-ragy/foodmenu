@@ -11,13 +11,13 @@ section::after{
     position: absolute;
     inset:0 0 0 0;
     pointer-events: none;
-    z-index: 100;
+    // z-index: 100;
     transition-duration: 300ms;
     outline: 2px dashed transparent;
-    outline-offset: -2px;;
+    outline-offset: -2px;
 }
 section:hover {
-    z-index: 2;
+    // z-index: 2;
     .select_section_title{display:flex;background-color: var(--green-70);}
     .add_section_btn_style {
         transform: scale(1);
@@ -37,6 +37,7 @@ section:hover::after{
     .section_block::after{
         outline: 1px dashed var(--blue-50);
     }
+    .edit_btns_section{display: flex;}
 }
 .section_selected:hover {
     .select_section_title{display:flex;background-color: var(--green);}
@@ -45,7 +46,7 @@ section:hover::after{
     content: '';
     position: absolute;
     inset: 0 0 0 0;
-    z-index: 1;
+    // z-index: 1;
     pointer-events: none;
     outline: 2px solid var(--green);
     transition-duration: 300ms;

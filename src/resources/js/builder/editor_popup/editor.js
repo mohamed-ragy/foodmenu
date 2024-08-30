@@ -1,11 +1,12 @@
 require('./editor/section.js');
 require('./editor/header.js');
+require('./editor/popup.js');
 require('./editor/general.js');
 
 set_editor_popup_editor = function(){
     if(typeof(window.selected) === 'undefined'){return;}
     if(window.selected == null){return;}
-    let elem_data = get_elem_data(window.selected);
+    let elem = get_element_data(window.selected);
     $("#editor").css({
         top:'unset',
         bottom:'unset',
@@ -15,28 +16,29 @@ set_editor_popup_editor = function(){
     $('#editor').find('.editor_popup_head_btn').addClass('none');
     $('#editor').find('.editor_popup_title').text('')
     
-    switch(elem_data.elem.type){
+    switch(elem.type){
         case 'section':
-            $('#editor').find('.editor_popup_title').text(elem_data.elem.name)
+            $('#editor').find('.editor_popup_title').text(elem.name)
             set_editor_popup_editor_position_section(window.selected);
-            // draw_editor_popup_editor_shortcuts_section(elem_data);
         break;
         case 'section_block':
             $('#editor').find('.editor_popup_title').text(texts.section_block)
             set_editor_popup_editor_position_section_block(window.selected);
-            // draw_editor_popup_editor_shortcuts_section_block(elem_data);
         break;
         case 'elem':
-            $('#editor').find('.editor_popup_title').text(texts.elems[elem_data.elem.elem_type])
-            // draw_editor_popup_editor_shortcuts_elem(elem_data);
+            $('#editor').find('.editor_popup_title').text(texts.elems[elem.elem_type])
             set_editor_popup_editor_position_elem(window.selected);
+        break;
+        case 'container':
+            $('#editor').find('.editor_popup_title').text(texts.elems.container)
+            set_editor_popup_editor_position_container(window.selected);
         break;
         case 'website_header': 
             $('#editor').find('.editor_popup_title').text(texts.website_tools.header)
             set_editor_popup_editor_position_header();
         break;
         case 'header_component': 
-            $('#editor').find('.editor_popup_title').text(texts.styling[elem_data.elem.header_component])
+            $('#editor').find('.editor_popup_title').text(texts.styling[elem.header_component])
             set_editor_popup_editor_position_header();
         break;
         case 'header_navList_item':
@@ -51,6 +53,10 @@ set_editor_popup_editor = function(){
             $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list_item)
             set_editor_popup_editor_position_header();
         break;
+        case 'popup_card' :
+                $('#editor').find('.editor_popup_title').text(texts.website_tools.popup_window)
+                set_editor_popup_editor_position_popup();
+        break;
     }
     fix_editor_popup_position($('#editor'))
     draw_editor_popup_editor_shortcuts();
@@ -58,7 +64,7 @@ set_editor_popup_editor = function(){
 
 $('body').on('click','.editor_popup_body_shortcut',function(e){
     setTimeout(()=>{
-        undo_redo_actions(true,false);
+        set_all_editors()
     },100)
     let editor_popup = $(this).closest('.editor_popup');
     editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
@@ -69,6 +75,7 @@ $('body').on('click','.editor_popup_body_shortcut',function(e){
     if($(this).hasClass('editor_popup_body_shortcut_group_elem')){
         $(this).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     }
+    // $(this).closest('.editor_popup').find('.editor_popup_title2').text($(this).attr('tooltip'))
     stop_preview_animations();
     if($(this).hasClass('editor_animation')){
         play_preview_animations();
@@ -78,8 +85,8 @@ $('body').on('click','.set_editor_popup_editor',function(){
     set_editor_popup_editor();
 })
 draw_editor_popup_editor_shortcuts = function(){
-    let elem_data = get_elem_data(window.selected);
-    let accessibility = elem_data.elem.accessibility;
+    let elem = get_element_data(window.selected)
+    let accessibility = elem.accessibility;
     $('#editor').find('.editor_popup_body_shortcuts').text('')
     $('#editor').find('.editor_popup_body_shortcuts').append(
         accessibility.includes('header_settings') ?
@@ -112,6 +119,12 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('header_mobileNav_icon') ?
         $('<div/>',{class:'editor_popup_body_shortcut ico-mobile_navbar_icon editor_header_mobileNav_icon',tooltip:texts.styling.header_mobileNav_icon})
         :'',
+        accessibility.includes('popup_widnow') ?
+        $('<div/>',{class:'editor_popup_body_shortcut ico-popup_window editor_popup_popup_widnow',tooltip:texts.website_tools.popup_window})
+        :'',
+        accessibility.includes('popup_window_close_icon') ?
+        $('<div/>',{class:'editor_popup_body_shortcut ico-close_icon editor_popup_popup_window_close_icon',tooltip:texts.styling.close_icon})
+        :'',
         accessibility.includes('button') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-button editor_button`,tooltip:texts.styling.button})
         : '',
@@ -127,8 +140,8 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('display') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-display editor_display`,tooltip:texts.styling.display})
         : '',
-        accessibility.includes('section_rename') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-rename editor_section_rename`,tooltip:texts.rename})
+        accessibility.includes('rename') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-rename editor_rename`,tooltip:texts.rename})
         : '',
         accessibility.includes('section_sizing') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-sizing editor_section_sizing`,tooltip:texts.sizing})
@@ -136,11 +149,11 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('section_spacing') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-spacing editor_section_spacing`,tooltip:texts.spacing})
         : '',
-        accessibility.includes('section_adapt_header') && elem_data.elem.sort == 0 ?
+        accessibility.includes('section_adapt_header') && elem.sort == 0 ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-header editor_section_adapt_header`,tooltip:texts.styling.adapt_header})
         : '',
         accessibility.includes('section_layout') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-layout editor_section_layout`,tooltip:texts.change_layout})
+        $('<div/>',{class:`editor_popup_body_shortcut ico-layout editor_section_layout`,tooltip:texts.section_layout})
         : '',
         accessibility.includes('section_driver') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-driver editor_section_driver`,tooltip:texts.styling.section_driver})
@@ -177,6 +190,9 @@ draw_editor_popup_editor_shortcuts = function(){
          )
         : '',
         //
+        accessibility.includes('transition') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-pageTransition editor_transition`,tooltip:texts.styling.transition})
+        : '',
         accessibility.includes('animation') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-animation editor_animation`,tooltip:texts.styling.animation})
         : '',

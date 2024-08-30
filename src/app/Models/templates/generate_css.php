@@ -28,15 +28,16 @@ class generate_css
         self::generate_vars();
         self::generate_global_selectors();
 
-        self::add_to_file(self::generate_class($this->template['website_header']['elems']));
-        // self::add_transition($this->template['website_header']['elems']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation_name']);
+        self::add_to_file(self::generate_class($this->template['website_header']));
+        // self::add_transition($this->template['website_header']['children']['header_wrapper']['children']['header_navList']['children']['header_drop_down_list']['animation_name']);
         // self::add_to_file(self::generate_class($this->template['website_header']['header_drop_down_list_item']));
         //
 
 
         // self::add_to_file(templates_data::loading_spinners()[$this->template['loading_spinner']['key']]['css']);
-        self::add_to_file(self::generate_class($this->template['popup_window']['elems']));
-        self::add_transition($this->template['popup_window']['transition']);
+        self::add_to_file(self::generate_class($this->template['popup_window']));
+        self::add_to_file(self::generate_class($this->template['login_popup']));
+        // self::add_transition($this->template['popup_window']['transition']);
 
         foreach($this->template['home'] as $section){
             self::generate_class($section);
@@ -82,17 +83,23 @@ class generate_css
             self::add_transition($elem['transition']);
         }
         if(array_key_exists('class_selector',$elem)){
+            $animation_name = '';
+            $animation_name_mobile = '';
+            if(array_key_exists('animation',$elem)){
+                $animation_name = $elem['animation']['name'];
+                $animation_name_mobile = $elem['animation_mobile']['name'];
+            }
             $css_start = ".{$elem['class_selector']}{";
             $css = '';
             if(array_key_exists('css', $elem)){
-                $css = $css.self::add_css_style($elem['css']);
+                $css = $css.self::add_css_style($elem['css'],$animation_name);
             }
             if(array_key_exists('background', $elem)){
                 $css = $css.self::add_background_style($elem['background']);
             }
             $css = $css."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
             if(array_key_exists('css_mobile', $elem)){
-                $css = $css.self::add_css_style($elem['css_mobile']);
+                $css = $css.self::add_css_style($elem['css_mobile'],$animation_name_mobile);
             }
             if(array_key_exists('background_mobile', $elem) ){
                 $css = $css.self::add_background_style($elem['background_mobile']);
@@ -228,14 +235,14 @@ class generate_css
                         $css_hover_start = ".{$elem['class_selector']}:hover{";
                     }
                     if(array_key_exists('css_hover',$elem)){
-                        $css_hover = $css_hover.self::add_css_style($elem['css_hover']);
+                        $css_hover = $css_hover.self::add_css_style($elem['css_hover'],$animation_name);
                     }
                     if(array_key_exists('background_hover',$elem)){
                         $css_hover = $css_hover.self::add_background_style($elem['background_hover']);
                     }
                     $css_hover = $css_hover."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_hover_mobile',$elem)){
-                        $css_hover = $css_hover.self::add_css_style($elem['css_hover_mobile']);
+                        $css_hover = $css_hover.self::add_css_style($elem['css_hover_mobile'],$animation_name_mobile);
                     }
                     if(array_key_exists('background_hover_mobile',$elem)){
                         $css_hover = $css_hover.self::add_background_style($elem['background_hover_mobile']);
@@ -252,11 +259,11 @@ class generate_css
                     $css_click = '';
                     $css_click_start = ".{$elem['class_selector']}:active{";
                     if(array_key_exists('css_click',$elem)){
-                        $css_click = $css_click.self::add_css_style($elem['css_click']);
+                        $css_click = $css_click.self::add_css_style($elem['css_click'],$animation_name);
                     }
                     $css_click = $css_click."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_click_mobile',$elem)){
-                        $css_click = $css_click.self::add_css_style($elem['css_click_mobile']);
+                        $css_click = $css_click.self::add_css_style($elem['css_click_mobile'],$animation_name_mobile);
                     }
                     $css_click = $css_click."}";
 
@@ -269,12 +276,12 @@ class generate_css
                     $css_focus = '';
                     $css_focus_start = ".{$elem['class_selector']}:focus{";
                     if(array_key_exists('css_focus',$elem)){
-                        $css_focus = $css_focus.self::add_css_style($elem['css_focus']);
+                        $css_focus = $css_focus.self::add_css_style($elem['css_focus'],$animation_name);
 
                     }
                     $css_focus = $css_focus."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_focus_mobile',$elem)){
-                        $css_focus = $css_focus.self::add_css_style($elem['css_focus_mobile']);
+                        $css_focus = $css_focus.self::add_css_style($elem['css_focus_mobile'],$animation_name_mobile);
 
                     }
                     $css_focus = $css_focus."}";
@@ -285,11 +292,11 @@ class generate_css
                     $css_disabled = '';
                     $css_disabled_start = ".{$elem['class_selector']}:disabled{";
                     if(array_key_exists('css_disabled',$elem)){
-                        $css_disabled = $css_disabled.self::add_css_style($elem['css_disabled']);
+                        $css_disabled = $css_disabled.self::add_css_style($elem['css_disabled'],$animation_name);
                     }
                     $css_disabled = $css_disabled."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_disabled_mobile',$elem)){
-                        $css_disabled = $css_disabled.self::add_css_style($elem['css_disabled_mobile']);
+                        $css_disabled = $css_disabled.self::add_css_style($elem['css_disabled_mobile'],$animation_name_mobile);
                     }
                     $css_disabled = $css_disabled."}";
                     $css_disabled_end = "}";
@@ -389,6 +396,7 @@ class generate_css
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
         body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;color:{$this->template['page_setup']['font_color']};background-color:{$this->template['page_setup']['bg_color']}}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
+        .input{all:unset;}
         textarea{resize: none;}
         a{color:unset;text-decoration: unset;cursor: pointer;}
         a:hover{color:unset;text-decoration: unset;cursor: pointer;}
@@ -415,16 +423,44 @@ class generate_css
         string;
         self::add_to_file($css);
     }
-    public function add_css_style($styles){
+    public function add_css_style($styles,$animation_name){
         $return_style = '';
         foreach($styles as $key => $val){
-            if($key == 'max-width' ){
-                try{
-
-                    $margin = explode(' ',$styles['margin']);
-                    $val = "calc({$val} - {$margin[1]} - {$margin[3]})";
-                }catch (\Exception $e){
-
+            if($animation_name != 'no_animation' && $key == 'filter'){
+                $val = 'unset';
+            }
+            if($animation_name != 'no_animation' && $key == 'transform'){
+                $val = 'unset';
+            }
+            if($animation_name != 'no_animation' && $key == 'transform-origin'){
+                $val = 'unset';
+            }
+            if($key == 'max-width' || $key == 'width' || $key == 'min-width'){
+                if(strpos($val, '%') !== false){
+                    $margin_right = '0px';
+                    $margin_left = '0px';
+                    try{
+                        $margin = explode(' ',$styles['margin']);
+                        $margin_right = $margin[1];
+                        $margin_left = $margin[3];
+                    }catch (\Exception $e){
+    
+                    }
+                    $val = "calc({$val} - {$margin_right} - {$margin_left})";
+                }
+            }
+            if($key == 'max-height' || $key == 'height' || $key == 'min-height'){
+                if(strpos($val, '%') !== false){
+                    $margin_top = '0px';
+                    $margin_bottom = '0px';
+                    try{
+                        $margin = explode(' ',$styles['margin']);
+                        $margin_top = $margin[0];
+                        $margin_bottom = $margin[2];
+                    }catch (\Exception $e){
+    
+                    }
+                    $val = "calc({$val} - {$margin_top} - {$margin_bottom})";
                 }
             }
             $return_style = $return_style."{$key}:{$val};";

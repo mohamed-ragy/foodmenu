@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/cpanel/colors.css?v=1') }}">
     <link rel="stylesheet" href="/css/builder/builder.css">
     <link id="custom_font" href="" rel="stylesheet">
-
+    <style type="text/css"></style>
     <title>{{ trans('builder.title') }}</title>
 </head>
 @include('page_loading')
@@ -19,7 +19,7 @@
     <header class="none builder_header"></header>
     <div class="desktop_view">
         <div id="website" class="website_body">
-            <div class="popup_container"></div>
+            {{-- <div class="popup_container"></div> --}}
             <div id="page"></div>
         </div>
         <div class="resize_mobile_view ico-drag2" tooltip=""></div>
@@ -30,14 +30,12 @@
     </form>
     <div id="contextMenu" class="none"></div>
     <div id="contextSubmenu" class="none"></div>
-    <div class="editor_popup none"></div>
-    <div class="add_elem_popup none"></div>
+    {{-- <div class="editor_popup none"></div> --}}
+    {{-- <div class="add_elem_popup none"></div> --}}
     <div id="tooltipDiv" class=""></div>
     <div class="inputList_elems none" tabindex="0"></div>
     <div class="number_picker_units none"></div>
     <div class="color_picker_editor_popup none"></div>
-    <div class="font_style_selector_elems none"></div>
-    <div class="color_selector_palette_colors none"></div>
     <div class="icons_browser"></div>
     <div class="text_format_popup none"></div>
     <div id="alertsContainer"></div>

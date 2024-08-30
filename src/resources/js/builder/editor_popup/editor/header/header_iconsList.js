@@ -36,10 +36,10 @@ draw_editor_popup_header_iconsList = function(){
                                     $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                         $('<div/>',{class:'fs09',text:texts.styling.icon_color}),
                                         draw_color_picker({
-                                            key_tree:'website_header.elems.children.header_wrapper.children.header_iconsList.children.header_iconsList_icon',
+                                            key_tree:'website_header.children.header_wrapper.children.header_iconsList.children.header_iconsList_icon',
                                             variable_key:'css',
                                             key:'fill',
-                                            editor_class:'header_iconsList_icon_color'
+                                            editor_class:'header_iconsList_icon_color',
                                         })
                                     )
                                 ]
@@ -52,27 +52,26 @@ draw_editor_popup_header_iconsList = function(){
                             $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.icon}),
                                 draw_svg_icon_picker({  
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_cart.children`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children`,
                                     variable_key:null,
                                     key:'icon',
                                     icon_type:'cart',
-                                })
+                                }),
                             ),
                             $('<div/>',{class:'editor_popup_col'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.icon_size}),
                                 draw_select_range({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_cart.children.icon`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children.icon`,
                                     variable_key:'css',
                                     key:'width',
                                     range:{min:10,max:50,step:1},
                                     unit:'px',
-                                    editor_class:'edit_header_iconList_icon_size'
                                 })
                             ),
                             $('<div/>',{class:'editor_popup_row'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.cart_items_number}),
                                 draw_select_box({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_cart.children.header_icon_cart_num`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children.header_icon_cart_num`,
                                     variable_key:'css',
                                     key:'display',
                                     selections:[{text:texts.styling.show,key:'inline',show_elem:'edit_header_icon_cart_num_container'},{text:texts.styling.hide,key:'none',hide_elem:'edit_header_icon_cart_num_container'}]
@@ -81,7 +80,7 @@ draw_editor_popup_header_iconsList = function(){
                             $('<div/>',{class:'editor_popup_row edit_header_icon_cart_num_container'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.cart_items_number_color}),
                                 draw_color_picker({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_cart.children.header_icon_cart_num`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children.header_icon_cart_num`,
                                     variable_key:'css',
                                     key:'color',
                                 })
@@ -89,7 +88,7 @@ draw_editor_popup_header_iconsList = function(){
                             $('<div/>',{class:'editor_popup_col edit_header_icon_cart_num_container'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.cart_items_number_size}),
                                 draw_select_range({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_cart.children.header_icon_cart_num`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children.header_icon_cart_num`,
                                     variable_key:'css',
                                     key:'font-size',
                                     range:{min:10,max:20,step:1},
@@ -101,21 +100,20 @@ draw_editor_popup_header_iconsList = function(){
                             $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.icon}),
                                 draw_svg_icon_picker({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_user.children`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_user.children`,
                                     variable_key:null,
                                     key:'icon',
                                     icon_type:'user',
-                                })
+                                }),
                             ),
                             $('<div/>',{class:'editor_popup_col'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.icon_size}),
                                 draw_select_range({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_user.children.icon`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_user.children.icon`,
                                     variable_key:'css',
                                     key:'width',
                                     range:{min:10,max:50,step:1},
                                     unit:'px',
-                                    editor_class:'edit_header_iconList_icon_size'
                                 })
                             ),
                         ),
@@ -123,7 +121,7 @@ draw_editor_popup_header_iconsList = function(){
                             $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.icon}),
                                 draw_svg_icon_picker({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_language.children`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_language.children`,
                                     variable_key:null,
                                     key:'icon',
                                     icon_type:'language',
@@ -132,12 +130,11 @@ draw_editor_popup_header_iconsList = function(){
                             $('<div/>',{class:'editor_popup_col'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.icon_size}),
                                 draw_select_range({
-                                    key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.header_language.children.icon`,
+                                    key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_language.children.icon`,
                                     variable_key:'css',
                                     key:'width',
                                     range:{min:10,max:50,step:1},
                                     unit:'px',
-                                    editor_class:'edit_header_iconList_icon_size'
                                 })
                             ),
                         ),
@@ -147,14 +144,18 @@ draw_editor_popup_header_iconsList = function(){
     })
     setTimeout(()=>{
         draw_edit_header_iconsList();
+        $('.editor_popup_title2').text('')
         $(`.editor_popup_body_shortcut.editor_header_iconsList`).addClass('editor_popup_body_shortcut_selected')
     });
 }
 $('body').on('click','.editor_header_iconsList',function(e){
+    if(window.current_view !== 'desktop'){
+        desktop_view();
+    }
     draw_editor_popup_header_iconsList();
 })
 draw_edit_header_iconsList = function(){
-    let sorted_header_iconList = Object.entries(window.template.website_header.elems.children.header_wrapper.children.header_iconsList.children).sort(function(a,b){
+    let sorted_header_iconList = Object.entries(window.template.website_header.children.header_wrapper.children.header_iconsList.children).sort(function(a,b){
         return parseInt(a[1].attr.sort) - parseInt(b[1].attr.sort);
     });
     $('.edit_header_iconsList_container').text('');
@@ -167,7 +168,7 @@ draw_edit_header_iconsList = function(){
             $('.edit_header_iconsList_container').append(
                 $('<div/>',{class:'editor_popup_row editor_popup_show_container pointer',key:`header_iconsList_${icon_key}`}).append(
                     $('<div/>',{class:'row alnC jstfyS'}).append(
-                        $('<div/>',{class:'ico-drag mie-10 c_white-11 fs101 cursorMove header_icon_list_sorter',icon_sort:sort,key_tree:`website_header.elems.children.header_wrapper.children.header_iconsList.children.${icon_key}.attr`}),
+                        $('<div/>',{class:'ico-drag mie-10 c_white-11 fs101 cursorMove header_icon_list_sorter',icon_sort:sort,key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.${icon_key}.attr`}),
                         $('<div/>',{class:'fs09',text:texts.styling[icon_key]}),
                     ),
                     $('<div/>',{class:'ico-arrowRight'})
@@ -175,8 +176,8 @@ draw_edit_header_iconsList = function(){
             )
         }
     }
-    $('.edit_header_iconsList_container').find('.editor_popup_row').first().addClass('editor_popup_brdrT_none')
-    undo_redo_actions(true,false)
+    $('.edit_header_iconsList_container').find('.editor_popup_row').first().addClass('editor_popup_brdrT_none');
+    set_all_editors()
 }
 $('body').on('mousedown','.header_icon_list_sorter',function(e){
     if($('.header_icon_list_sorter_div').length == 0){
@@ -198,7 +199,7 @@ $('body').on('mouseleave','.edit_header_iconsList_container',function(e){
         $('.header_icon_list_sorter_div').remove();
     }
 })
-$('body').on('mouseup','.header_icon_list_sorter_div',function(e){
+$('body').on('mouseup','.edit_header_iconsList_container',function(e){
     if($('.header_icon_list_sorter_div').length == 0){return;}
     try{
         let from_key_tree = $('.header_icon_list_sorter_div').find('.header_icon_list_sorter').attr('key_tree');
@@ -211,10 +212,11 @@ $('body').on('mouseup','.header_icon_list_sorter_div',function(e){
                 to_sort = $(this).find('.header_icon_list_sorter').attr('icon_sort');
             }
         })
-        get_elem_data(from_key_tree).elem.sort = to_sort;
-        get_elem_data(to_key_tree).elem.sort = from_sort;
+        get_element_data(from_key_tree).sort = to_sort;
+        get_element_data(to_key_tree).sort = from_sort;
         $('.header_icon_list_sorter_div').remove();
-        new_action();
+        new_action('','header');
+        draw_edit_header_iconsList();
     }catch{
         $('.header_icon_list_sorter_div').remove();
     }
@@ -228,15 +230,7 @@ $('body').on('change','.header_iconsList_icon_color',function(){
     editor.attr('key','color');
     set_val(editor,val);
     editor.attr('key','fill');
-    new_action();
+    new_action(editor.attr('key_tree'),'header');
 
 })
-$('body').on('change','.edit_header_iconList_icon_size',function(){
-    let editor = $(this);
-    let val = get_editor_val(editor);
-    editor.attr('key','height');
-    set_val(editor,val);
-    editor.attr('key','width');
-    new_action();
-
-})
+// 

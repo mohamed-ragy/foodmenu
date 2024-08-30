@@ -5,6 +5,8 @@ draw_switch_btn = function(data){
         variable_key:data.variable_key,
         key:data.key,
         show_hide:data.show_hide ?? '',
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     })
     return editor;
 }
@@ -49,15 +51,16 @@ set_dummy_switch_btn = function(editor,val){
     }
 }
 $('body').on('change','.switch_btn',function(e){
-    if($(this).hasClass('dummy_editor')){return;}
+    let editor = $(this);
+    if(editor.hasClass('dummy_editor')){return;}
     let new_val;
-    if($(this).hasClass('switch_btn_selected')){
+    if(editor.hasClass('switch_btn_selected')){
         new_val = '1';
     }else{
         new_val = '0';
     }
-    set_val($(this),new_val);
-    new_action();
+    set_val(editor,new_val);
+    new_action(editor.attr('generate_style'),editor.attr('render'));
 })
 $('body').on('click','.switch_btn',function(e){
     if($(this).hasClass('switch_btn_disabled')){

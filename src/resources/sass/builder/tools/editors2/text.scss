@@ -1,6 +1,3 @@
-.elem[contenteditable="true"]{
-    outline:none;
-}
 .text_format_popup{
     z-index: 500;
     position: fixed;
@@ -55,4 +52,11 @@
 .text_format_btn_dummy{
     pointer-events: none;
     color:var(--white-4) !important;
+}
+.format_container:empty:after {
+    content: attr(placeholder);
+    color: gray;
+    pointer-events: none;
+    font-size: .8rem;
+    white-space: nowrap;
 }

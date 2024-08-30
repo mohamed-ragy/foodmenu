@@ -46,6 +46,7 @@ $(document).ready(function(){
         $(':root').css('--header_height',`${$('header').outerHeight()}px`)
         fix_header_nav_list();
     })
+    scroll_elem_animation('top');
 
     // set_website_data();
     // $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
@@ -113,8 +114,10 @@ apply_scroll_animation = function(elem,scroll_direction){
     let in_start = up_end;
     let in_end = down_start;
     
-    if($('body').scrollTop() == 0 && elem_offset_bottom < down_out_end && scroll_direction != 'top'){
-        set_elem_animation(class_selector,'in',false)
+    if($('body').scrollTop() == 0 && scroll_direction != 'top'){
+        if(elem_offset_bottom < down_out_end){
+            set_elem_animation(class_selector,'in',false)
+        }
         return; 
     }
     if(scroll_direction == 'top'){

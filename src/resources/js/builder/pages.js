@@ -2,15 +2,7 @@
 set_page = function(page){
     $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[page])
     page_transition(page);
-    // switch (page) {
-        // case 'home':
-        // page_transition(page);
-        // break;
-
-
-        // default:
-            // break;
-    // }
+    hide_popup_window();
 }
 page_transition = function(page){
     $('#page').removeClass(`${window.template.page_setup.pageTransition}_in`)
@@ -19,7 +11,7 @@ page_transition = function(page){
     window.selected = null;
     hide_editor_popup('editor')
     setTimeout(()=>{
-        draw_page(page)
+        render_page(page)
         $('#page').removeClass(`${window.template.page_setup.pageTransition}_out`).addClass(`${window.template.page_setup.pageTransition}_in`)
         scroll_elem_animation('top');
         $('#website').scrollTop(0)
@@ -31,13 +23,11 @@ page_transition = function(page){
         },window.template.page_setup.transitionDuration.replace('ms',''))
     },window.template.page_setup.transitionDuration.replace('ms',''))
 }
-draw_page = function(page){
+render_page = function(page){
     if(page == null){return;}
     let website_scrolltop = $('#website').scrollTop();
     $('#page').text('')
     window.selected_page = page;
-    draw_website_header_html();
-    set_template_vars();
     //
     window.template[page].sort((a,b)=>{
         return parseInt(a.sort) - parseInt(b.sort);
@@ -65,20 +55,36 @@ draw_page = function(page){
     }catch{
         hide_editor_popup('editor')
     }
+    set_template_vars();
+    console.log(`${page} page rendered`)
+}
+//
+set_popup = function(popup){
+    $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[popup])
+    show_popup_window(function(){
+        draw_popup(popup)
+    })
+}
+draw_popup = function(popup){
+    window.selected_popup = popup;
+    $('#website').find('.popup_card').append(
+        generate_html(window.template[popup],popup),
+    )
 }
 //
 delete_selected = function(){
-    let elem_data = get_elem_data(window.selected);
-    if(elem_data.elem.type == 'section'){
+    let elem = get_element_data(window.selected);
+    let parent = get_element_parent_data(window.selected);
+    if(elem === undefined){return;}
+    if(elem.type == 'section'){
         if(!accessibility_check(window.selected,'section_delete')){return;}
-        window.template[window.selected_page].splice(elem_data.elem.sort,1)
+        window.template[window.selected_page].splice(elem.sort,1)
         for(const key in window.template[window.selected_page]){
             window.template[window.selected_page][key].sort = parseInt(key);
         }
-    }else if(elem_data.elem.type == 'elem'){
-        let this_elem_sort = elem_data.elem.sort;
+    }else if(elem.type == 'elem' || elem.type == 'container'){
+        let this_elem_sort = elem.sort;
         let new_children = [];
-        let parent = elem_data.section_block;
         for(const key in parent.children){
             if(parent.children[key].sort != this_elem_sort){
                 new_children.push(parent.children[key]);
@@ -92,14 +98,18 @@ delete_selected = function(){
 
     hide_editor_popup('editor')
     window.selected = undefined;
-    new_action();
+    new_action('','all');
 }
+
 ///
 require('./pages/section.js')
 require('./pages/add_section.js')
 require('./pages/section_block.js')
 require('./pages/elem.js')
+require('./pages/container.js')
 require('./pages/add_elem.js')
+//
+require('./pages/login.js')
 
 
 

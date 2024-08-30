@@ -1,6 +1,6 @@
-draw_website_header_html = function(){
+render_website_header = function(){
     $('.website_header').remove();
-    $('#page').before(generate_html(window.template.website_header.elems,'website_header.elems'))
+    $('#page').before(generate_html(window.template.website_header,'website_header'))
     $('.website_header').addClass('stop_transitions')
     let sorted_header_navList = $('.header_navList').find('.header_navList_item').sort((a,b)=>{
         return parseInt($(a).attr('sort')) - parseInt($(b).attr('sort'))
@@ -16,6 +16,8 @@ draw_website_header_html = function(){
         fix_header_nav_list();
         $('.website_header').removeClass('stop_transitions')
     },200)
+    set_template_vars();
+    console.log('header rendered')
 }
 set_adapted_header = function(){
     if(window.selected_page == null){return}

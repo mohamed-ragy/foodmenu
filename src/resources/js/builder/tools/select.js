@@ -1,18 +1,20 @@
 select = function(key_tree){
-
+    // if(window.selected == key_tree){return;}
     try{
         if(typeof(key_tree) === 'undefined'){return;}
         if(key_tree != window.selected){
             hide_editor_popup('editor')
         }
-        let elem = get_elem_data(key_tree).elem
+        let elem = get_element_data(key_tree)
         window.selected = key_tree;
         $('section').removeClass('section_selected');
         $(`.section_block`).removeClass('section_block_selected')
         $(`.elem`).removeClass('edit_elem_selected')
+        $(`.container`).removeClass('edit_container_selected')
         $('.website_header').removeClass('selected_header')
         $('.header_component').removeClass('header_component_selected')
         $('.header_navList_item').removeClass('header_component_selected')
+        $('#website').find('.popup_card').removeClass('popup_window_selected')
         hide_header_drop_down_list();   
         let selection = window.getSelection();
         selection.removeAllRanges();
@@ -27,6 +29,10 @@ select = function(key_tree){
             case 'elem':
                 $(`.elem[key_tree="${key_tree}"]`).addClass('edit_elem_selected');
             break;
+            case 'container':
+                $(`.container[key_tree="${key_tree}"]`).addClass('edit_container_selected');
+            break;
+            //header
             case 'website_header':
                 $('.website_header').addClass('selected_header')
             break;
@@ -47,11 +53,22 @@ select = function(key_tree){
             case 'header_drop_down_list_item':
                 show_header_drop_down_list('foodmenu');
             break;
+            //popup window
+            case 'popup_card':
+                if(window.website_popup_opened){
+                    $('#website').find('.popup_card').addClass('popup_window_selected')
+                }else{
+                    show_popup_window(function(){
+                        $('#website').find('.popup_card').addClass('popup_window_selected')
+                    });
+                }
+            break;
         }
     }catch{
         hide_editor_popup('editor')
     }
 }
+
 //
 heighlight_all = function(){
     $('section').addClass('section_selected');

@@ -1,9 +1,6 @@
 editor_bring_to_front = function(){
-    let elem_data = get_elem_data(window.selected);
-    let elem = elem_data.elem;
-    let parent;
-    if(elem.type == 'elem'){parent = elem_data.section_block;}
-    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
+    let elem = get_element_data(window.selected);
+    let parent = get_element_parent_data(window.selected);
     let new_zindex = elem.css['z-index'];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -14,19 +11,16 @@ editor_bring_to_front = function(){
         }
     }
     elem.css['z-index'] = new_zindex;
-    new_action();
+    new_action('','');
+    generate_elem_style(elem)
 }
 $('body').on('click','.editor_bring_to_front',function(){
     editor_bring_to_front()
-
 })
 //
 editor_bring_forward = function(){
-    let elem_data = get_elem_data(window.selected);
-    let elem = elem_data.elem;
-    let parent;
-    if(elem.type == 'elem'){parent = elem_data.section_block;}
-    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
+    let elem = get_element_data(window.selected);
+    let parent = get_element_parent_data(window.selected);
     let zindex_arr = [];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -41,18 +35,16 @@ editor_bring_forward = function(){
         new_zindex = Math.min(...zindex_arr) +1;
     }
     elem.css['z-index'] = new_zindex;
-    new_action();
+    new_action('','');
+    generate_elem_style(elem)
 }
 $('body').on('click','.editor_bring_forward',function(){
     editor_bring_forward();
 })
 //
 editor_send_to_back = function(){
-    let elem_data = get_elem_data(window.selected);
-    let elem = elem_data.elem;
-    let parent;
-    if(elem.type == 'elem'){parent = elem_data.section_block;}
-    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
+    let elem = get_element_data(window.selected);
+    let parent = get_element_parent_data(window.selected);
     let new_zindex = elem.css['z-index'];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -68,18 +60,16 @@ editor_send_to_back = function(){
         }
     }
     elem.css['z-index'] = new_zindex;
-    new_action();
+    new_action('','');
+    generate_elem_style(elem)
 }
 $('body').on('click','.editor_send_to_back',function(){
     editor_send_to_back();
 })
 //
 editor_send_backward = function(){
-    let elem_data = get_elem_data(window.selected);
-    let elem = elem_data.elem;
-    let parent;
-    if(elem.type == 'elem'){parent = elem_data.section_block;}
-    else if(elem.type == 'section_block'){parent = elem_data.section_wrapper}
+    let elem = get_element_data(window.selected);
+    let parent = get_element_parent_data(window.selected);
     let zindex_arr = [];
     for(const key in parent.children){
         let child = parent.children[key];
@@ -97,7 +87,8 @@ editor_send_backward = function(){
         new_zindex = 1;
     }
     elem.css['z-index'] = new_zindex;
-    new_action();
+    new_action('','');
+    generate_elem_style(elem)
 }
 $('body').on('click','.editor_send_backward',function(){
     editor_send_backward();

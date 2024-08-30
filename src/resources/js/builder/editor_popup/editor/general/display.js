@@ -1,5 +1,8 @@
 draw_editor_popup_display = function(){
     show_editor_popup('editor',function(){
+        let elem = get_element_data(window.selected);
+        let show_key = 'block';
+        if(elem.type == 'container'){show_key = 'flex'}
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
@@ -11,12 +14,12 @@ draw_editor_popup_display = function(){
                             variable_key:'css',
                             key:'display',
                             selections:[
-                                {text:texts.styling.show,key:'block'},
+                                {text:texts.styling.show,key:show_key},
                                 {text:texts.styling.hide,key:'none'},
                             ]
                         })
                     ),
-                    $('<div/>',{class:'editor_popup_col'}).append(
+                    elem.type != 'container' ? $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.align_self}),
                         draw_select_box({
                             key_tree:window.selected,
@@ -29,7 +32,7 @@ draw_editor_popup_display = function(){
                                 {text:texts.styling.end,key:'flex-end'},
                             ]
                         })
-                    ),
+                    ) : '',
                     $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.overflow}),
                         draw_select_box({
@@ -47,6 +50,7 @@ draw_editor_popup_display = function(){
         )
     })
     setTimeout(()=>{
+        $('.editor_popup_title2').text(texts.styling.display)
         $(`.editor_popup_body_shortcut.editor_display`).addClass('editor_popup_body_shortcut_selected')
     });
 }

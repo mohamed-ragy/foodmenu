@@ -14,7 +14,7 @@ draw_editor_popup_icon = function(){
                         draw_png_icon_selector({
                             key_tree:`${window.selected}`,
                             variable_key:'attr',
-                            key:'src'
+                            key:'src',
                         })
                     ),
                     $('<div/>',{class:'editor_popup_container w100p none',key:'editor_icon_size',parent_key:'editor_icon'}).append(
@@ -38,6 +38,7 @@ draw_editor_popup_icon = function(){
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text('')
             $(`.editor_popup_body_shortcut.editor_icon`).addClass('editor_popup_body_shortcut_selected')
         });
     })

@@ -1,6 +1,7 @@
 draw_contextMenu = function(){
-    let elem_data = get_elem_data(window.selected);
-    let accessibility = elem_data.elem.accessibility;
+    let elem = get_element_data(window.selected);
+    let parent = get_element_parent_data(window.selected);
+    let accessibility = elem.accessibility;
     let contextMenu = $('<div/>',{class:'w100p'});
 
 
@@ -45,21 +46,29 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-mobile_navbar_icon',child1_text:texts.styling.header_mobileNav_icon,class:'editor_header_mobileNav_icon'})
         )
     }
-
+    if(accessibility.includes('popup_widnow')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-popup_window',child1_text:texts.website_tools.popup_window,class:'editor_popup_popup_widnow'})
+        )
+    }
+    if(accessibility.includes('popup_window_close_icon')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-close_icon',child1_text:texts.styling.close_icon,class:'editor_popup_popup_window_close_icon'})
+        )
+    }
     if(accessibility.includes('add_elem')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-add_elem',child1_text:texts.add_element,child2_class:'ico-arrowRight',submenu:draw_section_block_add_elem_contextMenu(accessibility)}),
         )
     }
     if(accessibility.includes('elem_swap')){
-        let section_block = elem_data.section_block;
         let swap_up_icon;let swap_up_text;
         let swap_down_icon;let swap_down_text;
         let is_up_down = true;
         if(window.current_view == 'desktop'){
-            if(section_block.css['flex-direction'] == 'row'){is_up_down = false;}
+            if(parent.css['flex-direction'] == 'row'){is_up_down = false;}
         }else if(window.current_view == 'mobile'){
-            if(section_block.css_mobile['flex-direction'] == 'row'){is_up_down = false;}
+            if(parent.css_mobile['flex-direction'] == 'row'){is_up_down = false;}
         }
         if(is_up_down){
             swap_up_icon = 'ico-arrowUp';
@@ -73,8 +82,8 @@ draw_contextMenu = function(){
             swap_down_text = texts.swapRight;
         }
         contextMenu.append(
-            draw_contextMenu_elem({icon:`${swap_up_icon} fs08`,class:`swap_elem_up_btn ${elem_data.elem.sort == 0 ? 'contextMenu_elem_dummy' : ''}`,child1_text:swap_up_text}),
-            draw_contextMenu_elem({icon:`${swap_down_icon} fs08`,class:`swap_elem_down_btn ${elem_data.elem.sort == elem_data.section_block.children.length - 1 ? 'contextMenu_elem_dummy' : ''}`,child1_text:swap_down_text}),
+            draw_contextMenu_elem({icon:`${swap_up_icon} fs08`,class:`swap_elem_up_btn ${elem.sort == 0 ? 'contextMenu_elem_dummy' : ''}`,child1_text:swap_up_text}),
+            draw_contextMenu_elem({icon:`${swap_down_icon} fs08`,class:`swap_elem_down_btn ${elem.sort == parent.children.length - 1 ? 'contextMenu_elem_dummy' : ''}`,child1_text:swap_down_text}),
         )
     }
     if(accessibility.includes('elem_dublicate')){
@@ -89,8 +98,8 @@ draw_contextMenu = function(){
     }
     if(accessibility.includes('section_swap')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-arrowUp fs08',class:`swap_section_up_btn ${elem_data.elem.sort == 0 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_up}),
-            draw_contextMenu_elem({icon:'ico-arrowDown fs08',class:`swap_section_down_btn ${elem_data.elem.sort == window.template.home.length - 1 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_down}),
+            draw_contextMenu_elem({icon:'ico-arrowUp fs08',class:`swap_section_up_btn ${elem.sort == 0 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_up}),
+            draw_contextMenu_elem({icon:'ico-arrowDown fs08',class:`swap_section_down_btn ${elem.sort == window.template.home.length - 1 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_down}),
         )
     }
     if(accessibility.includes('section_dublicate')){
@@ -108,14 +117,18 @@ draw_contextMenu = function(){
     if(accessibility.includes('copy')){
         let paste_class = 'contextMenu_elem_dummy';
         try{
-            if(elem_data.elem.type == 'section'){
+            if(elem.type == 'section'){
                 if(window.builder_clipboard.type == 'section'){paste_class = ''}
-            }else if(elem_data.elem.type == 'section_block'){
+            }else if(elem.type == 'section_block'){
+                if(window.builder_clipboard.type == 'section' || window.builder_clipboard.type == 'section_block' || window.builder_clipboard.type == 'elem' || window.builder_clipboard.type == 'container'){
+                    paste_class = '';
+                }
+            }else if(elem.type == 'elem'){
                 if(window.builder_clipboard.type == 'section' || window.builder_clipboard.type == 'section_block' || window.builder_clipboard.type == 'elem'){
                     paste_class = '';
                 }
-            }else if(elem_data.elem.type == 'elem'){
-                if(window.builder_clipboard.type == 'section' || window.builder_clipboard.type == 'section_block' || window.builder_clipboard.type == 'elem'){
+            }else if(elem.type == 'container'){
+                if(window.builder_clipboard.type == 'elem'){
                     paste_class = '';
                 }
             }
@@ -153,15 +166,15 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-display',class:`editor_display`,child1_text:texts.styling.display}),
         )
     }
-    if(accessibility.includes('elem_arrange')){
+    if(accessibility.includes('arrange')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-layers fs101',child1_text:texts.arrange,child2_class:'ico-arrowRight',submenu:draw_elem_arrange_contextMenu(elem_data)}),
+            draw_contextMenu_elem({icon:'ico-layers fs101',child1_text:texts.arrange,child2_class:'ico-arrowRight',submenu:draw_arrange_contextMenu(elem,parent)}),
         )
     }
 
-    if(accessibility.includes('section_rename')){
+    if(accessibility.includes('rename')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-rename',class:`editor_section_rename`,child1_text:texts.rename,}),
+            draw_contextMenu_elem({icon:'ico-rename',class:`editor_rename`,child1_text:texts.rename,}),
         )
     }
     if(accessibility.includes('section_sizing')){
@@ -176,7 +189,7 @@ draw_contextMenu = function(){
     }
     if(accessibility.includes('section_adapt_header')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-header',class:`editor_section_adapt_header ${elem_data.elem.sort == 0 ? '' : 'contextMenu_elem_dummy'}`,child1_text:texts.styling.adapt_header}),
+            draw_contextMenu_elem({icon:'ico-header',class:`editor_section_adapt_header ${elem.sort == 0 ? '' : 'contextMenu_elem_dummy'}`,child1_text:texts.styling.adapt_header}),
         )
     }
     if(accessibility.includes('section_layout')){
@@ -194,11 +207,6 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-alignment',class:`editor_alignment`,child1_text:texts.styling.alignment}),
         )
     }
-    if(accessibility.includes('block_arrange')){
-        contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-layers fs101',child1_text:texts.arrange,child2_class:'ico-arrowRight',submenu:draw_section_block_arrange_contextMenu(elem_data)}),
-        )
-    }
     if(accessibility.includes('styling')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-styling',child1_text:texts._styling,child2_class:'ico-arrowRight',submenu:draw_styling_contextMenu(accessibility)}),
@@ -206,7 +214,7 @@ draw_contextMenu = function(){
     }
     if(accessibility.includes('sizing')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-sizing',child1_text:texts.sizing,child2_class:'ico-arrowRight',class:elem_data.elem.elem_type == 'icon' ? `contextMenu_elem_dummy` : '',submenu:draw_sizing_contextMenu(accessibility)}),
+            draw_contextMenu_elem({icon:'ico-sizing',child1_text:texts.sizing,child2_class:'ico-arrowRight',class:elem.elem_type == 'icon' ? `contextMenu_elem_dummy` : '',submenu:draw_sizing_contextMenu(accessibility)}),
         )
     }
     if(accessibility.includes('spacing')){
@@ -219,6 +227,11 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-animation',class:`editor_animation`,child1_text:texts.styling.animation }),
         )
     }
+    if(accessibility.includes('transition')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-pageTransition',class:`editor_transition`,child1_text:texts.styling.transition }),
+        )
+    }
     if(accessibility.includes('background')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-background',class:'editor_background',child1_text:texts.styling.background}),
@@ -226,7 +239,7 @@ draw_contextMenu = function(){
     }
     if(accessibility.includes('block_elems')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-layers',child1_text:texts.styling.elements,class:`${elem_data.elem.children.length == '0' ? 'contextMenu_elem_dummy' : ''}`,child2_class:'ico-arrowRight',submenu:draw_section_block_elements_contextMenu()}),
+            draw_contextMenu_elem({icon:'ico-layers',child1_text:texts.styling.elements,class:`${elem.children.length == '0' ? 'contextMenu_elem_dummy' : ''}`,child2_class:'ico-arrowRight',submenu:draw_section_block_elements_contextMenu(elem)}),
         )
     }
     if(accessibility.includes('interactions')){
@@ -260,12 +273,12 @@ draw_contextMenu = function(){
 }
 draw_header_componenets_contextMenu =function(){
     return $('<div/>',{class:'w100p'}).append(
-        draw_contextMenu_elem({icon:'ico-logo_restaurant_name',class:`set_editor_popup_editor editor_header_logo_alignment select`,key_tree:'website_header.elems.children.header_wrapper.children.header_logo',child1_text:texts.styling.restauran_logo}),
-        draw_contextMenu_elem({icon:'ico-navigation_list',class:`set_editor_popup_editor editor_header_navList select`,key_tree:'website_header.elems.children.header_wrapper.children.header_navList',child1_text:texts.styling.header_navList}),
-        draw_contextMenu_elem({icon:'ico-icon',class:`set_editor_popup_editor editor_header_iconsList select`,key_tree:'website_header.elems.children.header_wrapper.children.header_iconsList',child1_text:texts.styling.header_iconsList}),
-        draw_contextMenu_elem({icon:'ico-drop_down_list',class:`set_editor_popup_editor editor_header_drop_down_list select`,key_tree:'website_header.elems.children.header_drop_down_list',child1_text:texts.styling.drop_down_list}),
-        draw_contextMenu_elem({icon:'ico-list',class:`set_editor_popup_editor editor_header_drop_down_list_item select`,key_tree:'website_header.elems.children.header_drop_down_list_item',child1_text:texts.styling.drop_down_list_item}),
-        draw_contextMenu_elem({icon:'ico-mobile_navbar_icon',class:`set_editor_popup_editor editor_header_mobileNav_icon select`,key_tree:'website_header.elems.children.header_wrapper.children.header_mobileNav_icon',child1_text:texts.styling.header_mobileNav_icon}),
+        draw_contextMenu_elem({icon:'ico-logo_restaurant_name',class:`set_editor_popup_editor editor_header_logo_alignment select`,key_tree:'website_header.children.header_wrapper.children.header_logo',child1_text:texts.styling.restauran_logo}),
+        draw_contextMenu_elem({icon:'ico-navigation_list',class:`set_editor_popup_editor editor_header_navList select`,key_tree:'website_header.children.header_wrapper.children.header_navList',child1_text:texts.styling.header_navList}),
+        draw_contextMenu_elem({icon:'ico-icon',class:`set_editor_popup_editor editor_header_iconsList select`,key_tree:'website_header.children.header_wrapper.children.header_iconsList',child1_text:texts.styling.header_iconsList}),
+        draw_contextMenu_elem({icon:'ico-drop_down_list',class:`set_editor_popup_editor editor_header_drop_down_list select`,key_tree:'website_header.children.header_drop_down_list',child1_text:texts.styling.drop_down_list}),
+        draw_contextMenu_elem({icon:'ico-list',class:`set_editor_popup_editor editor_header_drop_down_list_item select`,key_tree:'website_header.children.header_drop_down_list_item',child1_text:texts.styling.drop_down_list_item}),
+        draw_contextMenu_elem({icon:'ico-mobile_navbar_icon',class:`set_editor_popup_editor editor_header_mobileNav_icon select`,key_tree:'website_header.children.header_wrapper.children.header_mobileNav_icon',child1_text:texts.styling.header_mobileNav_icon}),
 
     )
 }
@@ -318,59 +331,55 @@ draw_section_block_add_elem_contextMenu = function(accessibility){
             draw_contextMenu_elem({icon:'ico-icon',class:`add_elem`,child1_text:texts.elems.icon,attrs:{'elem_type':'icon'}}),
         )
     }
+    if(accessibility.includes('add_elem_container')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-square',class:`add_elem`,child1_text:texts.elems.container,attrs:{'elem_type':'container'}}),
+        )
+    }
     return contextMenu;
 }
-draw_section_block_arrange_contextMenu = function(elem_data){
-    let parent = elem_data.section_wrapper;
-    let bring_to_front_dummy = 'contextMenu_elem_dummy';
-    let bring_forward_dummy = 'contextMenu_elem_dummy';
-    let send_backward_dummy = 'contextMenu_elem_dummy';
-    let send_to_back_dummy = 'contextMenu_elem_dummy';
-    for(const key in parent.children){
-        let child = parent.children[key];
-        if((child.class_selector) != (elem_data.elem.class_selector)){
-            if(child.css['z-index'] >= elem_data.elem.css['z-index']){
-                bring_to_front_dummy = '';
-                bring_forward_dummy = '';
+
+draw_section_block_elements_contextMenu = function(elem){
+    let container =  $('<div/>',{class:'w100p'})
+    let elements = elem.children;
+    for(const key in elements){
+        let icon = `ico-${elements[key].elem_type}`;
+        let text = texts.elems[elements[key].elem_type];
+        if('text' in elements[key]){
+            if('val' in elements[key].text){
+                let temp_elem = $(`<div>`,{html:elements[key].text.val[window.preview_language]})
+                text = temp_elem.text();
+            }else{
+                text = get_basic_text(elements[key].text.key)
             }
-            if(child.css['z-index'] <= elem_data.elem.css['z-index']){
-                send_backward_dummy = '';
-                send_to_back_dummy = '';
+            if(text == ''){
+                text = texts.elems[elements[key].elem_type];
             }
         }
-    }
-    return $('<div/>',{class:'w100p'}).append(
-        draw_contextMenu_elem({icon:'ico-bring_to_front',class:`editor_bring_to_front ${bring_to_front_dummy}`,child1_text:texts.bring_to_front,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.bring_to_front}),
-        draw_contextMenu_elem({icon:'ico-bring_forward',class:`editor_bring_forward ${bring_forward_dummy}`,child1_text:texts.bring_forward,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.bring_forward}),
-        draw_contextMenu_elem({icon:'ico-send_backward',class:`editor_send_backward ${send_backward_dummy}`,child1_text:texts.send_backward,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.send_backward}),
-        draw_contextMenu_elem({icon:'ico-send_to_back',class:`editor_send_to_back ${send_to_back_dummy}`,child1_text:texts.send_to_back,child2_class:'mis-40',child2_text:texts.keyboard_shortcuts.send_to_back}),
-    ) 
-}
-draw_section_block_elements_contextMenu = function(){
-    let container =  $('<div/>',{class:'w100p'})
-    let elements = get_elem_data(window.selected).elem.children;
-    for(const key in elements){
+        if(elements[key].type == 'container'){
+            text = elements[key].name;
+            icon = 'ico-square'
+        }
         container.append(
-            draw_contextMenu_elem({icon:`ico-${elements[key].elem_type}`,class:'select',child1_text:texts.elems[elements[key].elem_type],attrs:{key_tree:`${window.selected}.children.${key}`}})
+            draw_contextMenu_elem({icon:icon,class:'select',child1_text:text,attrs:{key_tree:`${window.selected}.children.${key}`}})
         )
     }
     return container;
 }
 //
-draw_elem_arrange_contextMenu = function(elem_data){
-    let parent = elem_data.section_block;
+draw_arrange_contextMenu = function(elem,parent){
     let bring_to_front_dummy = 'contextMenu_elem_dummy';
     let bring_forward_dummy = 'contextMenu_elem_dummy';
     let send_backward_dummy = 'contextMenu_elem_dummy';
     let send_to_back_dummy = 'contextMenu_elem_dummy';
     for(const key in parent.children){
         let child = parent.children[key];
-        if(parseInt(child.sort) != parseInt(elem_data.elem.sort)){
-            if(child.css['z-index'] >= elem_data.elem.css['z-index']){
+        if(parseInt(child.sort) != parseInt(elem.sort)){
+            if(child.css['z-index'] >= elem.css['z-index']){
                 bring_to_front_dummy = '';
                 bring_forward_dummy = '';
             }
-            if(child.css['z-index'] <= elem_data.elem.css['z-index']){
+            if(child.css['z-index'] <= elem.css['z-index']){
                 send_backward_dummy = '';
                 send_to_back_dummy = '';
             }

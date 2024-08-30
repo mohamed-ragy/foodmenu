@@ -34,4 +34,4 @@ require('./data/png_icons.js')
 require('./data/input_list_arrays.js')
 require('./data/box_shadows.js')
 require('./data/buttons.js')
-
+require('./data/sections/intro.js')

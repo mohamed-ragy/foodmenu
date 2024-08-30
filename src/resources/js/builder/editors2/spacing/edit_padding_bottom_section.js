@@ -1,27 +1,27 @@
 $('body').on('mousedown','.edit_padding_bottom_section',function(e){
-    let elem_data = get_elem_data($(this).attr('key_tree'));
+    let key_tree = $(this).closest('[key_tree]').attr('key_tree');
+    let elem = get_element_data(key_tree);
     let padding_bottom;
     if(window.current_view == 'desktop'){
-        padding_bottom = elem_data.elem.css['padding-bottom']
+        padding_bottom = elem.css['padding-bottom']
     }else if(window.current_view == 'mobile'){
-        padding_bottom = elem_data.elem.css_mobile['padding-bottom']
+        padding_bottom = elem.css_mobile['padding-bottom']
     }
     window.edit_padding_bottom_section.elem = $(this);
-    window.edit_padding_bottom_section.key_tree = $(this).attr('key_tree');
+    window.edit_padding_bottom_section.key_tree = key_tree;
     window.edit_padding_bottom_section.y = e.pageY;
     window.edit_padding_bottom_section.val = parseInt(padding_bottom);
     $(this).addClass('edit_padding_selected');
-    console.log('gaga')
 })
 edit_padding_bottom_section_fun = function(y){
     if(window.edit_padding_bottom_section.key_tree === undefined){return;}
     $('#website').css('cursor','n-resize')
-    let elem_data = get_elem_data(window.edit_padding_bottom_section.key_tree);
+    let elem = get_element_data(window.edit_padding_bottom_section.key_tree);
     let padding_bottom;
     if(window.current_view == 'desktop'){
-        padding_bottom = elem_data.elem.css['padding-bottom']
+        padding_bottom = elem.css['padding-bottom']
     }else if(window.current_view == 'mobile'){
-        padding_bottom = elem_data.elem.css_mobile['padding-bottom']
+        padding_bottom = elem.css_mobile['padding-bottom']
     }
     padding_bottom = ((parseInt(y) - parseInt(window.edit_padding_bottom_section.y))) + parseInt(window.edit_padding_bottom_section.val);
     if(padding_bottom < 0){padding_bottom = 0}
@@ -35,10 +35,10 @@ edit_padding_bottom_section_fun = function(y){
 
     let new_padding = `${padding_bottom}px`
     if(window.current_view == 'desktop'){
-        elem_data.elem.css['padding-bottom'] = new_padding;
+        elem.css['padding-bottom'] = new_padding;
     }else if(window.current_view == 'mobile'){
-        elem_data.elem.css_mobile['padding-bottom'] = new_padding;
+        elem.css_mobile['padding-bottom'] = new_padding;
     }
-    $(`.edit_padding_bottom_section[key_tree="${window.edit_padding_bottom_section.key_tree}"]`).height(new_padding)
-    $(`.section_wrapper[key_tree="${window.edit_padding_bottom_section.key_tree}"]`).css('padding-bottom',new_padding)
+    window.edit_padding_bottom_section.elem.height(new_padding)
+    generate_elem_style(elem)
 }

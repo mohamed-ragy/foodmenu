@@ -1,21 +1,21 @@
-.edit_container_alignment_top{
+.edit_alignment_btns_top{
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     top:0px;
-    left:35px;
+    left:20px;
     display: none;
     z-index: 101;
 }
-.edit_container_alignment_left{
+.edit_alignment_btns_left{
     position: absolute;
     flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
     left:0px;
-    top:35px;
+    top:20px;
     display: none;
     z-index: 101;
 }
@@ -25,16 +25,16 @@
     display: none;
 }
 .edit_alignment_btn{
-    width:28px;
-    height:28px;
+    width:20px;
+    height:20px;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
     outline:none;
     border:none;
-    font-size: 1.2em;
-    padding:4px;
-    margin:3px;
+    font-size: .85em;
+    padding:1px;
+    margin:1px;
     cursor: pointer;
     box-shadow: 0 0 2px var(--shdw-20);
     color:var(--green-80);

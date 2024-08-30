@@ -32,51 +32,63 @@ $('body').on('mouseup',function(){
     $('.edit_margin_symmetry').removeClass('edit_margin_symmetry').text('')
     if(window.edit_padding_top.key_tree !== undefined){
         window.edit_padding_top = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     if(window.edit_padding_top_section.key_tree !== undefined){
         window.edit_padding_top_section = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_padding_bottom_section.key_tree !== undefined){
         window.edit_padding_bottom_section = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_padding_bottom.key_tree !== undefined){
         window.edit_padding_bottom = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_padding_right.key_tree !== undefined){
         window.edit_padding_right = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_padding_left.key_tree !== undefined){
         window.edit_padding_left = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_margin_top.key_tree !== undefined){
         window.edit_margin_top = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_margin_bottom.key_tree !== undefined){
         window.edit_margin_bottom = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_margin_top_section.key_tree !== undefined){
         window.edit_margin_top_section = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_margin_bottom_section.key_tree !== undefined){
         window.edit_margin_bottom_section = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_margin_right.key_tree !== undefined){
         window.edit_margin_right = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
     else if(window.edit_margin_left.key_tree !== undefined){
         window.edit_margin_left = {};
-        new_action();
+        new_action('','');
+        set_all_editors();
     }
 })
 $('body').on('mousemove',function(e){

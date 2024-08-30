@@ -140,9 +140,9 @@ set_text_format_popup_btns = function(){
         $('.text_format_popup').find('.text_format_btn_bg_color_show').removeClass('text_format_btn_selected').css('color','');
     }
 
-    let elem_data = get_elem_data(window.selected).elem;
+    let elem = get_element_data(window.selected);
     let text_align;
-    window.current_view == 'desktop' ? text_align = elem_data.css['text-align'] : window.current_view == 'mobile' ? text_align = elem_data.css_mobile['text-align'] : null;
+    window.current_view == 'desktop' ? text_align = elem.css['text-align'] : window.current_view == 'mobile' ? text_align = elem.css_mobile['text-align'] : null;
     $('.text_format_popup').find(`.text_format_btn[action="text_align"]`).removeClass('text_format_btn_selected')
     $('.text_format_popup').find(`.text_format_btn[action="text_align"][key="${text_align}"]`).addClass('text_format_btn_selected')
 
@@ -151,7 +151,6 @@ get_selection_element = function(tag,create){
     let selection = window.getSelection();
     let range = selection.getRangeAt(0);
     let anchorNode = range.startContainer;
-    console.log(anchorNode.nodeType)
     let element = null;
     if (selection.rangeCount === 0 || selection.toString().trim() === '') {
         element = anchorNode.nodeType === Node.ELEMENT_NODE ? anchorNode : anchorNode.parentElement;
@@ -160,13 +159,7 @@ get_selection_element = function(tag,create){
             element = range.commonAncestorContainer;
         }else if($(anchorNode.parentElement).text().trim() == selection.toString().trim()){
             element = anchorNode.parentElement;
-        }else if($(range.commonAncestorContainer).hasClass('format_container')){
-            element = range.commonAncestorContainer;
-        }
-        else{
-            create ? element = create_element(tag) : null;
-        }
-        if($(element).hasClass('elem')){
+        }else{
             create ? element = create_element(tag) : null;
         }
     }
@@ -198,18 +191,19 @@ clear_format_text = function(element){
     if(element.text() == '' && element.prop('tagName') == 'SPAN'){
         remove_elem = true;
     }
-    if(!element.hasClass('elem')){
+    if(!element.hasClass('format_container')){
         if(
             element.prop('tagName') == 'SPAN' &&
             element.parent().prop('tagName') == 'SPAN' &&
             element.css('font-weight') == element.parent().css('font-weight') &&
             element.css('font-style') == element.parent().css('font-style') &&
             element.css('text-decoration') == element.parent().css('text-decoration') &&
-            element.css('font-size') == element.parent().css('font-size')
+            element.css('font-size') == element.parent().css('font-size') &&
+            element.css('color') == element.parent().css('color') &&
+            element.css('background-color') == element.parent().css('background-color') 
         ){
             remove_elem = true;
         }
-
         if(element.attr('style') == element.parent().attr('style') && element.prop('tagName') == 'SPAN' && element.parent().prop('tagName') == 'SPAN'){
             remove_elem = true;
         }
@@ -217,15 +211,12 @@ clear_format_text = function(element){
             remove_elem = true;
         }
     }
-    if(element.hasClass('format_container')){remove_elem = false}
+    if(element.hasClass('format_container')){remove_elem = false;
 
-
+    }
     if(remove_elem){
         element.after(element.html())
         element.remove();
-        if(!$('[contenteditable="true"]').children().first().hasClass('format_container')){
-            $('[contenteditable="true"]').children().first().addClass('format_container')
-        }
     }
     element.children().each(function(){
         clear_format_text($(this))
@@ -233,7 +224,7 @@ clear_format_text = function(element){
 
 }
 format_text = function(element,action,key){
-    let elem_data = get_elem_data(window.selected);
+    let elem = get_element_data(window.selected);
     switch(action){
         case 'bold':
             try{
@@ -314,35 +305,47 @@ format_text = function(element,action,key){
             })
         break;
         case 'text_align':
-            elem_data.elem[`${window.current_view == 'desktop' ? 'css' : window.current_view == 'mobile' ? 'css_mobile' : null}`]['text-align'] = key;
-            $(`.${elem_data.elem.class_selector}`).css('text-align',key)
+            elem[`${window.current_view == 'desktop' ? 'css' : window.current_view == 'mobile' ? 'css_mobile' : null}`]['text-align'] = key;
+            $(`.${elem.class_selector}`).css('text-align',key)
         break;
     }
-    elem_data.elem.text.val[window.preview_language] = $(`.${elem_data.elem.class_selector}`).html();
-    new_action(true,false);
+    elem.text.val[window.preview_language] = $(`.${elem.class_selector}`).html();
+    new_action('','');
     setTimeout(()=>{
         set_text_format_popup_btns();
     })
 
 }
-///
-$('body').on('click','.edit_text',function(){
-    let key_tree = $(this).attr('key_tree');
-    let elem_data = get_elem_data(key_tree);
-    if(elem_data.elem.accessibility.includes('edit_text')){
-        let contenteditable_elem = $(`.${elem_data.elem.class_selector}`);
-        if(contenteditable_elem.attr('contenteditable') == 'false'){
+edit_text = function(key_tree){
+    let elem = get_element_data(key_tree);
+    if(elem.accessibility.includes('edit_text')){
+        let contenteditable_elem = $(`.${elem.class_selector}`).find('.format_container');
+        if(contenteditable_elem.length == 0){
+            let content = $(`.${elem.class_selector}`).html();
+            $(`.${elem.class_selector}`).html('')
+            $(`.${elem.class_selector}`).append(`<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${content}</span>`)
+            contenteditable_elem = $(`.${elem.class_selector}`).find('.format_container');
+            elem.text.val[window.preview_language] = contenteditable_elem.html();
+            new_action('','');
+        }
+        if(contenteditable_elem.attr('contenteditable') != 'true'){
             contenteditable_elem.attr('contenteditable',true);
             setTimeout(()=>{
                 let selection = window.getSelection();
                 let range = document.createRange();
-                range.selectNodeContents(contenteditable_elem.find('.format_container')[0]);
+                range.selectNodeContents(contenteditable_elem[0]);
                 selection.removeAllRanges();
                 selection.addRange(range);
                 show_text_format_popup()
             })
         }
     }
+}
+///
+$('body').on('click','.edit_text',function(){
+    let key_tree = $(this).attr('key_tree');
+    edit_text(key_tree);
+
 })
 document.addEventListener('selectionchange',function(){
     let selection = window.getSelection();
@@ -366,16 +369,16 @@ $('body').on('mouseup','#website',function(){
         $('.text_format_popup').addClass('none')
     }
 })
-$('body').on('input','.elem[contenteditable="true"]',function(){
+$('body').on('input','[contenteditable="true"]',function(){
     clear_format_text($(this))
     setTimeout(()=>{
-        let elem_data = get_elem_data(window.selected);
-        elem_data.elem.text.val[window.preview_language] = $(this).html();
-        new_action(true,false);
+        let elem = get_element_data(window.selected);
+        elem.text.val[window.preview_language] = $(this).html();
+        new_action('','');
     })
 
 })
-$('body').on('mouseup','.elem[contenteditable="true"]',function(){
+$('body').on('mouseup','[contenteditable="true"]',function(){
     clear_format_text($(this))
 })
 //
@@ -410,7 +413,7 @@ $('body').on('click','.text_format_btn_bg_color_show',function(){
     })
 })
 //
-$('body').on('keydown','[contenteditable]',function(e){
+$('body').on('keydown','[contenteditable="true"]',function(e){
     if((e.ctrlKey || e.metaKey) && e.which == 67){
     }
     else if((e.ctrlKey || e.metaKey) && e.which == 88){
@@ -418,7 +421,8 @@ $('body').on('keydown','[contenteditable]',function(e){
     else if((e.ctrlKey || e.metaKey) && e.which == 86	){
     }
     else if((e.ctrlKey || e.metaKey) && e.which == 65){
-
+    }else if(e.which == 13){
+        e.preventDefault();
     }
     else if((e.ctrlKey || e.metaKey) || e.altKey){
         e.preventDefault();

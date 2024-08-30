@@ -33,7 +33,14 @@ draw_border_editor = function(data){
     return editor;
 }
 draw_border_editors = function(key,container_class,data){
-    return $('<div/>',{class:`w100p editor border_editor ${container_class}`,key:key,key_tree:data.key_tree,variable_key:data.variable_key}).append(
+    return $('<div/>',{
+        class:`w100p editor border_editor ${container_class}`,
+        key:key,
+        key_tree:data.key_tree,
+        variable_key:data.variable_key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
+    }).append(
         $('<div/>',{class:'row alnC jstfyC pY5 mY5 mB10 w100p'}).append(
             draw_number_picker({
                 dummy:true,
@@ -110,19 +117,21 @@ set_border_editors = function(editors_container){
 
 //events
 $('body').on('change','.border_editor',function(e){
-    if($(this).attr('key') == 'all'){
-        let new_val = `${get_dummy_val($(this).find('.border_editor_width'))} ${get_dummy_val($(this).find('.border_editor_style'))} ${get_dummy_val($(this).find('.border_editor_color'))}`;
-        $(this).closest('.border_editors').find('.border_editor').each(function(){
+    let editor = $(this);
+    if(editor.attr('key') == 'all'){
+        let new_val = `${get_dummy_val(editor.find('.border_editor_width'))} ${get_dummy_val(editor.find('.border_editor_style'))} ${get_dummy_val(editor.find('.border_editor_color'))}`;
+        editor.closest('.border_editors').find('.border_editor').each(function(){
             if($(this).attr('key') != 'all'){
                 set_val($(this),new_val);
             }
         })
-        new_action(); 
+
     }else{
-        let new_val = `${get_dummy_val($(this).find('.border_editor_width'))} ${get_dummy_val($(this).find('.border_editor_style'))} ${get_dummy_val($(this).find('.border_editor_color'))}`;
-        set_val($(this),new_val);
-        new_action();
+        let new_val = `${get_dummy_val(editor.find('.border_editor_width'))} ${get_dummy_val(editor.find('.border_editor_style'))} ${get_dummy_val(editor.find('.border_editor_color'))}`;
+        set_val(editor,new_val);
     }
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_border_editors(editor.closest('.border_editors'))
     temp_preview_mode();
 })
 $('body').on('change','.border_editor_width, .border_editor_style, .border_editor_color',function(e){

@@ -1,3 +1,4 @@
+require('./general/rename.js')
 require('./general/alignment.js')//
 require('./general/display.js')//
 require('./general/padding.js')
@@ -16,4 +17,5 @@ require('./general/png_icon.js')
 require('./general/arrange.js')
 require('./general/transform.js')//
 require('./general/animation.js')
+require('./general/transition.js')
 require('./general/interactions.js')//

@@ -25,6 +25,7 @@ draw_editor_popup_section_adapt_header = function(){
             }),
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.adapt_header)
             $(`.editor_popup_body_shortcut.editor_section_adapt_header`).addClass('editor_popup_body_shortcut_selected')
         });
     });

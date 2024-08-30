@@ -5,6 +5,8 @@ draw_box_shadow_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_container w100p',key:'editor_box_shadow'}).append(
             draw_editor_show_container({
@@ -21,7 +23,7 @@ draw_box_shadow_editor = function(data){
             )
         ),
         $('<div/>',{class:'editor_popup_container w100p none',key:'editor_box_shadow_customize',parent_key:'editor_box_shadow'}).append(
-            $('<div/>',{class:'mX10 bold mY20 fs09',text:texts.styling.customize_shadow}),
+            $('<div/>',{class:'m10 bold mT20',text:texts.styling.customize_shadow}),
             $('<div/>',{class:'editor_box_shadow_customize editor_popup_groups'}),
             $('<div/>',{class:'w100p row alnC jstfyE pB20'}).append(
                 $('<div/>',{class:'btn btn-cancel editor_popup_box_shadow_add_layer',text:texts.styling.add_layer})
@@ -69,11 +71,7 @@ draw_customize_box_shadow = function(editor){
         $('.editor_box_shadow_customize').append(
             $('<div/>',{class:`editor_popup_group`}).append(
                 $('<div/>',{class:'editor_popup_group_title'}).append(
-                    // $('<div/>',{class:'row alnC jstfyS'}).append(
-                        // $('<div/>',{class:'editor_popup_box_shadow_remove_layer ico-close mie-10 fs07 pointer cR',key:key,tooltip:texts.styling.remove_layer}),
-                        $('<div/>',{text:`${texts.styling.layer} ${parseInt(key)+1}`}),
-                    // ),
-                
+                    $('<div/>',{text:`${texts.styling.layer} ${parseInt(key)+1}`}),
                     $('<div/>',{class:'ico-arrowDown2'})
                 ),
                 $('<div/>',{class:`editor_popup_group_content editor_popup_box_shadow_layer`}).append(
@@ -157,7 +155,8 @@ $('body').on('click','.box_shadow_preview',function(){
         shadow = get_box_shadows(shadow_key);
     }
     set_val(editor,shadow);
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_box_shadow_editor(editor);
     temp_preview_mode();
 })
 $('body').on('change',`.box_shadow_type, .box_shadow_color, .box_shadow_offset_x, .box_shadow_offset_y, .box_shadow_blur, .box_shadow_spread`,function(){
@@ -176,7 +175,7 @@ $('body').on('change',`.box_shadow_type, .box_shadow_color, .box_shadow_offset_x
         }
     });
     set_val(editor,new_val);
-    new_action(false,true);
+    new_action(editor.attr('generate_style'),editor.attr('render'));
     temp_preview_mode();
 })
 $('body').on('click','.editor_popup_box_shadow_add_layer',function(){
@@ -189,7 +188,8 @@ $('body').on('click','.editor_popup_box_shadow_add_layer',function(){
         new_val = `${val}, rgba(var(--color_4_1),0.1) 0px 0px 0px 0px`;
     }
     set_val(editor,new_val);
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_box_shadow_editor(editor);
     temp_preview_mode();
     setTimeout(()=>{
         editor.find('.editor_popup_box_shadow_layer').last().closest('.editor_popup_group').find('.editor_popup_group_title').trigger('click')
@@ -215,5 +215,6 @@ $('body').on('click','.editor_popup_box_shadow_remove_layer',function(){
     }
     if(new_val == ''){new_val = 'none'}
     set_val(editor,new_val);
-    new_action();
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_box_shadow_editor(editor);
 })

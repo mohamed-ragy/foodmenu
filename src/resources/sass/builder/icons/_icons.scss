@@ -25,6 +25,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-close_icon:before {
+  content: "\e98e";
+}
+.ico-popup_window:before {
+  content: "\e98f";
+}
+.ico-square:before {
+  content: "\e990";
+}
+.ico-bug:before {
+  content: "\e98d";
+}
 .ico-paste2:before {
   content: "\e98a";
 }

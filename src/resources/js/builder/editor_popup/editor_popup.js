@@ -6,10 +6,13 @@ create_editor_popup = function(id){
             $('<div/>',{class:'editor_popup none',id:id}).append(
                 $('<div/>',{class:'editor_popup_head'}).append(
                     $('<div/>',{class:'row alnC jstfyS'}).append(
-                        $('<div/>',{class:'editor_popup_head_btn mie-5 none ico-arrowLeft editor_popup_back_Btn'}),
-                        $('<div/>',{class:'editor_popup_title bold'})
+                        $('<div/>',{class:'editor_popup_head_btn none ico-arrowLeft editor_popup_back_Btn'}),
+                        $('<div/>',{class:'column alnS jstfyS'}).append(
+                            $('<div/>',{class:'editor_popup_title'}),
+                            $('<div/>',{class:'editor_popup_title2'})
+                        )
                     ),
-                    $('<div/>',{class:'ico-close mX5 editor_popup_close pointer'}),
+                    $('<div/>',{class:'ico-close mX10 editor_popup_close pointer'}),
                 ),
                 $('<div/>',{class:'editor_popup_body_wrapper'}).append(
                     $('<div/>',{class:`editor_popup_body_shortcuts ${editor_popup_body_shortcuts}`}),
@@ -66,6 +69,7 @@ fix_editor_popup_position = function(editor_popup){
 }
 show_editor_popup = function(elem,callback=()=>{}){
     $('.editor_popup').addClass('editor_popup_dump')
+    $('.editor_popup_title2').text('')
     $(`#${elem}`).css({'animation-duration':'300ms'})
     switch(elem){
         case 'loading_spinner':
@@ -75,7 +79,7 @@ show_editor_popup = function(elem,callback=()=>{}){
             show_popup_window();
         break;
         case 'website_header':
-            window.selected = 'website_header.elems.children.header_wrapper';
+            window.selected = 'website_header.children.header_wrapper';
             select(window.selected);
         break;
         default:
@@ -95,10 +99,10 @@ show_editor_popup = function(elem,callback=()=>{}){
         set_editor_popup_editor();
     }
     // $(`.editor_popup_body_shortcut`).removeClass('editor_popup_body_shortcut_selected')
-    set_view_style();
     callback()
     set_responsive_selector();
-    undo_redo_actions(true,false);
+    set_editor_popup_scroll_to_load_font_styles();
+    set_all_editors();
         // if(elem === null){
     //     $('#editor_popup').css({
     //         left:($(window).width() / 2) - ($('#editor_popup').width() / 2),
@@ -120,10 +124,13 @@ hide_editor_popup = function(id){
     $(`#${id}`).addClass('none');
     if(id == 'editor'){
         $('#editor').find('.editor_popup_body').text('')
-    }else if(id == 'popup_window'){
-        hide_popup_window();
+        // hide_popup_window();
     }
     stop_preview_animations();
+
+    if($('.editor_popup:not(.none)').length == 0){
+        $('.editor_popup_body_wrapper').off('scroll')
+    }
 }
 
 
@@ -144,7 +151,7 @@ editor_popup_to_child = function(container){
             }
         });
         editor_popup.find('.editor_popup_body').removeClass('ofH').scrollTop(0)
-        undo_redo_actions(true,false);
+        set_all_editors();
     },150)
 }
 editor_popup_to_parent = function(container){
@@ -167,7 +174,7 @@ editor_popup_to_parent = function(container){
             }
         });
         editor_popup.find('.editor_popup_body').removeClass('ofH').scrollTop(0)
-        undo_redo_actions(true,false);
+        set_all_editors();
     },150)
 }
 //events

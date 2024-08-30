@@ -6,7 +6,9 @@ $.ajaxSetup({
         'X-Csrf-Token':$('meta[name="csrf-token"]').attr('content'),
     },
 });
-
+$(document).on('click',function(e){
+    console.log(e.type)
+})
 require('../page_loading.js')
 require('./select_template.js')
 require('./process_data.js');
@@ -14,10 +16,11 @@ require('./set_template_vars.js');
 require('./general_events.js');
 require('./draw_builder.js')
 require('./elem_data.js');
-require('./undo_redo.js');
+require('./actions.js');
 
 require('../cpanel/tools/loading.js');
 require('../cpanel/functions/coolDown.js');
+require('../cpanel/tools/form/textArea.js');
 
 require('./editors.js');
 require('./editors2.js');
@@ -42,7 +45,7 @@ require('./website_tools.js')/////
 
 
 require('./pages.js')
-require('./generate_html.js')
+require('./generate_html/generate_html.js')
 
 
 

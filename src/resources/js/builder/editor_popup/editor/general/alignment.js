@@ -1,5 +1,6 @@
 draw_editor_popup_section_block_alignment = function(){
     show_editor_popup('editor',function(){
+        let elem = get_element_data(window.selected);
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:true,
@@ -13,7 +14,7 @@ draw_editor_popup_section_block_alignment = function(){
                             selections:[
                                 {text:texts.select_elems.column,key:'column'},
                                 {text:texts.select_elems.row,key:'row'},
-                            ]
+                            ],
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col'}).append(
@@ -39,7 +40,7 @@ draw_editor_popup_section_block_alignment = function(){
                                 {text:texts.select_elems.start,key:'flex-start'},
                                 {text:texts.select_elems.center,key:'center'},
                                 {text:texts.select_elems.end,key:'flex-end'},
-                            ]
+                            ],
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col'}).append(
@@ -55,7 +56,7 @@ draw_editor_popup_section_block_alignment = function(){
                             ]
                         })
                     ),
-                    $('<div/>',{class:'editor_popup_col'}).append(
+                    elem.type != 'container' ? $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.overflow}),
                         draw_select_box({
                             key_tree:window.selected,
@@ -66,11 +67,27 @@ draw_editor_popup_section_block_alignment = function(){
                                 {text:texts.styling.hidden,key:'hidden'},
                             ]
                         })
+                    ) : '',
+                    'align-self' in elem.css ?  $('<div/>',{class:'editor_popup_col'}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.align_self}),
+                        draw_select_box({
+                            key_tree:window.selected,
+                            variable_key:'css',
+                            key:'align-self',
+                            selections:[
+                                {text:texts.styling.auto,key:'auto'},
+                                {text:texts.styling.start,key:'flex-start'},
+                                {text:texts.styling.center,key:'center'},
+                                {text:texts.styling.end,key:'flex-end'},
+                            ]
+                        })
                     )
+                    : '',
                 ]
             }),
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.alignment)
             $(`.editor_popup_body_shortcut.editor_alignment`).addClass('editor_popup_body_shortcut_selected')
         });
     });
@@ -79,7 +96,7 @@ $('body').on('click','.editor_alignment',function(e){
     draw_editor_popup_section_block_alignment();
 })
 $('body').on('change','.editor_alignments_align_items',function(){
-    let elem = get_elem_data(window.selected).elem;
+    let elem = get_element_data(window.selected);
     let responsive_key = get_responseive_key($(this));
     for(const key in elem.children){
         let child = elem.children[key];
@@ -94,5 +111,5 @@ $('body').on('change','.editor_alignments_align_items',function(){
             child.css_mobile['align-self'] = 'auto';
         }
     }
-    undo_redo_actions();
+    generate_elems_style(elem);
 })

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cpanel;
 
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
+use App\Models\bug;
 use Illuminate\Http\Request;
 use App\Models\foodmenuFunctions;
 use Illuminate\Support\Facades\App;
@@ -132,6 +133,7 @@ class designController extends Controller
             if($request->template_data['popup_window'] != 0){$update_data['popup_window'] = $request->template_data['popup_window'];}
             // if($request->template_data['loading_screen'] != 0){$update_data['loading_screen'] = $request->template_data['loading_screen'];}
             if($request->template_data['home'] != 0){$update_data['home'] = $request->template_data['home'];}
+            if($request->template_data['login_popup'] != 0){$update_data['login_popup'] = $request->template_data['login_popup'];}
             // if($request->changed_data != null){
             //     foreach($request->changed_data as $key => $val){
             //         $update_data[$key] = strip_tags($val,['section','div','span','svg','path','circle','header','a','img','ul','li']);
@@ -141,7 +143,7 @@ class designController extends Controller
                 'website_id' => $this->website_id,
                 '_id'  => $request->template_id
             ])->update($update_data);
-
+                
             if($save_tempalte){
 
                 $template = template::where('_id',$request->template_id)->first()->encode();
@@ -156,6 +158,17 @@ class designController extends Controller
                 return response(['save_template_state' => 1]);
             }else{
                 return response(['save_template_state' => 0]);
+            }
+        }
+        else if($request->has('reportBug')){
+            $reportBug = bug::create([
+                'website_id'=>$this->website_id,
+                'msg' => strip_tags($request->reportBug),
+            ]);
+            if($reportBug){
+                return response(['reportBugStatus'=>1,'msg'=>Lang::get('cpanel/cpanel.reportBug.reportBugReported')]);
+            }else{
+                return response(['reportBugStatus'=>1,'msg'=>Lang::get('cpanel/cpanel.reportBug.reportBugFaild')]);
             }
         }
     }

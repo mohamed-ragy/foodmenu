@@ -2,7 +2,7 @@ draw_editor_popup_transform = function(){
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;
-        let elem = get_elem_data(key_tree).elem;
+        let elem = get_element_data(key_tree);
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
@@ -40,13 +40,21 @@ draw_editor_popup_transform = function(){
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.transform)
             $(`.editor_popup_body_shortcut.editor_transform`).addClass('editor_popup_body_shortcut_selected')
             $(`.editor_popup_body_shortcut.editor_transform`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
         });
     });
 }
 $('body').on('click','.editor_transform',function(e){
-    // if(elem_has_animation(window.selected,true)){return;}
-    console.log('gaga')
+    if(elem_has_animation(window.selected,true)){
+        if($(this).hasClass('editor_popup_body_shortcut_group_elem')){
+            let prev_clicked_btn = $(this).closest('.editor_popup_body_shortcuts').find('.editor_popup_body_shortcut_selected')
+            setTimeout(()=>{
+                prev_clicked_btn.trigger('click')
+            })
+        }
+        return;
+    }
     draw_editor_popup_transform();
 })

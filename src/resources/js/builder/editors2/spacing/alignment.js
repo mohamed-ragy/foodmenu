@@ -1,7 +1,7 @@
 $('body').on('click','.edit_alignment_btn_container',function(){
     let key = $(this).parent().attr('key');
     let val = $(this).attr('key');
-    let elem = get_elem_data($(this).parent().attr('key_tree')).elem;
+    let elem = get_element_data($(this).parent().attr('key_tree'));
     let variable_key = 'css';
     window.current_view == 'mobile' ? variable_key = 'css_mobile' : window.current_view == 'desktop' ? variable_key = 'css' : null ;
     if(key == 'align-items'){
@@ -16,13 +16,13 @@ $('body').on('click','.edit_alignment_btn_container',function(){
     })
 })
 $('body').on('click','.edit_alignment_btn_self',function(){
-    let key_tree = $(this).attr('key_tree');
+    let key_tree = $(this).parent().attr('key_tree');
     let key = $(this).attr('key');
     let variable_key = 'css';
     window.current_view == 'mobile' ? variable_key = 'css_mobile' : window.current_view == 'desktop' ? variable_key = 'css' : null ;
-    let elem_data = get_elem_data($(this).parent().attr('key_tree'));
-    let elem = elem_data.elem;
-    let parent = elem_data.section_block;
+    
+    let elem = get_element_data(key_tree);
+    let parent = get_element_parent_data(key_tree)
     let parent_align_items = parent[variable_key]['align-items']
     let current_align_self = elem[variable_key]['align-self'];
     let new_val;

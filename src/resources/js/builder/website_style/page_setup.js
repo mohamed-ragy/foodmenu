@@ -1,5 +1,6 @@
 draw_page_setup = function(){
     $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
+    // $('#page_setup').find('.editor_popup_title2').text(texts._styling)
     $('#page_setup').find('.editor_popup_body_shortcuts').append(
         $('<div/>',{class:`editor_popup_body_shortcut ico-styling editor_popup_show_shortcut editor_popup_body_shortcut_selected`,tooltip:texts._styling,key:'styling'}),
         $('<div/>',{class:`editor_popup_body_shortcut ico-sizing editor_popup_show_shortcut`,tooltip:texts.sizing,key:'sizing'}),
@@ -38,6 +39,7 @@ draw_page_setup = function(){
                         draw_font_style_picker({
                             key_tree:'page_setup.font_style',
                             variable_key:null,
+                            page_default_btn:false,
                         })
                     )
 
@@ -196,7 +198,7 @@ set_elem_animation_styles = function(elem,animation,keyframe,immediate){
 apply_scroll_animation = function(elem,scroll_direction){
     let elem_offset_top = elem.offset().top;
     let elem_offset_bottom = elem_offset_top + elem.height();
-    let elem_data = get_elem_data(elem.attr('key_tree')).elem;
+    let elem_data = get_element_data(elem.attr('key_tree'));
     let animation;
     window.current_view == 'desktop' ? animation = elem_data.animation : window.current_view == 'mobile' ? animation = elem_data.animation_mobile : null;
 
@@ -204,7 +206,7 @@ apply_scroll_animation = function(elem,scroll_direction){
     let website_offset_top = $('#website').offset().top
     let website_height = $('#website').height() + website_offset_top;
 
-    // if(window.template.website_header.elems.css.position == 'sticky'){
+    // if(window.template.website_header.css.position == 'sticky'){
         // website_height = website_height - $('.website_header').height();
         // website_offset_top = website_offset_top - $('.website_header').height();
     // }

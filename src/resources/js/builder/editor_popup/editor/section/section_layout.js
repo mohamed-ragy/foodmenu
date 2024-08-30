@@ -2,7 +2,7 @@ draw_editor_popup_section_layout = function(){
     if(!accessibility_check(window.selected,'section_layout')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
-            $('<div/>',{class:'fs09 mX10 mT10 ',text:texts.change_layout}),
+            $('<div/>',{class:'bold mX10 mT20 ',text:texts.change_layout}),
             $('<div/>',{class:'row wrap alnC jstfyC mT10',id:'section_editor_settings_change_layout'})
         )
         let section_layouts = get_sections_layouts();
@@ -27,6 +27,7 @@ draw_editor_popup_section_layout = function(){
             }
         }
         setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.section_layout)
             $(`.editor_popup_body_shortcut.editor_section_layout`).addClass('editor_popup_body_shortcut_selected')
         });
     });
@@ -35,8 +36,7 @@ $('body').on('click','.editor_section_layout',function(e){
     draw_editor_popup_section_layout();
 })
 $('body').on('click','.change_section_layout_elem',function(e){
-    let section_data = get_elem_data(window.selected);
-    let section = section_data.elem;
+    let section = get_element_data(window.selected);
     let old_section = JSON.parse(JSON.stringify(section));
     let section_layouts = get_sections_layouts();
     let layout = section_layouts[$(this).attr('layout')];
@@ -56,5 +56,5 @@ $('body').on('click','.change_section_layout_elem',function(e){
             }
         }
     }
-    new_action();
+    new_action('','page');
 })

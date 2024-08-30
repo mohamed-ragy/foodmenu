@@ -33,7 +33,7 @@ get_inputList_obj = function(key){
                 {name:texts.select_elems._slide_right_right,val:'slide_right_right',class:''},
             ]
         break;
-        case 'transtions':
+        case 'transitions':
             return [
                 {name:texts.select_elems._no_animation,val:'no_animation',class:''},
                 {name:texts.select_elems._fade,val:'fade',class:''},

@@ -4,6 +4,8 @@ draw_png_icon_selector = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:'w100p editor_popup_brdrT editor_popup_row_sticky pT20 pB10 row alnC jstfyC'}).append(
             draw_input_list({
@@ -44,8 +46,11 @@ draw_png_icon_list = function(editor,tag){
 //
 $('body').on('click','.png_icon_preview',function(){
     let new_val = $(this).attr('src');
-    set_val($(this).closest('.png_icon_selector_editor'),new_val);
-    new_action();
+    let editor = $(this).closest('.png_icon_selector_editor')
+    set_val(editor,new_val);
+    new_action(editor.attr('generate_style'),editor.attr('render'));
+    set_png_icon_selector(editor)
+    $(`.${get_element_data(window.selected).class_selector}`).attr('src',new_val)
 })
 $('body').on('change','.png_icon_selector_tags',function(){
     let tag = get_dummy_val($(this));

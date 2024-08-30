@@ -1,13 +1,14 @@
 $('body').on('mousedown','.edit_margin_left',function(e){
-    let elem_data = get_elem_data($(this).attr('key_tree'));
+    let key_tree = $(this).closest('[key_tree]').attr('key_tree');
+    let elem = get_element_data(key_tree);
     let margin;
     if(window.current_view == 'desktop'){
-        margin = elem_data.elem.css.margin.split(' ')
+        margin = elem.css.margin.split(' ')
     }else if(window.current_view == 'mobile'){
-        margin = elem_data.elem.css_mobile.margin.split(' ')
+        margin = elem.css_mobile.margin.split(' ')
     }
     window.edit_margin_left.elem = $(this);
-    window.edit_margin_left.key_tree = $(this).attr('key_tree');
+    window.edit_margin_left.key_tree = key_tree;
     window.edit_margin_left.x = e.pageX;
     window.edit_margin_left.val = parseInt(margin[3]);
     $(this).addClass('edit_margin_selected')
@@ -15,12 +16,12 @@ $('body').on('mousedown','.edit_margin_left',function(e){
 edit_margin_left_fun = function(x){
     if(window.edit_margin_left.key_tree === undefined){return;}
     $('#website').css('cursor','e-resize')
-    let elem_data = get_elem_data(window.edit_margin_left.key_tree);
+    let elem = get_element_data(window.edit_margin_left.key_tree);
     let margin;
     if(window.current_view == 'desktop'){
-        margin = elem_data.elem.css.margin.split(' ')
+        margin = elem.css.margin.split(' ')
     }else if(window.current_view == 'mobile'){
-        margin = elem_data.elem.css_mobile.margin.split(' ')
+        margin = elem.css_mobile.margin.split(' ')
     }
     margin[3] = (( parseInt(window.edit_margin_left.x) - parseInt(x))) + parseInt(window.edit_margin_left.val);
     if(margin[3] < 0){margin[3] = 0}
@@ -34,10 +35,10 @@ edit_margin_left_fun = function(x){
 
     let new_margin = `${margin[0]} ${margin[1]} ${margin[2]} ${margin[3]}px`
     if(window.current_view == 'desktop'){
-        elem_data.elem.css.margin = new_margin;
+        elem.css.margin = new_margin;
     }else if(window.current_view == 'mobile'){
-        elem_data.elem.css_mobile.margin = new_margin;
+        elem.css_mobile.margin = new_margin;
     }
-    $(`.edit_margin_left[key_tree="${window.edit_margin_left.key_tree}"]`).width(`${margin[3]}px`).css('left',`-${margin[3]}px`)
-    window.edit_margin_left.elem.parent().css('margin',new_margin)
+    window.edit_margin_left.elem.width(`${margin[3]}px`).css('left',`-${margin[3]}px`)
+    generate_elem_style(elem)
 }

@@ -2,7 +2,7 @@ draw_editor_popup_width = function(){
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;
-        let elem = get_elem_data(key_tree).elem;
+        let elem = get_element_data(key_tree);
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
@@ -46,6 +46,7 @@ draw_editor_popup_width = function(){
         )
     })
     setTimeout(()=>{
+        $('.editor_popup_title2').text(texts.styling.width)
         $(`.editor_popup_body_shortcut.editor_width`).addClass('editor_popup_body_shortcut_selected')
         $(`.editor_popup_body_shortcut.editor_width`).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     });

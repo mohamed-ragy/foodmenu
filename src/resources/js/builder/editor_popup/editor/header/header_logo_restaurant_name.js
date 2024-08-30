@@ -9,7 +9,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.display}),
                             draw_select_box({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'display',
                                 selections:[{text:texts.styling.show,key:'block'},{text:texts.styling.hide,key:'none'}],
@@ -19,7 +19,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                         $('<div/>',{class:'editor_popup_row'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.font_color}),
                             draw_color_picker({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'color',
                             })
@@ -27,7 +27,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.font_size}),
                             draw_number_picker({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'font-size',
                                 step:1,
@@ -37,7 +37,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
                             draw_select_box({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'font-weight',
                                 selections:[{text:texts.styling.bold,key:'bold'},{text:texts.styling.normal,key:'normal'}],
@@ -46,7 +46,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.italic}),
                             draw_select_box({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'font-style',
                                 selections:[{text:texts.styling.italic,key:'italic'},{text:texts.styling.normal,key:'normal'}],
@@ -55,7 +55,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.underline}),
                             draw_select_box({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'text-decoration',
                                 selections:[{text:texts.styling.underline,key:'underline'},{text:texts.styling.normal,key:'none'}],
@@ -69,7 +69,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                     is_responsive:false,
                     editors:[
                         draw_font_style_picker({
-                            key_tree:'website_header.elems.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                            key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                             variable_key:'font_style',
                         })
                     ]
@@ -78,6 +78,7 @@ draw_editor_popup_header_logo_restaurant_name = function(){
         )
     })
     setTimeout(()=>{
+            $('.editor_popup_title2').text(texts.styling.restaurant_name)
         $(`.editor_popup_body_shortcut.editor_header_logo_restaurant_name`).addClass('editor_popup_body_shortcut_selected')
     });
 }

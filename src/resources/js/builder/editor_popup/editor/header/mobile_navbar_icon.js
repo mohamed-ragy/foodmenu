@@ -9,7 +9,7 @@ draw_editor_header_mobileNav_icon = function(){
                         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.icon}),
                             draw_svg_icon_picker({  
-                                key_tree:`website_header.elems.children.header_wrapper.children.header_mobileNav_icon.children`,
+                                key_tree:`website_header.children.header_wrapper.children.header_mobileNav_icon.children`,
                                 variable_key:null,
                                 key:'icon',
                                 icon_type:'menu',
@@ -18,7 +18,7 @@ draw_editor_header_mobileNav_icon = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.icon_size}),
                             draw_select_range({
-                                key_tree:`website_header.elems.children.header_wrapper.children.header_mobileNav_icon.children.icon`,
+                                key_tree:`website_header.children.header_wrapper.children.header_mobileNav_icon.children.icon`,
                                 variable_key:'css',
                                 key:'width',
                                 range:{min:10,max:50,step:1},
@@ -29,7 +29,7 @@ draw_editor_header_mobileNav_icon = function(){
                         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.icon_color}),
                             draw_color_picker({
-                                key_tree:'website_header.elems.children.header_wrapper.children.header_mobileNav_icon',
+                                key_tree:'website_header.children.header_wrapper.children.header_mobileNav_icon',
                                 variable_key:'css',
                                 key:'fill',
                                 editor_class:'header_iconsList_icon_color'
@@ -41,6 +41,7 @@ draw_editor_header_mobileNav_icon = function(){
             })
         )
         setTimeout(()=>{
+            $('.editor_popup_title2').text('')
             $(`.editor_popup_body_shortcut.editor_header_mobileNav_icon`).addClass('editor_popup_body_shortcut_selected')
         });
     })

@@ -8,8 +8,8 @@
     cursor: pointer;
     position: relative;
     box-sizing: border-box;
-    width:30px;
-    height:30px;
+    width:30px !important;
+    height:30px !important;
 }
 
 .set_icon{
@@ -40,7 +40,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    z-index: 210;
+    z-index: 310;
     border-radius: 3px;
     width:108px;
     max-height:108px;

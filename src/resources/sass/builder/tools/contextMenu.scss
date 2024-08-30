@@ -70,6 +70,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+}
+.contextMenu_elem_text{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    max-width: 200px;
 }
 .contextMenu_elem:hover{
     background-color: var(--green-10);

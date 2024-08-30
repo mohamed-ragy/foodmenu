@@ -5,6 +5,8 @@ draw_input_list = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
+        render:data.render ?? '',
+        generate_style:data.generate_style ?? data.key_tree,
     }).append(
         $('<div/>',{class:`inputList_val`}),
         $('<div/>',{class:'ico-arrowDown cG'}),
@@ -67,9 +69,10 @@ set_dummy_input_list = function(editor,val){
 }
 //
 $('body').on('change','.inputList_editor',function(){
-    if($(this).hasClass('dummy_editor')){return;}
-    set_val($(this),$(this).attr('val'));
-    new_action();
+    let editor = $(this);
+    if(editor.hasClass('dummy_editor')){return;}
+    set_val(editor,editor.attr('val'));
+    new_action(editor.attr('generate_style'),editor.attr('render'));
 })
 $('body').on('click','.inputList_editor',function(e){
     let editor = $(this).closest('.editor');

@@ -94,6 +94,6 @@ $('body').on('click','.loading_spinner_select',function(e){
     set_loading_spinner_vars();
     draw_loading_spinner_preview();
     draw_loading_spinner_colors_selectors();
-    new_action();
+    // new_action();
 
 })

@@ -169,7 +169,9 @@ $('body').on('click','.pexels_ToLibrary_save',function(e){
     add_pexel_image_to_library($(this).closest('.imgsImgCard_pexels').attr('imgId'),function(img){
         img_src = img.url;
         set_val(window.select_image_editor,img_src)
-        new_action();
+        new_action(window.select_image_editor.attr('generate_style'),window.select_image_editor.attr('render'));
+        set_select_image(window.select_image_editor);
+        $(`.${get_element_data(window.selected).class_selector}`).attr('src',img_src)
         close_popup();
     })
 })
