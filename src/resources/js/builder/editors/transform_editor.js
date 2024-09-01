@@ -4,8 +4,7 @@ draw_transform_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_row'}).append(
             $('<div/>',{class:''}).append(
@@ -103,7 +102,8 @@ set_transform_editor = function(editor){
 }
 
 $('body').on('change','.transform_editor',function(){
-    new_action($(this).attr('generate_style'),$(this).attr('render'));
+    new_action($(this).attr('render'));
+    fix_edit_btns_position(get_element_data(window.selected),window.selected)
 })
 $('body').on('mousedown','.transform_btn',function(e){
     let editor = $(this).closest('.transform_editor');

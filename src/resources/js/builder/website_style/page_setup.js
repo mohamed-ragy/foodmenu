@@ -1,6 +1,6 @@
 draw_page_setup = function(){
     $('#page_setup').find('.editor_popup_title').text(texts.website_style.page_setup)
-    // $('#page_setup').find('.editor_popup_title2').text(texts._styling)
+    $('#page_setup').find('.editor_popup_title2').text(texts._styling)
     $('#page_setup').find('.editor_popup_body_shortcuts').append(
         $('<div/>',{class:`editor_popup_body_shortcut ico-styling editor_popup_show_shortcut editor_popup_body_shortcut_selected`,tooltip:texts._styling,key:'styling'}),
         $('<div/>',{class:`editor_popup_body_shortcut ico-sizing editor_popup_show_shortcut`,tooltip:texts.sizing,key:'sizing'}),
@@ -40,6 +40,7 @@ draw_page_setup = function(){
                             key_tree:'page_setup.font_style',
                             variable_key:null,
                             page_default_btn:false,
+                            render:'page_setup'
                         })
                     )
 
@@ -142,13 +143,9 @@ draw_page_setup = function(){
 }
 
 //events
-// $('body').on('click','.editor_page_setup',function(){
-//     let shortcut = $(this).attr('key');
-//     $('.editor_popup_page_setup_container').addClass('none');
-//     $(`.editor_popup_page_setup_container[key="${shortcut}"]`).removeClass('none');
-//     $(this).closest('.editor_popup').find('.editor_popup_container').removeClass('none')
-//     $(this).closest('.editor_popup').find('.editor_popup_container[parent_key]').addClass('none')
-// })
+$('body').on('click','#page_setup .editor_popup_body_shortcut',function(){
+    $(this).closest('.editor_popup').find('.editor_popup_title2').text($(this).attr('tooltip'))
+})
 $('body').on('click','.pageTransition_preview',function(e){
     play_page_transition($('#page'),window.template.page_setup.pageTransition,window.template.page_setup.transitionDuration)
 })
@@ -177,30 +174,37 @@ $('#website').on('wheel', function(e){
     
 });
 
-set_elem_animation_styles = function(elem,animation,keyframe,immediate){
-    elem.css({
-        'transition-duration':animation[`${keyframe}_duration`],
-        'transition-delay':animation[`${keyframe}_delay`],
-        'transition-timing-function':animation[`${keyframe}_timing_function`],
-        'transform':animation[`${keyframe}_transform`],
-        'transform-origin':animation[`${keyframe}_transform_origin`],
-        'filter':animation[`${keyframe}_filter`],
-    })
+
+set_elem_animation = function(class_selector,animation,immediate=false){
     if(immediate){
-        elem.css({
+        $(`.${class_selector}`).css({
             'transition-duration':'0ms',
             'transition-delay':'0ms',
         })
+    }else{
+        $(`.${class_selector}`).css({
+            'transition-duration':'',
+            'transition-delay':'',
+        })
     }
-}
+    if(!$(`.${class_selector}`).hasClass(`${class_selector}_animation_${animation}`)){  
+        $(`.${class_selector}`)
+        .removeClass(`${class_selector}_animation_up_out ${class_selector}_animation_up ${class_selector}_animation_in ${class_selector}_animation_down ${class_selector}_animation_down_out`)
+        .addClass(`${class_selector}_animation_${animation}`);
+    }
 
-// }
+}
 apply_scroll_animation = function(elem,scroll_direction){
     let elem_offset_top = elem.offset().top;
     let elem_offset_bottom = elem_offset_top + elem.height();
     let elem_data = get_element_data(elem.attr('key_tree'));
-    let animation;
-    window.current_view == 'desktop' ? animation = elem_data.animation : window.current_view == 'mobile' ? animation = elem_data.animation_mobile : null;
+    let class_selector = elem_data.class_selector;
+    let animation_repeat = '0';
+    if(window.current_view == 'desktop'){
+        animation_repeat = elem_data.animation.repeat;
+    }else if(window.current_view == 'mobile'){
+        animation_repeat = elem_data.animation_mobile.repeat;
+    }
 
 
     let website_offset_top = $('#website').offset().top
@@ -226,77 +230,72 @@ apply_scroll_animation = function(elem,scroll_direction){
     let in_start = up_end;
     let in_end = down_start;
     
-    // if(typeof(animation) !== 'object'){return}
-    if(animation.name == 'no_animation'){return}
-    if($('#website').scrollTop() == 0 && elem_offset_bottom < down_out_end && scroll_direction != 'top'){
-        set_elem_animation_styles(elem,animation,'in',false);
+    if($('#website').scrollTop() == 0 && scroll_direction != 'top'){
+        if(elem_offset_bottom < down_end){
+            set_elem_animation(class_selector,'in',false)
+        }
         return; 
     }
     if(scroll_direction == 'top'){
-        if(elem_offset_top > up_out_start && elem_offset_bottom < down_out_end){
-            set_elem_animation_styles(elem,animation,'up_out',true)
-            setTimeout(()=>{
-                set_elem_animation_styles(elem,animation,'in',false)
-            },100)
-        }
+
         if(elem_offset_top > down_out_start){
-            set_elem_animation_styles(elem,animation,'down_out',true)
+            set_elem_animation(class_selector,'down_out',true)
         }
         else if(elem_offset_bottom < up_out_end){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'up_out',true)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'up_out',true)
             }
+        }
+        else if(elem_offset_top > up_out_start && elem_offset_top < down_out_end ){
+            set_elem_animation(class_selector,'up_out',true)
+            setTimeout(()=>{
+                set_elem_animation(class_selector,'in',false)
+            },100)
         }
     }
 
 
     if(scroll_direction == 'down'){
         if(elem_offset_top < down_end && elem_offset_top > down_start){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'down',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'down',false)
             }
         }else if(elem_offset_top < in_end && elem_offset_top > in_start){
-            set_elem_animation_styles(elem,animation,'in',false)
+            set_elem_animation(class_selector,'in',false)
         }else if(elem_offset_top < up_end && elem_offset_top > up_start){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'up',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'up',false)
             }
         }else if(elem_offset_top < up_out_end){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'up_out',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'up_out',false)
             }
         }
     }else if(scroll_direction == 'up'){
         if(elem_offset_bottom > up_start && elem_offset_bottom < up_end){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'up',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'up',false)
             }
         }else if(elem_offset_bottom > in_start && elem_offset_bottom < in_end){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'in',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'in',false)
             }
         }else if(elem_offset_bottom > down_start && elem_offset_bottom < down_end){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'down',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'down',false)
             }
         }else if(elem_offset_bottom > down_out_start){
-            if(animation.repeat == '1'){
-                set_elem_animation_styles(elem,animation,'down_out',false)
+            if(animation_repeat == '1' ){
+                set_elem_animation(class_selector,'down_out',false)
             }
         }
     }
 
 }
 scroll_elem_animation = function(scroll_direction){
-    if(window.current_view == 'desktop'){
-        $('[animation]').each(function(){
-            apply_scroll_animation($(this),scroll_direction)
-        })
-    }else if(window.current_view == 'mobile'){
-        $('[animation_mobile]').each(function(){
-            apply_scroll_animation($(this),scroll_direction)
-        })
-    }
+    $('[animation]').each(function(){
+        apply_scroll_animation($(this),scroll_direction)
+    })
 }
 window.last_scroll_top = 0;
 $('#website').on('scroll',function(e){
@@ -309,4 +308,16 @@ $('#website').on('scroll',function(e){
     window.last_scroll_top = $('#website').scrollTop();
     set_adapted_header();
     scroll_elem_animation(scroll_direction);
+    if(window.selected){
+        fix_edit_btns_position(get_element_data(window.selected),window.selected)
+    }
+    let website_header = $('#website').find('.website_header'); 
+    if(website_header.attr('dynamic') == '1'){
+        if(scroll_direction == 'down'){
+            website_header.css('transform',`translateY(-${website_header.outerHeight()}px)`)
+        }else{
+            website_header.css('transform',`translateY(0px)`)
+        }
+    }
+
 })

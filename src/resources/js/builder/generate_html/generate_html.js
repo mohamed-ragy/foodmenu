@@ -41,20 +41,25 @@ get_elem_attrs = function(elem){
     if('placeholder' in elem){
         attrs = `${attrs} placeholder="${get_basic_text(elem.placeholder.key)}"`
     }
-    if('animation' in elem){
+    if('animation' in elem && window.current_view == 'desktop'){
         if(elem.animation.name != 'no_animation'){
-            attrs = `${attrs} animation="${elem.animation.name}" `
+            attrs = `${attrs} animation="true" `
         }
     }
     if('animation_mobile' in elem){
-        if(elem.animation_mobile.name != 'no_animation'){
-            attrs = `${attrs} animation_mobile="${elem.animation_mobile.name}" `
+        if(elem.animation_mobile.name != 'no_animation' && window.current_view == 'mobile'){
+            attrs = `${attrs} animation="true" `
         }
     }
     return attrs;
 }
 generate_html = function(elem,key_tree){
-
+    if('accessibility' in elem){
+        if(elem.accessibility.includes('parent_hover')){
+            let parent_key_tree = get_parent_key_tree(key_tree)
+            generate_elem_style(get_element_data(parent_key_tree));
+        }
+    }
     let html = '';
     if(elem.tag !== undefined){
         if(elem.type == 'elem' || elem.type == 'section_block' || elem.type == 'container'){

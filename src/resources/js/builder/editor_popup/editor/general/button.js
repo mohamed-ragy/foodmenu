@@ -1,4 +1,5 @@
 draw_editor_popup_button = function(){
+    if(!accessibility_check(window.selected,'button')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
@@ -149,6 +150,6 @@ $('body').on('click','.button_preview',function(){
     for(const key in button_style.css_disabled){
         elem.css_disabled[key] = button_style.css_disabled[key]
     }
-    new_action(window.selected,'');
+    new_action(window.selected);
 
 })

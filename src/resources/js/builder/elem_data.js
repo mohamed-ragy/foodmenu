@@ -88,3 +88,9 @@ get_element_val = function(elem,variable_key,key){
         val_mobile:val_mobile,
     }
 }
+get_parent_key_tree = function(key_tree){
+    let lastDotIndex = key_tree.lastIndexOf('.');
+    let secondLastDotIndex = key_tree.lastIndexOf('.', lastDotIndex - 1);
+    let parent_key_tree = key_tree.slice(0, secondLastDotIndex);
+    return parent_key_tree;
+}

@@ -12,6 +12,7 @@ $('body').on('mousedown','.edit_margin_top',function(e){
     window.edit_margin_top.y = e.pageY;
     window.edit_margin_top.val = parseInt(margin[0]);
     $(this).addClass('edit_margin_selected')
+    hide_edit_btns();
 })
 edit_margin_top_fun = function(y){
     if(window.edit_margin_top.key_tree === undefined){return;}

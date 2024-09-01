@@ -44,8 +44,8 @@ process_data = function(r) {
 
 
         window.ctrl_pressed = false;
-    }
-    //
+}
+//
 set_website_variable_data = function() {
     window.website_texts = window.website_texts_langs.find(item => item.lang == window.preview_language);
     window.website_texts.text.page = {};

@@ -1,4 +1,4 @@
-new_action = function(generate_style = '', render = '') {
+new_action = function( render_key_tree = '') {
     if(JSON.stringify(window.template) == JSON.stringify(window.template_edit_history[`_${window.template_current_edit}`])){
         return;
     }
@@ -13,8 +13,8 @@ new_action = function(generate_style = '', render = '') {
     window.template_current_edit++;
     window.template_edit_history[`_${window.template_current_edit}`] = JSON.parse(JSON.stringify(window.template))
     
-    if(generate_style != ''){console.log(`generate style form action: ${generate_style}`);generate_website_style(generate_style)}
-    if(render != ''){console.log(`render from action: ${render}`);render_website(render)}
+    // if(generate_style != ''){console.log(`generate style form action: ${generate_style}`);generate_website_style(generate_style)}
+    if(render_key_tree != ''){console.log(`render from action: ${render_key_tree}`);render(render_key_tree)}
     fix_undo_redo_btns();
 }
 fix_undo_redo_btns = function() {
@@ -39,82 +39,25 @@ undo = function() {
     if (window.template_current_edit == 0) { return; }
     window.template_current_edit--;
     window.template = JSON.parse(JSON.stringify(window.template_edit_history[`_${window.template_current_edit}`]))
-    render_all();
+    window.used_font_styles = [];
+    render('all')
+    set_all_editors();
     fix_undo_redo_btns();
     hidePopupSelectors(true);
+    set_adapted_header()
 }
 redo = function() {
     if (window.template_current_edit + 1 >= Object.keys(window.template_edit_history).length) { return; }
     window.template_current_edit++;
     window.template = JSON.parse(JSON.stringify(window.template_edit_history[`_${window.template_current_edit}`]))
-    render_all()
-    render_website('all')
+    window.used_font_styles = [];
+    render('all')
     set_all_editors();
     fix_undo_redo_btns();
     hidePopupSelectors(true);
+    set_adapted_header()
 }
-render_all = function(){
-    set_all_editors();
-    render_website('all')
 
-}
-// undo_redo_actions = function(gaga) {
-//     //
-//     // set_template_vars();
-//     //
-//     // generate_website_style('all')
-
-//     // if(render == 'all'){
-//     //     render_page(window.selected_page);
-//     //     render_website_header();
-//     //     // render_header();
-//     //     // render_popup(window.selected_popup);
-//     // }else if(render != ''){
-//     //     try{
-//     //         let render_arr = render.split('.');
-//     //         for(const key in render_arr){
-//     //             if(render_arr[key] == 'page'){
-//     //                 render_page(window.selected_page);
-//     //             }else if(render_arr[key] == 'header'){
-//     //                 render_website_header();
-//     //                 // render_header();
-//     //             }else if(render_arr[key] == 'popup'){
-//     //                 // render_popup(window.selected_popup);
-//     //             }
-//     //         }
-//     //     }catch{}
-//     // }
-//     // if (draw_website) {
-//         // window.used_font_styles = [];
-//         // $('.website_logo').attr('src', window.website_data.logo)
-//         // $('.restaurant_name').text(window.website_data.websiteNames[window.preview_language]);
-//         //
-//         // if (window.website_popup_opened) {
-//         //     show_popup_window(function(){
-//         //         if(window.selected_page != null){
-//         //             draw_popup(window.selected_popup)
-//         //         }
-//         //     });
-//         //     $('#website').find('.popup_card').addClass('stop_transitions');
-//         //     setTimeout(()=>{
-//         //         $('#website').find('.popup_card').removeClass('stop_transitions');
-//         //     },window.template.popup_window.children.popup_card.css['animation-duration'].replace('ms',''))
-//         // } else {
-//             // hide_popup_window();
-//         // }
-
-//         // if (!$('.header_drop_down_list').hasClass('none') && $('.header_drop_down_list').length > 0) {
-//         //     show_header_drop_down_list('foodmenu');
-//         // }
-//         //
-//         // render_page(window.selected_page)
-//         // render_website_header();
-//         // set_adapted_header();
-//     // }
-//     // select(window.selected);
-//     //
-
-// }
 set_all_editors = function(){
     draw_color_palette(true);
     draw_custom_colors();
@@ -267,7 +210,7 @@ generate_website_style = function(generate){
             generate_elems_style(window.template[window.selected_page][key])
         }
         generate_elems_style(window.template.website_header)
-        if (window.website_popup_opened) {
+        if (window.website_popup_opened == true) {
             generate_elems_style(window.template.popup_window)
             generate_elems_style(window.template[selected_popup])
         }
@@ -277,38 +220,40 @@ generate_website_style = function(generate){
         console.log(`element style generated`,elem)
     }
 }
-render_website = function(render){
-    if(render == 'all'){
+render = function(key_tree){
+    if(key_tree == 'all'){
         render_page(window.selected_page)
-        render_website_header()
-        // if(window.website_popup_opened){
-            // show_popup_window(function(){
-                draw_popup(window.selected_popup)
-            // })
-        // }
+        render_website_header();
+        render_website_popup(window.selected_popup);
     }else{
-        render = render.split('.');
-        for(const key in render){
-            if(render[key] == 'page'){
-                render_page(window.selected_page)
-            }
-            if(render[key] == 'popup'){
-                // show_popup_window(function(){
-                    draw_popup(window.selected_popup)
-                // })
-            }
-            if(render[key] == 'popup_window'){
-
-            }
-            if(render[key] == 'header'){
+        key_tree = key_tree.split('-');
+        for(const key in key_tree){
+            if(key_tree[key] == 'website_colors'){
+                set_website_colors_vars();
+            }else if(key_tree[key] == 'page_setup'){
+                set_page_setup_vars();
+            }else if(key_tree[key] == 'website_header'){
                 render_website_header()
+            }else if(key_tree[key] == 'page'){
+                render_page(window.selected_page)
+            }else{
+                let elem = get_element_data(key_tree[key]);
+                if($(`.${elem.class_selector}_container`).length > 0){
+                    $(`.${elem.class_selector}_container`).replaceWith(generate_html(elem,key_tree[key]))
+                }else{
+                    $(`.${elem.class_selector}`).replaceWith(generate_html(elem,key_tree[key]))
+                }
+            }
 
+            if(key_tree[key] == 'popup_window' && window.website_popup_opened == true){
+                $('#website').find('.popup_container').removeClass('none')
             }
         }
     }
     try{
         select(window.selected)
     }catch{}
+    set_website_default_classes();
 }
 //events
 $('body').on('click', '.undo', function(e) {

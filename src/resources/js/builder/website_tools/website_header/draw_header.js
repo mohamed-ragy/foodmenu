@@ -16,7 +16,7 @@ render_website_header = function(){
         fix_header_nav_list();
         $('.website_header').removeClass('stop_transitions')
     },200)
-    set_template_vars();
+    set_adapted_header();    
     console.log('header rendered')
 }
 set_adapted_header = function(){
@@ -28,7 +28,6 @@ set_adapted_header = function(){
         $('section').first().find('.select_section_title').css('top',$('.website_header').outerHeight())
     }else{
         $('.website_header').removeClass('adapted_header')
-
     }
 }
 fix_header_nav_list = function(){

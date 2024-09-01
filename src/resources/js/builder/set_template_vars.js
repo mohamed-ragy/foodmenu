@@ -2,7 +2,10 @@ set_template_vars = function(){
     set_website_colors_vars();
     set_page_setup_vars();
     // set_loading_spinner_vars();
+    set_website_default_classes();
 
+}
+set_website_default_classes = function(){
     $('.website_logo').attr('src',window.website_data.logo)
     $('.restaurant_name').text(window.website_data.websiteNames[window.preview_language])
 }
@@ -18,8 +21,10 @@ set_website_colors_vars  = function(){
 }
 
 set_page_setup_vars = function(){
-    $(':root').css('--screen_height',`calc(${$('#website').height()}px)`)
-    $(':root').css('--screen_height_minus_header',`calc(${$('#website').height()}px - ${$('.website_header').outerHeight()}px)`)
+
+    $(':root').css('--screen_height_minus_header',`${$('#website').height() - $('.website_header').height()}px`)
+    $(':root').css('--screen_height',`${$('#website').height()}px`)
+
 
     $(':root').css('--page_max_width',window.template.page_setup.max_width);
     //
@@ -47,3 +52,4 @@ set_loading_spinner_vars = function(){
     $(':root').css(`--loading_spinner_c4`,window.template.loading_spinner.colors.loading_spinner_c4 ?? 'rgba(110,110,110,1)');
     $(':root').css(`--loading_spinner_c5`,window.template.loading_spinner.colors.loading_spinner_c5 ?? 'rgba(80,80,80,1)');
 }
+

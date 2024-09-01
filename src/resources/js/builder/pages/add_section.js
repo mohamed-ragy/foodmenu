@@ -149,7 +149,8 @@ add_section = function(section,section_name_prefix){
     }
     section.name = section_name;
     window.template[window.selected_page].push(JSON.parse(JSON.stringify(section)))
-    new_action('','page');
+    new_action('page');
+    
     try{
         $('#website').animate({scrollTop:$(`section[key_tree="${window.selected_page}.${new_section_sort}"]`).position().top - 50},300)
     }catch{}

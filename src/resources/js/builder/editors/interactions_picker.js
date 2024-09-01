@@ -4,8 +4,7 @@ draw_interactions_picker = function(data){
         key_tree:data.key_tree,
         variable_key:null,
         key:'accessibility',
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
             $('<div/>',{class:'row alnC jstfyC'}).append(
@@ -141,6 +140,13 @@ set_interactions_accessibility = function(editor,val,key){
         if (index !== -1) {
             elem.accessibility.splice(index, 1);
         }
+        if(key == 'hover'){
+            let index2 = elem.accessibility.indexOf('parent_hover');
+            if (index2 !== -1) {
+                elem.accessibility.splice(index2, 1);
+            }
+            set_interactions_picker(editor)
+        }
     }else if(val == '1'){
         elem.accessibility.push(key);
     }
@@ -151,10 +157,9 @@ set_interactions_accessibility = function(editor,val,key){
     }else if(key_tree == 'popup_window.children.popup_card'){
         set_interactions_accessibility('popup_window.children.popup_card.children.popup_close',val,key)
     }else{
-        if(key == 'parent_hover'){
-            let parent = get_element_parent_data(key_tree);
-            generate_elem_style(parent)
+        new_action(editor.attr('render'));
+        if(key == 'parent_hover' && val == '0' || key == 'hover' && val == '0'){
+            generate_elem_style(get_element_parent_data(editor.attr('key_tree')))
         }
-        new_action(editor.attr('generate_style'),editor.attr('render'));
     }
 }

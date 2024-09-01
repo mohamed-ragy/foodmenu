@@ -1,4 +1,5 @@
 draw_editor_popup_filter = function(){
+    if(!accessibility_check(window.selected,'filter')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;

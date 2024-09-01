@@ -633,6 +633,7 @@ return [
         'contain' => 'Contain',
         'fixed' => 'Fixed',
         'local' => 'Local',
+        'dynamic' => 'Dynamic',
         'repeat' => 'Repeat',
         'no_repeat' => 'No repeat',
         'image' => 'Image',

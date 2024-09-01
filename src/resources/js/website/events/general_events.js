@@ -25,7 +25,7 @@ $('body').on('click','.scroll_to_section',function(e){
     e.preventDefault();
     $('body').animate({
         scrollTop:$(`.${$(this).attr('section')}`).position().top,
-    },500)
+    },1000)
 })
 $('body').on('click','.checkbox',function(e){
     if($(this).hasClass('checkbox_checked')){

@@ -4,8 +4,7 @@ require('./editor/popup.js');
 require('./editor/general.js');
 
 set_editor_popup_editor = function(){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
+    if(window.selected == null || window.selected === undefined){return;}
     let elem = get_element_data(window.selected);
     $("#editor").css({
         top:'unset',
@@ -30,7 +29,7 @@ set_editor_popup_editor = function(){
             set_editor_popup_editor_position_elem(window.selected);
         break;
         case 'container':
-            $('#editor').find('.editor_popup_title').text(texts.elems.container)
+            $('#editor').find('.editor_popup_title').text(elem.name)
             set_editor_popup_editor_position_container(window.selected);
         break;
         case 'website_header': 
@@ -75,7 +74,7 @@ $('body').on('click','.editor_popup_body_shortcut',function(e){
     if($(this).hasClass('editor_popup_body_shortcut_group_elem')){
         $(this).closest('.editor_popup_body_shortcut_group').find('.editor_popup_body_shortcut_open_group').addClass('editor_popup_body_shortcut_open_group_selected')
     }
-    // $(this).closest('.editor_popup').find('.editor_popup_title2').text($(this).attr('tooltip'))
+
     stop_preview_animations();
     if($(this).hasClass('editor_animation')){
         play_preview_animations();

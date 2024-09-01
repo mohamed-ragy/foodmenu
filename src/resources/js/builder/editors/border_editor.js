@@ -34,12 +34,11 @@ draw_border_editor = function(data){
 }
 draw_border_editors = function(key,container_class,data){
     return $('<div/>',{
-        class:`w100p editor border_editor ${container_class}`,
+        class:`w100p editor border_editor ${container_class} ${data.editor_class ??''}`,
         key:key,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'row alnC jstfyC pY5 mY5 mB10 w100p'}).append(
             draw_number_picker({
@@ -130,7 +129,7 @@ $('body').on('change','.border_editor',function(e){
         let new_val = `${get_dummy_val(editor.find('.border_editor_width'))} ${get_dummy_val(editor.find('.border_editor_style'))} ${get_dummy_val(editor.find('.border_editor_color'))}`;
         set_val(editor,new_val);
     }
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_border_editors(editor.closest('.border_editors'))
     temp_preview_mode();
 })

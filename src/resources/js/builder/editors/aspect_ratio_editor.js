@@ -4,8 +4,7 @@ draw_aspect_ratio_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'w100p row alnC jstfyC wrap'}).append(
             $('<div/>',{class:'aspect_ratio_item',aspect_ratio:'auto',style:`aspect-ratio:auto;height:50px;`,text:texts.styling.auto}),
@@ -31,6 +30,6 @@ $('body').on('click','.aspect_ratio_item',function(){
     let editor = $(this).closest('.aspect_ratio_editor');
     let new_val = $(this).attr('aspect_ratio');
     set_val(editor,new_val);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_aspect_ratio_editor(editor)
 })

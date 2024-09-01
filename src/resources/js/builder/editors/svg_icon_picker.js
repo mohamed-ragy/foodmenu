@@ -5,8 +5,7 @@ draw_svg_icon_picker = function(data){
         variable_key:data.variable_key,
         key:data.key,
         icon_type:data.icon_type,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     })
     return editor;
 }
@@ -77,6 +76,6 @@ $('body').on('click','.set_icon',function(e){
     for(const key in icon_data.paths_attrs){
         elem[window.selected_svg_icon_picker.attr('key')].children.push(icon_data.paths_attrs[key])
     }
-    new_action(window.selected_svg_icon_picker.attr('generate_style'),window.selected_svg_icon_picker.attr('render'));
+    new_action(window.selected_svg_icon_picker.attr('render'));
     set_svg_icon_picker(window.selected_svg_icon_picker);
 })

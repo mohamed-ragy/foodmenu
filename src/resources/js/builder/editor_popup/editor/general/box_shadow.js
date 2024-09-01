@@ -1,4 +1,5 @@
 draw_editor_popup_box_shadow = function(){
+    if(!accessibility_check(window.selected,'box_shadow')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;

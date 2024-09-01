@@ -6,8 +6,7 @@ draw_animation_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_container w100p',key:'select_animation'}).append(
             $('<div/>',{class:'mX20 mY10 mT20 bold',text:texts.styling.select_animation}),
@@ -165,14 +164,53 @@ set_animation_editor = function(editor){
 }
 
 //
+$('body').on('click','.editor_popup_show_container[key="animation_up_out"]',function(){
+    let elem_data = get_element_data(window.selected);
+    let elem = $(`.${elem_data.class_selector}_container`);
+    $('#website').scrollTop(elem.offset().top - $('#website').offset().top + $('#website').scrollTop() - 20)
+    setTimeout(()=>{
+        set_elem_animation(elem_data.class_selector,'up_out',false)
+    })
+})
+$('body').on('click','.editor_popup_show_container[key="animation_up"]',function(){
+    let elem_data = get_element_data(window.selected);
+    let elem = $(`.${elem_data.class_selector}_container`);
+    $('#website').scrollTop(elem.offset().top - $('#website').offset().top + $('#website').scrollTop() - 70)
+    setTimeout(()=>{
+        set_elem_animation(elem_data.class_selector,'up',false)
+    })
+})
+$('body').on('click','.editor_popup_show_container[key="animation_in"]',function(){
+    let elem_data = get_element_data(window.selected);
+    let elem = $(`.${elem_data.class_selector}_container`);
+    $('#website').scrollTop(elem.offset().top - $('#website').offset().top + $('#website').scrollTop() - (($('#website').height() / 6) * 2))
+    setTimeout(()=>{
+        set_elem_animation(elem_data.class_selector,'in',false)
+    })
+})
+$('body').on('click','.editor_popup_show_container[key="animation_down"]',function(){
+    let elem_data = get_element_data(window.selected);
+    let elem = $(`.${elem_data.class_selector}_container`);
+    $('#website').scrollTop(elem.offset().top - $('#website').offset().top + $('#website').scrollTop() - $('#website').height() + elem.height() + 50)
+    setTimeout(()=>{
+        set_elem_animation(elem_data.class_selector,'down',false)
+    })
+})
+$('body').on('click','.editor_popup_show_container[key="animation_down_out"]',function(){
+    let elem_data = get_element_data(window.selected);
+    let elem = $(`.${elem_data.class_selector}_container`);
+    $('#website').scrollTop(elem.offset().top - $('#website').offset().top + $('#website').scrollTop() - $('#website').height() + elem.height())
+    setTimeout(()=>{
+        set_elem_animation(elem_data.class_selector,'down_out',false)
+    })
+})
 $('body').on('mouseup','.animation_preview_container',function(){
     if($(this).hasClass('animation_preview_container_selected')){return;}
     let animation = JSON.parse(JSON.stringify(window.animations.find(item=>item.name == $(this).attr('animation_name'))));
     let editor = $(this).closest('.animation_editor');
     let responsive_key = get_responseive_key(editor)
     let key_tree = editor.attr('key_tree');
-    let variable_key = editor.attr('variable_key');
-    let elem = get_element_data(key_tree,variable_key);
+    let elem = get_element_data(key_tree);
     if(responsive_key == '0'){
         elem.animation = {};
     }else if(responsive_key == 'general'){
@@ -195,23 +233,24 @@ $('body').on('mouseup','.animation_preview_container',function(){
             elem.animation_mobile[key] = animation[key];
         }
     }    
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
+    if(animation.name == 'no_animation'){
+        $(`.${elem.class_selector}`).removeAttr('animation' )
+    }else{
+        $(`.${elem.class_selector}`).attr('animation','true')
+    }
     set_animation_editor(editor)
 })
-$('body').on('change','.editor_preview_animation',function(){
-    preview_elem_animation_on_website($(this).closest('.editor_popup_container').attr('key'))
-})
-$('body').on('change','.editor_preview_animation2',function(){
-    preview_elem_animation_on_website($(this).closest('.editor_popup_container').attr('parent_key'))
-})
-//
 
 
 //events
 $('body').on('click','.editor_popup_show_container[key="customize_animation"]',function(e){
-    let editor = $(this).closest('.animation_editor')
+    let editor = $(this).closest('.animation_editor');
+    let key_tree = editor.attr('key_tree');
+    let elem = get_element_data(key_tree);
     set_val(editor,'customized_animation')
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    $(`.${elem.class_selector}`).attr('animation','true')
+    new_action(editor.attr('render'));
     set_animation_editor(editor)
 })
 

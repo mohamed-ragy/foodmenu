@@ -12,6 +12,7 @@ $('body').on('mousedown','.edit_margin_top_section',function(e){
     window.edit_margin_top_section.y = e.pageY;
     window.edit_margin_top_section.val = parseInt(margin_top);
     $(this).addClass('edit_margin_selected')
+    hide_edit_btns();
 })
 edit_margin_top_section_fun = function(y){
     if(window.edit_margin_top_section.key_tree === undefined){return;}

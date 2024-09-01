@@ -1,4 +1,5 @@
 draw_editor_popup_animation = function(){
+    if(!accessibility_check(window.selected,'animation')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
@@ -8,6 +9,7 @@ draw_editor_popup_animation = function(){
                         key_tree:window.selected,
                         variable_key:'animation',
                         key:'name',
+                        generate_style:window.selected,
                     })
                 ]
             })

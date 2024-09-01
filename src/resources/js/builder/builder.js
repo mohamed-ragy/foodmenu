@@ -6,9 +6,7 @@ $.ajaxSetup({
         'X-Csrf-Token':$('meta[name="csrf-token"]').attr('content'),
     },
 });
-$(document).on('click',function(e){
-    console.log(e.type)
-})
+
 require('../page_loading.js')
 require('./select_template.js')
 require('./process_data.js');
@@ -35,7 +33,7 @@ require('./tools/save.js');
 require('./tools/select.js')
 require('./tools/contextMenu.js')
 require('./tools/copy.js')
-require('./tools/accessibility_check.js')
+require('./tools/accessibility_check.js');
 
 require('./editor_popup/editor_popup.js');
 require('./editor_popup/editor.js');

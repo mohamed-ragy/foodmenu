@@ -4,8 +4,7 @@ draw_button_function_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     });
 
     return editor;
@@ -173,6 +172,6 @@ $('body').on('click','.editor_set_function',function(){
     }
     $(`.${elem_class_selector}`).addClass(hyperlink.class)
     elem.class = `${elem.class} ${hyperlink.class}`;
-    new_action(window.selected_button_function_editor.attr('generate_style'),window.selected_button_function_editor.attr('render'));
+    new_action(window.selected_button_function_editor.attr('render'));
     set_button_function_editor(window.selected_button_function_editor);
 })

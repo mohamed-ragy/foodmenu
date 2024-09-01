@@ -69,14 +69,13 @@ fix_editor_popup_position = function(editor_popup){
 }
 show_editor_popup = function(elem,callback=()=>{}){
     $('.editor_popup').addClass('editor_popup_dump')
-    $('.editor_popup_title2').text('')
+    if(elem == 'editor'){
+        $('.editor_popup_title2').text('')
+    }
     $(`#${elem}`).css({'animation-duration':'300ms'})
     switch(elem){
         case 'loading_spinner':
             get_loading_spinners();
-        break;
-        case 'popup_window':
-            show_popup_window();
         break;
         case 'website_header':
             window.selected = 'website_header.children.header_wrapper';
@@ -179,6 +178,9 @@ editor_popup_to_parent = function(container){
 }
 //events
 $('body').on('click','.editor_popup_show_container',function(e){
+    if($(this).attr('key') == 'interactions_transition_timing'){
+        if(elem_has_animation(window.selected,true)){return;}
+    }
     editor_popup_to_child($(this).closest('.editor_popup').find(`.editor_popup_container[key="${$(this).attr('key')}"]`))
 })
 $('body').on('click','.editor_popup_back_Btn',function(e){

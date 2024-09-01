@@ -22,7 +22,7 @@ $('body').on('change','.editor_details_head',function(){
     editors_container.find('[editor_details="1"]').each(function(){
         set_val($(this),new_val);
     })
-    new_action('','');
+    // new_action('','');
 })
 show_editor_details = function(editors_container){
     editors_container.find('.editor_details_toggle').removeClass('ico-arrowRight2').addClass('ico-arrowDown2')

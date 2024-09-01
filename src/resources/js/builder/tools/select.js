@@ -1,12 +1,14 @@
 select = function(key_tree){
     // if(window.selected == key_tree){return;}
-    try{
+    // try{
         if(typeof(key_tree) === 'undefined'){return;}
         if(key_tree != window.selected){
             hide_editor_popup('editor')
         }
+        console.log(key_tree)
         let elem = get_element_data(key_tree)
         window.selected = key_tree;
+        show_edit_btns(key_tree)
         $('section').removeClass('section_selected');
         $(`.section_block`).removeClass('section_block_selected')
         $(`.elem`).removeClass('edit_elem_selected')
@@ -58,17 +60,31 @@ select = function(key_tree){
                 if(window.website_popup_opened){
                     $('#website').find('.popup_card').addClass('popup_window_selected')
                 }else{
-                    show_popup_window(function(){
-                        $('#website').find('.popup_card').addClass('popup_window_selected')
-                    });
+                    open_website_popup();
                 }
             break;
         }
-    }catch{
-        hide_editor_popup('editor')
-    }
+    // }catch{
+    //     hide_editor_popup('editor')
+    // }
 }
-
+unselect = function(){
+    window.selected = null;
+    hide_editor_popup();
+    hide_edit_btns()
+    $('section').removeClass('section_selected');
+    $(`.section_block`).removeClass('section_block_selected')
+    $(`.elem`).removeClass('edit_elem_selected')
+    $(`.container`).removeClass('edit_container_selected')
+    $('.website_header').removeClass('selected_header')
+    $('.header_component').removeClass('header_component_selected')
+    $('.header_navList_item').removeClass('header_component_selected')
+    $('#website').find('.popup_card').removeClass('popup_window_selected')
+    hide_header_drop_down_list();   
+    let selection = window.getSelection();
+    selection.removeAllRanges();
+    $('[contenteditable]').attr('contenteditable',false)
+}
 //
 heighlight_all = function(){
     $('section').addClass('section_selected');
@@ -94,18 +110,18 @@ heighlight_all_toggle = function(){
 set_preview_mode = function(){
     $('.set_preview_mode').addClass('header_icon_selected')
     $('#website').addClass('preview_mode')
+    $('.edit_btns').css('display','none')
 }
 unset_preview_mode = function(){
     $('.set_preview_mode').removeClass('header_icon_selected')
     $('#website').removeClass('preview_mode')
-
+    $('.edit_btns').css('display','flex')
 }
 preview_mode_toggle = function(){
-
     if( $('.set_preview_mode').hasClass('header_icon_selected')){
         unset_preview_mode();
     }else{
-        set_preview_mode()
+        set_preview_mode();
     }
 }
 is_preview_mode = function(){

@@ -12,6 +12,7 @@ $('body').on('mousedown','.edit_padding_left',function(e){
     window.edit_padding_left.x = e.pageX;
     window.edit_padding_left.val = parseInt(padding[3]);
     $(this).addClass('edit_padding_selected')
+    hide_edit_btns();
 })
 edit_padding_left_fun = function(x){
     if(window.edit_padding_left.key_tree === undefined){return;}

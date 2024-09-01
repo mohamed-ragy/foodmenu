@@ -1,3 +1,5 @@
+const jquery = require("jquery");
+
 draw_editor_popup_header_settings = function(){
     if(!accessibility_check(window.selected,'header_settings')){return;}
     show_editor_popup('editor',function(){
@@ -15,7 +17,9 @@ draw_editor_popup_header_settings = function(){
                                 key_tree:'website_header',
                                 variable_key:'css',
                                 key:'position',
-                                selections:[{text:texts.styling.local,key:'relative'},{text:texts.styling.fixed,key:'sticky'}],
+                                selections:[{text:texts.styling.local,key:'relative'},{text:texts.styling.fixed,key:'sticky'},{text:texts.styling.dynamic,key:'dynamic'}],
+                                editor_class:'header_position_select_box',
+
                             }),
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(
@@ -97,5 +101,16 @@ $('body').on('click','.header_preview_container',function(e){
     for(const key in layout.elem3){
         window.template.website_header.children.header_wrapper.children.header_iconsList.css[key] = layout.elem3[key];
     }
-    new_action('','header');
+    new_action('website_header');
+    set_page_setup_vars()
+})
+$('body').on('change','.header_position_select_box',function(e){
+    let val = get_editor_val($(this));
+    if(val == 'dynamic'){
+        window.template.website_header.attr.dynamic = '1';
+        $('#website').find('.website_header').attr('dynamic','1')
+    }else{
+        window.template.website_header.attr.dynamic = '0';
+        $('#website').find('.website_header').attr('dynamic','0')
+    }
 })

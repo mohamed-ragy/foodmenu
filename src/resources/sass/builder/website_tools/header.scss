@@ -18,7 +18,6 @@
     .edit_header_padding_bottom{display: block;}
     .edit_header_padding_left{display: block;}
 
-    .edit_btns_header{display: flex;}
     .select_website_header_title{display: block;}
 }
 .selected_header:hover{
@@ -36,7 +35,7 @@
     color:var(--green-txt);
     width:fit-content;
     position: absolute;
-    left:-1px;
+    right:-1px;
     top:100%;
     padding:2px 8px;
     padding-bottom: 1px;

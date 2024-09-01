@@ -1,4 +1,5 @@
 draw_editor_popup_display = function(){
+    if(!accessibility_check(window.selected,'display')){return;}
     show_editor_popup('editor',function(){
         let elem = get_element_data(window.selected);
         let show_key = 'block';

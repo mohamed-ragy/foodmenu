@@ -15,7 +15,6 @@ set_editor_popup_editor_position_elem = function(key_tree){
 $('body').on('mousedown','.elem',function(e){
     if($(this).hasClass('edit_elem_selected')){return;}
     select($(this).attr('key_tree'))
-    $(this).find('.edit_btns').first().addClass('edit_btns_animation_slide_up')
 })
 $('body').on('contextmenu','.elem',function(e){
     if($('[contenteditable="true"]:hover').length > 0){return}
@@ -45,8 +44,8 @@ $('body').on('click','.swap_elem_up_btn',function(){
     parent.children.sort((a,b)=>{
         return a.sort - b.sort;
     })
-    window.selected = undefined;
-    new_action('','page.popup');
+    new_action(get_parent_key_tree(window.selected));
+    unselect()
 })
 $('body').on('click','.swap_elem_down_btn',function(){
     hide_editor_popup('editor')
@@ -59,8 +58,8 @@ $('body').on('click','.swap_elem_down_btn',function(){
     parent.children.sort((a,b)=>{
         return a.sort - b.sort;
     })
-    window.selected = undefined;
-    new_action('','page.popup');
+    new_action(get_parent_key_tree(window.selected));
+    unselect()
 })
 $('body').on('click','.dublicate_elem_btn',function(){
     hide_editor_popup('editor')
@@ -75,8 +74,8 @@ $('body').on('click','.dublicate_elem_btn',function(){
         }
     }
     parent.children.push(new_elem);
-    window.selected = undefined;
-    new_action('','page.popup');
+    new_action(get_parent_key_tree(window.selected));
+    unselect()
 })
 $('body').on('click','.delete_elem_btn',function(){
     delete_selected();

@@ -4,8 +4,7 @@ draw_font_style_picker = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'recent_font_styles_list mB20'}),
         data.page_default_btn != false ? $('<div/>',{class:'row alnC jstfyE w100p'}).append(
@@ -92,22 +91,35 @@ load_font_style = function(font_name){
 }
 //
 $('body').on('mouseup','.font_styles_list_font',function(){
+    let elem;
     let editor = $(this).closest('.font_picker_editor');
+    console.log(editor.attr('key_tree'))
+    if(!editor.attr('key_tree').includes('page_setup')){
+        elem = get_element_data(window.selected);
+        window.used_font_styles = window.used_font_styles.filter(item => item !== elem.font_style[window.preview_language])
+    }
     editor.find('.font_styles_list_font').removeClass('font_styles_list_font_selected');
     $(this).addClass('font_styles_list_font_selected')
     selected_font_name = $(this).attr('font_name');
     editor.find('.font_styles_list_font_page_default').removeClass('none')
     set_val(editor,selected_font_name)
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_font_style_picker(editor);
+    if(!editor.attr('key_tree').includes('page_setup')){
+        elem = get_element_data(window.selected);
+        window.used_font_styles  = window.used_font_styles.filter(item => item !== elem.font_style[window.preview_language]);
+        window.used_font_styles.push(selected_font_name)
+    }
 })
 $('body').on('mouseup','.font_styles_list_font_page_default',function(){
+    let elem = get_element_data(window.selected);
     let editor = $(this).closest('.font_picker_editor');
     editor.find('.font_styles_list_font').removeClass('font_styles_list_font_selected');
     $(this).addClass('none')
     set_val(editor,'')
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_font_style_picker(editor);
+    window.used_font_styles  = window.used_font_styles.filter(item => item !== elem.font_style[window.preview_language]);
 })
 //
 $('body').on('click','.select_font',function(e){

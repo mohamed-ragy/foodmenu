@@ -3,9 +3,15 @@
     inset: 0 0 0 0;
     content:'';
 }
+.popup_card:hover{
+    .select_popup_title{
+        display: block;
+        background-color: var(--green-50);
+    }
+}
 .popup_card:hover:after{
     outline: 2px dashed var(--green-50);
-    outline-offset: 2px;
+    // outline-offset: 2px;
 }
 .popup_window_selected, .popup_window_selected:hover{
     .edit_popup_padding_top{display: block;}
@@ -14,7 +20,6 @@
     .edit_popup_padding_left{display: block;}
 
     .select_popup_title{display: block;}
-    .edit_btns_popup{display: flex;}
 
     .container:hover::after{
         outline: 1px dashed var(--violet-50);
@@ -39,8 +44,8 @@
     color:var(--green-txt);
     width:fit-content;
     position: absolute;
-    left:-4px;
-    bottom:calc(100% + 4px);
+    left:-1px;
+    bottom:calc(100% + 1px);
     padding:2px 8px;
     padding-bottom: 1px;
     border-radius: 0px 0px 0 0;

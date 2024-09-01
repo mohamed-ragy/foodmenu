@@ -1,17 +1,42 @@
-show_popup_window = function(callback=()=>{}){
-    window.website_popup_opened = true;
+render_website_popup = function(popup){
     $('#website').find('.popup_container').remove();
     $('#website').prepend(generate_html(window.template.popup_window,'popup_window'))
-    $('#website').css('overflow-y','hidden').scrollTop(0)
-    $('.popup_container').removeClass('none')
-    callback();
-    $('.popup_container').find('.popup_card').addClass(window.template.popup_window.transition)
     console.log('popup rendered')
+}
+draw_popup = function(popup){
+    $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[popup])
+    window.selected_popup = popup;
+    $('#website').find('.popup_card').append(
+        generate_html(window.template[popup],popup),
+    )
+}
+open_website_popup = function(popup){
+    window.website_popup_opened = true;
+    $('#website').css('overflow-y','hidden').scrollTop(0)
+    $('#website').find('.popup_container').removeClass('none')
+    $('#website').find('.popup_card').children()
+    .not('.popup_close')
+    .not('.edit_popup_padding_top')
+    .not('.edit_popup_padding_bottom')
+    .not('.edit_popup_padding_right')
+    .not('.edit_popup_padding_left')
+    .remove()
+    switch(popup){
+        case 'popup_window':
+            $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[window.selected_page])
+            select('popup_window.children.popup_card');
+        break;
+        case 'login_popup':
+            draw_popup(popup)
+            select('login_popup')
+        break;
+    }
+    $('#website').find('.popup_container').find('.popup_card').addClass(window.template.popup_window.children.popup_card.transition)
 }
 hide_popup_window = function(){
     window.website_popup_opened = false;
     window.selected_popup = 'popup_window';
-    $('#website').find('.popup_container').remove();
+    $('#website').find('.popup_container').addClass('none')
     $('#website').css('overflow-y','auto')
     $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[window.selected_page])
 }
@@ -43,10 +68,11 @@ $('body').on('contextmenu','.popup_card',function(e){
 })
 //
 $('body').on('mouseup','.popup_close',function(e){
-    window.selected = null;
+    unselect()
     hide_popup_window();
     hide_editor_popup('editor')
 })
+
 
 
 

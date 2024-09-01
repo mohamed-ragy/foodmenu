@@ -4,8 +4,7 @@ draw_backdrop_filter_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_col'}).append(
             $('<div/>',{class:'fs09',text:texts.styling.blur}),
@@ -115,7 +114,7 @@ $('body').on('click','.reset_backdrop_filter',function(e){
     let new_val = get_default_style('backdrop_filter');
     let editor = $(this).closest('.backdrop_filter_editor')
     set_val(editor,new_val)
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_backdrop_filter_editor(editor)
 })
 //
@@ -147,7 +146,7 @@ set_backdrop_filter_val = function(editor,filter,filter_val){
     }
     new_val = `blur(${blur}) brightness(${brightness}) contrast(${contrast}) saturate(${saturate}) grayscale(${grayscale}) hue-rotate(${hue_rotate}) invert(${invert}) sepia(${sepia})`
     set_val(editor,new_val)
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_backdrop_filter_editor(editor)
 }
 $('body').on('change','.backdrop_filter_range_blur',function(e){

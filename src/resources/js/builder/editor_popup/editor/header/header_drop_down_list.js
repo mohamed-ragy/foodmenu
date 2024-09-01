@@ -200,8 +200,9 @@ show_header_drop_down_list = function(list){
 
         break;
     }
+    console.log($(`.show_header_drop_down_list[header_list="${list}"]`).offset().top)
     $('.header_drop_down_list').removeClass('none').css({
-        'top':$(`.show_header_drop_down_list[header_list="${list}"]`).offset().top + $(`.show_header_drop_down_list[header_list="${list}"]`).height() + 5,
+        'top':$(`.show_header_drop_down_list[header_list="${list}"]`).offset().top + $(`.show_header_drop_down_list[header_list="${list}"]`).height() + 5 - 50,
         'left':$(`.show_header_drop_down_list[header_list="${list}"]`).offset().left,
     })
     if($('.header_drop_down_list').offset().left + $('.header_drop_down_list').outerWidth() > $(window).width()){

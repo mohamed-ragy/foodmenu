@@ -1,4 +1,5 @@
 draw_editor_popup_margin = function(){
+    if(!accessibility_check(window.selected,'margin')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;
@@ -17,7 +18,8 @@ draw_editor_popup_margin = function(){
                         key:'margin',
                         units:['px'],
                         step:1,
-                        names:[texts.styling.margin,texts.styling.margin_top,texts.styling.margin_right,texts.styling.margin_bottom,texts.styling.margin_left]
+                        names:[texts.styling.margin,texts.styling.margin_top,texts.styling.margin_right,texts.styling.margin_bottom,texts.styling.margin_left],
+                        editor_class:'edit_margin_four_number_pickers'
                     })
                 ]
             })
@@ -31,4 +33,13 @@ draw_editor_popup_margin = function(){
 }
 $('body').on('click','.editor_margin',function(e){
     draw_editor_popup_margin();
+})
+
+$('body').on('change','.edit_margin_four_number_pickers',function(){
+    let key_tree = $(this).closest('.four_number_pickers_editor').attr('key_tree')
+    if(key_tree.includes('website_header')){
+        try{
+            generate_elem_style(get_element_data(`${window.selected_page}.0`))
+        }catch{}
+    }
 })

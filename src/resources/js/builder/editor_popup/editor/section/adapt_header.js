@@ -11,6 +11,7 @@ draw_editor_popup_section_adapt_header = function(){
                             key_tree:`${window.selected}`,
                             variable_key:'attr',
                             key:'adapt_header',
+                            editor_class:'editor_popup_adapt_header_switchBtn'
                         }),
                     ),
                     $('<div/>',{class:`editor_popup_row`}).append(
@@ -32,4 +33,7 @@ draw_editor_popup_section_adapt_header = function(){
 }
 $('body').on('click','.editor_section_adapt_header',function(e){
     draw_editor_popup_section_adapt_header();
+})
+$('body').on('change','.editor_popup_adapt_header_switchBtn',function(){
+    set_adapted_header();
 })

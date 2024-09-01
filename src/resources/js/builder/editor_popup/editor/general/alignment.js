@@ -1,4 +1,5 @@
 draw_editor_popup_section_block_alignment = function(){
+    if(!accessibility_check(window.selected,'alignment')){return;}
     show_editor_popup('editor',function(){
         let elem = get_element_data(window.selected);
         $('#editor').find('.editor_popup_body').text('').append(
@@ -59,7 +60,7 @@ draw_editor_popup_section_block_alignment = function(){
                     elem.type != 'container' ? $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.overflow}),
                         draw_select_box({
-                            key_tree:window.selected,
+                        key_tree:window.selected,
                             variable_key:'css',
                             key:'overflow',
                             selections:[

@@ -5,8 +5,7 @@ draw_switch_btn = function(data){
         variable_key:data.variable_key,
         key:data.key,
         show_hide:data.show_hide ?? '',
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     })
     return editor;
 }
@@ -60,7 +59,10 @@ $('body').on('change','.switch_btn',function(e){
         new_val = '0';
     }
     set_val(editor,new_val);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
+    if(editor.attr('show_hide') !== undefined && editor.attr('show_hide') != ''){
+        set_all_editors();
+    }
 })
 $('body').on('click','.switch_btn',function(e){
     if($(this).hasClass('switch_btn_disabled')){

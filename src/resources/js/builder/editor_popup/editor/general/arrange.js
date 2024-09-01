@@ -1,5 +1,6 @@
 editor_bring_to_front = function(){
     let elem = get_element_data(window.selected);
+    if(!accessibility_check(window.selected,'arrange')){return;}
     let parent = get_element_parent_data(window.selected);
     let new_zindex = elem.css['z-index'];
     for(const key in parent.children){
@@ -11,8 +12,8 @@ editor_bring_to_front = function(){
         }
     }
     elem.css['z-index'] = new_zindex;
-    new_action('','');
-    generate_elem_style(elem)
+    new_action(get_parent_key_tree(window.selected));
+    // generate_elem_style(elem)
 }
 $('body').on('click','.editor_bring_to_front',function(){
     editor_bring_to_front()
@@ -20,6 +21,7 @@ $('body').on('click','.editor_bring_to_front',function(){
 //
 editor_bring_forward = function(){
     let elem = get_element_data(window.selected);
+    if(!accessibility_check(window.selected,'arrange')){return;}
     let parent = get_element_parent_data(window.selected);
     let zindex_arr = [];
     for(const key in parent.children){
@@ -35,8 +37,7 @@ editor_bring_forward = function(){
         new_zindex = Math.min(...zindex_arr) +1;
     }
     elem.css['z-index'] = new_zindex;
-    new_action('','');
-    generate_elem_style(elem)
+    new_action(get_parent_key_tree(window.selected));
 }
 $('body').on('click','.editor_bring_forward',function(){
     editor_bring_forward();
@@ -44,6 +45,7 @@ $('body').on('click','.editor_bring_forward',function(){
 //
 editor_send_to_back = function(){
     let elem = get_element_data(window.selected);
+    if(!accessibility_check(window.selected,'arrange')){return;}
     let parent = get_element_parent_data(window.selected);
     let new_zindex = elem.css['z-index'];
     for(const key in parent.children){
@@ -60,8 +62,7 @@ editor_send_to_back = function(){
         }
     }
     elem.css['z-index'] = new_zindex;
-    new_action('','');
-    generate_elem_style(elem)
+    new_action(get_parent_key_tree(window.selected));
 }
 $('body').on('click','.editor_send_to_back',function(){
     editor_send_to_back();
@@ -69,6 +70,7 @@ $('body').on('click','.editor_send_to_back',function(){
 //
 editor_send_backward = function(){
     let elem = get_element_data(window.selected);
+    if(!accessibility_check(window.selected,'arrange')){return;}
     let parent = get_element_parent_data(window.selected);
     let zindex_arr = [];
     for(const key in parent.children){
@@ -87,8 +89,7 @@ editor_send_backward = function(){
         new_zindex = 1;
     }
     elem.css['z-index'] = new_zindex;
-    new_action('','');
-    generate_elem_style(elem)
+    new_action(get_parent_key_tree(window.selected));
 }
 $('body').on('click','.editor_send_backward',function(){
     editor_send_backward();

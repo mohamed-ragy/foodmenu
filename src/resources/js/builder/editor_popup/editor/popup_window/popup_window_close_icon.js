@@ -101,5 +101,5 @@ $('body').on('change','.popup_close_icon_color',function(){
     $(this).attr('key','stroke');
     set_val($(this),val);
     $(this).attr('key','fill');
-    new_action($(this).attr('key_tree'),'');
+    new_action('popup_window.children.popup_card');
 })

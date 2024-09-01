@@ -4,8 +4,7 @@ draw_select_box = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     });
     for(const key in data.selections){
         let selection = data.selections[key];
@@ -63,7 +62,7 @@ $('body').on('change','.select_box_editor',function(){
     if(editor.hasClass('dummy_editor')){return;}
     let new_val = editor.find('.select_box_selected').attr('key');
     set_val(editor,new_val);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
 })
 $('body').on('click','.select_box',function(e){
     let editor = $(this).closest('.editor');

@@ -1,4 +1,6 @@
+
 draw_editor_popup_interactions = function(){
+    if(!accessibility_check(window.selected,'interactions')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;

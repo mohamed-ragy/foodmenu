@@ -4,8 +4,7 @@ draw_four_number_pickers = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none mB0 pB0'}).append(
             $('<div/>',{class:'row alnC jstfyS'}).append(
@@ -17,7 +16,7 @@ draw_four_number_pickers = function(data){
                 dummy_class:'four_number_pickers_0',
                 units:data.units,
                 step:data.step,
-                container_class:'four_number_pickers_detail_head'
+                container_class:`four_number_pickers_detail_head ${data.editor_class ?? ''}`
             })
         ),
         $('<div/>',{class:'w100p four_number_pickers_detail_container'}).append(
@@ -28,6 +27,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_1',
                     units:data.units,
                     step:data.step,
+                    container_class:` ${data.editor_class ?? ''}`
                 })
             ),
             $('<div/>',{class:'editor_popup_col'}).append(
@@ -37,6 +37,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_2',
                     units:data.units,
                     step:data.step,
+                    container_class:` ${data.editor_class ?? ''}`
                 })
             ),
             $('<div/>',{class:'editor_popup_col'}).append(
@@ -46,6 +47,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_3',
                     units:data.units,
                     step:data.step,
+                    container_class:` ${data.editor_class ?? ''}`
                 })
             ),
             $('<div/>',{class:'editor_popup_col'}).append(
@@ -55,6 +57,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_4',
                     units:data.units,
                     step:data.step,
+                    container_class:` ${data.editor_class ?? ''}`
                 })
             ),
         )
@@ -87,7 +90,7 @@ $('body').on('change','.four_number_pickers_0',function(){
     let editor = $(this).closest('.four_number_pickers_editor');
     let val = get_dummy_val($(this))
     set_val(editor,`${val} ${val} ${val} ${val}`);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_four_number_pickers(editor);
     temp_preview_mode();
 })
@@ -98,7 +101,7 @@ $('body').on('change','.four_number_pickers_1, .four_number_pickers_2, .four_num
     let val_3 = get_dummy_val(editor.find('.four_number_pickers_3'));
     let val_4 = get_dummy_val(editor.find('.four_number_pickers_4'));
      set_val(editor,`${val_1} ${val_2} ${val_3} ${val_4}`)
-     new_action(editor.attr('generate_style'),editor.attr('render'));
+     new_action(editor.attr('render'));
      set_four_number_pickers(editor);
      temp_preview_mode();
 })

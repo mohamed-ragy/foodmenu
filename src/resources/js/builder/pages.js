@@ -8,7 +8,7 @@ page_transition = function(page){
     $('#page').removeClass(`${window.template.page_setup.pageTransition}_in`)
     $('#page').addClass(`${window.template.page_setup.pageTransition}_out`)
     // $('#website').css('overflow-x','hidden');
-    window.selected = null;
+    unselect();
     hide_editor_popup('editor')
     setTimeout(()=>{
         render_page(page)
@@ -24,6 +24,7 @@ page_transition = function(page){
     },window.template.page_setup.transitionDuration.replace('ms',''))
 }
 render_page = function(page){
+    set_adapted_header();
     if(page == null){return;}
     let website_scrolltop = $('#website').scrollTop();
     $('#page').text('')
@@ -55,33 +56,21 @@ render_page = function(page){
     }catch{
         hide_editor_popup('editor')
     }
-    set_template_vars();
     console.log(`${page} page rendered`)
-}
-//
-set_popup = function(popup){
-    $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[popup])
-    show_popup_window(function(){
-        draw_popup(popup)
-    })
-}
-draw_popup = function(popup){
-    window.selected_popup = popup;
-    $('#website').find('.popup_card').append(
-        generate_html(window.template[popup],popup),
-    )
 }
 //
 delete_selected = function(){
     let elem = get_element_data(window.selected);
     let parent = get_element_parent_data(window.selected);
     if(elem === undefined){return;}
+    let class_selector = elem.class_selector;
     if(elem.type == 'section'){
         if(!accessibility_check(window.selected,'section_delete')){return;}
         window.template[window.selected_page].splice(elem.sort,1)
         for(const key in window.template[window.selected_page]){
             window.template[window.selected_page][key].sort = parseInt(key);
         }
+        render('page')
     }else if(elem.type == 'elem' || elem.type == 'container'){
         let this_elem_sort = elem.sort;
         let new_children = [];
@@ -94,11 +83,14 @@ delete_selected = function(){
             new_children[key].sort = key;
         }
         parent.children = new_children;
+        $(`.${class_selector}`).remove();
+        $(`.${class_selector}_container`).remove();
     }
 
     hide_editor_popup('editor')
-    window.selected = undefined;
-    new_action('','all');
+    // unselect();
+    new_action('page');
+
 }
 
 ///

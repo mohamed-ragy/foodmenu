@@ -5,8 +5,7 @@ draw_box_shadow_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'editor_popup_container w100p',key:'editor_box_shadow'}).append(
             draw_editor_show_container({
@@ -155,7 +154,7 @@ $('body').on('click','.box_shadow_preview',function(){
         shadow = get_box_shadows(shadow_key);
     }
     set_val(editor,shadow);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_box_shadow_editor(editor);
     temp_preview_mode();
 })
@@ -175,7 +174,7 @@ $('body').on('change',`.box_shadow_type, .box_shadow_color, .box_shadow_offset_x
         }
     });
     set_val(editor,new_val);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     temp_preview_mode();
 })
 $('body').on('click','.editor_popup_box_shadow_add_layer',function(){
@@ -188,7 +187,7 @@ $('body').on('click','.editor_popup_box_shadow_add_layer',function(){
         new_val = `${val}, rgba(var(--color_4_1),0.1) 0px 0px 0px 0px`;
     }
     set_val(editor,new_val);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_box_shadow_editor(editor);
     temp_preview_mode();
     setTimeout(()=>{
@@ -215,6 +214,6 @@ $('body').on('click','.editor_popup_box_shadow_remove_layer',function(){
     }
     if(new_val == ''){new_val = 'none'}
     set_val(editor,new_val);
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_box_shadow_editor(editor);
 })

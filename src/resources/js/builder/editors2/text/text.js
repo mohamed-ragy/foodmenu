@@ -310,7 +310,7 @@ format_text = function(element,action,key){
         break;
     }
     elem.text.val[window.preview_language] = $(`.${elem.class_selector}`).html();
-    new_action('','');
+    new_action('');
     setTimeout(()=>{
         set_text_format_popup_btns();
     })
@@ -326,7 +326,7 @@ edit_text = function(key_tree){
             $(`.${elem.class_selector}`).append(`<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${content}</span>`)
             contenteditable_elem = $(`.${elem.class_selector}`).find('.format_container');
             elem.text.val[window.preview_language] = contenteditable_elem.html();
-            new_action('','');
+            new_action('');
         }
         if(contenteditable_elem.attr('contenteditable') != 'true'){
             contenteditable_elem.attr('contenteditable',true);
@@ -369,12 +369,16 @@ $('body').on('mouseup','#website',function(){
         $('.text_format_popup').addClass('none')
     }
 })
+$('body').on('focusout','[contenteditable="true"]',function(){
+    $(this).attr('contenteditable',false)
+})
 $('body').on('input','[contenteditable="true"]',function(){
     clear_format_text($(this))
     setTimeout(()=>{
         let elem = get_element_data(window.selected);
         elem.text.val[window.preview_language] = $(this).html();
-        new_action('','');
+        new_action('');
+        fix_edit_btns_position(elem,window.selected)
     })
 
 })

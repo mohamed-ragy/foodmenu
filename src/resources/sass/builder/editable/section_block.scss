@@ -42,7 +42,6 @@
     .container:after{
         outline: 1px dashed var(--violet-50);
     }
-    .edit_btns_section_block{display: flex;}
 }
 .section_block_selected:hover {
     .select_section_block_title{display:flex;background-color: var(--blue);}

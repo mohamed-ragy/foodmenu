@@ -1,4 +1,5 @@
 draw_editor_popup_text = function(){
+    if(!accessibility_check(window.selected,'text')){return;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             $('<div/>',{class:'editor_popup_container w100p',key:'editor_text'}).append(

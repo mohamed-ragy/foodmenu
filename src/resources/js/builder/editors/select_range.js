@@ -4,8 +4,7 @@ draw_select_range = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'select_range_minus turbo ico-minus',step:data.range.step}),
         $('<div/>',{class:'w100p'}).append(
@@ -101,7 +100,7 @@ $('body').on('change','.select_range',function(){
     if(editor.hasClass('dummy_editor')){return;}
     let new_val = editor.find('.select_range_val').text();
     set_val(editor,new_val)
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_select_range(editor);
 })
 $('body').on('mousedown','.select_range_slider',function(e){

@@ -56,5 +56,5 @@ $('body').on('click','.change_section_layout_elem',function(e){
             }
         }
     }
-    new_action('','page');
+    new_action(window.selected);
 })

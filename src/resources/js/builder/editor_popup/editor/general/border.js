@@ -1,4 +1,5 @@
 draw_editor_popup_border = function(){
+    if(!accessibility_check(window.selected,'border')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
         let is_responsive = true;
@@ -14,6 +15,7 @@ draw_editor_popup_border = function(){
                     draw_border_editor({
                         key_tree:key_tree,
                         variable_key:'css',
+                        editor_class:'editor_popup_border_editor'
                     }),
                 ]
             }),
@@ -27,4 +29,13 @@ draw_editor_popup_border = function(){
 }
 $('body').on('click','.editor_border',function(e){
     draw_editor_popup_border();
+})
+$('body').on('change','.editor_popup_border_editor',function(){
+    let key_tree = $(this).attr('key_tree')
+    console.log('gaga'+key_tree)
+    if(key_tree.includes('website_header')){
+        try{
+            generate_elem_style(get_element_data(`${window.selected_page}.0`))
+        }catch{}
+    }
 })

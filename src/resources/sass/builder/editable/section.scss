@@ -37,7 +37,6 @@ section:hover::after{
     .section_block::after{
         outline: 1px dashed var(--blue-50);
     }
-    .edit_btns_section{display: flex;}
 }
 .section_selected:hover {
     .select_section_title{display:flex;background-color: var(--green);}

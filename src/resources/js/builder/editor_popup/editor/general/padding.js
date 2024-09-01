@@ -1,4 +1,5 @@
 draw_editor_popup_padding = function(){
+    if(!accessibility_check(window.selected,'padding')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
          if(key_tree == 'website_header'){
@@ -21,6 +22,7 @@ draw_editor_popup_padding = function(){
                         units:['px'],
                         step:1,
                         names:[texts.styling.padding,texts.styling.padding_top,texts.styling.padding_right,texts.styling.padding_bottom,texts.styling.padding_left],
+                        editor_class:'edit_padding_four_number_pickers'
                     })
                 ]
             })
@@ -34,4 +36,12 @@ draw_editor_popup_padding = function(){
 }
 $('body').on('click','.editor_padding',function(e){
     draw_editor_popup_padding();
+})
+$('body').on('change','.edit_padding_four_number_pickers',function(){
+    let key_tree = $(this).closest('.four_number_pickers_editor').attr('key_tree')
+    if(key_tree.includes('website_header')){
+        try{
+            generate_elem_style(get_element_data(`${window.selected_page}.0`))
+        }catch{}
+    }
 })

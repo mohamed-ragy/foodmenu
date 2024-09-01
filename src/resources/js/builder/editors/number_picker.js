@@ -16,8 +16,7 @@ draw_number_picker = function(data){
         variable_key:data.variable_key,
         key:data.key,
         editor_details: data.editor_details ? '1' : '0',
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<div/>',{class:'number_picker_val'}).append(
             $('<div/>',{class:'number_picker_btn turbo ico-minus',action:'minus'}),
@@ -81,7 +80,7 @@ $('body').on('change','.number_picker_input',function(e){
     if(editor.find('.number_picker_unit_select').text() == 'auto'){
         $(this).val('');
         set_val($(this),'auto')
-        new_action(editor.attr('generate_style'),editor.attr('render'));
+        new_action(editor.attr('render'));
         set_number_picker(editor)
         return;
     }
@@ -95,7 +94,7 @@ $('body').on('change','.number_picker_input',function(e){
     }
     let new_val = `${$(this).val()}${editor.find('.number_picker_unit_select').text()}`;
     set_val($(this),new_val)
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_number_picker(editor)
 });
 //

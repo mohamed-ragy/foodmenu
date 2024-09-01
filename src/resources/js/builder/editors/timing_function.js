@@ -5,8 +5,7 @@ draw_timing_function_editor = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         timing_functions_preview_container = $('<div/>',{class:`timing_functions_preview_container mT20`})
     )
@@ -40,7 +39,7 @@ $('body').on('change','.timing_function_editor',function(){
 $('body').on('click','.timing_function_preview_container',function(e){
     let editor = $(this).closest('.timing_function_editor')
     set_val(editor,$(this).attr('timing_function'))
-    new_action(editor.attr('generate_style'),editor.attr('render'));
+    new_action(editor.attr('render'));
     set_timing_function_editor(editor)
     editor.trigger('change')
 })

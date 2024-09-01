@@ -61,6 +61,7 @@ draw_editor_popup_section_driver = function(){
                                         key:'height',
                                         step:10,
                                         units:['px'],
+                                        render:window.selected,
                                     }),
                                 )
                             ]
@@ -151,7 +152,7 @@ $('body').on('click','.section_driver_preview',function(e){
             )
         )
     }
-    new_action('','page');
+    new_action(window.selected);
     $('.section_driver_preview').removeClass('section_driver_preview_selected');
     $('.section_driver_preview_none').removeClass('section_driver_preview_selected');
     $(this).addClass('section_driver_preview_selected')
@@ -161,7 +162,7 @@ $('body').on('click','.section_driver_preview_none',function(e){
     section.driver.paths = [];
     $('.editor_popup_section_driver_colors').text('')
     section.has_driver = '0';
-    new_action('','page');
+    new_action(window.selected);
     $('.section_driver_preview').removeClass('section_driver_preview_selected');
     $(this).addClass('section_driver_preview_selected')
 })

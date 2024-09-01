@@ -32,8 +32,8 @@ set_adapt_header();
 $(document).ready(function(){
 
     set_website_data();
-    $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
-    $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
+    $(':root').css('--screen_height_minus_header',`${$(window).outerHeight() - $('header').outerHeight()}px`)
+    $(':root').css('--screen_height',`${$(window).outerHeight()}px`)
     $(':root').css('--header_height',`${$('header').outerHeight()}px`)
     fix_header_nav_list();
 
@@ -41,15 +41,15 @@ $(document).ready(function(){
     window.text.page.description = window.description;
 
     $(window).resize(function(){
-        $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
-        $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
+        $(':root').css('--screen_height_minus_header',`${$(window).outerHeight() - $('header').outerHeight()}px`)
+        $(':root').css('--screen_height',`${$(window).outerHeight()}px`)
         $(':root').css('--header_height',`${$('header').outerHeight()}px`)
         fix_header_nav_list();
     })
     scroll_elem_animation('top');
 
     // set_website_data();
-    // $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
+    // $(':root').css('--screen_height_minus_header',`${$('body').outerHeight() - $('header').outerHeight()}px`)
     // $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
     // $(':root').css('--header_height',`${$('header').outerHeight()}px`)
     // fix_header_nav_list();
@@ -84,9 +84,12 @@ set_elem_animation = function(class_selector,animation,immediate=false){
             'transition-delay':'',
         })
     }
-    $(`.${class_selector}`)
-    .removeClass(`${class_selector}_animation_up_out ${class_selector}_animation_up ${class_selector}_animation_in ${class_selector}_animation_down ${class_selector}_animation_down_out`)
-    .addClass(`${class_selector}_animation_${animation}`);
+    if(!$(`.${class_selector}`).hasClass(`${class_selector}_animation_${animation}`)){
+        $(`.${class_selector}`)
+        .removeClass(`${class_selector}_animation_up_out ${class_selector}_animation_up ${class_selector}_animation_in ${class_selector}_animation_down ${class_selector}_animation_down_out`)
+        .addClass(`${class_selector}_animation_${animation}`);
+    }
+
 }
 apply_scroll_animation = function(elem,scroll_direction){
     let elem_offset_top = elem.offset().top;
@@ -115,7 +118,7 @@ apply_scroll_animation = function(elem,scroll_direction){
     let in_end = down_start;
     
     if($('body').scrollTop() == 0 && scroll_direction != 'top'){
-        if(elem_offset_bottom < down_out_end){
+        if(elem_offset_bottom < down_end){
             set_elem_animation(class_selector,'in',false)
         }
         return; 
@@ -192,6 +195,14 @@ $('body').on('scroll',function(e){
     window.last_scroll_top = $('body').scrollTop();
     scroll_elem_animation(scroll_direction);
     set_adapt_header();
+    let website_header = $('.website_header'); 
+    if(website_header.attr('dynamic') == '1'){
+        if(scroll_direction == 'down'){
+            website_header.css('transform',`translateY(-${website_header.outerHeight()}px)`)
+        }else{
+            website_header.css('transform',`translateY(0px)`)
+        }
+    }
 })
 
 
@@ -203,7 +214,7 @@ $('body').on('scroll',function(e){
 //         },success:function(r){
 //             window.website = r;
 //             set_website_data();
-//             $(':root').css('--screen_height_minus_header',`calc(${$('body').outerHeight()}px - ${$('header').outerHeight()}px)`)
+// $(':root').css('--screen_height_minus_header',`${$('body').outerHeight() - $('header').outerHeight()}px`)
 //             $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
 //             $(':root').css('--header_height',`${$('header').outerHeight()}px`)
 //             fix_header_nav_list();

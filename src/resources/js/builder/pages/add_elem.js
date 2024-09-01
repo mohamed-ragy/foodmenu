@@ -132,7 +132,7 @@ $('body').on('click','.add_elem',function(e){
     }
     new_elem.css['z-index'] = new_elem_zindex;
     section_block.children.push(new_elem);
-    new_action('','page.popup');
+    new_action(window.selected);
     close_popup();
     select(`${window.selected}.children.${new_elem.sort}`)
     switch($(this).attr('elem_type')){
@@ -180,7 +180,7 @@ $('body').on('click','.add_elem',function(e){
 //     let elem = get_element_data(window.selected);
 //     new_elem.sort = elem.children.length;
 //     elem.children.push(new_elem);
-//     new_action();
+//     new_action(window.selected);
 //     close_popup();
 //     select(`${window.selected}.children.${new_elem.sort}`)
 // })

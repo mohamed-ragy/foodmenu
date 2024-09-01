@@ -10,8 +10,7 @@ draw_select_image = function(data){
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
-        render:data.render ?? '',
-        generate_style:data.generate_style ?? data.key_tree,
+        render:data.render ?? data.key_tree,
     }).append(
         $('<img/>',{class:'select_image_editor_image'}),
         $('<div/>',{class:'ico-edit select_image_editor_icon'})
@@ -153,7 +152,7 @@ $('body').on('click','.imgsImgCard',function(e){
     if($(this).find('.imgsimgBtns').is(':hover')){return;}
     let img_src = window.imgs.find(item=>item.id == $(this).find('img').attr('imgId')).url;
     set_val(window.select_image_editor,img_src)
-    new_action(window.select_image_editor.attr('generate_style'),window.select_image_editor.attr('render'));
+    new_action(window.select_image_editor.attr('render'));
     $(`.${get_element_data(window.selected).class_selector}`).attr('src',img_src)
     set_select_image(window.select_image_editor);
     close_popup();

@@ -30,59 +30,9 @@ genrate_editing_elems = function(elem,key_tree){
 }
 
 //
-draw_edit_btns = function(elem,key_tree){
-    let html = '';
-    elem.accessibility.includes('section_sizing') ? html = `${html}<button class="ico-sizing editor_section_sizing" tooltip="${texts.sizing}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_spacing') ? html = `${html}<button class="ico-spacing editor_section_spacing" tooltip="${texts.spacing}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_adapt_header') && elem.sort == 0 ? html = `${html}<button class="ico-header editor_section_adapt_header" tooltip="${texts.styling.adapt_header}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_layout') ? html = `${html}<button class="ico-layout editor_section_layout" tooltip="${texts.section_layout}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_driver') ? html = `${html}<button class="ico-driver editor_section_driver" tooltip="${texts.styling.section_driver}" key_tree="${key_tree}"></button>` :null;
-    
-    elem.accessibility.includes('edit_text') ? html = `${html}<button class="ico-edit_text edit_text" tooltip="${texts.edit_text}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_image') ? html = `${html}<button class="ico-select_image select_image" tooltip="${texts.styling.select_image}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_icon') ? html = `${html}<button class="ico-select_image editor_icon" tooltip="${texts.styling.select_icon}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_font') ? html = `${html}<button class="ico-font_size select_font" tooltip="${texts.styling.font_style}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('background') ? html = `${html}<button class="ico-background editor_background" tooltip="${texts.styling.background}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('alignment') ? html = `${html}<button class="ico-alignment editor_alignment" tooltip="${texts.styling.alignment}" key_tree="${key_tree}"></button>` :null;
-    html = `${html}<button class="ico-settings contextMenu" key_tree="${key_tree}"></button>`;
-    return html;
-}
-draw_spacing_edit_elems = function(elem,elem_class){
-    let html = '';
-    if(elem.accessibility.includes('padding')){
-        try{
-            let padding = window.current_view == 'desktop' ? elem.css.padding.split(' ') : elem.css_mobile.padding.split(' '); 
-            html = `${html}<div class="edit_padding_top ${elem_class}padding_top" style="height:${padding[0]}"></div>`;
-            html = `${html}<div class="edit_padding_right ${elem_class}padding_right" style="width:${padding[1]}"></div>`;
-            html = `${html}<div class="edit_padding_bottom ${elem_class}padding_bottom" style="height:${padding[2]}"></div>`;
-            html = `${html}<div class="edit_padding_left ${elem_class}padding_left" style="width:${padding[3]}"></div>`;
-        }catch{}
-    }
-    if(elem.accessibility.includes('margin')){
-        try{
-            let margin = window.current_view == 'desktop' ? elem.css.margin.split(' ') : elem.css_mobile.margin.split(' '); 
-            html = `${html}<div class="edit_margin_top ${elem_class}margin_top" style="height:${margin[0]};top:-${margin[0]};"></div>`;
-            html = `${html}<div class="edit_margin_right ${elem_class}margin_right" style="width:${margin[1]};right:-${margin[1]};"></div>`;
-            html = `${html}<div class="edit_margin_bottom ${elem_class}margin_bottom" style="height:${margin[2]};bottom:-${margin[2]};"></div>`;
-            html = `${html}<div class="edit_margin_left ${elem_class}margin_left" style="width:${margin[3]};left:-${margin[3]};"></div>`;
-        }catch{}
-    }
-    return html;
-}
+
 generate_editing_elems_elem = function(elem,key_tree){
-    let parent = get_element_parent_data(key_tree);
     let html = '';
-    let edit_btns_elem_style = 'bottom:calc(100% + 5px);right:0px;';
-    try{
-        if(parent.css['flex-direction'] == 'row' && window.current_view == 'desktop'){
-            edit_btns_elem_style = 'flex-direction:column;top:5px;right:calc(100% + 5px);';            
-        }else if(parent.css_mobile['flex-direction'] == 'row' && window.current_view == 'mobile'){
-            edit_btns_elem_style = 'flex-direction:column;top:5px;right:calc(100% + 5px);';            
-        }
-    }catch{}
-    html = `${html}<div class="edit_btns edit_btns_elem builder_font" style="${edit_btns_elem_style}">`;
-    html = `${html}${draw_edit_btns(elem,key_tree)}`,
-    html = `${html}</div>`;
     html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}">${texts.elems[elem.elem_type]}</div>`;
     html = `${html}${draw_spacing_edit_elems(elem,'edit_elem_')}`
 
@@ -117,19 +67,7 @@ generate_editing_elems_elem = function(elem,key_tree){
     return html;
 }
 generate_editing_elems_container = function(elem,key_tree){
-    let parent = get_element_parent_data(key_tree);
     let html = '';
-    let edit_btns_elem_style = 'bottom:calc(100% + 5px);right:0px;';
-    try{
-        if(parent.css['flex-direction'] == 'row' && window.current_view == 'desktop'){
-            edit_btns_elem_style = 'flex-direction:column;top:5px;right:calc(100% + 5px);';            
-        }else if(parent.css_mobile['flex-direction'] == 'row' && window.current_view == 'mobile'){
-            edit_btns_elem_style = 'flex-direction:column;top:5px;right:calc(100% + 5px);';            
-        }
-    }catch{}
-    html = `${html}<div class="edit_btns edit_btns_container builder_font" style="${edit_btns_elem_style}">`;
-    html = `${html}${draw_edit_btns(elem,key_tree)}`,
-    html = `${html}</div>`;
     html = `${html}<div class="select_edit_container_title rename builder_font contextMenu" key_tree="${key_tree}">${elem.name}</div>`;
     html = `${html}${draw_spacing_edit_elems(elem,'edit_container_')}`
 
@@ -221,9 +159,6 @@ generate_editing_elems_section_block = function(elem,key_tree){
     elem.children.sort((a,b)=>{
         return a.sort - b.sort;
     })
-    html = `${html}<div class="edit_btns edit_btns_section_block builder_font" style="bottom:calc(100% + 5px);left:0px;">`;
-    html = `${html}${draw_edit_btns(elem,key_tree)}`,
-    html = `${html}</div>`;
     html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}">${texts.section_block}</div>`;
     html = `${html}${draw_spacing_edit_elems(elem,'edit_section_block_')}`
 
@@ -282,15 +217,7 @@ generate_editing_elems_section_block = function(elem,key_tree){
 }
 generate_editing_elems_section_wrapper = function(elem,key_tree,style){
     let html = '';
-    let padding_top = window.current_view == 'desktop' ? elem.css['padding-top'] : elem.css_mobile['padding-top']; 
-    let padding_bottom = window.current_view == 'desktop' ? elem.css['padding-bottom'] : elem.css_mobile['padding-bottom']; 
-    let margin_top = window.current_view == 'desktop' ? elem.css['margin-top'] : elem.css_mobile['margin-top']; 
-    let margin_bottom = window.current_view == 'desktop' ? elem.css['margin-bottom'] : elem.css_mobile['margin-bottom'];
-
-    html = `${html}<div class="edit_padding_top_section" style="height:${padding_top}"></div>`;
-    html = `${html}<div class="edit_padding_bottom_section" style="height:${padding_bottom}"></div>`;
-    html = `${html}<div class="edit_margin_top_section" style="height:${margin_top};top:-${margin_top}"></div>`;
-    html = `${html}<div class="edit_margin_bottom_section" style="height:${margin_bottom};bottom:-${margin_bottom}"></div>`;
+    html = `${html}${draw_spacing_edit_elems(elem,'')}`
     return html;
 }
 generate_editing_elems_section = function(elem,key_tree){
@@ -319,10 +246,6 @@ generate_editing_elems_section = function(elem,key_tree){
 
     let section = get_element_data(key_tree);
     html = `${html}<div class="select_section_title rename builder_font contextMenu pointer" key_tree="${key_tree}"><div class="" >${section.name}</div></div>`;
-    
-    html = `${html}<div class="edit_btns edit_btns_section builder_font" style="top:100px;left:10px;flex-direction:column;">`;
-    html = `${html}${draw_edit_btns(elem,key_tree)}`
-    html = `${html}</div>`;
 
     if(elem.accessibility.includes('add_section')){
         html = `${html}<button class="btn btn-cancel add_section add_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>`;
@@ -337,16 +260,6 @@ generate_editing_elems_header_wrapper = function(elem,key_tree,style){
     html = `${html}${draw_spacing_edit_elems(elem,'edit_header_')}`
 
     html = `${html}<div class="select_website_header_title builder_font contextMenu" key_tree="website_header">${texts.website_tools.header}</div>`;
-    html = `${html}<div class="edit_btns edit_btns_header" style="top:calc(100% - 2px * -1);right:0px;">
-        <button class="fs101 ico-mobile_navbar_icon editor_header_mobileNav_icon select set_editor_popup_editor" tooltip="${texts.styling.header_mobileNav_icon}" key_tree="website_header.children.header_wrapper.children.header_mobileNav_icon"></button>
-        <button class="fs101 ico-list editor_header_drop_down_list_item select set_editor_popup_editor" tooltip="${texts.styling.drop_down_list_item}" key_tree="website_header.children.header_drop_down_list_item"></button>
-        <button class="fs101 ico-drop_down_list editor_header_drop_down_list select set_editor_popup_editor" tooltip="${texts.styling.drop_down_list}" key_tree="website_header.children.header_drop_down_list"></button>
-        <button class="fs101 ico-icon editor_header_iconsList select set_editor_popup_editor" tooltip="${texts.styling.header_iconsList}" key_tree="website_header.children.header_wrapper.children.header_iconsList"></button>
-        <button class="fs101 ico-navigation_list editor_header_navList select set_editor_popup_editor" tooltip="${texts.styling.header_navList}" key_tree="website_header.children.header_wrapper.children.header_navList"></button>
-        <button class="fs101 ico-logo_restaurant_name editor_header_logo_alignment select set_editor_popup_editor" tooltip="${texts.styling.restauran_logo}" key_tree="website_header.children.header_wrapper.children.header_logo"></button>
-        <button class="ico-header editor_header_settings" tooltip="${texts.header_settings}"></button>
-        <button class="ico-settings contextMenu" key_tree="website_header"></button>
-    </div>`
     return html;
 }
 generate_editing_elems_header_components = function(elem,key_tree,style){
@@ -356,24 +269,7 @@ generate_editing_elems_header_components = function(elem,key_tree,style){
 }
 generate_editing_elems_popup_window = function(elem,key_tree,style){
     let html = '';
-    // let padding;
-    // if(elem.accessibility.includes('padding')){
-    //     try{
-    //         padding = window.current_view == 'desktop' ? elem.css.padding.split(' ') : elem.css_mobile.padding.split(' '); 
-    //     }catch{return '';}
-    //     html = `${html}<div class="edit_padding_top edit_popup_padding_top" style="height:${padding[0]}" key_tree="${key_tree}"></div>`;
-    //     html = `${html}<div class="edit_padding_right edit_popup_padding_right" style="width:${padding[1]}" key_tree="${key_tree}"></div>`;
-    //     html = `${html}<div class="edit_padding_bottom edit_popup_padding_bottom" style="height:${padding[2]}" key_tree="${key_tree}"></div>`;
-    //     html = `${html}<div class="edit_padding_left edit_popup_padding_left" style="width:${padding[3]}" key_tree="${key_tree}"></div>`;
-    // }
     html = `${html}${draw_spacing_edit_elems(elem,'edit_popup_')}`
-
     html = `${html}<div class="select_popup_title builder_font contextMenu" key_tree="popup_window.children.popup_card">${texts.website_tools.popup_window}</div>`;
-    
-    html = `${html}<div class="edit_btns edit_btns_popup" style="flex-direction:column;top:50px;left:7px;">
-    <button class="ico-settings contextMenu" key_tree="popup_window.children.popup_card"></button>
-    <button class="fs101 ico-popup_window editor_popup_popup_widnow" tooltip="${texts.website_tools.popup_window}"></button>
-    <button class="fs101 ico-close_icon editor_popup_popup_window_close_icon" tooltip="${texts.styling.close_icon}"></button>
-    </div>`
     return html;
 }

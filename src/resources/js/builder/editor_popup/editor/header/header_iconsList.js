@@ -53,6 +53,7 @@ draw_editor_popup_header_iconsList = function(){
                                 $('<div/>',{class:'fs09',text:texts.styling.icon}),
                                 draw_svg_icon_picker({  
                                     key_tree:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children`,
+                                    render:`website_header.children.header_wrapper.children.header_iconsList.children.header_cart.children.icon`,
                                     variable_key:null,
                                     key:'icon',
                                     icon_type:'cart',
@@ -215,7 +216,7 @@ $('body').on('mouseup','.edit_header_iconsList_container',function(e){
         get_element_data(from_key_tree).sort = to_sort;
         get_element_data(to_key_tree).sort = from_sort;
         $('.header_icon_list_sorter_div').remove();
-        new_action('','header');
+        new_action('website_header');
         draw_edit_header_iconsList();
     }catch{
         $('.header_icon_list_sorter_div').remove();
@@ -230,7 +231,7 @@ $('body').on('change','.header_iconsList_icon_color',function(){
     editor.attr('key','color');
     set_val(editor,val);
     editor.attr('key','fill');
-    new_action(editor.attr('key_tree'),'header');
+    new_action('website_header');
 
 })
 // 

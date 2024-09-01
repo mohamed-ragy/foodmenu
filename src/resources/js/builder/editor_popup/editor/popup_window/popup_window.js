@@ -47,5 +47,5 @@ $('body').on('click','.editor_popup_popup_widnow',function(){
 $('body').on('change','.popup_window_modal_overlay_blur',function(){
     let val = get_dummy_val($(this));
     window.template.popup_window.css['backdrop-filter'] = `blur(${val})`;
-    new_action('popup_window','');
+    new_action('popup_window');
 })

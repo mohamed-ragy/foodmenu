@@ -32,6 +32,7 @@
     <div id="contextSubmenu" class="none"></div>
     {{-- <div class="editor_popup none"></div> --}}
     {{-- <div class="add_elem_popup none"></div> --}}
+    <div class="edit_btns builder_font none"></div>
     <div id="tooltipDiv" class=""></div>
     <div class="inputList_elems none" tabindex="0"></div>
     <div class="number_picker_units none"></div>

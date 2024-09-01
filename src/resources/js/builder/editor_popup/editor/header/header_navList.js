@@ -191,7 +191,7 @@ $('body').on('mouseup','.edit_header_navList_container',function(e){
         get_element_data(from_key_tree).sort = to_sort;
         get_element_data(to_key_tree).sort = from_sort;
         $('.header_nav_list_sorter_div').remove();
-        new_action('','header');
+        new_action('website_header');
         draw_edit_header_navList();
     }catch{
         $('.header_nav_list_sorter_div').remove();

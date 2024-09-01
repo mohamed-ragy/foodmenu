@@ -1,15 +1,16 @@
 .edit_btns{
-    display: none;
+    position: fixed;
+    display: flex;
     align-items: center;
     justify-content: flex-end;
     position: absolute;
-    z-index: 200;
+    z-index: 2400;
     overflow: hidden;
     background-color: var(--white-1);
     padding:3px;
     border-radius: 5px;
     box-shadow: 0 0 10px 2px var(--shdw-20);
-    animation-duration: 200ms;
+    animation-duration: 300ms;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
 }
@@ -46,13 +47,13 @@
     outline:none;
     border:none;
     box-sizing: border-box;
-    font-size:1em;
+    font-size:1.1em;
     margin: 0 1px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width:30px;
-    height:30px;
+    width:35px;
+    height:35px;
     background-color: var(--white-1);
     color: var(--white-11);
     cursor: pointer;

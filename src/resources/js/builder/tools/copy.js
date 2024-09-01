@@ -1,7 +1,6 @@
 window.builder_clipboard
 can_copy = function(){
-    if(typeof(window.selected) === 'undefined'){return false;}
-    if(window.selected == null){return false;}
+    if(window.selected == null || window.selected === undefined){return false;}
     if(!accessibility_check(window.selected,'copy')){return false;}
     if(
         $(`.${get_element_data(window.selected).class_selector}`).find('.format_container').attr('contenteditable') === 'true'
@@ -27,22 +26,23 @@ cut = function(){
 remove_cut_elem = function(cut_elem){
     if(cut_elem.type == 'section'){
         window.template[window.selected_page].splice(cut_elem.sort,1)
-        window.selected = undefined;
+        unselect()
         for(const key in window.template[window.selected_page]){
             window.template[window.selected_page][key].sort = parseInt(key);
         }
+        new_action('page')
     }else if(cut_elem.type == 'section_block'){
         cut_elem.children = []
+        new_action(get_parent_key_tree(window.selected));
     }else if(cut_elem.type == 'elem' || cut_elem.type == 'container'){
         let section_block = get_element_parent_data(window.selected);
         section_block.children.splice(cut_elem.sort,1)
         for(const key in section_block.children){
             section_block.children[key].sort = parseInt(key);
         }
-
+        new_action(get_parent_key_tree(window.selected));
     }
     hide_editor_popup('editor')
-    new_action('','page.popup');
 }
 //
 paste = function(){
@@ -59,8 +59,7 @@ paste = function(){
     }
 }
 paste_section = function(paste_elem){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
+    if(window.selected == null || window.selected === undefined){return false;}
     let selected_section = get_element_data(window.selected,'section');
     let new_section_sort = parseInt(selected_section.sort) + 1;
     let new_section = JSON.parse(JSON.stringify(paste_elem));
@@ -75,12 +74,11 @@ paste_section = function(paste_elem){
     window.template[window.selected_page].sort((a,b)=>{
         return a.sort - b.sort;
     })
-    new_action('','page');
+    new_action('page');
     $('#website').animate({scrollTop:$(`section[key_tree="${window.selected_page}.${new_section.sort}"]`).position().top - 50},300)
 }
 paste_section_block = function(paste_elem){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
+    if(window.selected == null || window.selected === undefined){return false;}
     let selected_section_block =  get_element_data(window.selected,'section_block');
     if(selected_section_block == null){return;}
     for(const key in paste_elem.children){
@@ -106,11 +104,11 @@ paste_section_block = function(paste_elem){
     for(const key in selected_section_block.children){
         selected_section_block.children[key].sort = key
     }
-    new_action('','page');
+    new_action(get_parent_key_tree(window.selected));
 }
 paste_elem = function(_paste_elem){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
+    if(window.selected == null || window.selected === undefined){return false;}
+
     let selected_elem = get_element_data(window.selected);
     reset_class_selectors(_paste_elem);
     if(selected_elem.type == 'section_block' || selected_elem.type == 'container'){
@@ -129,13 +127,12 @@ paste_elem = function(_paste_elem){
         }
     }
 
-    new_action('','page.popup');
+    new_action(get_parent_key_tree(window.selected));
 }
 paste_container = function(_paste_elem){
-    if(typeof(window.selected) === 'undefined'){return;}
-    if(window.selected == null){return;}
+    if(window.selected == null || window.selected === undefined){return false;}
+
     let selected_elem = get_element_data(window.selected);
-    console.log(_paste_elem)
     reset_class_selectors(_paste_elem);
     if(selected_elem.type == 'section_block'){
         selected_elem.children.push(_paste_elem);
@@ -143,7 +140,7 @@ paste_container = function(_paste_elem){
             selected_elem.children[key].sort = key;
         }
     }
-    new_action('','page.popup');
+    new_action(get_parent_key_tree(window.selected));
 
 }
 ///
