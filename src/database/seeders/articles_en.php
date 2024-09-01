@@ -16,6 +16,24 @@ use Database\Seeders\articles_en\basics\financial_reports;
 use Database\Seeders\articles_en\basics\restaurant_expenses;
 use Database\Seeders\articles_en\basics\your_websites_privacy_policy;
 
+use Database\Seeders\articles_en\settings\your_restaurants_home_delivery_service;
+use Database\Seeders\articles_en\settings\your_restaurants_order_pickup_service;
+use Database\Seeders\articles_en\settings\your_restaurants_dinein_service;
+use Database\Seeders\articles_en\settings\adjusting_your_restaurants_working_hours;
+use Database\Seeders\articles_en\settings\scheduling_happy_hour;
+use Database\Seeders\articles_en\settings\the_guide_mode;
+use Database\Seeders\articles_en\settings\adjusting_the_control_panel_view;
+use Database\Seeders\articles_en\settings\ordering_system_settings;
+use Database\Seeders\articles_en\settings\review_system_settings;
+use Database\Seeders\articles_en\settings\live_chat_system_settings;
+use Database\Seeders\articles_en\settings\configuring_your_website_languages;
+use Database\Seeders\articles_en\settings\changing_your_website_languages;
+use Database\Seeders\articles_en\settings\time_zone_and_country;
+use Database\Seeders\articles_en\settings\website_system_settings;
+use Database\Seeders\articles_en\settings\adjusting_the_control_settings;
+use Database\Seeders\articles_en\settings\managing_your_restaurant_information;
+use Database\Seeders\articles_en\settings\adjusting_the_alert_notifications;
+
 use Illuminate\Database\Seeder;
 
 class articles_en extends Seeder
@@ -41,5 +59,24 @@ class articles_en extends Seeder
         $this->call([financial_reports::class]); //
         $this->call([restaurant_expenses::class]); //
         $this->call([your_websites_privacy_policy::class]); //
+        //settings
+        $this->call([your_restaurants_home_delivery_service::class]); //
+        $this->call([your_restaurants_order_pickup_service::class]); //
+        $this->call([your_restaurants_dinein_service::class]); //
+        $this->call([adjusting_your_restaurants_working_hours::class]); //
+        $this->call([scheduling_happy_hour::class]); //
+        $this->call([the_guide_mode::class]); //
+        $this->call([adjusting_the_control_panel_view::class]); //
+        $this->call([ordering_system_settings::class]); //
+        $this->call([review_system_settings::class]); //
+        $this->call([live_chat_system_settings::class]); //
+        $this->call([configuring_your_website_languages::class]); //
+        $this->call([changing_your_website_languages::class]); //
+        $this->call([time_zone_and_country::class]); //
+        $this->call([website_system_settings::class]); //
+        $this->call([adjusting_the_control_settings::class]); //
+        $this->call([managing_your_restaurant_information::class]); //
+        $this->call([adjusting_the_alert_notifications::class]); //
+
     }
 }
