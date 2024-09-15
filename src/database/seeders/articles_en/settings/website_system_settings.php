@@ -59,7 +59,7 @@ class website_system_settings extends Seeder // please replace the article_id wi
         array_push($sections,[
             'sort'=>$sort,
             'article_id' => $article->id,
-            'title' => 'Website quick load mode',
+            'title' => 'Website load time',
             'keyWords' => 'quick load mode',
             'html' => <<<string
             <p>Page load time is how long it takes for a webpage to fully open. Factors like media content and the user's internet connection can slow it down, especially if large files or images are involved.</p>
@@ -78,7 +78,7 @@ class website_system_settings extends Seeder // please replace the article_id wi
         array_push($sections,[
             'sort'=>$sort,
             'article_id' => $article->id,
-            'title' => 'Displaying dine-in working hours',
+            'title' => 'Dine-in working hours',
             'keyWords' => 'dine-in dining working hours',
             'html' => <<<string
             <p>When you switch on the <b>Show dine-in working hours</b> button, your dine-in service's working hours that you <a>have set</a> appear on your website along with your other services' working hours.</p>

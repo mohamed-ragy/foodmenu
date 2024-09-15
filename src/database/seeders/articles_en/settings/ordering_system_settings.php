@@ -30,7 +30,7 @@ class ordering_system_settings extends Seeder // please replace the article_id w
             'sort' => 0,//change this to the number of the article sort
             'title_id' => $title_id,
             'title' => "Ordering system settings",
-            'description' => "This article will walk you through the process of adjusting your online ordering system settings to match your operational capacity and availability times for a seamless experience. ",
+            'description' => "This article will walk you through the process of adjusting your online ordering system settings to match your operational capacity and availability times. ",
             'icon' => "ico-orders",// i will set the icon unit i will provide you a list of all the icons
             'category' => "system-and-settings",//['getting-started','basics','products-and-categories','ordering-system','statistics-and-analytics','website-users','website-design','system-and-settings','security','my-staff','billing-center'];
             'keyWords' => "online_ordering.ordering_system",//the article keywords spreat them using .
@@ -97,8 +97,7 @@ class ordering_system_settings extends Seeder // please replace the article_id w
             'html' => <<<string
             <p>You can allow visitors to your website to place orders outside of the <a>working hours</a> you have set for your services.  </p>
             <p>
-            <div>To enable this option for home delivery orders, switch on the <b>Accept delivery orders outside working hours</b> button.</div>
-            <div>You can also enable this option for pickup orders by switching on the <b>Accept pickup orders outside working hours</b> button.</div>
+            To enable this option for home delivery orders, switch on the <b>Accept delivery orders outside working hours</b> button. You can also enable this option for pickup orders by switching on the <b>Accept pickup orders outside working hours</b> button.
             </p>
             <div class="tipContainer tipContainer_orange">
             <span class="ico-lamp"></span>

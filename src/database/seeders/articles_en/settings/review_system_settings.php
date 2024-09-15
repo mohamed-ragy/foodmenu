@@ -48,7 +48,7 @@ class review_system_settings extends Seeder // please replace the article_id wit
             'html' => <<<string
             <p>Collecting feedback from customers through ratings and reviews of your food items is advantageous for measuring customer satisfaction. </p>
             <p>
-            <div>You can modify certain settings within the review system using the control panel by going to <b>Settings</b> in the control panel menu, then <a>System</a>.</div>
+            <div>To modify settings in the review system, go to <b>Settings</b> in the control panel menu, then <a>System</a>.</div>
             <div>A page will open containing several tabs. Among these tabs, locate and tap on <b>System settings</b>.</div>
             <img class="articleImg" src="/storage/imgs/help/articles/system_settings.png" />
             </p>

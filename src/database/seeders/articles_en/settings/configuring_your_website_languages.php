@@ -51,8 +51,6 @@ class configuring_your_website_languages extends Seeder // please replace the ar
             string,
         ]);
 
-        help_en_sections::insert($sections);
-
         $sort++;
         array_push($sections,[
             'sort'=>$sort,
@@ -68,8 +66,6 @@ class configuring_your_website_languages extends Seeder // please replace the ar
             <img class="articleImg" src="/storage/imgs/help/articles/install_popup.png" />
             string,
         ]);
-
-        help_en_sections::insert($sections);
 
         $sort++;
         array_push($sections,[

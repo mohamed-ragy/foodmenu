@@ -56,8 +56,6 @@ class live_chat_system_settings extends Seeder // please replace the article_id 
             string,
         ]);
 
-        help_en_sections::insert($sections);
-
         $sort++;
         array_push($sections,[
             'sort'=>$sort,
@@ -72,7 +70,6 @@ class live_chat_system_settings extends Seeder // please replace the article_id 
             string,
         ]);
 
-        help_en_sections::insert($sections);
         $sort++;
         array_push($sections,[
             'sort'=>$sort,
@@ -86,7 +83,6 @@ class live_chat_system_settings extends Seeder // please replace the article_id 
             string,
         ]);
 
-        help_en_sections::insert($sections);
         $sort++;
         array_push($sections,[
             'sort'=>$sort,

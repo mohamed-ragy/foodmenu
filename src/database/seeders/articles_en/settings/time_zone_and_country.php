@@ -43,8 +43,8 @@ class time_zone_and_country extends Seeder // please replace the article_id with
         array_push($sections,[
             'sort'=>$sort,
             'article_id' => $article->id,
-            'title' => 'region time zone',
-            'keyWords' => 'restaurant time zone',
+            'title' => 'Region time zone',
+            'keyWords' => 'restaurant region time zone',
             'html' => <<<string
             <p>A time zone is the standard time for a particular geographical area. When selecting your time zone, it should be the same as where your restaurant is located, as it will set the working hours for your home delivery, order pickup, and dine-in services.</p>
             <p>To adjust your time zone on the control panel, go to <b>Settings</b> in the control panel menu, then select <a>System</a>.</p>
@@ -80,7 +80,7 @@ class time_zone_and_country extends Seeder // please replace the article_id with
             <p>Then, using the time zone input list, search for your restaurant's geographic region; the time zone you select will be reflected on both your website and the control panel.</p>
             <div class="tipContainer tipContainer_green">
             <span class="ico-lamp"></span>
-            <span>The time zone you select affects the timing of generated analytics for your restaurant. Note that frequent time zone changes may impact data accuracy.</span>
+            <span>Frequent time zone changes may impact data accuracy.</span>
             </div>
             string,
         ]);
