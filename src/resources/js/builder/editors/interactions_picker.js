@@ -69,6 +69,8 @@ set_interactions_picker = function(editor){
     if(elem.type == 'elem'){
         editor.find('.interactions_parent_hover_container_container').removeClass('none');
 
+
+        
     }else{
         editor.find('.interactions_parent_hover_container_container').addClass('none')
     }
@@ -110,30 +112,34 @@ set_interactions_picker = function(editor){
 $('body').on('change','.interactions_hover',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    set_interactions_accessibility(editor,val,'hover')
+    let key_tree = editor.attr('key_tree');
+    set_interactions_accessibility(editor,key_tree,val,'hover')
 })
 $('body').on('change','.interactions_parent_hover',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    set_interactions_accessibility(editor,val,'parent_hover')
+    let key_tree = editor.attr('key_tree');
+    set_interactions_accessibility(editor,key_tree,val,'parent_hover')
 })
 $('body').on('change','.interactions_click',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    set_interactions_accessibility(editor,val,'click')
+    let key_tree = editor.attr('key_tree');
+    set_interactions_accessibility(editor,key_tree,val,'click')
 })
 $('body').on('change','.interactions_focus',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    set_interactions_accessibility(editor,val,'focus')
+    let key_tree = editor.attr('key_tree');
+    set_interactions_accessibility(editor,key_tree,val,'focus')
 })
 $('body').on('change','.interactions_disabled',function(){
     let val = get_dummy_val($(this));
     let editor = $(this).closest('.interactions_picker')
-    set_interactions_accessibility(editor,val,'disabled')
+    let key_tree = editor.attr('key_tree');
+    set_interactions_accessibility(editor,key_tree,val,'disabled')
 })
-set_interactions_accessibility = function(editor,val,key){
-    let key_tree = editor.attr('key_tree')
+set_interactions_accessibility = function(editor,key_tree,val,key){
     let elem = get_element_data(key_tree);
     if(val == '0'){
         let index = elem.accessibility.indexOf(key);
@@ -150,16 +156,23 @@ set_interactions_accessibility = function(editor,val,key){
     }else if(val == '1'){
         elem.accessibility.push(key);
     }
-    if(key_tree == 'website_header.children.header_wrapper.children.header_navList'){
-        set_interactions_accessibility('website_header.children.header_wrapper.children.header_navList.children.header_navList_item',val,key)
-    }else if(key_tree == 'website_header.children.header_wrapper.children.header_iconsList'){
-        set_interactions_accessibility('website_header.children.header_wrapper.children.header_iconsList.children.header_iconsList_icon',val,key)
-    }else if(key_tree == 'popup_window.children.popup_card'){
-        set_interactions_accessibility('popup_window.children.popup_card.children.popup_close',val,key)
-    }else{
-        new_action(editor.attr('render'));
-        if(key == 'parent_hover' && val == '0' || key == 'hover' && val == '0'){
-            generate_elem_style(get_element_parent_data(editor.attr('key_tree')))
-        }
+
+    switch(key_tree){
+
+        case 'website_header.children.header_wrapper.children.header_iconsList':
+            set_interactions_accessibility(editor,'website_header.children.header_wrapper.children.header_iconsList_icon',val,key)
+        break;
+        case 'popup_window.children.popup_card':
+            set_interactions_accessibility(editor,'popup_window.children.popup_card.children.popup_close',val,key)
+        break;
+        default:
+            new_action(key_tree);
+            if(key == 'parent_hover' && val == '0' || key == 'hover' && val == '0'){
+                let parent = get_element_parent_data(editor.attr('key_tree'));
+                if(parent !== undefined){
+                    generate_elem_style(parent)
+                }
+            }
+        break;
     }
 }

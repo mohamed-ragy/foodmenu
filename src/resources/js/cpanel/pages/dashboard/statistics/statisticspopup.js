@@ -947,7 +947,7 @@ statisticspopup_user = function(user_id,s1_id,s2_id,date1,date2){
     return $('<div/>',{class:''}).append(
         $('<div/>',{class:'row alnC jstfyS m5'}).append(
             $('<div/>',{class:'ico-user fs104'}),
-            $('<a/>',{text:s1.userName,class:'mis-5 popupPage popupId mis-5 fs101',popupPage:'user',popupId:'user',user:s1.id}),
+            $('<a/>',{text:s1.userName,class:'mis-5 popupPage popupId mis-5 fs101',popupPage:'user',popupId:'user',user:user_id}),
         ),
         userTable
     )

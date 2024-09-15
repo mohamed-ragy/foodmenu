@@ -32,7 +32,7 @@ draw_builder = function(template_id){
     //
     create_editor_popup('website_colors').then(()=>{draw_website_colors();});
     create_editor_popup('page_setup').then(()=>{draw_page_setup()});
-    create_editor_popup('loading_spinner').then(()=>{draw_loading_spinner()});
+    // create_editor_popup('website_form').then(()=>{draw_website_form()});
     //
     create_editor_popup('editor')
     //
@@ -44,66 +44,83 @@ draw_builder = function(template_id){
 
     setTimeout(()=>{
         // window.selected = 'home.0.children.section_wrapper.children.0.children.0'
-        // show_editor_popup('page_setup');
-        // draw_editor_popup_text();
+        // show_editor_popup('website_form');
+        // draw_editor_popup_text_style();
+        // open_website_popup('login_popup',false,true)
+        select('home.0.children.section_wrapper.children.0.children.0')
+        // draw_editor_popup_loading_spinner();
+        draw_editor_popup_button();
+        // show_editor_popup('website_colors');
     },1000)
 
 }
 //
 draw_builder_header = function(){
     $('.builder_header').text('').removeClass('none').append(
-        $('<div/>',{class:'website_pages_container none'}).append(
+        $('<div/>',{class:'builder_header_menu none',menu:'website_pages'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.website_pages.website_pages}),
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_pages.website_pages_des}),
             $('<div/>',{class:'mT20 bold m5',text:texts.website_pages.main}),
-            $('<div/>',{class:'select_website_page',key:'home',text:texts.website_pages.home}),
-            $('<div/>',{class:'select_website_page',key:'category',text:texts.website_pages.category}),
-            $('<div/>',{class:'select_website_page',key:'product',text:texts.website_pages.product}),
-            $('<div/>',{class:'select_website_page',key:'about_us',text:texts.website_pages.about_us}),
-            $('<div/>',{class:'select_website_page',key:'all_products',text:texts.website_pages.all_products}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'home',text:texts.website_pages.home}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'category',text:texts.website_pages.category}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'product',text:texts.website_pages.product}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'about_us',text:texts.website_pages.about_us}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'all_products',text:texts.website_pages.all_products}),
             $('<div/>',{class:'mT20 bold m5',text:texts.website_pages.orderingSystem}),
-            $('<div/>',{class:'select_website_page',key:'cart',text:texts.website_pages.cart}),
-            $('<div/>',{class:'select_website_page',key:'place_order',text:texts.website_pages.place_order}),
-            $('<div/>',{class:'select_website_page',key:'track_order',text:texts.website_pages.track_order}),
-            $('<div/>',{class:'select_website_page',key:'order_history',text:texts.website_pages.order_history}),
-            $('<div/>',{class:'select_website_page',key:'addToCart',text:texts.website_pages.addToCart}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'cart',text:texts.website_pages.cart}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'place_order',text:texts.website_pages.place_order}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'track_order',text:texts.website_pages.track_order}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'order_history',text:texts.website_pages.order_history}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'addToCart',text:texts.website_pages.addToCart}),
             $('<div/>',{class:'mT20 bold m5',text:texts.website_pages.other}),
-            $('<div/>',{class:'select_website_page',key:'privacy_policy',text:texts.website_pages.privacy_policy}),
-            $('<div/>',{class:'select_website_page',key:'signup',text:texts.website_pages.signup}),
-            $('<div/>',{class:'select_website_popup',key:'login_popup',text:texts.website_pages.login_popup}),
-            $('<div/>',{class:'select_website_page',key:'user_profile',text:texts.website_pages.user_profile,style:'border:none'}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'privacy_policy',text:texts.website_pages.privacy_policy}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'signup',text:texts.website_pages.signup}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_popup',key:'login_popup',text:texts.website_pages.login_popup}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'user_profile',text:texts.website_pages.user_profile,style:'border:none'}),
 
         ),
-        $('<div/>',{class:'website_tools_container none'}).append(
+        $('<div/>',{class:'builder_header_menu none',menu:'website_tools'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.website_tools.websiteTools}),
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_tools.website_tools_des}),
-            $('<div/>',{class:'website_tools_elem',key:'website_header',text:texts.website_tools.header}),
-            $('<div/>',{class:'website_tools_elem',key:'footer',text:texts.website_tools.footer}),
-            $('<div/>',{class:'website_tools_elem',key:'mobileNav',text:texts.website_tools.mobileNav}),
-            $('<div/>',{class:'website_tools_elem',key:'popup_window',text:texts.website_tools.popup_window}),
-            $('<div/>',{class:'website_tools_elem',key:'live_chat',text:texts.website_tools.live_chat}),
-            $('<div/>',{class:'website_tools_elem brdrB0',key:'announcement',text:texts.website_tools.announcement}),
+            $('<div/>',{class:'builder_header_menu_elem website_tools_elem',key:'website_header',text:texts.website_tools.header}),
+            $('<div/>',{class:'builder_header_menu_elem website_tools_elem',key:'footer',text:texts.website_tools.footer}),
+            $('<div/>',{class:'builder_header_menu_elem website_tools_elem',key:'mobileNav',text:texts.website_tools.mobileNav}),
+            $('<div/>',{class:'builder_header_menu_elem website_tools_elem',key:'popup_window',text:texts.website_tools.popup_window}),
+            $('<div/>',{class:'builder_header_menu_elem website_tools_elem',key:'live_chat',text:texts.website_tools.live_chat}),
+            $('<div/>',{class:'builder_header_menu_elem website_tools_elem',key:'announcement',text:texts.website_tools.announcement}),
         ),
-        $('<div/>',{class:'website_style_container none'}).append(
+        $('<div/>',{class:'builder_header_menu none',menu:'website_style'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.website_style.websiteStyle}),
             $('<div/>',{class:'fs09 c_white-11',text:texts.website_style.websiteStyle_des}),
-            $('<div/>',{class:'website_style_elem website_style_elem_css mT20',elem:'website_colors',text:texts.website_style.website_colors}),
-            $('<div/>',{class:'website_style_elem website_style_elem_css',elem:'page_setup',text:texts.website_style.page_setup}),
-            $('<div/>',{class:'website_style_elem website_style_elem_css brdrB0',elem:'loading_spinner',text:texts.website_style.loading_spinner}),
+            $('<div/>',{class:'builder_header_menu_elem website_style_elem mT20',elem:'website_colors',text:texts.website_style.website_colors}),
+            $('<div/>',{class:'builder_header_menu_elem website_style_elem',elem:'page_setup',text:texts.website_style.page_setup}),
+            $('<div/>',{class:'builder_header_menu_elem_submenu',elem:'website_form'}).append(
+                $('<div/>',{class:'',text:texts.website_style.form_elements}),
+                $('<div/>',{class:'ico-arrowRight'}),
+                $('<div/>',{class:'builder_header_submenu none'}).append(
+                    $('<div/>',{class:'builder_header_menu_elem website_form_elem editor_website_form select',text:texts.website_style.website_form,key_tree:'form_elements.website_form'}),
+                    $('<div/>',{class:'builder_header_menu_elem website_form_elem editor_text_style select',text:texts.website_style.form_title,key_tree:'form_elements.form_title'}),
+                    $('<div/>',{class:'builder_header_menu_elem website_form_elem editor_input_box select',text:texts.website_style.form_input_box,key_tree:'form_elements.form_input_box'}),
+                    $('<div/>',{class:'builder_header_menu_elem website_form_elem editor_button select',text:texts.website_style.form_button,key_tree:'form_elements.form_button'}),
+                    $('<div/>',{class:'builder_header_menu_elem website_form_elem editor_check_box select',text:texts.website_style.form_check_box,key_tree:'form_elements.form_check_box'}),
+                    $('<div/>',{class:'builder_header_menu_elem website_form_elem editor_loading_spinner select',text:texts.website_style.form_loading_spinner,key_tree:'form_elements.form_loading_spinner'}),
+                )
+            ),
         ),
-        $('<div/>',{class:'preview_languages_container none'}).append(
+        $('<div/>',{class:'builder_header_menu none',menu:'preview_languages'}).append(
             $('<div/>',{class:'fs101 bold mY5  inter',text:texts.preview_language}),
             // loop down and add lang elems and dont forget to style it and then add the events
         ),
+
         $('<div/>',{class:'row alnC jstfyC'}).append(
             $('<div/>',{class:'header_icon ico-folder showSelectTemplate',tooltip:texts.selectTemplate}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon ico-style showWebsiteStyle',tooltip:texts.website_style.websiteStyle}),
+            $('<div/>',{class:'header_icon ico-style show_builder_header_menu',onclick:`show_builder_header_menu('website_style')`,menu:'website_style',tooltip:texts.website_style.websiteStyle}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon ico-website_tools showWebsiteTools',tooltip:texts.website_tools.websiteTools}),
+            $('<div/>',{class:'header_icon ico-website_tools show_builder_header_menu',onclick:`show_builder_header_menu('website_tools')`,menu:'website_tools',tooltip:texts.website_tools.websiteTools}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon2 showWebsitePages row alnC jsfySB'}).append(
-                $('<div/>',{class:'mnw200 website_page_name'}),
+            $('<div/>',{class:'header_icon2 show_builder_header_menu',onclick:`show_builder_header_menu('website_pages')`,menu:'website_pages'}).append(
+                $('<div/>',{class:'mnw200 current_page_name'}),
                 $('<div/>',{class:'ico-arrowDown mis-20'}),
             ),
             // $('<div/>',{class:'ico-page_settings show_page_settings header_icon'}),
@@ -118,7 +135,7 @@ draw_builder_header = function(){
             $('<div/>',{class:'header_icon set_preview_mode ico-eye',tooltip:`${texts.previewMode} <span class="fs08 c_white-10">${texts.keyboard_shortcuts.previewMode}</span>`}),
             $('<div/>',{class:'header_icon set_show_metrics ico-metrics',tooltip:`${texts.show_metrics} <span class="fs08 c_white-10">${texts.keyboard_shortcuts.show_metrics}</span>`}),
             $('<div/>',{class:'mX5 c_white-11 fs105',text:'|'}),
-            $('<div/>',{class:'header_icon2 showWebsitePreviewLangs row alnC jsfySB',tooltip:texts.preview_language}).append(
+            $('<div/>',{class:'header_icon2 show_builder_header_menu',onclick:`show_builder_header_menu('preview_languages')`,menu:'preview_languages',tooltip:texts.preview_language}).append(
                 $('<div/>',{class:'',text:window.website_data.languages[window.preview_language].name}),
                 $('<div/>',{class:'ico-arrowDown mis-20'}),
             ),
@@ -137,67 +154,36 @@ draw_builder_header = function(){
     let i = 0;
     for(const key in window.website_data.languages){
         i++
-        $('.preview_languages_container').append(
-            $('<div/>',{class:'preview_languages_elem',key:window.website_data.languages[key].code,html:`${window.website_data.languages[key].name} <span class="fs09 c_white-10">( Ctrl + ${i} )</span>`})
+        $('.builder_header_menu[menu="preview_languages"]').append(
+            $('<div/>',{class:'preview_languages_elem builder_header_menu_elem',key:window.website_data.languages[key].code,html:`${window.website_data.languages[key].name} <span class="fs09 c_white-10">( Ctrl + ${i} )</span>`})
         )
     }
 }
-
-show_website_pages_menu = function(){
-    $('.website_pages_container').css({
+show_builder_header_menu = function(menu){
+    hide_builder_header_menu(true)
+    $(`.builder_header_menu[menu="${menu}"]`).css({
         'top': $('header').height() + 2,
-        'left' : $('.showWebsitePages').offset().left
-    }).removeClass('none');
-    $('.showWebsitePages').addClass('header_icon_selected')
+        'left':$(`.show_builder_header_menu[menu="${menu}"]`).offset().left
+    })
+    $(`.builder_header_menu[menu="${menu}"]`).removeClass('none');
+    $(`.show_builder_header_menu`).removeClass('header_icon_selected')
+    $(`.show_builder_header_menu[menu="${menu}"]`).addClass('header_icon_selected')
 }
-hide_website_pages_menu = function(force=false){
-    if($('.website_pages_container:hover').length == 0 && $('.showWebsitePages:hover').length == 0 || force){
-        $('.website_pages_container').addClass('none')
-        $('.showWebsitePages').removeClass('header_icon_selected')
+hide_builder_header_menu = function(force = false){
+    if($('.builder_header_menu:hover').length == 0 && $('.show_builder_header_menu:hover').length == 0 || force){
+        $('.builder_header_menu').addClass('none')
+        $('.show_builder_header_menu').removeClass('header_icon_selected')
     }
 }
-//
-show_website_style_menu = function(){
-    $('.website_style_container').css({
-        'top': $('header').height() + 2,
-        'left' : $('.showWebsiteStyle').offset().left
-    }).removeClass('none');
-    $('.showWebsiteStyle').addClass('header_icon_selected')
-}
-hide_website_style_menu = function(force=false){
-    if($('.website_style_container:hover').length == 0 && $('.showWebsiteStyle:hover').length == 0 || force){
-        $('.website_style_container').addClass('none')
-        $('.showWebsiteStyle').removeClass('header_icon_selected')
-    }
-}
-//
-show_website_tools_menu = function(){
-    $('.website_tools_container').css({
-        'top': $('header').height() + 2,
-        'left' : $('.showWebsiteTools').offset().left
-    }).removeClass('none');
-    $('.showWebsiteTools').addClass('header_icon_selected')
-}
-hide_website_tools_menu = function(force=false){
-    if($('.website_tools_container:hover').length == 0 && $('.showWebsiteTools:hover').length == 0 || force){
-        $('.website_tools_container').addClass('none')
-        $('.showWebsiteTools').removeClass('header_icon_selected')
-    }
-}
-//
-show_preview_languages_menu = function(){
-    $('.preview_languages_container').css({
-        'top': $('header').height() + 2,
-        'left' : $('.showWebsitePreviewLangs').offset().left
-    }).removeClass('none');
-    $('.showWebsitePreviewLangs').addClass('header_icon_selected')
-}
-hide_show_preview_languages_menu = function(force=false){
-    if($('.preview_languages_container:hover').length == 0 && $('.showWebsitePreviewLangs:hover').length == 0 || force){
-        $('.preview_languages_container').addClass('none')
-        $('.showWebsitePreviewLangs').removeClass('header_icon_selected')
-    }
-}
+$('body').on('mouseenter','.builder_header_menu_elem_submenu',function(){
+    $(this).find('.builder_header_submenu').css({
+        left:$(this).offset().left + $(this).outerWidth() - 5,
+        top:$(this).offset().top + $(this).outerHeight() - 80,
+    }).removeClass('none')
+})
+$('body').on('mouseleave','.builder_header_menu_elem_submenu',function(){
+    $(this).find('.builder_header_submenu').addClass('none')
+})
 //
 mobile_view = function(){
     window.current_view = 'mobile';
@@ -216,7 +202,9 @@ mobile_view = function(){
         set_page_setup_vars();
         $('#website').scrollTop(0)
         if(window.selected){
-            $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)
+            try{
+                $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)
+            }catch{}
             fix_edit_btns_position(get_element_data(window.selected),window.selected);
         }
         set_editor_popup_editor();
@@ -241,7 +229,9 @@ desktop_view = function(){
         set_page_setup_vars();
         $('#website').scrollTop(0)
         if(window.selected){
-            $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)
+            try{
+                $('#website').scrollTop(($('#website').find(`[key_tree="${window.selected}"]`).offset().top) - ($('#website').offset().top) - 300)
+            }catch{}
             fix_edit_btns_position(get_element_data(window.selected),window.selected);
         }
         set_editor_popup_editor();
@@ -249,9 +239,6 @@ desktop_view = function(){
     window.template.settings.view = 'desktop';
     render('all');
 }
-
-
-
 view_toggle = function(){
     if(!$('.desktop_view').hasClass('mobile_view')){
         mobile_view();
@@ -260,62 +247,45 @@ view_toggle = function(){
     }
 }
 //events
-$('body').on('click','.showWebsitePreviewLangs',function(e){
-    // e.stopImmediatePropagation();
-    show_preview_languages_menu();
-})
 $('body').on('click','.preview_languages_elem',function(e){
     window.preview_language = $(this).attr('key');
-    hide_show_preview_languages_menu(true);
+    hide_builder_header_menu(true);
     set_website_variable_data()
     render('all');
     window.history.pushState({},'',`/?template_id=${window.template_id}&preview_language=${window.preview_language}`)
-    $('.showWebsitePreviewLangs').children().first().text(window.website_data.languages[$(this).attr('key')].name)
-})
-//
-$('body').on('click','.showWebsitePages',function(e){
-    // e.stopImmediatePropagation();
-    show_website_pages_menu();
-})
-$('body').on('click','.showWebsiteStyle',function(e){
-    // e.stopImmediatePropagation();
-    show_website_style_menu();
-})
-$('body').on('click','.showWebsiteTools',function(e){
-    // e.stopImmediatePropagation();
-    show_website_tools_menu();
+    $('.show_builder_header_menu[menu="preview_languages"]').children().first().text(window.website_data.languages[$(this).attr('key')].name)
 })
 //
 $('body').on('click','.website_style_elem',function(e){
-    // e.stopImmediatePropagation();
-    console.log($(this).attr('elem'))
-    hide_website_style_menu(true);
+    hide_builder_header_menu(true);
     show_editor_popup($(this).attr('elem'));
-    // if($(this).attr('elem') == 'loading_spinner'){
-    //     get_loading_spinners();
-    // }
 })
 $('body').on('click','.website_tools_elem',function(e){
-    hide_website_tools_menu(true);
+    hide_builder_header_menu(true);
     if($(this).attr('key') == 'website_header'){
         select('website_header');
         draw_editor_popup_header_settings()
     }else if($(this).attr('key') == 'popup_window'){
         window.selected_popup = 'popup_window';
-        open_website_popup('popup_window');
+        open_website_popup('popup_window',true,true);
         draw_editor_popup_popup_widnow();
     }else{
         show_editor_popup($(this).attr('key'));
     }
-
+});
+$('body').on('click','.website_form_elem',function(){
+    hide_builder_header_menu(true);
+    let show_form = true;
+    window.selected_popup == 'login_popup' ? show_form = false : null;
+    show_form ? open_website_popup('login_popup',true,true) : null;
 })
 $('body').on('click','.select_website_page',function(e){
     set_page($(this).attr('key'))
-    hide_website_pages_menu(true)
+    hide_builder_header_menu(true)
 })
 $('body').on('click','.select_website_popup',function(e){
-    open_website_popup($(this).attr('key'))
-    hide_website_pages_menu(true)
+    open_website_popup($(this).attr('key'),true,true)
+    hide_builder_header_menu(true)
 })
 //
 $('body').on('click','.set_view_desktop',function(e){

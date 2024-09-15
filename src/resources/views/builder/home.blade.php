@@ -19,12 +19,11 @@
     <header class="none builder_header"></header>
     <div class="desktop_view">
         <div id="website" class="website_body">
-            {{-- <div class="popup_container"></div> --}}
             <div id="page"></div>
         </div>
         <div class="resize_mobile_view ico-drag2" tooltip=""></div>
     </div>
-    <form id="imgs-uploadImgForm" enctype="multipart/form-data">
+    <form class="none" id="imgs-uploadImgForm" enctype="multipart/form-data">
         @csrf
         <input type="file" name="designUploadImg" id="imgs-uploadImg" accept="image/png, image/jpeg, image/gif, image/bmp, image/webp" hidden>
     </form>

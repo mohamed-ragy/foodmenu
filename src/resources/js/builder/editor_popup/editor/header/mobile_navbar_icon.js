@@ -10,6 +10,7 @@ draw_editor_header_mobileNav_icon = function(){
                             $('<div/>',{class:'fs09',text:texts.styling.icon}),
                             draw_svg_icon_picker({  
                                 key_tree:`website_header.children.header_wrapper.children.header_mobileNav_icon.children`,
+                                render:'website_header.children.header_wrapper.children.header_mobileNav_icon',
                                 variable_key:null,
                                 key:'icon',
                                 icon_type:'menu',

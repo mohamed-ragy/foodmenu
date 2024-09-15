@@ -5,30 +5,32 @@ draw_editor_popup_background = function(){
         selected_key_tree = 'website_header';
     }
     let elem = get_element_data(selected_key_tree);
+    let is_responsive = true;
+    if(elem.is_responsive == '0'){is_responsive = false;}
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
-                is_responsive:true,
-                interactions:['hover'],
+                is_responsive:is_responsive,
+                interactions:['hover','click','focus','disabled'],
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
                         $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none mB20`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.background}),
                             draw_input_list({
-                                container_class:'background_type_inputList',
+                                editor_class:'background_type_inputList',
                                 key_tree:selected_key_tree,
                                 variable_key:'background',
                                 key:'type',
                                 selections:[
                                     {name:texts.styling.none,val:'none',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
                                     {name:texts.styling.color,val:'color',show_elem:'editor_background_color',hide_elem:'editor_background_gradient.editor_background_backdrop_filter.editor_background_image'},
-                                    {name:texts.styling.gradient,val:'gradient',show_elem:'editor_background_gradient',hide_elem:'editor_background_color.editor_background_backdrop_filter.editor_background_image'},
-                                    {name:texts.styling.backdrop_filter,class:`${elem.type == 'section' ? 'none' : ''}`,val:'backdrop_filter',show_elem:'editor_background_backdrop_filter',hide_elem:'editor_background_color.editor_background_gradient.editor_background_image'},
-                                    {name:texts.styling.image,val:'image',show_elem:'editor_background_image',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter'},
+                                    elem.accessibility.includes('background_gradient') ? {name:texts.styling.gradient,val:'gradient',show_elem:'editor_background_gradient',hide_elem:'editor_background_color.editor_background_backdrop_filter.editor_background_image'}:null,
+                                    elem.accessibility.includes('background_backdrop_filter') ? {name:texts.styling.backdrop_filter,val:'backdrop_filter',show_elem:'editor_background_backdrop_filter',hide_elem:'editor_background_color.editor_background_gradient.editor_background_image'}:null,
+                                    elem.accessibility.includes('background_image') ? {name:texts.styling.image,val:'image',show_elem:'editor_background_image',hide_elem:'editor_background_color.editor_background_gradient.editor_background_backdrop_filter'}:null,
                                 ],
                             }),
                         ),
-                        $('<div/>',{class:'editor_background_color w100p'}).append(
+                        $('<div/>',{class:'editor_background_color none w100p'}).append(
                             $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.background_color}),
                                 draw_color_picker({
@@ -38,14 +40,14 @@ draw_editor_popup_background = function(){
                                 })
                             ),
                         ),
-                        $('<div/>',{class:'editor_background_gradient w100p'}).append(
+                        elem.accessibility.includes('background_gradient') ? $('<div/>',{class:'editor_background_gradient none w100p'}).append(
                             draw_gradient_editor({
                                 key_tree:selected_key_tree,
                                 variable_key:'background',
                                 key:'gradient',
                             })
-                        ),
-                        elem.type != 'section' ? $('<div/>',{class:'editor_background_backdrop_filter w100p'}).append(
+                        ):'',
+                        elem.accessibility.includes('background_backdrop_filter')  ? $('<div/>',{class:'editor_background_backdrop_filter none w100p'}).append(
                             $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.filter_color}),
                                 draw_color_picker({
@@ -60,7 +62,7 @@ draw_editor_popup_background = function(){
                                 key:'backdrop_filter',
                             })
                         ) : '',
-                        $('<div/>',{class:'editor_background_image w100p'}).append(
+                        elem.accessibility.includes('background_image') ? $('<div/>',{class:'editor_background_image none w100p'}).append(
                             $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.image}),
                                 draw_select_image({
@@ -80,7 +82,7 @@ draw_editor_popup_background = function(){
                                 name:texts.styling.image_filter,
                                 row_class:true,
                             }),
-                        )
+                        ):'',
                     ),
                     $('<div/>',{class:'editor_popup_container w100p none',key:'editor_background_image_filter',parent_key:'editor_background'}).append(
                         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(

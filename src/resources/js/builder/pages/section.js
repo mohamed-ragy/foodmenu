@@ -1,6 +1,6 @@
 
 set_editor_popup_editor_position_section = function(key_tree){
-    $('#editor').addClass('h600 w350').css({
+    $('#editor').css({
         top:($(`section[key_tree="${key_tree}"]`).offset().top) + 20,
         left:($(`section[key_tree="${key_tree}"]`).offset().left) + 20,
         right:'unset',

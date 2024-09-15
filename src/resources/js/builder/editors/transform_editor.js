@@ -1,6 +1,6 @@
 draw_transform_editor = function(data){
     let editor = $('<div/>',{
-        class:`editor transform_editor w100p ${data.container_class ?? ''}`,
+        class:`editor transform_editor w100p ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,

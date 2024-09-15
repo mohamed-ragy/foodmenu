@@ -6,14 +6,6 @@ draw_editor_popup_popup_widnow = function(){
                 is_responsive:false,
                 editors:[
                     $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
-                        $('<div/>',{class:'fs09',text:texts.styling.bg_color}),
-                        draw_color_picker({
-                            key_tree:window.selected,
-                            variable_key:'css',
-                            key:'background-color'
-                        })
-                    ),
-                    $('<div/>',{class:'editor_popup_row'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.modal_overlay_color}),
                         draw_color_picker({
                             key_tree:'popup_window',

@@ -1,6 +1,6 @@
 draw_svg_icon_picker = function(data){
     let editor = $('<div/>',{
-        class:`editor svg_icon_picker w100p`,
+        class:`editor svg_icon_picker w100p ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,

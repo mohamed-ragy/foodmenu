@@ -6,7 +6,6 @@
 //editor_popup 180
 //editor_popup_dump 170
 
-
 html{
     margin: 0;
     padding:0;
@@ -115,6 +114,8 @@ body{
 @import 'editable/section_block.scss';
 @import 'editable/elem.scss';
 @import 'editable/container.scss';
+// @import 'editable/website_form.scss';
+// @import 'editable/form_element.scss';
 
 @import 'icons/icons';
 @import '../style/style.scss';
@@ -225,6 +226,8 @@ body{
         .popup_card::after{outline:none !important}
         .select_popup_title{display: none !important;}
     }
+    .website_form::after{outline:none !important}
+    .select_edit_website_form_title{display: none !important;}
 }
 
 ///
@@ -252,7 +255,7 @@ body{
     background-color: var(--shdw-70);
     backdrop-filter: blur(10px);
     color:var(--txt-2);
-    z-index: 2000;
+    z-index: 3000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -290,7 +293,7 @@ body{
     opacity: 1 !important;
 }
 .none{display: none !important;}
-
+.vH{visibility: hidden !important;}
 :root{
     --txt-1:rgb(97, 97, 97);
 }

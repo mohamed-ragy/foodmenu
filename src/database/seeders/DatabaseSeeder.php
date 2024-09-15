@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         Admin::create([
             'adminName' => 'Ragy',
-            'password' => bcrypt(".ugdg, dhlh t[h[h"),
+            'password' => bcrypt("123123"),
             'role' => 1,
         ]);
 

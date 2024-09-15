@@ -25,6 +25,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-border_radius_1:before {
+  content: "\e99a";
+}
+.ico-border_radius_2:before {
+  content: "\e99b";
+}
+.ico-border_radius_3:before {
+  content: "\e99c";
+}
+.ico-loading_spinner:before {
+  content: "\e999";
+}
+.ico-check_box:before {
+  content: "\e997";
+}
+.ico-preview_form:before {
+  content: "\e994";
+}
+.ico-text_style:before {
+  content: "\e992";
+}
+.ico-font_style:before {
+  content: "\e993";
+}
+.ico-form:before {
+  content: "\e991";
+}
 .ico-close_icon:before {
   content: "\e98e";
 }
@@ -45,9 +72,6 @@
 }
 .ico-copy2:before {
   content: "\e98c";
-}
-.ico-edit_text:before {
-  content: "\e988";
 }
 .ico-settings:before {
   content: "\e942";
@@ -150,6 +174,9 @@
 }
 .ico-icon:before {
   content: "\e931";
+}
+.ico-edit_text:before {
+  content: "\e988";
 }
 .ico-paragraph:before {
   content: "\e932";
@@ -322,6 +349,9 @@
 .ico-eye:before {
   content: "\e92b";
 }
+.ico-eye_off:before {
+  content: "\e998";
+}
 .ico-add:before {
   content: "\e929";
 }
@@ -342,6 +372,12 @@
 }
 .ico-position_hcenter:before {
   content: "\e928";
+}
+.ico-position_hstretch:before {
+  content: "\e995";
+}
+.ico-position_vstretch:before {
+  content: "\e996";
 }
 .ico-page_settings:before {
   content: "\e922";

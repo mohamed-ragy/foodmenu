@@ -19,10 +19,14 @@ draw_edit_btns = function(elem,key_tree){
         `
     }
     //
-    elem.accessibility.includes('edit_text') ? html = `${html}<button class="ico-edit_text edit_text" tooltip="${texts.edit_text}" key_tree="${key_tree}"></button>` :null;
+    elem.accessibility.includes('website_form') ? html = `${html}<button class="ico-form editor_website_form" tooltip="${texts.website_style.website_form}" key_tree="${key_tree}"></button>` :null;
+    
+    elem.accessibility.includes('button') ? html = `${html}<button class="ico-button editor_button" tooltip="${texts.styling.button}" key_tree="${key_tree}"></button>` :null;
+    elem.accessibility.includes('edit_text') ? html = `${html}<button class="ico-text edit_text" tooltip="${texts.edit_text}" key_tree="${key_tree}"></button>` :null;
+    elem.accessibility.includes('text_style') ? html = `${html}<button class="ico-text_style editor_text_style" tooltip="${texts.styling.text_style}" key_tree="${key_tree}"></button>` :null;
     elem.accessibility.includes('select_image') ? html = `${html}<button class="ico-select_image select_image" tooltip="${texts.styling.select_image}" key_tree="${key_tree}"></button>` :null;
     elem.accessibility.includes('select_icon') ? html = `${html}<button class="ico-select_image editor_icon" tooltip="${texts.styling.select_icon}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_font') ? html = `${html}<button class="ico-font_size select_font" tooltip="${texts.styling.font_style}" key_tree="${key_tree}"></button>` :null;
+    elem.accessibility.includes('select_font') ? html = `${html}<button class="ico-font_style select_font" tooltip="${texts.styling.font_style}" key_tree="${key_tree}"></button>` :null;
     elem.accessibility.includes('background') ? html = `${html}<button class="ico-background editor_background" tooltip="${texts.styling.background}" key_tree="${key_tree}"></button>` :null;
     elem.accessibility.includes('alignment') ? html = `${html}<button class="ico-alignment editor_alignment" tooltip="${texts.styling.alignment}" key_tree="${key_tree}"></button>` :null;
 
@@ -52,77 +56,86 @@ hide_edit_btns = function(){
     $('.edit_btns').text('').removeClass().addClass('edit_btns none builder_font');
 }
 fix_edit_btns_position = function(elem,key_tree){
-    let parent = get_element_parent_data(key_tree);
-    let direction = 'row';
-    let top = 'unset';
-    let bottom = 'unset';
-    let left = 'unset';
-    let right = 'unset';
-    let animation_class = '';
-    switch(elem.type){
-        case 'elem':
-            animation_class = 'edit_btns_animation_slide_left';
-            direction = 'column';
-            top = `${$(`.${elem.class_selector}_container`).offset().top - 20}px`;
-            left = `${$(`.${elem.class_selector}_container`).offset().left - 50}px`;
-        break;
-        case 'container':
-            animation_class = 'edit_btns_animation_slide_left';
-            direction = 'column';
-            top = `${$(`.${elem.class_selector}_container`).offset().top - 20}px`;
-            left = `${$(`.${elem.class_selector}_container`).offset().left - 50}px`;
-        break;
-        case 'section_block':
-            animation_class = 'edit_btns_animation_slide_right';
-            direction = 'column';
-            top = `${$(`.${elem.class_selector}_container`).offset().top - 20}px`;
-            left = `${$(`.${elem.class_selector}_container`).offset().left  + $(`.${elem.class_selector}`).outerWidth() + 10}px`;
-        break;
-        case 'section':
-            direction = 'column';
-            top = `${$(`.${elem.class_selector}`).offset().top +60}px`;
-            if(window.current_view == 'desktop'){
-                animation_class = 'edit_btns_animation_slide_right';
-                left = `${$(`.${elem.class_selector}`).offset().left +10}px`;
-            }else if(window.current_view == 'mobile'){
+    try{
+        let parent = get_element_parent_data(key_tree);
+        let direction = 'row';
+        let top = 'unset';
+        let bottom = 'unset';
+        let left = 'unset';
+        let right = 'unset';
+        let animation_class = '';
+        switch(elem.type){
+            case 'elem':
                 animation_class = 'edit_btns_animation_slide_left';
-                left = `${$(`.${elem.class_selector}`).offset().left -50}px`;
-            }
-            if(elem.attr.adapt_header == '1'){
-                top = `${$(`.${elem.class_selector}`).offset().top + 60 + $('.website_header').height()}px`;
-            }
-
-        break;
-        case 'website_header':
-            if(window.current_view == 'desktop'){
-                animation_class = 'edit_btns_animation_slide_down';
-                direction = 'row';
-                top = `${$(`.${elem.class_selector}`).offset().top + $(`.${elem.class_selector}`).outerHeight() + 5}px`;
-                left = `${$(`.header_wrapper `).offset().left}px`;
-            }else if(window.current_view == 'mobile'){
-                animation_class = 'edit_btns_animation_slide_up';
-                direction = 'row';
-                top = `${$(`.${elem.class_selector}`).offset().top - 45 }px`;
-                left = `${$(`.header_wrapper `).offset().left}px`;
-            }
-        break;
-        case 'popup_card':
-            animation_class = 'edit_btns_animation_slide_left';
-            direction = 'column';
-            top = `${$(`.${elem.class_selector}`).offset().top}px`;
-            left = `${$(`.${elem.class_selector}`).offset().left - 50}px`;
-        break;
-        default:
-            return null;
-        break;
-    }
-    $('.edit_btns').css({
-        top:top,
-        left:left,
-        right:right,
-        bottom:bottom,
-        'flex-direction':direction,
-    })
+                direction = 'column';
+                top = `${$(`.${elem.class_selector}_container`).offset().top - 20}px`;
+                left = `${$(`.${elem.class_selector}_container`).offset().left - 50}px`;
+            break;
+            case 'container':
+                animation_class = 'edit_btns_animation_slide_left';
+                direction = 'column';
+                top = `${$(`.${elem.class_selector}_container`).offset().top - 20}px`;
+                left = `${$(`.${elem.class_selector}_container`).offset().left - 50}px`;
+            break;
+            case 'section_block':
+                animation_class = 'edit_btns_animation_slide_right';
+                direction = 'column';
+                top = `${$(`.${elem.class_selector}_container`).offset().top - 20}px`;
+                left = `${$(`.${elem.class_selector}_container`).offset().left  + $(`.${elem.class_selector}`).outerWidth() + 10}px`;
+            break;
+            case 'section':
+                direction = 'column';
+                top = `${$(`.${elem.class_selector}`).offset().top +60}px`;
+                if(window.current_view == 'desktop'){
+                    animation_class = 'edit_btns_animation_slide_right';
+                    left = `${$(`.${elem.class_selector}`).offset().left +10}px`;
+                }else if(window.current_view == 'mobile'){
+                    animation_class = 'edit_btns_animation_slide_left';
+                    left = `${$(`.${elem.class_selector}`).offset().left -50}px`;
+                }
+                if(elem.attr.adapt_header == '1'){
+                    top = `${$(`.${elem.class_selector}`).offset().top + 60 + $('.website_header').height()}px`;
+                }
     
-    return animation_class;
+            break;
+            case 'website_header':
+                if(window.current_view == 'desktop'){
+                    animation_class = 'edit_btns_animation_slide_down';
+                    direction = 'row';
+                    top = `${$(`.${elem.class_selector}`).offset().top + $(`.${elem.class_selector}`).outerHeight()}px`;
+                    left = `${$(`.header_wrapper `).offset().left}px`;
+                }else if(window.current_view == 'mobile'){
+                    animation_class = 'edit_btns_animation_slide_up';
+                    direction = 'row';
+                    top = `${$(`.${elem.class_selector}`).offset().top - 45 }px`;
+                    left = `${$(`.header_wrapper `).offset().left}px`;
+                }
+            break;
+            case 'popup_card':
+                animation_class = 'edit_btns_animation_slide_left';
+                direction = 'column';
+                top = `${$(`.${elem.class_selector}`).offset().top}px`;
+                left = `${$(`.${elem.class_selector}`).offset().left - 50}px`;
+            break;
+            case 'website_form':
+                animation_class = 'edit_btns_animation_slide_left';
+                direction = 'column';
+                top = `${$(`.edit_website_form_selected`).offset().top}px`;
+                left = `${$(`.edit_website_form_selected`).offset().left - 50}px`;
+            break;
+            default:
+                return null;
+            break;
+        }
+        $('.edit_btns').css({
+            top:top,
+            left:left,
+            right:right,
+            bottom:bottom,
+            'flex-direction':direction,
+        })
+        
+        return animation_class; 
+    }catch{}
+
 }

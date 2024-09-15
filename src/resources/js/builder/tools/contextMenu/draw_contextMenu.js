@@ -141,14 +141,19 @@ draw_contextMenu = function(){
     }
     contextMenu.append(draw_contextMenu_line())
     //main edits
+    if(accessibility.includes('website_form')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-form',class:`editor_website_form`,child1_text:texts.website_style.website_form})
+        )
+    }
     if(accessibility.includes('button')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-button',class:`editor_button`,child1_text:texts.styling.button})
         )
     }
-    if(accessibility.includes('text')){
+    if(accessibility.includes('text_style')){
         contextMenu.append(
-            draw_contextMenu_elem({icon:'ico-text',class:`editor_text`,child1_text:texts.styling.text})
+            draw_contextMenu_elem({icon:'ico-text_style',class:`editor_text_style`,child1_text:texts.styling.text_style})
         )
     }
     if(accessibility.includes('image')){

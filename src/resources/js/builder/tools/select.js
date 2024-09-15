@@ -5,14 +5,16 @@ select = function(key_tree){
         if(key_tree != window.selected){
             hide_editor_popup('editor')
         }
-        console.log(key_tree)
+        console.log(`selected: ${key_tree}`)
         let elem = get_element_data(key_tree)
+        // key_tree = filter_key_tree(elem,key_tree)
         window.selected = key_tree;
         show_edit_btns(key_tree)
         $('section').removeClass('section_selected');
         $(`.section_block`).removeClass('section_block_selected')
         $(`.elem`).removeClass('edit_elem_selected')
         $(`.container`).removeClass('edit_container_selected')
+        $('.website_form').removeClass('edit_website_form_selected')
         $('.website_header').removeClass('selected_header')
         $('.header_component').removeClass('header_component_selected')
         $('.header_navList_item').removeClass('header_component_selected')
@@ -60,9 +62,16 @@ select = function(key_tree){
                 if(window.website_popup_opened){
                     $('#website').find('.popup_card').addClass('popup_window_selected')
                 }else{
-                    open_website_popup();
+                    open_website_popup('popup_widnow',false,false);
                 }
             break;
+        }
+        if(key_tree == 'form_elements.form_loading_spinner'){
+            $('.website_form').children().not('.form_loading_spinner').addClass('vH')
+            $('.website_form').find('.form_loading_spinner').removeClass('none')
+        }else{
+            $('.website_form').children().not('.form_loading_spinner').removeClass('vH')
+            $('.website_form').find('.form_loading_spinner').addClass('none')
         }
     // }catch{
     //     hide_editor_popup('editor')
@@ -76,6 +85,7 @@ unselect = function(){
     $(`.section_block`).removeClass('section_block_selected')
     $(`.elem`).removeClass('edit_elem_selected')
     $(`.container`).removeClass('edit_container_selected')
+    $('.website_form').removeClass('edit_website_form_selected')
     $('.website_header').removeClass('selected_header')
     $('.header_component').removeClass('header_component_selected')
     $('.header_navList_item').removeClass('header_component_selected')
@@ -83,7 +93,7 @@ unselect = function(){
     hide_header_drop_down_list();   
     let selection = window.getSelection();
     selection.removeAllRanges();
-    $('[contenteditable]').attr('contenteditable',false)
+    $('[contenteditable]').attr('contenteditable',false);
 }
 //
 heighlight_all = function(){
@@ -129,11 +139,12 @@ is_preview_mode = function(){
 }
 window.temp_preview_mode_timeout = null;
 temp_preview_mode = function(){
+    if($('#website').hasClass('preview_mode')){return;}
     clearTimeout(window.temp_preview_mode_timeout);
     set_preview_mode();
     window.temp_preview_mode_timeout = setTimeout(()=>{
         unset_preview_mode();
-    },2000)
+    },1000)
 }
 //
 
@@ -141,6 +152,8 @@ temp_preview_mode = function(){
 $('body').on('click','.select',function(){
     let key_tree = $(this).attr('key_tree');
     select(key_tree);
+    set_editor_popup_editor();
+    draw_editor_popup_editor_shortcuts();
     try{
         $('#website').animate({
             scrollTop: $(`#website`).find(`[key_tree="${key_tree}"]`).first().offset().top - $('#website').offset().top + $('#website').scrollTop() - 300

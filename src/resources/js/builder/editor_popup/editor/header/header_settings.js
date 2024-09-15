@@ -1,5 +1,3 @@
-const jquery = require("jquery");
-
 draw_editor_popup_header_settings = function(){
     if(!accessibility_check(window.selected,'header_settings')){return;}
     show_editor_popup('editor',function(){

@@ -3,7 +3,7 @@ set_editor_popup_editor_position_section_block = function(key_tree){
     if(($(`.section_block[key_tree="${key_tree}"]`).offset().left) + (100) >= ($(window).width() / 2)){
         left = ($(`.section_block[key_tree="${key_tree}"]`).offset().left) - 10 - 350;
     }
-    $('#editor').addClass('h600 w350').css({
+    $('#editor').css({
         top:($(`.section_block[key_tree="${key_tree}"]`).offset().top),
         left:left,
         right:'unset',

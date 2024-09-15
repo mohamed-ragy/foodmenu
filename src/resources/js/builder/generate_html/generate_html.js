@@ -1,7 +1,21 @@
 require('./generate_style.js')
 require('./generate_editing_elems.js')
 // require('./events.js')
-
+generate_html_sort_children = function(elem){
+    if(elem.type == 'header_component'){
+        if(elem.header_component == 'header_navList' || elem.header_component == 'header_iconsList'){
+            elem.children.sort((a,b)=>{
+                return a.attr.sort - b.attr.sort;
+            })
+        }
+    }else{
+        try{
+            elem.children.sort((a,b)=>{
+                return a.sort - b.sort;
+            })
+        }catch{}
+    }
+}
 get_elem_text = function(elem){
     let text = '';
     if('text' in elem){
@@ -19,13 +33,32 @@ get_elem_text = function(elem){
     return text;
 }
 get_elem_class = function(elem){
-    let classes = '';
-    if('class_selector' in elem){classes = `${classes} ${elem.class_selector}`};
-    if('class' in elem){classes = `${classes} ${elem.class}`};
-    if(elem.type != 'elem' && elem.type != 'section_block' && elem.type != 'container'){
-        classes = `${classes} ${elem.type}`
+    let classes = [];
+    if('class_selector' in elem){classes.push(elem.class_selector)};
+    if('class' in elem){
+        let elem_classes = elem.class.split(' ');
+        for(const key in elem_classes){
+            classes.push(elem_classes[key]);
+        }
     }
-    return classes;
+    if('general_class_selector' in elem){
+        classes.push(elem.general_class_selector)
+    }
+    if(elem.type != 'elem' && elem.type != 'section_block' && elem.type != 'container'){
+        classes.push(elem.type ?? '');
+    }
+
+    classes = classes.filter((item, index) => classes.indexOf(item) === index);
+
+    let classes_str = '';
+    for(const key in classes){
+        if(classes_str == ''){classes_str = classes[key]}
+        else{
+            classes_str = `${classes_str} ${classes[key]}`
+        }
+    }
+
+    return classes_str;
 }
 get_elem_attrs = function(elem){
     let attrs = ''
@@ -53,17 +86,28 @@ get_elem_attrs = function(elem){
     }
     return attrs;
 }
+filter_key_tree = function(elem,key_tree){
+    if(elem.general_class_selector == 'website_form'){
+        return 'form_elements.website_form';
+    }
+    return key_tree;
+}
 generate_html = function(elem,key_tree){
+    key_tree = filter_key_tree(elem,key_tree);
+    if('children' in elem){
+        generate_html_sort_children(elem);
+    }
     if('accessibility' in elem){
         if(elem.accessibility.includes('parent_hover')){
             let parent_key_tree = get_parent_key_tree(key_tree)
             generate_elem_style(get_element_data(parent_key_tree));
         }
     }
+
     let html = '';
     if(elem.tag !== undefined){
         if(elem.type == 'elem' || elem.type == 'section_block' || elem.type == 'container'){
-            html = `${html}<div class="${elem.class_selector}_container ${elem.type}" key_tree="${key_tree}">`;
+            html = `${html}<div class="${elem.class_selector ?? ''}_container ${elem.general_class_selector ? `${elem.general_class_selector}_container` : ''} ${elem.type}" key_tree="${key_tree}">`;
             html = `${html}${genrate_editing_elems(elem,key_tree)}`;
         }
 
@@ -73,8 +117,11 @@ generate_html = function(elem,key_tree){
             contenteditable =`contenteditable="false"`
             }
         }
-
-        html = `${html}<${elem.tag} class="edit ${get_elem_class(elem)}" ${get_elem_attrs(elem)} key_tree="${key_tree}" ${contenteditable}>${get_elem_text(elem)}`;
+        let general_html = '';
+        if('general_html' in elem){
+            general_html = generate_html(get_element_data(elem.general_html),elem.general_html)
+        }
+        html = `${html}<${elem.tag} class="edit ${get_elem_class(elem)}" ${get_elem_attrs(elem)} key_tree="${key_tree}" ${contenteditable}>${get_elem_text(elem)}${elem.html ?? ''}${general_html}`;
 
         if(elem.type != 'elem' && elem.type != 'section_block' && elem.type != 'container'){
             html = `${html}${genrate_editing_elems(elem,key_tree)}`;
@@ -90,19 +137,8 @@ generate_html = function(elem,key_tree){
             html = `${html}</div>`;
         }
     }
-    generate_elem_style(elem);
     
-    if('font_style' in elem){
-        for(const key in elem.font_style){
-            let font_name = elem.font_style[key];
-            if(font_name != '' && !window.used_font_styles.includes(font_name)){
-                window.used_font_styles.push(font_name)
-            }
-            if(font_name != '' && !window.loaded_fonts.includes(font_name)){
-                load_font_style(font_name)
-            }
-        }
-    }
+    generate_elem_style(elem);
     return html;
 }
 

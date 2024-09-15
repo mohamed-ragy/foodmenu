@@ -112,8 +112,7 @@ draw_color_palette = function(set_picker=false){
     for(const key in window.template.website_colors.colors){
         let color = window.template.website_colors.colors[key];
         $(`.website_color[key="${key}"]`).css('background-color',`rgb(${color.r},${color.g},${color.b})`)
-
-        if(key.split('_')[2] == 4 && set_picker){
+        if(key.split('_')[2] == 3 && set_picker){
             $(`.website_color_picker[key="color_${key.split('_')[1]}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color.r},${color.g},${color.b})`)
             $(`.website_color_picker[key="color_${key.split('_')[1]}"]`).val(`rgb(${color.r},${color.g},${color.b})`)
         }
@@ -170,92 +169,19 @@ get_rgb = function(color){
 set_color_palette = function(color,color_key){
     color = get_rgb(color);
     let gradation = window.template.website_colors.gradation[`${color_key}_gradation`];
-    let this_color;
-    let max = color.r + color.g + color.b;
-    if(max <= 109){
-        this_color = '1';
-    }else if(max > 109 && max <= 218){
-        this_color = '2';
-    }else if(max > 218 && max <= 327){
-        this_color = '3';
-    }else if(max > 327 && max <= 406){
-        this_color = '4';
-    }else if(max > 406 && max <= 545){
-        this_color = '5'
-    }else if(max > 406 && max <= 654){
-        this_color = '6'
-    }else if(max > 654 && max <= 765){
-        this_color = '7'
-    }
-    
+
     $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').parent().find('.website_color').removeClass('website_color_selected');
-    $(`.website_color[key="${color_key}_${this_color}"]`).addClass('website_color_selected')
+    $(`.website_color[key="${color_key}_3}"]`).addClass('website_color_selected')
+
     let color_1;let color_2;let color_3;let color_4;let color_5;let color_6; let color_7;
-    switch(this_color){
-        case '1':
-            color_1 = {r:color.r,g:color.g,b:color.b};
-            color_2 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
-            color_3 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
-            color_4 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
-            color_5 = {r:(color.r)+(gradation*4),g:(color.g)+(gradation*4),b:(color.b)+(gradation*4)};
-            color_6 = {r:(color.r)+(gradation*5),g:(color.g)+(gradation*5),b:(color.b)+(gradation*5)};
-            color_7 = {r:(color.r)+(gradation*6),g:(color.g)+(gradation*6),b:(color.b)+(gradation*6)};
-        break;
-        case '2':
-            color_1 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
-            color_2 = {r:color.r,g:color.g,b:color.b};
-            color_3 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
-            color_4 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
-            color_5 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
-            color_6 = {r:(color.r)+(gradation*4),g:(color.g)+(gradation*4),b:(color.b)+(gradation*4)};
-            color_7 = {r:(color.r)+(gradation*5),g:(color.g)+(gradation*5),b:(color.b)+(gradation*5)};
-        break;
-        case '3':
-            color_1 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
-            color_2 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
-            color_3 = {r:color.r,g:color.g,b:color.b};
-            color_4 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
-            color_5 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
-            color_6 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
-            color_7 = {r:(color.r)+(gradation*4),g:(color.g)+(gradation*4),b:(color.b)+(gradation*4)};
-        break;
-        case '4':
-            color_1 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
-            color_2 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
-            color_3 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
-            color_4 = {r:color.r,g:color.g,b:color.b};
-            color_5 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
-            color_6 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
-            color_7 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
-        break;
-        case '5':
-            color_1 = {r:(color.r)-(gradation*4),g:(color.g)-(gradation*4),b:(color.b)-(gradation*4)};
-            color_2 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
-            color_3 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
-            color_4 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
-            color_5 = {r:color.r,g:color.g,b:color.b};
-            color_6 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
-            color_7 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
-        break;
-        case '6':
-            color_1 = {r:(color.r)-(gradation*5),g:(color.g)-(gradation*5),b:(color.b)-(gradation*5)};
-            color_2 = {r:(color.r)-(gradation*4),g:(color.g)-(gradation*4),b:(color.b)-(gradation*4)};
-            color_3 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
-            color_4 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
-            color_5 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
-            color_6 = {r:color.r,g:color.g,b:color.b};
-            color_7 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
-        break;
-        case '7':
-            color_1 = {r:(color.r)-(gradation*6),g:(color.g)-(gradation*6),b:(color.b)-(gradation*6)};
-            color_2 = {r:(color.r)-(gradation*5),g:(color.g)-(gradation*5),b:(color.b)-(gradation*5)};
-            color_3 = {r:(color.r)-(gradation*4),g:(color.g)-(gradation*4),b:(color.b)-(gradation*4)};
-            color_4 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
-            color_5 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
-            color_6 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
-            color_7 = {r:color.r,g:color.g,b:color.b};
-        break;
-    }
+    color_1 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
+    color_2 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+    color_3 = {r:color.r,g:color.g,b:color.b};
+    color_4 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+    color_5 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
+    color_6 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
+    color_7 = {r:(color.r)+(gradation*6),g:(color.g)+(gradation*6),b:(color.b)+(gradation*6)};
+
     
     color_1.r < 0 ? color_1.r = 0 : null;
     color_1.r > 255 ? color_1.r = 255 : null;
@@ -271,12 +197,12 @@ set_color_palette = function(color,color_key){
     color_2.b < 0 ? color_2.b = 0 : null;
     color_2.b > 255 ? color_2.b = 255 : null;
 
-    color_3.r < 0 ? color_3.r = 0 : null;
-    color_3.r > 255 ? color_3.r = 255 : null;
-    color_3.g < 0 ? color_3.g = 0 : null;
-    color_3.g > 255 ? color_3.g = 255 : null;
-    color_3.b < 0 ? color_3.b = 0 : null;
-    color_3.b > 255 ? color_3.b = 255 : null;
+    // color_3.r < 0 ? color_3.r = 0 : null;
+    // color_3.r > 255 ? color_3.r = 255 : null;
+    // color_3.g < 0 ? color_3.g = 0 : null;
+    // color_3.g > 255 ? color_3.g = 255 : null;
+    // color_3.b < 0 ? color_3.b = 0 : null;
+    // color_3.b > 255 ? color_3.b = 255 : null;
 
     color_4.r < 0 ? color_4.r = 0 : null;
     color_4.r > 255 ? color_4.r = 255 : null;
@@ -306,36 +232,9 @@ set_color_palette = function(color,color_key){
     color_7.b < 0 ? color_7.b = 0 : null;
     color_7.b > 255 ? color_7.b = 255 : null;
 
-    switch(this_color){
-        case '1':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
-            break;
-        case '2':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_2.r},${color_2.g},${color_2.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
-        break;
-        case '3':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_3.r},${color_3.g},${color_3.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
-        break;
-        case '4':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_4.r},${color_4.g},${color_4.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
-        break;
-        case '5':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_5.r},${color_5.g},${color_5.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
-        break;
-        case '6':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_6.r},${color_6.g},${color_6.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
-        break;
-        case '7':
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
-            $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
-        break;
-    }
+    // $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_3.r},${color_3.g},${color_3.b})`)
+    // $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
+
     window.template.website_colors.colors[`${color_key}_1`] = color_1;
     window.template.website_colors.colors[`${color_key}_2`] = color_2;
     window.template.website_colors.colors[`${color_key}_3`] = color_3;
@@ -345,8 +244,188 @@ set_color_palette = function(color,color_key){
     window.template.website_colors.colors[`${color_key}_7`] = color_7;
     
 
-    draw_color_palette(false);
+    draw_color_palette(true);
 }
+// set_color_palette = function(color,color_key){
+//     color = get_rgb(color);
+//     let gradation = window.template.website_colors.gradation[`${color_key}_gradation`];
+//     let this_color;
+//     let max = color.r + color.g + color.b;
+//     if(max <= 109){
+//         this_color = '1';
+//     }else if(max > 109 && max <= 218){
+//         this_color = '2';
+//     }else if(max > 218 && max <= 327){
+//         this_color = '3';
+//     }else if(max > 327 && max <= 406){
+//         this_color = '4';
+//     }else if(max > 406 && max <= 545){
+//         this_color = '5'
+//     }else if(max > 406 && max <= 654){
+//         this_color = '6'
+//     }else if(max > 654 && max <= 765){
+//         this_color = '7'
+//     }
+    
+//     $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').parent().find('.website_color').removeClass('website_color_selected');
+//     $(`.website_color[key="${color_key}_${this_color}"]`).addClass('website_color_selected')
+//     let color_1;let color_2;let color_3;let color_4;let color_5;let color_6; let color_7;
+//     switch(this_color){
+//         case '1':
+//             color_1 = {r:color.r,g:color.g,b:color.b};
+//             color_2 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+//             color_3 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
+//             color_4 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
+//             color_5 = {r:(color.r)+(gradation*4),g:(color.g)+(gradation*4),b:(color.b)+(gradation*4)};
+//             color_6 = {r:(color.r)+(gradation*5),g:(color.g)+(gradation*5),b:(color.b)+(gradation*5)};
+//             color_7 = {r:(color.r)+(gradation*6),g:(color.g)+(gradation*6),b:(color.b)+(gradation*6)};
+//         break;
+//         case '2':
+//             color_1 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+//             color_2 = {r:color.r,g:color.g,b:color.b};
+//             color_3 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+//             color_4 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
+//             color_5 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
+//             color_6 = {r:(color.r)+(gradation*4),g:(color.g)+(gradation*4),b:(color.b)+(gradation*4)};
+//             color_7 = {r:(color.r)+(gradation*5),g:(color.g)+(gradation*5),b:(color.b)+(gradation*5)};
+//         break;
+//         case '3':
+//             color_1 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
+//             color_2 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+//             color_3 = {r:color.r,g:color.g,b:color.b};
+//             color_4 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+//             color_5 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
+//             color_6 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
+//             color_7 = {r:(color.r)+(gradation*4),g:(color.g)+(gradation*4),b:(color.b)+(gradation*4)};
+//         break;
+//         case '4':
+//             color_1 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
+//             color_2 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
+//             color_3 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+//             color_4 = {r:color.r,g:color.g,b:color.b};
+//             color_5 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+//             color_6 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
+//             color_7 = {r:(color.r)+(gradation*3),g:(color.g)+(gradation*3),b:(color.b)+(gradation*3)};
+//         break;
+//         case '5':
+//             color_1 = {r:(color.r)-(gradation*4),g:(color.g)-(gradation*4),b:(color.b)-(gradation*4)};
+//             color_2 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
+//             color_3 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
+//             color_4 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+//             color_5 = {r:color.r,g:color.g,b:color.b};
+//             color_6 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+//             color_7 = {r:(color.r)+(gradation*2),g:(color.g)+(gradation*2),b:(color.b)+(gradation*2)};
+//         break;
+//         case '6':
+//             color_1 = {r:(color.r)-(gradation*5),g:(color.g)-(gradation*5),b:(color.b)-(gradation*5)};
+//             color_2 = {r:(color.r)-(gradation*4),g:(color.g)-(gradation*4),b:(color.b)-(gradation*4)};
+//             color_3 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
+//             color_4 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
+//             color_5 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+//             color_6 = {r:color.r,g:color.g,b:color.b};
+//             color_7 = {r:(color.r)+(gradation*1),g:(color.g)+(gradation*1),b:(color.b)+(gradation*1)};
+//         break;
+//         case '7':
+//             color_1 = {r:(color.r)-(gradation*6),g:(color.g)-(gradation*6),b:(color.b)-(gradation*6)};
+//             color_2 = {r:(color.r)-(gradation*5),g:(color.g)-(gradation*5),b:(color.b)-(gradation*5)};
+//             color_3 = {r:(color.r)-(gradation*4),g:(color.g)-(gradation*4),b:(color.b)-(gradation*4)};
+//             color_4 = {r:(color.r)-(gradation*3),g:(color.g)-(gradation*3),b:(color.b)-(gradation*3)};
+//             color_5 = {r:(color.r)-(gradation*2),g:(color.g)-(gradation*2),b:(color.b)-(gradation*2)};
+//             color_6 = {r:(color.r)-(gradation*1),g:(color.g)-(gradation*1),b:(color.b)-(gradation*1)};
+//             color_7 = {r:color.r,g:color.g,b:color.b};
+//         break;
+//     }
+    
+//     color_1.r < 0 ? color_1.r = 0 : null;
+//     color_1.r > 255 ? color_1.r = 255 : null;
+//     color_1.g < 0 ? color_1.g = 0 : null;
+//     color_1.g > 255 ? color_1.g = 255 : null;
+//     color_1.b < 0 ? color_1.b = 0 : null;
+//     color_1.b > 255 ? color_1.b = 255 : null;
+
+//     color_2.r < 0 ? color_2.r = 0 : null;
+//     color_2.r > 255 ? color_2.r = 255 : null;
+//     color_2.g < 0 ? color_2.g = 0 : null;
+//     color_2.g > 255 ? color_2.g = 255 : null;
+//     color_2.b < 0 ? color_2.b = 0 : null;
+//     color_2.b > 255 ? color_2.b = 255 : null;
+
+//     color_3.r < 0 ? color_3.r = 0 : null;
+//     color_3.r > 255 ? color_3.r = 255 : null;
+//     color_3.g < 0 ? color_3.g = 0 : null;
+//     color_3.g > 255 ? color_3.g = 255 : null;
+//     color_3.b < 0 ? color_3.b = 0 : null;
+//     color_3.b > 255 ? color_3.b = 255 : null;
+
+//     color_4.r < 0 ? color_4.r = 0 : null;
+//     color_4.r > 255 ? color_4.r = 255 : null;
+//     color_4.g < 0 ? color_4.g = 0 : null;
+//     color_4.g > 255 ? color_4.g = 255 : null;
+//     color_4.b < 0 ? color_4.b = 0 : null;
+//     color_4.b > 255 ? color_4.b = 255 : null;
+
+//     color_5.r < 0 ? color_5.r = 0 : null;
+//     color_5.r > 255 ? color_5.r = 255 : null;
+//     color_5.g < 0 ? color_5.g = 0 : null;
+//     color_5.g > 255 ? color_5.g = 255 : null;
+//     color_5.b < 0 ? color_5.b = 0 : null;
+//     color_5.b > 255 ? color_5.b = 255 : null;
+
+//     color_6.r < 0 ? color_6.r = 0 : null;
+//     color_6.r > 255 ? color_6.r = 255 : null;
+//     color_6.g < 0 ? color_6.g = 0 : null;
+//     color_6.g > 255 ? color_6.g = 255 : null;
+//     color_6.b < 0 ? color_6.b = 0 : null;
+//     color_6.b > 255 ? color_6.b = 255 : null;
+
+//     color_7.r < 0 ? color_7.r = 0 : null;
+//     color_7.r > 255 ? color_7.r = 255 : null;
+//     color_7.g < 0 ? color_7.g = 0 : null;
+//     color_7.g > 255 ? color_7.g = 255 : null;
+//     color_7.b < 0 ? color_7.b = 0 : null;
+//     color_7.b > 255 ? color_7.b = 255 : null;
+
+//     switch(this_color){
+//         case '1':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
+//             break;
+//         case '2':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_2.r},${color_2.g},${color_2.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
+//         break;
+//         case '3':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_3.r},${color_3.g},${color_3.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
+//         break;
+//         case '4':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_4.r},${color_4.g},${color_4.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
+//         break;
+//         case '5':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_5.r},${color_5.g},${color_5.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
+//         break;
+//         case '6':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_6.r},${color_6.g},${color_6.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
+//         break;
+//         case '7':
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('background-color',`rgb(${color_7.r},${color_7.g},${color_7.b})`)
+//             $(`.website_color_picker[key="${color_key}"]`).closest('.website_color_picker_container').css('color',`rgb(${color_1.r},${color_1.g},${color_1.b})`)
+//         break;
+//     }
+//     window.template.website_colors.colors[`${color_key}_1`] = color_1;
+//     window.template.website_colors.colors[`${color_key}_2`] = color_2;
+//     window.template.website_colors.colors[`${color_key}_3`] = color_3;
+//     window.template.website_colors.colors[`${color_key}_4`] = color_4;
+//     window.template.website_colors.colors[`${color_key}_5`] = color_5;
+//     window.template.website_colors.colors[`${color_key}_6`] = color_6;
+//     window.template.website_colors.colors[`${color_key}_7`] = color_7;
+    
+
+//     draw_color_palette(false);
+// }
     //
 draw_custom_colors = function(){
     $('.website_custom_color').each(function(){

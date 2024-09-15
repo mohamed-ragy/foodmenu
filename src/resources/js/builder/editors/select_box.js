@@ -10,7 +10,7 @@ draw_select_box = function(data){
         let selection = data.selections[key];
         let selection_elem;
         editor.append(
-            selection_elem = $('<div/>',{class:`select_box ${selection.class}`,text:selection.text,key:selection.key})
+            selection_elem = $('<div/>',{class:`select_box ${selection.class ?? ''} ${selection.class ? 'select_box_icon' : ''}`,text:selection.text,key:selection.key})
         )
         if('show_elem' in selection){
             selection_elem.attr('show_elem',selection.show_elem)

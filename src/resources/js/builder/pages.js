@@ -1,6 +1,6 @@
 
 set_page = function(page){
-    $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[page])
+    $('.current_page_name').text(texts.website_pages[page])
     page_transition(page);
     hide_popup_window();
 }
@@ -88,7 +88,7 @@ delete_selected = function(){
     }
 
     hide_editor_popup('editor')
-    // unselect();
+    unselect();
     new_action('page');
 
 }

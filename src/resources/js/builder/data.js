@@ -20,6 +20,7 @@ small_hash = function(){
     }
     return `_${result}`;
 }
+require('./data/loading_spinners.js')
 require('./data/colors.js')
 require('./data/links.js')
 require('./data/headers.js')

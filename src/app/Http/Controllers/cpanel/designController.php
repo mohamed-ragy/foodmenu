@@ -125,10 +125,8 @@ class designController extends Controller
             // }
             if($request->template_data['settings'] != 0){$update_data['settings'] = $request->template_data['settings'];}
             if($request->template_data['website_colors'] != 0){$update_data['website_colors'] = $request->template_data['website_colors'];}
-            // if($request->template_data['font_style'] != 0){$update_data['font_style'] = $request->template_data['font_style'];}
             if($request->template_data['page_setup'] != 0){$update_data['page_setup'] = $request->template_data['page_setup'];}
-            // if($request->template_data['form_elements'] != 0){$update_data['form_elements'] = $request->template_data['form_elements'];}
-            if($request->template_data['loading_spinner'] != 0){$update_data['loading_spinner'] = $request->template_data['loading_spinner'];}
+            if($request->template_data['form_elements'] != 0){$update_data['form_elements'] = $request->template_data['form_elements'];}
             if($request->template_data['website_header'] != 0){$update_data['website_header'] = $request->template_data['website_header'];}
             if($request->template_data['popup_window'] != 0){$update_data['popup_window'] = $request->template_data['popup_window'];}
             // if($request->template_data['loading_screen'] != 0){$update_data['loading_screen'] = $request->template_data['loading_screen'];}
@@ -152,8 +150,8 @@ class designController extends Controller
                 foreach($languages as $language){
                     $lang = $website_langs->where('lang',$language['code'])->first();
                     (new generate_js)->generate($template,$lang->lang,$lang->text,null);
+                    (new generate_css)->generate($template,$lang->lang);
                 }
-                (new generate_css)->generate($template);
 
                 return response(['save_template_state' => 1]);
             }else{

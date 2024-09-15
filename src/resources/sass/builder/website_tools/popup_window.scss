@@ -11,7 +11,6 @@
 }
 .popup_card:hover:after{
     outline: 2px dashed var(--green-50);
-    // outline-offset: 2px;
 }
 .popup_window_selected, .popup_window_selected:hover{
     .edit_popup_padding_top{display: block;}
@@ -19,7 +18,10 @@
     .edit_popup_padding_bottom{display: block;}
     .edit_popup_padding_left{display: block;}
 
-    .select_popup_title{display: block;}
+    .select_popup_title{
+        display: block;
+        background-color: var(--green);
+    }
 
     .container:hover::after{
         outline: 1px dashed var(--violet-50);
@@ -36,7 +38,6 @@
     inset: 0 0 0 0;
     content:'';
     outline: 2px solid var(--green);
-    outline-offset: 2px;
 }
 .select_popup_title{
     white-space: nowrap;
@@ -44,7 +45,7 @@
     color:var(--green-txt);
     width:fit-content;
     position: absolute;
-    left:-1px;
+    left:-2px;
     bottom:calc(100% + 1px);
     padding:2px 8px;
     padding-bottom: 1px;
@@ -52,9 +53,7 @@
     display: none;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     transition-duration: 300ms;
-    z-index: 111;
     font-size:.75rem;
 }
 //

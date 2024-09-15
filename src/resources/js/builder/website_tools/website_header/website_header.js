@@ -1,7 +1,7 @@
 require('./draw_header.js')
 
 set_editor_popup_editor_position_header = function(){
-    $('#editor').addClass('h600 w350').css({
+    $('#editor').css({
         top:($(`.website_header`).offset().top) + ($(`.website_header`).height()) + 20,
         left:($(`.header_wrapper`).width()) + ($('.header_wrapper').offset().left) - $('#editor').width(),
         right:'unset',

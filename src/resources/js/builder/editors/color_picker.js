@@ -1039,7 +1039,7 @@
                 pickColor(color);
             }
         });
-        addListener(color_picker_hex_input, 'change', function (event) {
+        addListener(color_picker_hex_input, 'input', function (event) {
             var value = color_picker_hex_input.value;
             if (currentEl || settings.inline) {
                 var color = value === '' ? value : setColorFromStr(value);

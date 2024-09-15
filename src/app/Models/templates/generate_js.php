@@ -44,14 +44,15 @@ class generate_js
         $this->lang_code = $lang_code;
         $this->lang_text = $lang_text;
         $this->lang_text['page'] = ['title' => '','description' => ''];
+        self::add_to_file(<<<string
+            window.pages = {};
+            window.popups = {};
+        string);
 
         self::add_to_file("window.mobile_max_width = '{$this->template['page_setup']['mobile_max_width']}';");
         //////////////////////
         ////loading////
         //////////////////////
-        // $loading_spinner_html = str_replace(':size:','L',$this->template['loading_spinner']['elem']);
-        // $loading_html = "{$loading_spinner_html}";
-        // Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/loading_spinner.html', $loading_html);
 
         //////////////////////
         ////draw header////
@@ -91,14 +92,14 @@ class generate_js
         ////open_page////
         /////////////////
         $page_transitionDuration = str_replace('ms','',$this->template['page_setup']['transitionDuration']);
-        self::add_to_file("open_page = function(callback=()=>{}){
+        self::add_to_file("open_page = function(html){
             $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
             $('#page').addClass(`{$this->template['page_setup']['pageTransition']}_out`);
             $('body').css('overflow-x','hidden');
             setTimeout(()=>{
                 $('body').scrollTop(0);
                 $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_out`).addClass(`{$this->template['page_setup']['pageTransition']}_in`);
-                $('#page').html(callback());
+                $('#page').html(html);
                 set_website_data();
                 scroll_elem_animation('top');
                 setTimeout(()=>{
@@ -114,16 +115,10 @@ class generate_js
         foreach($this->template['home'] as $section){
             $home_html = $home_html.self::generate_html_elem($section,false);
         }
-        self::add_to_file("draw_home_page = function(){ return `{$home_html}`; };");
-        // foreach($this->langs as $lang){
-            $home_view_html = '';
-            foreach($this->template['home'] as $section){
-                $home_view_html = $home_view_html.self::generate_html_elem($section,true);
-            // }
-            //checkbox
-            // $home_view_html = $home_view_html.self::generate_html_elem($this->template['form_elements']['elems']['checkbox'],$lang);
-            //checkbox
-
+        self::add_to_file("window.pages.home = `{$home_html}`;");
+        $home_view_html = '';
+        foreach($this->template['home'] as $section){
+            $home_view_html = $home_view_html.self::generate_html_elem($section,true);
         }
         Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/website_home.html', $home_view_html);
 
@@ -137,7 +132,9 @@ class generate_js
         //////////////////
         ////open_popup////
         //////////////////
-        self::add_to_file("open_popup = function(callback=()=>{}){
+        self::add_to_file("open_popup = function(html){
+            $('.popup_card').children().not('.popup_close').remove();
+            $('.popup_card').append(html);
             $('.popup_container').removeClass('none');
             $('.popup_card').addClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
         };");
@@ -147,17 +144,16 @@ class generate_js
         self::add_to_file("close_popup = function(callback=()=>{}){
             $('.popup_container').addClass('none');
             $('.popup_card').removeClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
+            $('.popup_card').children().not('.popup_close').remove();
         };");
         ///////////////////
         ////login_popup////
         ///////////////////
         $login_popup_html = self::generate_html_elem($this->template['login_popup'],false);
-        self::add_to_file("draw_login_popup = function(){ return `{$login_popup_html}`; };");
+        self::add_to_file("window.popups.login = `{$login_popup_html}`;");
         ///////////////////////
         ////loading spinner////
         ///////////////////////
-        // $loading_spinner_html = $this->template['loading_spinner']['elem'];
-        // self::add_to_file("draw_loading_spinner = function(size){return `{$loading_spinner_html}`.replace(':size:',size);};");
         ///////////////////////
         /////smooth scrolling
         ///////////////////////
@@ -194,13 +190,13 @@ class generate_js
         //////////////////////////
         // dd($this->template['page_setup']['font_style']);
         // try{
-        if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
-            self::add_to_file("
-                $('body').css({
-                    'font-family':'{$this->template['page_setup']['font_style'][$this->lang_code]}'
-                });
-            ");
-        }
+        // if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
+        //     self::add_to_file("
+        //         $('body').css({
+        //             'font-family':'{$this->template['page_setup']['font_style'][$this->lang_code]}'
+        //         });
+        //     ");
+        // }
 
             
 
@@ -222,112 +218,130 @@ class generate_js
 
     }
 
+    public function get_elem($key_tree){
+        $key_tree_arr = explode('.',$key_tree);
+        $elem = $this->template;
+        foreach($key_tree_arr as $key){
+            $elem = $elem[$key];
+        }
+        return $elem;
+    }
     public function generate_html_elem($elem,$is_html){
         $html_start = '';
         $html = '';
         $html_end = '';
         if(array_key_exists('tag',$elem)){
-            switch ($elem['tag']) {
-                case 'loading_spinner':
-                    // $html = $html."<div class=\"{$elem['class_name']} {$elem['attr']['class']}\">\${draw_loading_spinner(`{$elem['size']}`)}</div>";
-                break;
     
-                default:
     
-                    $html_start = "<{$elem['tag']}";
-    
-                    $html_start = $html_start." class=\"";
-                    if(array_key_exists('class',$elem)){
-                        $html_start = $html_start." ".$elem['class'];
-                    }
-                    if(array_key_exists('class_selector',$elem)){
-                        $html_start = $html_start." ".$elem['class_selector'];
-                    }
-                    if(array_key_exists('font_style',$elem)){
-                        if(is_array($elem['font_style'])){
-                            if(array_key_exists($this->lang_code,$elem['font_style']))
-                            $html_start = $html_start." font_".$elem['font_style'][$this->lang_code] ?? '';
-                        }
-                    }
-                    if(array_key_exists('transition',$elem)){
-                        $html_start = $html_start." ".$elem['transition'];
-                    }
-                    $html_start = $html_start."\"";
-                    if(array_key_exists('class_selector',$elem)){
-                        $html_start = $html_start." class_selector=\"{$elem['class_selector']}\"";
-                    }
-                    if(array_key_exists('animation',$elem)){
-                        if($elem['animation']['name'] != 'no_animation' || $elem['animation_mobile']['name'] != 'no_animation'){
-                            $html_start = $html_start." animation=\"true\" animation_repeat=\"{$elem['animation']['repeat']}\" animation_mobile_repeat=\"{$elem['animation_mobile']['repeat']}\"";
-                        }
-                    }
-      
-                    if(array_key_exists('attr',$elem)){
-                        foreach($elem['attr'] as $key =>  $attr){
-                            if($key === 'href'){
-                                $html_start = $html_start." $key=\"/{$this->lang_code}{$attr}\"";
-                            }else{
-                                $html_start = $html_start." $key=\"{$attr}\"";
-                            }
-                        }
-                    }
-                    if(array_key_exists('placeholder',$elem)){
-                        $keys = explode('.',$elem['placeholder']['key']);
-                        $html_start = $html_start." placeholder=\"{$this->lang_text[$keys[0]][$keys[1]]}\"";
-                    }
-                    $html_start = $html_start.">";
-                    if(array_key_exists('text',$elem)){
-                        $text = self::filter_text($elem['text']['val'][$this->lang_code] ?? '');
-                        if($is_html == false){
-                            $html_start = $html_start."\${window.text.{$elem['text']['key']} ?? ''}";
-                            if(array_key_exists('val',$elem['text'])){
-                                $this->lang_text[$elem['text']['key']] = $text;
-                            }
-                        }else{
-                            if(array_key_exists('val',$elem['text'])){
-                                if(array_key_exists($this->lang_code,$elem['text']['val'])){
-                                    $html_start = $html_start.$text;
-                                }
-                            }else{
-                                $keys = explode('.',$elem['text']['key']);
-                                $html_start = $html_start.$this->lang_text[$keys[0]][$keys[1]];
-                            }
-                        }
-                    }
-                    if(array_key_exists('html',$elem)){
-                        $html = $html.$elem['html'];
-                    }
-                    if(array_key_exists('type',$elem)){
-                        if($elem['type'] == 'section' && $elem['has_driver'] == '1'){
-                            $html = $html."<svg class='{$elem['class_selector']}_driver' ";
-                            foreach($elem['driver']['svg_attr'] as $key => $val){
-                                $html = $html." {$key}='{$val}'";
-                            }
-                            $html = $html.">";
-                            foreach($elem['driver']['paths'] as $path){
-                                $html = $html."<path d='{$path['path']}' fill='{$path['color']}'></path>";
-                            }
-                            $html = $html."</svg>";
-                        }
-                    }
-    
-                    if(array_key_exists('type',$elem)){
-                        if($elem['type'] == 'section_block'){
-                            usort($elem['children'], function ($a, $b){
-                                return $a['sort'] <=> $b['sort'];
-                            });
-                        }
-                    }
-    
-                    if(array_key_exists('children',$elem)){
-                        foreach($elem['children'] as $child){
-                            $html = $html.self::generate_html_elem($child,$is_html);
-                        }
-                    }
-    
-                    $html_end = "</{$elem['tag']}>";
-                break;
+            $html_start = "<{$elem['tag']}";
+
+            $html_start = $html_start." class=\"";
+            if(array_key_exists('class',$elem)){
+                $html_start = $html_start." ".$elem['class'];
             }
+            if(array_key_exists('class_selector',$elem)){
+                $html_start = $html_start." ".$elem['class_selector'];
+            }
+            if(array_key_exists('general_class_selector',$elem)){
+                $html_start = $html_start." ".$elem['general_class_selector'];
+                $html_start = $html_start." ".$elem['general_class_selector']."_".$this->lang_code;
+                // if(in_array($this->lang_code,$this->template['page_setup']['font_style'])){
+                //     $html_start = $html_start." font_".$this->template['page_setup']['font_style'][$this->lang_code];
+                // }
+            }
+            // if(array_key_exists('font_style',$elem)){
+            //     if(is_array($elem['font_style'])){
+            //         $font_name = '';
+            //         if(array_key_exists($this->lang_code,$elem['font_style'])){
+            //             $font_name = $elem['font_style'][$this->lang_code] ?? '';
+            //         }
+            //         if($font_name == ''){
+            //             if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
+            //                 $font_name = $this->template['page_setup']['font_style'][$this->lang_code]  ?? '';
+            //             }
+            //         }
+            //         $html_start = $html_start." font_".$font_name;
+            //     }
+            // }
+            if(array_key_exists('transition',$elem)){
+                $html_start = $html_start." ".$elem['transition'];
+            }
+            $html_start = $html_start."\"";
+            if(array_key_exists('class_selector',$elem)){
+                $html_start = $html_start." class_selector=\"{$elem['class_selector']}\"";
+            }
+            if(array_key_exists('animation',$elem)){
+                if($elem['animation']['name'] != 'no_animation' || $elem['animation_mobile']['name'] != 'no_animation'){
+                    $html_start = $html_start." animation=\"true\" animation_repeat=\"{$elem['animation']['repeat']}\" animation_mobile_repeat=\"{$elem['animation_mobile']['repeat']}\"";
+                }
+            }
+            if(array_key_exists('attr',$elem)){
+                foreach($elem['attr'] as $key =>  $attr){
+                    if($key === 'href'){
+                        $html_start = $html_start." $key=\"/{$this->lang_code}{$attr}\"";
+                    }else{
+                        $html_start = $html_start." $key=\"{$attr}\"";
+                    }
+                }
+            }
+            if(array_key_exists('placeholder',$elem)){
+                $keys = explode('.',$elem['placeholder']['key']);
+                $html_start = $html_start." placeholder=\"{$this->lang_text[$keys[0]][$keys[1]]}\"";
+            }
+            $html_start = $html_start.">";
+            if(array_key_exists('text',$elem)){
+                $text = self::filter_text($elem['text']['val'][$this->lang_code] ?? '');
+                if($is_html == false){
+                    $html_start = $html_start."\${window.text.{$elem['text']['key']} ?? ''}";
+                    if(array_key_exists('val',$elem['text'])){
+                        $this->lang_text[$elem['text']['key']] = $text;
+                    }
+                }else{
+                    if(array_key_exists('val',$elem['text'])){
+                        if(array_key_exists($this->lang_code,$elem['text']['val'])){
+                            $html_start = $html_start.$text;
+                        }
+                    }else{
+                        $keys = explode('.',$elem['text']['key']);
+                        $html_start = $html_start.$this->lang_text[$keys[0]][$keys[1]];
+                    }
+                }
+            }
+            if(array_key_exists('html',$elem)){
+                $html = $html.$elem['html'];
+            }
+            if(array_key_exists('general_html',$elem)){
+                $html = $html.self::generate_html_elem(self::get_elem($elem['general_html']),false);
+            }
+            if(array_key_exists('type',$elem)){
+                if($elem['type'] == 'section' && $elem['has_driver'] == '1'){
+                    $html = $html."<svg class='{$elem['class_selector']}_driver' ";
+                    foreach($elem['driver']['svg_attr'] as $key => $val){
+                        $html = $html." {$key}='{$val}'";
+                    }
+                    $html = $html.">";
+                    foreach($elem['driver']['paths'] as $path){
+                        $html = $html."<path d='{$path['path']}' fill='{$path['color']}'></path>";
+                    }
+                    $html = $html."</svg>";
+                }
+            }
+            if(array_key_exists('type',$elem)){
+                if($elem['type'] == 'section_block'){
+                    usort($elem['children'], function ($a, $b){
+                        return $a['sort'] <=> $b['sort'];
+                    });
+                }
+            }
+
+            if(array_key_exists('children',$elem)){
+                foreach($elem['children'] as $child){
+                    $html = $html.self::generate_html_elem($child,$is_html);
+                }
+            }
+
+            $html_end = "</{$elem['tag']}>";
+  
         }
         return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p','button','input']);
     }

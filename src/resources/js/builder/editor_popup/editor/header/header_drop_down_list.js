@@ -5,15 +5,7 @@ draw_editor_header_drop_down_list = function(){
             draw_editors_container({
                 is_responsive:false,
                 editors:[
-                    $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
-                        $('<div/>',{class:'fs09',text:texts.styling.bg_color}),
-                        draw_color_picker({
-                            key_tree:window.selected,
-                            variable_key:'css',
-                            key:'background-color',
-                        })
-                    ),
-                    $('<div/>',{class:'editor_popup_col'}).append(
+                    $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.gap_between_items}),
                         draw_number_picker({
                             key_tree:window.selected,
@@ -42,15 +34,7 @@ draw_editor_header_drop_down_list_item = function(){
                 editors:[
                     $('<div/>',{class:'w100p editor_popup_container',key:'header_drop_down_list_item'}).append(
                         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.bg_color}),
-                            draw_color_picker({
-                                key_tree:window.selected,
-                                variable_key:'css',
-                                key:'background-color',
-                            })
-                        ),
-                        $('<div/>',{class:'editor_popup_row '}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.color}),
+                            $('<div/>',{class:'fs09',text:texts.styling.text_color}),
                             draw_color_picker({
                                 key_tree:window.selected,
                                 variable_key:'css',
@@ -126,6 +110,7 @@ $('body').on('click','.editor_header_drop_down_list_item',function(e){
     draw_editor_header_drop_down_list_item();
 })
 show_header_drop_down_list = function(list){
+    hide_header_drop_down_list();
     $('.header_drop_down_list').text('')
     // let list_item_style = generate_style(get_element_data('website_header.children.header_drop_down_list_item')).desktop;
     // let list_item_style = 
@@ -139,7 +124,6 @@ show_header_drop_down_list = function(list){
                         class:'header_drop_down_list_item',
                         hover_style:'website_header.children.header_drop_down_list_item',
                         click_style:'website_header.children.header_drop_down_list_item',
-                        // style:list_item_style,
                         // href:`/${category.name}`,
                         text:category.names[window.preview_language],
                     })
@@ -152,14 +136,12 @@ show_header_drop_down_list = function(list){
                     class:'header_drop_down_list_item',
                     hover_style:'website_header.children.header_drop_down_list_item',
                     click_style:'website_header.children.header_drop_down_list_item',
-                    // style:list_item_style,
                     text:window.website_texts.text.authentication.login,
                 }),
                 $('<a/>',{
                     class:'header_drop_down_list_item',
                     hover_style:'website_header.children.header_drop_down_list_item',
                     click_style:'website_header.children.header_drop_down_list_item',
-                    // style:list_item_style,
                     text:window.website_texts.text.authentication.signup,
                 })
             )
@@ -172,7 +154,6 @@ show_header_drop_down_list = function(list){
                         class:'header_drop_down_list_item',
                         hover_style:'website_header.children.header_drop_down_list_item',
                         click_style:'website_header.children.header_drop_down_list_item',
-                        // style:`${list_item_style};display:flex;align-items:center;justify-content:flex-start;`,
                         style:`display:flex;align-items:center;justify-content:flex-start;`,
                     }).append(
                         $('<img/>',{style:'margin-inline-end:10px;width:20px;height:20px;border-radius:50%;object-fit:cover;',src:`/storage/imgs/flags/${language.flag}.png`}),
@@ -190,7 +171,6 @@ show_header_drop_down_list = function(list){
                                 class:'header_drop_down_list_item',
                                 hover_style:'website_header.children.header_drop_down_list_item',
                                 click_style:'website_header.children.header_drop_down_list_item',
-                                // style:list_item_style,
                                 text:$(this).children().first().text(),
                             }),
                         )
@@ -200,9 +180,8 @@ show_header_drop_down_list = function(list){
 
         break;
     }
-    console.log($(`.show_header_drop_down_list[header_list="${list}"]`).offset().top)
     $('.header_drop_down_list').removeClass('none').css({
-        'top':$(`.show_header_drop_down_list[header_list="${list}"]`).offset().top + $(`.show_header_drop_down_list[header_list="${list}"]`).height() + 5 - 50,
+        'top':$(`.show_header_drop_down_list[header_list="${list}"]`).offset().top + $(`.show_header_drop_down_list[header_list="${list}"]`).outerHeight() + 5,
         'left':$(`.show_header_drop_down_list[header_list="${list}"]`).offset().left,
     })
     if($('.header_drop_down_list').offset().left + $('.header_drop_down_list').outerWidth() > $(window).width()){
@@ -216,11 +195,11 @@ hide_header_drop_down_list = function(){
     $('.header_drop_down_list').removeClass(window.template.website_header.children.header_drop_down_list.transition).addClass('none')
 
 }
-$('body').on('mouseleave','.website_header',function(e){
+$('body').on('mouseleave','.website_header, .header_drop_down_list',function(e){
     if(window.selected !== 'website_header.children.header_drop_down_list_item' && window.selected !== 'website_header.children.header_drop_down_list'){
         hide_header_drop_down_list();
     }
 })
-$('body').on('mouseover','.show_header_drop_down_list, .preview_header_drop_down_list',function(e){
+$('body').on('mouseenter','.show_header_drop_down_list, .preview_header_drop_down_list',function(e){
     show_header_drop_down_list($(this).attr('header_list'));
 })

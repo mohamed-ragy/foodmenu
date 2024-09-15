@@ -8,11 +8,13 @@ require('./general/border_radius.js')//
 require('./general/box_shadow.js')//
 require('./general/width.js')
 require('./general/height.js')
-require('./general/text.js')
+require('./general/text_style.js')
 require('./general/background.js')//
 require('./general/filter.js')//
 require('./general/image.js')
 require('./general/button.js')//
+require('./general/check_box.js')//
+require('./general/loading_spinner.js')//
 require('./general/png_icon.js')
 require('./general/arrange.js')
 require('./general/transform.js')//

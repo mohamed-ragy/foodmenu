@@ -1,6 +1,7 @@
 require('./editor/section.js');
 require('./editor/header.js');
 require('./editor/popup.js');
+// require('./editor/form_elements.js');
 require('./editor/general.js');
 
 set_editor_popup_editor = function(){
@@ -15,46 +16,79 @@ set_editor_popup_editor = function(){
     $('#editor').find('.editor_popup_head_btn').addClass('none');
     $('#editor').find('.editor_popup_title').text('')
     
-    switch(elem.type){
-        case 'section':
-            $('#editor').find('.editor_popup_title').text(elem.name)
-            set_editor_popup_editor_position_section(window.selected);
+    try{
+        switch(elem.type){
+            case 'section':
+                $('#editor').find('.editor_popup_title').text(elem.name)
+                set_editor_popup_editor_position_section(window.selected);
+            break;
+            case 'section_block':
+                $('#editor').find('.editor_popup_title').text(texts.section_block)
+                set_editor_popup_editor_position_section_block(window.selected);
+            break;
+            case 'elem':
+                $('#editor').find('.editor_popup_title').text(texts.elems[elem.elem_type])
+                    set_editor_popup_editor_position_elem(window.selected);
+            break;
+            case 'container':
+                $('#editor').find('.editor_popup_title').text(elem.name)
+                    set_editor_popup_editor_position_container(window.selected);
+            break;
+            case 'website_header': 
+                $('#editor').find('.editor_popup_title').text(texts.website_tools.header)
+                set_editor_popup_editor_position_header();
+            break;
+            case 'header_component': 
+                $('#editor').find('.editor_popup_title').text(texts.styling[elem.header_component])
+                set_editor_popup_editor_position_header();
+            break;
+            case 'header_navList_item':
+                $('#editor').find('.editor_popup_title').text(texts.styling.navlist_items)
+                set_editor_popup_editor_position_header();
+            break;
+            case 'header_drop_down_list':
+                $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list)
+                set_editor_popup_editor_position_header();
+            break;
+            case 'header_drop_down_list_item':
+                $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list_item)
+                set_editor_popup_editor_position_header();
+            break;
+            case 'popup_card' :
+                    $('#editor').find('.editor_popup_title').text(texts.website_tools.popup_window)
+                    set_editor_popup_editor_position_popup();
+            break;
+            default:
+                $('#editor').css({
+                    right:'20px',
+                    top:'70px',
+                    left:'unset',
+                    bottom:'unset',
+                })
+            break;
+        }
+    }catch{}
+    switch(elem.class_selector){
+        case 'website_form':
+            $('#editor').find('.editor_popup_title').text(texts.website_style.website_form)
+            $('#editor').css({
+                right:'20px',
+                top:'70px',
+                left:'unset',
+                bottom:'unset',
+            })
         break;
-        case 'section_block':
-            $('#editor').find('.editor_popup_title').text(texts.section_block)
-            set_editor_popup_editor_position_section_block(window.selected);
+        case 'form_title':
+            $('#editor').find('.editor_popup_title').text(texts.website_style.form_title);
         break;
-        case 'elem':
-            $('#editor').find('.editor_popup_title').text(texts.elems[elem.elem_type])
-            set_editor_popup_editor_position_elem(window.selected);
+        case 'form_input_box':
+            $('#editor').find('.editor_popup_title').text(texts.website_style.form_input_box)
         break;
-        case 'container':
-            $('#editor').find('.editor_popup_title').text(elem.name)
-            set_editor_popup_editor_position_container(window.selected);
+        case 'form_check_box':
+            $('#editor').find('.editor_popup_title').text(texts.website_style.form_check_box)
         break;
-        case 'website_header': 
-            $('#editor').find('.editor_popup_title').text(texts.website_tools.header)
-            set_editor_popup_editor_position_header();
-        break;
-        case 'header_component': 
-            $('#editor').find('.editor_popup_title').text(texts.styling[elem.header_component])
-            set_editor_popup_editor_position_header();
-        break;
-        case 'header_navList_item':
-            $('#editor').find('.editor_popup_title').text(texts.styling.header_navList)
-            set_editor_popup_editor_position_header();
-        break;
-        case 'header_drop_down_list':
-            $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list)
-            set_editor_popup_editor_position_header();
-        break;
-        case 'header_drop_down_list_item':
-            $('#editor').find('.editor_popup_title').text(texts.styling.drop_down_list_item)
-            set_editor_popup_editor_position_header();
-        break;
-        case 'popup_card' :
-                $('#editor').find('.editor_popup_title').text(texts.website_tools.popup_window)
-                set_editor_popup_editor_position_popup();
+        case 'form_loading_spinner':
+            $('#editor').find('.editor_popup_title').text(texts.website_style.form_loading_spinner)
         break;
     }
     fix_editor_popup_position($('#editor'))
@@ -88,6 +122,9 @@ draw_editor_popup_editor_shortcuts = function(){
     let accessibility = elem.accessibility;
     $('#editor').find('.editor_popup_body_shortcuts').text('')
     $('#editor').find('.editor_popup_body_shortcuts').append(
+        accessibility.includes('website_form') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-form editor_website_form`,tooltip:texts.website_style.website_form})
+        :'',
         accessibility.includes('header_settings') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-header editor_header_settings`,tooltip:texts.header_settings})
         :'',
@@ -124,11 +161,17 @@ draw_editor_popup_editor_shortcuts = function(){
         accessibility.includes('popup_window_close_icon') ?
         $('<div/>',{class:'editor_popup_body_shortcut ico-close_icon editor_popup_popup_window_close_icon',tooltip:texts.styling.close_icon})
         :'',
+        accessibility.includes('check_box') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-check_box editor_check_box`,tooltip:texts.styling.check_box})
+        :'',
+        accessibility.includes('loading_spinner') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-loading_spinner editor_loading_spinner`,tooltip:texts.styling.loading_spinner})
+        :'',
         accessibility.includes('button') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-button editor_button`,tooltip:texts.styling.button})
         : '',
-        accessibility.includes('text') ?
-        $('<div/>',{class:`editor_popup_body_shortcut ico-text editor_text`,tooltip:texts.styling.text})
+        accessibility.includes('text_style') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-text_style editor_text_style`,tooltip:texts.styling.text_style})
         : '',
         accessibility.includes('image') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-image editor_image`,tooltip:texts.styling.image})

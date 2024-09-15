@@ -23,7 +23,7 @@ draw_editor_popup_section_sizing = function(){
                                 {name:texts.select_elems._900px,val:'900px',class:''},
                                 {name:texts.select_elems._1000px,val:'1000px',class:''},
                             ],
-                            container_class:'section_min_height_list'
+                            editor_class:'section_min_height_list'
                         }),
                     ),
                     $('<div/>',{class:`editor_popup_col`}).append(

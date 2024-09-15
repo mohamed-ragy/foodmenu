@@ -1,17 +1,7 @@
-render_website_header = function(){
+    render_website_header = function(){
     $('.website_header').remove();
     $('#page').before(generate_html(window.template.website_header,'website_header'))
     $('.website_header').addClass('stop_transitions')
-    let sorted_header_navList = $('.header_navList').find('.header_navList_item').sort((a,b)=>{
-        return parseInt($(a).attr('sort')) - parseInt($(b).attr('sort'))
-    })
-    $('.header_navList').append(sorted_header_navList)
-
-    let sorted_header_iconList = $('.header_iconsList').children().sort((a,b)=>{
-        return parseInt($(a).attr('sort')) - parseInt($(b).attr('sort'))
-    })
-    $('.header_iconsList').append(sorted_header_iconList)
-
     setTimeout(()=>{
         fix_header_nav_list();
         $('.website_header').removeClass('stop_transitions')

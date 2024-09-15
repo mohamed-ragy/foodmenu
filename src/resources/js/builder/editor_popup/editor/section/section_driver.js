@@ -77,6 +77,7 @@ draw_editor_popup_section_driver = function(){
                 $('<div/>',{class:'mX5'}).append(
                     draw_color_picker({
                         key_tree:`${window.selected}.driver.paths`,
+                        render:window.selected,
                         variable_key:key,
                         key:'color',
                     })
@@ -130,14 +131,19 @@ $('body').on('click','.editor_section_driver',function(e){
 })
 $('body').on('click','.section_driver_preview',function(e){
     let section = get_element_data(window.selected);
+    let driver_key = $(this).attr('key')
+    let old_driver_colors = [];
+    for(const key in section.driver.paths){
+        old_driver_colors.push(section.driver.paths[key].color);
+    }
     section.has_driver = '1';
     section.driver.paths = [];
-    section.driver.svg_style = JSON.parse(JSON.stringify(window.drivers[$(this).attr('key')].svg_style));
-    section.driver.svg_attr = JSON.parse(JSON.stringify(window.drivers[$(this).attr('key')].svg_attr));
-    for(const key in window.drivers[$(this).attr('key')].paths){
+    section.driver.svg_style = JSON.parse(JSON.stringify(window.drivers[driver_key].svg_style));
+    section.driver.svg_attr = JSON.parse(JSON.stringify(window.drivers[driver_key].svg_attr));
+    for(const key in window.drivers[driver_key].paths){
         section.driver.paths.push({
-            path:window.drivers[$(this).attr('key')].paths[key].path,
-            color:window.drivers[$(this).attr('key')].paths[key].color.replaceAll('255,255,255','var(--color_4_7)'),
+            path:window.drivers[driver_key].paths[key].path,
+            color:old_driver_colors[key] ?? window.drivers[driver_key].paths[key].color.replaceAll('255,255,255','var(--color_4_7)'),
         })
     }
     $('.editor_popup_section_driver_colors').text('')
@@ -146,6 +152,7 @@ $('body').on('click','.section_driver_preview',function(e){
             $('<div/>',{class:'mX5'}).append(
                 draw_color_picker({
                     key_tree:`${window.selected}.driver.paths`,
+                    render:window.selected,
                     variable_key:key,
                     key:'color',
                 })

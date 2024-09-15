@@ -18,6 +18,7 @@ use App\Models\statistics_day;
 use App\Models\statistics_hour;
 use App\Models\statistics_month;
 use App\Models\template;
+use App\Models\templates\generate_css;
 use App\Models\templates\generate_js;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
@@ -1038,6 +1039,7 @@ class settingsController extends Controller
 
                 $template = template::where('_id',$website->template_id)->first()->encode();
                 (new generate_js)->generate($template,$new_lang_text->lang,$new_lang_text->text,$new_lang_text->lang);
+                (new generate_css)->generate($template,$new_lang_text->lang);
 
 
                 foodmenuFunctions::notification('settings.installLang',[
@@ -1150,6 +1152,7 @@ class settingsController extends Controller
                 websiteText::where(['website_id'=>$this->website_id,'lang'=>$thisLang['code']])->delete();
 
                 (new generate_js)->delete_lang_dir($thisLang['code'],$this->website_id);
+                (new generate_css)->delete_lang_dir($thisLang['code'],$this->website_id);
 
                 foodmenuFunctions::notification('settings.deleteLang',[
                     'website_id' => $this->website_id,
@@ -1206,6 +1209,7 @@ class settingsController extends Controller
 
                 $template = template::where('_id',$website->template_id)->first()->encode();
                 (new generate_js)->generate($template,$new_lang_text->lang,$new_lang_text->text,$new_lang_text->lang);
+                (new generate_css)->generate($template,$new_lang_text->lang);
 
                 foodmenuFunctions::notification('settings.installLang',[
                     'website_id' => $this->website_id,
@@ -1324,6 +1328,7 @@ class settingsController extends Controller
                 $website= website::where('id',$this->website_id)->select(['template_id'])->first();
                 $template = template::where('_id',$website->template_id)->first()->encode();
                 (new generate_js)->generate($template,$request->lang,$LangTexts,null);
+                (new generate_css)->generate($template,$request->lang);
 
 
                 foodmenuFunctions::notification('settings.saveLangText',[

@@ -1,6 +1,6 @@
 draw_filter_editor = function(data){
     let editor = $('<div/>',{
-        class:`editor filter_editor ${data.container_class ?? ''}`,
+        class:`editor filter_editor ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,

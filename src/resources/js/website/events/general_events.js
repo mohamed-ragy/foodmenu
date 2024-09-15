@@ -1,21 +1,16 @@
 $('body').on('click','.open_page',function(e){
     e.preventDefault();
-    switch($(this).attr('page')){
-        case 'home':
-            open_page(()=>{draw_home_page()})
-        break;
-    }
+            open_page(window.pages[$(this).attr('page')])
+        //     switch($(this).attr('page')){
+        // case 'home':
+        //     open_page(()=>{draw_home_page()})
+        // break;
+    // }
 })
 //
 $('body').on('click','.open_popup',function(e){
     e.preventDefault();
-    $('.popup_card').children().not('.popup_close').remove();
-    switch($(this).attr('popup')){
-        case 'login':
-            $('.popup_card').append(draw_login_popup());
-        break;
-    }
-    open_popup();
+    open_popup(window.popups[$(this).attr('popup')])
 })
 $('body').on('click','.popup_close',function(e){
     close_popup();

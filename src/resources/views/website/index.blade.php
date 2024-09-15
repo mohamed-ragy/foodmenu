@@ -22,7 +22,7 @@
 
     <meta name="description" content="{{ $description }}">
     <title>{{ $title }}</title>
-    <link rel="stylesheet" href="/storage/websites/{{ $website_id }}/style.css?v={{ $website->style_version }}">
+    <link rel="stylesheet" href="/storage/websites/{{ $website_id }}/style/style_{{ $lang }}.css?v={{ $website->style_version }}">
     <style></style>
 </head>
 

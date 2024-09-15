@@ -12,11 +12,10 @@ draw_editor_popup_header_navList = function(){
                             row_class:true,
                             container_class:'editor_popup_brdrT_none'
                         }),
-                        draw_editor_show_container({
-                            key:'header_navList_items_style',
-                            name:texts.styling.items_style,
-                            row_class:true,
-                        }),
+                        $('<div/>',{class:'editor_popup_row pointer editor_text_style select',key_tree:'website_header.children.header_wrapper.children.header_navList_item'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.items_style}),
+                            $('<div/>',{class:'fs08 ico-arrowRight'})
+                        ),
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.gap_between_items}),
                             draw_number_picker({
@@ -30,65 +29,70 @@ draw_editor_popup_header_navList = function(){
                     ]
                 })
             ),
-            $('<div/>',{class:'w100p editor_popup_container none',key:'header_navList_items_style',parent_key:'header_navList'}).append(
-                draw_editors_container({
-                    is_responsive:false,
-                    interactions:['hover','click'],
-                    editors:[
-                        draw_editor_show_container({
-                            key:'header_navList_font_style',
-                            name:texts.styling.font_style,
-                            row_class:true,
-                            container_class:'editor_popup_brdrT_none'
-                        }),
-                        $('<div/>',{class:'editor_popup_row'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.font_color}),
-                            draw_color_picker({
-                                key_tree:'website_header.children.header_wrapper.children.header_navList.children.header_navList_item',
-                                variable_key:'css',
-                                key:'color',
-                            })
-                        ),
-                        $('<div/>',{class:'editor_popup_col'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.font_size}),
-                            draw_number_picker({
-                                key_tree:'website_header.children.header_wrapper.children.header_navList.children.header_navList_item',
-                                variable_key:'css',
-                                key:'font-size',
-                                units:['px','em'],
-                                step:1,
-                            }),
-                        ),
-                        $('<div/>',{class:'editor_popup_col'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
-                            draw_select_box({
-                                key_tree:'website_header.children.header_wrapper.children.header_navList.children.header_navList_item',
-                                variable_key:'css',
-                                key:'font-weight',
-                                selections:[{text:texts.styling.bold,key:'bold'},{text:texts.styling.normal,key:'normal'}],
-                            })
-                        ),
-                        $('<div/>',{class:'editor_popup_col'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.italic}),
-                            draw_select_box({
-                                key_tree:'website_header.children.header_wrapper.children.header_navList.children.header_navList_item',
-                                variable_key:'css',
-                                key:'font-style',
-                                selections:[{text:texts.styling.italic,key:'italic'},{text:texts.styling.normal,key:'normal'}],
-                            })
-                        ),
-                        $('<div/>',{class:'editor_popup_col'}).append(
-                            $('<div/>',{class:'fs09',text:texts.styling.underline}),
-                            draw_select_box({
-                                key_tree:'website_header.children.header_wrapper.children.header_navList.children.header_navList_item',
-                                variable_key:'css',
-                                key:'text-decoration',
-                                selections:[{text:texts.styling.underline,key:'underline'},{text:texts.styling.normal,key:'none'}],
-                            })
-                        ),
-                    ]
-                })
-            ),
+            // $('<div/>',{class:'w100p editor_popup_container none',key:'header_navList_items_style',parent_key:'header_navList'}).append(
+            //     draw_editors_container({
+            //         is_responsive:false,
+            //         interactions:['hover','click'],
+            //         editors:[
+            //             draw_editor_show_container({
+            //                 key:'header_navList_font_style',
+            //                 name:texts.styling.font_style,
+            //                 row_class:true,
+            //                 container_class:'editor_popup_brdrT_none'
+            //             }),
+            //             $('<div/>',{class:'editor_popup_row'}).append(
+            //                 $('<div/>',{class:'fs09',text:texts.styling.font_color}),
+            //                 draw_color_picker({
+            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     variable_key:'css',
+            //                     key:'color',
+            //                 })
+            //             ),
+            //             $('<div/>',{class:'editor_popup_col'}).append(
+            //                 $('<div/>',{class:'fs09',text:texts.styling.font_size}),
+            //                 draw_number_picker({
+            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     variable_key:'css',
+            //                     key:'font-size',
+            //                     units:['px','em'],
+            //                     step:1,
+            //                 }),
+            //             ),
+            //             $('<div/>',{class:'editor_popup_col'}).append(
+            //                 $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
+            //                 draw_select_box({
+            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     variable_key:'css',
+            //                     key:'font-weight',
+            //                     selections:[{text:texts.styling.bold,key:'bold'},{text:texts.styling.normal,key:'normal'}],
+            //                 })
+            //             ),
+            //             $('<div/>',{class:'editor_popup_col'}).append(
+            //                 $('<div/>',{class:'fs09',text:texts.styling.italic}),
+            //                 draw_select_box({
+            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     variable_key:'css',
+            //                     key:'font-style',
+            //                     selections:[{text:texts.styling.italic,key:'italic'},{text:texts.styling.normal,key:'normal'}],
+            //                 })
+            //             ),
+            //             $('<div/>',{class:'editor_popup_col'}).append(
+            //                 $('<div/>',{class:'fs09',text:texts.styling.underline}),
+            //                 draw_select_box({
+            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
+            //                     variable_key:'css',
+            //                     key:'text-decoration',
+            //                     selections:[{text:texts.styling.underline,key:'underline'},{text:texts.styling.normal,key:'none'}],
+            //                 })
+            //             ),
+            //         ]
+            //     })
+            // ),
             $('<div/>',{class:'w100p editor_popup_container none',key:'header_navList_manage',parent_key:'header_navList'}).append(
                 draw_editors_container({
                     is_responsive:false,
@@ -112,7 +116,7 @@ draw_editor_popup_header_navList = function(){
         )
     })
     setTimeout(()=>{
-        draw_edit_header_navList();
+        // draw_edit_header_navList();
         $('.editor_popup_title2').text('')
         $(`.editor_popup_body_shortcut.editor_header_navList`).addClass('editor_popup_body_shortcut_selected')
     });
@@ -122,27 +126,26 @@ $('body').on('click','.editor_header_navList',function(e){
         desktop_view();
     }
     draw_editor_popup_header_navList();
+    set_all_editors();
 })
-
 draw_edit_header_navList = function(){
-    let sorted_header_navList = Object.entries(window.template.website_header.children.header_wrapper.children.header_navList.children).sort(function(a, b) {
-        return parseInt(a[1].attr.sort) - parseInt(b[1].attr.sort);
-    });
     $('.edit_header_navList_container').text('');
-    for(const key in sorted_header_navList){
-        let item_key = sorted_header_navList[key][0];
-        let item = sorted_header_navList[key][1];
-        let sort = item.attr.sort;
-        if(item_key != 'header_navList_item' && item_key != 'header_list_see_more' ){
+    window.template.website_header.children.header_wrapper.children.header_navList.children.sort((a,b)=>{
+        return a.attr.sort - b.attr.sort;
+    })
+    for(const key in window.template.website_header.children.header_wrapper.children.header_navList.children){
+        let item = window.template.website_header.children.header_wrapper.children.header_navList.children[key];
+        if(item.class_selector != 'header_navList_item' && item.class_selector != 'header_list_see_more' ){
             $('.edit_header_navList_container').append(
                 $('<div/>',{class:'editor_popup_row pX5 pY10'}).append(
                     $('<div/>',{class:'row alnC jstfyC fs09'}).append(
-                        $('<div/>',{class:'ico-drag mie-10 c_white-11 fs101 cursorMove header_nav_list_sorter',item_sort:sort,key_tree:`website_header.children.header_wrapper.children.header_navList.children.${item_key}.attr`}),
-                        $('<div/>',{text:texts.styling[item_key]}),
+                        $('<div/>',{class:'ico-drag mie-10 c_white-11 fs101 cursorMove header_nav_list_sorter',item_sort:item.attr.sort,key_tree:`website_header.children.header_wrapper.children.header_navList.children.${key}.attr`}),
+                        $('<div/>',{text:texts.styling[item.class_selector]}),
                     ),
                     draw_select_box({
-                        key_tree:`website_header.children.header_wrapper.children.header_navList.children.${item_key}.css`,
-                        variable_key:null,
+                        key_tree:`website_header.children.header_wrapper.children.header_navList.children.${key}`,
+                        render:`website_header.children.header_wrapper.children.header_navList`,
+                        variable_key:'css',
                         key:'display',
                         selections:[{text:texts.styling.show,key:'block'},{text:texts.styling.hide,key:'none'}],
                         editor_class:'wA'
@@ -152,7 +155,11 @@ draw_edit_header_navList = function(){
         }
         $('.edit_header_navList_container').find('.editor_popup_row').first().addClass('editor_popup_brdrT_none')
     }
-    set_all_editors()
+    $('.select_box_editor').each(function(){
+        try{
+            set_select_box($(this))
+        }catch{}
+    })
 }
 //
 $('body').on('mousedown','.header_nav_list_sorter',function(e){

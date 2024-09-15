@@ -44,7 +44,7 @@ class template extends Model
         $template['settings'] = json_decode($template['settings'],true);
         $template['website_colors'] = json_decode($template['website_colors'],true);
         $template['page_setup'] = json_decode($template['page_setup'],true);
-        $template['loading_spinner'] = json_decode($template['loading_spinner'],true);
+        $template['form_elements'] = json_decode($template['form_elements'],true);
         $template['website_header'] = json_decode($template['website_header'],true);
         $template['popup_window'] = json_decode($template['popup_window'],true);
         $template['home'] = json_decode($template['home'],true);

@@ -3,7 +3,7 @@ set_editor_popup_editor_position_elem = function(key_tree){
     if(($(`.elem[key_tree="${key_tree}"]`).offset().left) + (100) >= ($(window).width() / 2)){
         left = ($(`.elem[key_tree="${key_tree}"]`).offset().left) - 10 - 350;
     }
-    $('#editor').addClass('h600 w350').css({
+    $('#editor').css({
         top:($(`.elem[key_tree="${key_tree}"]`).offset().top),
         left:left,
         right:'unset',

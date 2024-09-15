@@ -11,7 +11,7 @@ save = function(){
             settings:0,
             website_colors:0,
             page_setup:0,
-            loading_spinner:0,
+            form_elements:0,
             website_header:0,
             popup_window:0,
             home:0,
@@ -26,8 +26,8 @@ save = function(){
         if(JSON.stringify(window.template.page_setup) != JSON.stringify(window.last_saved_template.page_setup)){
             save_template.page_setup = JSON.stringify(window.template.page_setup);
         }
-        if(JSON.stringify(window.template.loading_spinner) != JSON.stringify(window.last_saved_template.loading_spinner)){
-            save_template.loading_spinner = JSON.stringify(window.template.loading_spinner);
+        if(JSON.stringify(window.template.form_elements) != JSON.stringify(window.last_saved_template.form_elements)){
+            save_template.form_elements = JSON.stringify(window.template.form_elements);
         }
         if(JSON.stringify(window.template.website_header) != JSON.stringify(window.last_saved_template.website_header)){
             save_template.website_header = JSON.stringify(window.template.website_header);

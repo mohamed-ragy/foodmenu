@@ -29,6 +29,12 @@
     font-size: 1em;
 }
 //
+.button_preview{
+    margin:20px auto !important;
+    width:fit-content !important;
+    // width:120px !important;
+    // font-size: .85em !important;
+}
 .button_preview_color{
     position: relative;
     width:28px;
@@ -36,12 +42,44 @@
     border-radius: 3px;
     margin:4px;
     cursor: pointer;
-    outline-offset: 2px;
+    outline-offset: 1px;
 }
 
 .button_preview_color:hover{
-    outline: 1px solid var(--white-5);
+    outline: 2px solid var(--white-5);
 }
-.button_preview_color_selected{
-    outline: 1px solid var(--white-11);
+.button_preview_color_selected, .button_preview_color_selected:hover{
+    outline: 2px solid var(--green-80);
+}
+
+//
+.button_preview_border{
+    border-left:1px solid var(--white-10);
+    margin:0 5px;
+    height:25px;
+    position: relative;
+    
+}
+.button_preview_border_radius, .button_preview_padding{
+    position: relative;
+    width:28px;
+    height: 28px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin:4px;
+    cursor: pointer;
+    outline-offset: 1px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button_preview_padding{
+    font-size: .85em;
+}
+.button_preview_border_radius:hover, .button_preview_padding:hover{
+    outline: 2px solid var(--white-5);
+}
+.button_preview_border_radius_selected, .button_preview_border_radius_selected:hover, .button_preview_padding_selected, .button_preview_padding_selected:hover{
+    outline: 2px solid var(--green-80);
 }

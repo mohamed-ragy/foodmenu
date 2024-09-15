@@ -1,3 +1,4 @@
+.header_drop_down_list{z-index: 200;}
 .website_header:hover{
     z-index: 120 !important;
     .header_wrapper{
@@ -43,7 +44,6 @@
     display: none;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     transition-duration: 300ms;
     z-index: 111;
     font-size:.75rem;
@@ -52,7 +52,7 @@
     outline: 1px dashed var(--orange-70);outline-offset: -1px;
 }
 .header_component_selected, .header_component_selected:hover{
-    outline: 1px solid var(--orange-70);outline-offset: -1px;
+    // outline: 1px solid var(--orange-70);outline-offset: -1px;
     .edit_header_components_padding_top{display: block;}
     .edit_header_components_padding_right{display: block;}
     .edit_header_components_padding_bottom{display: block;}

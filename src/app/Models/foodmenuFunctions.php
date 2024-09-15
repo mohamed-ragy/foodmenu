@@ -196,15 +196,19 @@ class foodmenuFunctions
         if($lang == 'en'){
             return [
                 'authentication' => [
-                    'login' => 'Login',
-                    'login_description' => 'Please enter your email and password.',
-                    'signup' => 'Sign up',
-                    // 'logout' => 'Logout',
                     'email' => 'Email Address',
                     'password' => 'Password',
-                    'rememberMe' => 'Remember me',
-                    'forgetPasswordQ' => 'Forgot Password?',
-                    'dontHaveAccountQ' => "Don't have an account?  Sign Up",
+
+
+                    'login' => 'Login',
+                    'remember_me' => 'Remember me',
+                    'forget_password_q' => 'Forgot Password?',
+                    'dont_have_account_q' => "Don't have an account?",
+                    'login_description' => 'Please enter your email and password.',
+                    'login_fail' => 'Incorrect email or password.',
+                    'logged_in' => 'You have been successfully logged in',
+                    'signup' => 'Sign up',
+                    // 'logout' => 'Logout',
                     // 'haveAccountLogin' => 'Already have an account? Login',
                     // 'name' => 'Name',
                     // 'phoneNumber' => 'Phone Number',
@@ -212,7 +216,7 @@ class foodmenuFunctions
                     // 'mylocation' => 'My Location',
                     // 'currentLocation' => 'Set my current location',
                     // 'unsetLocation' => 'Unset location',
-                    // 'resetPassword'=>'Reset Password',
+                    'reset_password'=>'Reset Password',
                     // 'emailForResetPassword'=>'Enter your registered email address.',
                     // 'createNewPassword' => 'Create new password',
                     // 'newPassword' => 'Enter a new password',
@@ -222,7 +226,6 @@ class foodmenuFunctions
                     // 'newEmail' => 'Enter your new email',
                     // 'changePassword'=>'Change My Password',
                     // 'userBanned' => 'This account has been banned.',
-                    'loginFail' => 'Incorrect email or password.',
                     // 'emailUnique' => 'The email you entered already exists.',
                     // 'emailRequired' => 'Please enter a valid email.',
                     // 'emailEmail' => 'The email address you entered is incorrect.',

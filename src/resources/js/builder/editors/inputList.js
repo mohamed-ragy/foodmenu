@@ -1,27 +1,29 @@
 draw_input_list = function(data){
     let inputList_elems_temp;
     let editor = $('<div/>',{
-        class:`editor inputList_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.container_class ?? ''}`,
+        class:`editor inputList_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
         render:data.render ?? data.key_tree,
     }).append(
-        $('<div/>',{class:`inputList_val`}),
+        $('<div/>',{class:`inputList_val`,text:data.default_text ?? ''}),
         $('<div/>',{class:'ico-arrowDown cG'}),
         inputList_elems_temp = $('<div/>',{class:'none inputList_elems_temp'}),
     )
     for(const key in data.selections){
         let selection = data.selections[key];
-        let selection_elem;
-        inputList_elems_temp.append(
-            selection_elem = $('<div/>',{class:`inputList_elem ${selection.class}`,text:selection.name,key:selection.val,style:selection.style ?? ''}),
-        )
-        if('show_elem' in selection){
-            selection_elem.attr('show_elem',selection.show_elem)
-        }
-        if('hide_elem' in selection){
-            selection_elem.attr('hide_elem',selection.hide_elem)
+        if(selection !== null){
+            let selection_elem;
+            inputList_elems_temp.append(
+                selection_elem = $('<div/>',{class:`inputList_elem ${selection.class}`,text:selection.name,key:selection.val,style:selection.style ?? ''}),
+            )
+            if('show_elem' in selection){
+                selection_elem.attr('show_elem',selection.show_elem)
+            }
+            if('hide_elem' in selection){
+                selection_elem.attr('hide_elem',selection.hide_elem)
+            }
         }
     }
     return editor;
@@ -31,6 +33,18 @@ set_input_list = function(editor){
     let val = get_editor_val(editor)
     if(val == '--' || typeof(val) === 'undefined'){
         editor.find('.inputList_val').text('--')
+        editor.find(`[show_elem]`).each(function(){
+            let show_elems = $(this).attr('show_elem').split('.');
+            for(const key in show_elems){
+                $(`.${show_elems[key]}`).addClass('none')
+            }
+        })
+        editor.find(`[hide_elem]`).each(function(){
+            let hide_elems = $(this).attr('hide_elems').split('.');
+            for(const key in hide_elems){
+                $(`.${hide_elems[key]}`).addClass('none')
+            }
+        })
     }else{
         let val_text = editor.find(`.inputList_elem[key="${val}"]`).text()
         editor.find('.inputList_val').text(val_text)

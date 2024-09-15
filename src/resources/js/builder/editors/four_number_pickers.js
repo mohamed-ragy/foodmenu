@@ -16,7 +16,7 @@ draw_four_number_pickers = function(data){
                 dummy_class:'four_number_pickers_0',
                 units:data.units,
                 step:data.step,
-                container_class:`four_number_pickers_detail_head ${data.editor_class ?? ''}`
+                editor_class:`four_number_pickers_detail_head ${data.editor_class ?? ''}`
             })
         ),
         $('<div/>',{class:'w100p four_number_pickers_detail_container'}).append(
@@ -27,7 +27,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_1',
                     units:data.units,
                     step:data.step,
-                    container_class:` ${data.editor_class ?? ''}`
+                    editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
             $('<div/>',{class:'editor_popup_col'}).append(
@@ -37,7 +37,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_2',
                     units:data.units,
                     step:data.step,
-                    container_class:` ${data.editor_class ?? ''}`
+                    editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
             $('<div/>',{class:'editor_popup_col'}).append(
@@ -47,7 +47,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_3',
                     units:data.units,
                     step:data.step,
-                    container_class:` ${data.editor_class ?? ''}`
+                    editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
             $('<div/>',{class:'editor_popup_col'}).append(
@@ -57,7 +57,7 @@ draw_four_number_pickers = function(data){
                     dummy_class:'four_number_pickers_4',
                     units:data.units,
                     step:data.step,
-                    container_class:` ${data.editor_class ?? ''}`
+                    editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
         )

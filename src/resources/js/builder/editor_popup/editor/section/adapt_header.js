@@ -18,8 +18,10 @@ draw_editor_popup_section_adapt_header = function(){
                         $('<div/>',{class:'fs09',text:texts.styling.adapted_font_color}),
                         draw_color_picker({
                             key_tree:`${window.selected}`,
+                            render:'',
                             variable_key:'attr',
                             key:'adapt_header_color',
+                            editor_class:'editor_popup_adapt_header_color_picker'
                         })
                     ),
                 ]
@@ -34,6 +36,6 @@ draw_editor_popup_section_adapt_header = function(){
 $('body').on('click','.editor_section_adapt_header',function(e){
     draw_editor_popup_section_adapt_header();
 })
-$('body').on('change','.editor_popup_adapt_header_switchBtn',function(){
+$('body').on('change','.editor_popup_adapt_header_switchBtn, .editor_popup_adapt_header_color_picker',function(){
     set_adapted_header();
 })

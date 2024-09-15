@@ -1,10 +1,7 @@
 
 $('body').on('click',function(e){
     if($('#clr-picker:hover').length > 0){return;}
-    hide_website_pages_menu();
-    hide_website_style_menu();
-    hide_website_tools_menu();
-    hide_show_preview_languages_menu();
+    hide_builder_header_menu();
     hidePopupSelectors();
     hide_contextMenu();
 })
@@ -73,7 +70,7 @@ keyboard_shortcuts = function(e){
         e.preventDefault();
         try{
             window.preview_language = Object.keys(window.website_data.languages)[e.which - 49];
-            $('.showWebsitePreviewLangs').children().first().text(window.website_data.languages[window.preview_language].name)
+            $('.show_builder_header_menu[menu="preview_languages"]').children().first().text(window.website_data.languages[window.preview_language].name)
             window.history.pushState({},'',`/?template_id=${window.template_id}&preview_language=${window.preview_language}`)
             set_website_variable_data()
             render('all');
@@ -161,9 +158,13 @@ $('body').on('click','.scroll_to_section',function(e){
 //
 $('body').on('mouseenter','a',function(){
     if($(this).hasClass('open_page')){
-        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}${$(this).attr('href')}</div>`)
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}/${window.preview_language}${$(this).attr('href')}</div>`)
     }else if($(this).hasClass('open_popup')){
-        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
+        if($(this).attr('popup') == 'add_to_card'){
+            $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
+        }else{
+            $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.open_popup}:</div><div class="fs101 cB underline">${texts.website_pages[$(this).attr('popup')]}</div>`)
+        }
     }else if($(this).hasClass('scroll_to_section')){
         let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
         let section_name = '';
@@ -175,7 +176,7 @@ $('body').on('mouseenter','a',function(){
 })
 $('body').on('mouseenter','button',function(){
     if($(this).hasClass('open_page')){
-        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}${$(this).attr('href')}</div>`)
+        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}/${window.preview_language}${$(this).attr('href')}</div>`)
     }else if($(this).hasClass('open_popup')){
         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
 

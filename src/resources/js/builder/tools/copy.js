@@ -47,6 +47,8 @@ remove_cut_elem = function(cut_elem){
 //
 paste = function(){
     if(!can_copy()){return;}
+    if(!window.builder_clipboard){return;}
+    if($("input:focus").length > 0){return;}
     let _paste_elem = window.builder_clipboard;
     if(_paste_elem.type == 'section'){
         paste_section(_paste_elem)

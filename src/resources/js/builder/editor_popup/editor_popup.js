@@ -3,7 +3,7 @@ create_editor_popup = function(id){
     if(id == 'editor' || id == 'page_setup' || id == 'website_header'){editor_popup_body_shortcuts = ''}
     return new Promise((success,reject)=>{
         $('body').append(
-            $('<div/>',{class:'editor_popup none',id:id}).append(
+            $('<div/>',{class:'editor_popup h600 w350 none',id:id}).append(
                 $('<div/>',{class:'editor_popup_head'}).append(
                     $('<div/>',{class:'row alnC jstfyS'}).append(
                         $('<div/>',{class:'editor_popup_head_btn none ico-arrowLeft editor_popup_back_Btn'}),
@@ -73,18 +73,15 @@ show_editor_popup = function(elem,callback=()=>{}){
         $('.editor_popup_title2').text('')
     }
     $(`#${elem}`).css({'animation-duration':'300ms'})
-    switch(elem){
-        case 'loading_spinner':
-            get_loading_spinners();
-        break;
-        case 'website_header':
-            window.selected = 'website_header.children.header_wrapper';
-            select(window.selected);
-        break;
-        default:
+    // switch(elem){
+    //     case 'website_header':
+    //         window.selected = 'website_header.children.header_wrapper';
+    //         select(window.selected);
+    //     break;
+    //     default:
 
-        break;
-    }
+    //     break;
+    // }
 
     if(!$(`#${elem}`).hasClass('none') && elem !== 'editor'){
         $(`#${elem}`).removeClass('editor_popup_dump').addClass('editor_popup_flash')
@@ -102,6 +99,9 @@ show_editor_popup = function(elem,callback=()=>{}){
     set_responsive_selector();
     set_editor_popup_scroll_to_load_font_styles();
     set_all_editors();
+    setTimeout(()=>{
+        $(`#${elem}`).find('.editor_popup_body_wrapper').scrollTop(0)
+    },1000)
         // if(elem === null){
     //     $('#editor_popup').css({
     //         left:($(window).width() / 2) - ($('#editor_popup').width() / 2),
@@ -149,7 +149,8 @@ editor_popup_to_child = function(container){
                 $(this).removeClass('editor_popup_slide_right_to_0 editor_popup_slide_0_to_left').addClass('none');
             }
         });
-        editor_popup.find('.editor_popup_body').removeClass('ofH').scrollTop(0)
+        editor_popup.find('.editor_popup_body').removeClass('ofH')
+        editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
         set_all_editors();
     },150)
 }
@@ -172,7 +173,8 @@ editor_popup_to_parent = function(container){
                 $(this).removeClass('editor_popup_slide_right_to_0 editor_popup_slide_0_to_right').addClass('none');
             }
         });
-        editor_popup.find('.editor_popup_body').removeClass('ofH').scrollTop(0)
+        editor_popup.find('.editor_popup_body').removeClass('ofH')
+        editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
         set_all_editors();
     },150)
 }
@@ -242,6 +244,7 @@ $('body').on('click','.editor_popup_close',function(e){
 $('body').on('click','.editor_popup_show_shortcut',function(){
     let editor_popup = $(this).closest('.editor_popup')
     let shortcut = $(this).attr('key');
+    editor_popup.find('.editor_popup_head_btn').addClass('none')
     editor_popup.find('.editor_popup_shortcut_content').addClass('none');
     editor_popup.find(`.editor_popup_shortcut_content[key="${shortcut}"]`).removeClass('none');
     editor_popup.find('.editor_popup_container').removeClass('none')

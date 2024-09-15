@@ -26,6 +26,7 @@ require('./editors/switch_btn.js')//
 require('./editors/timing_function.js')//
 require('./editors/transform_editor.js')//
 require('./editors/interactions_picker.js')//
+require('./editors/loading_spinner_editor.js')//
 
 //tools
 require('./editors/editor_details.js')//not used yet
@@ -81,6 +82,15 @@ get_editor_val = function(editor){
         }
     }
 }
+set_val_check_add_background =function(variable_key,elem){
+    try{
+        let background_variable_key = variable_key.split('_')[0];
+        if(background_variable_key == 'background' && !(variable_key in elem)){
+            elem[variable_key] = get_default_style('background');
+            elem[`${variable_key}_mobile`] = get_default_style('background');
+        }
+    }catch{}
+}
 set_val = function(editor,new_val){
     editor = editor.closest('.editor');
     let editors_container = editor.closest('.editors_container')
@@ -88,13 +98,14 @@ set_val = function(editor,new_val){
     let key_tree = editor.attr('key_tree');
     let variable_key = editor.attr('variable_key');
     let key = editor.attr('key');
+    let elem = get_element_data(key_tree);
     if(editors_container.attr('is_interactions') == '1'){
         let variable_key2 = editors_container.find('.interaction_elem_selected').attr('key');
         if(variable_key2 != 'regular'){
             variable_key = `${variable_key}_${variable_key2}`
         }
     }
-    let elem = get_element_data(key_tree);
+    set_val_check_add_background(variable_key,elem)
     if(is_responsive == '0'){
         if(variable_key === undefined){
             elem[key] = new_val;
@@ -132,7 +143,6 @@ set_val = function(editor,new_val){
             }
         }
     }
-
 }
 get_dummy_val = function(editor){
     let val;

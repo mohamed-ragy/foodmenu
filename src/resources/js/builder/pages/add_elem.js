@@ -137,10 +137,10 @@ $('body').on('click','.add_elem',function(e){
     select(`${window.selected}.children.${new_elem.sort}`)
     switch($(this).attr('elem_type')){
         case 'title':
-            draw_editor_popup_text();
+            draw_editor_popup_text_style();
         break;
         case 'paragraph':
-            draw_editor_popup_text();
+            draw_editor_popup_text_style();
         break;
         case 'image':
             setTimeout(()=>{

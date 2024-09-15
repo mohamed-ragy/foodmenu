@@ -63,7 +63,7 @@ draw_animation_editor = function(data){
                         key:`${keyframe}_duration`,
                         units:['ms'],
                         step:1,
-                        container_class:'editor_preview_animation'
+                        editor_class:'editor_preview_animation'
                     }),
                 ),
                 $('<div/>',{class:'editor_popup_row'}).append(
@@ -74,7 +74,7 @@ draw_animation_editor = function(data){
                         key:`${keyframe}_delay`,
                         units:['ms'],
                         step:1,
-                        container_class:'editor_preview_animation'
+                        editor_class:'editor_preview_animation'
                     }),
                 ),
                 draw_editor_show_container({
@@ -99,7 +99,7 @@ draw_animation_editor = function(data){
                     key_tree:data.key_tree,
                     variable_key:data.variable_key,
                     key:`${keyframe}_timing_function`,
-                    container_class:'editor_preview_animation2'
+                    editor_class:'editor_preview_animation2'
                 })
             ),
             $('<div/>',{class:'editor_popup_container w100p none',key:`animation_${keyframe}_transform`,parent_key:`animation_${keyframe}`}).append(
@@ -120,14 +120,14 @@ draw_animation_editor = function(data){
                             {name:texts.styling.bottom_left,val:'bottom left'},
                             {name:texts.styling.bottom_right,val:'bottom right'},
                         ],
-                        container_class:'editor_preview_animation2'
+                        editor_class:'editor_preview_animation2'
                     }),
                 ),
                 draw_transform_editor({
                     key_tree:data.key_tree,
                     variable_key:data.variable_key,
                     key:`${keyframe}_transform`,
-                    container_class:'editor_preview_animation2'
+                    editor_class:'editor_preview_animation2'
                 }),
             ),
             $('<div/>',{class:'editor_popup_container w100p none',key:`animation_${keyframe}_filter`,parent_key:`animation_${keyframe}`}).append(
@@ -135,7 +135,7 @@ draw_animation_editor = function(data){
                     key_tree:data.key_tree,
                     variable_key:data.variable_key,
                     key:`${keyframe}_filter`,
-                    container_class:'editor_preview_animation2'
+                    editor_class:'editor_preview_animation2'
                 })
             )
         )

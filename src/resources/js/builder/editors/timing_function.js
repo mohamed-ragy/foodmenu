@@ -1,7 +1,7 @@
 draw_timing_function_editor = function(data){
     let timing_functions_preview_container;
     let editor = $('<div/>',{
-        class:`editor timing_function_editor ${data.container_class ?? ''}`,
+        class:`editor timing_function_editor ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,

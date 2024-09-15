@@ -4,44 +4,52 @@ render_website_popup = function(popup){
     console.log('popup rendered')
 }
 draw_popup = function(popup){
-    $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[popup])
+    $('.current_page_name').text(texts.website_pages[popup])
     window.selected_popup = popup;
     $('#website').find('.popup_card').append(
         generate_html(window.template[popup],popup),
     )
+    try{
+        select(window.selected)
+    }catch{}
 }
-open_website_popup = function(popup){
+open_website_popup = function(popup,clear=false,animate=true){
     window.website_popup_opened = true;
     $('#website').css('overflow-y','hidden').scrollTop(0)
     $('#website').find('.popup_container').removeClass('none')
-    $('#website').find('.popup_card').children()
-    .not('.popup_close')
-    .not('.edit_popup_padding_top')
-    .not('.edit_popup_padding_bottom')
-    .not('.edit_popup_padding_right')
-    .not('.edit_popup_padding_left')
-    .remove()
+    if(clear == true){
+        $('#website').find('.popup_card').children()
+        .not('.popup_close')
+        .not('.edit_popup_padding_top')
+        .not('.edit_popup_padding_bottom')
+        .not('.edit_popup_padding_right')
+        .not('.edit_popup_padding_left')
+        .not('.select_popup_title')
+        .remove()
+    }
     switch(popup){
         case 'popup_window':
-            $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[window.selected_page])
+            $('.current_page_name').text(texts.website_pages[window.selected_page])
             select('popup_window.children.popup_card');
         break;
         case 'login_popup':
             draw_popup(popup)
-            select('login_popup')
+            // select('form_elements.website_form')
         break;
     }
-    $('#website').find('.popup_container').find('.popup_card').addClass(window.template.popup_window.children.popup_card.transition)
+    if(animate){
+        $('#website').find('.popup_container').find('.popup_card').addClass(window.template.popup_window.children.popup_card.transition)
+    }
 }
 hide_popup_window = function(){
     window.website_popup_opened = false;
     window.selected_popup = 'popup_window';
     $('#website').find('.popup_container').addClass('none')
     $('#website').css('overflow-y','auto')
-    $('.showWebsitePages').find('.website_page_name').text(texts.website_pages[window.selected_page])
+    $('.current_page_name').text(texts.website_pages[window.selected_page])
 }
 set_editor_popup_editor_position_popup = function(){
-    $('#editor').addClass('h600 w350').css({
+    $('#editor').css({
         top:($('#website').find(`.popup_card`).offset().top) - 100,
         left:($(`#website`).find('.popup_card').width()) + ($(`#website`).find('.popup_card').offset().left) + 100,
         right:'unset',

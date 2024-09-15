@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\templates;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class generate_css
 {
@@ -10,8 +11,14 @@ class generate_css
     public $fonts = [];
     public $selected_fonts = [];
     public $parent_class_selector = '';
+    public $lang_code;
     public function add_to_file($css){
         $this->css_file = $this->css_file.$css;
+    }
+    public function delete_lang_dir($lang,$website_id){
+        if (File::exists(storage_path("app/public/websites/{$website_id}/style/style_{$lang}.css"))) {
+            File::delete(storage_path("app/public/websites/{$website_id}/style/style_{$lang}.css"));
+        }
     }
     public function add_transition($animation){
         if(!in_array($animation,$this->animations)){
@@ -21,8 +28,9 @@ class generate_css
     public function add_scroll_animation($animation){
 
     }
-    public function generate($template){
+    public function generate($template,$lang_code){
         $this->template = $template;
+        $this->lang_code = $lang_code;
         $this->animations = ['0' => templates_data::page_transitions()[$this->template['page_setup']['pageTransition']]];
         $this->fonts = templates_data::fonts();
         self::generate_vars();
@@ -34,7 +42,6 @@ class generate_css
         //
 
 
-        // self::add_to_file(templates_data::loading_spinners()[$this->template['loading_spinner']['key']]['css']);
         self::add_to_file(self::generate_class($this->template['popup_window']));
         self::add_to_file(self::generate_class($this->template['login_popup']));
         // self::add_transition($this->template['popup_window']['transition']);
@@ -47,14 +54,7 @@ class generate_css
         foreach($this->animations as $animation){
             self::add_to_file($animation);
         }
-        self::add_to_file('.none{display:none}.nowrap{white-space:nowrap;}');
-
-        foreach($this->template['page_setup']['font_style'] as $key => $val){
-            $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
-            if(!array_key_exists($font['name'],$this->selected_fonts)){
-                $this->selected_fonts[$font['name']] = $font;
-            }
-        }
+        self::add_to_file('.none{display:none}.nowrap{white-space:nowrap;}.vH{visibility: hidden}');
 
         foreach($this->selected_fonts as $font){
             self::add_to_file("@font-face {font-family: '{$font['name']}';src: url('/storage/builder_fonts/{$font['language']}/{$font['name']}.ttf') format(\"truetype\");}");
@@ -62,23 +62,26 @@ class generate_css
         }
         $this->css_file = str_replace(array("\r","\n"),"",$this->css_file);
 
-        if(Storage::put('websites/'.$this->template['website_id'].'/style.css', $this->css_file)){
+        if(Storage::put("websites/{$this->template['website_id']}/style/style_{$lang_code}.css", $this->css_file)){
             return true;
         }else{
             return false;
         }
     }
     public function generate_class($elem){
-        if(array_key_exists('font_style',$elem)){
-            if(is_array($elem['font_style'])){
-                foreach($elem['font_style'] as $key => $val){
-                    $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
-                    if(!array_key_exists($font['name'],$this->selected_fonts)){
-                        $this->selected_fonts[$font['name']] = $font;
-                    }
-                }
-            }
-        }
+        // if(array_key_exists('font_style',$elem)){
+        //     foreach($elem['font_style'] as $key => $val){
+        //         $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
+        //         if(array_key_exists('general_class',$elem)){
+        //             if($val != ''){
+        //                 self::add_to_file(".{$elem['class_selector']}_{$key}{font-family:{$val} !important;}");
+        //             }
+        //         }
+        //         if(!array_key_exists($font['name'],$this->selected_fonts)){
+        //             $this->selected_fonts[$font['name']] = $font;
+        //         }
+        //     }
+        // }
         if(array_key_exists('transition',$elem)){
             self::add_transition($elem['transition']);
         }
@@ -92,14 +95,23 @@ class generate_css
             $css_start = ".{$elem['class_selector']}{";
             $css = '';
             if(array_key_exists('css', $elem)){
-                $css = $css.self::add_css_style($elem['css'],$has_animation);
+                $css = $css.self::add_css_style($elem['vars'] ?? null,$elem['css'],$has_animation);
             }
             if(array_key_exists('background', $elem)){
                 $css = $css.self::add_background_style($elem['background']);
             }
+            if(array_key_exists('font_style',$elem)){
+                if(array_key_exists($this->lang_code,$elem['font_style'])){
+                    $css = $css."font-family:{$elem['font_style'][$this->lang_code]};";
+                    $font = $this->fonts[array_search($elem['font_style'][$this->lang_code], array_column($this->fonts, 'name'))];
+                    if(!array_key_exists($font['name'],$this->selected_fonts)){
+                        $this->selected_fonts[$font['name']] = $font;
+                    }
+                }
+            }
             $css = $css."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
             if(array_key_exists('css_mobile', $elem)){
-                $css = $css.self::add_css_style($elem['css_mobile'],$has_animation);
+                $css = $css.self::add_css_style($elem['vars'] ?? null,$elem['css_mobile'],$has_animation);
             }
             if(array_key_exists('background_mobile', $elem) ){
                 $css = $css.self::add_background_style($elem['background_mobile']);
@@ -235,14 +247,14 @@ class generate_css
                         $css_hover_start = ".{$elem['class_selector']}:hover{";
                     }
                     if(array_key_exists('css_hover',$elem)){
-                        $css_hover = $css_hover.self::add_css_style($elem['css_hover'],$has_animation);
+                        $css_hover = $css_hover.self::add_css_style($elem['vars'] ?? null,$elem['css_hover'],$has_animation);
                     }
                     if(array_key_exists('background_hover',$elem)){
                         $css_hover = $css_hover.self::add_background_style($elem['background_hover']);
                     }
                     $css_hover = $css_hover."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_hover_mobile',$elem)){
-                        $css_hover = $css_hover.self::add_css_style($elem['css_hover_mobile'],$has_animation);
+                        $css_hover = $css_hover.self::add_css_style($elem['vars'] ?? null,$elem['css_hover_mobile'],$has_animation);
                     }
                     if(array_key_exists('background_hover_mobile',$elem)){
                         $css_hover = $css_hover.self::add_background_style($elem['background_hover_mobile']);
@@ -259,11 +271,17 @@ class generate_css
                     $css_click = '';
                     $css_click_start = ".{$elem['class_selector']}:active{";
                     if(array_key_exists('css_click',$elem)){
-                        $css_click = $css_click.self::add_css_style($elem['css_click'],$has_animation);
+                        $css_click = $css_click.self::add_css_style($elem['vars'] ?? null,$elem['css_click'],$has_animation);
+                    }
+                    if(array_key_exists('background_click',$elem)){
+                        $css_click = $css_click.self::add_background_style($elem['background_click']);
                     }
                     $css_click = $css_click."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_click_mobile',$elem)){
-                        $css_click = $css_click.self::add_css_style($elem['css_click_mobile'],$has_animation);
+                        $css_click = $css_click.self::add_css_style($elem['vars'] ?? null,$elem['css_click_mobile'],$has_animation);
+                    }
+                    if(array_key_exists('background_click_mobile',$elem)){
+                        $css_click = $css_click.self::add_background_style($elem['background_click_mobile']);
                     }
                     $css_click = $css_click."}";
 
@@ -276,13 +294,17 @@ class generate_css
                     $css_focus = '';
                     $css_focus_start = ".{$elem['class_selector']}:focus{";
                     if(array_key_exists('css_focus',$elem)){
-                        $css_focus = $css_focus.self::add_css_style($elem['css_focus'],$has_animation);
-
+                        $css_focus = $css_focus.self::add_css_style($elem['vars'] ?? null,$elem['css_focus'],$has_animation);
+                    }
+                    if(array_key_exists('background_focus',$elem)){
+                        $css_focus = $css_focus.self::add_background_style($elem['background_focus']);
                     }
                     $css_focus = $css_focus."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_focus_mobile',$elem)){
-                        $css_focus = $css_focus.self::add_css_style($elem['css_focus_mobile'],$has_animation);
-
+                        $css_focus = $css_focus.self::add_css_style($elem['vars'] ?? null,$elem['css_focus_mobile'],$has_animation);
+                    }
+                    if(array_key_exists('background_focus_mobile',$elem)){
+                        $css_focus = $css_focus.self::add_background_style($elem['background_focus_mobile']);
                     }
                     $css_focus = $css_focus."}";
                     $css_focus_end = "}";
@@ -292,18 +314,65 @@ class generate_css
                     $css_disabled = '';
                     $css_disabled_start = ".{$elem['class_selector']}:disabled{";
                     if(array_key_exists('css_disabled',$elem)){
-                        $css_disabled = $css_disabled.self::add_css_style($elem['css_disabled'],$has_animation);
+                        $css_disabled = $css_disabled.self::add_css_style($elem['vars'] ?? null,$elem['css_disabled'],$has_animation);
+                    }
+                    if(array_key_exists('background_disabled',$elem)){
+                        $css_disabled = $css_disabled.self::add_background_style($elem['background_disabled']);
                     }
                     $css_disabled = $css_disabled."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
                     if(array_key_exists('css_disabled_mobile',$elem)){
-                        $css_disabled = $css_disabled.self::add_css_style($elem['css_disabled_mobile'],$has_animation);
+                        $css_disabled = $css_disabled.self::add_css_style($elem['vars'] ?? null,$elem['css_disabled_mobile'],$has_animation);
+                    }
+                    if(array_key_exists('background_disabled_mobile',$elem)){
+                        $css_disabled = $css_disabled.self::add_background_style($elem['background_disabled_mobile']);
                     }
                     $css_disabled = $css_disabled."}";
                     $css_disabled_end = "}";
                     $final_css = $final_css.$css_disabled_start.$css_disabled.$css_disabled_end;
                 }
-            }
+                if(in_array('placeholder', $elem['accessibility'])){
+                    $css_placeholder = '';
+                    $css_placeholder_start = ".{$elem['class_selector']}::placeholder {";
+                    if(array_key_exists('css_placeholder',$elem)){
+                        $css_placeholder = $css_placeholder.self::add_css_style($elem['vars'] ?? null,$elem['css_placeholder'],$has_animation);
+                    }
+                    $css_placeholder = $css_placeholder."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                    if(array_key_exists('css_placeholder_mobile',$elem)){
+                        $css_placeholder = $css_placeholder.self::add_css_style($elem['vars'] ?? null,$elem['css_placeholder_mobile'],$has_animation);
+                    }
+                    $css_placeholder = $css_placeholder."}";
+                    $css_placeholder_end = "}";
+                    $final_css = $final_css.$css_placeholder_start.$css_placeholder.$css_placeholder_end;
 
+                }
+                if(in_array('hyperlink', $elem['accessibility'])){
+                    $hyperlink_css = ".{$elem['class_selector']} a{color:{$elem['css_hyperlink']['color']};text-decoration:{$elem['css_hyperlink']['text-decoration']};}";
+                    $final_css = $final_css.$hyperlink_css;
+                }
+            }
+            if(array_key_exists('css_children',$elem)){
+                foreach($elem['css_children'] as $child_key => $child_css){
+                    $css_child = ".{$elem['class_selector']} {$child_key}{";
+                    $css_child = $css_child.self::add_css_style($elem['vars'] ?? null,$child_css,$has_animation);
+                    $css_child = $css_child."}";
+                    $final_css = $final_css.$css_child;
+                }
+            }
+            if(array_key_exists('keyframes',$elem)){
+                foreach($elem['keyframes'] as $key => $keyframes){
+                    $css_keyframe = "@keyframes {$key} {";
+                    foreach($keyframes as $keyframe_key => $keyframe_val){
+                        if($elem['vars'] !== null ){
+                            foreach($elem['vars'] as $var_key => $var_val){
+                                $keyframe_val = str_replace($var_key,$var_val,$keyframe_val);
+                            }
+                        }
+                        $css_keyframe = $css_keyframe.$keyframe_key."{".self::add_css_style(null,$keyframe_val,false)."}";
+                    }
+                    $css_keyframe = $css_keyframe."}";
+                    $final_css = $final_css.$css_keyframe;
+                }
+            }
             if(array_key_exists('type', $elem)){
                 if($elem['type'] == 'section'){
                     $css_driver_section = ".{$elem['class_selector']}{";
@@ -358,7 +427,9 @@ class generate_css
 
 
         if(array_key_exists('children',$elem)){
-            $this->parent_class_selector = $elem['class_selector'];
+            if(array_key_exists('class_selector',$elem)){
+                $this->parent_class_selector = $elem['class_selector'];
+            }
             foreach($elem['children'] as $child){
                 self::generate_class($child);
             }
@@ -381,9 +452,6 @@ class generate_css
         foreach($this->template['website_colors']['custom_colors'] as $key => $val){
             $css = $css."--{$key}:{$val['r']},{$val['g']},{$val['b']};";
         }
-        foreach($this->template['loading_spinner']['colors'] as $key => $val){
-            $css = $css."--{$key}:{$val};";
-        }
         $css = $css.<<<string
         }
         string;
@@ -391,12 +459,21 @@ class generate_css
     }
 
     public function generate_global_selectors(){
+        $body_font_name = '';
+        foreach($this->template['page_setup']['font_style'] as $key => $val){
+            $font = $this->fonts[array_search($val, array_column($this->fonts, 'name'))];
+            $body_font_name = $font['name'];
+            if(!array_key_exists($font['name'],$this->selected_fonts)){
+                $this->selected_fonts[$font['name']] = $font;
+            }
+        }
         $css = <<<string
         *{-webkit-tap-highlight-color: transparent;}
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
-        body{user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;color:{$this->template['page_setup']['font_color']};background-color:{$this->template['page_setup']['bg_color']}}
+        body{font-family:{$body_font_name};user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;color:{$this->template['page_setup']['font_color']};background-color:{$this->template['page_setup']['bg_color']}}
+        button{all:unset;}
+        input{all:unset;}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
-        .input{all:unset;}
         textarea{resize: none;}
         a{color:unset;text-decoration: unset;cursor: pointer;}
         a:hover{color:unset;text-decoration: unset;cursor: pointer;}
@@ -422,10 +499,22 @@ class generate_css
         }
         string;
         self::add_to_file($css);
+        foreach ($this->template['form_elements'] as $form_element) {
+            self::add_to_file(self::generate_class($form_element));
+        }
+        // self::add_to_file(self::generate_class($this->template['form_elements']['website_form']));
+        // self::add_to_file(self::generate_class($this->template['form_elements']['form_title']));
+        // self::add_to_file(self::generate_class($this->template['form_elements']['form_message']));
+        // self::add_to_file(self::generate_class($this->template['form_elements']['form_input_box']));
     }
-    public function add_css_style($styles,$has_animation){
+    public function add_css_style($vars,$styles,$has_animation){
         $return_style = '';
         foreach($styles as $key => $val){
+            if($vars !== null ){
+                foreach($vars as $var_key => $var_val){
+                    $val = str_replace($var_key,$var_val,$val);
+                }
+            }
             $add_style = true;
             if($has_animation){
                 if($key == 'filter' ||
@@ -441,11 +530,17 @@ class generate_css
             if($key == 'max-width' || $key == 'width' || $key == 'min-width'){
                     $margin_right = '0px';
                     $margin_left = '0px';
-                    if($val != 'auto' && array_key_exists('margin',$styles)){
+                    if($val != 'auto' && array_key_exists('margin',$styles) && $styles['margin'] != 'auto'){
                         try{
-                            $margin = explode(' ',$styles['margin']);
-                            $margin_right = $margin[1];
-                            $margin_left = $margin[3];
+                            $margin = $styles['margin'];
+                            if($vars !== null ){
+                                foreach($vars as $var_key => $var_val){
+                                    $margin = str_replace($var_key,$var_val,$margin);
+                                }
+                            }
+                            $margin = explode(' ',$margin);
+                            if($margin[1] !== 'auto'){$margin_right = $margin[1];}
+                            if($margin[3] !== 'auto'){$margin_left = $margin[3];}
                         }catch (\Exception $e){}
                         $val = "calc({$val} - {$margin_right} - {$margin_left})";
                     }
@@ -453,11 +548,17 @@ class generate_css
             if($key == 'max-height' || $key == 'height' || $key == 'min-height'){
                 $margin_top = '0px';
                 $margin_bottom = '0px';
-                if($val != 'auto' && array_key_exists('margin',$styles)){
+                if($val != 'auto' && array_key_exists('margin',$styles) && $styles['margin'] != 'auto'){
                     try{
-                        $margin = explode(' ',$styles['margin']);
-                        $margin_top = $margin[0];
-                        $margin_bottom = $margin[2];
+                        $margin = $styles['margin'];
+                        if($vars !== null ){
+                            foreach($vars as $var_key => $var_val){
+                                $margin = str_replace($var_key,$var_val,$margin);
+                            }
+                        }
+                        $margin = explode(' ',$margin);
+                        if($margin[0] !== 'auto'){$margin_top = $margin[0];}
+                        if($margin[2] !== 'auto'){$margin_bottom = $margin[2];}
                     }catch (\Exception $e){}
                     $val = "calc({$val} - {$margin_top} - {$margin_bottom})";
                 }
@@ -478,9 +579,9 @@ class generate_css
     public function add_background_style($background){
         $background_style = '';
         if($background['type'] == 'none'){
-
+            $background_style = $background_style."background:none;";
         }else if($background['type'] == 'color'){
-            $background_style = $background_style."background-color:{$background['color']};";
+            $background_style = $background_style."background:{$background['color']};";
         }else if($background['type'] == 'gradient'){
             $background_style = $background_style."background:{$background['gradient']};";
         }else if($background['type'] == 'backdrop_filter'){

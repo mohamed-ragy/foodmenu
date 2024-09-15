@@ -1,6 +1,6 @@
 draw_switch_btn = function(data){
     let editor = $('<div/>',{
-        class:`editor switch_btn ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.disabled ? 'switch_btn_disabled' : ''}`,
+        class:`editor switch_btn ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.disabled ? 'switch_btn_disabled' : ''} ${data.editor_class ?? ''}`,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,

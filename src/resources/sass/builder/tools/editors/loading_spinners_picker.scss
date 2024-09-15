@@ -1,0 +1,19 @@
+.loading_spinner_editor{
+    width:100%;
+}
+.loading_spinnser_preivew{
+    cursor: pointer;
+    position: relative;
+    padding:20px;
+    margin:10px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loading_spinnser_preivew:hover{
+    outline:1px solid var(--white-4);
+}
+.loading_spinnser_preivew_selected, .loading_spinnser_preivew_selected:hover{
+    outline:2px solid var(--green-60);
+}

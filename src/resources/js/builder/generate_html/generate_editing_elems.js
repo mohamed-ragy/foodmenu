@@ -15,6 +15,7 @@ genrate_editing_elems = function(elem,key_tree){
     else if(elem.type == 'section'){
         html = `${html}${generate_editing_elems_section(elem,key_tree)}`;
     }
+
     ////header////
     else if(elem.type == 'header_wrapper'){
         html = `${html}${generate_editing_elems_header_wrapper(elem,key_tree)}`;
@@ -30,10 +31,10 @@ genrate_editing_elems = function(elem,key_tree){
 }
 
 //
-
+//
 generate_editing_elems_elem = function(elem,key_tree){
     let html = '';
-    html = `${html}<div class="select_edit_elem_title builder_font contextMenu" key_tree="${key_tree}">${texts.elems[elem.elem_type]}</div>`;
+    html = `${html}<div class="select_edit_elem_title builder_font">${elem.name ?? texts.elems[elem.elem_type]}</div>`;
     html = `${html}${draw_spacing_edit_elems(elem,'edit_elem_')}`
 
     // let variable_key = 'css';
@@ -68,7 +69,7 @@ generate_editing_elems_elem = function(elem,key_tree){
 }
 generate_editing_elems_container = function(elem,key_tree){
     let html = '';
-    html = `${html}<div class="select_edit_container_title rename builder_font contextMenu" key_tree="${key_tree}">${elem.name}</div>`;
+    html = `${html}<div class="select_edit_container_title rename builder_font">${elem.name}</div>`;
     html = `${html}${draw_spacing_edit_elems(elem,'edit_container_')}`
 
     // let variable_key = 'css';
@@ -156,10 +157,7 @@ generate_editing_elems_container = function(elem,key_tree){
 }
 generate_editing_elems_section_block = function(elem,key_tree){
     let html = '';
-    elem.children.sort((a,b)=>{
-        return a.sort - b.sort;
-    })
-    html = `${html}<div class="select_section_block_title builder_font contextMenu" key_tree="${key_tree}">${texts.section_block}</div>`;
+    html = `${html}<div class="select_section_block_title builder_font">${texts.section_block}</div>`;
     html = `${html}${draw_spacing_edit_elems(elem,'edit_section_block_')}`
 
     // let variable_key = 'css';
@@ -245,7 +243,7 @@ generate_editing_elems_section = function(elem,key_tree){
     }
 
     let section = get_element_data(key_tree);
-    html = `${html}<div class="select_section_title rename builder_font contextMenu pointer" key_tree="${key_tree}"><div class="" >${section.name}</div></div>`;
+    html = `${html}<div class="select_section_title rename builder_font"><div class="" >${section.name}</div></div>`;
 
     if(elem.accessibility.includes('add_section')){
         html = `${html}<button class="btn btn-cancel add_section add_section_btn_style ico-add" section_sort="${elem.sort}" tooltip="${texts.add_section}"></button>`;
@@ -259,7 +257,7 @@ generate_editing_elems_header_wrapper = function(elem,key_tree,style){
     let html = '';
     html = `${html}${draw_spacing_edit_elems(elem,'edit_header_')}`
 
-    html = `${html}<div class="select_website_header_title builder_font contextMenu" key_tree="website_header">${texts.website_tools.header}</div>`;
+    html = `${html}<div class="select_website_header_title builder_font">${texts.website_tools.header}</div>`;
     return html;
 }
 generate_editing_elems_header_components = function(elem,key_tree,style){
@@ -270,6 +268,6 @@ generate_editing_elems_header_components = function(elem,key_tree,style){
 generate_editing_elems_popup_window = function(elem,key_tree,style){
     let html = '';
     html = `${html}${draw_spacing_edit_elems(elem,'edit_popup_')}`
-    html = `${html}<div class="select_popup_title builder_font contextMenu" key_tree="popup_window.children.popup_card">${texts.website_tools.popup_window}</div>`;
+    html = `${html}<div class="select_popup_title builder_font">${texts.website_tools.popup_window}</div>`;
     return html;
 }

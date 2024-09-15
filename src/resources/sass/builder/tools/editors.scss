@@ -23,6 +23,7 @@
 @import '../tools/editors/switch_button.scss';
 @import '../tools/editors/timing_functions.scss';
 @import '../tools/editors/transform_editor.scss';
+@import '../tools/editors/loading_spinners_picker.scss';
 //
 
 .tabs_container{
@@ -63,4 +64,20 @@
     cursor: pointer;
     font-size: .9em;
     margin-inline-end:5px;
+}
+//
+.editor_btn{
+    border-radius: 3px;
+    background-color: var(--white-1);
+    color:var(--text-1);
+    margin:5px;
+    padding:5px;
+    box-shadow: 0 0 3px var(--shdw-20);
+    cursor: pointer;
+}
+.editor_btn:hover{
+    background-color: var(--white-2);
+}
+.editor_btn:active{
+    background-color: var(--white-1);
 }

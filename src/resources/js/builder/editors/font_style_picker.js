@@ -8,7 +8,7 @@ draw_font_style_picker = function(data){
     }).append(
         $('<div/>',{class:'recent_font_styles_list mB20'}),
         data.page_default_btn != false ? $('<div/>',{class:'row alnC jstfyE w100p'}).append(
-            $('<button/>',{class:'font_styles_list_font_page_default btn btn-cancel',text:texts.styling.use_page_default}),
+            $('<button/>',{class:'font_styles_list_font_page_default btn btn-cancel',text:texts.styling.use_default}),
         ) : null,
         $('<div/>',{class:'font_styles_list'})
     );
@@ -93,18 +93,18 @@ load_font_style = function(font_name){
 $('body').on('mouseup','.font_styles_list_font',function(){
     let elem;
     let editor = $(this).closest('.font_picker_editor');
-    console.log(editor.attr('key_tree'))
     if(!editor.attr('key_tree').includes('page_setup')){
-        elem = get_element_data(window.selected);
+        elem = get_element_data(editor.attr('key_tree'));
         window.used_font_styles = window.used_font_styles.filter(item => item !== elem.font_style[window.preview_language])
     }
     editor.find('.font_styles_list_font').removeClass('font_styles_list_font_selected');
     $(this).addClass('font_styles_list_font_selected')
     selected_font_name = $(this).attr('font_name');
     editor.find('.font_styles_list_font_page_default').removeClass('none')
+    editor.attr('key',window.preview_language)
     set_val(editor,selected_font_name)
     new_action(editor.attr('render'));
-    set_font_style_picker(editor);
+    // set_font_style_picker(editor);
     if(!editor.attr('key_tree').includes('page_setup')){
         elem = get_element_data(window.selected);
         window.used_font_styles  = window.used_font_styles.filter(item => item !== elem.font_style[window.preview_language]);
@@ -114,16 +114,17 @@ $('body').on('mouseup','.font_styles_list_font',function(){
 $('body').on('mouseup','.font_styles_list_font_page_default',function(){
     let elem = get_element_data(window.selected);
     let editor = $(this).closest('.font_picker_editor');
+    editor.attr('key',window.preview_language)
     editor.find('.font_styles_list_font').removeClass('font_styles_list_font_selected');
     $(this).addClass('none')
     set_val(editor,'')
-    new_action(editor.attr('render'));
+    new_action(window.selected);
     set_font_style_picker(editor);
     window.used_font_styles  = window.used_font_styles.filter(item => item !== elem.font_style[window.preview_language]);
 })
 //
 $('body').on('click','.select_font',function(e){
-    draw_editor_popup_text();
+    draw_editor_popup_text_style();
     editor_popup_to_child($('.editor_popup_container[key="text_font_style"]'))
 })
 set_editor_popup_scroll_to_load_font_styles = function(){

@@ -2,7 +2,7 @@ new_action = function( render_key_tree = '') {
     if(JSON.stringify(window.template) == JSON.stringify(window.template_edit_history[`_${window.template_current_edit}`])){
         return;
     }
-    unset_preview_mode();
+    // unset_preview_mode();
     // deheighlight_all();
     for (const key in window.template_edit_history) {
         if (parseInt(key.replace('_', '')) > window.template_current_edit) {
@@ -62,6 +62,9 @@ set_all_editors = function(){
     draw_color_palette(true);
     draw_custom_colors();
     draw_color_picker_popup();
+    if($('.edit_header_navList_container').length > 0){
+        draw_edit_header_navList();
+    }
     if($('.website_color_picker[is_selected="1"]').length > 0){
         try{
             set_dummy_select_range($('.website_color_picker_gradation'),window.template.website_colors.gradation[`${$('.website_color_picker[is_selected="1"]').attr('key')}_gradation`])
@@ -197,7 +200,9 @@ set_all_editors = function(){
             set_svg_icon_picker($(this))
         // }catch{}
     })
-
+    $('.loading_spinner_editor').each(function(){
+        set_loading_spinner_editor($(this))
+    })
     $('.editor_details_head').each(function(){
         try{
             set_editor_details($(this))
@@ -225,6 +230,10 @@ render = function(key_tree){
         render_page(window.selected_page)
         render_website_header();
         render_website_popup(window.selected_popup);
+        if(window.website_popup_opened == true){
+            open_website_popup(window.selected_popup,true,false)
+        }
+        render_form_elements();
     }else{
         key_tree = key_tree.split('-');
         for(const key in key_tree){
@@ -238,15 +247,30 @@ render = function(key_tree){
                 render_page(window.selected_page)
             }else{
                 let elem = get_element_data(key_tree[key]);
-                if($(`.${elem.class_selector}_container`).length > 0){
-                    $(`.${elem.class_selector}_container`).replaceWith(generate_html(elem,key_tree[key]))
+                // if(elem.general_html_content == '1'){
+                //     console.log(elem)
+                //     $(`.${elem.class_selector}`).each(function(){
+                //         let _key_tree = $(this).attr('key_tree');
+                //         generate_html(get_element_data(_key_tree),_key_tree)
+                //     })
+                // }
+                if(elem.general_class == '1'){
+                    generate_elem_style(elem)
                 }else{
-                    $(`.${elem.class_selector}`).replaceWith(generate_html(elem,key_tree[key]))
+                    if($(`.${elem.class_selector}_container`).length > 0){
+                        $(`.${elem.class_selector}_container`).replaceWith(generate_html(elem,key_tree[key]))
+                    }else if($(`.${elem.class_selector}`).length > 0){
+                        $(`.${elem.class_selector}`).replaceWith(generate_html(elem,key_tree[key]))
+                    }
                 }
+
             }
 
             if(key_tree[key] == 'popup_window' && window.website_popup_opened == true){
                 $('#website').find('.popup_container').removeClass('none')
+                if(window.selected_popup !== 'popup_window'){
+                    draw_popup(window.selected_popup)
+                }
             }
         }
     }
