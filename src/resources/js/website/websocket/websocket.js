@@ -10,7 +10,7 @@ window.Echo.connector.pusher.connection.bind('connected', () => {
         type:'POST',
     });
     setTimeout(()=>{
-        user_status({'status': `user_browse_${window.route}`})
+        user_status({'status': `user_browse_${window.page}`})
     },100)
 });
 

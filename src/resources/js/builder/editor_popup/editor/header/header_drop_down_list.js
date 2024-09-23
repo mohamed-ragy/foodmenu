@@ -5,7 +5,11 @@ draw_editor_header_drop_down_list = function(){
             draw_editors_container({
                 is_responsive:false,
                 editors:[
-                    $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
+                    $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none pointer editor_header_drop_down_list_item select',key_tree:'website_header.children.header_drop_down_list_item'}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.drop_down_list_item}),
+                        $('<div/>',{class:'fs08 ico-arrowRight'})
+                    ),
+                    $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.gap_between_items}),
                         draw_number_picker({
                             key_tree:window.selected,

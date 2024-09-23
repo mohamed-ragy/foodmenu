@@ -68,7 +68,7 @@ draw_four_number_pickers = function(data){
 set_four_number_pickers = function(editor){
     let val = get_editor_val(editor);
     let val_arr;
-    if(val == '--'){
+    if(val == '--' || val === undefined){
         val_arr = ('-- -- -- --').split(' ')
     }else{
         val_arr = val.split(' ')

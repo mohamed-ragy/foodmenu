@@ -41,7 +41,7 @@ class demo extends Seeder
     public function run()
     {
         $this->call([
-            // pizzeria::class,
+            pizzeria::class,
             americanDiner::class,
             // casualDining::class,
             // fineDining::class,

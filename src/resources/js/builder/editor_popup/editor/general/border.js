@@ -7,10 +7,13 @@ draw_editor_popup_border = function(){
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
+        if('styling_target' in elem){
+            key_tree = elem.styling_target.border ?? key_tree
+        }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled'],
+                interactions:['hover','click','focus','disabled','error'],
                 editors:[
                     draw_border_editor({
                         key_tree:key_tree,
@@ -32,7 +35,6 @@ $('body').on('click','.editor_border',function(e){
 })
 $('body').on('change','.editor_popup_border_editor',function(){
     let key_tree = $(this).attr('key_tree')
-    console.log('gaga'+key_tree)
     if(key_tree.includes('website_header')){
         try{
             generate_elem_style(get_element_data(`${window.selected_page}.0`))

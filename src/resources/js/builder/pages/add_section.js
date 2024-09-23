@@ -153,9 +153,9 @@ add_section = function(section,section_name_prefix){
     
     try{
         $('#website').animate({scrollTop:$(`section[key_tree="${window.selected_page}.${new_section_sort}"]`).position().top - 50},300)
+        select(`${window.selected_page}.${new_section_sort}`)
     }catch{}
     close_popup();
-    select(`${window.selected_page}.${new_section_sort}`)
 }
 //
 $('body').on('click','.add_section_blank',function(e){

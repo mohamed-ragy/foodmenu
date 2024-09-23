@@ -19,6 +19,7 @@ $('body').on('mousedown','.container',function(e){
 })
 $('body').on('contextmenu','.container',function(e){
     if($('.elem:hover').length > 0){return}
+
     show_contextMenu('container',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })
 $('body').on('dblclick','.container',function(e){

@@ -218,8 +218,10 @@ $('body').on('mouseup','.animation_preview_container',function(){
         elem.animation_mobile = {};
     }else if(responsive_key == 'desktop'){
         elem.animation = {};
+        if(!('animation_mobile' in elem)){elem.animation_mobile = get_default_style('animation')}
     }else if(responsive_key == 'mobile'){
         elem.animation_mobile = {};
+        if(!('animation' in elem)){elem.animation = get_default_style('animation')}
     }
     for(const key in animation){
         if(responsive_key == '0'){

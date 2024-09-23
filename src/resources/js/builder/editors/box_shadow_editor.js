@@ -45,6 +45,7 @@ draw_box_shadow_editor = function(data){
 }
 set_box_shadow_editor = function(editor){
     let val = get_editor_val(editor);
+    if(val == '--' || val === undefined){val = '--'}
     $(`.box_shadow_preview`).removeClass('box_shadow_preview_selected')
     if(val == 'none'){
         $(`.box_shadow_preview[key="none"]`).addClass('box_shadow_preview_selected')
@@ -61,6 +62,7 @@ set_box_shadow_editor = function(editor){
 }
 draw_customize_box_shadow = function(editor){
     let val = get_editor_val(editor);
+    if(val == '--' || val === undefined){val = 'none'}
     $('.editor_box_shadow_customize').text('')
     if(val == 'none'){return;}
     let shadows = val.split(', ')
@@ -180,6 +182,7 @@ $('body').on('change',`.box_shadow_type, .box_shadow_color, .box_shadow_offset_x
 $('body').on('click','.editor_popup_box_shadow_add_layer',function(){
     let editor = $(this).closest('.box_shadow_editor');
     let val = get_editor_val(editor);
+    if(val == '--' || val === undefined){val = 'none'}
     let new_val;
     if(val == 'none'){
         new_val = `rgba(var(--color_4_1),0.1) 0px 0px 0px 0px`;
@@ -197,6 +200,7 @@ $('body').on('click','.editor_popup_box_shadow_add_layer',function(){
 $('body').on('click','.editor_popup_box_shadow_remove_layer',function(){
     let editor = $(this).closest('.box_shadow_editor');
     let val = get_editor_val(editor);
+    if(val == '--' || val === undefined){val = 'none'}
     let remove_layer = $(this).attr('key');
     let shadows = val.split(', ');
     let new_shadows = [];

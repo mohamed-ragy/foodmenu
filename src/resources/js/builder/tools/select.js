@@ -1,13 +1,12 @@
 select = function(key_tree){
     // if(window.selected == key_tree){return;}
     // try{
-        if(typeof(key_tree) === 'undefined'){return;}
-        if(key_tree != window.selected){
+        if(typeof(key_tree) === 'undefined' || key_tree === null){return;}
+        if(key_tree != window.selected ){
             hide_editor_popup('editor')
         }
         console.log(`selected: ${key_tree}`)
         let elem = get_element_data(key_tree)
-        // key_tree = filter_key_tree(elem,key_tree)
         window.selected = key_tree;
         show_edit_btns(key_tree)
         $('section').removeClass('section_selected');
@@ -19,6 +18,9 @@ select = function(key_tree){
         $('.header_component').removeClass('header_component_selected')
         $('.header_navList_item').removeClass('header_component_selected')
         $('#website').find('.popup_card').removeClass('popup_window_selected')
+        $('.form_elements').removeClass('form_elements_selected')
+        $('.form_element').removeClass('form_element_selected')
+
         hide_header_drop_down_list();   
         let selection = window.getSelection();
         selection.removeAllRanges();
@@ -59,11 +61,15 @@ select = function(key_tree){
             break;
             //popup window
             case 'popup_card':
-                if(window.website_popup_opened){
-                    $('#website').find('.popup_card').addClass('popup_window_selected')
-                }else{
-                    open_website_popup('popup_widnow',false,false);
-                }
+                $('.current_page_name').text(texts.website_pages[window.selected_page]);
+                $('#website').find('.popup_card').addClass('popup_window_selected')
+            break;
+            //form elements 
+            case 'form_elements':
+                $('.form_elements').addClass('form_elements_selected')
+            break;
+            case 'form_element':
+                $(`.form_element[key_tree="${key_tree}"]`).addClass('form_element_selected')
             break;
         }
         if(key_tree == 'form_elements.form_loading_spinner'){
@@ -72,6 +78,11 @@ select = function(key_tree){
         }else{
             $('.website_form').children().not('.form_loading_spinner').removeClass('vH')
             $('.website_form').find('.form_loading_spinner').addClass('none')
+        }
+        if(window.selected_popup === null){
+            $('.current_page_name').text(texts.website_pages[window.selected_page])
+        }else{
+            $('.current_page_name').text(texts.website_pages[window.selected_popup])
         }
     // }catch{
     //     hide_editor_popup('editor')
@@ -90,6 +101,8 @@ unselect = function(){
     $('.header_component').removeClass('header_component_selected')
     $('.header_navList_item').removeClass('header_component_selected')
     $('#website').find('.popup_card').removeClass('popup_window_selected')
+    $('.form_elements').removeClass('form_elements_selected')
+    $('.form_element').removeClass('form_element_selected')
     hide_header_drop_down_list();   
     let selection = window.getSelection();
     selection.removeAllRanges();

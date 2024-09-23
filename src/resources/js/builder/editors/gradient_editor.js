@@ -36,7 +36,7 @@ draw_gradient_editor = function(data){
 
 set_gradient_editor = function(editor){
     let val = get_editor_val(editor);
-    if(val == '--'){return}
+    if(val == '--' || val == undefined){return}
     val = val.split(', ')
     if(val[0].includes('linear-gradient')){
         set_dummy_select_box(editor.find('.gradient_editor_type'),'linear');
@@ -60,7 +60,7 @@ color_gradient_editor_colors_position = function(editor){
 }
 draw_gradient_editor_colors = function(editor){
     let val = get_editor_val(editor);
-    if(val == '--'){return}
+    if(val == '--' || val == undefined){return}
     val = val.split(', ');
     let this_color_picker;
     $('.gradient_editor_colors').text('')

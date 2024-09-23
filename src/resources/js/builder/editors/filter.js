@@ -135,8 +135,8 @@ draw_filter_editor = function(data){
 }
 set_filter_editor = function(editor){
     let val = get_editor_val(editor);
-    if(val == '--'){
-        val = get_default_style('filter').split(' ')
+    if(val == '--' || val === undefined){
+        val = get_default_style('filter_undefined').split(' ')
     }else{
         val = val.split(' ');
     }
@@ -170,8 +170,9 @@ set_filter_editor = function(editor){
 
 set_filter_val = function(editor,filter,filter_val){
     let val = get_editor_val(editor);
-    if(val === null){
+    if(val === null || val === undefined){
         val = get_default_style('filter').split(' ')
+        filter = null;
     }else{
         val = val.split(' ');
     }

@@ -50,6 +50,7 @@ class activityLog extends Model
         'old_timeZone','new_timeZone',
         'old_icon','new_icon',
         'old_logo','new_logo',
+        'old_metaImg','new_metaImg',
         //
         'old_phone','new_phone',
         'old_email','new_email',

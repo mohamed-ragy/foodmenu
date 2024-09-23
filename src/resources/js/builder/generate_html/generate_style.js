@@ -27,13 +27,6 @@ generate_elem_style = function(elem){
     let style_obj = {};
     for(const key in elem.css){
         let val = elem.css[key];
-        // if('animation' in elem){
-        //     if(elem.animation.name != 'no_animation' || elem.animation_mobile.name != 'no_animation'){
-        //         if(key == 'transform-origin'){val = 'unset'}
-        //         if(key == 'transform'){val = 'unset'}
-        //         if(key == 'filter'){val = 'unset'}
-        //     }
-        // }
         style_obj[key] = val;
     }
     if('font_style' in elem){
@@ -57,6 +50,7 @@ generate_elem_style = function(elem){
         for(const key in elem.css_mobile){
             style_obj[key] = elem.css_mobile[key];
         }
+        if('background' in elem){set_background_style(elem.background,style_obj);}
         if('background_mobile' in elem){set_background_style(elem.background_mobile,style_obj);}
         if(elem.type == 'section' && elem.has_driver == '1'){style_obj[`padding-${elem.driver.position}`] = elem.driver.css_mobile.height}
         if(elem.type == 'section' && elem.sort == 0 && elem.attr.adapt_header == '1'){
@@ -82,24 +76,37 @@ generate_elem_style = function(elem){
 
     genrate_elem_style_class(elem,`.${elem.class_selector}`,'',style_obj);
     if('accessibility' in elem){
+        if(elem.accessibility.includes('error')){
+            let style_obj_error = {};
+            for(const key in elem.css_error){
+                let val = elem.css_error[key];
+                style_obj_error[key] = val;
+            }
+            if(window.current_view == 'mobile'){
+                for(const key in elem.css_error){
+                    style_obj_error[key] = elem.css_error[key];
+                }
+                if('background_error_mobile' in elem){
+                    set_background_style(elem.background_error_mobile,style_obj_error);
+                }
+            }else{
+                if('background_error' in elem){
+                    set_background_style(elem.background_error,style_obj_error);
+                }
+            }
+            genrate_elem_style_class(elem,`.${elem.class_selector}_error, .${elem.class_selector}_error:hover, .${elem.class_selector}_error:focus`,'',style_obj_error);
+        }
         if(elem.accessibility.includes('hyperlink')){
             genrate_elem_style_class(elem,`.${elem.class_selector} a`,'',{
                 color:elem.css_hyperlink.color,
                 'text-decoration':elem.css_hyperlink['text-decoration']
-            })
-        }
-        if( elem.accessibility.includes('placeholder')){
-            let style_obj_placeholder = {};
-            for(const key in elem.css_placeholder){
-                let val = elem.css_placeholder[key];
-                style_obj_placeholder[key] = val;
+            });
+            if(elem.accessibility.includes('hover')){
+                genrate_elem_style_class(elem,`.${elem.class_selector} a`,':hover',{
+                    color:elem.css_hyperlink_hover.color,
+                    'text-decoration':elem.css_hyperlink_hover['text-decoration']
+                })
             }
-            if(window.current_view == 'mobile'){
-                for(const key in elem.css_placeholder_mobile){
-                    style_obj_placeholder[key] = elem.css_placeholder_mobile[key];
-                }
-            }
-            genrate_elem_style_class(elem,`.${elem.class_selector}`,'::placeholder',style_obj_placeholder)
         }
         if( elem.accessibility.includes('click') ){
             let style_obj_click = {};
@@ -213,6 +220,19 @@ generate_elem_style = function(elem){
         }
 
     }
+    if('css_placeholder' in elem){
+        let style_obj_placeholder = {};
+        for(const key in elem.css_placeholder){
+            let val = elem.css_placeholder[key];
+            style_obj_placeholder[key] = val;
+        }
+        if(window.current_view == 'mobile'){
+            for(const key in elem.css_placeholder_mobile){
+                style_obj_placeholder[key] = elem.css_placeholder_mobile[key];
+            }
+        }
+        genrate_elem_style_class(elem,`.${elem.class_selector}`,'::placeholder',style_obj_placeholder)
+    }
     if('css_children' in elem){
         for(const key in elem.css_children){
             apply_css_rule(`.${elem.class_selector} ${key}`,elem.css_children[key],elem.vars)
@@ -236,7 +256,7 @@ genrate_elem_style_class = function(elem,selector,selector_prefix,style_obj){
         if('transition-timing-function' in style_obj){style_container_obj['transition-timing-function'] = style_obj['transition-timing-function'];}
         style_obj['width'] = '100%';
         style_obj['height'] = '100%';
-    }else if(elem.type == 'elem' || elem.type == 'container'){
+    }else if(elem.type == 'elem' || elem.type == 'container' || elem.type == 'form_elements'){
         if('width' in style_obj){style_container_obj['width'] = style_obj['width']; style_obj['width'] = '100%'}
         if('height' in style_obj){style_container_obj['height'] = style_obj['height']; style_obj['height'] = '100%'}
         if('min-width' in style_obj){style_container_obj['min-width'] = style_obj['min-width']; delete style_obj['min-width']}

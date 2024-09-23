@@ -22,7 +22,7 @@ set_responsive_selector = function(){
                 let key = $(this).attr('key');
                 let elem = get_element_data(key_tree);
                 let val = get_element_val(elem,variable_key,key)
-                if(val.val !== val.val_mobile && typeof(val.val_mobile) !== 'undefined'){
+                if(val.val !== val.val_mobile){
                     is_general = false;
                 }
             }
@@ -57,5 +57,6 @@ get_responseive_key = function(editor){
 $('body').on('click','.responsive_selector',function(){
     $('.responsive_selector').removeClass('responsive_selector_selected');
     $(this).addClass('responsive_selector_selected')
+    editor_popup_to_parent($('.editor_popup_container[key="select_animation"]'),true)
     set_all_editors();
 })

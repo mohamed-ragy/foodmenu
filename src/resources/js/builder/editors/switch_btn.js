@@ -23,7 +23,7 @@ set_switch_btn = function(editor){
             for(const key in show_hide){
                 $(`.${show_hide[key]}`).removeClass('none')
             }
-        }else if(val == '0'){
+        }else{
             for(const key in show_hide){
                 $(`.${show_hide[key]}`).addClass('none')
             }

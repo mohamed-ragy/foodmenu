@@ -45,7 +45,7 @@ set_number_picker = function(editor){
             }
         }
         editor.find('.number_picker_unit_select').text(val_unit)
-        if(val_unit == 'auto'){
+        if(val_unit == 'auto' || val_unit == 'inherit'){
             editor.find('.number_picker_input').val('')
         }else{
             editor.find('.number_picker_input').val(val_num)
@@ -53,7 +53,7 @@ set_number_picker = function(editor){
     }
 }
 set_dummy_number_picker = function(editor,val){
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         editor.find('.number_picker_input').val('--')
         editor.find('.number_picker_unit_select').text('--')
     }else{
@@ -67,7 +67,7 @@ set_dummy_number_picker = function(editor,val){
             }
         }
         editor.find('.number_picker_unit_select').text(val_unit)
-        if(val_unit == 'auto'){
+        if(val_unit == 'auto' || val_unit == 'inherit'){
             editor.find('.number_picker_input').val('')
         }else{
             editor.find('.number_picker_input').val(val_num)
@@ -81,6 +81,12 @@ $('body').on('change','.number_picker_input',function(e){
         $(this).val('');
         set_val($(this),'auto')
         new_action(editor.attr('render'));
+        set_number_picker(editor)
+        return;
+    }else if(editor.find('.number_picker_unit_select').text() == 'inherit'){
+        $(this).val('');
+        set_val($(this),'inherit');
+        new_action(editor.attr('render'))
         set_number_picker(editor)
         return;
     }
@@ -135,6 +141,10 @@ $('body').on('mousedown','.number_picker_btn',function(e){
         $(this).val('');
         return;
     }
+    if(editor.find('.number_picker_unit_select').text() == 'inherit'){
+        $(this).val('');
+        return;
+    }
     let step = parseFloat(editor.attr('step'));
     let val_num = editor.find('.number_picker_input').val();
     if(val_num == '--' ){
@@ -155,6 +165,10 @@ $('body').on('mousedown','.number_picker_btn',function(e){
 $('body').on('mouseup','.number_picker_btn',function(e){
     let editor = $(this).closest('.editor');
     if(editor.find('.number_picker_unit_select').text() == 'auto'){
+        $(this).val('');
+        return;
+    }
+    if(editor.find('.number_picker_unit_select').text() == 'inherit'){
         $(this).val('');
         return;
     }

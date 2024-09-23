@@ -82,377 +82,378 @@ class websiteController extends Controller
         })->except(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
 
         $this->middleware(function ($request, $next) {
-            // $domain = explode('.', request()->getHost());
-            // $this->website = website::where('url' , preg_replace('/^www./', '',request()->gethost()))->orWhere('domainName' , $domain[0] )
-            // ->select(
-            //     'id','active','subscription_status','url',
-            //     'phoneNumbers',
-            //     'addresses',
-            //     'restaurantEmail',
-            //     'lat','lng',
-            //     'url',
-            //     'timeZone','hour12',
-            //     'currencies',
-            //     'websiteNames',
-            //     'websiteDescriptions',
-            //     'website_announcements',
+            $domain = explode('.', request()->getHost());
+            $this->website = website::where('url' , preg_replace('/^www./', '',request()->gethost()))->orWhere('domainName' , $domain[0] )
+            ->select(
+                'id','active','subscription_status','url',
+                'phoneNumbers',
+                'addresses',
+                'restaurantEmail',
+                'lat','lng',
+                'url',
+                'timeZone','hour12',
+                'currencies',
+                'websiteNames',
+                'websiteDescriptions',
+                'website_announcements',
 
-            //     'website_privacyPolicy',
+                'website_privacyPolicy',
 
-            //     'languages',
-            //     'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
-            //     'domainName','specialDomainName',
-            //     'trendingProducts',
+                'languages',
+                'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
+                'domainName','specialDomainName',
+                'trendingProducts',
 
-            //     'website_colors','useCustomColors','customColorsHexCode',
-            //     'icon','logo','template',
-            //     'intro',
-            //     'info',
-            //     'ourStory',
-            //     'slideShow',
-            //     'gallery',
+                'website_colors','useCustomColors','customColorsHexCode',
+                'icon','logo','template',
+                'intro',
+                'info',
+                'ourStory',
+                'slideShow',
+                'gallery',
 
-            //     'productReviews',
-            //     'guestReviews',
-            //     'collectReviews',
-            //     'guestOrders',
-            //     'cancelOrder',
-            //     'dineinWorkingHours',
-            //     'liveChat',
-            //     'guestLiveChat',
-            //     'discountAnnouncement',
-            //     'langPopup',
-            //     'cookies_msg',
-            //     'cart_lifeTime',
-            //     'fastLoading',
+                'productReviews',
+                'guestReviews',
+                'collectReviews',
+                'guestOrders',
+                'cancelOrder',
+                'dineinWorkingHours',
+                'liveChat',
+                'guestLiveChat',
+                'discountAnnouncement',
+                'langPopup',
+                'cookies_msg',
+                'cart_lifeTime',
+                'fastLoading',
 
-            //     'useDelivery',
-            //     'cash_on_delivery','card_on_delivery',
-            //     'acceptDeliveryOrders24',
-            //     'deliveryCost','showDeliveryCostChangable',
-            //     'deliveryTaxCost','deliveryTaxPercentage','useDeliveryTaxCost',
-            //     'deliveryMinimumCharge','deliveryMinimumChargeIncludes',
-            //     'workingDays_delivery',
-            //     'averageDeliveryTime',
+                'useDelivery',
+                'cash_on_delivery','card_on_delivery',
+                'acceptDeliveryOrders24',
+                'deliveryCost','showDeliveryCostChangable',
+                'deliveryTaxCost','deliveryTaxPercentage','useDeliveryTaxCost',
+                'deliveryMinimumCharge','deliveryMinimumChargeIncludes',
+                'workingDays_delivery',
+                'averageDeliveryTime',
 
-            //     'usePickup',
-            //     'cash_at_restaurant','card_at_restaurant',
-            //     'acceptPickupOrders24',
-            //     'pickupTaxCost','pickupTaxPercentage','usePickupTaxCost',
-            //     'pickupMinimumCharge','pickupMinimumChargeIncludes',
-            //     'workingDays_pickup',
-            //     'averagePickupTime',
+                'usePickup',
+                'cash_at_restaurant','card_at_restaurant',
+                'acceptPickupOrders24',
+                'pickupTaxCost','pickupTaxPercentage','usePickupTaxCost',
+                'pickupMinimumCharge','pickupMinimumChargeIncludes',
+                'workingDays_pickup',
+                'averagePickupTime',
 
-            //     'workingDays_dinein',
+                'workingDays_dinein',
 
-            //     'created_at',
-            //     'updated_at',
-            // )
-            // // ->with(['website_texts'=>function($q) use ($request){
-            // //     $q->select([$request->lang,'website_id']);
-            // // }])
-            // ->with(['categories'=>function($q){
-            //     $q->orderBy('sort','asc');
+                'created_at',
+                'updated_at',
+            )
+            // ->with(['website_texts'=>function($q) use ($request){
+            //     $q->select([$request->lang,'website_id']);
             // }])
-            // ->with(['products'=>function($q){
-            //     $q->orderBy('sort','asc')->where('category_id','!=',null)->with(['product_options'=>function($q2){
-            //         $q2->orderBy('sort','asc')->with(['product_option_selections' => function($q3){
-            //             $q3->orderBy('sort','asc');
-            //         }]);
-            //     }]);
-            // }])
-            // ->first();
+            ->with(['categories'=>function($q){
+                $q->orderBy('sort','asc');
+            }])
+            ->with(['products'=>function($q){
+                $q->orderBy('sort','asc')->where('category_id','!=',null)->with(['product_options'=>function($q2){
+                    $q2->orderBy('sort','asc')->with(['product_option_selections' => function($q3){
+                        $q3->orderBy('sort','asc');
+                    }]);
+                }]);
+            }])
+            ->first();
 
-            // if(!$this->website){return abort(404);}
-            // $this->website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$this->website->website_colors];
+            if(!$this->website){return abort(404);}
+            $this->website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$this->website->website_colors];
 
-            // dd(request()->gethost().' '.$this->website->url);
-            // if(request()->gethost() != $this->website->url){
-            //     return redirect()->to(env('APP_URL_HTTP').$this->website->url);
-            // }
+            dd(request()->gethost().' '.$this->website->url);
+            if(request()->gethost() != $this->website->url){
+                return redirect()->to(env('APP_URL_HTTP').$this->website->url);
+            }
 
-            // if($this->website->template == 'demo'){
-            //     if($request->t){
-            //         Cookie::queue(Cookie::make('demoT',$request->t,9999999999));
-            //         $this->website->template = $request->t;
-            //     }else{
-            //         if(Cookie::get('demoT')){
-            //             $this->website->template = Cookie::get('demoT');
-            //         }else{
-            //             // return redirect to examples or whatever
-            //         }
-            //     }
-            //     if(!isset(foodmenuFunctions::templates()[$this->website->template])){
-            //             // return redirect to examples or whatever
-            //         }
-            //     if(strtolower(foodmenuFunctions::templates()[$this->website->template]['restaurantType']) != strtolower($this->website->domainName)){
-            //         // return redirect to examples or whatever
-            //         return redirect()->to(env('APP_URL_HTTP').foodmenuFunctions::templates()[$this->website->template]['restaurantType'].'.'.env('APP_DOMAIN').'/en/home?t='.$this->website->template);
-            //     }
-            //     $this->website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[foodmenuFunctions::templates()[$this->website->template]['colors']];
-            //     $this->website->isDemo = true;
-            // }else{
-            //     $this->website->isDemo = false;
-            // }
-
-
-            // $this->website->templateData = foodmenuFunctions::templates()[$this->website->template];
-
-            // $langCheck = [];
-            // $defaultLang = '';
-            // foreach($this->website->languages as $lang){
-            //     array_push($langCheck,$lang['code']);
-            //     if($lang['websiteDefault']){
-            //         $defaultLang = $lang['code'];
-            //     }
-            // }
-            // if(in_array($request->lang,$langCheck)){
-            //     App::setLocale($request->lang);
-            //     $this->lang = $request->lang;
-            //     Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$request->lang,9999999999999));
-            // }else{
-            //     App::setLocale($defaultLang);
-            //     $this->lang = $defaultLang;
-            //     Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$this->lang,9999999999999));
-            //     return redirect()->route('website_home',['lang'=>$this->lang]);
-            // }
-
-            // if($this->website->subscription_status != 'trialing' && $this->website->subscription_status != 'active' && $this->website->subscription_status != 'past_due'){
-            //     if($request->route()->getName() != 'websiteNotActive'){
-            //         return redirect()->route('websiteNotActive',['lang' => $this->lang]);
-            //     }
-            // }else if($this->website->active == false){
-            //     if($request->route()->getName() != 'websiteNotActive'){
-            //         return redirect()->route('websiteNotActive',['lang' => $this->lang]);
-            //     }
-            // }else{
-            //     if($request->route()->getName() == 'websiteNotActive'){
-            //         return redirect('/');
-            //     }
-            // }
+            if($this->website->template == 'demo'){
+                if($request->t){
+                    Cookie::queue(Cookie::make('demoT',$request->t,9999999999));
+                    $this->website->template = $request->t;
+                }else{
+                    if(Cookie::get('demoT')){
+                        $this->website->template = Cookie::get('demoT');
+                    }else{
+                        // return redirect to examples or whatever
+                    }
+                }
+                if(!isset(foodmenuFunctions::templates()[$this->website->template])){
+                        // return redirect to examples or whatever
+                    }
+                if(strtolower(foodmenuFunctions::templates()[$this->website->template]['restaurantType']) != strtolower($this->website->domainName)){
+                    // return redirect to examples or whatever
+                    return redirect()->to(env('APP_URL_HTTP').foodmenuFunctions::templates()[$this->website->template]['restaurantType'].'.'.env('APP_DOMAIN').'/en/home?t='.$this->website->template);
+                }
+                $this->website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[foodmenuFunctions::templates()[$this->website->template]['colors']];
+                $this->website->isDemo = true;
+            }else{
+                $this->website->isDemo = false;
+            }
 
 
+            $this->website->templateData = foodmenuFunctions::templates()[$this->website->template];
 
-            // if(Auth::guard('user')->check()){
-            //     if(Auth::guard('user')->user()->isBanned == true){
-            //         Auth::guard('user')->logout();
-            //         $request->session()->invalidate();
-            //         $request->session()->regenerateToken();
-            //         return redirect('/');
-            //     }
+            $langCheck = [];
+            $defaultLang = '';
+            foreach($this->website->languages as $lang){
+                array_push($langCheck,$lang['code']);
+                if($lang['websiteDefault']){
+                    $defaultLang = $lang['code'];
+                }
+            }
+            if(in_array($request->lang,$langCheck)){
+                App::setLocale($request->lang);
+                $this->lang = $request->lang;
+                Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$request->lang,9999999999999));
+            }else{
+                App::setLocale($defaultLang);
+                $this->lang = $defaultLang;
+                Cookie::queue(Cookie::make(Str::slug(request()->getHost().'_lang', '_'),$this->lang,9999999999999));
+                return redirect()->route('website_home',['lang'=>$this->lang]);
+            }
 
-            // }
+            if($this->website->subscription_status != 'trialing' && $this->website->subscription_status != 'active' && $this->website->subscription_status != 'past_due'){
+                if($request->route()->getName() != 'websiteNotActive'){
+                    return redirect()->route('websiteNotActive',['lang' => $this->lang]);
+                }
+            }else if($this->website->active == false){
+                if($request->route()->getName() != 'websiteNotActive'){
+                    return redirect()->route('websiteNotActive',['lang' => $this->lang]);
+                }
+            }else{
+                if($request->route()->getName() == 'websiteNotActive'){
+                    return redirect('/');
+                }
+            }
 
 
 
+            if(Auth::guard('user')->check()){
+                if(Auth::guard('user')->user()->isBanned == true){
+                    Auth::guard('user')->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+                    return redirect('/');
+                }
 
-            // $this->website_id = $this->website->id;
-            // $this->website->availableLangs = foodmenuFunctions::languages();
+            }
 
-            // $this->website->website_texts[$this->lang] = websiteText::where(['website_id'=>$this->website_id,'lang'=>$this->lang])->pluck('text')->first();
 
-            // $imgsIds = [];
-            // if($this->website->icon != null){array_push($imgsIds,$this->website->icon);}
-            // if($this->website->logo != null){array_push($imgsIds,$this->website->logo);}
-            // foreach($this->website->products as $product){if($product->img_id != null){array_push($imgsIds,$product->img_id);}}
-            // foreach($this->website->categories as $car){if($car->img_id != null){array_push($imgsIds,$car->img_id);}}
-            // if($this->website->intro['img'] != 'template'){array_push($imgsIds,$this->website->intro['img']);}
-            // if($this->website->info['img'] != 'template'){array_push($imgsIds,$this->website->info['img']);}
-            // if($this->website->ourStory['img'] != 'template'){array_push($imgsIds,$this->website->ourStory['img']);}
-            // foreach(explode('.',$this->website->gallery) as $galleryImgId){
-                // array_push($imgsIds,$galleryImgId);
-            // }
-            // foreach($this->website->slideShow['content'] as $slideShowImg){
-                // array_push($imgsIds,$slideShowImg['imgId']);
-            // }
-            // $imgsIds = array_unique($imgsIds);
-            // $this->imgs = img::where('website_id',$this->website_id)->whereIn('id',$imgsIds)->select('id','url','thumbnailUrl')->get();
-            // $this->websiteIcon = '/storage/imgs/templates/'.$this->website->template.'/icon.webp';
-            // $this->websiteLogo = '/storage/imgs/templates/'.$this->website->template.'/logo.webp';
-            // if($this->website->templateData['imgsType'] == 'normal'){
-            //     $this->metaImg = '/storage/imgs/templates/'.$this->website->template.'/intro.webp';
-            // }else if($this->website->templateData['imgsType'] == 'trans'){
-            //     $this->metaImg = '/storage/imgs/templates/trans/'.$this->website->template.'/intro.webp';
-            // }
-            // foreach($this->imgs as $img){
-            //     if($img->id == $this->website->icon){
-            //         $this->websiteIcon = '/storage/'.$img->thumbnailUrl;
-            //     }
-            //     if($img->id == $this->website->logo){
-            //         $this->websiteLogo = '/storage/'.$img->url;
-            //     }
-            // }
-            // if($this->website->intro['img'] != 'template'){
-            //     $this->metaImg = '/storage/'.$this->imgs->where('id',$this->website->intro['img'])->first()->url;
-            // }
-            // $this->customersReviews = product_review::where([
-            //     'website_id'=>$this->website_id,
-            //     'rate' => 5,
-            // ])
-            // ->inRandomOrder()->limit(10)->get();
-            // $this->website->lastCompleteOrder = null;
-            // if(Auth::guard('user')->check() && Auth::guard('user')->user()->website_id == $this->website_id){
-                // if(Carbon::make(Auth::guard('user')->user()->cart_lastUpdate) < Carbon::now()->subMinutes($this->website->cart_lifeTime)->timestamp){
-                //     User::where(['id' => Auth::guard('user')->user()->id ])->update(['lastSeen' => Carbon::now()->timestamp ,'cart'=>'{}','cart_lastUpdate'=>Carbon::now()->timestamp]);
-                // }else{
-                    // User::where(['id' => Auth::guard('user')->user()->id ])->update(['lastSeen' => Carbon::now()->timestamp]);
-                // }
-                // $this->website->liveChat = liveChat::where(['website_id'=>$this->website_id,'user_id'=>Auth::guard('user')->user()->id])->orderBy('sent_at','desc')->limit(30)->get();
-                // if($this->website->collectReviews == true){
-                //     $lastCompleteOrder = order::where([
-                //         'website_id' => $this->website_id,
-                //         'user_id' => Auth::guard('user')->user()->id,
-                //         'collectReviewSeen' => false,
-                //     ])
-                //     ->whereIn('status',[5,6,7])
-                //     ->with('order_items')
-                //     ->orderBy('placed_at','desc')
-                //     ->first();
-                //     // if(isset($lastCompleteOrder->order_items)){
-                //     if(isset($lastCompleteOrder->order_items) && $lastCompleteOrder->collectReviewSeen == false){
-                //         order::where('id',$lastCompleteOrder->id)->update(['collectReviewSeen'=>true]);
-                //         foodmenuFunctions::notification('orders.collectReviewSeen',null,[
-                //             'order_id' => $lastCompleteOrder->_id,
-                //         ]);
-                //         $this->website->lastCompleteOrder = $lastCompleteOrder;
-                //     }
-                // }
-            // }else{
-            //     if(!Auth::guard('guest')->check() || Auth::guard('guest')->user()->website_id != $this->website_id){
-            //         $guest  = new guest();
-            //         $guest->number = guest::where('website_id',$this->website_id)->count() +1;
-            //         $guest->name = 'Guest '.$guest->number;
-            //         $guest->password = bcrypt(Str::random(10));
-            //         $guest->ip = $request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip();
-            //         $guest->lastSeen = Carbon::now()->timestamp;
-            //         $guest->website_id = $this->website_id;
-            //         $guest->save();
-            //         Auth::guard('guest')->login($guest,$remember = true);
-            //         $request->session()->regenerate();
-            //     }else{
-            //         guest::where('id',Auth::guard('guest')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
-            //     }
-            // }
+
+
+            $this->website_id = $this->website->id;
+            $this->website->availableLangs = foodmenuFunctions::languages();
+
+            $this->website->website_texts[$this->lang] = websiteText::where(['website_id'=>$this->website_id,'lang'=>$this->lang])->pluck('text')->first();
+
+            $imgsIds = [];
+            if($this->website->icon != null){array_push($imgsIds,$this->website->icon);}
+            if($this->website->logo != null){array_push($imgsIds,$this->website->logo);}
+            foreach($this->website->products as $product){if($product->img_id != null){array_push($imgsIds,$product->img_id);}}
+            foreach($this->website->categories as $car){if($car->img_id != null){array_push($imgsIds,$car->img_id);}}
+            if($this->website->intro['img'] != 'template'){array_push($imgsIds,$this->website->intro['img']);}
+            if($this->website->info['img'] != 'template'){array_push($imgsIds,$this->website->info['img']);}
+            if($this->website->ourStory['img'] != 'template'){array_push($imgsIds,$this->website->ourStory['img']);}
+            foreach(explode('.',$this->website->gallery) as $galleryImgId){
+                array_push($imgsIds,$galleryImgId);
+            }
+            foreach($this->website->slideShow['content'] as $slideShowImg){
+                array_push($imgsIds,$slideShowImg['imgId']);
+            }
+            $imgsIds = array_unique($imgsIds);
+            $this->imgs = img::where('website_id',$this->website_id)->whereIn('id',$imgsIds)->select('id','url','thumbnailUrl')->get();
+            $this->websiteIcon = '/storage/imgs/templates/'.$this->website->template.'/icon.webp';
+            $this->websiteLogo = '/storage/imgs/templates/'.$this->website->template.'/logo.webp';
+            if($this->website->templateData['imgsType'] == 'normal'){
+                $this->metaImg = '/storage/imgs/templates/'.$this->website->template.'/intro.webp';
+            }else if($this->website->templateData['imgsType'] == 'trans'){
+                $this->metaImg = '/storage/imgs/templates/trans/'.$this->website->template.'/intro.webp';
+            }
+            foreach($this->imgs as $img){
+                if($img->id == $this->website->icon){
+                    $this->websiteIcon = '/storage/'.$img->thumbnailUrl;
+                }
+                if($img->id == $this->website->logo){
+                    $this->websiteLogo = '/storage/'.$img->url;
+                }
+            }
+            if($this->website->intro['img'] != 'template'){
+                $this->metaImg = '/storage/'.$this->imgs->where('id',$this->website->intro['img'])->first()->url;
+            }
+            $this->customersReviews = product_review::where([
+                'website_id'=>$this->website_id,
+                'rate' => 5,
+            ])
+            ->inRandomOrder()->limit(10)->get();
+            $this->website->lastCompleteOrder = null;
+            if(Auth::guard('user')->check() && Auth::guard('user')->user()->website_id == $this->website_id){
+                if(Carbon::make(Auth::guard('user')->user()->cart_lastUpdate) < Carbon::now()->subMinutes($this->website->cart_lifeTime)->timestamp){
+                    User::where(['id' => Auth::guard('user')->user()->id ])->update(['lastSeen' => Carbon::now()->timestamp ,'cart'=>'{}','cart_lastUpdate'=>Carbon::now()->timestamp]);
+                }else{
+                    User::where(['id' => Auth::guard('user')->user()->id ])->update(['lastSeen' => Carbon::now()->timestamp]);
+                }
+                $this->website->liveChat = liveChat::where(['website_id'=>$this->website_id,'user_id'=>Auth::guard('user')->user()->id])->orderBy('sent_at','desc')->limit(30)->get();
+                if($this->website->collectReviews == true){
+                    $lastCompleteOrder = order::where([
+                        'website_id' => $this->website_id,
+                        'user_id' => Auth::guard('user')->user()->id,
+                        'collectReviewSeen' => false,
+                    ])
+                    ->whereIn('status',[5,6,7])
+                    ->with('order_items')
+                    ->orderBy('placed_at','desc')
+                    ->first();
+                    // if(isset($lastCompleteOrder->order_items)){
+                    if(isset($lastCompleteOrder->order_items) && $lastCompleteOrder->collectReviewSeen == false){
+                        order::where('id',$lastCompleteOrder->id)->update(['collectReviewSeen'=>true]);
+                        foodmenuFunctions::notification('orders.collectReviewSeen',null,[
+                            'order_id' => $lastCompleteOrder->_id,
+                        ]);
+                        $this->website->lastCompleteOrder = $lastCompleteOrder;
+                    }
+                }
+            }else{
+                if(!Auth::guard('guest')->check() || Auth::guard('guest')->user()->website_id != $this->website_id){
+                    $guest  = new guest();
+                    $guest->number = guest::where('website_id',$this->website_id)->count() +1;
+                    $guest->name = 'Guest '.$guest->number;
+                    $guest->password = bcrypt(Str::random(10));
+                    $guest->ip = $request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip();
+                    $guest->lastSeen = Carbon::now()->timestamp;
+                    $guest->website_id = $this->website_id;
+                    $guest->save();
+                    Auth::guard('guest')->login($guest,$remember = true);
+                    $request->session()->regenerate();
+                }else{
+                    guest::where('id',Auth::guard('guest')->user()->id)->update(['lastSeen'=>Carbon::now()->timestamp]);
+                }
+            }
 
             return $next($request);
         })->only(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
     }
-    public function userLogin(Request $request)
-    {
-        if($request->remember == 1){
-            $remember = true;
-        }else if($request->remember == 0){
-            $remember = false;
-        }
-        $userBanCheck = User::where('email',$request->email)->pluck('isBanned')->first();
-        if($userBanCheck == 1){
-            return response(['loginStats' => 2 ]);
-        }else{
-            if(Auth::guard('user')->attempt(['email' => $request->email , 'password' => $request->password, 'website_id' => $this->website_id ],$remember)){
-                Auth::guard('guest')->logout();
-                // if(Auth::guard('user')->user()->cart == '[]'){
-                //     User::where('id',Auth::guard('user')->user()->id)->update(['cart'=>Cookie::get(website::where('id',Auth::guard('user')->user()->website_id)->pluck('domainName')->first().'_cart') ?? '[]']);
-                // }
-                if($request->loginCart != null || $request->loginCart != ''){
-                    User::where('id',Auth::guard('user')->user()->id)->update(['cart' => $request->loginCart]);
-                }
-                return response(['loginStats' => 1]);
-            }else{
-                return response(['loginStats' => 0 ]);
-            }
-        }
+    // public function userLogin(Request $request)
+    // {
+    //     if($request->remember == 1){
+    //         $remember = true;
+    //     }else if($request->remember == 0){
+    //         $remember = false;
+    //     }
+    //     $userBanCheck = User::where('email',$request->email)->pluck('isBanned')->first();
+    //     if($userBanCheck == 1){
+    //         return response(['loginStats' => 2 ]);
+    //     }else{
+    //         if(Auth::guard('user')->attempt(['email' => $request->email , 'password' => $request->password, 'website_id' => $this->website_id ],$remember)){
+    //             Auth::guard('guest')->logout();
+    //             // if(Auth::guard('user')->user()->cart == '[]'){
+    //             //     User::where('id',Auth::guard('user')->user()->id)->update(['cart'=>Cookie::get(website::where('id',Auth::guard('user')->user()->website_id)->pluck('domainName')->first().'_cart') ?? '[]']);
+    //             // }
+    //             if($request->loginCart != null || $request->loginCart != ''){
+    //                 User::where('id',Auth::guard('user')->user()->id)->update(['cart' => $request->loginCart]);
+    //             }
+    //             return response(['loginStats' => 1]);
+    //         }else{
+    //             return response(['loginStats' => 0 ]);
+    //         }
+    //     }
 
-    }
-    public function userLogout(Request $request)
-    {
-        // if($request->logout == 1){
-            Auth::guard('user')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            // return response(['logoutStats' => 1]);
-            return redirect()->back();
-        // }
-    }
-    public function userSignup(Request $request)
-    {
-        $validation = Validator::make($request->all(),[
-            'email'=>'required|email',
-            'name'=>'required|min:5|max:100',
-            'password' => 'required|min:8|max:100',
-            'phoneNumber' => 'required|regex:/^[+0-9]+$/|min:5|',
-            'address' => 'required',
-        ],[
-            'email.required' => 'emailRequired',
-            'email.email' =>  'emailEmail',
+    // }
+    // public function userLogout(Request $request)
+    // {
+    //     // if($request->logout == 1){
+    //         Auth::guard('user')->logout();
+    //         $request->session()->invalidate();
+    //         $request->session()->regenerateToken();
+    //         // return response(['logoutStats' => 1]);
+    //         return redirect()->back();
+    //     // }
+    // }
+    // public function userSignup(Request $request)
+    // {
+    //     $validation = Validator::make($request->all(),[
+    //         'email'=>'required|email',
+    //         'name'=>'required|min:5|max:100',
+    //         'password' => 'required|min:8|max:100',
+    //         'phoneNumber' => 'required|regex:/^[+0-9]+$/|min:5|',
+    //         'address' => 'required',
+    //     ],[
+    //         'email.required' => 'emailRequired',
+    //         'email.email' =>  'emailEmail',
 
-            'name.required' => 'nameRequired',
-            'name.max' =>  'nameMax',
-            'name.min' => 'nameMin',
+    //         'name.required' => 'nameRequired',
+    //         'name.max' =>  'nameMax',
+    //         'name.min' => 'nameMin',
 
 
-            'password.required' => 'passwordRequired',
-            'password.min' => 'passwordMin',
-            'password.max' => 'passwordMax',
+    //         'password.required' => 'passwordRequired',
+    //         'password.min' => 'passwordMin',
+    //         'password.max' => 'passwordMax',
 
-            'phoneNumber.required' => 'phoneNumberRequired',
-            'phoneNumber.regex' => 'phoneNumberRegex',
-            'phoneNumber.min' => 'phoneNumberRequired',
-            'address.required' => 'addressRequired',
+    //         'phoneNumber.required' => 'phoneNumberRequired',
+    //         'phoneNumber.regex' => 'phoneNumberRegex',
+    //         'phoneNumber.min' => 'phoneNumberRequired',
+    //         'address.required' => 'addressRequired',
 
-        ]);
-        // $phoneCheck = User::where(['website_id'=>$this->website_id ,'phoneNumber'=>$request->phoneNumber])
-        // ->where('phoneNumber','!=',Auth::guard('user')->user()->phoneNumber)
-        // ->count();
-        // if($phoneCheck > 0){
-        //     $validation->after(function ($validation) {
-        //         $validation->errors()->add('phoneNumber', 'phoneNumberUnique');
-        //     });
-        // }
-        if($request->privacyPolicyCheck == 0){
-            $validation->after(function ($validation) {
-                $validation->errors()->add('privacyPolicy', 'privacyPolicy');
-            });
-        }
-        $emailCheck = User::where(['website_id'=>$this->website_id ,'email'=>$request->email])->count();
-        if($emailCheck > 0){
-            $validation->after(function ($validation) {
-                $validation->errors()->add('email', 'emailUnique');
-            });
-        }
-        if($validation->fails()){
-            return response(['signupstats' => 0 , 'error' => $validation->errors()]);
-        }else{
-            $user = User::create([
-                'email'=>strip_tags($request->email),
-                'password'=>bcrypt($request->password),
-                'name'=>strip_tags($request->name),
-                'phoneNumber' => strip_tags($request->phoneNumber),
-                'address' => strip_tags($request->address),
-                'website_id' => $this->website_id ,
-                'lastSeen' => null,
-                'cart' => '{}',
-                'cart_lastUpdate' => null,
-                'isBanned' => false,
-            ]);
+    //     ]);
+    //     // $phoneCheck = User::where(['website_id'=>$this->website_id ,'phoneNumber'=>$request->phoneNumber])
+    //     // ->where('phoneNumber','!=',Auth::guard('user')->user()->phoneNumber)
+    //     // ->count();
+    //     // if($phoneCheck > 0){
+    //     //     $validation->after(function ($validation) {
+    //     //         $validation->errors()->add('phoneNumber', 'phoneNumberUnique');
+    //     //     });
+    //     // }
+    //     if($request->privacyPolicyCheck == 0){
+    //         $validation->after(function ($validation) {
+    //             $validation->errors()->add('privacyPolicy', 'privacyPolicy');
+    //         });
+    //     }
+    //     $emailCheck = User::where(['website_id'=>$this->website_id ,'email'=>$request->email])->count();
+    //     if($emailCheck > 0){
+    //         $validation->after(function ($validation) {
+    //             $validation->errors()->add('email', 'emailUnique');
+    //         });
+    //     }
+    //     if($validation->fails()){
+    //         return response(['signupstats' => 0 , 'error' => $validation->errors()]);
+    //     }else{
+    //         $user = User::create([
+    //             'email'=>strip_tags($request->email),
+    //             'password'=>bcrypt($request->password),
+    //             'name'=>strip_tags($request->name),
+    //             'phoneNumber' => strip_tags($request->phoneNumber),
+    //             'address' => strip_tags($request->address),
+    //             'website_id' => $this->website_id ,
+    //             'lastSeen' => null,
+    //             'cart' => '{}',
+    //             'cart_lastUpdate' => null,
+    //             'isBanned' => false,
+    //         ]);
 
-            $notification = notification::create([
-                'website_id'=>(int) $this->website_id ,
-                'seen' => false,
-                'code'=>'user.signup',
-                'user_id'=>(int) $user->id,
-                'userName'=>strip_tags($request->name),
-            ]);
-            foodmenuFunctions::notification('user.signup',[
-                'website_id'=>(int) $this->website_id ,
-                'code' => 'user.signed_up',
-                'user_id' => (int) $user->id,
-                'user_name' => $user->name,
-            ],[
-                'notification' => $notification,
-            ]);
-            return response(['signupstats' => 1 ]);
-        }
-    }
+    //         $notification = notification::create([
+    //             'website_id'=>(int) $this->website_id ,
+    //             'seen' => false,
+    //             'code'=>'user.signup',
+    //             'user_id'=>(int) $user->id,
+    //             'userName'=>strip_tags($request->name),
+    //         ]);
+    //         foodmenuFunctions::notification('user.signup',[
+    //             'website_id'=>(int) $this->website_id ,
+    //             'code' => 'user.signed_up',
+    //             'user_id' => (int) $user->id,
+    //             'user_name' => $user->name,
+    //         ],[
+    //             'notification' => $notification,
+    //         ]);
+    //         return response(['signupstats' => 1 ]);
+    //     }
+    // }
+    
     public function recoverpassword(Request $request)
     {
         if($request->has(['recoverPassword'])){

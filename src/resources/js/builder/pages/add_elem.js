@@ -97,12 +97,9 @@ $('body').on('click','.add_elem',function(e){
         break;
         case 'button':
             new_elem = elem_button();
-            let button_style = get_buttons('1',0);
+            let button_style = get_buttons('0');
             for(const key in button_style.css){
                 new_elem.css[key] = button_style.css[key];
-                new_elem.css_mobile[key] = button_style.css[key];
-                new_elem.css_click[key] = button_style.css[key];
-                new_elem.css_click_mobile[key] = button_style.css[key];
             }
             for(const key in button_style.css_hover){
                 new_elem.css_hover[key] = button_style.css_hover[key];
@@ -110,6 +107,24 @@ $('body').on('click','.add_elem',function(e){
             }
             for(const key in button_style.css_disabled){
                 new_elem.css_disabled[key] = button_style.css_disabled[key];
+            }
+            if('background' in button_style){
+                new_elem.background = {};
+                for(const _key in button_style.background){
+                    new_elem.background[_key] = button_style.background[_key];
+                }
+            }
+            if('background_hover' in button_style){
+                new_elem.background_hover = {};
+                for(const _key in button_style.background_hover){
+                    new_elem.background_hover[_key] = button_style.background_hover[_key];
+                }
+            }
+            if('background_click' in button_style){
+                new_elem.background_click = {};
+                for(const _key in button_style.background_click){
+                    new_elem.background_click[_key] = button_style.background_click[_key];
+                }
             }
             new_elem.attr.href = '/home';
             new_elem.attr.page = 'home';

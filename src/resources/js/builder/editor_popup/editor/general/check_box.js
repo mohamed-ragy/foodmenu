@@ -1,6 +1,11 @@
 draw_editor_popup_check_box = function(){
     if(!accessibility_check(window.selected,'check_box')){return;}
     show_editor_popup('editor',function(){
+        let key_tree = window.selected;
+        let elem = get_element_data(key_tree);
+        if('styling_target' in elem){
+            key_tree = elem.styling_target.check_box ?? key_tree
+        }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:false,
@@ -8,8 +13,8 @@ draw_editor_popup_check_box = function(){
                     $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.check_mark}),
                         draw_svg_icon_picker({
-                            key_tree:`${window.selected}.children`,
-                            render:`${window.selected}.children.icon`,
+                            key_tree:`${key_tree}.children`,
+                            render:`${key_tree}.children.icon`,
                             variable_key:null,
                             key:'icon',
                             icon_type:'check',
@@ -18,7 +23,7 @@ draw_editor_popup_check_box = function(){
                     $('<div/>',{class:'editor_popup_row'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.check_mark_color}),
                         draw_color_picker({
-                            key_tree:`${window.selected}.children.icon`,
+                            key_tree:`${key_tree}`,
                             variable_key:'css',
                             key:'fill'
                         })
@@ -26,7 +31,7 @@ draw_editor_popup_check_box = function(){
                     $('<div/>',{class:'editor_popup_row'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.border_color}),
                         draw_color_picker({
-                            key_tree:`${window.selected}.children.icon`,
+                            key_tree:`${key_tree}`,
                             variable_key:'css',
                             key:'border-color'
                         })
@@ -34,7 +39,7 @@ draw_editor_popup_check_box = function(){
                     $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.size}),
                         draw_number_picker({
-                            key_tree:`${window.selected}.children.icon`,
+                            key_tree:`${key_tree}`,
                             variable_key:'css',
                             key:'width',
                             units:['px'],
@@ -44,7 +49,7 @@ draw_editor_popup_check_box = function(){
                     $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.border_radius}),
                         draw_number_picker({
-                            key_tree:`${window.selected}.children.icon`,
+                            key_tree:`${key_tree}`,
                             variable_key:'css',
                             key:'border-radius',
                             units:['px'],
@@ -54,7 +59,7 @@ draw_editor_popup_check_box = function(){
                     $('<div/>',{class:'editor_popup_col'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.padding}),
                         draw_number_picker({
-                            key_tree:`${window.selected}.children.icon`,
+                            key_tree:`${key_tree}`,
                             variable_key:'css',
                             key:'padding',
                             units:['px'],

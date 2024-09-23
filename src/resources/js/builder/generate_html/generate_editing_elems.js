@@ -27,6 +27,10 @@ genrate_editing_elems = function(elem,key_tree){
     else if(elem.type == 'popup_card'){
         html = `${html}${generate_editing_elems_popup_window(elem,key_tree)}`
     }
+    ///form elements///
+    else if(elem.type == 'form_elements'){
+        html = `${html}${generate_editing_elems_form_elements(elem,key_tree)}`
+    }
     return html;
 }
 
@@ -269,5 +273,10 @@ generate_editing_elems_popup_window = function(elem,key_tree,style){
     let html = '';
     html = `${html}${draw_spacing_edit_elems(elem,'edit_popup_')}`
     html = `${html}<div class="select_popup_title builder_font">${texts.website_tools.popup_window}</div>`;
+    return html;
+}
+generate_editing_elems_form_elements = function(elem,key_tree,style){
+    let html = '';
+    html = `${html}<div class="select_edit_form_elements_title builder_font">${texts.website_style.website_form}</div>`;
     return html;
 }

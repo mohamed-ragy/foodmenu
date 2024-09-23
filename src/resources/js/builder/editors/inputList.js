@@ -40,7 +40,7 @@ set_input_list = function(editor){
             }
         })
         editor.find(`[hide_elem]`).each(function(){
-            let hide_elems = $(this).attr('hide_elems').split('.');
+            let hide_elems = $(this).attr('hide_elem').split('.');
             for(const key in hide_elems){
                 $(`.${hide_elems[key]}`).addClass('none')
             }
@@ -79,6 +79,71 @@ set_dummy_input_list = function(editor,val){
     let val_text = editor.find(`.inputList_elem[key="${val}"]`).text()
     editor.find('.inputList_val').text(val_text)
     editor.attr('val',val);
+    if(val == '--' || typeof(val) === 'undefined'){
+        editor.find('.inputList_val').text('--')
+        editor.find(`[show_elem]`).each(function(){
+            let show_elems = $(this).attr('show_elem').split('.');
+            for(const key in show_elems){
+                $(`.${show_elems[key]}`).addClass('none')
+            }
+        })
+        editor.find(`[hide_elem]`).each(function(){
+            let hide_elems = $(this).attr('hide_elem').split('.');
+            for(const key in hide_elems){
+                $(`.${hide_elems[key]}`).addClass('none')
+            }
+        })
+    }else{
+        let val_text = editor.find(`.inputList_elem[key="${val}"]`).text()
+        editor.find('.inputList_val').text(val_text)
+        editor.attr('val',val ?? '');
+
+        if(typeof(editor.find(`.inputList_elem[key="${val}"]`).attr('show_elem')) !== 'undefined'){
+            let show_elems = editor.find(`.inputList_elem[key="${val}"]`).attr('show_elem').split('.');
+            for(const key in show_elems){
+                $(`.${show_elems[key]}`).removeClass('none')
+            }
+        }
+        if(typeof(editor.find(`.inputList_elem[key="${val}"]`).attr('hide_elem')) !== 'undefined'){
+            let hide_elems = editor.find(`.inputList_elem[key="${val}"]`).attr('hide_elem').split('.')
+            for(const key in hide_elems){
+                $(`.${hide_elems[key]}`).addClass('none')
+            }
+        }
+    }
+    if(val == '--' || typeof(val) === 'undefined'){
+        editor.find('.inputList_val').text('--')
+        editor.find(`[show_elem]`).each(function(){
+            let show_elems = $(this).attr('show_elem').split('.');
+            for(const key in show_elems){
+                $(`.${show_elems[key]}`).addClass('none')
+            }
+        })
+        editor.find(`[hide_elem]`).each(function(){
+            let hide_elems = $(this).attr('hide_elem').split('.');
+            for(const key in hide_elems){
+                $(`.${hide_elems[key]}`).addClass('none')
+            }
+        })
+    }else{
+        let val_text = editor.find(`.inputList_elem[key="${val}"]`).text()
+        editor.find('.inputList_val').text(val_text)
+        editor.attr('val',val ?? '');
+
+        if(typeof(editor.find(`.inputList_elem[key="${val}"]`).attr('show_elem')) !== 'undefined'){
+            let show_elems = editor.find(`.inputList_elem[key="${val}"]`).attr('show_elem').split('.');
+            for(const key in show_elems){
+                $(`.${show_elems[key]}`).removeClass('none')
+            }
+        }
+        if(typeof(editor.find(`.inputList_elem[key="${val}"]`).attr('hide_elem')) !== 'undefined'){
+            let hide_elems = editor.find(`.inputList_elem[key="${val}"]`).attr('hide_elem').split('.')
+            for(const key in hide_elems){
+                $(`.${hide_elems[key]}`).addClass('none')
+            }
+        }
+    }
+
 }
 //
 $('body').on('change','.inputList_editor',function(){

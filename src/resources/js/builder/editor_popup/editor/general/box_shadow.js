@@ -7,10 +7,13 @@ draw_editor_popup_box_shadow = function(){
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
+        if('styling_target' in elem){
+            key_tree = elem.styling_target.box_shadow ?? key_tree
+        }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled'],
+                interactions:['hover','click','focus','disabled','error'],
                 editors:[
                     draw_box_shadow_editor({
                         key_tree:key_tree,

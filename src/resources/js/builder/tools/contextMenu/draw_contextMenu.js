@@ -146,6 +146,26 @@ draw_contextMenu = function(){
             draw_contextMenu_elem({icon:'ico-form',class:`editor_website_form`,child1_text:texts.website_style.website_form})
         )
     }
+    if(accessibility.includes('loading_spinner')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-loading_spinner',class:`editor_loading_spinner`,child1_text:texts.styling.loading_spinner})
+        )
+    }
+    if(accessibility.includes('check_box')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-check_box',class:`editor_check_box`,child1_text:texts.styling.check_box})
+        )
+    }
+    if(accessibility.includes('check_box_validation')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-error',class:`editor_check_box_validation`,child1_text:texts.styling.validation_message})
+        )
+    }
+    if(accessibility.includes('input_box')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-rename',class:`editor_input_box`,child1_text:texts.styling.input_box})
+        )
+    }
     if(accessibility.includes('button')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-button',class:`editor_button`,child1_text:texts.styling.button})

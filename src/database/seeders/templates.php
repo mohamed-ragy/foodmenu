@@ -6,6 +6,7 @@ use App\Models\template;
 use App\Models\website;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use League\Flysystem\Visibility;
 
 class templates extends Seeder
 {
@@ -29,56 +30,56 @@ class templates extends Seeder
             // 'text' => [],// only key if basic text and if template text if will be key of the text and val:{} contain text of rach lang with the lang code as key
             // 'children' => [],
         // ],
-        $background = [
-            'type' =>'none',
-            'color' =>'rgba(var(--color_1_7),1)',
-            'gradient' => 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)',
-            'backdrop_filter' => 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)',
-            'backdrop_filter_color' =>'rgba(var(--color_1_7),.2)',
-            'background_image' => '/storage/imgs/cpanel/noimg.png',
-            'background_attachment' => 'local',
-            'background_size' => 'cover',
-            'background_repeat' => 'no-repeat',
-            'background_position' => '50% 50%',
-            'background_blend_mode' => 'normal',
-            'background_blend_mode_color' =>'rgba(var(--color_1_2),1)',
-        ];
-        $background_color = $background;
-        $background_color['type'] = 'color';
-        $animation = [
-            'name' => 'no_animation',
-            'repeat' => '0',
-            'up_out_duration' => '0ms',
-            'up_out_delay' => '0ms',
-            'up_out_timing_function' => 'linear',
-            'up_out_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
-            'up_out_transform_origin' => 'center',
-            'up_out_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
-            'up_duration' => '0ms',
-            'up_delay' => '0ms',
-            'up_timing_function' => 'linear',
-            'up_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
-            'up_transform_origin' => 'center',
-            'up_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
-            'in_duration' => '0ms',
-            'in_delay' => '0ms',
-            'in_timing_function' => 'linear',
-            'in_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
-            'in_transform_origin' => 'center',
-            'in_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
-            'down_duration' => '0ms',
-            'down_delay' => '0ms',
-            'down_timing_function' => 'linear',
-            'down_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
-            'down_transform_origin' => 'center',
-            'down_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
-            'down_out_duration' => '0ms',
-            'down_out_delay' => '0ms',
-            'down_out_timing_function' => 'linear',
-            'down_out_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
-            'down_out_transform_origin' => 'center',
-            'down_out_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
-        ];
+        // $background = [
+        //     'type' =>'none',
+        //     'color' =>'rgba(var(--color_1_7),1)',
+        //     'gradient' => 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)',
+        //     'backdrop_filter' => 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)',
+        //     'backdrop_filter_color' =>'rgba(var(--color_1_7),.2)',
+        //     'background_image' => '/storage/imgs/cpanel/noimg.png',
+        //     'background_attachment' => 'local',
+        //     'background_size' => 'cover',
+        //     'background_repeat' => 'no-repeat',
+        //     'background_position' => '50% 50%',
+        //     'background_blend_mode' => 'normal',
+        //     'background_blend_mode_color' =>'rgba(var(--color_1_2),1)',
+        // ];
+        // $background_color = $background;
+        // $background_color['type'] = 'color';
+        // $animation = [
+        //     'name' => 'no_animation',
+        //     'repeat' => '0',
+        //     'up_out_duration' => '0ms',
+        //     'up_out_delay' => '0ms',
+        //     'up_out_timing_function' => 'linear',
+        //     'up_out_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
+        //     'up_out_transform_origin' => 'center',
+        //     'up_out_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
+        //     'up_duration' => '0ms',
+        //     'up_delay' => '0ms',
+        //     'up_timing_function' => 'linear',
+        //     'up_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
+        //     'up_transform_origin' => 'center',
+        //     'up_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
+        //     'in_duration' => '0ms',
+        //     'in_delay' => '0ms',
+        //     'in_timing_function' => 'linear',
+        //     'in_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
+        //     'in_transform_origin' => 'center',
+        //     'in_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
+        //     'down_duration' => '0ms',
+        //     'down_delay' => '0ms',
+        //     'down_timing_function' => 'linear',
+        //     'down_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
+        //     'down_transform_origin' => 'center',
+        //     'down_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
+        //     'down_out_duration' => '0ms',
+        //     'down_out_delay' => '0ms',
+        //     'down_out_timing_function' => 'linear',
+        //     'down_out_transform' => 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)',
+        //     'down_out_transform_origin' => 'center',
+        //     'down_out_filter' => 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(0,0,0,0))',
+        // ];
         $driver = [
             'svg_style' => [
                 'position' => 'absolute',
@@ -106,11 +107,11 @@ class templates extends Seeder
             'position' => 'bottom',
             'flip' => '0',
         ];
-        $filter = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(var(--color_4_1),0))';
-        $transform = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
-        template::where('website_id',1)->delete();
+        // $filter = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(var(--color_4_1),0))';
+        // $transform = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
+        template::where('website_id',2)->delete();
         $template = template::create([
-            'website_id' => 1,
+            'website_id' => 2,
             'name' => 'Test template',
             'settings' => json_encode([
                 'view' => 'desktop',
@@ -119,168 +120,153 @@ class templates extends Seeder
                 'animations' => [
 
                 ],
-                // 'font_styles' => [
-
-                // ]
             ]),
-            'website_colors' => json_encode([
-                'gradation' => [
-                    'color_1_gradation' => '50',
-                    'color_2_gradation' => '50',
-                    'color_3_gradation' => '50',
-                    'color_4_gradation' => '50',
-                ],
-                'colors' => [
-                    'color_1_1' => ['r'=>'0','g'=>'0','b'=>'0'],
-                    'color_1_2' => ['r'=>'42','g'=>'42','b'=>'42'],
-                    'color_1_3' => ['r'=>'84','g'=>'84','b'=>'84'],
-                    'color_1_4' => ['r'=>'126','g'=>'126','b'=>'126'],
-                    'color_1_5' => ['r'=>'168','g'=>'168','b'=>'168'],
-                    'color_1_6' => ['r'=>'210','g'=>'210','b'=>'210'],
-                    'color_1_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+            // 'website_colors' => json_encode([
+            //     'gradation' => [
+            //         'color_1_gradation' => '50',
+            //         'color_2_gradation' => '50',
+            //         'color_3_gradation' => '50',
+            //         'color_4_gradation' => '50',
+            //     ],
+            //     'colors' => [
+            //         'color_1_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+            //         'color_1_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+            //         'color_1_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+            //         'color_1_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+            //         'color_1_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+            //         'color_1_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+            //         'color_1_7' => ['r'=>'252','g'=>'252','b'=>'252'],
 
-                    'color_2_1' => ['r'=>'0','g'=>'0','b'=>'0'],
-                    'color_2_2' => ['r'=>'42','g'=>'42','b'=>'42'],
-                    'color_2_3' => ['r'=>'84','g'=>'84','b'=>'84'],
-                    'color_2_4' => ['r'=>'126','g'=>'126','b'=>'126'],
-                    'color_2_5' => ['r'=>'168','g'=>'168','b'=>'168'],
-                    'color_2_6' => ['r'=>'210','g'=>'210','b'=>'210'],
-                    'color_2_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+            //         'color_2_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+            //         'color_2_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+            //         'color_2_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+            //         'color_2_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+            //         'color_2_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+            //         'color_2_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+            //         'color_2_7' => ['r'=>'252','g'=>'252','b'=>'252'],
 
-                    'color_3_1' => ['r'=>'0','g'=>'0','b'=>'0'],
-                    'color_3_2' => ['r'=>'42','g'=>'42','b'=>'42'],
-                    'color_3_3' => ['r'=>'84','g'=>'84','b'=>'84'],
-                    'color_3_4' => ['r'=>'126','g'=>'126','b'=>'126'],
-                    'color_3_5' => ['r'=>'168','g'=>'168','b'=>'168'],
-                    'color_3_6' => ['r'=>'210','g'=>'210','b'=>'210'],
-                    'color_3_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+            //         'color_3_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+            //         'color_3_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+            //         'color_3_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+            //         'color_3_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+            //         'color_3_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+            //         'color_3_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+            //         'color_3_7' => ['r'=>'252','g'=>'252','b'=>'252'],
 
-                    'color_4_1' => ['r'=>'0','g'=>'0','b'=>'0'],
-                    'color_4_2' => ['r'=>'42','g'=>'42','b'=>'42'],
-                    'color_4_3' => ['r'=>'84','g'=>'84','b'=>'84'],
-                    'color_4_4' => ['r'=>'126','g'=>'126','b'=>'126'],
-                    'color_4_5' => ['r'=>'168','g'=>'168','b'=>'168'],
-                    'color_4_6' => ['r'=>'210','g'=>'210','b'=>'210'],
-                    'color_4_7' => ['r'=>'252','g'=>'252','b'=>'252'],
-                ],
-                'custom_colors' => [
-                    '_star' => ['r'=>'255','g'=>'190','b'=>'11'],
-                    '_success' => ['r'=>'91','g'=>'186','b'=>'111'],
-                    '_error' => ['r'=>'193','g'=>'18','b'=>'31'],
-                    '_warning' => ['r'=>'251','g'=>'86','b'=>'7'],
-                ],
-            ]),
-            'page_setup' => json_encode([
-                'mobile_max_width' => '720px',
-                "max_width" => "1400px",
-                "pageTransition" => "fade",
-                "transitionDuration" => "648ms",
-                "smooth_scroll" => "0",
-                "smooth_scroll_distance" => "678px",
-                "smooth_scroll_duration" => "835ms",
-                'font_style' => ['en'=>'Arial'],
-                'font_color' => 'rgba(var(--color_4_2),1)',
-                'bg_color' => 'rgba(var(--color_4_7),1)',
-            ]),
+            //         'color_4_1' => ['r'=>'0','g'=>'0','b'=>'0'],
+            //         'color_4_2' => ['r'=>'42','g'=>'42','b'=>'42'],
+            //         'color_4_3' => ['r'=>'84','g'=>'84','b'=>'84'],
+            //         'color_4_4' => ['r'=>'126','g'=>'126','b'=>'126'],
+            //         'color_4_5' => ['r'=>'168','g'=>'168','b'=>'168'],
+            //         'color_4_6' => ['r'=>'210','g'=>'210','b'=>'210'],
+            //         'color_4_7' => ['r'=>'252','g'=>'252','b'=>'252'],
+            //     ],
+            //     'custom_colors' => [
+            //         '_star' => ['r'=>'255','g'=>'190','b'=>'11'],
+            //         '_success' => ['r'=>'91','g'=>'186','b'=>'111'],
+            //         '_error' => ['r'=>'193','g'=>'18','b'=>'31'],
+            //         '_warning' => ['r'=>'251','g'=>'86','b'=>'7'],
+            //     ],
+            // ]),
+            // 'page_setup' => json_encode([
+            //     'mobile_max_width' => '720px',
+            //     "max_width" => "1400px",
+            //     "pageTransition" => "fade",
+            //     "transitionDuration" => "648ms",
+            //     "smooth_scroll" => "0",
+            //     "smooth_scroll_distance" => "678px",
+            //     "smooth_scroll_duration" => "835ms",
+            //     'font_style' => (object)[],
+            //     'font_color' => 'rgba(var(--color_4_2),1)',
+            //     'bg_color' => 'rgba(var(--color_4_7),1)',
+            //     'font_size' => '1em',
+            //     'line_height' => '1.3em',
+            //     'letter_spacing' => '0px',
+            // ]),
             'form_elements' => json_encode([
-                'website_form_success' => ['class_selector'=>'website_form_success','css' => ['color' => 'rgba(var(--_success),1)']],
-                'website_form_error' => ['class_selector'=>'website_form_error','css' => ['color' => 'rgba(var(--_error),1)']],
-                'website_form_warning' => ['class_selector'=>'website_form_warning','css' => ['color' => 'rgba(var(--_warning),1)']],
                 'website_form' => [
                     'general_class' => '1',
-                    'type' => 'container',
+                    'type' => 'form_elements',
                     'class_selector' => 'website_form',
-                    'font_style' => ['en' => ''],
+                    'font_style' => [],
                     'accessibility' => [
-                        'interactions','can_hover',
-                        'website_form','form_response_colors',
-                        'text_style','text_color','hyperlink',
-                        'sizing','height','width',
-                        'spacing','padding','margin',
-                        'styling','border','box_shadow','border_radius',
+                        'interactions',
+                        'can_hover',
+                        'website_form',
+                        'text_style',
+                        'text_color',
+                        'hyperlink',
+                        'sizing',
+                        'height',
+                        'width',
+                        'spacing',
+                        'padding',
+                        'margin',
+                        'styling',
+                        'border',
+                        'box_shadow',
+                        'border_radius',
+                        'hover'
                     ],
                     'css' => [
                         'display' => 'flex',
                         'position' => 'relative',
+                        'width' => 'auto',
+                        'max-width' => '100%',
                         'flex-direction' => 'column',
                         'flex-wrap' => 'nowrap',
                         'box-sizing' => 'border-box',
                         'z-index' => '5',
-
                         'gap' => '10px',
-                        'align-items' => 'flex-start',
+                        'align-items' => 'stretch',
                         'justify-content' => 'flex-start',
-
-                        'width' => 'auto',
-                        'min-width' => 'auto',
-                        'max-width' => '100%',
-                        'height' => 'auto',
-                        'min-height' => 'auto',
-                        'max-height' => '100%',
-
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-size' => '1em',
                         'font-weight' => 'normal',
                         'text-decoration' => 'none',
                         'font-style' => 'normal',
                         'text-align' => 'start',
-                        'color' => 'rgba(var(--color_4_1),1)',
-
+                        'color' => 'rgba(var(--color_4_3),1)',
                         'padding' => '10px 10px 10px 10px',
-                        'margin' => '20px 20px 20px 20px',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-
+                        'margin' => '20px 20px 20px 20px'
                     ],
                     'css_mobile' => [
                         'gap' => '10px',
-                        'align-items' => 'flex-start',
                         'justify-content' => 'flex-start',
-
-                        'width' => 'auto',
-                        'min-width' => 'auto',
-                        'max-width' => '100%',
-                        'height' => 'auto',
-                        'min-height' => 'auto',
-                        'max-height' => '100%',
-
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
-                        'font-size' => '1em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-weight' => 'normal',
                         'text-decoration' => 'none',
                         'font-style' => 'normal',
-                        'text-align' => 'start',
                         'color' => 'rgba(var(--color_4_1),1)',
-
                         'padding' => '10px 10px 10px 10px',
-                        'margin' => '20px 20px 20px 20px',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
+                        'margin' => '20px 20px 20px 20px'
                     ],
+                    'css_hover' => [],
+                    'css_hover_mobile' => [],
                     'css_hyperlink' => [
-                        'color' => 'rgba(var(--color_4_6),1)',
-                        'text-decoration' => 'underline',
+                        'color' => 'rgba(var(--color_1_2),1)',
+                        'text-decoration' => 'none'
+                    ],
+                    'css_hyperlink_hover' => [
+                        'color' => 'rgba(var(--color_1_3),1)',
+                        'text-decoration' => 'none'
                     ]
                 ],
                 'form_title' => [
+                    'type' => 'form_element',
+                    'form_element' => 'form_title',
                     'general_class' => '1',
-                    // 'type' => 'elem',
-                    // 'elem_type' => 'title',
                     'class_selector' => 'form_title',
-                    'font_style' => ['en' => ''],
+                    'font_style' => [],
                     'accessibility' => [
-                        'text_style','text_color','select_font',
-                        'spacing','margin',
+                        'website_form',
+                        'text_style',
+                        'text_color',
+                        'select_font',
+                        'spacing',
+                        'margin'
                     ],
                     'css' => [
                         'box-sizing' => 'border-box',
@@ -288,363 +274,444 @@ class templates extends Seeder
                         'z-index' => '1',
                         'display' => 'block',
                         'padding' => '0px',
-                        // 'align-self' => 'auto',
                         'overflow' => 'visible',
-
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-size' => '1.5em',
                         'font-weight' => 'normal',
                         'text-decoration' => 'none',
                         'font-style' => 'normal',
                         'text-align' => 'start',
-                        'color' => 'rgba(var(--color_4_1),1)',
-                        'margin' => '0px 0px 0px 0px',
+                        'color' => 'rgba(var(--color_4_3),1)',
+                        'margin' => '0px 0px 0px 0px'
                     ],
                     'css_mobile' => [
                         'display' => 'block',
-                        // 'align-self' => 'auto',
                         'overflow' => 'visible',
-
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-size' => '1.5em',
                         'font-weight' => 'normal',
                         'text-decoration' => 'none',
                         'font-style' => 'normal',
                         'text-align' => 'start',
                         'color' => 'rgba(var(--color_4_1),1)',
-                        'margin' => '0px 0px 0px 0px',
-                    ],
-
-                ] ,
-                'form_input_box' => [
+                        'margin' => '0px 0px 0px 0px'
+                    ]
+                ],
+                'form_message' => [
+                    'type' => 'form_element',
+                    'form_element' => 'form_message',
                     'general_class' => '1',
-                    'type' => 'elem',
-                    'elem' => 'input_box',
-                    'class_selector' => 'form_input_box',
-                    'font_style' => ['en' => ''],
+                    'class_selector' => 'form_message',
+                    'font_style' => [],
                     'accessibility' => [
-                        'interactions','can_hover','can_focus','focus','placeholder',
-                        'text_style','text_color','select_font',
-                        // 'display',
-                        // 'sizing','width','height',
-                        'spacing','margin','padding',
-                        'styling','border_radius','box_shadow',
+                        'website_form',
+                        'form_response_colors',
+                        'text_style',
+                        'text_color',
+                        'select_font',
+                        'spacing',
+                        'margin'
                     ],
                     'css' => [
-                        'all' => 'unset',
                         'box-sizing' => 'border-box',
                         'position' => 'relative',
                         'z-index' => '1',
                         'display' => 'block',
-                        // 'align-self' => 'auto',
+                        'padding' => '0px',
                         'overflow' => 'visible',
-
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-size' => '1em',
                         'font-weight' => 'normal',
                         'text-decoration' => 'none',
                         'font-style' => 'normal',
                         'text-align' => 'start',
-                        'color' => 'rgba(var(--color_4_1),1)',
-                        'background-color' => 'rgba(var(--color_4_6),1)',
-
-                        // 'width' => 'auto',
-                        // 'min-width' => 'auto',
-                        // 'max-width' => '100%',
-                        // 'height' => 'auto',
-                        // 'min-height' => 'auto',
-                        // 'max-height' => '100%',
-                        'padding' => '0px 0px 0px 0px',
-                        'margin' => '0px 0px 0px 0px',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-
-                        "transition-duration" => "0ms",
-                        "transition-delay" => "0ms",
-                        "transition-timing-function" => "linear",
+                        'color' => 'rgba(var(--color_4_3),1)',
+                        'margin' => '0px 0px 10px 0px',
+                        'max-width' => '400px',
                     ],
                     'css_mobile' => [
                         'display' => 'block',
-                        // 'align-self' => 'auto',
                         'overflow' => 'visible',
-
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-size' => '1em',
                         'font-weight' => 'normal',
                         'text-decoration' => 'none',
                         'font-style' => 'normal',
                         'text-align' => 'start',
-                        'color' => 'rgba(var(--color_4_1),1)',
-                        'background-color' => 'rgba(var(--color_4_6),1)',
-
-                        // 'width' => 'auto',
-                        // 'min-width' => 'auto',
-                        // 'max-width' => '100%',
-                        // 'height' => 'auto',
-                        // 'min-height' => 'auto',
-                        // 'max-height' => '100%',
-                        'padding' => '0px 0px 0px 0px',
-                        'margin' => '0px 0px 0px 0px',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-
-                        "transition-duration" => "0ms",
-                        "transition-delay" => "0ms",
-                        "transition-timing-function" => "linear",
-                    ],
-                    'css_hover' => [
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-                    ],
-                    'css_hover_mobile' => [
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-                    ],
-                    'css_focus' => [
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-                    ],
-                    'css_focus_mobile' => [
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'border-radius' => '0px 0px 0px 0px',
-                        'box-shadow' => 'none',
-                    ],
-                    'css_placeholder' => ['color' => 'rgba(var(--color_4_5),1)'],
-                    'css_placeholder_mobile' => ['color' => 'rgba(var(--color_4_5),1)']
+                        'color' => 'rgba(var(--color_4_1),1)'
+                    ]
                 ],
-                'form_check_box' => [
-                    'tag' => 'span',
+                'form_input_box' => [
+                    'type' => 'form_element',
+                    'form_element' => 'form_input_box',
+                    'access_key_tree' => 'form_elements.form_input_box',
+                    'tag' => 'div',
                     'general_html_content' => '1',
-                    'class_selector' => 'form_check_box',
+                    'class_selector' => 'form_input_box',
+                    'class' => '',
                     'accessibility' => [
-                        'check_box'
+                        'website_form',
+                        'interactions',
+                        'can_hover',
+                        'can_focus',
+                        'can_error',
+                        'hover',
+                        'focus',
+                        'error',
+                        'input_box',
+                        'text_style',
+                        'text_color',
+                        'placeholder',
+                        'validation_message',
+                        'spacing',
+                        'padding',
+                        'margin',
+                        'styling',
+                        'border',
+                        'border_radius',
+                        'box_shadow',
+                        'sizing',
+                        'width',
+                        'background',
+                        'background_gradient'
+                    ],
+                    'styling_target' => [
+                        'padding' => 'form_elements.form_input_box.children.input_box',
+                        'border' => 'form_elements.form_input_box.children.input_box',
+                        'border_radius' => 'form_elements.form_input_box.children.input_box',
+                        'box_shadow' => 'form_elements.form_input_box.children.input_box',
+                        'background' => 'form_elements.form_input_box.children.input_box',
+                        'text_style' => 'form_elements.form_input_box.children.input_box',
+                        'text_color' => 'form_elements.form_input_box.children.input_box',
+                        'interactions' => 'form_elements.form_input_box.children.input_box'
                     ],
                     'css' => [
-                        'vertical-align' => 'middle',
-                        'display' => 'inline-block',
-                        'line-height' => '0px',
+                        'width' => 'auto',
+                        'min-width' => 'auto',
+                        'max-width' => '100%',
+                        'margin' => '0px 0px 0px 0px'
+                    ],
+                    'css_mobile' => [
+                        'margin' => '0px 0px 0px 0px'
                     ],
                     'children' => [
-                        'icon' => [
-                            'tag' => 'svg',
-                            'class_selector' => 'form_check_box_marker',
+                        'input_label' => [
+                            'tag' => 'div',
+                            'render' => 'form_elements.form_input_box',
+                            'class_selector' => 'form_input_box_label',
+                            'text' => [
+                                'key' => ''
+                            ],
+                            'class' => ' ',
                             'css' => [
-                                'cursor' => 'pointer',
-                                'width' => '13px',
-                                'fill' => 'rgba(var(--color_4_1),1)',
-                                'border-width' => '1px',
-                                'border-style' => 'solid',
-                                'border-color' => 'rgba(var(--color_4_1),1)',
-                                'border-radius' => '0px',
-                                'padding' => '1px',
-                            ],
-                            'attr' => [
-                                'viewBox' => '0 -8 72 72',
-                                'xmlns' => 'http://www.w3.org/2000/svg',
-                                'stroke-linecap' => 'round',
-                                'stroke-linejoin' => 'round',
-                                'fill-rule' => 'evenodd',
-                                'clip-rule' => 'evenodd',
-                            ],
-                            'children' => [
-                                [
-                                    'tag' => 'path',
-                                    'attr' =>[
-                                        'stroke-width' => '0',
-                                        'd' => 'M61.07,12.9,57,8.84a2.93,2.93,0,0,0-4.21,0L28.91,32.73,19.2,23A3,3,0,0,0,15,23l-4.06,4.07a2.93,2.93,0,0,0,0,4.21L26.81,47.16a2.84,2.84,0,0,0,2.1.89A2.87,2.87,0,0,0,31,47.16l30.05-30a2.93,2.93,0,0,0,0-4.21Z',
-                                    ]
-                                ]
-                            ],
+                                'line-height' => 'inherit',
+                                'letter-spacing' => 'inherit',
+                                'font-size' => '0.85em',
+                                'font-weight' => 'normal',
+                                'text-decoration' => 'none',
+                                'font-style' => 'normal',
+                                'text-align' => 'start',
+                                'margin' => '0px 0px 0px 5px'
+                            ]
                         ],
+                        'input_box' => [
+                            'tag' => 'input',
+                            'type' => 'input_box',
+                            'render' => 'form_elements.form_input_box',
+                            'class_selector' => 'form_input_box_input',
+                            'attr' => [
+                                'type' => ''
+                            ],
+                            'font_style' => [],
+                            'placeholder' => [
+                                'key' => ''
+                            ],
+                            'accessibility' => [
+                                'hover',
+                                'focus',
+                                'error'
+                            ],
+                            'css_placeholder' => [
+                                'color' => 'rgba(var(--color_4_5),1)',
+                                'visibility' => 'hidden'
+                            ],
+                            'css' => [
+                                'width' => '100%',
+                                'box-sizing' => 'border-box',
+                                'line-height' => '1.3em',
+                                'letter-spacing' => '0.03em',
+                                'font-size' => '0.9em',
+                                'font-weight' => 'normal',
+                                'text-decoration' => 'none',
+                                'font-style' => 'normal',
+                                'text-align' => 'start',
+                                'border-top' => '1px solid rgba(var(--color_4_3),.3)',
+                                'border-right' => '1px solid rgba(var(--color_4_3),.3)',
+                                'border-bottom' => '1px solid rgba(var(--color_4_3),.3)',
+                                'border-left' => '1px solid rgba(var(--color_4_3),.3)',
+                                'border-radius' => '5px 5px 5px 5px',
+                                'padding' => '10px 15px 10px 15px',
+                                'transition-duration' => '200ms'
+                            ],
+                            'css_hover' => [],
+                            'css_focus' => [
+                                'box-shadow' => '0 0 2px 3px rgba(var(--color_1_3),.4)',
+                                'border-top' => '1px solid rgba(var(--color_1_3),.3)',
+                                'border-right' => '1px solid rgba(var(--color_1_3),.3)',
+                                'border-bottom' => '1px solid rgba(var(--color_1_3),.3)',
+                                'border-left' => '1px solid rgba(var(--color_1_3),.3)'
+                            ],
+                            'css_error' => [
+                                'border-top' => '1px solid rgba(var(--_error),1)',
+                                'border-right' => '1px solid rgba(var(--_error),1)',
+                                'border-bottom' => '1px solid rgba(var(--_error),1)',
+                                'border-left' => '1px solid rgba(var(--_error),1)'
+                            ],
+                            'background' => [
+                                'type' => 'color',
+                                'color' => 'rgba(var(--color_4_7),1)'
+                            ]
+                        ],
+                        'validation_message' => [
+                            'type' => 'input_box_validation_message',
+                            'render' => 'form_elements.form_input_box',
+                            'class_selector' => 'form_input_box_message',
+                            'tag' => 'div',
+                            'css' => [
+                                'color' => 'rgba(var(--_error),1)',
+                                'font-size' => '0.8em',
+                                'max-width' => '400px',
+                            ]
+                        ]
+                    ]
+                ],
+                'form_check_box' => [
+                    'type' => 'form_element',
+                    'form_element' => 'form_check_box',
+                    'access_key_tree' => 'form_elements.form_check_box',
+                    'class' => 'form_check_box_container',
+                    'tag' => 'div',
+                    'general_html_content' => '1',
+                    'accessibility' => [
+                        'website_form',
+                        'check_box','check_box_validation'
                     ],
-
+                    'styling_target' => [
+                        'check_box' => 'form_elements.form_check_box.children.check_box.children.check_box',
+                        'check_box_validation' => 'form_elements.form_check_box.children.validation_message',
+                    ],
+                    'children' => [
+                        'check_box' => [
+                            'tag' => 'div',
+                            'children' => [
+                                'check_box' => [
+                                    'tag' => 'span',
+                                    'render' => 'form_elements.form_check_box',
+                                    'class_selector' => 'form_check_box',
+                                    'attr' => ['tabindex' => '0'],
+                                    'class' => '',
+                                    'css' => [
+                                        'vertical-align' => 'middle',
+                                        'display' => 'inline-block',
+                                        'line-height' => '0px',
+                                        'cursor' => 'pointer',
+                                        'width' => '10px',
+                                        'fill' => 'rgba(var(--color_1_2),1)',
+                                        'border-width' => '1px',
+                                        'border-style' => 'solid',
+                                        'border-color' => 'rgba(var(--color_4_3),1)',
+                                        'border-radius' => '5px',
+                                        'padding' => '2px',
+                                        'aspect-ratio' => '1 / 1'
+                                    ],
+                                    'children' => [
+                                        'icon' => [
+                                            'tag' => 'svg',
+                                            'class_selector' => 'form_check_box_marker',
+                                            'css' => [],
+                                            'class' => 'check_box_marker',
+                                            'attr' => [
+                                                'viewBox' => '0 0 1920 1920',
+                                                'xmlns' => 'http://www.w3.org/2000/svg',
+                                                'fill-rule' => 'evenodd'
+                                            ],
+                                            'children' => [
+                                                [
+                                                    'tag' => 'path',
+                                                    'attr' => [
+                                                        'stroke-width' => '0',
+                                                        'd' => 'M1743.858 267.012 710.747 1300.124 176.005 765.382 0 941.387l710.747 710.871 1209.24-1209.116z'
+                                                    ]
+                                                ]
+                                            ],
+                                        ],
+                                    ]
+                                ],
+                                'check_box_text' => []
+                            ]
+                        ],
+                        'validation_message' => [
+                            'type' => 'check_box_validation_message',
+                            'render' => 'form_elements.form_check_box',
+                            'class_selector' => 'form_check_box_message',
+                            'tag' => 'div',
+                            'css' => [
+                                'color' => 'rgba(var(--_error),1)',
+                                'font-size' => '0.8em'
+                            ]
+                        ]
+                    ]
                 ],
                 'form_button' => [
+                    'type' => 'form_element',
                     'general_class' => '1',
                     'tag' => 'button',
+                    'form_element' => 'form_button',
                     'class_selector' => 'form_button',
-                    'font_style' => ['en' => ''],
+                    'font_style' => [],
+                    'class' => '',
                     'accessibility' => [
-                        'interactions','hover','click','can_hover','can_click','can_parent_hover',
+                        'website_form',
+                        'interactions',
+                        'hover',
+                        'click',
+                        'focus',
+                        'can_hover',
+                        'can_click',
+                        'can_focus',
                         'button',
-                        'text_style','select_font',
-                        'spacing','margin','padding',
-                        'styling','border_radius','box_shadow',
+                        'text_style',
+                        'text_color',
+                        'select_font',
+                        'spacing',
+                        'margin',
+                        'padding',
+                        'sizing',
+                        'width',
+                        'styling',
+                        'border',
+                        'border_radius',
+                        'box_shadow',
+                        'background',
+                        'background_gradient'
                     ],
                     'css' => [
                         'box-sizing' => 'border-box',
                         'position' => 'relative',
                         'cursor' => 'pointer',
-
+                        'z-index' => '1',
+                        'display' => 'block',
+                        'overflow' => 'visible',
+                        'align-self' => 'auto',
                         'font-weight' => 'normal',
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
+                        'line-height' => 'inherit',
+                        'letter-spacing' => 'inherit',
                         'font-size' => '1em',
                         'text-align' => 'center',
+                        'padding' => '10px 25px 10px 25px',
                         'margin' => '0px 0px 0px 0px',
-                        'padding' => '10px 20px 10px 20px',
-                        'color' => 'rgba(var(--color_1_1),1)',
-                        'background-color' => 'rgba(var(--color_1_7),1)',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'box-shadow' => 'none',
-                        'border-radius' => '1px 1px 1px 1px',
-                        "transition-duration" => "0ms",
-                        "transition-delay" => "0ms",
-                        "transition-timing-function" => "linear",
+                        'width' => 'auto',
+                        'min-width' => 'auto',
+                        'max-width' => '100%',
+                        'height' => 'auto',
+                        'min-height' => 'auto',
+                        'max-height' => '100%',
+                        'color' => 'rgba(var(--color_1_7),1)',
+                        'border-radius' => '5px 5px 5px 5px',
+                        'transition-duration' => '200ms'
                     ],
-                    'css_mobile' => [
-                        'font-weight' => 'normal',
-                        'line-height' => '1.3em',
-                        'letter-spacing' => '0.05em',
-                        'font-size' => '1em',
-                        'text-align' => 'center',
-                        'margin' => '0px 0px 0px 0px',
-                        'padding' => '10px 20px 10px 20px',
-                        'color' => 'rgba(var(--color_1_1),1)',
-                        'background-color' => 'rgba(var(--color_1_7),1)',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'box-shadow' => 'none',
-                        'border-radius' => '1px 1px 1px 1px',
-                        "transition-duration" => "0ms",
-                        "transition-delay" => "0ms",
-                        "transition-timing-function" => "linear",
+                    'css_hover' => [],
+                    'css_click' => [],
+                    'css_disabled' => [
+                        'cursor' => 'not-allowed',
+                        'pointer-events' => 'none',
+                        'color' => 'rgba(var(--color_4_5),1)'
                     ],
-                    'css_hover' => [
-                        'color' => 'rgba(var(--color_1_1),1)',
-                        'background-color' => 'rgba(var(--color_1_7),1)',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'box-shadow' => 'none',
-                        'border-radius' => '1px 1px 1px 1px',
+                    'background' => [
+                        'type' => 'gradient',
+                        'gradient' => 'linear-gradient(145deg, rgba(var(--color_1_3),1) 0%, rgba(var(--color_1_3),1) 100%)'
                     ],
-                    'css_hover_mobile' => [
-                        'color' => 'rgba(var(--color_1_1),1)',
-                        'background-color' => 'rgba(var(--color_1_7),1)',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'box-shadow' => 'none',
-                        'border-radius' => '1px 1px 1px 1px',
+                    'background_click' => [
+                        'type' => 'gradient',
+                        'gradient' => 'linear-gradient(145deg, rgba(var(--color_1_2),1) 0%, rgba(var(--color_1_3),1) 100%)'
                     ],
-                    'css_click' => [
-                        'color' => 'rgba(var(--color_1_1),1)',
-                        'background-color' => 'rgba(var(--color_1_7),1)',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'box-shadow' => 'none',
-                        'border-radius' => '1px 1px 1px 1px',
-                    ],
-                    'css_click_mobile' => [
-                        'color' => 'rgba(var(--color_1_1),1)',
-                        'background-color' => 'rgba(var(--color_1_7),1)',
-                        'border-top' => '0px none rgba(var(--color_4_1),1)',
-                        'border-right' => '0px none rgba(var(--color_4_1),1)',
-                        'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                        'border-left' => '0px none rgba(var(--color_4_1),1)',
-                        'box-shadow' => 'none',
-                        'border-radius' => '1px 1px 1px 1px',
-                    ],
+                    'background_disabled' => [
+                        'type' => 'gradient',
+                        'gradient' => 'linear-gradient(90deg, rgba(var(--color_4_6),1) 0%, rgba(var(--color_4_6),.8) 100%)'
+                    ]
                 ],
                 'form_loading_spinner' => [
+                    'type' => 'form_element',
+                    'form_element' => 'form_loading_spinner',
+                    'access_key_tree' => 'form_elements.form_loading_spinner',
                     'tag' => 'div',
                     'general_html_content' => '1',
                     'class_selector' => 'form_loading_spinner',
                     'class' => 'none',
                     'accessibility' => [
-                        'loading_spinner',
+                        'website_form',
+                        'loading_spinner'
                     ],
                     'css' => [
                         'position' => 'absolute',
-                        'inset' => '0 0 0 0',
+                        'inset' => '0 0 0 0'
                     ],
                     'children' => [
                         'loading_spinner' => [
                             'tag' => 'div',
-                            'class_selector' => 'form_loading_spinner_spinner',
-                            'html' => '<div></div><div></div><div></div>',
+                            'spinner_key' => 3,
+                            'class_selector' => 'form_loading_spinner3_spinner',
                             'vars' => [
-                                ':color_1' => 'rgba(var(--color_1_6),1)',
-                                ':size' => '50px',
-                                ':thickness' => '3px',
-                                ':speed' => '800ms',
+                                ':color_1:' => 'rgba(var(--color_1_3),1)',
+                                ':color_2:' => 'rgba(var(--color_4_6),0.5)',
+                                ':size:' => '50px',
+                                ':thickness:' => '5px',
+                                ':speed:' => '1000'
                             ],
                             'css' => [
                                 'position' => 'absolute',
                                 'inset' => '0 0 0 0',
                                 'margin' => 'auto',
-                                'width' => ':size',
+                                'width' => ':size:',
                                 'aspect-ratio' => '1 / 1',
-                            ],
-                            'css_children' => [
-                                'div' => [
-                                    'display' => 'block',
-                                    'position' => 'absolute',
-                                    'box-sizing' => 'border-box',
-                                    'width' => '100%',
-                                    'height' =>'100%',
-                                    'border-style' => 'solid',
-                                    'border-width' => ':thickness',
-                                    'border-radius' => '50%',
-                                    'animation' => 'form_loading_spinner_animation_1 :speed cubic-bezier(0.5, 0, 0.5, 1) infinite',
-                                ],
-                                'div:nth-child(1)' => [
-                                    'animation-delay' => 'calc(-1 * ((:speed / 8) * 3) )',
-                                    'border-color' => ':color_1 transparent transparent transparent',
-                                ],
-                                'div:nth-child(2)' => [
-                                    'animation-delay' => 'calc(-1 * ((:speed / 8) * 2) )',
-                                    'border-color' => ':color_1 transparent transparent transparent',
-                                ],
-                                'div:nth-child(3)' => [
-                                    'animation-delay' => 'calc(-1 * (:speed / 8) )',
-                                    'border-color' => ':color_1 transparent transparent transparent',
-                                ]
+                                'border' => ':thickness: solid :color_2:',
+                                'border-top' => ':thickness: solid :color_1:',
+                                'border-radius' => '50%',
+                                'animation' => 'form_loading_spinner3_animation_1 :speed:ms linear infinite'
                             ],
                             'keyframes' => [
-                                'form_loading_spinner_animation_1' => [
-                                    '0%' => ['transform' => 'rotate(0deg)'],
-                                    '100%' => ['transform' => 'rotate(360deg)']
+                                'form_loading_spinner3_animation_1' => [
+                                    '0%' => [
+                                        'transform' => 'rotate(0deg)'
+                                    ],
+                                    '100%' => [
+                                        'transform' => 'rotate(360deg)'
+                                    ]
                                 ]
                             ]
-                        ] 
+                        ]
+                    ]
+                ],
+                'website_form_success' => [
+                    'class_selector' => 'website_form_success',
+                    'css' => [
+                        'color' => 'rgba(var(--_success),1)'
+                    ]
+                ],
+                'website_form_error' => [
+                    'class_selector' => 'website_form_error',
+                    'css' => [
+                        'color' => 'rgba(var(--_error),1)'
+                    ]
+                ],
+                'website_form_warning' => [
+                    'class_selector' => 'website_form_warning',
+                    'css' => [
+                        'color' => 'rgba(var(--_warning),1)'
                     ]
                 ]
             ]),
@@ -660,48 +727,28 @@ class templates extends Seeder
                     'spacing','padding',
                     'styling','box_shadow','border',
                 ],
+                'styling_target' => [
+                    'padding' => 'website_header.children.header_wrapper',
+                ],
                 "css" => [
                     "position" => "sticky",
                     "box-sizing" => "border-box",
                     "top" => "0",
                     "width" => "100%",
                     "z-index" => "110",
-                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                    "box-shadow" => "0px 0px 5px 0px rgba(0,0,0,.1)",
-                    "transition-duration" => "0ms",
-                    "transition-delay" => "0ms",
-                    "transition-timing-function" => "linear",
                 ],
-                'css_mobile' => [
-                    "box-shadow" => "0px 0px 5px 0px rgba(0,0,0,.1)",
-                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                ],
-                'css_hover' => [
-                    "box-shadow" => "0px 0px 5px 0px rgba(0,0,0,.1)",
-                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                ],
-                'css_hover_mobile' => [
-                    "box-shadow" => "0px 0px 5px 0px rgba(0,0,0,.1)",
-                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                ],
+                'css_mobile' => (object)[],
+                'css_hover' => (object)[],
+                'css_hover_mobile' => (object)[],
                 "children" => [
                     'header_wrapper' => [
                         "tag" => "div",
                         "type" => "header_wrapper",
                         "class_selector" => "header_wrapper",
                         'accessibility' => ['padding'],
+                        'styling_target' => [
+                            'background' => 'website_header',
+                        ],
                         "css" => [
                             "box-sizing" => "border-box",
                             'position' => 'relative',
@@ -728,6 +775,7 @@ class templates extends Seeder
                                 "type" => "header_component",
                                 'header_component' => 'logo_restaurant_name',
                                 'accessibility' => [
+                                    'header_components',
                                     'header_logo_alignment','header_logo_logo','header_logo_restaurant_name',
                                     'spacing','padding','margin',
                                     'background','background_gradient','background_backdrop_filter',
@@ -775,6 +823,8 @@ class templates extends Seeder
                                         "css" => [
                                             "color" => 'rgba(var(--color_4_1),1)',
                                             "font-size" => "1.5em",
+                                            'line-height' => 'inherit',
+                                            'letter-spacing' => 'inherit',
                                             "font-weight" => "bold",
                                             'font-style' => 'normal',
                                             'text-decoration' => 'none',
@@ -785,6 +835,8 @@ class templates extends Seeder
                                             "display" => "block",
                                             "color" => 'rgba(var(--color_4_1),1)',
                                             "font-size" => "1.2em",
+                                            'line-height' => 'inherit',
+                                            'letter-spacing' => 'inherit',
                                             "font-weight" => "bold",
                                             'font-style' => 'normal',
                                             'text-decoration' => 'none',
@@ -798,7 +850,7 @@ class templates extends Seeder
                                 'header_component' => 'header_navList',
                                 'is_responsive' => '0',
                                 'accessibility' => [
-                                    // 'interactions','can_hover','can_click',
+                                    'header_components',
                                     'header_navList',
                                     'spacing','padding','margin',
                                 ],
@@ -940,9 +992,13 @@ class templates extends Seeder
                                 "tag" => "div",
                                 'is_responsive' => '0',
                                 'accessibility' => [
+                                    'header_components',
                                     'interactions','can_hover','can_click',
                                     'header_iconsList',
                                     'spacing','padding','margin',
+                                ],
+                                'styling_target' => [
+                                    'interactions' => 'website_header.children.header_wrapper.children.header_iconsList_icon'
                                 ],
                                 "class_selector" => "header_iconsList",
                                 "css" => [
@@ -1165,16 +1221,6 @@ class templates extends Seeder
                                     'stroke' => 'rgba(var(--color_4_1),1)',
                                     'color' => 'rgba(var(--color_4_1),1)',
                                 ],
-                                'css_hover' => [
-                                    'fill' => 'rgba(var(--color_4_1),1)',
-                                    'stroke' => 'rgba(var(--color_4_1),1)',
-                                    'color' => 'rgba(var(--color_4_1),1)',
-                                ],
-                                'css_click' => [
-                                    'fill' => 'rgba(var(--color_4_1),1)',
-                                    'stroke' => 'rgba(var(--color_4_1),1)',
-                                    'color' => 'rgba(var(--color_4_1),1)',
-                                ]
                             ],
                             'header_navList_item' => [
                                 'type' => 'header_navList_item',
@@ -1182,8 +1228,9 @@ class templates extends Seeder
                                 'attr' => ['sort' => '0'],
                                 'is_responsive' => '0',
                                 'class_selector' => 'header_navList_item',
-                                'font_style' => ['en' => ''],
+                                'font_style' => (object)[],
                                 'accessibility' => [
+                                    'header_components',
                                     'interactions','can_hover','can_click',
                                     'text_style','text_color',
                                     'spacing','padding','margin',
@@ -1195,41 +1242,16 @@ class templates extends Seeder
                                     'text-align' => 'center',
                                     "font-size" => "1em",
                                     "font-weight" => "normal",
-                                    'line-height' => '1.3em',
-                                    'letter-spacing' => '0.05em',
+                                    'line-height' => 'inherit',
+                                    'letter-spacing' => 'inherit',
                                     'font-style' => 'normal',
                                     'text-decoration' => 'none',
                                     "white-space" => "nowrap",
                                     "padding" => '0px 0px 0px 0px',
                                     'margin' => '0px 0px 0px 0px',
-                                    'box-shadow' => 'none',
-                                    'border-radius' => '0px 0px 0px 0px',
-                                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                                    'transition-duration' => '0ms',
-                                    'transition-delay' => '0ms',
-                                    'transition-timing-function' => '0ms',
                                 ],
-                                'css_hover' => [
-                                    "color" => 'rgba(var(--color_4_1),1)',
-                                    'box-shadow' => 'none',
-                                    'border-radius' => '0px 0px 0px 0px',
-                                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                                ],
-                                'css_click' => [
-                                    "color" => 'rgba(var(--color_4_1),1)',
-                                    'box-shadow' => 'none',
-                                    'border-radius' => '0px 0px 0px 0px',
-                                    'border-top' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-right' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                                    'border-left' => '0px none rgba(var(--color_4_1),1)',
-                                ],
+                                'css_hover' => (object)[],
+                                'css_click' => (object)[],
                             ],
                             'header_mobileNav_icon' => [
                                 "type" => "header_component",
@@ -1238,6 +1260,7 @@ class templates extends Seeder
                                 "tag" => "div",
                                 "class_selector" => "header_mobileNav_icon",
                                 'accessibility' => [
+                                    'header_components',
                                     'header_mobileNav_icon',
                                     'spacing','padding',
                                 ],
@@ -1251,9 +1274,6 @@ class templates extends Seeder
                                     'padding' => '0px 0px 0px 0px',
                                     'fill' => 'rgba(var(--color_4_1),1)',
                                     'stroke' => 'rgba(var(--color_4_1),1)',
-                                    'transition-duration' => '0ms',
-                                    'transition-delay' => '0ms',
-                                    'transition-timing-function' => 'linear',
                                 ],
                                 "css_mobile" => [
                                     "display" => "flex",
@@ -1301,6 +1321,7 @@ class templates extends Seeder
                         'is_responsive' => '0',
                         'class' => 'none',
                         'accessibility' => [
+                            'header_components',
                             'header_drop_down_list',
                             'spacing','padding',
                             'styling','border','box_shadow','border_radius',
@@ -1317,14 +1338,6 @@ class templates extends Seeder
                             'overflow' => 'hidden',
                             //
                             'padding' => '1px 1px 1px 1px',
-                            'border-radius' => '1px 1px 1px 1px',
-                            "box-shadow" => "none",
-                            'border-top' => '0px none rgba(var(--color_4_1),1)',
-                            'border-right' => '0px none rgba(var(--color_4_1),1)',
-                            'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                            'border-left' => '0px none rgba(var(--color_4_1),1)',
-                            'animation-duration' => '200ms',
-                            'animation-timing-function' => 'ease-in-out',
                         ],
                     ],
                     'header_drop_down_list_item' => [
@@ -1333,43 +1346,19 @@ class templates extends Seeder
                         'general_class' => '1',
                         'is_responsive' => '0',
                         'accessibility' => [
+                            'header_components',
                             'interactions','can_hover','can_click',
                             'header_drop_down_list_item',
                             'spacing','padding',
                             'styling','border','box_shadow','border_radius',
                             'background','background_gradient','background_backdrop_filter',
                         ],
-                        'font_style' => ['en' => ''],
+                        'font_style' => (object)[],
                         'css' => [
                             "width" => "100%",
                             'box-sizing' => 'border-box',
                             //
                             'padding' => '10px 10px 10px 10px',
-                            'border-radius' => '1px 1px 1px 1px',
-                            "box-shadow" => "none",
-                            'border-top' => '0px none rgba(var(--color_4_1),1)',
-                            'border-right' => '0px none rgba(var(--color_4_1),1)',
-                            'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                            'border-left' => '0px none rgba(var(--color_4_1),1)',
-
-                            "color" => "rgba(var(--color_4_1),1)",
-                            "font-size" => "1em",
-                            "font-weight" => "bold",
-                            'font-style' => 'normal',
-                            'text-decoration' => 'none',
-                            "white-space" => "nowrap",
-                            'transition-duration' => '0ms',
-                            'transition-delay' => '0ms',
-                            'transition-timing-function' => 'linear',
-                        ],
-                        'css_hover' => [
-                            'border-radius' => '1px 1px 1px 1px',
-                            "box-shadow" => "none",
-                            'border-top' => '0px none rgba(var(--color_4_1),1)',
-                            'border-right' => '0px none rgba(var(--color_4_1),1)',
-                            'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                            'border-left' => '0px none rgba(var(--color_4_1),1)',
-                            
                             "color" => "rgba(var(--color_4_1),1)",
                             "font-size" => "1em",
                             "font-weight" => "bold",
@@ -1377,227 +1366,210 @@ class templates extends Seeder
                             'text-decoration' => 'none',
                             "white-space" => "nowrap",
                         ],
-                        'css_click' => [
-                            'border-radius' => '1px 1px 1px 1px',
-                            "box-shadow" => "none",
-                            'border-top' => '0px none rgba(var(--color_4_1),1)',
-                            'border-right' => '0px none rgba(var(--color_4_1),1)',
-                            'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                            'border-left' => '0px none rgba(var(--color_4_1),1)',
-                            
-                            "color" => "rgba(var(--color_4_1),1)",
-                            "font-size" => "1em",
-                            "font-weight" => "bold",
-                            'font-style' => 'normal',
-                            'text-decoration' => 'none',
-                            "white-space" => "nowrap",
-                        ]
+                        'css_hover' => (object)[],
+                        'css_click' => (object)[]
                     ],
                 ],
             ]),
             'popup_window' => json_encode([ 
-                "type" => "popup_window",
-                "tag" => "div",
-                "class_selector" => "popup_container",
+                'type' => 'popup_window',
+                'tag' => 'div',
+                'class_selector' => 'popup_container',
                 'accessibility' => [],
-                "css" => [
-                    "position" => "fixed",
-                    "top" => "0",
-                    "bottom" => "0",
-                    "left" => "0",
-                    "right" => "0",
-                    "box-sizing" => "border-box",
-                    "z-index" => "120",
-                    "padding" => "10%",
-                    "overflow-y" => "auto",
-                    "display" => "grid",
-                    "align-items" => "center",
-                    "justify-items" => "center",
-
-                    "backdrop-filter" => "blur(5px)",
-                    "background-color" => "rgba(var(--color_4_1),.2)",
+                'css' => [
+                    'position' => 'fixed',
+                    'top' => '0',
+                    'bottom' => '0',
+                    'left' => '0',
+                    'right' => '0',
+                    'box-sizing' => 'border-box',
+                    'z-index' => '120',
+                    'padding' => '10%',
+                    'overflow-y' => 'auto',
+                    'display' => 'grid',
+                    'align-items' => 'center',
+                    'justify-items' => 'center',
+                    'backdrop-filter' => 'blur(5px)',
+                    'background-color' => 'rgba(var(--color_4_1),.2)'
                 ],
-                "css_mobile" => ["padding-inline" => "5px", "padding-block" => "5px"],
-                "class" => "none",
-                "children" => [
+                'css_mobile' => [
+                    'padding-inline' => '5px',
+                    'padding-block' => '5px'
+                ],
+                'class' => 'none',
+                'children' => [
                     'popup_card' => [
-                        "type" => "popup_card",
-                        "tag" => "div",
-                        "class_selector" => "popup_card",
-                        "transition" => "slide_down",
+                        'type' => 'popup_card',
+                        'tag' => 'div',
+                        'class_selector' => 'popup_card',
+                        'transition' => 'slide_down',
                         'accessibility' => [
-                            'popup_widnow','popup_window_close_icon',
-                            'interactions','can_hover','can_click',
-                            'spacing','padding',
-                            'styling','border','border_radius','box_shadow',
-                            'background','background_gradient','background_backdrop_filter',
-                            'transition',
+                            'popup_widnow',
+                            'popup_window_close_icon',
+                            'interactions',
+                            'can_hover',
+                            'can_click',
+                            'spacing',
+                            'padding',
+                            'styling',
+                            'border',
+                            'border_radius',
+                            'box_shadow',
+                            'background',
+                            'background_gradient',
+                            'background_backdrop_filter',
+                            'transition'
                         ],
-                        "css" => [
-                            "position" => "relative",
-                            "box-sizing" => "border-box",
-                            "min-width" => "300px",
-                            "min-height" => "300px",
-
-                            "animation-duration" => "400ms",
-
+                        'styling_target' => [
+                            'interactions' => 'popup_window.children.popup_card.children.popup_close'
+                        ],
+                        'css' => [
+                            'position' => 'relative',
+                            'box-sizing' => 'border-box',
+                            'animation-duration' => '400ms',
                             'padding' => '0px 0px 0px 0px',
-                            'border-radius' => '5px 5px 5px 5px',
-                            "box-shadow" => "none",
-                            'border-top' => '0px none rgba(var(--color_4_1),1)',
-                            'border-right' => '0px none rgba(var(--color_4_1),1)',
-                            'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                            'border-left' => '0px none rgba(var(--color_4_1),1)',
+                            'min-width' => '400px',
                         ],
-                        "css_mobile" => [
-                            "width" => "calc(100% - 20px)",
-
-                            'padding' => '0px 0px 0px 0px',
-                            'border-radius' => '5px 5px 5px 5px',
-                            "box-shadow" => "none",
-                            'border-top' => '0px none rgba(var(--color_4_1),1)',
-                            'border-right' => '0px none rgba(var(--color_4_1),1)',
-                            'border-bottom' => '0px none rgba(var(--color_4_1),1)',
-                            'border-left' => '0px none rgba(var(--color_4_1),1)',
+                        'css_mobile' => [
+                            'width' => 'calc(100% - 20px)',
+                            'min-width' => 'calc(100% - 20px)',
+                            'max-width' => 'calc(100% - 20px)',
+                            'padding' => '0px 0px 0px 0px'
                         ],
-                        "class" => "",
-                        "children" => [
+                        'class' => '',
+                        'children' => [
                             'popup_close' => [
-                                "tag" => "svg",
-                                "class_selector" => "popup_close",
-                                // 'type' => 'popup_window_close_icon',
+                                'tag' => 'svg',
+                                'class_selector' => 'popup_close_icon',
                                 'accessibility' => [],
-                                "class" => "popup_close",
-                                "css" => [
-                                    "position" => "absolute",
-                                    "cursor" => "pointer",
-                                    "z-index" => "10",
-                                    "width" => "26px",
-                                    "height" => "auto",
+                                'class' => 'popup_close',
+                                'css' => [
+                                    'position' => 'absolute',
+                                    'cursor' => 'pointer',
+                                    'z-index' => '10',
+                                    'width' => '22px',
+                                    'height' => 'auto',
                                     'aspect-ratio' => '1 / 1',
-                                    'inset' => '0px 0px auto auto',
-
-                                    'padding' => '0px',
-                                    'border-radius' => '5px',
-                                    
-                                    "background-color" => "rgba(var(--color_4_6),1)",
-                                    "fill" => "rgba(var(--color_4_3),1)",
-                                    "stroke" => "rgba(var(--color_4_3),1)",
+                                    'inset' => '10px 10px auto auto',
+                                    'padding' => '2px',
+                                    'border-radius' => '20px',
+                                    'background-color' => 'rgba(var(--color_4_6),0.3)',
+                                    'fill' => 'rgba(var(--color_4_4),1)',
+                                    'stroke' => 'rgba(var(--color_4_4),1)'
                                 ],
                                 'css_mobile' => [
-                                    "width" => "26px",
-                                    "height" => "auto",
+                                    'width' => '22px',
+                                    'height' => 'auto',
                                     'aspect-ratio' => '1 / 1',
-                                    'inset' => '0px 0px auto auto',
-                                    
-                                    'padding' => '0px',
-                                    'border-radius' => '5px',
-
-                                    "background-color" => "rgba(var(--color_4_6),1)",
-                                    "fill" => "rgba(var(--color_4_3),1)",
-                                    "stroke" => "rgba(var(--color_4_3),1)",
+                                    'inset' => '10px 10px auto auto',
+                                    'padding' => '2px',
+                                    'border-radius' => '20px',
+                                    'background-color' => 'rgba(var(--color_4_6),0.3)',
+                                    'fill' => 'rgba(var(--color_4_4),1)',
+                                    'stroke' => 'rgba(var(--color_4_4),1)'
                                 ],
-                                'css_hover' => [
-                                    "background-color" => "rgba(var(--color_4_6),1)",
-                                    "fill" => "rgba(var(--color_4_3),1)",
-                                    "stroke" => "rgba(var(--color_4_3),1)",
+                                'css_hover' => [],
+                                'css_hover_mobile' => [],
+                                'css_click' => [],
+                                'css_click_mobile' => [],
+                                'attr' => [
+                                    'viewBox' => '0 0 1024 1024',
+                                    'xmlns' => 'http://www.w3.org/2000/svg'
                                 ],
-                                'css_hover_mobile' => [
-                                    "background-color" => "rgba(var(--color_4_6),1)",
-                                    "fill" => "rgba(var(--color_4_3),1)",
-                                    "stroke" => "rgba(var(--color_4_3),1)",
-                                ],
-                                'css_click' => [
-                                    "background-color" => "rgba(var(--color_4_6),1)",
-                                    "fill" => "rgba(var(--color_4_3),1)",
-                                    "stroke" => "rgba(var(--color_4_3),1)",
-                                ],
-                                'css_click_mobile' => [
-                                    "background-color" => "rgba(var(--color_4_6),1)",
-                                    "fill" => "rgba(var(--color_4_3),1)",
-                                    "stroke" => "rgba(var(--color_4_3),1)",
-                                ],
-                                "attr" => [
-                                    "viewBox" => "0 0 24 24",
-                                    "xmlns" => "http://www.w3.org/2000/svg",
-                                    "stroke-linecap" => "round",
-                                    "stroke-linejoin" => "round",
-                                    "fill-rule" => "evenodd",
-                                    "clip-rule" => "evenodd",
-                                ],
-                                "children" => [
+                                'children' => [
                                     [
-                                        "tag" => "path",
-                                        "attr" => [
-                                            "stroke-width" => "0px",
-                                            "fill-rule" => "evenodd",
-                                            "clip-rule" => "evenodd",
-                                            "d" =>
-                                                "M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z",
-                                        ],
-                                    ],
-                                ],
-                            ],
+                                        'tag' => 'path',
+                                        'attr' => [
+                                            'stroke-width' => '0',
+                                            'd' => 'M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z'
+                                        ]
+                                    ]
+                                ]
+                            ]
                         ],
-                    ],
-                ],
+                        'background' => [
+                            'type' => 'color',
+                            'color' => 'rgba(var(--color_1_7),1)'
+                        ],
+                        'background_mobile' => [
+                            'type' => 'color',
+                            'color' => 'rgba(var(--color_1_7),1)'
+                        ]
+                    ]
+                ]
             ]),
+            'website_colors' => '{"gradation":{"color_1_gradation":"50","color_2_gradation":"50","color_3_gradation":"50","color_4_gradation":"50"},"colors":{"color_1_1":{"r":0,"g":47,"b":84},"color_1_2":{"r":10,"g":97,"b":134},"color_1_3":{"r":60,"g":147,"b":184},"color_1_4":{"r":110,"g":197,"b":234},"color_1_5":{"r":160,"g":247,"b":255},"color_1_6":{"r":210,"g":255,"b":255},"color_1_7":{"r":255,"g":255,"b":255},"color_2_1":{"r":150,"g":0,"b":0},"color_2_2":{"r":200,"g":0,"b":0},"color_2_3":{"r":250,"g":46,"b":46},"color_2_4":{"r":255,"g":96,"b":96},"color_2_5":{"r":255,"g":146,"b":146},"color_2_6":{"r":255,"g":196,"b":196},"color_2_7":{"r":255,"g":255,"b":255},"color_3_1":{"r":0,"g":76,"b":64},"color_3_2":{"r":2,"g":126,"b":114},"color_3_3":{"r":52,"g":176,"b":164},"color_3_4":{"r":102,"g":226,"b":214},"color_3_5":{"r":152,"g":255,"b":255},"color_3_6":{"r":202,"g":255,"b":255},"color_3_7":{"r":255,"g":255,"b":255},"color_4_1":{"r":"0","g":"0","b":"0"},"color_4_2":{"r":"42","g":"42","b":"42"},"color_4_3":{"r":"84","g":"84","b":"84"},"color_4_4":{"r":"126","g":"126","b":"126"},"color_4_5":{"r":"168","g":"168","b":"168"},"color_4_6":{"r":"210","g":"210","b":"210"},"color_4_7":{"r":"252","g":"252","b":"252"}},"custom_colors":{"_star":{"r":"255","g":"190","b":"11"},"_success":{"r":"91","g":"186","b":"111"},"_error":{"r":"193","g":"18","b":"31"},"_warning":{"r":"251","g":"86","b":"7"}}}',
+            'page_setup' => '{"mobile_max_width":"720px","max_width":"1400px","pageTransition":"fade","transitionDuration":"648ms","smooth_scroll":"0","smooth_scroll_distance":"678px","smooth_scroll_duration":"835ms","font_style":{"en":"Assistant"},"font_color":"rgba(var(--color_4_2),1)","bg_color":"rgba(var(--color_4_7),1)","font_size":"1em","line_height":"1.3em","letter_spacing":"0px"}',
             'home' => json_encode([]),
-            'login_popup' => json_encode([
-                'type' => 'container',
+            'login' => json_encode([
+                'type' => 'form_elements',
                 'name' => 'Login Form',
+                'access_key_tree' => 'form_elements.website_form',
                 'tag' => 'div',
                 "general_class_selector" => "website_form",
-                'general_html' => 'form_elements.form_loading_spinner',
                 'children' => [
-                    // [
-                    //     'tag' => 'div',
-                    //     // 'type' => 'loading_spinner',
-                    //     // 'general_class_selector' => 'form_loading_spinner',
-                    // ],
                     [
+                        'general_html' => 'form_elements.form_loading_spinner',
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_title',
+                        'access_key_tree' => 'form_elements.form_title',
                         'tag' => 'div',
                         "general_class_selector" => "form_title",
                         'text' => ['key' => 'authentication.login'],
                     ],
                     [
+                        'type' => 'form_element',
+                        'form_element' => 'form_message',
+                        'access_key_tree' => 'form_elements.form_message',
                         'tag' => 'div',
                         "general_class_selector" => "form_message",
                         'text' => ['key' => 'authentication.login_description'],
                     ],
                     [
-                        'tag' => 'input',
-                        'general_class_selector' => 'form_input_box',
-                        'placeholder' => ['key' => 'authentication.email'],
-                        'attr' => ['type' => 'text']
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'login_email',
+                            'children.input_label.text.key' => 'authentication.email',
+                            'children.input_box.placeholder.key' => 'authentication.email',
+                            'children.input_box.attr.type' => 'text',
+                        ],
                     ],
                     [
-                        'tag' => 'input',
-                        'general_class_selector' => 'form_input_box',
-                        'placeholder' => ['key' => 'authentication.password'],
-                        'attr' => ['type' => 'password']
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'login_password',
+                            'children.input_label.text.key' => 'authentication.password',
+                            'children.input_box.placeholder.key' => 'authentication.password',
+                            'children.input_box.attr.type' => 'password',
+                        ],
                     ],
                     [
-                        'tag' => 'div',
                         'general_html' => 'form_elements.form_check_box',
-                        'children' => [
-                            [
+                        'replace' =>[
+                            'children.check_box.children.check_box.class' => 'login_remember_me check_box',
+                            'children.check_box.children.check_box_text' => [
                                 'tag' => 'span',
                                 'class_selector' => 'login_form_remeber_me_text',
                                 'css' => [
                                     'margin-left' => '5px',
                                     'vertical-align' => 'middle',
                                     'display' => 'inline-block',
-                                    'line-height' => '0px',
                                 ],
                                 'text' => ['key' => 'authentication.remember_me'],
                             ],
+
                         ]
                     ],
                     [
+                        'type' => 'form_element',
+                        'form_element' => 'form_button',
+                        'access_key_tree' => 'form_elements.form_button',
                         'tag' => 'button',
                         'general_class_selector' => 'form_button',
                         'text' => ['key' => 'authentication.login'],
+                        'class' => 'login_button',
                     ],
                     [
                         'tag' => 'div',
@@ -1606,16 +1578,12 @@ class templates extends Seeder
                                 'tag' => 'div',
                                 'children' => [
                                     [
-                                        'tag' => 'span',
-                                        'text' => ['key' => 'authentication.forget_password_q'],
-                                        'html' => '&nbsp;',
-                                    ],
-                                    [
                                         'tag' => 'a',
-                                        'text' => ['key' => 'authentication.reset_password'],
+                                        'text' => ['key' => 'authentication.forget_password_q'],
                                         'class' => 'open_popup',
                                         'attr' => [
-                                            'popup' => 'reset_password_popup',
+                                            'popup' => 'reset_password_1',
+                                            'input_focus' => '.reset_password_1_email .form_input_box_input',
                                         ]
                                     ]
                                 ]
@@ -1631,10 +1599,10 @@ class templates extends Seeder
                                     [
                                         'tag' => 'a',
                                         'text' => ['key' => 'authentication.signup'],
-                                        'class' => 'open_page',
+                                        'class' => 'open_popup',
                                         'attr' => [
-                                            'href' => '/signup',
-                                            'page' => 'signup',
+                                            'popup' => 'signup',
+                                            'input_focus' => '.signup_name .form_input_box_input',
                                         ]
                                     ]
                                 ]
@@ -1643,6 +1611,179 @@ class templates extends Seeder
                     ]
                 ] 
             ]),
+            'signup' => json_encode([
+                'type' => 'form_elements',
+                'name' => 'Signup Form',
+                'access_key_tree' => 'form_elements.website_form',
+                'tag' => 'div',
+                "general_class_selector" => "website_form",
+                'children' => [
+                    [
+                        'general_html' => 'form_elements.form_loading_spinner',
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_title',
+                        'access_key_tree' => 'form_elements.form_title',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_title",
+                        'text' => ['key' => 'authentication.signup'],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_message',
+                        'access_key_tree' => 'form_elements.form_message',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_message",
+                        // 'text' => ['key' => 'authentication.login_description'],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'signup_name',
+                            'children.input_label.text.key' => 'authentication.name',
+                            'children.input_box.placeholder.key' => 'authentication.name',
+                            'children.input_box.attr.type' => 'text',
+                        ],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'signup_email',
+                            'children.input_label.text.key' => 'authentication.email',
+                            'children.input_box.placeholder.key' => 'authentication.email',
+                            'children.input_box.attr.type' => 'text',
+                        ],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'signup_password',
+                            'children.input_label.text.key' => 'authentication.password',
+                            'children.input_box.placeholder.key' => 'authentication.password',
+                            'children.input_box.attr.type' => 'password',
+                        ],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'signup_password_confirm',
+                            'children.input_label.text.key' => 'authentication.confirm_password',
+                            'children.input_box.placeholder.key' => 'authentication.confirm_password',
+                            'children.input_box.attr.type' => 'password',
+                        ],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_check_box',
+                        'replace' =>[
+                            'children.check_box.children.check_box.class' => 'signup_privacy_policy check_box',
+                            'children.check_box.children.check_box.children.icon.class' => 'check_box_marker none',
+
+                            'children.check_box.children.check_box_text' => [
+                                'tag' => 'span',
+                                'class_selector' => 'signup_privacy_policy_text',
+                                'css' => [
+                                    'margin-left' => '5px',
+                                    'vertical-align' => 'middle',
+                                    'display' => 'inline-block',
+                                ],
+                                'children' => [
+                                    [
+                                        'tag' => 'span',
+                                        'text' => ['key' => 'other.agree_with'],
+                                        'html' => '&nbsp;',
+                                    ],
+                                    [
+                                        'tag' => 'a',
+                                        'text' => ['key' => 'other.privacy_policy'],
+                                        'class' => 'open_page',
+                                        'attr' => [
+                                            'href' => '/privacy_policy',
+                                            'page' => 'privacy_policy',
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        
+                        ],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_button',
+                        'access_key_tree' => 'form_elements.form_button',
+                        'tag' => 'button',
+                        'general_class_selector' => 'form_button',
+                        'text' => ['key' => 'authentication.signup'],
+                        'class' => 'signup_button',
+                    ],
+                    [
+                        'tag' => 'div',
+                        'children' => [
+                            [
+                                'tag' => 'span',
+                                'text' => ['key' => 'authentication.have_account_login'],
+                                'html' => '&nbsp;',
+                            ],
+                            [
+                                'tag' => 'a',
+                                'text' => ['key' => 'authentication.login'],
+                                'class' => 'open_popup',
+                                'attr' => [
+                                    'popup' => 'login',
+                                    'input_focus' => '.login_email .form_input_box_input',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]),
+            'reset_password_1' => json_encode([
+                'type' => 'form_elements',
+                'name' => 'Reset password setp 1 Form',
+                'access_key_tree' => 'form_elements.website_form',
+                'tag' => 'div',
+                "general_class_selector" => "website_form",
+                'children' => [
+                    [
+                        'general_html' => 'form_elements.form_loading_spinner',
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_title',
+                        'access_key_tree' => 'form_elements.form_title',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_title",
+                        'text' => ['key' => 'authentication.reset_password'],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_message',
+                        'access_key_tree' => 'form_elements.form_message',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_message",
+                        'text' => ['key' => 'authentication.reset_password_description'],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'reset_password_1_email',
+                            'children.input_label.text.key' => 'authentication.email',
+                            'children.input_box.placeholder.key' => 'authentication.email',
+                            'children.input_box.attr.type' => 'text',
+                        ],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_button',
+                        'access_key_tree' => 'form_elements.form_button',
+                        'tag' => 'button',
+                        'general_class_selector' => 'form_button',
+                        'text' => ['key' => 'authentication.reset_password_send_link'],
+                        'class' => 'reset_password_1_button',
+                    ],
+                ]
+            ]),
+            
             // 'loading_screen' => json_encode([
             //     [
             //         'name' => 'Loading screen',   
@@ -1912,7 +2053,7 @@ class templates extends Seeder
             // ]),
         ]);
 
-        website::where('id',1)->update(['template_id'=>$template->_id]);
+        website::where('id',2)->update(['template_id'=>$template->_id]);
 
     }
 }

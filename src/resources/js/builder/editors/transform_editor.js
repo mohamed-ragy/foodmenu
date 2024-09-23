@@ -87,7 +87,12 @@ draw_transform_editor = function(data){
     return editor;
 }
 set_transform_editor = function(editor){
-    let val = get_editor_val(editor).split(' ');
+    let val = get_editor_val(editor);
+    if(val === null || val === undefined || val === '--'){
+        val = get_default_style('transform_undefined').split(' ')
+    }else{
+        val = val.split(' ');
+    }
     let translate = val[0].replace('translate(','').replace(')','').replaceAll('px','').split(',');
     let rotate_x = val[1].replace('rotateX(','').replace('deg','').replace(')','');
     let rotate_y = val[2].replace('rotateY(','').replace('deg','').replace(')','');
@@ -107,7 +112,12 @@ $('body').on('change','.transform_editor',function(){
 })
 $('body').on('mousedown','.transform_btn',function(e){
     let editor = $(this).closest('.transform_editor');
-    let val = get_editor_val(editor).split(' ');
+    let val = get_editor_val(editor);
+    let transform_action =$(this).attr('transform_action');
+    if(val == '--' || val === undefined){
+        val = get_default_style('transform')
+    }
+    val = val.split(' ');
     let translate = val[0].replace('translate(','').replace(')','').replaceAll('px','').split(',');
     let rotate_x = val[1].replace('rotateX(','').replace('deg','').replace(')','');
     let rotate_y = val[2].replace('rotateY(','').replace('deg','').replace(')','');

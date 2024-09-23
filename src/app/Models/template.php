@@ -48,7 +48,9 @@ class template extends Model
         $template['website_header'] = json_decode($template['website_header'],true);
         $template['popup_window'] = json_decode($template['popup_window'],true);
         $template['home'] = json_decode($template['home'],true);
-        $template['login_popup'] = json_decode($template['login_popup'],true);
+        $template['login'] = json_decode($template['login'],true);
+        $template['signup'] = json_decode($template['signup'],true);
+        $template['reset_password_1'] = json_decode($template['reset_password_1'],true);
 
         return $template;
     }

@@ -30,17 +30,11 @@
     .edit_section_block_alignment_left{display: flex;}
 
     .select_section_block_title{display:flex;background-color: var(--blue);}
-    .elem:hover::after{
-        outline: 1px dashed var(--orange-50);
-    }
     .elem:after{
-        outline: 1px dashed var(--orange-50);
-    }
-    .container:hover::after{
-        outline: 1px dashed var(--violet-50);
+        outline: 1px dashed var(--orange-30);
     }
     .container:after{
-        outline: 1px dashed var(--violet-50);
+        outline: 1px dashed var(--violet-30);
     }
 }
 .section_block_selected:hover {
@@ -53,10 +47,10 @@
     pointer-events: none;
     z-index: 100;
     transition-duration: 300ms;
-    outline: 1px solid var(--blue);
+    outline: 1px dashed var(--blue);
 }
 .section_block_selected:hover::after{
-    outline: 1px solid var(--blue);
+    outline: 1px dashed var(--blue);
 }
 .select_section_block_title{
     white-space: nowrap;

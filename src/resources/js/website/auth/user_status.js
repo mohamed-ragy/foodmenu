@@ -1,6 +1,11 @@
 user_status = function(status){
     if(status == null){return;}
     status.status !== 'user_idle' ?  auth.last_status = status : null;
+
+    switch(status.status){
+        //here will add params if the status should has ones and get them from window[param] .. ex window.product window.category
+    }
+
     $.ajax({
         url:'/api/activity',
         data:{new_activity:status}

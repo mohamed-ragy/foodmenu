@@ -43,14 +43,9 @@ draw_builder = function(template_id){
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
 
     setTimeout(()=>{
-        // window.selected = 'home.0.children.section_wrapper.children.0.children.0'
-        // show_editor_popup('website_form');
-        // draw_editor_popup_text_style();
-        // open_website_popup('login_popup',false,true)
-        select('home.0.children.section_wrapper.children.0.children.0')
-        // draw_editor_popup_loading_spinner();
-        draw_editor_popup_button();
-        // show_editor_popup('website_colors');
+        // open_website_popup('login')
+        // select('form_elements.form_input_box');
+        // draw_editor_popup_input_box();
     },1000)
 
 }
@@ -74,8 +69,8 @@ draw_builder_header = function(){
             $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'addToCart',text:texts.website_pages.addToCart}),
             $('<div/>',{class:'mT20 bold m5',text:texts.website_pages.other}),
             $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'privacy_policy',text:texts.website_pages.privacy_policy}),
-            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'signup',text:texts.website_pages.signup}),
-            $('<div/>',{class:'builder_header_menu_elem select_website_popup',key:'login_popup',text:texts.website_pages.login_popup}),
+            // $('<div/>',{class:'builder_header_menu_elem select_website_popup',key:'signup',text:texts.website_pages.signup}),
+            // $('<div/>',{class:'builder_header_menu_elem select_website_popup select',key_tree:'form_elements.website_form',key:'login',text:texts.website_pages.login}),
             $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'user_profile',text:texts.website_pages.user_profile,style:'border:none'}),
 
         ),
@@ -250,8 +245,10 @@ view_toggle = function(){
 $('body').on('click','.preview_languages_elem',function(e){
     window.preview_language = $(this).attr('key');
     hide_builder_header_menu(true);
-    set_website_variable_data()
+    set_website_variable_data();
+    set_page_setup_vars();
     render('all');
+    set_all_editors();
     window.history.pushState({},'',`/?template_id=${window.template_id}&preview_language=${window.preview_language}`)
     $('.show_builder_header_menu[menu="preview_languages"]').children().first().text(window.website_data.languages[$(this).attr('key')].name)
 })
@@ -266,8 +263,8 @@ $('body').on('click','.website_tools_elem',function(e){
         select('website_header');
         draw_editor_popup_header_settings()
     }else if($(this).attr('key') == 'popup_window'){
-        window.selected_popup = 'popup_window';
-        open_website_popup('popup_window',true,true);
+        open_website_popup(null);
+        select('popup_window.children.popup_card');
         draw_editor_popup_popup_widnow();
     }else{
         show_editor_popup($(this).attr('key'));
@@ -275,17 +272,15 @@ $('body').on('click','.website_tools_elem',function(e){
 });
 $('body').on('click','.website_form_elem',function(){
     hide_builder_header_menu(true);
-    let show_form = true;
-    window.selected_popup == 'login_popup' ? show_form = false : null;
-    show_form ? open_website_popup('login_popup',true,true) : null;
+    open_website_popup(window.selected_website_form);
 })
 $('body').on('click','.select_website_page',function(e){
     set_page($(this).attr('key'))
     hide_builder_header_menu(true)
 })
 $('body').on('click','.select_website_popup',function(e){
-    open_website_popup($(this).attr('key'),true,true)
     hide_builder_header_menu(true)
+    open_website_popup($(this).attr('key'))
 })
 //
 $('body').on('click','.set_view_desktop',function(e){

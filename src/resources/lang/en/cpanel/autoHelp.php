@@ -202,6 +202,16 @@
             <p>- <b>It is strongly recommended that you pick an image of a square size, such as 32x32 pixels, and no larger than 180x180 pixels</b>.</p>
             string,
         ],
+        //new
+        'website_metaImg' => [
+            'title' => 'Website meta image',
+            'content' => <<<string
+            <p>-</p>
+            <p>-</p>
+            <p>-</p>
+            string,
+        ],
+        //
         'restaurant_name' => [
             'title' => 'Restaurant name',
             'content' => <<<string

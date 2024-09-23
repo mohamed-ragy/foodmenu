@@ -87,8 +87,8 @@ draw_backdrop_filter_editor = function(data){
 }
 set_backdrop_filter_editor = function(editor){
     let val = get_editor_val(editor);
-    if(val == '--'){
-        val = get_default_style('backdrop_filter').split(' ')
+    if(val == '--' || val == undefined){
+        val = get_default_style('backdrop_filter_undefined').split(' ')
     }else{
         val = val.split(' ');
     }
@@ -111,7 +111,7 @@ set_backdrop_filter_editor = function(editor){
 }
 //
 $('body').on('click','.reset_backdrop_filter',function(e){
-    let new_val = get_default_style('backdrop_filter');
+    let new_val = get_default_style('backdrop_filter_undefined');
     let editor = $(this).closest('.backdrop_filter_editor')
     set_val(editor,new_val)
     new_action(editor.attr('render'));
@@ -120,7 +120,7 @@ $('body').on('click','.reset_backdrop_filter',function(e){
 //
 set_backdrop_filter_val = function(editor,filter,filter_val){
     let val = get_editor_val(editor);
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         val = get_default_style('backdrop_filter').split(' ')
     }else{
         val = val.split(' ');

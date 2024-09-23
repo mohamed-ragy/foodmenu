@@ -34,6 +34,36 @@ draw_page_setup = function(){
                             name:texts.styling.default_font_style,
                             row_class:true,
                         }),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.font_size}),
+                            draw_number_picker({
+                                key_tree:'page_setup',
+                                variable_key:null,
+                                key:'font_size',
+                                step:1,
+                                units:['px','em']
+                            })
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.line_height}),
+                            draw_number_picker({
+                                key_tree:'page_setup',
+                                variable_key:null,
+                                key:'line_height',
+                                units:['px','em'],
+                                step:1,
+                            }),
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.letter_spacing}),
+                            draw_number_picker({
+                                key_tree:'page_setup',
+                                variable_key:null,
+                                key:'letter_spacing',
+                                units:['px','em'],
+                                step:1,
+                            }),
+                        ),
                     ),
                     $('<div/>',{class:'editor_popup_container none w100p',key:'page_setup_font_style',parent_key:'page_setup_styling'}).append(
                         draw_font_style_picker({

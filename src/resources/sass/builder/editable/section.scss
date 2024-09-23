@@ -25,7 +25,7 @@ section:hover {
     }
 }
 section:hover::after{
-    outline: 2px dashed var(--green-50);
+    outline: 2px dashed var(--green-30);
 }
 .section_selected{
     .edit_padding_top_section{display: block;}
@@ -35,7 +35,7 @@ section:hover::after{
 
     .select_section_title{display:flex;background-color: var(--green);}
     .section_block::after{
-        outline: 1px dashed var(--blue-50);
+        outline: 1px dashed var(--blue-30);
     }
 }
 .section_selected:hover {
@@ -47,12 +47,12 @@ section:hover::after{
     inset: 0 0 0 0;
     // z-index: 1;
     pointer-events: none;
-    outline: 2px solid var(--green);
+    outline: 2px dashed var(--green);
     transition-duration: 300ms;
     outline-offset: -2px;;
 }
 .section_selected:hover::after{
-    outline: 2px solid var(--green);
+    outline: 2px dashed var(--green);
 }
 
 .select_section_title{

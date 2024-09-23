@@ -62,8 +62,10 @@ class CreateWebsitesTable extends Migration
             $table->integer('style_version')->default(1);
             $table->string('icon')->nullable();
             $table->string('logo')->nullable();
+            $table->string('metaImg')->nullable();
             $table->bigInteger('icon_id')->nullable();
             $table->bigInteger('logo_id')->nullable();
+            $table->bigInteger('metaImg_id')->nullable();
 
             $table->boolean('productReviews')->default(true);
             $table->boolean('guestReviews')->default(false);

@@ -69,3 +69,38 @@ $('html,body').on('click','.imgBrowser-logo',function(e){
         }
     });
 });
+
+
+$('html,body').on('click','#settings-websiteMetaImgCard',function(e){
+    e.stopImmediatePropagation();
+    showImgBrowser(texts.settings.selectMetaImg,'imgBrowser-metaImg');
+});
+$('html,body').on('click','.imgBrowser-metaImg',function(e){
+    e.stopImmediatePropagation();
+    if(!coolDownChecker()){return;}
+    showLoading($('#settings-websiteMetaImgLoading'))
+    closePopup();
+    let imgId = $(this).attr('imgId')
+    let imgUrl = $(this).attr('src');
+    $.ajax({
+        url:'settings',
+        type:'put',
+        data:{
+            _token:$('meta[name="csrf-token"]').attr('content'),
+            websiteMetaImg:imgId,
+
+        },
+        success:function(response){
+            hideLoading($('#settings-websiteMetaImgLoading'))
+            if(response.saveWebsiteMetaImgStatus == 1){
+                showAlert('success',response.msg,4000,true);
+                website.metaImg = imgUrl;
+                website.metaImg_id = imgId;
+                $('#settings-websiteMetaImgImg').attr('src',imgUrl)
+                window.guideHints.websiteMetaImg();
+            }else if(response.saveWebsiteMetaImgStatus == 0){
+                showAlert('error',response.msg,4000,true);
+            }
+        }
+    });
+});

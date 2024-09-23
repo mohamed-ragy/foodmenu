@@ -1,16 +1,37 @@
 $('body').on('click','.open_page',function(e){
     e.preventDefault();
-            open_page(window.pages[$(this).attr('page')])
-        //     switch($(this).attr('page')){
-        // case 'home':
-        //     open_page(()=>{draw_home_page()})
-        // break;
-    // }
+    let page = $(this).attr('page');
+    switch(page){
+        case 'home': 
+            open_page(window.pages.home,user_status({'status':'user_browse_home'}))
+        break;
+    }
 })
 //
 $('body').on('click','.open_popup',function(e){
     e.preventDefault();
-    open_popup(window.popups[$(this).attr('popup')])
+    let popup = $(this).attr('popup');
+    let input_focus = $(this).attr('input_focus');
+    let user_status_obj;
+    switch(popup){
+        case 'login':
+            user_status_obj = {'status':'user_loggingIn'}
+        break;
+        case 'signup':
+            user_status_obj = {'status':'user_signingUp'}
+        break;
+        case 'reset_password_1':
+            user_status_obj = {'status':'user_signingUp'}
+        break;
+    }
+    open_popup(window.popups[popup],function(){
+        user_status(user_status_obj)
+        if(input_focus !== undefined){
+            $(`${input_focus}`).focus()
+        }
+    })
+
+
 })
 $('body').on('click','.popup_close',function(e){
     close_popup();
@@ -22,11 +43,22 @@ $('body').on('click','.scroll_to_section',function(e){
         scrollTop:$(`.${$(this).attr('section')}`).position().top,
     },1000)
 })
-$('body').on('click','.checkbox',function(e){
-    if($(this).hasClass('checkbox_checked')){
-        $(this).removeClass('checkbox_checked');
+$('body').on('click select','.check_box',function(e){
+    let marker = $(this).find('.check_box_marker')
+    if(marker.hasClass('none')){
+        marker.removeClass('none');
     }else {
-        $(this).addClass('checkbox_checked')
+        marker.addClass('none')
+    }
+})
+$('body').on('keydown','.check_box',function(e){
+    if (e.which === 32) {
+        let marker = $(this).find('.check_box_marker')
+        if(marker.hasClass('none')){
+            marker.removeClass('none');
+        }else {
+            marker.addClass('none')
+        }
     }
 })
 //

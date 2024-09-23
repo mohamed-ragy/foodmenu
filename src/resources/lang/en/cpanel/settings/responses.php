@@ -24,6 +24,10 @@
         'websiteIconSaveFail' => 'Unknown error occurred! Failed to save the website icon.',
         'websiteLogoSaved' => 'Your website logo has been saved successfully.',
         'websiteLogoSaveFail' => 'Unknown error occurred! Failed to save the website logo.',
+        //new
+        'websiteMetaImgSaved' => 'Your website meta image has been saved successfully.',
+        'websiteMetaImgSaveFail' => 'Unknown error occurred! Failed to save the website meta image.',
+        //
         'changeWebsitePhoneNumberSaved' => 'Your restaurant phone numbers have been saved successfully.',
         'changeWebsitePhoneNumberSaveFail'=> 'Unknown error occurred! Failed to save your restaurant phone numbers.',
         'changeWebsiteAddressSaved' => 'Your restaurant address has been saved successfully.',

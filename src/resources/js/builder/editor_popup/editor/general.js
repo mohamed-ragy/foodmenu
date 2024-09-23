@@ -13,7 +13,9 @@ require('./general/background.js')//
 require('./general/filter.js')//
 require('./general/image.js')
 require('./general/button.js')//
+require('./general/input_box.js')//
 require('./general/check_box.js')//
+require('./general/check_box_validation.js')//
 require('./general/loading_spinner.js')//
 require('./general/png_icon.js')
 require('./general/arrange.js')

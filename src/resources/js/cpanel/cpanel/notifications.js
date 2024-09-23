@@ -507,6 +507,12 @@ handelCpanelChannel = function(n,code){
             website.logo_id = n.logo_id;
             window.guideHints.websiteLogo();
             break;
+        case 'settings.websiteMetaImg':
+            $('#settings-websiteMetaImgImg').attr('src',n.metaImg);
+            website.metaImg = n.metaImg
+            website.metaImg_id = n.metaImg_id;
+            window.guideHints.websiteMetaImg();
+            break;
         case 'settings.websiteName':
             website.websiteNames = n.websiteNames;
             website_temp.websiteNames = n.websiteNames;

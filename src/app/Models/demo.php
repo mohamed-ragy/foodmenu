@@ -178,6 +178,7 @@ class demo
         $demoWebsite->template_id = '000';
         $demoWebsite->icon = "/storage/imgs/templates/$website->template/icon.webp";
         $demoWebsite->logo = "/storage/imgs/templates/$website->template/logo.webp";
+        $demoWebsite->metaImg = "/storage/imgs/templates/$website->template/logo.webp";
 
 
         $demoWebsite->guestReviews = true;
@@ -439,7 +440,6 @@ class demo
 
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'en','text'=>foodmenuFunctions::defaultLanguageText('en')]);
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'ar','text'=>foodmenuFunctions::defaultLanguageText('ar')]);
-        websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'eg','text'=>foodmenuFunctions::defaultLanguageText('eg')]);
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'fr','text'=>foodmenuFunctions::defaultLanguageText('fr')]);
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'de','text'=>foodmenuFunctions::defaultLanguageText('de')]);
         websiteText::create(['website_id'=>$demoWebsite->id,'lang'=>'es','text'=>foodmenuFunctions::defaultLanguageText('es')]);

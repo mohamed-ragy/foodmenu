@@ -66,134 +66,134 @@ set_all_editors = function(){
         draw_edit_header_navList();
     }
     if($('.website_color_picker[is_selected="1"]').length > 0){
-        try{
+        // try{
             set_dummy_select_range($('.website_color_picker_gradation'),window.template.website_colors.gradation[`${$('.website_color_picker[is_selected="1"]').attr('key')}_gradation`])
-        }catch{}
+        // }catch{}
     }
     $('.rename_editor').each(function(){
-        try{
+        // try{
             set_rename_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.number_picker_editor').each(function(){
-        try{
+        // try{
             set_number_picker($(this));
-        }catch{}
+        // }catch{}
     })
     $('.select_range').each(function(){
-        try{
+        // try{
             set_select_range($(this))
-        }catch{}
+        // }catch{}
     })
     $('.inputList_editor').each(function(){
-        try{
+        // try{
             set_input_list($(this))
-        }catch{}
+        // }catch{}
     })
     $('.select_box_editor').each(function(){
-        try{
+        // try{
             set_select_box($(this))
-        }catch{}
+        // }catch{}
     })
     $('.switch_btn').each(function(){
-        try{
+        // try{
             set_switch_btn($(this))
-        }catch{}
+        // }catch{}
     })
     $('.color_picker_editor').each(function(){
-        try{
+        // try{
             set_color_picker($(this))
-        }catch{}
+        // }catch{}
     })
     $('.gradient_editor').each(function(){
-        try{
+        // try{
             set_gradient_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.select_image_editor').each(function(){
-        try{
+        // try{
             set_select_image($(this));
-        }catch{}
+        // }catch{}
     })
     $('.image_position_editor').each(function(){
-        try{
+        // try{
             set_image_position_editor($(this))
-        }catch{}
+        // }catch{}
     })
     $('.select_background_filter').each(function(){
-        try{
+        // try{
             set_select_background_filter($(this));
-        }catch{}
+        // }catch{}
     })
     $('.backdrop_filter_editor').each(function(){
-        try{
+        // try{
             set_backdrop_filter_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.border_editors').each(function(){
-        try{
+        // try{
             set_border_editors($(this));
-        }catch{}
+        // }catch{}
     })
     $('.box_shadow_editor').each(function(){
-        try{
+        // try{
             set_box_shadow_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.font_picker_editor').each(function(){
-        try{
+        // try{
             set_font_style_picker($(this));
-        }catch{}
+        // }catch{}
     })
     $('.text_editor').each(function(){
-        try{
+        // try{
             set_text_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.filter_editor').each(function(){
-        try{
+        // try{
             set_filter_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.transform_editor').each(function(){
-        try{
+        // try{
             set_transform_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.animation_editor').each(function(){
-        try{
+        // try{
             set_animation_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.timing_function_editor').each(function(){
-        try{
+        // try{
             set_timing_function_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.aspect_ratio_editor').each(function(){
-        try{
+        // try{
             set_aspect_ratio_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.button_function_editor').each(function(){
-        try{
+        // try{
             set_button_function_editor($(this));
-        }catch{}
+        // }catch{}
     })
     $('.four_number_pickers_editor').each(function(){
-        try{
+        // try{
             set_four_number_pickers($(this));
-        }catch{}
+        // }catch{}
     })
     $('.png_icon_selector_editor').each(function(){
-        try{
+        // try{
             set_png_icon_selector($(this));
-        }catch{}
+        // }catch{}
     })
     $('.interactions_picker').each(function(){
-        try{
+        // try{
             set_interactions_picker($(this));
-        }catch{}
+        // }catch{}
     })
     $('.svg_icon_picker').each(function(){
         // try{
@@ -204,10 +204,26 @@ set_all_editors = function(){
         set_loading_spinner_editor($(this))
     })
     $('.editor_details_head').each(function(){
-        try{
+        // try{
             set_editor_details($(this))
-        }catch{}
+        // }catch{}
     })
+    $('.responsive_selector_container').each(function(){
+
+    })
+    if($('.buttons_preview_container').length > 0){
+        draw_buttons_preview_container();
+    }
+    if($('.input_boxs_preview_container').length > 0){
+        draw_input_boxs_preview_container();
+    }
+
+    if($('.input_box_preview_error_switch_btn').length > 0){
+        set_dummy_val($('.input_box_preview_error_switch_btn'),window.preview_input_boxs_style.preview_error)
+    }
+    if($('.check_box_preview_validation_message').length > 0){
+        set_dummy_val($('.check_box_preview_validation_message'),window.check_box_preview_validation_message)
+    }
 }
 generate_website_style = function(generate){
     if(generate == 'all'){
@@ -229,10 +245,7 @@ render = function(key_tree){
     if(key_tree == 'all'){
         render_page(window.selected_page)
         render_website_header();
-        render_website_popup(window.selected_popup);
-        if(window.website_popup_opened == true){
-            open_website_popup(window.selected_popup,true,false)
-        }
+        render_website_popup()
         render_form_elements();
     }else{
         key_tree = key_tree.split('-');
@@ -245,32 +258,41 @@ render = function(key_tree){
                 render_website_header()
             }else if(key_tree[key] == 'page'){
                 render_page(window.selected_page)
+            }else if(key_tree[key] == 'popup_window' || key_tree[key] == 'popup_window.children.popup_card'){
+                render_website_popup();
             }else{
                 let elem = get_element_data(key_tree[key]);
-                // if(elem.general_html_content == '1'){
-                //     console.log(elem)
-                //     $(`.${elem.class_selector}`).each(function(){
-                //         let _key_tree = $(this).attr('key_tree');
-                //         generate_html(get_element_data(_key_tree),_key_tree)
-                //     })
-                // }
-                if(elem.general_class == '1'){
+                if('render' in elem){
+                    render(elem.render);
+                    return;
+                }
+                if('access_key_tree' in elem){
+                    $(`[key_tree="${key_tree[key]}"]`).each(function(){
+                        let origin_key_tree = $(this).attr('origin_key_tree');
+                        if(origin_key_tree !== undefined){
+                            $(this).replaceWith(generate_html(get_element_data(origin_key_tree),origin_key_tree))
+                        }
+                    })
+                }
+                else if(elem.general_class == '1'){
                     generate_elem_style(elem)
-                }else{
+                }
+                else if(elem.general_html_content == '1'){
+                    $(`.${elem.class_selector}`).each(function(){
+                        let this_key_tree = $(this).attr('key_tree');
+                        $(this).replaceWith(generate_html(get_element_data(this_key_tree),this_key_tree))
+                    })
+                }
+                else {
                     if($(`.${elem.class_selector}_container`).length > 0){
                         $(`.${elem.class_selector}_container`).replaceWith(generate_html(elem,key_tree[key]))
                     }else if($(`.${elem.class_selector}`).length > 0){
                         $(`.${elem.class_selector}`).replaceWith(generate_html(elem,key_tree[key]))
+                    }else{
+                        generate_elem_style(elem)
                     }
                 }
 
-            }
-
-            if(key_tree[key] == 'popup_window' && window.website_popup_opened == true){
-                $('#website').find('.popup_container').removeClass('none')
-                if(window.selected_popup !== 'popup_window'){
-                    draw_popup(window.selected_popup)
-                }
             }
         }
     }

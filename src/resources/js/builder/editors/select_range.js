@@ -22,7 +22,7 @@ set_select_range = function(editor){
     if(editor.hasClass('dummy_editor')){return;}
     let select_range_slider = editor.find('.select_range_slider')
     let val = get_editor_val(editor);
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         select_range_slider.find('.select_range_marker').css('left',`0px`);
         select_range_slider.find('.select_range_slider_selected').css('width',`0px`);
         select_range_slider.closest('.select_range').find('.select_range_val').text('--')
@@ -34,6 +34,12 @@ set_select_range = function(editor){
 }
 set_dummy_select_range = function(editor,val,immediate=false){
     let select_range_slider = editor.find('.select_range_slider')
+    if(val == '--' || val == undefined){
+        select_range_slider.find('.select_range_marker').css('left',`0px`);
+        select_range_slider.find('.select_range_slider_selected').css('width',`0px`);
+        select_range_slider.closest('.select_range').find('.select_range_val').text('--')
+        return;
+    }
     let min = select_range_slider.attr('min');
     let max = select_range_slider.attr('max');
     let step = select_range_slider.attr('step');
@@ -153,7 +159,7 @@ $('body').on('mousedown','.select_range_minus',function(e){
     let step = select_range_slider.attr('step');
     let unit = select_range_slider.attr('unit');
     let val = editor.find('.select_range_val').text();
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         return;
     }
     let new_val = parseFloat(val) - parseFloat(step);
@@ -173,7 +179,7 @@ $('body').on('mousedown','.select_range_plus',function(e){
     let step = select_range_slider.attr('step');
     let unit = select_range_slider.attr('unit');
     let val = editor.find('.select_range_val').text();
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         return;
     }
     let new_val = parseFloat(val) + parseFloat(step);

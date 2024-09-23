@@ -11,14 +11,14 @@
     <meta property="og:url" content="{{ $website->url }}" />
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:description" content="{{ $description }}" />
-    {{-- <meta property="og:image"         content="https://{!! $url.$metaImg !!}" /> --}}
+    <meta property="og:image"         content="https://{!! $website->url.$website->metaImg !!}" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="website" />
 
     <meta name="twitter:title" content="{{ $title }}" />
     <meta name="twitter:description" content="{{ $description }}" />
-    {{-- <meta name="twitter:image" content="https://{!! $url.$metaImg !!}" /> --}}
+    <meta name="twitter:image" content="https://{!! $website->url.$website->metaImg !!}" />
 
     <meta name="description" content="{{ $description }}">
     <title>{{ $title }}</title>
@@ -41,7 +41,7 @@
     window.description = "{{ $description }}"
     window.user = {!! $user !!}
     window.guest = {!! $guest !!}
-    window.route = "{{ request()->route()->getName() }}".split('_')[1];
+    window.page = "{{ request()->route()->getName() }}".split('_')[1];
 </script>
 <script src="/js/website/script.js"></script>
 <script src="/storage/websites/{{ $website_id }}/script/script_{{ $lang }}.js?v={{ $website->style_version }}"></script>

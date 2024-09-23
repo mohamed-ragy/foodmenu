@@ -15,8 +15,9 @@ draw_editor_popup_website_form = function(){
                                     dummy:true,
                                     dummy_class:'change_preview_form_inputlist',
                                     selections:[
-                                        {name:texts.website_pages.login_popup,val:'login_popup'},
-                                        {name:texts.website_pages.signup,val:'signup'}
+                                        {name:texts.website_pages.login,val:'login'},
+                                        {name:texts.website_pages.signup,val:'signup'},
+                                        {name:texts.website_pages.reset_password_1,val:'reset_password_1'}
                                     ]
                                 })
                             ),
@@ -53,6 +54,10 @@ draw_editor_popup_website_form = function(){
                                 $('<div/>',{class:'ico-title'}),
                                 $('<div/>',{text:texts.website_style.form_title})
                             ),
+                            $('<div/>',{class:'editor_popup_form_elements editor_text_style select',key_tree:'form_elements.form_message'}).append(
+                                $('<div/>',{class:'ico-title'}),
+                                $('<div/>',{text:texts.website_style.form_message})
+                            ),
                             $('<div/>',{class:'editor_popup_form_elements editor_input_box select',key_tree:'form_elements.form_input_box'}).append(
                                 $('<div/>',{class:'ico-rename'}),
                                 $('<div/>',{text:texts.website_style.form_input_box})
@@ -75,7 +80,8 @@ draw_editor_popup_website_form = function(){
             })
         )
         setTimeout(()=>{
-            
+            set_dummy_val($('.change_preview_form_inputlist'),window.selected_website_form)
+            $('.editor_popup_title2').text(texts.website_style.website_form)
             $(`.editor_popup_body_shortcut.editor_website_form`).addClass('editor_popup_body_shortcut_selected')
         });
     });
@@ -85,7 +91,6 @@ $('body').on('click','.editor_website_form',function(e){
 })
 $('body').on('change','.change_preview_form_inputlist',function(){
     let val = get_dummy_val($(this));
-    if(val == 'login_popup'){
-        open_website_popup('login_popup',true,true)
-    }
+    window.selected_website_form = val;
+    open_website_popup(val)
 })

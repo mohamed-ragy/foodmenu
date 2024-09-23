@@ -131,7 +131,6 @@ class designController extends Controller
             if($request->template_data['popup_window'] != 0){$update_data['popup_window'] = $request->template_data['popup_window'];}
             // if($request->template_data['loading_screen'] != 0){$update_data['loading_screen'] = $request->template_data['loading_screen'];}
             if($request->template_data['home'] != 0){$update_data['home'] = $request->template_data['home'];}
-            if($request->template_data['login_popup'] != 0){$update_data['login_popup'] = $request->template_data['login_popup'];}
             // if($request->changed_data != null){
             //     foreach($request->changed_data as $key => $val){
             //         $update_data[$key] = strip_tags($val,['section','div','span','svg','path','circle','header','a','img','ul','li']);

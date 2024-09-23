@@ -71,6 +71,16 @@ drawPage_restaurant_information = function(){
                     $('<span/>',{class:'ico-edit imgCardIcon'}),
                     $('<img/>',{class:'imgCard h150 w150',id:'settings-websiteLogoImg'}),
                     $('<div/>',{class:'loading absolute',id:'settings-websiteLogoLoading'})
+                ),
+                $('<div/>',{class:'mY40 pageSection_brdrB'}),
+                $('<div/>',{class:'pageSectionTitle2 mX5'}).append(
+                    $('<span/>',{text:texts.settings.websiteMetaImg}),
+                    $('<span/>',{class:'ico-help help-icon',helpId:'website_metaImg'})
+                ),
+                $('<div/>',{class:'row alnC jstfyC relative wFC mX5',id:'settings-websiteMetaImgCard'}).append(
+                    $('<span/>',{class:'ico-edit imgCardIcon'}),
+                    $('<img/>',{class:'imgCard h150 w150',id:'settings-websiteMetaImgImg'}),
+                    $('<div/>',{class:'loading absolute',id:'settings-websiteMetaImgLoading'})
                 )
             ),
             $('<div/>',{class:'pageTabContainer mxw350',tab:'restaurant_name'}).append(
@@ -181,6 +191,7 @@ drawPage_restaurant_information = function(){
 
     $('#settings-websiteIconImg').attr('src',website.icon);
     $('#settings-websiteLogoImg').attr('src',website.logo);
+    $('#settings-websiteMetaImgImg').attr('src',website.metaImg);
 
     for(const key in website.languages){
         let lang = website.languages[key];

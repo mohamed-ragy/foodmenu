@@ -11,10 +11,10 @@
     transition-duration: 300ms;
 }
 .elem:hover{
-    .select_edit_elem_title{display:flex;background-color: var(--orange-50);}
+    .select_edit_elem_title{display:flex;background-color: var(--orange-70);}
 }
 .elem:hover::after{
-    outline: 1px dashed var(--orange-50);
+    outline: 1px dashed var(--orange-70);
 }
 .edit_elem_selected{
     .select_edit_elem_title{display:flex;background-color: var(--orange);}
@@ -41,13 +41,13 @@
     inset:0 0 0 0;
     pointer-events: none;
     transition-duration: 300ms;
-    outline: 1px solid var(--orange);
+    outline: 1px dashed var(--orange);
 }
 .edit_elem_selected:hover::after{
-    outline: 1px solid var(--orange);
+    outline: 1px dashed var(--orange);
 }
 [contenteditable="true"]{
-    outline: 2px solid rgb(32, 32, 32);
+    outline: 2px dashed rgb(32, 32, 32);
     outline-offset: 2px;
     cursor: text !important;
     display:inline-block !important;

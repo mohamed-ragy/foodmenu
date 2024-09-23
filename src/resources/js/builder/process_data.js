@@ -25,7 +25,8 @@ process_data = function(r) {
         //
 
         window.selected_page = null;
-        window.selected_popup = 'popup_window';
+        window.selected_popup = null;
+        window.selected_website_form = 'login'
         window.website_popup_opened = false;
         window.selected;
         window.builder_clipboard = null;

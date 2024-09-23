@@ -1,27 +1,2 @@
 @import '../builder/website_style/color_palette.scss';
-.editor_popup_form_elements{
-    border-radius: 4px;
-    width: 100px;
-    box-sizing: border-box;
-    padding: 10px;
-    height: 80px;
-    margin: 10px;
-    box-shadow: 0 0 2px 1px var(--shdw-5);
-    text-align: center;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.editor_popup_form_elements:hover{
-    background-color: var(--green-5);
-}
-.editor_popup_form_elements > div:nth-child(1){
-    font-size: 1.2em;
-    margin-bottom: 5px;
-}
-.editor_popup_form_elements > div:nth-child(2){
-    font-size: .8em;
-
-}
+@import '../builder/website_style/form_elements.scss';

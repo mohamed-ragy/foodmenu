@@ -15,7 +15,7 @@ save = function(){
             website_header:0,
             popup_window:0,
             home:0,
-            login_popup:0,
+            login:0,
         }
         if(JSON.stringify(window.template.settings) != JSON.stringify(window.last_saved_template.settings)){
             save_template.settings = JSON.stringify(window.template.settings);
@@ -37,9 +37,6 @@ save = function(){
         }
         if(JSON.stringify(window.template.home) != JSON.stringify(window.last_saved_template.home)){
             save_template.home = JSON.stringify(window.template.home);
-        }
-        if(JSON.stringify(window.template.login_popup) != JSON.stringify(window.last_saved_template.login_popup)){
-            save_template.login_popup = JSON.stringify(window.template.login_popup);
         }
         $.ajax({
             url:'api',

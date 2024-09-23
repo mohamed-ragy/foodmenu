@@ -1272,7 +1272,7 @@ draw_color_picker = function(data){
 set_color_picker = function(editor){
     if(editor.hasClass('dummy_editor')){return;}
     let val = get_editor_val(editor);
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         editor.css('background-color','');
         editor.attr('color_var','--')
     }else{
@@ -1296,9 +1296,9 @@ set_color_picker = function(editor){
     }
 }
 set_dummy_color_picker = function(editor,val){
-    if(val == '--'){
-            editor.css('background-color','');
-        }else{
+    if(val == '--' || val == undefined || val == 'rgba(--,--)'){
+        editor.css('background-color','');
+    }else{
         editor.css('background-color',val);
     }
     editor.attr('color_var',val)
@@ -1367,7 +1367,7 @@ $('body').on('mouseup','.color_picker_editor',function(){
     }else{
         val = get_editor_val(window.selected_color_picker_editor);
     }
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         $(`.color_picker_editor_color`).removeClass('color_picker_editor_color_selected')
         $('.color_picker_editor_popup').css({
             left:parseFloat($(this).offset().left) + parseFloat($(this).outerWidth()),

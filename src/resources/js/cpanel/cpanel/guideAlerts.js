@@ -393,6 +393,28 @@ guideHintsClass = class  {
         }
         this.guideHintsCounter(drawAlerts);
     }
+    websiteMetaImg (drawAlerts=true){
+        if(account.authorities[4] == false){return}
+        this.deleteGuideAlert(13)
+        if(website.metaImg_id == null || website.metaImg_id == ''){
+            window.guideAlertsOBJ.push({
+                code:13,
+                priority:4,
+                icon:'ico-image',
+                img:null,
+                lang:null,
+                text:`${texts.cpanel.guideHints.websiteMetaImg}`,
+                cpPage:'restaurant_information',
+                openTab:'logo_and_icon',
+                popupPage:null,
+                popup:null,
+                scrollToElem:null,
+                selectElem:null,
+                attrs:{},
+            })
+        }
+        this.guideHintsCounter(drawAlerts);
+    }
     websitePhoneNumbers (drawAlerts=true){
         if(account.authorities[4] == false){return}
         this.deleteGuideAlert(18)
@@ -626,7 +648,7 @@ guideHintsClass = class  {
     }
     restaurantEmail(drawAlerts=true){
         if(account.authorities[4] == false){return}
-        this.deleteGuideAlert(28)
+        this.deleteGuideAlert(  )
         if(website.restaurantEmail == null || website.restaurantEmail == ''){
             window.guideAlertsOBJ.push({
                 code:28,
@@ -731,6 +753,7 @@ guideHintsClass = class  {
 
         window.guideHints.websiteIcon(false);//done
         window.guideHints.websiteLogo(false);//done
+        window.guideHints.websiteMetaImg(false);//done
 
         window.guideHints.websitePhoneNumbers(false);//done
         window.guideHints.websiteAddressess(false);//done

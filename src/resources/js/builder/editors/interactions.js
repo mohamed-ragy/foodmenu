@@ -6,6 +6,7 @@ draw_interactions_selector = function(interactions){
         $('<div/>',{key:'click',class:`${interactions.includes('click') && accessibility.includes('click') ? '' : 'interaction_elem_disabled'} interaction_elem ico-click`,tooltip:texts.click_style}),
         $('<div/>',{key:'focus',class:`${interactions.includes('focus') && accessibility.includes('focus') ? '' : 'interaction_elem_disabled'} interaction_elem ico-rename`,tooltip:texts.focus_style}),
         $('<div/>',{key:'disabled',class:`${interactions.includes('disabled') && accessibility.includes('disabled') ? '' : 'interaction_elem_disabled'} interaction_elem ico-no`,tooltip:texts.disabled_style}),
+        $('<div/>',{key:'error',class:`${interactions.includes('error') && accessibility.includes('error') ? '' : 'interaction_elem_disabled'} interaction_elem ico-error`,tooltip:texts.error_style}),
     )
 }
 $('body').on('click','.interaction_elem',function(){

@@ -6,13 +6,14 @@
 .popup_card:hover{
     .select_popup_title{
         display: block;
-        background-color: var(--green-50);
+        background-color: var(--green-30);
     }
 }
 .popup_card:hover:after{
-    outline: 2px dashed var(--green-50);
+    outline: 2px dashed var(--green-30);
 }
-.popup_window_selected, .popup_window_selected:hover{
+.popup_window_selected{
+    min-height: 300px;
     .edit_popup_padding_top{display: block;}
     .edit_popup_padding_right{display: block;}
     .edit_popup_padding_bottom{display: block;}
@@ -23,11 +24,26 @@
         background-color: var(--green);
     }
 
-    .container:hover::after{
-        outline: 1px dashed var(--violet-50);
+    .form_elements::after{
+        outline: 1px dashed var(--violet-30);
     }
     .container:after{
-        outline: 1px dashed var(--violet-50);
+        outline: 1px dashed var(--violet-30);
+    }
+    .popup_close{
+        z-index: 101 !important;
+    }
+}
+.popup_window_selected:hover{
+    min-height: 300px;
+    .edit_popup_padding_top{display: block;}
+    .edit_popup_padding_right{display: block;}
+    .edit_popup_padding_bottom{display: block;}
+    .edit_popup_padding_left{display: block;}
+
+    .select_popup_title{
+        display: block;
+        background-color: var(--green);
     }
     .popup_close{
         z-index: 101 !important;
@@ -37,7 +53,7 @@
     position: absolute;
     inset: 0 0 0 0;
     content:'';
-    outline: 2px solid var(--green);
+    outline: 2px dashed var(--green);
 }
 .select_popup_title{
     white-space: nowrap;

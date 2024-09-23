@@ -46,7 +46,7 @@ draw_image_position_editor = function(data){
 }
 set_image_position_editor = function(editor){
     let val = get_editor_val(editor);
-    if(val == '--'){
+    if(val == '--'  || val == undefined){
         set_dummy_input_list(editor,'--');
         set_dummy_select_range(editor.find('.image_position_x'),'--')
         set_dummy_select_range(editor.find('.image_position_y'),'--')

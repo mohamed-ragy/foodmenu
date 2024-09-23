@@ -75,12 +75,11 @@ get_blank_section = function() {
             'background','background_gradient','background_image',
         ],
         class_selector: hash(),
-        css:get_default_styles(['transition-duration','transition-delay','transition-timing-function'],{
+        css:{
             position: 'relative',
             'box-sizing': 'border-box',
             width: '100%',
-        }),
-        css_mobile:get_default_styles(['transition-duration','transition-delay','transition-timing-function'],{}),
+        },
         attr:{
             adapt_header: '0',
             adapt_header_color: 'rgba(var(--color_4_7),1)',
@@ -137,7 +136,7 @@ get_section_block = function(child_num) {
         ],
         class: '',
         class_selector: `section_block${child_key}`,
-        css:get_default_styles(['padding','border','border-radius','box-shadow','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['padding'],{
             'display': 'flex',
             'position': 'relative',
             'box-sizing': 'border-box',
@@ -150,7 +149,7 @@ get_section_block = function(child_num) {
             'margin':'0px 0px 0px 0px',
             'overflow':'visible',
         }),
-        css_mobile:get_default_styles(['padding','border','border-radius','box-shadow','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['padding'],{
             'flex-direction': 'column',
             'flex-wrap': 'nowrap',
             'align-items': 'center',
@@ -158,10 +157,6 @@ get_section_block = function(child_num) {
             'margin':'0px 0px 0px 0px',
             'overflow':'visible',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow'],{}),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
         children: []
     }
 }
@@ -174,10 +169,10 @@ get_sections_layouts = function() {
                 'grid-template-areas': `'elem1'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
             ]
@@ -190,11 +185,11 @@ get_sections_layouts = function() {
                 'grid-template-areas': `'elem1 elem2'`,
                 'grid-template-columns': 'repeat(2, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(2, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -209,11 +204,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(2, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -229,11 +224,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(2, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -249,11 +244,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -269,11 +264,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -289,11 +284,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(1, 1fr)',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(2, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -308,11 +303,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(2, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -328,11 +323,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(2, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -348,11 +343,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(2, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(4, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -368,11 +363,11 @@ get_sections_layouts = function() {
                 'grid-template-areas': `'elem1 elem2 elem3'`,
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3'`,
                 'grid-template-columns': 'repeat(1, 1fr)',/////
                 'grid-template-rows': 'repeat(3, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -388,11 +383,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(4, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -409,11 +404,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(4, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -430,11 +425,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(4, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -451,11 +446,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(5, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -473,11 +468,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(5, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -495,11 +490,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(5, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -517,11 +512,11 @@ get_sections_layouts = function() {
                 'grid-template-rows': 'repeat(2, minmax(50px,auto))',
                 'grid-template-columns': 'repeat(3, minmax(auto,1fr))',
             }),
-            css_mobile:get_default_style('section_wrapper_mobile',{
+            css_mobile:{
                 'grid-template-areas': `'elem1''elem2''elem3''elem4''elem5''elem6'`,
                 'grid-template-columns': 'repeat(1, 1fr)',
                 'grid-template-rows': 'repeat(6, auto)',
-            }),
+            },
             children: [
                 get_section_block('elem1'),
                 get_section_block('elem2'),
@@ -535,12 +530,6 @@ get_sections_layouts = function() {
     ]
 }
 elem_title = function(){
-    // let empty_langs = {};
-    // let font_styles = {};
-    // for (const key in window.website_data.languages) {
-    //     // empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.title_placeholder}</span>`
-    //     // font_styles[window.website_data.languages[key].code] = 'default';
-    // }
     let this_hash = hash();
     return {
         type: 'elem',
@@ -561,7 +550,7 @@ elem_title = function(){
         ],
         class_selector: `h1${this_hash}`,
         font_style: {},
-        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['width','height','padding','margin'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
@@ -570,28 +559,22 @@ elem_title = function(){
             'align-self':'auto',
             //
             'font-weight':'normal',
-            'line-height':'1.3em',
-            'letter-spacing':'0.05em',
+            'line-height':'inherit',
+            'letter-spacing':'inherit',
             'font-size':'1.5em',
             'text-align':'start',
         }),
-        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['width','height','padding','margin'],{
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
             //
             'font-weight':'normal',
-            'line-height':'1.3em',
-            'letter-spacing':'0.05em',
+            'line-height':'inherit',
+            'letter-spacing':'inherit',
             'font-size':'1.5em',
             'text-align':'start',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
         class: '',
         text: {
             key: `h1${this_hash}`,
@@ -600,12 +583,6 @@ elem_title = function(){
     }
 }
 elem_paragraph = function(){
-    // let empty_langs = {};
-    // let font_styles = {};
-    // for (const key in window.website_data.languages) {
-    //     empty_langs[window.website_data.languages[key].code] = `<span style="font-weight: normal; font-style: normal; text-decoration: none; font-size: 1em;" class="format_container">${texts.elems.paragraph_placeholder}</span>`
-    //     font_styles[window.website_data.languages[key].code] = 'default';
-    // }
     let this_hash = hash();
     return {
         type: 'elem',
@@ -626,7 +603,7 @@ elem_paragraph = function(){
         ],
         class_selector: `p${this_hash}`,
         font_style: {},
-        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['width','height','padding','margin'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
@@ -634,27 +611,21 @@ elem_paragraph = function(){
             'overflow':'visible',
             'align-self':'auto',
             //
-            'line-height':'1.3em',
-            'letter-spacing':'0.05em',
+            'line-height':'inherit',
+            'letter-spacing':'inherit',
             'font-size':'1em',
             'text-align':'start',
         }),
-        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['width','height','padding','margin'],{
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
             //
-            'line-height':'1.3em',
-            'letter-spacing':'0.05em',
+            'line-height':'inherit',
+            'letter-spacing':'inherit',
             'font-size':'1em',
             'text-align':'start',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
         class: '',
         text: {
             key: `p${this_hash}`,
@@ -681,31 +652,29 @@ elem_image = function(){
             'animation',
         ],
         class_selector: `image${this_hash}`,
-        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['width','height','padding','margin'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
-            'object-position':'center',
+            'object-position':'center center',
             'object-fit':'contain',
             'aspect-ratio':'auto',
         }),
-        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['width','height','padding','margin'],{
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
-            'object-position':'center',
+            'object-position':'center center',
             'object-fit':'contain',
             'aspect-ratio':'auto',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
+        css_hover:{},
+        css_hover_mobile:{},
+        css_click:{},
+        css_click_mobile:{},
         class: '',
         attr:{
             src:'',
@@ -714,23 +683,17 @@ elem_image = function(){
     }
 }
 elem_button = function(){
-    // let empty_langs = {};
-    // let font_styles = {};
-    // for (const key in window.website_data.languages) {
-    //     empty_langs[window.website_data.languages[key].code] = `<span class="format format_container" style="">${texts.elems.button_placholder}</span>`
-    //     font_styles[window.website_data.languages[key].code] = 'default';
-    // }
     let this_hash = hash();
     return {
         type: 'elem',
         elem_type: 'button',
         tag: 'button',
         accessibility:[
-            'interactions','hover','click','disabled','can_hover','can_click','can_disabled','can_parent_hover',
+            'interactions','hover','click','focus','disabled','can_hover','can_click','can_focus','can_disabled','can_parent_hover',
             'elem_swap','elem_dublicate','elem_delete',
             'copy',
             'button','button_function',
-            'text_style','text_color','background_color','edit_text','select_font',
+            'text_style','text_color','edit_text','select_font',
             'display',
             'arrange',
             'sizing','width','height',
@@ -741,7 +704,7 @@ elem_button = function(){
         ],
         class_selector: `btn${this_hash}`,
         font_style: {},
-        css:get_default_styles(['width','height','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['width','height'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'cursor':'pointer',
@@ -750,39 +713,39 @@ elem_button = function(){
             'overflow':'visible',
             'align-self':'auto',
             'font-weight':'normal',
-            'line-height':'1.3em',
-            'letter-spacing':'0.05em',
+            'line-height':'inherit',
+            'letter-spacing':'inherit',
             'font-size':'1em',
             'text-align':'center',
             'padding':'10px 20px 10px 20px',
             'margin':'0px 0px 0px 0px',
         }),
-        css_mobile:get_default_styles(['width','height','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['width','height'],{
             'display':'block',
             'overflow':'visible',
             'align-self':'auto',
             'font-weight':'normal',
-            'line-height':'1.3em',
-            'letter-spacing':'0.05em',
+            'line-height':'inherit',
+            'letter-spacing':'inherit',
             'font-size':'1em',
             'text-align':'center',
             'padding':'10px 20px 10px 20px',
             'margin':'0px 0px 0px 0px',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_disabled:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{
+        css_hover:{},
+        css_hover_mobile:{},
+        css_click:{},
+        css_click_mobile:{},
+        css_focus:{},
+        css_focus_mobile:{},
+        css_disabled:{
             'cursor':'not-allowed',
             'pointer-events':'none',
             'color':`rgba(var(--color_4_6),1)`,
-        }),
-        css_disabled_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{
+        },
+        css_disabled_mobile:{
             'color':`rgba(var(--color_4_6),1)`,
-        }),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
+        },
         class:'',
         text: {
             key: `btn${this_hash}`,
@@ -811,7 +774,7 @@ elem_icon = function(){
             'animation',
         ],
         class_selector: `icon${this_hash}`,
-        css:get_default_styles(['padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['padding','margin'],{
             'box-sizing': 'border-box',
             'position': 'relative',
             'z-index':'1',
@@ -821,19 +784,13 @@ elem_icon = function(){
             'width': '150px',
             'height': 'auto',
         }),
-        css_mobile:get_default_styles(['padding','margin','border','border-radius','box-shadow','filter','transform','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['padding','margin'],{
             'display':'block',
             'overflow':'hidden',
             'align-self':'auto',
             'width': '150px',
             'height': 'auto',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_click_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
         class: '',
         attr:{
             src:''
@@ -864,7 +821,7 @@ elem_container = function(){
         ],  
         class: '',
         class_selector: `container${child_key}`,
-        css:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','transform','filter','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css:get_default_styles(['width','height','padding','margin'],{
             'display': 'flex',
             'position': 'relative',
             'box-sizing': 'border-box',
@@ -876,7 +833,7 @@ elem_container = function(){
             'align-self':'auto',
             'overflow':'visible',
         }),
-        css_mobile:get_default_styles(['width','height','padding','margin','border','border-radius','box-shadow','transform','filter','transform-origin','transition-duration','transition-delay','transition-timing-function'],{
+        css_mobile:get_default_styles(['width','height','padding','margin'],{
             'flex-direction': 'column',
             'flex-wrap': 'nowrap',
             'align-items': 'center',
@@ -884,10 +841,6 @@ elem_container = function(){
             'align-self':'auto',
             'overflow':'visible',
         }),
-        css_hover:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        css_hover_mobile:get_default_styles(['border','border-radius','box-shadow','filter','transform','transform-origin'],{}),
-        animation: get_default_style('animation'),
-        animation_mobile: get_default_style('animation'),
         children: []
     }
 

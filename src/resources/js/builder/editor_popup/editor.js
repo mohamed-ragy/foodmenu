@@ -1,7 +1,7 @@
 require('./editor/section.js');
 require('./editor/header.js');
 require('./editor/popup.js');
-// require('./editor/form_elements.js');
+require('./editor/form_elements.js');
 require('./editor/general.js');
 
 set_editor_popup_editor = function(){
@@ -84,6 +84,9 @@ set_editor_popup_editor = function(){
         case 'form_input_box':
             $('#editor').find('.editor_popup_title').text(texts.website_style.form_input_box)
         break;
+        case 'form_button':
+            $('#editor').find('.editor_popup_title').text(texts.website_style.form_button)
+        break;
         case 'form_check_box':
             $('#editor').find('.editor_popup_title').text(texts.website_style.form_check_box)
         break;
@@ -163,6 +166,12 @@ draw_editor_popup_editor_shortcuts = function(){
         :'',
         accessibility.includes('check_box') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-check_box editor_check_box`,tooltip:texts.styling.check_box})
+        :'',
+        accessibility.includes('check_box_validation') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-error editor_check_box_validation`,tooltip:texts.styling.validation_message})
+        :'',
+        accessibility.includes('input_box') ?
+        $('<div/>',{class:`editor_popup_body_shortcut ico-rename editor_input_box`,tooltip:texts.styling.input_box})
         :'',
         accessibility.includes('loading_spinner') ?
         $('<div/>',{class:`editor_popup_body_shortcut ico-loading_spinner editor_loading_spinner`,tooltip:texts.styling.loading_spinner})

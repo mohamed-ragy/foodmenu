@@ -68,5 +68,6 @@ chandelUserActivity=function(n){
             }
             break;
     }
-    $(`.visitorActions-${n.type}-${n.id}`).html(activity).attr('tooltip',activity)
+    $(`.visitorActions-${n.type}-${n.id}`).html(activity).attr('tooltip',activity);
+    window.online.find(item=>item.id == n.id && item.type == n.type).lastActivity = activity
 }

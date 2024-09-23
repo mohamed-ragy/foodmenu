@@ -8,7 +8,6 @@ draw_edit_btns = function(elem,key_tree){
         <button class="fs101 ico-navigation_list editor_header_navList select set_editor_popup_editor" tooltip="${texts.styling.header_navList}" key_tree="website_header.children.header_wrapper.children.header_navList"></button>
         <button class="fs101 ico-icon editor_header_iconsList select set_editor_popup_editor" tooltip="${texts.styling.header_iconsList}" key_tree="website_header.children.header_wrapper.children.header_iconsList"></button>
         <button class="fs101 ico-drop_down_list editor_header_drop_down_list select set_editor_popup_editor" tooltip="${texts.styling.drop_down_list}" key_tree="website_header.children.header_drop_down_list"></button>
-        <button class="fs101 ico-list editor_header_drop_down_list_item select set_editor_popup_editor" tooltip="${texts.styling.drop_down_list_item}" key_tree="website_header.children.header_drop_down_list_item"></button>
         <button class="fs101 ico-mobile_navbar_icon editor_header_mobileNav_icon select set_editor_popup_editor" tooltip="${texts.styling.header_mobileNav_icon}" key_tree="website_header.children.header_wrapper.children.header_mobileNav_icon"></button>
         `
     }
@@ -19,23 +18,30 @@ draw_edit_btns = function(elem,key_tree){
         `
     }
     //
-    elem.accessibility.includes('website_form') ? html = `${html}<button class="ico-form editor_website_form" tooltip="${texts.website_style.website_form}" key_tree="${key_tree}"></button>` :null;
+    if('accessibility' in elem){
+        elem.accessibility.includes('website_form') ? html = `${html}<button class="ico-form editor_website_form" tooltip="${texts.website_style.website_form}" key_tree="${key_tree}"></button>` :null;
+        
+        elem.accessibility.includes('loading_spinner') ? html = `${html}<button class="ico-loading_spinner editor_loading_spinner" tooltip="${texts.styling.loading_spinner}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('check_box') ? html = `${html}<button class="ico-check_box editor_check_box" tooltip="${texts.styling.check_box}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('check_box_validation') ? html = `${html}<button class="ico-error editor_check_box_validation" tooltip="${texts.styling.validation_message}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('input_box') ? html = `${html}<button class="ico-rename editor_input_box" tooltip="${texts.styling.input_box}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('button') ? html = `${html}<button class="ico-button editor_button" tooltip="${texts.styling.button}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('edit_text') ? html = `${html}<button class="ico-text edit_text" tooltip="${texts.edit_text}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('text_style') ? html = `${html}<button class="ico-text_style editor_text_style" tooltip="${texts.styling.text_style}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('select_image') ? html = `${html}<button class="ico-select_image select_image" tooltip="${texts.styling.select_image}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('select_icon') ? html = `${html}<button class="ico-select_image editor_icon" tooltip="${texts.styling.select_icon}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('select_font') ? html = `${html}<button class="ico-font_style select_font" tooltip="${texts.styling.font_style}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('background') ? html = `${html}<button class="ico-background editor_background" tooltip="${texts.styling.background}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('alignment') ? html = `${html}<button class="ico-alignment editor_alignment" tooltip="${texts.styling.alignment}" key_tree="${key_tree}"></button>` :null;
     
-    elem.accessibility.includes('button') ? html = `${html}<button class="ico-button editor_button" tooltip="${texts.styling.button}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('edit_text') ? html = `${html}<button class="ico-text edit_text" tooltip="${texts.edit_text}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('text_style') ? html = `${html}<button class="ico-text_style editor_text_style" tooltip="${texts.styling.text_style}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_image') ? html = `${html}<button class="ico-select_image select_image" tooltip="${texts.styling.select_image}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_icon') ? html = `${html}<button class="ico-select_image editor_icon" tooltip="${texts.styling.select_icon}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('select_font') ? html = `${html}<button class="ico-font_style select_font" tooltip="${texts.styling.font_style}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('background') ? html = `${html}<button class="ico-background editor_background" tooltip="${texts.styling.background}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('alignment') ? html = `${html}<button class="ico-alignment editor_alignment" tooltip="${texts.styling.alignment}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('section_sizing') ? html = `${html}<button class="ico-sizing editor_section_sizing" tooltip="${texts.sizing}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('section_spacing') ? html = `${html}<button class="ico-spacing editor_section_spacing" tooltip="${texts.spacing}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('section_adapt_header') && elem.sort == 0 ? html = `${html}<button class="ico-header editor_section_adapt_header" tooltip="${texts.styling.adapt_header}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('section_layout') ? html = `${html}<button class="ico-layout editor_section_layout" tooltip="${texts.section_layout}" key_tree="${key_tree}"></button>` :null;
+        elem.accessibility.includes('section_driver') ? html = `${html}<button class="ico-driver editor_section_driver" tooltip="${texts.styling.section_driver}" key_tree="${key_tree}"></button>` :null;
+        
+    }
 
-    elem.accessibility.includes('section_sizing') ? html = `${html}<button class="ico-sizing editor_section_sizing" tooltip="${texts.sizing}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_spacing') ? html = `${html}<button class="ico-spacing editor_section_spacing" tooltip="${texts.spacing}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_adapt_header') && elem.sort == 0 ? html = `${html}<button class="ico-header editor_section_adapt_header" tooltip="${texts.styling.adapt_header}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_layout') ? html = `${html}<button class="ico-layout editor_section_layout" tooltip="${texts.section_layout}" key_tree="${key_tree}"></button>` :null;
-    elem.accessibility.includes('section_driver') ? html = `${html}<button class="ico-driver editor_section_driver" tooltip="${texts.styling.section_driver}" key_tree="${key_tree}"></button>` :null;
-    
 
     return html;
 }
@@ -56,7 +62,7 @@ hide_edit_btns = function(){
     $('.edit_btns').text('').removeClass().addClass('edit_btns none builder_font');
 }
 fix_edit_btns_position = function(elem,key_tree){
-    try{
+    // try{
         let parent = get_element_parent_data(key_tree);
         let direction = 'row';
         let top = 'unset';
@@ -117,11 +123,17 @@ fix_edit_btns_position = function(elem,key_tree){
                 top = `${$(`.${elem.class_selector}`).offset().top}px`;
                 left = `${$(`.${elem.class_selector}`).offset().left - 50}px`;
             break;
-            case 'website_form':
+            case 'form_elements':
                 animation_class = 'edit_btns_animation_slide_left';
                 direction = 'column';
-                top = `${$(`.edit_website_form_selected`).offset().top}px`;
-                left = `${$(`.edit_website_form_selected`).offset().left - 50}px`;
+                top = `${$(`.form_elements_selected`).offset().top}px`;
+                left = `${$(`.form_elements_selected`).offset().left - 50}px`;
+            break;
+            case 'form_element':
+                animation_class = 'edit_btns_animation_slide_left';
+                direction = 'column';
+                top = `${$(`.form_element_selected`).offset().top}px`;
+                left = `${$(`.form_element_selected`).offset().left - 50}px`;
             break;
             default:
                 return null;
@@ -136,6 +148,6 @@ fix_edit_btns_position = function(elem,key_tree){
         })
         
         return animation_class; 
-    }catch{}
+    // }catch{}
 
 }

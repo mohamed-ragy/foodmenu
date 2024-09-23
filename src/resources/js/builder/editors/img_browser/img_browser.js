@@ -20,7 +20,7 @@ draw_select_image = function(data){
 }
 set_select_image = function(editor){
     let val = get_editor_val(editor);
-    if(val == '--'){
+    if(val == '--' || val == undefined){
         editor.find('.select_image_editor_image').attr('src','/storage/imgs/cpanel/noimg.png')
     }else{
         editor.find('.select_image_editor_image').attr('src',val.replace('.','_thumbnail.'))

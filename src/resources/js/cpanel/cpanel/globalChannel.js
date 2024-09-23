@@ -89,7 +89,7 @@ setGlobalChannel = function(){
 
         for(const key in window.online){
             if(window.online[key].type == user.type && window.online[key].id == user.id){
-                window.online.splice(key,1)
+                // window.online.splice(key,1)
             }
         }
 

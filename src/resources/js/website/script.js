@@ -10,6 +10,7 @@ require('./websocket/websocket.js')
 require('./events/general_events.js')
 
 require('./components/header.js')
+require('./components/website_form.js')
 
 set_website_data = function(){
     $('.website_logo').attr('src',window.website.logo);
@@ -27,6 +28,14 @@ set_adapt_header = function(){
 }
 set_adapt_header();
 
+get_text = function(tree){
+    let text = window.texts;
+    tree = tree.split('.')
+    for(const key in tree){
+        text = text[tree[key]]
+    }
+    return text
+}
 
 
 $(document).ready(function(){
@@ -37,8 +46,8 @@ $(document).ready(function(){
     $(':root').css('--header_height',`${$('header').outerHeight()}px`)
     fix_header_nav_list();
 
-    window.text.page.title = window.title;
-    window.text.page.description = window.description;
+    window.texts.page.title = window.title;
+    window.texts.page.description = window.description;
 
     $(window).resize(function(){
         $(':root').css('--screen_height_minus_header',`${$(window).outerHeight() - $('header').outerHeight()}px`)
@@ -54,7 +63,7 @@ $(document).ready(function(){
     // $(':root').css('--header_height',`${$('header').outerHeight()}px`)
     // fix_header_nav_list();
 
-    // window.text = window.texts
+    // window.texts = window.texts
     // text.page.title = window.title;
     // text.page.description = window.description;
     

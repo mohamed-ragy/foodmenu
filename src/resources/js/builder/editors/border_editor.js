@@ -117,6 +117,9 @@ set_border_editors = function(editors_container){
 //events
 $('body').on('change','.border_editor',function(e){
     let editor = $(this);
+    if(get_dummy_val(editor.find('.border_editor_width')) == '--' || get_dummy_val(editor.find('.border_editor_width')) == undefined){return;}
+    if(get_dummy_val(editor.find('.border_editor_style')) == '--' || get_dummy_val(editor.find('.border_editor_style')) == undefined){return;}
+    if(get_dummy_val(editor.find('.border_editor_color')) == '--' || get_dummy_val(editor.find('.border_editor_color')) == undefined){return;}
     if(editor.attr('key') == 'all'){
         let new_val = `${get_dummy_val(editor.find('.border_editor_width'))} ${get_dummy_val(editor.find('.border_editor_style'))} ${get_dummy_val(editor.find('.border_editor_color'))}`;
         editor.closest('.border_editors').find('.border_editor').each(function(){
@@ -124,7 +127,6 @@ $('body').on('change','.border_editor',function(e){
                 set_val($(this),new_val);
             }
         })
-
     }else{
         let new_val = `${get_dummy_val(editor.find('.border_editor_width'))} ${get_dummy_val(editor.find('.border_editor_style'))} ${get_dummy_val(editor.find('.border_editor_color'))}`;
         set_val(editor,new_val);

@@ -1,0 +1,53 @@
+.input_box_preview{
+    margin:15px 10px !important;
+    width:200px !important;
+    
+}
+.input_box_preview_color{
+    position: relative;
+    width:28px;
+    height: 28px;
+    border-radius: 3px;
+    margin:4px;
+    cursor: pointer;
+    outline-offset: 1px;
+}
+
+.input_box_preview_color:hover{
+    outline: 2px solid var(--white-5);
+}
+.input_box_preview_color_selected, .input_box_preview_color_selected:hover{
+    outline: 2px solid var(--green-80);
+}
+
+//
+.input_box_preview_border{
+    border-left:1px solid var(--white-10);
+    margin:0 5px;
+    height:25px;
+    position: relative;
+    
+}
+.input_box_preview_border_radius, .input_box_preview_padding{
+    position: relative;
+    width:28px;
+    height: 28px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin:4px;
+    cursor: pointer;
+    outline-offset: 1px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input_box_preview_padding{
+    font-size: .85em;
+}
+.input_box_preview_border_radius:hover, .input_box_preview_padding:hover{
+    outline: 2px solid var(--white-5);
+}
+.input_box_preview_border_radius_selected, .input_box_preview_border_radius_selected:hover, .input_box_preview_padding_selected, .input_box_preview_padding_selected:hover{
+    outline: 2px solid var(--green-80);
+}

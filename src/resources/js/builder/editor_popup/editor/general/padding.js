@@ -2,15 +2,14 @@ draw_editor_popup_padding = function(){
     if(!accessibility_check(window.selected,'padding')){return;}
     show_editor_popup('editor',function(){
         let key_tree = window.selected;
-         if(key_tree == 'website_header'){
-            key_tree = 'website_header.children.header_wrapper'
-        }
         let is_responsive = true;
         let elem = get_element_data(key_tree);
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
-
+        if('styling_target' in elem){
+            key_tree = elem.styling_target.padding ?? key_tree
+        }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,

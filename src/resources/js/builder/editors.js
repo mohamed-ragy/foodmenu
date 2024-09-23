@@ -62,11 +62,12 @@ get_editor_val = function(editor){
     }
     let elem = get_element_data(key_tree);
     let val = get_element_val(elem,variable_key,key)
+
     if(is_responsive == '0'){
         return val.val;
     }else if(is_responsive == '1'){
         if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
-            if(val.val === val.val_mobile || typeof(val.val_mobile) === 'undefined'){
+            if(val.val === val.val_mobile){
                 return val.val;
             }else{
                 return '--';
@@ -74,23 +75,15 @@ get_editor_val = function(editor){
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
             return val.val;
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
-            if(typeof(val.val_mobile) === 'undefined'){
-                return val.val;
-            }else{
+            // if(typeof(val.val_mobile) === 'undefined'){
+                // return val.val;
+            // }else{
                 return val.val_mobile;
-            }
+            // }
         }
     }
 }
-set_val_check_add_background =function(variable_key,elem){
-    try{
-        let background_variable_key = variable_key.split('_')[0];
-        if(background_variable_key == 'background' && !(variable_key in elem)){
-            elem[variable_key] = get_default_style('background');
-            elem[`${variable_key}_mobile`] = get_default_style('background');
-        }
-    }catch{}
-}
+
 set_val = function(editor,new_val){
     editor = editor.closest('.editor');
     let editors_container = editor.closest('.editors_container')
@@ -105,41 +98,124 @@ set_val = function(editor,new_val){
             variable_key = `${variable_key}_${variable_key2}`
         }
     }
-    set_val_check_add_background(variable_key,elem)
+    if(variable_key !== undefined){
+        if(variable_key.includes('background_') || variable_key == 'background'){
+            if(new_val == 'none'){
+                key = undefined
+                new_val = get_default_style('background_none')
+            }else if(new_val == 'color'){
+                key = undefined
+                new_val = get_default_style('background_color')
+            }else if(new_val == 'gradient'){
+                key = undefined
+                new_val = get_default_style('background_gradient')
+            }else if(new_val == 'backdrop_filter'){
+                key = undefined
+                new_val = get_default_style('background_backdrop_filter')
+            }else if(new_val == 'image'){
+                key = undefined
+                new_val = get_default_style('background_image')
+            }
+        }
+    }
     if(is_responsive == '0'){
         if(variable_key === undefined){
-            elem[key] = new_val;
+            if(new_val === null){
+                delete elem[key];
+            }else{
+                elem[key] = new_val;
+            }
+        }else if(key === undefined){
+            if(new_val === null){
+                delete elem[variable_key];
+            }else{
+                elem[variable_key] = new_val;
+            }
         }else{
-            elem[variable_key][key] = new_val;
+            if(new_val === null){
+                delete elem[variable_key][key];
+            }else{
+                if(!(variable_key in elem)){elem[variable_key] = {}}
+                elem[variable_key][key] = new_val;
+            }
         }
         
     }else if(is_responsive == '1'){
         if(editors_container.find('.responsive_selector_selected').attr('key') == 'general'){
             if(variable_key === undefined){
-                elem[key] = new_val;
-                elem[`${key}_mobile`] = new_val;
+                if(new_val === null){
+                    delete elem[key];
+                    delete elem[`${key}_mobile`];
+                }else{
+                    elem[key] = new_val;
+                    delete elem[`${key}_mobile`];
+                }
+            }else if(key === undefined){
+                if(new_val === null){
+                    delete elem[variable_key];
+                    delete elem[`${variable_key}_mobile`];
+                }else{
+                    elem[variable_key] = new_val;
+                    delete elem[`${variable_key}_mobile`];
+                }
             }else{
-                elem[variable_key][key] = new_val;
-                elem[`${variable_key}_mobile`][key] = new_val;
+                if(new_val === null){
+                    delete elem[variable_key][key];
+                    delete elem[`${variable_key}_mobile`][key];
+                }else{
+                    if(!(variable_key in elem)){elem[variable_key] = {}}
+                    elem[variable_key][key] = new_val;
+                    if(!(`${variable_key}_mobile` in elem)){elem[`${variable_key}_mobile`] = {}}
+                    delete elem[`${variable_key}_mobile`][key];
+                }
             }
 
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'desktop'){
             if(variable_key === undefined){
-                if(typeof(elem[`${key}_mobile`]) === 'undefined'){
-                    elem[`${key}_mobile`] = elem[key];
+                if(new_val === null){
+                    delete elem[key];
+                }else{
+                    if(elem[`${key}_mobile`]  === undefined){elem[`${key}_mobile`] = elem[key]}
+                    elem[key] = new_val;
                 }
-                elem[variable_key][key] = new_val;
+            }else if(key === undefined){
+                if(new_val === null){
+                    delete elem[variable_key];
+                }else{
+                    if(elem[`${variable_key}_mobile`] === undefined){elem[`${variable_key}_mobile`] = elem[variable_key]}
+                    elem[variable_key] = new_val;
+                }
             }else{
-                if(typeof(elem[`${variable_key}_mobile`][key]) === 'undefined'){
-                    elem[`${variable_key}_mobile`][key] = elem[variable_key][key];
+                if(new_val === null){
+                    delete elem[variable_key][key];
+                }else{
+                    if(!(variable_key in elem)){elem[variable_key] = {}}
+                    if(!(`${variable_key}_mobile` in elem)){elem[`${variable_key}_mobile`] = {}}
+                    if(elem[`${variable_key}_mobile`][key] === undefined){elem[`${variable_key}_mobile`][key] = elem[variable_key][key]}
+                    elem[variable_key][key] = new_val;
                 }
-                elem[variable_key][key] = new_val;
             }
+            
         }else if(editors_container.find('.responsive_selector_selected').attr('key') == 'mobile'){
             if(variable_key === undefined){
-                elem[`${key}_mobile`] = new_val;
+                if(new_val === null){
+                    delete elem[`${key}_mobile`];
+                }else{
+                    elem[`${key}_mobile`] = new_val;
+                }
+            }else if(key === undefined){
+                if(new_val === null){
+                    delete elem[`${variable_key}_mobile`];
+                }else{
+                    elem[`${variable_key}_mobile`] = new_val;
+                }
             }else{
-                elem[`${variable_key}_mobile`][key] = new_val;
+                if(new_val === null){
+                    delete elem[`${variable_key}_mobile`][key];
+                }else{
+                    if(!(`${variable_key}_mobile` in elem)){elem[`${variable_key}_mobile`] = {}}
+                    elem[`${variable_key}_mobile`][key] = new_val;
+                }
             }
         }
     }

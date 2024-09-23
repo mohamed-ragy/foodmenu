@@ -11,7 +11,7 @@
 10 => product image(3)
 11 => product option names (2)
 12 => product option selection names (2)
-13 => slide show(3)
+13 => metaImg
 14 => (empty)
 15 => website switch(5)
 16 => website icon// canceled

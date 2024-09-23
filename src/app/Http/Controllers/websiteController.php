@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 use App\Models\website;
 use App\Models\guest;
+use App\Models\notification;
+use App\Models\User;
 use Carbon\Carbon;
-
+use Illuminate\Validation\Rule;
 
 class websiteController extends Controller
 {
@@ -20,25 +23,20 @@ class websiteController extends Controller
     private $website;
     private $lang;
     private $request_host;
-    private $user = 'null';
-    private $guest = 'null';
-    private $auth;
+    private $user;
+    private $guest;
     private $auth_type;
     public function __construct(Request $request)
     {
 
         $this->middleware(function ($request, $next) {
             $this->website_id = $request->header('X-Website-Id');
-            // $this->lang = $request->lang;
-            // self::check_subscription($request->route()->getName());//need to be checked
             self::auth_check($request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip());//need to be checked
             return $next($request);
         })->except(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
 
         $this->middleware(function ($request, $next) {
 
-            // $this->lang = $request->lang;
-            // $this->lang = $request->lang ?? Cookie::get(Str::slug(request()->getHost().'_lang', '_')) ?? 'en';
             $this->request_host = $request->getHost();
 
             self::get_website_data();
@@ -47,10 +45,8 @@ class websiteController extends Controller
                 return redirect()->to(env('APP_URL_HTTP').$this->website->url);
             }
             //
-            // self::check_language($this->lang);
             
             if(!self::check_language($request->lang)){
-            //     return redirect()->route('website_home',$this->lang);
                 return redirect()->route('website_home',$this->lang);
             };
             self::check_subscription($request->route()->getName());//need to be checked
@@ -58,36 +54,6 @@ class websiteController extends Controller
             return $next($request);
         })->only(['home','category','product','allproducts','privacypolicy','aboutus','profile']);
 
-    }
-
-    public function home(Request $request)
-    {
-        return view("website.index",[
-            'website_id' => $this->website_id,
-            'lang' => $this->lang,
-            'title' => $this->website->websiteNames[$this->lang] ?? '',
-            'description' => $this->website->websiteDescriptions[$this->lang] ?? '',
-            // 'logo' => $this->website->logo,
-            // 'icon' => $this->website->icon,
-            // 'style_version' => $this->website->style_version,
-            // 'metaImg' => $this->website->template['page_setup']['social_image'] == null ? $this->website->logo : $this->website->template['page_setup']['social_image'],
-            // 'url' => $this->website->url,
-            'guest' => $this->guest,
-            'user' => $this->user,
-            'website' => $this->website,
-        ]);
-    }
-
-    public function get_website_data(){
-        $domain = explode('.', $this->request_host);
-        $this->website = website::where('url' , preg_replace('/^www./', '',$this->request_host))->orWhere('domainName' , $domain[0] )
-        ->select([
-            'id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','style_version'])
-        ->with(['categories'])->with(['products'])->first();
-        if(!$this->website){
-            return abort(404);
-        }
-        $this->website_id = $this->website->id;
     }
     public function check_language($request_lang){
         // if($request_lang === '--'){
@@ -117,8 +83,6 @@ class websiteController extends Controller
         }
     }
     public function check_subscription($route_name){
-        return redirect()->route('website_home',['lang' => $this->lang]);
-
         if($this->website->subscription_status != 'trialing' && $this->website->subscription_status != 'active' && $this->website->subscription_status != 'past_due'){
             if($route_name != 'websiteNotActive'){
                 return redirect()->route('websiteNotActive',['lang' => $this->lang]);
@@ -136,6 +100,7 @@ class websiteController extends Controller
     public function auth_check($request_ip){
         if(Auth::guard('user')->check() && Auth::guard('user')->user()->website_id == $this->website_id){
             $this->user = Auth::guard('user')->user();
+            $this->guest = 'null';
             $this->auth_type = 'user';
             if($this->user ->isBanned == true){
                 Auth::guard('user')->logout();
@@ -144,6 +109,7 @@ class websiteController extends Controller
                 User::where(['id' => $this->user->id ])->update(['lastSeen' => Carbon::now()->timestamp]);
             }
         }else{
+            $this->user = 'null';
             $this->auth_type = 'guest';
             if(!Auth::guard('guest')->check() || Auth::guard('guest')->user()->website_id != $this->website_id){
                 $password = Str::random(10);
@@ -166,9 +132,176 @@ class websiteController extends Controller
             }
         }
     }
+    public function get_website_data(){
+        $domain = explode('.', $this->request_host);
+        if (count($domain) >= 3 && $domain[1] === 'food-menu') {
+            $_website = website::where('domainName',$domain[0]);
+        }else{
+            $_website = website::where('specialDomainName',$this->request_host);
+        }
+        $this->website =$_website->select([
+            'id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','metaImg','style_version'])
+        ->with(['categories'])->with(['products'])->first();
+        if(!$this->website){
+            return abort(404);
+        }
+        $this->website_id = $this->website->id;
+    }
 
-    //
+    public function home(Request $request)
+    {
+        return view("website.index",[
+            'website_id' => $this->website_id,
+            'lang' => $this->lang,
+            'title' => $this->website->websiteNames[$this->lang] ?? '',
+            'description' => $this->website->websiteDescriptions[$this->lang] ?? '',
+            // 'logo' => $this->website->logo,
+            // 'icon' => $this->website->icon,
+            // 'style_version' => $this->website->style_version,
+            // 'metaImg' => $this->website->metaImg,
+            // 'url' => $this->website->url,
+            'guest' => $this->guest,
+            'user' => $this->user,
+            'website' => $this->website,
+        ]);
+    }
 
+
+
+    //api
+    public function auth(Request $request){
+        switch(true){
+            case $request->has('user_login'):
+                if($request->remember == 1){
+                    $remember = true;
+                }else if($request->remember == 0){
+                    $remember = false;
+                }
+                if($request->user_login == '' || $request->user_login == null || $request->user_password == '' || $request->user_password == null){
+                    return response(['msg' => 'authentication.login_fail']);
+                }
+                $userBanCheck = User::where([ 'email' => $request->user_login , 'website_id' => $this->website_id ])->pluck('isBanned')->first();
+                if($userBanCheck == 1){
+                    return response(['msg' => 'authentication.user_banned']);
+                }
+                if(Auth::guard('user')->attempt(['email' => $request->user_login , 'password' => $request->user_password, 'website_id' => $this->website_id ],$remember)){
+                    Auth::guard('guest')->logout();
+                    return response(['msg' => 'logged_in']);
+                }else{
+                    return response(['msg' => 'authentication.login_fail']);
+                }
+            break;
+            case $request->has('user_logout'):
+                Auth::guard('user')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+            break;
+            case $request->has('user_signup'):
+                $validation = Validator::make([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password,
+                    'password_confirm' => $request->password_confirm,
+                    'privacy_policy' => $request->privacy_policy,
+                ],[
+                    'name'=>'required|min:5|max:100',
+                    'email' => [
+                        'required',
+                        'email', 
+                        Rule::unique('users')->where(function ($q)  use ($request) {
+                            return $q->where('website_id', $this->website_id);
+                        }),
+                    ],
+                    'password' => 'required|min:8|max:50',
+                    'password_confirm' => 'required|same:password',
+                    'privacy_policy' => 'in:1',
+
+                ],[
+                    'name.required' => 'authentication.name_required',
+                    'name.min' => 'authentication.name_min',
+                    'name.max' => 'authentication.name_max',
+
+                    'email.required' => 'authentication.email_required',
+                    'email.email' => 'authentication.email_email',
+                    'email.unique' => 'authentication.email_unique',
+
+                    'password.required' => 'authentication.password_required',
+                    'password.min' => 'authentication.password_min',
+                    'password.max' => 'authentication.password_max',
+                    'password_confirm.required' => 'authentication.password_confirm_required',
+                    'password_confirm.same' => 'authentication.password_confirm_same',
+                    'privacy_policy.in' => 'authentication.privacy_policy_error'
+                ]);
+                
+                if($validation->fails()){
+                    return response(['status' => 'error', 'errors' => $validation->errors()]);
+                }
+
+                $user = User::create([
+                    'name'=>strip_tags($request->name),
+                    'email'=>strip_tags($request->email),
+                    'password'=>bcrypt($request->password),
+                    'website_id' => $this->website_id,
+                    'lastSeen' => null,
+                    'cart' => '{}',
+                    'cart_lastUpdate' => null,
+                    'isBanned' => false,
+                ]);
+
+                $notification = notification::create([
+                    'website_id'=>(int) $this->website_id ,
+                    'seen' => false,
+                    'code'=>'user.signup',
+                    'user_id'=>(int) $user->id,
+                    'userName'=>strip_tags($request->name),
+                ]);
+
+                foodmenuFunctions::notification('user.signup',[
+                    'website_id' => (int) $this->website_id,
+                    'code' => 'user.signed_up',
+                    'user_id' => (int) $user->id,
+                    'user_name' => $user->name,
+                ],[
+                    'notification' => $notification,
+                ]);
+                //send email to user that he signed up
+                return response(['status' => 'success', 'msg' => 'authentication.accountCreated']);
+            break;
+            case 'reset_password_1':
+                if($request->email == '' || $request->email == null){
+                    return response(['status' => 'error','msg' => 'authentication.reset_password_description']);
+                }
+                $user = User::where([
+                    'email' => $request->email,
+                    'website_id' => $this->website_id
+                ])->first();
+
+                if($user === null){
+                    return response(['status' => 'error','msg' => 'authentication.reset_password_email_incorrect']);
+                }
+
+                if($user->resetPassword_token_sent_at > Carbon::now()->subMinutes(30)->timestamp && $user->resetPassword_token_counter >= 5){
+                    return response(['status' => 'error','msg' => 'authentication.reset_password_wait']);
+                }
+
+                $token = Str::random(100);
+                $update_token = User::where([
+                    'email' => $request->email,
+                    'website_id' => $this->website_id
+                ])->update([
+                    'resetPassword_token'=> $token ,
+                    'resetPassword_token_sent_at'=>Carbon::now()->timestamp,
+                    'resetPassword_token_counter' => (int)$user->resetPassword_token_counter + 1,
+                ]);
+                if($update_token){
+                    return response(['status' => 'success','msg' => 'authentication.reset_password_sent']);
+                }else{
+                    return response('',404);
+                }
+            break;
+        }
+
+    }
     public function activity(Request $request){
         if($request->has('userLastSeen'))
         {

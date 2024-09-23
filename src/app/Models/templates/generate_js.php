@@ -92,7 +92,7 @@ class generate_js
         ////open_page////
         /////////////////
         $page_transitionDuration = str_replace('ms','',$this->template['page_setup']['transitionDuration']);
-        self::add_to_file("open_page = function(html){
+        self::add_to_file("open_page = function(html,callback=()=>{}){
             $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
             $('#page').addClass(`{$this->template['page_setup']['pageTransition']}_out`);
             $('body').css('overflow-x','hidden');
@@ -103,6 +103,7 @@ class generate_js
                 set_website_data();
                 scroll_elem_animation('top');
                 setTimeout(()=>{
+                    callback();
                     $('body').css('overflow-x','');
                     $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
                 },{$page_transitionDuration});
@@ -132,11 +133,18 @@ class generate_js
         //////////////////
         ////open_popup////
         //////////////////
-        self::add_to_file("open_popup = function(html){
-            $('.popup_card').children().not('.popup_close').remove();
-            $('.popup_card').append(html);
-            $('.popup_container').removeClass('none');
-            $('.popup_card').addClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
+        $popup_transition_duration = str_replace($this->template['popup_window']['children']['popup_card']['css']['animation-duration'],'ms','');
+        self::add_to_file("open_popup = function(html,callback=()=>{}){
+            $('.popup_card').removeClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
+            setTimeout(()=>{
+                $('.popup_card').children().not('.popup_close').remove();
+                $('.popup_card').append(html);
+                $('.popup_container').removeClass('none');
+                $('.popup_card').addClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
+                setTimeout(()=>{
+                    callback();
+                },{$popup_transition_duration});
+            });
         };");
         ///////////////////
         ////close_popup////
@@ -145,12 +153,23 @@ class generate_js
             $('.popup_container').addClass('none');
             $('.popup_card').removeClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
             $('.popup_card').children().not('.popup_close').remove();
+            user_status({'status':`user_browse_`+window.page});
         };");
         ///////////////////
-        ////login_popup////
+        ////login////
         ///////////////////
-        $login_popup_html = self::generate_html_elem($this->template['login_popup'],false);
-        self::add_to_file("window.popups.login = `{$login_popup_html}`;");
+        $login_html = self::generate_html_elem($this->template['login'],false);
+        self::add_to_file("window.popups.login = `{$login_html}`;");
+        ///////////////////////
+        ////signup////
+        ///////////////////
+        $signup_html = self::generate_html_elem($this->template['signup'],false);
+        self::add_to_file("window.popups.signup = `{$signup_html}`;");
+        //////////////////////
+        /////reset_password_1
+        /////////
+        $reset_password_1_html = self::generate_html_elem($this->template['reset_password_1'],false);
+        self::add_to_file("window.popups.reset_password_1 = `{$reset_password_1_html}`;");
         ///////////////////////
         ////loading spinner////
         ///////////////////////
@@ -205,7 +224,7 @@ class generate_js
             ////////////////////
         ////save js file////
         ////////////////////
-        $this->js_file = "window.text = ".json_encode($this->lang_text).";".$this->js_file;
+        $this->js_file = "window.texts = ".json_encode($this->lang_text).";".$this->js_file;
         $this->js_file = str_replace(array("\r","\n"),"",$this->js_file);
         if(Storage::put('websites/'.$this->template['website_id'].'/script/script_'.$this->lang_code.'.js', $this->js_file)){
             website::where('id',$this->template['website_id'])->increment('style_version');
@@ -271,8 +290,10 @@ class generate_js
                 $html_start = $html_start." class_selector=\"{$elem['class_selector']}\"";
             }
             if(array_key_exists('animation',$elem)){
-                if($elem['animation']['name'] != 'no_animation' || $elem['animation_mobile']['name'] != 'no_animation'){
-                    $html_start = $html_start." animation=\"true\" animation_repeat=\"{$elem['animation']['repeat']}\" animation_mobile_repeat=\"{$elem['animation_mobile']['repeat']}\"";
+                if(array_key_exists('name',$elem['animation'])){
+                    if($elem['animation']['name'] != 'no_animation' || $elem['animation_mobile']['name'] != 'no_animation'){
+                        $html_start = $html_start." animation=\"true\" animation_repeat=\"{$elem['animation']['repeat']}\" animation_mobile_repeat=\"{$elem['animation_mobile']['repeat']}\"";
+                    }
                 }
             }
             if(array_key_exists('attr',$elem)){
@@ -284,15 +305,22 @@ class generate_js
                     }
                 }
             }
+            if($elem['tag'] == 'button'){
+                $html_start = $html_start." tabindex=\"0\"";
+            }
             if(array_key_exists('placeholder',$elem)){
                 $keys = explode('.',$elem['placeholder']['key']);
-                $html_start = $html_start." placeholder=\"{$this->lang_text[$keys[0]][$keys[1]]}\"";
+                $placholder_key = $this->lang_text;
+                foreach($keys as $key){
+                    $placholder_key = $placholder_key[$key];
+                }
+                $html_start = $html_start." placeholder=\"{$placholder_key}\"";
             }
             $html_start = $html_start.">";
             if(array_key_exists('text',$elem)){
                 $text = self::filter_text($elem['text']['val'][$this->lang_code] ?? '');
                 if($is_html == false){
-                    $html_start = $html_start."\${window.text.{$elem['text']['key']} ?? ''}";
+                    $html_start = $html_start."\${window.texts.{$elem['text']['key']} ?? ''}";
                     if(array_key_exists('val',$elem['text'])){
                         $this->lang_text[$elem['text']['key']] = $text;
                     }
@@ -310,9 +338,9 @@ class generate_js
             if(array_key_exists('html',$elem)){
                 $html = $html.$elem['html'];
             }
-            if(array_key_exists('general_html',$elem)){
-                $html = $html.self::generate_html_elem(self::get_elem($elem['general_html']),false);
-            }
+            // if(array_key_exists('general_html',$elem)){
+            //     $html = $html.self::generate_html_elem(self::get_elem($elem['general_html']),false);
+            // }
             if(array_key_exists('type',$elem)){
                 if($elem['type'] == 'section' && $elem['has_driver'] == '1'){
                     $html = $html."<svg class='{$elem['class_selector']}_driver' ";
@@ -339,9 +367,27 @@ class generate_js
                     $html = $html.self::generate_html_elem($child,$is_html);
                 }
             }
-
             $html_end = "</{$elem['tag']}>";
-  
+        }else if(array_key_exists('general_html',$elem)){
+            $general_html_elem = self::get_elem($elem['general_html']);
+            if(array_key_exists('replace',$elem)){
+                foreach($elem['replace'] as $replace_key => $replace_val){
+                    $keys = explode('.', $replace_key);
+                    $temp = &$general_html_elem;
+                    foreach ($keys as $i => $key) {
+                        if ($i === count($keys) - 1) {
+                            $temp[$key] = $replace_val;
+                        } else {
+                            if (!isset($temp[$key])) {
+                                break;
+                            }
+                            $temp = &$temp[$key];
+                        }
+                    }
+                }
+            }
+            $generated_html = self::generate_html_elem($general_html_elem,false);
+            $html = $html.$generated_html;
         }
         return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p','button','input']);
     }

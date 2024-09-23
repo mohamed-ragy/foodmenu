@@ -73,10 +73,10 @@ show_text_format_popup = async function(){
                 }
             }catch{}
         }}),
-        $('<div/>',{class:'text_format_btn_split'}),
-        $('<button/>',{tooltip:texts.styling.align_start,class:'ico-align_start text_format_btn',tag:'SPAN',action:'text_align',key:'start'}),
-        $('<button/>',{tooltip:texts.styling.align_center,class:'ico-align_center text_format_btn',tag:'SPAN',action:'text_align',key:'center'}),
-        $('<button/>',{tooltip:texts.styling.align_end,class:'ico-align_end text_format_btn',tag:'SPAN',action:'text_align',key:'end'}),
+        // $('<div/>',{class:'text_format_btn_split'}),
+        // $('<button/>',{tooltip:texts.styling.align_start,class:'ico-align_start text_format_btn',tag:'SPAN',action:'text_align',key:'start'}),
+        // $('<button/>',{tooltip:texts.styling.align_center,class:'ico-align_center text_format_btn',tag:'SPAN',action:'text_align',key:'center'}),
+        // $('<button/>',{tooltip:texts.styling.align_end,class:'ico-align_end text_format_btn',tag:'SPAN',action:'text_align',key:'end'}),
     ).removeClass('none')
     set_text_format_popup_btns();
     if($('.text_format_popup').offset().left + $('.text_format_popup').width() > $(window).width()){
@@ -141,10 +141,10 @@ set_text_format_popup_btns = function(){
     }
 
     let elem = get_element_data(window.selected);
-    let text_align;
-    window.current_view == 'desktop' ? text_align = elem.css['text-align'] : window.current_view == 'mobile' ? text_align = elem.css_mobile['text-align'] : null;
-    $('.text_format_popup').find(`.text_format_btn[action="text_align"]`).removeClass('text_format_btn_selected')
-    $('.text_format_popup').find(`.text_format_btn[action="text_align"][key="${text_align}"]`).addClass('text_format_btn_selected')
+    // let text_align;
+    // window.current_view == 'desktop' ? text_align = elem.css['text-align'] : window.current_view == 'mobile' ? text_align = elem.css_mobile['text-align'] : null;
+    // $('.text_format_popup').find(`.text_format_btn[action="text_align"]`).removeClass('text_format_btn_selected')
+    // $('.text_format_popup').find(`.text_format_btn[action="text_align"][key="${text_align}"]`).addClass('text_format_btn_selected')
 
 }
 get_selection_element = function(tag,create){

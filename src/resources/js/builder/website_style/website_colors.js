@@ -568,10 +568,14 @@ $('body').on('click','.add_custom_color_confirm',function(){
     Coloris.close();
 })
 $('body').on('click','.website_custom_color',function(){
+    let custom_color_name = $(this).attr('custom_color_name')
     setTimeout(()=>{
-        $('#clr-picker').append(
-            $('<button/>',{custom_color_name:$(this).attr('custom_color_name'),class:'btn btn_small btn-cancel mX10 mT5 mB10 remove_custom_color',text:texts.website_style.remove_color})
-        )
+        console.log(custom_color_name)
+        if(custom_color_name !== '_warning' && custom_color_name !== '_error' && custom_color_name !== '_success' && custom_color_name !== '_star'){
+            $('#clr-picker').append(
+                $('<button/>',{custom_color_name:$(this).attr('custom_color_name'),class:'btn btn_small btn-cancel mX10 mT5 mB10 remove_custom_color',text:texts.website_style.remove_color})
+            )
+        }
     },50)
 })
 $('body').on('click','.remove_custom_color',function(){

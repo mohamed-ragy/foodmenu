@@ -35,6 +35,26 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                             })
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.line_height}),
+                            draw_number_picker({
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                variable_key:'css',
+                                key:'line-height',
+                                units:['px','em','inherit'],
+                                step:1,
+                            }),
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
+                            $('<div/>',{class:'fs09',text:texts.styling.letter_spacing}),
+                            draw_number_picker({
+                                key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
+                                variable_key:'css',
+                                key:'letter-spacing',
+                                units:['px','em','inherit'],
+                                step:1,
+                            }),
+                        ),
+                        $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
                             draw_select_box({
                                 key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',

@@ -58,11 +58,14 @@ fix_editor_popup_position = function(editor_popup){
             right:'20px',
         })
     }
-    if(window.current_view == 'mobile'){
+    if(
+        window.current_view == 'mobile' &&
+        true
+    ){
         editor_popup.css({
             top:$('#website').offset().top,
             bottom:'unset',
-            left:$('#website').offset().left + $('#website').width() + 10,
+            left:$('#website').offset().left + $('#website').width() + 60,
             right:'unset',
         })
     }
@@ -101,7 +104,7 @@ show_editor_popup = function(elem,callback=()=>{}){
     set_all_editors();
     setTimeout(()=>{
         $(`#${elem}`).find('.editor_popup_body_wrapper').scrollTop(0)
-    },1000)
+    },150)
         // if(elem === null){
     //     $('#editor_popup').css({
     //         left:($(window).width() / 2) - ($('#editor_popup').width() / 2),
@@ -154,7 +157,7 @@ editor_popup_to_child = function(container){
         set_all_editors();
     },150)
 }
-editor_popup_to_parent = function(container){
+editor_popup_to_parent = function(container,immediate=false){
     window.toolTipElem = undefined;
     let editor_popup = container.closest('.editor_popup');
     if(typeof(container).attr('parent_key') !== 'undefined'){
@@ -176,7 +179,7 @@ editor_popup_to_parent = function(container){
         editor_popup.find('.editor_popup_body').removeClass('ofH')
         editor_popup.find('.editor_popup_body_wrapper').scrollTop(0)
         set_all_editors();
-    },150)
+    },immediate ? 0 : 150)
 }
 //events
 $('body').on('click','.editor_popup_show_container',function(e){
@@ -232,7 +235,6 @@ $('body').on('mousemove touchmove','.editor_popup_head',function(e){
             });
 
         }
-        fix_editor_popup_position($(this).closest('.editor_popup'))
     }
 })
 

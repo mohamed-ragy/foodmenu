@@ -73,7 +73,10 @@ keyboard_shortcuts = function(e){
             $('.show_builder_header_menu[menu="preview_languages"]').children().first().text(window.website_data.languages[window.preview_language].name)
             window.history.pushState({},'',`/?template_id=${window.template_id}&preview_language=${window.preview_language}`)
             set_website_variable_data()
+            set_page_setup_vars();
             render('all');
+            set_all_editors();
+
         }catch{}
 
     }
@@ -156,7 +159,7 @@ $('body').on('click','.scroll_to_section',function(e){
     },1000)
 })
 //
-$('body').on('mouseenter','a',function(){
+$('body').on('mouseenter','.open_page, .open_popup, .scroll_to_section',function(){
     if($(this).hasClass('open_page')){
         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}/${window.preview_language}${$(this).attr('href')}</div>`)
     }else if($(this).hasClass('open_popup')){
@@ -174,21 +177,21 @@ $('body').on('mouseenter','a',function(){
         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.scroll_to_section}:</div><div class="fs101 cB underline">${section_name}</div>`)
     }
 })
-$('body').on('mouseenter','button',function(){
-    if($(this).hasClass('open_page')){
-        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}/${window.preview_language}${$(this).attr('href')}</div>`)
-    }else if($(this).hasClass('open_popup')){
-        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
+// $('body').on('mouseenter','button',function(){
+//     if($(this).hasClass('open_page')){
+//         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.link_to}:</div><div class="fs101 cB underline ellipsis">https://${window.website_data.url}/${window.preview_language}${$(this).attr('href')}</div>`)
+//     }else if($(this).hasClass('open_popup')){
+//         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
 
-    }else if($(this).hasClass('scroll_to_section')){
-        let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
-        let section_name = '';
-        try{
-            section_name = section.name;
-        }catch{}
-        $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.scroll_to_section}:</div><div class="fs101 cB underline">${section_name}</div>`)
-    }
-})
+//     }else if($(this).hasClass('scroll_to_section')){
+//         let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
+//         let section_name = '';
+//         try{
+//             section_name = section.name;
+//         }catch{}
+//         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.scroll_to_section}:</div><div class="fs101 cB underline">${section_name}</div>`)
+//     }
+// })
 // $('body').on('mosueleave','a',function(){
 // })
 //

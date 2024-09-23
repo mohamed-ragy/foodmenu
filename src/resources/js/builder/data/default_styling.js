@@ -20,17 +20,6 @@ get_default_style = function(style,push_data={}){
                 'margin-bottom': '0px',
             }
         break;
-        case 'section_wrapper_mobile':
-            data = {
-                'max-width': 'var(--page_max_width)',
-                'min-height': '500px',
-                'padding-top': '100px',
-                'padding-bottom': '100px',
-                'grid-gap': '5px',
-                'margin-top': '0px',
-                'margin-bottom': '0px',
-            }
-        break;
         case 'background':
             data =  {
                 type:'none',
@@ -38,6 +27,42 @@ get_default_style = function(style,push_data={}){
                 gradient:get_default_style('linear_gradient'),
                 backdrop_filter:get_default_style('backdrop_filter'),
                 backdrop_filter_color:'rgba(var(--color_1_7),.2)',
+                background_image: '/storage/imgs/cpanel/noimg.png',
+                background_attachment: 'local',
+                background_size: 'cover',
+                background_repeat: 'no-repeat',
+                background_position: '50% 50%',
+                background_blend_mode: 'normal',
+                background_blend_mode_color:'rgba(var(--color_1_2),1)',
+            };
+        break;
+        case 'background_none':
+            data =  {
+                type:'none',
+            };
+        break;
+        case 'background_color':
+            data =  {
+                type:'color',
+                color:'rgba(var(--color_1_7),1)',
+            };
+        break;
+        case 'background_gradient':
+            data =  {
+                type:'gradient',
+                gradient:get_default_style('linear_gradient'),
+            };
+        break;
+        case 'background_backdrop_filter':
+            data =  {
+                type:'backdrop_filter',
+                backdrop_filter:get_default_style('backdrop_filter'),
+                backdrop_filter_color:'rgba(var(--color_1_7),.2)',
+            };
+        break;
+        case 'background_image':
+            data =  {
+                type:'image',
                 background_image: '/storage/imgs/cpanel/noimg.png',
                 background_attachment: 'local',
                 background_size: 'cover',
@@ -91,6 +116,9 @@ get_default_style = function(style,push_data={}){
         ///
         case 'backdrop_filter':
             data = 'blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%)';
+        break;
+        case 'backdrop_filter_undefined':
+            data = 'blur(--) brightness(--) contrast(--) saturate(--) grayscale(--) hue-rotate(--) invert(--) sepia(--)';
         break;
         case 'linear_gradient':
             data = 'linear-gradient(90deg, rgba(var(--color_1_5),1) 0%, rgba(var(--color_2_5),1) 100%)';
@@ -148,8 +176,14 @@ get_default_style = function(style,push_data={}){
         case 'transform':
             data = 'translate(0px,0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1)';
         break;
+        case 'transform_undefined':
+            data = 'translate(--,--) rotateX(--) rotateY(--) rotateZ(--) scaleX(--) scaleY(--)';
+        break;
         case 'filter':
             data = 'opacity(100%) blur(0px) brightness(100%) contrast(100%) saturate(100%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%) drop-shadow(0px 0px 0px rgba(var(--color_4_1),0))';
+        break;
+        case 'filter_undefined':
+            data = 'opacity(--) blur(--) brightness(--) contrast(--) saturate(--) grayscale(--) hue-rotate(--) invert(--) sepia(--) drop-shadow(-- -- -- rgba(--,1))';
         break;
     }
     for(const key in push_data){

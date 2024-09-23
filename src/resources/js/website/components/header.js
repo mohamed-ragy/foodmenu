@@ -18,13 +18,23 @@ show_header_drop_down = function(list){
                 $('.header_drop_down_list').append(
                     $('<a/>',{
                         class:'header_drop_down_list_item open_popup',
+                        input_focus:'.login_email .form_input_box_input',
                         popup:'login',
-                        text:window.text.authentication.login,
+                        text:window.texts.authentication.login,
                     }),
                     $('<a/>',{
-                        class:'header_drop_down_list_item',
-                        text:window.text.authentication.signup,
+                        class:'header_drop_down_list_item open_popup',
+                        popup:'signup',
+                        input_focus:'.signup_name .form_input_box_input',
+                        text:window.texts.authentication.signup,
                     })
+                )
+            }else if(window.auth.type == 'user'){
+                $('.header_drop_down_list').append(
+                    $('<a/>',{
+                        class:'header_drop_down_list_item logout',
+                        text:window.texts.authentication.logout,
+                    }),
                 )
             }
 

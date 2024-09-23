@@ -280,6 +280,7 @@ drawActivityLog = function(activity,is_live){
         case 'settings.timeZone': activity_icon = 'ico-clock cO';break;
         case 'settings.logo_icon.icon': activity_icon = 'ico-image cO';show_seeChanges = true;break;
         case 'settings.logo_icon.logo': activity_icon = 'ico-image cO';show_seeChanges = true;break;
+        case 'settings.logo_icon.metaImg': activity_icon = 'ico-image cO';show_seeChanges = true;break;
         case 'settings.restaurant_info.restaurant_names': activity_icon = 'ico-shop cO'; show_seeChanges = true; break;
         case 'settings.restaurant_info.restaurant_descriptions': activity_icon = 'ico-description cO'; show_seeChanges = true; break;
         case 'settings.restaurant_info.restaurant_email': activity_icon = 'ico-email_address cO'; break;
@@ -817,6 +818,18 @@ seeChanges_activityLog = function(activity){
             to.append(
                 $('<div/>',{class:''}).append(
                     $('<img/>',{class:'h75 w75 ofCover br3',src:activity.new_logo})
+                )
+            )
+        break;
+        case 'settings.logo_icon.metaImg':
+            from.append(
+                $('<div/>',{class:''}).append(
+                    $('<img/>',{class:'h75 w75 ofCover br3',src:activity.old_metaImg})
+                )
+            ),
+            to.append(
+                $('<div/>',{class:''}).append(
+                    $('<img/>',{class:'h75 w75 ofCover br3',src:activity.new_metaImg})
                 )
             )
         break;

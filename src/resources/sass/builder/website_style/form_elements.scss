@@ -1,0 +1,91 @@
+.form_elements{
+    position: relative;
+}
+.form_elements::after{
+    content: '';
+    position: absolute;
+    inset:0 0 0 0;
+    pointer-events: none;
+    transition-duration: 300ms;
+}
+.form_elements:hover{
+    .select_edit_form_elements_title{display:flex;background-color: var(--violet-70);}
+}
+.form_elements:hover::after{
+    outline: 1px dashed var(--violet-50);
+}
+.form_elements_selected{
+    .form_element{
+        outline: 1px dashed var(--orange-30);
+        outline-offset: 3px;
+    }
+    .select_edit_form_elements_title{display:flex;background-color: var(--violet);}
+}
+.form_elements_selected:hover{
+    .select_edit_form_elements_title{display:flex;background-color: var(--violet);}
+}
+.form_elements_selected::after{
+    content: '';
+    position: absolute;
+    inset:0 0 0 0;
+    pointer-events: none;
+    transition-duration: 300ms;
+    outline: 1px dashed var(--violet);
+}
+.form_elements_selected:hover::after{
+    outline: 1px dashed var(--violet);
+}
+.select_edit_form_elements_title{
+    white-space: nowrap;
+    background-color: var(--violet);
+    color:var(--violet-txt);
+    width:fit-content;
+    position: absolute;
+    left:-1px;
+    bottom:100%;
+    padding:2px 8px;
+    padding-bottom: 1px;
+    border-radius: 0px 0px 0 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 300ms;
+    z-index: 111;
+    font-size:.75rem;
+}
+//
+.form_element:hover{
+    outline: 1px dashed var(--orange-60);
+    outline-offset: 3px;
+}
+.form_element_selected, .form_element_selected:hover{
+    outline: 1px dashed var(--orange);
+    outline-offset: 3px;
+}
+//
+.editor_popup_form_elements{
+    border-radius: 4px;
+    width: 100px;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 80px;
+    margin: 10px;
+    box-shadow: 0 0 2px 1px var(--shdw-5);
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.editor_popup_form_elements:hover{
+    background-color: var(--green-5);
+}
+.editor_popup_form_elements > div:nth-child(1){
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+.editor_popup_form_elements > div:nth-child(2){
+    font-size: .8em;
+}
+//

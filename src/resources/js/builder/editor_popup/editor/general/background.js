@@ -1,24 +1,24 @@
 draw_editor_popup_background = function(){
     if(!accessibility_check(window.selected,'background')){return;}
-    let selected_key_tree = window.selected;
-    if(window.selected == 'website_header.children.header_wrapper'){
-        selected_key_tree = 'website_header';
-    }
-    let elem = get_element_data(selected_key_tree);
+    let key_tree = window.selected;
+    let elem = get_element_data(key_tree);
     let is_responsive = true;
     if(elem.is_responsive == '0'){is_responsive = false;}
+    if('styling_target' in elem){
+        key_tree = elem.styling_target.background ?? key_tree
+    }
     show_editor_popup('editor',function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled'],
+                interactions:['hover','click','focus','disabled','error'],
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
                         $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none mB20`}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.background}),
                             draw_input_list({
                                 editor_class:'background_type_inputList',
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'type',
                                 selections:[
@@ -34,7 +34,7 @@ draw_editor_popup_background = function(){
                             $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.background_color}),
                                 draw_color_picker({
-                                    key_tree:selected_key_tree,
+                                    key_tree:key_tree,
                                     variable_key:'background',
                                     key:'color',
                                 })
@@ -42,7 +42,7 @@ draw_editor_popup_background = function(){
                         ),
                         elem.accessibility.includes('background_gradient') ? $('<div/>',{class:'editor_background_gradient none w100p'}).append(
                             draw_gradient_editor({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'gradient',
                             })
@@ -51,13 +51,13 @@ draw_editor_popup_background = function(){
                             $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.filter_color}),
                                 draw_color_picker({
-                                    key_tree:selected_key_tree,
+                                    key_tree:key_tree,
                                     variable_key:'background',
                                     key:'backdrop_filter_color',
                                 })
                             ),
                             draw_backdrop_filter_editor({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'backdrop_filter',
                             })
@@ -66,7 +66,7 @@ draw_editor_popup_background = function(){
                             $('<div/>',{class:`editor_popup_row editor_popup_brdrT_none`}).append(
                                 $('<div/>',{class:'fs09',text:texts.styling.image}),
                                 draw_select_image({
-                                    key_tree:selected_key_tree,
+                                    key_tree:key_tree,
                                     variable_key:'background',
                                     key:'background_image',
                                     editor_class:'background_image_editor',
@@ -88,7 +88,7 @@ draw_editor_popup_background = function(){
                         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.filter_color}),
                             draw_color_picker({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'background_blend_mode_color',
                                 editor_class:'background_blend_color_editor',
@@ -97,7 +97,7 @@ draw_editor_popup_background = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.filter_style}),
                             draw_select_background_filter({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'background_blend_mode'
                             })
@@ -107,7 +107,7 @@ draw_editor_popup_background = function(){
                         $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.imagePosition}),
                             draw_image_position_editor({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'background_position',
                             })
@@ -115,7 +115,7 @@ draw_editor_popup_background = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.imageStyle}),
                             draw_select_box({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'background_attachment',
                                 selections:[
@@ -127,7 +127,7 @@ draw_editor_popup_background = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.imageSize}),
                             draw_select_box({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'background_size',
                                 selections:[
@@ -139,7 +139,7 @@ draw_editor_popup_background = function(){
                         $('<div/>',{class:'editor_popup_col'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.imageRepeat}),
                             draw_select_box({
-                                key_tree:selected_key_tree,
+                                key_tree:key_tree,
                                 variable_key:'background',
                                 key:'background_repeat',
                                 selections:[
@@ -163,5 +163,17 @@ $('body').on('click','.editor_background',function(e){
     draw_editor_popup_background();
 })
 $('body').on('change','.background_type_inputList',function(){
+    // let editor = $(this);
+    // let val = get_dummy_val(editor);
+    // console.log(val)
+    // let new_val;
+    // if(val == 'none'){
+    //     set_dummy_val(editor,'none')
+    //     set_val(editor,null)
+    // }else if(val == 'color'){
+    //     set_dummy_val(editor,'color')
+    //     set_val(editor,get_default_style('background_color'))
+    // }
+    // new_action(window.selected)
     set_all_editors();
 })

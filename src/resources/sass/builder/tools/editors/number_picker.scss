@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: center;    
     box-sizing: border-box;
+    padding:5px;
 }
 .number_picker_unit_select:hover{
     background-color: var(--green-10);
@@ -50,6 +51,7 @@
     padding:5px;
     height: 30px;
     box-sizing: border-box;
+    width:100%;
     min-width:40px;
     border-top:1px solid var(--green-10);
     box-sizing: border-box;

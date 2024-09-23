@@ -28,12 +28,16 @@ set_page_setup_vars = function(){
     //
     $(':root').css('--page_transition',window.template.page_setup.pageTransition);
     $(':root').css('--page_transitionDuration',window.template.page_setup.transitionDuration);
+    $(':root').css('--page_font_style',window.template.page_setup.font_style[window.preview_language]);
 
 
     $('.website_body').css({
         'font-family':window.template.page_setup.font_style[window.preview_language],
         'background-color':window.template.page_setup.bg_color,
         'color':window.template.page_setup.font_color,
+        'font-size':window.template.page_setup.font_size,
+        'line-height':window.template.page_setup.line_height,
+        'letter-spacing':window.template.page_setup.letter_spacing,
     })
     for(const key in window.template.page_setup.font_style){
         let font_name = window.template.page_setup.font_style[key];

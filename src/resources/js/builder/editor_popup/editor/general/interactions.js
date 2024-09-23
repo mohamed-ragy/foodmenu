@@ -8,6 +8,9 @@ draw_editor_popup_interactions = function(){
         if(elem.is_responsive == '0'){
             is_responsive = false;
         }
+        if('styling_target' in elem){
+            key_tree = elem.styling_target.interactions ?? key_tree
+        }
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:false,
@@ -20,7 +23,7 @@ draw_editor_popup_interactions = function(){
                             container_class:'editor_popup_brdrT_none editor_popup_brdrB'
                         }),
                         draw_interactions_picker({
-                            key_tree:key_tree,
+                            key_tree:window.selected,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_container none w100p',key:'interactions_transition_timing',parent_key:'interactions'}).append(

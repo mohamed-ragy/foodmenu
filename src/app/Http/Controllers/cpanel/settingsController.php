@@ -413,6 +413,48 @@ class settingsController extends Controller
                 return response(['saveWebsiteLogoStatus' => 0,'msg'=>Lang::get('cpanel/settings/responses.websiteLogoSaveFail')]);
             }
         }
+        else if($request->has(['websiteMetaImg'])){
+            if(str_split($this->account->authorities)[4] == false){return;}
+            $old_metaImg = website::where('id',$this->website_id)->pluck('metaImg')->first();
+
+            if($request->websiteMetaImg == '' || $request->websiteMetaImg == null){
+                $metaImgUrl = "/storage/imgs/cpanel/noimg.png";
+                $metaImgId = null;
+            }else{
+                $img = img::where(['website_id' => $this->website_id,'id'=>$request->websiteMetaImg])->first();
+                if($img == null){
+                    return response(['saveWebsiteMetaImgStatus' => 0,'msg'=>Lang::get('cpanel/settings/responses.websiteMetaImgSaveFail')]);
+                }
+                $metaImgUrl = $img->url;
+                $metaImgId = $img->id;
+            }
+            $saveWebsiteMetaImg = website::where('id',$this->website_id)
+                ->update([
+                    'metaImg'=>$metaImgUrl,
+                    'metaImg_id' => $metaImgId,
+                    'updated_at' => Carbon::now()->timestamp,
+                ]);
+            if($saveWebsiteMetaImg){
+                $activity = null;
+                if($old_metaImg != $metaImgUrl){
+                    $activity = [
+                        'website_id' => $this->website_id,
+                        'code' => 'settings.logo_icon.metaImg',
+                        'account_id' => $this->account->id,
+                        'account_name' => $this->account->name,
+                        'old_metaImg' => $old_metaImg,
+                        'new_metaImg' => $metaImgUrl,
+                    ];
+                }
+                foodmenuFunctions::notification('settings.websiteMetaImg',$activity,[
+                    'metaImg'=>$metaImgUrl,
+                    'metaImg_id' => $metaImgId,
+                ]);
+                return response(['saveWebsiteMetaImgStatus' => 1,'msg'=>Lang::get('cpanel/settings/responses.websiteMetaImgSaved')]);
+            }else{
+                return response(['saveWebsiteMetaImgStatus' => 0,'msg'=>Lang::get('cpanel/settings/responses.websiteMetaImgSaveFail')]);
+            }
+        }
         else if($request->has(['saveWebsiteName'])){
             if(str_split($this->account->authorities)[4] == false){return;}
             $old_names = website::where('id',$this->website_id)->pluck('websiteNames')->first();
