@@ -73,9 +73,7 @@ return [
     "settings.timeZone" => "<a class='cpPage' cpPage='system' openTab='region'>The time zone</a> has been changed from :old_timeZone: to :new_timeZone: by :account:.",
     "settings.logo_icon.icon" => "<a class='cpPage' cpPage='restaurant_information' openTab='logo_and_icon'>The website icon</a> has been changed by :account:.",
     "settings.logo_icon.logo" => "<a class='cpPage' cpPage='restaurant_information' openTab='logo_and_icon'>Your restaurant's logo</a> has been changed by :account:.",
-    //new
-    "settings.logo_icon.metaImg" => "<a class='cpPage' cpPage='restaurant_information' openTab='logo_and_icon'>Your restaurant's website meta image</a> has been changed by :account:.",
-    //
+    "settings.logo_icon.metaImg" => "<a class='cpPage' cpPage='restaurant_information' openTab='logo_and_icon'>Your website's meta image</a> has been changed by :account:.",
     "settings.restaurant_info.restaurant_names" => "Your <a class='cpPage' cpPage='restaurant_information' openTab='restaurant_name' >restaurant's name</a> has been modified by :account:.",
     "settings.restaurant_info.restaurant_descriptions" => "Your <a class='cpPage' cpPage='restaurant_information' openTab='restaurant_description' >restaurant's description</a> has been modified by :account:.",
     "settings.restaurant_info.restaurant_email" => "Your <a class='cpPage' cpPage='restaurant_information' openTab='restaurant_email' >restaurant's contact email address</a> has been changed from :old_email: to :new_email: by :account:.",

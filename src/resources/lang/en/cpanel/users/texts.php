@@ -50,10 +50,8 @@ return [
     'user_changeEmail' => 'Changing their email address',
     'user_checkOrderHistory' => 'Checking their order history',
     'user_loggingOut' => 'Logging out',
-    //new
     'user_loggingIn' => 'Logging in',
-    'user_signingUp' => 'Creating new account',
-    //
+    'user_signingUp' => 'Signing up',
     'user_trackOrder' => 'Tracking order :order:',
     'user_placeOrder' => 'Placing an order',
     'user_writeReview' => 'Writing a Review on :product:',

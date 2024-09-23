@@ -232,6 +232,16 @@ $('html,body').on('click','#imgBrowser_pexels_search_btn',function(e){
     if($('.pexels_search').val() == ''){return;}
     request_pexels_search($('.pexels_search').val(),1)
 })
+$('html,body').on('click','.imgBrowser_pexels_pagination_next',function(e){
+    e.stopImmediatePropagation();
+    if($(this).hasClass('imgBrowser_pexels_pagination_arrow_dump')){return;}
+    request_pexels_search($('.pexels_search').val(),parseInt(window.imgBrowser.pexels_search_page) + 1)
+})
+$('html,body').on('click','.imgBrowser_pexels_pagination_prev',function(e){
+    e.stopImmediatePropagation();
+    if($(this).hasClass('imgBrowser_pexels_pagination_arrow_dump')){return;}
+    request_pexels_search($('.pexels_search').val(),parseInt(window.imgBrowser.pexels_search_page) - 1)
+})
 $('html,body').on('click','.pexels_ToLibrary',function(e){
     e.stopImmediatePropagation();
     showBtnLoading($('.pexels_ToLibrary_save'))

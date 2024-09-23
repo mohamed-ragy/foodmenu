@@ -202,16 +202,14 @@
             <p>- <b>It is strongly recommended that you pick an image of a square size, such as 32x32 pixels, and no larger than 180x180 pixels</b>.</p>
             string,
         ],
-        //new
         'website_metaImg' => [
             'title' => 'Website meta image',
             'content' => <<<string
-            <p>-</p>
-            <p>-</p>
-            <p>-</p>
+            <p>- Here, you can select your website meta image. The meta image is displayed as a thumbnail when your website link is shared on social media platforms.</p>
+            <p>- By clicking on the meta image card, you will be able to select or upload an image.</p>
+            <p>- The recommended image dimensions are 1200 x 630 pixels, with an image file size of up to 5MB. Supported image file formats include JPEG and PNG.</p>
             string,
         ],
-        //
         'restaurant_name' => [
             'title' => 'Restaurant name',
             'content' => <<<string

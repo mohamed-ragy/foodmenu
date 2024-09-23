@@ -81,10 +81,8 @@ return [
     'logoAndIcon' => 'Logo and icon',
     'websiteIcon' => 'Website icon',
     'websiteLogo' => 'Restaurant logo',
-    //new//
     'websiteMetaImg' => 'Meta image',
-    'selectMetaImg' => 'Select your website Meta image',
-    //
+    'selectMetaImg' => 'Select your website meta image',
     'selectIcon' => 'Select your website icon',
     'selectLogo' => 'Select your website logo',
     'websitePhone' => 'Restaurant phone numbers',

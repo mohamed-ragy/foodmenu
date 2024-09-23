@@ -27,10 +27,9 @@ return [
     'noimg'=>'No image',
     'copyed' => 'The image link has been copied to the clipboard.',
     'imgNotFound' => 'Image not found!',
-    ///new
     'myLibrary' => 'My library',
-    'freeImgs' => 'Free imgs',
-    'pexels_search_placeholder' => 'Type keywords and hit enter...',
+    'freeImgs' => 'Free images',
+    'pexels_search_placeholder' => 'i.e. Milkshake',
     'selectAndAddToLibrary' => 'Select and add to my library',
     'AddToLibrary' => 'Add to my library',
     'pagination_page' => 'Page :page:/:pages:',
@@ -48,6 +47,5 @@ return [
     'landscape' => 'Landscape',
     'portrait' => 'Portrait',
     'square' => 'Square',
-    //new
 ];
 

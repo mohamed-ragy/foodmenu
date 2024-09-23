@@ -406,9 +406,7 @@ return [
         'websiteSwitch' => 'Your website is offline.',
         'websiteIcon' => "You haven't yet added a website icon.",
         'websiteLogo' => "You haven't yet added a website logo.",
-        //new
-        'websiteMetaImg' => "You haven't yet added a website meta image.",
-        //
+        'websiteMetaImg' => "You haven't added a website meta image yet.",
         'subaccountBlocked' => ":subaccount:'s account is blocked due to entering a wrong password several times.",
     ],
     'welcome' => [
