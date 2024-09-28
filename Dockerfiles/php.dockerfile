@@ -3,6 +3,7 @@ FROM php:8.1-fpm-buster
 ARG user
 ARG uid
 
+# Install necessary packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     zip \
@@ -21,16 +22,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libmagickwand-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql zip \
-    && pecl install mongodb \
-    && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini \
-    && pecl install imagick \                       
-    && docker-php-ext-enable imagick \
-    && pecl clear-cache 
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql zip
 
+# Install PECL extensions
+RUN pecl install mongodb \
+    && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && pecl clear-cache
+
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.1.3
 
+# Add user
 RUN useradd -G www-data,root -u $uid -d /home/$user $user \
     && mkdir -p /home/$user/.composer \
     && chown -R $user:$user /home/$user
@@ -38,4 +44,5 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user \
 # Set working directory
 WORKDIR /var/www/foodmenu
 
+# Set user
 USER $user

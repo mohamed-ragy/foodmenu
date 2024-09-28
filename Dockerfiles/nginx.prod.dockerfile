@@ -19,7 +19,8 @@ RUN mkdir -p /home/$user/.composer && \
 
 # Copy the Nginx configuration file to the container
 ADD /nginx/default.prod.conf /etc/nginx/conf.d/
-
+ADD /nginx/foodmenu.pem /etc/nginx/keys/
+ADD /nginx/foodmenu.key /etc/nginx/keys/
 # Create the document root directory for the application
 RUN mkdir -p /var/www/foodmenu
 
