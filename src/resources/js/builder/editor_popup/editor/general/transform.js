@@ -10,7 +10,7 @@ draw_editor_popup_transform = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled'],
+                interactions:['hover','click','focus','disabled','selected'],
                 editors:[
                     $('<div/>',{class:'editor_popup_col editor_popup_brdrT_none'}).append(
                         $('<div/>',{class:'fs09',text:texts.styling.transform_origin}),

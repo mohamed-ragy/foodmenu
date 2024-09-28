@@ -4,8 +4,7 @@ require('./productReviews/filters.js');//done//
 
 
 /////
-$('html,body').on('click','#productReviews_findReviewsBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#productReviews_findReviewsBtn',function(e){
     showBtnLoading($('#productReviews_findReviewsBtn'))
     window.noMoreProductReviews = false;
     window.getProductReviewsSkip = 0;

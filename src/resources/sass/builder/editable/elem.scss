@@ -72,3 +72,7 @@
     font-size:.75rem;
 }
 //
+
+.edit_elem_selected, .edit_elem_selected:hover{
+    .hidden_name{display: none;}
+} 

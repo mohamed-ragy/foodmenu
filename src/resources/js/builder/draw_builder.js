@@ -37,12 +37,20 @@ draw_builder = function(template_id){
     create_editor_popup('editor')
     //
     draw_builder_header();
-    set_page('home')
+    render_website_popup();
+    set_page(window.template.settings.selected_page)
+
     window.template.settings.view == 'desktop' ? desktop_view() : window.template.settings.view == 'mobile' ? mobile_view() : desktop_view();
     set_template_vars();
     window.last_saved_template = JSON.parse(JSON.stringify(window.template));
 
     setTimeout(()=>{
+        if(window.template.settings.website_popup_opened == '1'){
+            open_website_popup(template.settings.selected_popup ?? null);
+        }
+        //
+        window.template.account[0].children.section_wrapper = get_user_account_sections()[0];
+        new_action('all');
         // open_website_popup('login')
         // select('form_elements.form_input_box');
         // draw_editor_popup_input_box();
@@ -71,7 +79,7 @@ draw_builder_header = function(){
             $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'privacy_policy',text:texts.website_pages.privacy_policy}),
             // $('<div/>',{class:'builder_header_menu_elem select_website_popup',key:'signup',text:texts.website_pages.signup}),
             // $('<div/>',{class:'builder_header_menu_elem select_website_popup select',key_tree:'form_elements.website_form',key:'login',text:texts.website_pages.login}),
-            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'user_profile',text:texts.website_pages.user_profile,style:'border:none'}),
+            $('<div/>',{class:'builder_header_menu_elem select_website_page',key:'account',text:texts.website_pages.account,style:'border:none'}),
 
         ),
         $('<div/>',{class:'builder_header_menu none',menu:'website_tools'}).append(
@@ -272,7 +280,8 @@ $('body').on('click','.website_tools_elem',function(e){
 });
 $('body').on('click','.website_form_elem',function(){
     hide_builder_header_menu(true);
-    open_website_popup(window.selected_website_form);
+    show_website_form(window.template.settings.selected_website_form)
+    // open_website_popup(window.template.settings.selected_website_form);
 })
 $('body').on('click','.select_website_page',function(e){
     set_page($(this).attr('key'))
@@ -281,6 +290,7 @@ $('body').on('click','.select_website_page',function(e){
 $('body').on('click','.select_website_popup',function(e){
     hide_builder_header_menu(true)
     open_website_popup($(this).attr('key'))
+    $('.current_page_name').text(texts.website_pages[window.template.settings.selected_popup])
 })
 //
 $('body').on('click','.set_view_desktop',function(e){
@@ -300,7 +310,7 @@ $('body').on('click','.set_show_metrics',function(e){
 var startX, startY, scrollTop;
 window.mobile_view_scroll = {
     scroll:false,
-    // startX:0,
+    startX:0,
     startY:0,
     scrollTop:0,
 }
@@ -321,10 +331,10 @@ $('body').on('mousedown','.mobile_view', function(event) {
     ){return;}
     hide_edit_btns();
     window.mobile_view_scroll.scroll = true;
-    // window.mobile_view_scroll.startX = event.pageX;
+    window.mobile_view_scroll.startX = event.pageX;
     window.mobile_view_scroll.startY = event.pageY;
 
-    if(window.website_popup_opened == true){
+    if(window.template.settings.website_popup_opened == '1'){
         window.mobile_view_scroll.scrollTop = $('#website').find('.popup_container').scrollTop();
         window.mobile_view_scroll.scrollLeft = $('#website').find('.popup_container').scrollLeft();
     }else{
@@ -340,20 +350,18 @@ $('body').on('mouseup', function(event) {
 });
 $('body').on('mousemove','.mobile_view', function(e) {
     if(!window.mobile_view_scroll.scroll){return;}
-    // let newX = e.pageX;
+    e.preventDefault();
+    let newX = e.pageX;
     let newY = e.pageY;
     let swipeDistanceY = newY - window.mobile_view_scroll.startY;
-    // let swipeDistanceX = newX - window.mobile_view_scroll.startX;
-    // if (Math.abs(swipeDistanceY) > Math.abs(newX - window.mobile_view_scroll.startX)) {
-    e.preventDefault();
-    // e.stopImmediatePropagation();
-    if(window.website_popup_opened == true){
+    let swipeDistanceX = newX - window.mobile_view_scroll.startX;
+    if(window.template.settings.website_popup_opened == '1'){
         $('#website').find('.popup_container').scrollTop(window.mobile_view_scroll.scrollTop - swipeDistanceY);
+        $('#website').find('.popup_container').scrollLeft(window.mobile_view_scroll.scrollLeft - swipeDistanceX);
     }else{
         $('#website').scrollTop(window.mobile_view_scroll.scrollTop - swipeDistanceY);
+        $('#website').scrollLeft(window.mobile_view_scroll.scrollLeft - swipeDistanceX);
     }
-    // $('#website').scrollLeft(window.mobile_view_scroll.scrollLeft - swipeDistanceX);
-    // }
 });
 //
 $('body').on('mousedown','.resize_mobile_view',function(e){

@@ -24,12 +24,10 @@ editCategoriesNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('click','#editCategory_img',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editCategory_img',function(e){
     showImgBrowser(texts.products.selectCategoryImg,'imgBrowser-editCatImg');
 });
-$('html,body').on('click','.imgBrowser-editCatImg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.imgBrowser-editCatImg',function(e){
     closePopup();
     let imgId = $(this).attr('imgId')
     let imgUrl = $(this).attr('src');
@@ -40,8 +38,7 @@ $('html,body').on('click','.imgBrowser-editCatImg',function(e){
     category_list_unsave_check();
 });
 
-$('html,body').on('input change','.editCategoryNamesInputText',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.editCategoryNamesInputText',function(e){
     for(const key in website_temp.categories){
         if(website_temp.categories[key].name == window.history.state.category){
             for(const key2 in website.languages){
@@ -52,8 +49,7 @@ $('html,body').on('input change','.editCategoryNamesInputText',function(e){
     }
     category_list_unsave_check();
 });
-$('html,body').on('input change','.editCateogryDescriptionsTextarea',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.editCateogryDescriptionsTextarea',function(e){
     for(const key in website_temp.categories){
         if(website_temp.categories[key].name == window.history.state.category){
             for(const key2 in website.languages){
@@ -66,8 +62,7 @@ $('html,body').on('input change','.editCateogryDescriptionsTextarea',function(e)
 });
 
 
-$('html,body').on('click','#editCategory_cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editCategory_cancelBtn',function(e){
     for(const key in website_temp.categories){
         if(website_temp.categories[key].name == window.history.state.category){
             website_temp.categories[key] = JSON.parse(JSON.stringify(website.categories.find(item=>item.name == window.history.state.category)))
@@ -77,8 +72,7 @@ $('html,body').on('click','#editCategory_cancelBtn',function(e){
     category_list_unsave_check();
 
 })
-$('html,body').on('click','#editCategory_saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editCategory_saveBtn',function(e){
     if(!coolDownChecker()){return;}
     let categoryName =$('#editCategory_categoryName').val();
     let category = website.categories.find(item=>item.name == categoryName);

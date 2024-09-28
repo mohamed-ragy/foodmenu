@@ -185,6 +185,33 @@ get_default_style = function(style,push_data={}){
         case 'filter_undefined':
             data = 'opacity(--) blur(--) brightness(--) contrast(--) saturate(--) grayscale(--) hue-rotate(--) invert(--) sepia(--) drop-shadow(-- -- -- rgba(--,1))';
         break;
+    
+        case 'container_limited_accessibility':
+            data = [
+                'interactions','can_hover','can_parent_hover',
+                'elem_swap',
+                'alignment','display','arrange',
+                'sizing','width','height',
+                'spacing','margin','padding',
+                'styling','border','border_radius','box_shadow','transform','filter',
+                'animation','background','background_gradient','background_backdrop_filter','background_image',
+                'block_elems'
+            ];
+        break;
+        case 'text_limited_accessibility':
+            data = [
+                'interactions','can_hover','can_click','can_parent_hover',
+                'elem_swap',
+                'text_style','text_color','select_font',
+                'display',
+                'arrange',
+                'sizing','width','height',
+                'spacing','margin','padding',
+                'styling','filter','border','border_radius','box_shadow','transform',
+                'animation',
+                'background','background_gradient','background_backdrop_filter','background_image',
+            ];
+        break;
     }
     for(const key in push_data){
         data[key] = push_data[key]

@@ -1,5 +1,4 @@
-$('html,body').on('click','.popupPageTab_order_activites',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.popupPageTab_order_activites',function(e){
     if(!coolDownChecker()){return;}
     draw_orderActivities_loading();
     $.ajax({
@@ -18,8 +17,7 @@ $('html,body').on('click','.popupPageTab_order_activites',function(e){
     })
 })
 //
-$('html,body').on('click','.order-seeChanges-orderNotice',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-seeChanges-orderNotice',function(e){
     let activity_id = $(this).attr('activity');
     getOrder(window.history.state.order).then((order)=>{
         let activity = order.activities.find(i=>i._id == activity_id);
@@ -43,8 +41,7 @@ $('html,body').on('click','.order-seeChanges-orderNotice',function(e){
         })
     })
 })
-$('html,body').on('click','.order-seeChanges-address',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-seeChanges-address',function(e){
     let activity_id = $(this).attr('activity');
     getOrder(window.history.state.order).then((order)=>{
         let activity = order.activities.find(i=>i._id == activity_id);
@@ -68,8 +65,7 @@ $('html,body').on('click','.order-seeChanges-address',function(e){
         })
     })
 })
-$('html,body').on('click','.order-seeChanges-itemNotice',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-seeChanges-itemNotice',function(e){
     let activity_id = $(this).attr('activity');
     getOrder(window.history.state.order).then((order)=>{
         let activity = order.activities.find(i=>i._id == activity_id);

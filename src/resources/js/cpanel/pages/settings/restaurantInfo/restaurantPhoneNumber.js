@@ -24,8 +24,7 @@ PhoneNumberInputText = function(value){
     );
 }
 
-$('html,body').on('input change','.websitePhoneNumberInput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.websitePhoneNumberInput',function(e){
     website_temp.phoneNumbers = [];
     $('.websitePhoneNumberInput').each(function(){
         if($(this).val() != ''){
@@ -35,8 +34,7 @@ $('html,body').on('input change','.websitePhoneNumberInput',function(e){
     restaurant_information_unsave_chack();
 })
 
-$('html,body').on('click','.websitePhoneNumberInputDelete',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.websitePhoneNumberInputDelete',function(e){
     $(this).parent().remove();
     website_temp.phoneNumbers = [];
     $('.websitePhoneNumberInput').each(function(){
@@ -62,21 +60,18 @@ getWebsitePhoneNumbers = function(){
 }
 
 
-$('html,body').on('click','#setting-addPhoneNumberBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-addPhoneNumberBtn',function(e){
     PhoneNumberInputText('');
     restaurant_information_unsave_chack();
 });
 
-$('html,body').on('click','#setting-phoneNumberCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-phoneNumberCancelBtn',function(e){
     website_temp.phoneNumbers = JSON.parse(JSON.stringify(website.phoneNumbers))
     getWebsitePhoneNumbers();
     restaurant_information_unsave_chack();
 });
 
-$('html,body').on('click','#setting-phoneNumberSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-phoneNumberSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#setting-phoneNumberSaveBtn'));
     $.ajax({

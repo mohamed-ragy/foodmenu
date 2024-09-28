@@ -1,5 +1,4 @@
-$('html,body').on('click','.productOptionSelectionSetDefault',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionSelectionSetDefault',function(e){
     if(!coolDownChecker()){return;}
     if($(this).find('.productOptionSelectionSetDefaultIcon').hasClass('ico-check1')){return}
     let product = website.products.find(item=>item.name == window.history.state.product);

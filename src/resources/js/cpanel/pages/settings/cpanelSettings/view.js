@@ -113,8 +113,7 @@ hotKeysToggle = function(action){
     control_panel_settings_unsave_check();
 }
 //////////////////////////view settings events/////////////////////
-$('html,body').on('click','#cpanelSettings-bigSideMenu',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-bigSideMenu',function(e){
     settings_temp.bigSideMenu = $('#cpanelSettings-bigSideMenu').prop('checked')
     sideMenuIconsToggle(settings_temp.bigSideMenu);
     if(settings_temp.bigSideMenu == true && $(window).width() < 1024){
@@ -126,20 +125,19 @@ $('html,body').on('click','#cpanelSettings-bigSideMenu',function(e){
     }
     control_panel_settings_unsave_check();
 });
-$('html,body').on('click','#cpanelSettings-darkMode',function(){
+$('body').on('click','#cpanelSettings-darkMode',function(){
     settings_temp.darkMode = $('#cpanelSettings-darkMode').prop('checked')
     darkModeToogle(settings_temp.darkMode);
 });
-$('html,body').on('click','#cpanelSettings-statusBar',function(){
+$('body').on('click','#cpanelSettings-statusBar',function(){
     settings_temp.statusBar = $('#cpanelSettings-statusBar').prop('checked')
     statusBarToggle(settings_temp.statusBar);
 });
-$('html,body').on('click','#cpanelSettings-hotKeys',function(){
+$('body').on('click','#cpanelSettings-hotKeys',function(){
     settings_temp.hotKeys = $('#cpanelSettings-hotKeys').prop('checked')
     hotKeysToggle(settings_temp.hotKeys);
 })
-$('html,body').on('click','#cpanelSettings-viewSettingsCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-viewSettingsCancelBtn',function(e){
     settings_temp.bigSideMenu = settings.bigSideMenu
     settings_temp.darkMode = settings.darkMode
     settings_temp.hotKeys = settings.hotKeys
@@ -147,7 +145,7 @@ $('html,body').on('click','#cpanelSettings-viewSettingsCancelBtn',function(e){
     loadViewSettings();
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-viewSettingsSaveBtn',function(){
+$('body').on('click','#cpanelSettings-viewSettingsSaveBtn',function(){
     let guidemodeActive;
     if(!coolDownChecker()){return;}
     showBtnLoading($('#cpanelSettings-viewSettingsSaveBtn'));

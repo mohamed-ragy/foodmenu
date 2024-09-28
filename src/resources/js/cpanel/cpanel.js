@@ -3,6 +3,7 @@ window.$ = require("jquery");
 window.loadTouchEvents = require('jquery-touch-events');
 loadTouchEvents($);
 window.L = require("leaflet");
+require('leaflet-draw');
 window.Cookies = require('js-cookie');
 window.QRCode = require('davidshimjs-qrcodejs');
 

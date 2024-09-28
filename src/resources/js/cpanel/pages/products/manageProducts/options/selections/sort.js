@@ -47,8 +47,7 @@ sortSelections = function(){
     })
 }
 
-$('html,body').on('mousedown touchstart','.selectionCardMoveContainer',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','.selectionCardMoveContainer',function(e){
     selectionCardOnMove = true;
     selectionCardOnMoveFrom = $(this).closest('.productOptionSelectionContainer').attr('selection');
     selectionCardOnMoveOption = $(this).closest('.productOptionContainer').attr('option')

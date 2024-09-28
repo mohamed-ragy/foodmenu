@@ -32,6 +32,16 @@ draw_editor_popup_section_block_alignment = function(){
                             ]
                         })
                     ),
+                    $('<div/>',{class:'editor_popup_col'}).append(
+                        $('<div/>',{class:'fs09',text:texts.styling.gap_between_elems}),
+                        draw_number_picker({
+                            key_tree:window.selected,
+                            variable_key:'css',
+                            key:'gap',
+                            units:['px']
+                        })
+
+                    ),
                     $('<div/>',{class:'editor_popup_col editor_popup_alignment_align_items'}),
                     $('<div/>',{class:'editor_popup_col editor_popup_alignment_justify_content'}),
                     elem.type != 'container' ? $('<div/>',{class:'editor_popup_col'}).append(

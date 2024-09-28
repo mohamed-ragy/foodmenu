@@ -1,16 +1,4 @@
-
-
-//click map event in the draw page
-$('html,body').on('click','.createNewUser-unsetLocation',function(){
-    window.createUserMapMarker.setLatLng([0,0]);
-    window.createUserMap.flyTo([0,0], 2, {
-        animate: false,
-        duration: 1
-    });
-    window.createUserMap.removeLayer(window.createUserMapMarker)
-});
-
-$('html,body').on('click','#createNewUserBtn',function(){
+$('body').on('click','#createNewUserBtn',function(){
     showBtnLoading($('#createNewUserBtn'))
     $.ajax({
         url:'users',
@@ -21,10 +9,7 @@ $('html,body').on('click','#createNewUserBtn',function(){
             email:$('#createNewUser-email').val(),
             password:$('#createNewUser-password').val(),
             name:$('#createNewUser-name').val(),
-            address:$('#createNewUser-address').val(),
             phoneNumber:$('#createNewUser-phoneNumber').val(),
-            lat:createUserMapMarker.getLatLng().lat,
-            lng:createUserMapMarker.getLatLng().lng,
         },
         success:function(response){
         hideBtnLoading($('#createNewUserBtn'))
@@ -42,7 +27,7 @@ $('html,body').on('click','#createNewUserBtn',function(){
                 inputTextError($('#createNewUser-name'))
             }else if(response.createNewUserStatus == 6){
                 showAlert('error',response.msg.address[0],4000,true);
-                inputTextError($('#createNewUser-address'))
+                // inputTextError($('#createNewUser-address'))
             }else if(response.createNewUserStatus == 7){
                 showAlert('error',response.msg.phoneNumber[0],4000,true);
                 inputTextError($('#createNewUser-phoneNumber'))
@@ -54,14 +39,7 @@ $('html,body').on('click','#createNewUserBtn',function(){
                 $('#createNewUser-email').val('');
                 $('#createNewUser-password').val('');
                 $('#createNewUser-name').val('');
-                $('#createNewUser-address').val('');
                 $('#createNewUser-phoneNumber').val('');
-                window.createUserMapMarker.setLatLng([0,0]);
-                window.createUserMap.flyTo([0,0], 2, {
-                    animate: false,
-                    duration: 1
-                });
-                window.createUserMap.removeLayer(window.createUserMapMarker)
             }
         }
     })

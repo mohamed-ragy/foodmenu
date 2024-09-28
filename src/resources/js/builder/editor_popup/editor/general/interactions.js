@@ -36,7 +36,6 @@ draw_editor_popup_interactions = function(){
                                         key_tree:key_tree,
                                         variable_key:'css',
                                         key:'transition-duration',
-                                        step:1,
                                         units:['ms'],
                                     })
                                 ),
@@ -46,7 +45,6 @@ draw_editor_popup_interactions = function(){
                                         key_tree:key_tree,
                                         variable_key:'css',
                                         key:'transition-delay',
-                                        step:1,
                                         units:['ms']
                                     })
                                 ),

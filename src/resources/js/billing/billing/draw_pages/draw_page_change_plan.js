@@ -90,11 +90,6 @@ drawPlansCards = function(){
                         $('<td/>',{class:'tnw td_borderB pY5 taS',text:texts.storage}),
                         $('<td/>',{class:'tnw td_borderB pY5 taE bold',text:`${plan.storage} MB`}),
                     ),
-
-                    $('<tr/>',{style:'border-bottom:1px solid black;'}).append(
-                        $('<td/>',{class:'tnw pY5 taS',text:texts.domainName}),
-                        $('<td/>',{class:'tnw pY5 taE bold',text:plan.specialDomainName  == 1 ? texts.restaurantDotCom : plan.specialDomainName  == 0 ? texts.subDomain : '' }),
-                    ),
                 ),
                 $('<div/>',{class:'w100p'}).append(
                     $('<button/>',{class:'btn w100p fs101 pY5 mT20 updateSubscriptionBtn tnw',text:'',planName:plan.name,text:''}).append(
@@ -238,14 +233,6 @@ draw_Change_plan_failed = function(key){
                 productOptionsTxt = productOptionsTxt.replace(':max:',`${key.errors[key2].plan_request}`)
                 $('#downgradeReasonsList').append(
                     $('<li/>',{html:productOptionsTxt})
-                )
-            break;
-            case 'specialDomainName':
-                let specialDomainNameTxt = texts.downgradeFail_specialDomainName;
-                specialDomainNameTxt = specialDomainNameTxt.replace(':plan:',`${texts[`plan-${key.plan_request}`]}`)
-
-                $('#downgradeReasonsList').append(
-                    $('<li/>',{html:specialDomainNameTxt})
                 )
             break;
             case 'storage':

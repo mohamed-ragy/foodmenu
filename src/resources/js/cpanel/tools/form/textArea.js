@@ -20,8 +20,7 @@ drawTextArea = function(autoHelp,icon,iconFlag,title,id,maxlength,containerClass
         )
     )
 }
-$('html,body').on('input change','.textarea',function(e){
-    // e.stopImmediatePropagation()
+$('body').on('input change','.textarea',function(e){
     $(this).closest('.textareaContainer').find('.textareaTitle').removeClass('cR')
     $(this).closest('.textareaContainer').find('.textareaIcon').removeClass('cR')
     $(this).parent().find('.textAreaInputLength').text($(this).val().length);
@@ -31,8 +30,7 @@ $('html,body').on('input change','.textarea',function(e){
         $(this).parent().find('.textAreaInputLength').removeClass('cR');
     }
 });
-$('html,body').on('click','.textareaHead',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.textareaHead',function(e){
     $(this).closest('.textareaContainer').find('textarea').select();
 });
 $('.textarea').each(function(){
@@ -43,14 +41,12 @@ $('.textarea').each(function(){
         $(this).parent().find('.textAreaInputLength').removeClass('cR');
     }
 })
-$('html,body').on('focus','.textarea',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus','.textarea',function(e){
     $(this).parent().addClass('textareaContainer_active');
     $(this).closest('.textareaContainer').find('.textareaTitle').removeClass('cR cO').addClass('cG')
     $(this).closest('.textareaContainer').find('.textareaIcon').removeClass('cR cO').addClass('cG')
 })
-$('html,body').on('focusout','.textarea',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focusout','.textarea',function(e){
     $(this).parent().removeClass('textareaContainer_active');
     $(this).closest('.textareaContainer').find('.textareaTitle').removeClass('cR cO cG')
     $(this).closest('.textareaContainer').find('.textareaIcon').removeClass('cR cO cG')

@@ -10,16 +10,14 @@ currenciesNoSaveCheck = function(){
     }
 }
 
-$('html,body').on('input change','.websiteCurrencyInputText',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.websiteCurrencyInputText',function(e){
     for(const key in website.languages){
         let lang = website.languages[key];
         website_temp.currencies[lang.code] = $(`#setting-enCurrency_${lang.code}`).val();
     }
     restaurant_information_unsave_chack();
 })
-$('html,body').on('click','#settings-currencyCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#settings-currencyCancelBtn',function(e){
     website_temp.currencies = JSON.parse(JSON.stringify(website.currencies));
     for(const key in website.languages){
         let lang = website.languages[key];
@@ -27,8 +25,7 @@ $('html,body').on('click','#settings-currencyCancelBtn',function(e){
     }
     restaurant_information_unsave_chack();
 });
-$('html,body').on('click','#settings-currencySaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#settings-currencySaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#settings-currencySaveBtn'))
     $.ajax({

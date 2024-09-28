@@ -14,6 +14,7 @@ drawPage_system = function(){
                         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'systemSettings-noSave ico-warning unsaved none mie-5 mis-2 fs1 '}),
                         $('<span/>',{text:texts.settings.SystemSettings})
                     ),
+                    $('<div/>',{tab:'website_domain',class:'pageTab authority_master',text:texts.settings.website_domain}),
                     $('<div/>',{tab:'privacy_policy',class:'pageTab authority_master'}).append(
                         $('<span/>',{tooltip:texts.cpanel.public.unsaved,class:'system-privacyPolicyNoSave ico-warning unsaved none mie-5 mis-2 fs1 '}),
                         $('<span/>',{text:texts.settings.privacyPolicy2})
@@ -106,6 +107,13 @@ drawPage_system = function(){
                 ),
                 drawSaveCancelBtns('systemSettingsSaveBtn','systemSettingsCancelBtn','mT40'),
             ),
+            $('<div/>',{class:'pageTabContainer authority_master',tab:'website_domain'}).append(
+                $('<div/>',{class:'pageSectionTitle2'}).append(
+                    $('<span/>',{text:texts.settings.website_domain}),
+                    $('<span/>',{class:'ico-help help-icon',helpId:''})
+                ),
+                $('<div/>',{class:'website_domain_container'})
+            ),
             $('<div/>',{class:'pageTabContainer authority_master mxw1000',tab:'privacy_policy'}).append(
                 $('<div/>',{class:'pageSectionTitle2'}).append(
                     $('<span/>',{class:'system-privacyPolicyNoSave unsaved ico-warning mie-5 none',tooltip:texts.cpanel.public.unsaved}),
@@ -162,6 +170,7 @@ drawPage_system = function(){
         $('#system-timeZone-hour12').prop('checked',website_temp.hour12);
     }
     if(account.is_master){
+        draw_website_domain_page();
         for(const key in website.languages){
             let lang = website.languages[key];
             $('#privacyPolicyTextAreas').append(

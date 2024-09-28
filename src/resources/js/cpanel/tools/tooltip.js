@@ -40,12 +40,11 @@ updateToolTip = function(){
     $('#tooltipDiv').html(window.toolTipElem.attr('tooltip'));
 }
 ///
-$('html,body').on('mouseleave','[tooltip]',function(e){
+$('body').on('mouseleave','[tooltip]',function(e){
     $('#tooltipDiv').text('');
     $('#tooltipDiv').hide();
 });
-$('html,body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
     if(window.toolTipDisabledCheck == true){
         showAlert('warning',texts.settings.tooltipWarnginMsg,8000,true)
     }
@@ -58,12 +57,11 @@ $('html,body').on('mouseenter mouseover mousemove ','[tooltip]',function(e){
     hotKeysToggle(settings_temp.hotKeys)
 });
 
-$('html,body').on('mouseenter mouseover mousemove','.confirm-btn',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('mouseenter mouseover mousemove','.confirm-btn',function(e){
     tooltip(texts.cpanel.public.clickToConfirm,e.pageX,e.pageY);
 });
 
-$('html,body').on('mousemove',function(e){
+$('body').on('mousemove',function(e){
     if($('[tooltip]:hover').length == 0 && $('.confirm-btn:hover').length == 0){
         $('#tooltipDiv').text('');
         $('#tooltipDiv').hide();

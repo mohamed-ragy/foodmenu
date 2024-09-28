@@ -104,14 +104,12 @@ draw_statistics_users_list = function(order,sort){
         )
     }
 }
-$('body,html').on('click','.statistics_users_list_th',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statistics_users_list_th',function(e){
     let sort = 'desc';
     $(this).find('.statistics_users_list_thArrow').hasClass('ico-down') ? sort = 'asc' : null;
     draw_statistics_users_list($(this).attr('order'),sort)
 })
-$('html,body').on('click','.statistics_users_list_showUser',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statistics_users_list_showUser',function(e){
     let user_id = $(this).attr('user');
     $('#statistics_users_list').addClass('opacity0');
     setTimeout(function(){
@@ -124,8 +122,7 @@ $('html,body').on('click','.statistics_users_list_showUser',function(e){
     },200)
 
 })
-$('html,body').on('click','.statistics_users_list_showList',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('click','.statistics_users_list_showList',function(e){
     $('#statistics_users_user').addClass('opacity0');
     setTimeout(function(){
         $('#statistics_users_user').addClass('none');
@@ -407,8 +404,7 @@ draw_statistics_users_user = function(user_id){
 }
 
 //
-$('html,body').on('click','.statistics_userOrdersHeadElem',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statistics_userOrdersHeadElem',function(e){
     $('.statistics_userOrdersHeadElem').removeClass('statistics_userOrdersHeadElem_selected');
     $(this).addClass('statistics_userOrdersHeadElem_selected')
 

@@ -1,15 +1,13 @@
 /////////////////////description////////////////////////////////
 
-$('html,body').on('input change','.websiteDescriptionTextarea',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.websiteDescriptionTextarea',function(e){
     for(const key in website.languages){
         let lang = website.languages[key];
         website_temp.websiteDescriptions[lang.code] = $(`#settings_websiteDescription_${lang.code}`).val();
     }
     restaurant_information_unsave_chack();
 })
-$('html,body').on('click','#settings-websiteDescriptionCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#settings-websiteDescriptionCancelBtn',function(e){
     website_temp.websiteDescriptions = JSON.parse(JSON.stringify(website.websiteDescriptions))
     for(const key in website.languages){
         let lang = website.languages[key];
@@ -18,7 +16,7 @@ $('html,body').on('click','#settings-websiteDescriptionCancelBtn',function(e){
     restaurant_information_unsave_chack();
 
 });
-$('html,body').on('click','#settings-websiteDescriptionSaveBtn',function(){
+$('body').on('click','#settings-websiteDescriptionSaveBtn',function(){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#settings-websiteDescriptionSaveBtn'));
     $.ajax({

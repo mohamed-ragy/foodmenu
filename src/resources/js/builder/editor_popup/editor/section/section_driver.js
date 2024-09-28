@@ -59,7 +59,6 @@ draw_editor_popup_section_driver = function(){
                                         key_tree:`${window.selected}.driver`,
                                         variable_key:'css',
                                         key:'height',
-                                        step:10,
                                         units:['px'],
                                         render:window.selected,
                                     }),

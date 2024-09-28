@@ -45,7 +45,6 @@ draw_border_editors = function(key,container_class,data){
                 dummy:true,
                 dummy_class:'border_editor_width wA mie-10',
                 units:['px'],
-                step:1,
                 range:{min:0,max:10,step:1},
             }),
             draw_color_picker({

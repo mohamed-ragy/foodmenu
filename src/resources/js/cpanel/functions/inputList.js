@@ -1,12 +1,12 @@
-addToInputList = function(list,text,key){
+addToInputList = function(list,text,key,_class=''){
     if(list.children().first().hasClass('inputListElementLoading1')){
         list.text('');
     }
     list.append(
         $('<div/>',{
-            text:text,
+            html:text,
             key:key,
-            class:'inputListElement'
+            class:`inputListElement ${_class}`
         }).append(
             $('<div/>',{class:`inputListElement_unsaved none`})
         )

@@ -1,6 +1,5 @@
 ///////////////////////////privacy policy/////////////////////////
-$('html,body').on('input change','.privacyPolicyTextArea',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.privacyPolicyTextArea',function(e){
     for(const key in website.languages){
         let lang = website.languages[key];
         website_temp.website_privacyPolicy[lang.code] = $(`#system_PrivacyPolicy_${lang.code}`).val();
@@ -8,8 +7,7 @@ $('html,body').on('input change','.privacyPolicyTextArea',function(e){
     system_unsave_check();
 })
 
-$('html,body').on('click','#system-privacyPolicyCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#system-privacyPolicyCancelBtn',function(e){
     if(!account.is_master){return;}
     for(const key in website.languages){
         let lang = website.languages[key];
@@ -19,8 +17,7 @@ $('html,body').on('click','#system-privacyPolicyCancelBtn',function(e){
     system_unsave_check();
 
 });
-$('html,body').on('click','#system-privacyPolicySaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#system-privacyPolicySaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#system-privacyPolicySaveBtn'))
     $.ajax({

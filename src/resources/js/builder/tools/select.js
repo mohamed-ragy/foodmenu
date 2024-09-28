@@ -61,7 +61,6 @@ select = function(key_tree){
             break;
             //popup window
             case 'popup_card':
-                $('.current_page_name').text(texts.website_pages[window.selected_page]);
                 $('#website').find('.popup_card').addClass('popup_window_selected')
             break;
             //form elements 
@@ -73,17 +72,15 @@ select = function(key_tree){
             break;
         }
         if(key_tree == 'form_elements.form_loading_spinner'){
-            $('.website_form').children().not('.form_loading_spinner').addClass('vH')
+            $('.website_form').children().not('.form_loading_spinner_container').addClass('vH')
+            $('.website_form').find('.form_loading_spinner_container').removeClass('none')
             $('.website_form').find('.form_loading_spinner').removeClass('none')
         }else{
-            $('.website_form').children().not('.form_loading_spinner').removeClass('vH')
+            $('.website_form').children().not('.form_loading_spinner_container').removeClass('vH')
+            $('.website_form').find('.form_loading_spinner_container').addClass('none')
             $('.website_form').find('.form_loading_spinner').addClass('none')
         }
-        if(window.selected_popup === null){
-            $('.current_page_name').text(texts.website_pages[window.selected_page])
-        }else{
-            $('.current_page_name').text(texts.website_pages[window.selected_popup])
-        }
+
     // }catch{
     //     hide_editor_popup('editor')
     // }

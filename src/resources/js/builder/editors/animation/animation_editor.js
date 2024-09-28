@@ -62,7 +62,6 @@ draw_animation_editor = function(data){
                         variable_key:data.variable_key,
                         key:`${keyframe}_duration`,
                         units:['ms'],
-                        step:1,
                         editor_class:'editor_preview_animation'
                     }),
                 ),
@@ -73,7 +72,6 @@ draw_animation_editor = function(data){
                         variable_key:data.variable_key,
                         key:`${keyframe}_delay`,
                         units:['ms'],
-                        step:1,
                         editor_class:'editor_preview_animation'
                     }),
                 ),

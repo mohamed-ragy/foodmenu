@@ -1,9 +1,13 @@
 drawInputText = function(autoHelp,icon,iconFlag,tooltip,id,type,placeholder,maxlength,icon2,containerClass='',value='',readOnly=false,inputClass=''){
     let iconElem;let icon2Elem;
     if(iconFlag == ''){
-        iconElem = $('<div/>',{class:`inputTextIcon`,tooltip:tooltip}).append(
-            $('<span/>',{class:icon})
-        );
+        if(icon == ''){
+            iconElem = $('<div/>',{class:'mie-3'});
+        }else{
+            iconElem = $('<div/>',{class:`inputTextIcon`,tooltip:tooltip}).append(
+                $('<span/>',{class:icon})
+            );
+        }
     }else if(iconFlag == 'CLF'){
         iconElem = $('<div/>',{class:`inputTextIcon`,tooltip:tooltip}).append(
             $('<img/>',{class:'inputTextIconFlag customLangFlag'})
@@ -26,28 +30,23 @@ drawInputText = function(autoHelp,icon,iconFlag,tooltip,id,type,placeholder,maxl
         icon2Elem,
     )
 }
-$('html,body').on('click','.inputTextIcon',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.inputTextIcon',function(e){
     $(this).parent().find('input').select();
 });
-$('html,body').on('focus','.inputText,.inputSearch',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus','.inputText,.inputSearch',function(e){
     $(this).parent().addClass('inputTextContainer_active');
     $(this).parent().find('.inputTextIcon').addClass('cG').removeClass('cR cO');
 })
-$('html,body').on('focusout','.inputText,.inputSearch',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focusout','.inputText,.inputSearch',function(e){
     $(this).parent().removeClass('inputTextContainer_active');
     $(this).parent().find('.inputTextIcon').removeClass('cR cO cG');
 })
-$('html,body').on('click','.inputText-copyVal',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.inputText-copyVal',function(e){
     navigator.clipboard.writeText($(this).closest('.inputTextContainer').find('.inputText').val()).then(function(){
         showAlert('normal',texts.cpanel.public.valueCopied,4000,true);
     });
 })
-$('html,body').on('click','.inputText-showPassword',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.inputText-showPassword',function(e){
     if($(this).hasClass('ico-showPassword')){
         $(this).removeClass('ico-showPassword').addClass('ico-hidePassword').attr('tooltip',texts.cpanel.public.hidePassword)
         $(this).closest('.inputTextContainer').find('.inputText').attr('type','text')
@@ -59,12 +58,10 @@ $('html,body').on('click','.inputText-showPassword',function(e){
         updateToolTip();
     }catch{}
 })
-$('html,body').on('click','.inputText-clearVal',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.inputText-clearVal',function(e){
     $(this).parent().find('input').val('').trigger('change')
 });
-$('html,body').on('input change','.inputText',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('input change','.inputText',function(e){
     $(this).closest('.inputTextContainer').find('.inputTextIcon').removeClass('cR')
 
 })

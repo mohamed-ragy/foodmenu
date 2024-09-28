@@ -1,15 +1,14 @@
 ////////////////restaurantEmail
-$('html,body').on('input change','#settings-restaurantEmail',function(){
+$('body').on('input change','#settings-restaurantEmail',function(){
     website_temp.restaurantEmail = $(this).val();
     restaurant_information_unsave_chack();
 });
-$('html,body').on('click','#settings-restaurantEmailCancelBtn',function(){
+$('body').on('click','#settings-restaurantEmailCancelBtn',function(){
     website_temp.restaurantEmail = website.restaurantEmail;
     $('#settings-restaurantEmail').val(website.restaurantEmail);
     restaurant_information_unsave_chack();
 });
-$('html,body').on('click','#settings-restaurantEmailSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#settings-restaurantEmailSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#settings-restaurantEmailSaveBtn'))
     $.ajax({

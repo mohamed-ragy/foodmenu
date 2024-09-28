@@ -1,5 +1,4 @@
-$('html,body').on('click','#addNewExpenses_current',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#addNewExpenses_current',function(e){
     showPopup('addNewExpenses',function(){
         $('.popupTitle').text(texts.dashboard.addNewExpenses);
         $('.popupBody').text('').append(
@@ -15,8 +14,7 @@ $('html,body').on('click','#addNewExpenses_current',function(e){
         )
     })
 })
-$('html,body').on('click','#addNewExpenses_current_btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#addNewExpenses_current_btn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#addNewExpenses_current_btn'))
     showBtnLoading($('#addNewExpenses_current'))
@@ -56,8 +54,7 @@ $('html,body').on('click','#addNewExpenses_current_btn',function(e){
         }
     })
 })
-$('html,body').on('click','.delete_current_expense',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.delete_current_expense',function(e){
     let expense = website.month_expenses.find(item=>item.id == $(this).attr('expense'))
     showPopup('deleteExpenses',function(){
         $('.popupTitle').text(texts.dashboard.deleteExpenses);
@@ -73,11 +70,11 @@ $('html,body').on('click','.delete_current_expense',function(e){
         )
     })
 })
-$('html,body').on('click','#delete_current_expense_confirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#delete_current_expense_confirm',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#delete_current_expense_confirm'))
     let expense_id = $(this).attr('expense');
+    console.log(expense_id)
     $.ajax({
         url:'dashboard',
         type:'put',

@@ -16,8 +16,7 @@ setSubmitTicketInputList = function(){
         addToInputList($('#support-submitTicket-ticketCodeList'),texts.support[ticketCodes[key]],key)
     }
 }
-$('html,body').on('click','#support-submitTicket-attachAnImg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#support-submitTicket-attachAnImg',function(e){
     if($('#support-submitTicket-attachedImgs').children().length > 3){
         showAlert('warning',texts.support.maxTicketAttachments,10000,true);
     }else{
@@ -25,8 +24,7 @@ $('html,body').on('click','#support-submitTicket-attachAnImg',function(e){
     }
 });
 
-$('html,body').on('change','#support-submitTicket-attachImgInputFile',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change','#support-submitTicket-attachImgInputFile',function(e){
     $('#support-submitTicket-attachAnImg').hide();
     showBtnLoading($('#support-submitTicket-submitTicketBtn'));
     showLoading($('#supprt-submitTicket-attachImgLoading'))
@@ -89,8 +87,7 @@ $('html,body').on('change','#support-submitTicket-attachImgInputFile',function(e
     }
 });
 
-$('html,body').on('click','.support-attachedImgRemove',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.support-attachedImgRemove',function(e){
     $('#support-submitTicket-attachAnImg').hide();
     showBtnLoading($('#support-submitTicket-submitTicketBtn'));
     showLoading($('#supprt-submitTicket-attachImgLoading'))
@@ -114,8 +111,7 @@ $('html,body').on('click','.support-attachedImgRemove',function(e){
     })
 })
 
-$('html,body').on('click','#support-submitTicket-submitTicketBtn',function(e){
-    e.stopImmediatePropagation()
+$('body').on('click','#support-submitTicket-submitTicketBtn',function(e){
     if($('#support-submitTicket-ticketTitle').val() == ''){
         showAlert('error',texts.support.ticketTitleRequired,4000,true);
         inputTextError($('#support-submitTicket-ticketTitle'))

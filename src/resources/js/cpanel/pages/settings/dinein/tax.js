@@ -11,14 +11,13 @@ dineinTaxNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('input change','#dineinTaxPercent, #dineinTaxCost',function(){
+$('body').on('input change','#dineinTaxPercent, #dineinTaxCost',function(){
     if($(this).val() == ''){$(this).val('0.00')}
     website_temp.dineInTaxCost = parseFloat($('#dineinTaxCost').val());
     website_temp.dineInTaxPercentage = parseFloat($('#dineinTaxPercent').val());
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','.useDineinTaxCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.useDineinTaxCost',function(e){
     website_temp.useDineInTaxCost = 1
     $('.useDineinTaxCostCheck').removeClass('ico-check0').addClass('ico-check1')
     $('.useDineinTaxPercentCheck').removeClass('ico-check1').addClass('ico-check0')
@@ -26,8 +25,7 @@ $('html,body').on('click','.useDineinTaxCost',function(e){
     $('.dineinTaxPercentContainer').addClass('none')
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','.useDineinTaxPercent',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.useDineinTaxPercent',function(e){
     website_temp.useDineInTaxCost = 0;
     $('.useDineinTaxCostCheck').removeClass('ico-check1').addClass('ico-check0')
     $('.useDineinTaxPercentCheck').removeClass('ico-check0').addClass('ico-check1')
@@ -35,8 +33,7 @@ $('html,body').on('click','.useDineinTaxPercent',function(e){
     $('.dineinTaxPercentContainer').removeClass('none')
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','#dineinTaxCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#dineinTaxCancelBtn',function(e){
     website_temp.useDineInTaxCost = website.useDineInTaxCost;
     website_temp.dineInTaxCost = website.dineInTaxCost;
     website_temp.dineInTaxPercentage = website.dineInTaxPercentage;
@@ -55,8 +52,7 @@ $('html,body').on('click','#dineinTaxCancelBtn',function(e){
     }
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','#dineinTaxSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#dineinTaxSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#dineinTaxSaveBtn'));
     $.ajax({

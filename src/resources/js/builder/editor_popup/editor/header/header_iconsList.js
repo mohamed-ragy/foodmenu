@@ -25,7 +25,6 @@ draw_editor_popup_header_iconsList = function(){
                                     variable_key:'css',
                                     key:'gap',
                                     units:['px'],
-                                    step:1,
                                 })
                             ),
                     ),

@@ -1,5 +1,4 @@
-$('html,body').on('click','#orderHistory_findOrdersBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#orderHistory_findOrdersBtn',function(e){
     //
     window.page.orderHistory_page = 1;
     window.page.orderNumber = $('#orderHistory-orderNumber').val()
@@ -25,8 +24,7 @@ $('html,body').on('click','#orderHistory_findOrdersBtn',function(e){
     pushHistory(false);
     getOrderHistory();
 })
-$('html,body').on('click','.orderHistoryTR',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.orderHistoryTR',function(e){
     window.page.orderBy = $(this).attr('order_by');
     window.page.sort = 'desc';
     if($(this).find('.orderHistoryTRArrow').hasClass('ico-down')){
@@ -35,15 +33,13 @@ $('html,body').on('click','.orderHistoryTR',function(e){
     pushHistory(false);
     getOrderHistory()
 })
-$('html,body').on('click','.orderHistoryNext',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.orderHistoryNext',function(e){
     if($(this).hasClass('orderHistoryArrow_dump')){return;}
     window.page.orderHistory_page = parseInt(window.page.orderHistory_page) + 1;
     pushHistory(false)
     getOrderHistory()
 })
-$('html,body').on('click','.orderHistoryPrev',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.orderHistoryPrev',function(e){
     if($(this).hasClass('orderHistoryArrow_dump')){return;}
     window.page.orderHistory_page = parseInt(window.page.orderHistory_page) - 1;
     pushHistory(false)

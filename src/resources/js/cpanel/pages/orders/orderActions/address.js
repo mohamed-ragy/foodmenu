@@ -1,9 +1,7 @@
-$('html,body').on('click','.changeOrderAdressEditBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderAdressEditBtn',function(e){
     $('.changeOrderAdress').select()
 })
-$('html,body').on('focus click input change','.changeOrderAdress',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus click input change','.changeOrderAdress',function(e){
     getOrder(window.history.state.order).then(function(order){
         if(order.address != $('.changeOrderAdress').val()){
             $('.orderAdressNoSave').removeClass('none')
@@ -14,16 +12,14 @@ $('html,body').on('focus click input change','.changeOrderAdress',function(e){
         }
     })
 })
-$('html,body').on('click','.cancelChangeOrderAdressBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.cancelChangeOrderAdressBtn',function(e){
     getOrder(window.history.state.order).then(function(order){
         $('.changeOrderAdress').val(order.address)
         $('.orderAdressNoSave').addClass('none')
         $('.changeOrderAdressBtns').addClass('none')
     })
 })
-$('html,body').on('click','.changeOrderAdressBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderAdressBtn',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     showBtnLoading($('.changeOrderAdressBtn'))

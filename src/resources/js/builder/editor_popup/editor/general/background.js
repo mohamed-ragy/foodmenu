@@ -11,7 +11,7 @@ draw_editor_popup_background = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled','error'],
+                interactions:['hover','click','focus','disabled','error','selected'],
                 editors:[
                     $('<div/>',{class:'editor_popup_container w100p',key:'editor_background'}).append(
                         $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none mB20`}).append(

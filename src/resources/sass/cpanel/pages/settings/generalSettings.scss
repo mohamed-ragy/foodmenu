@@ -17,14 +17,17 @@
 }
 //////
 ///
+.leaflet-draw-actions{display: none !important;}
+.leaflet-draw {margin-top:0px !important}
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{border:unset !important; background-clip: unset !important;}
 .leaflet-control-zoom{border:none !important;}
-
+.leaflet-draw-toolbar-top{margin-top:2px;}
 .leaflet-control-zoom-out, .leaflet-control-zoom-in{
     background-color: var(--white)!important;
     color:var(--txt) !important;
     font-size: 1.2em !important;
 }
-.leaflet-control-zoom-out, .leaflet-control-zoom-in, .restaurantLocation_currentLocationBtn, .restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation{
+.leaflet-control-zoom-out, .leaflet-control-zoom-in, .leaflet-draw-draw-polygon, .restaurantLocation_currentLocationBtn, .restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation, .placeOrder-unsetLocation{
     display:flex;
     align-items:center;
     justify-content:center;
@@ -34,8 +37,10 @@
     border-radius: 2px !important;
     color:var(--txt-1) !important;
     box-shadow: 0 0 4px var(--shdw-10);
+    background-image: unset !important;
+    margin-top:1px !important;;
 }
-.restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation{
+.restaurantLocation_unsetLocationBtn, .createNewUser-unsetLocation, .editUser-unsetLocation, .placeOrder-unsetLocation{
     display:flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -49,7 +54,8 @@
 }
 .leaflet-control-zoom-in:hover{text-decoration: none;background-color: var(--white-2) !important;}
 .leaflet-control-zoom-out:hover{text-decoration: none;background-color: var(--white-2) !important;}
+.leaflet-draw-draw-polygon:hover{text-decoration: none;background-color: var(--white-2) !important;}
 .restaurantLocation_currentLocationBtn:hover{text-decoration: none;background-color: var(--white-2) !important;}
-.restaurantLocation_unsetLocationBtn:hover, .createNewUser-unsetLocation:hover, .editUser-unsetLocation:hover{text-decoration: none;background-color: var(--white-2) !important;}
+.restaurantLocation_unsetLocationBtn:hover, .createNewUser-unsetLocation:hover, .editUser-unsetLocation:hover, .placeOrder-unsetLocation:hover{text-decoration: none;background-color: var(--white-2) !important;}
 
 .leaflet-disabled{color:var(--white-6) !important}

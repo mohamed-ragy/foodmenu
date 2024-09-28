@@ -13,8 +13,7 @@ manageSubaccount_unsavedCheck = function(){
     return subaccountsNoSaveCheck;
 }
 
-$('html,body').on('click',`#manageSubAccount_authority0,#manageSubAccount_authority1,#manageSubAccount_authority2,#manageSubAccount_authority3,#manageSubAccount_authority4,#manageSubAccount_authority5`,function(e){
-    e.stopImmediatePropagation();
+$('body').on('click',`#manageSubAccount_authority0,#manageSubAccount_authority1,#manageSubAccount_authority2,#manageSubAccount_authority3,#manageSubAccount_authority4,#manageSubAccount_authority5`,function(e){
     let authorities = ''
     let authority0 = $('#manageSubAccount_authority0').prop('checked') ? '1' : '0';
     let authority1 = $('#manageSubAccount_authority1').prop('checked') ? '1' : '0';
@@ -26,8 +25,7 @@ $('html,body').on('click',`#manageSubAccount_authority0,#manageSubAccount_author
     website_temp.accounts.find(item=>item.id == window.history.state.subaccount).authorities = authorities;
     sub_accounts_unsave_check();
 })
-$('html,body').on('click','#manageSubAccount_cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#manageSubAccount_cancelBtn',function(e){
     for(const key in website.accounts){
         website_temp.accounts[key].authorities = website.accounts[key].authorities;
         if(website.accounts[key].id == window.history.state.subaccount){
@@ -41,8 +39,7 @@ $('html,body').on('click','#manageSubAccount_cancelBtn',function(e){
     }
     sub_accounts_unsave_check();
 });
-$('html,body').on('click','#manageSubAccount_saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#manageSubAccount_saveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#manageSubAccount_saveBtn'));
     let subaccount = website_temp.accounts.find(item=>item.id == window.history.state.subaccount);
@@ -81,8 +78,7 @@ $('html,body').on('click','#manageSubAccount_saveBtn',function(e){
 })
 
 /////
-$('html,body').on('click','.editSubaccountPassword',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.editSubaccountPassword',function(e){
     let subaccountId = $(this).attr('subaccount');
     let subaccount = website.accounts.find(item=> item.id == subaccountId);
     if(typeof(subaccount) === 'undefined'){return;}
@@ -99,8 +95,7 @@ $('html,body').on('click','.editSubaccountPassword',function(e){
         )
     })
 })
-$('html,body').on('click','#changeSubaccountPasswordBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#changeSubaccountPasswordBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#changeSubaccountPasswordBtn'))
     let subaccountId = $(this).attr('subaccount');

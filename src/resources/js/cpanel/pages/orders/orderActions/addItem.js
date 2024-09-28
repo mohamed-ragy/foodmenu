@@ -1,5 +1,4 @@
-$('html,body').on('click','#order-addItemBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#order-addItemBtn',function(e){
     getOrder(window.history.state.order).then((order)=>{
         showAddOrderItemPopup(order._id);
     })

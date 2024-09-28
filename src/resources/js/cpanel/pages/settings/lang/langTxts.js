@@ -148,14 +148,13 @@ langsTxtsNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('input change','.editLangTextInput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.editLangTextInput',function(e){
     window.langTxts_temp[$(this).attr('lang')][$(this).attr('textCatKey')][$(this).attr('textKey')] = $(this).val();
     $(this).removeClass('editLangTextInput_error');
     languages_unsave_check();
 });
 
-$('html,body').on('click','#langTxts-editLangTextCancelBtn',function(){
+$('body').on('click','#langTxts-editLangTextCancelBtn',function(){
     window.langTxts_temp[window.popupPage.language] = JSON.parse(JSON.stringify(window.langTxts[window.popupPage.language]))
     console.log(window.langTxts_temp[window.popupPage.language])
     getLangText(window.popupPage.language)
@@ -163,8 +162,7 @@ $('html,body').on('click','#langTxts-editLangTextCancelBtn',function(){
     languages_unsave_check();
 })
 let savelangText = {};
-$('html,body').on('click','#langTxts-editLangTextSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#langTxts-editLangTextSaveBtn',function(e){
     let editLangSave = $(this).attr('key');
     let langName = website.languages[editLangSave].name;
     let editTextsValidaion = true;
@@ -232,8 +230,7 @@ $('html,body').on('click','#langTxts-editLangTextSaveBtn',function(e){
     })
 })
 
-$('html,body').on('input change','#lang-editLangTextFindInput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','#lang-editLangTextFindInput',function(e){
     findText = $('#lang-editLangTextFindInput').val();
     $('.editLangTextInput').each(function(){
         if($(this).val().toLowerCase().includes(findText.toLowerCase())){

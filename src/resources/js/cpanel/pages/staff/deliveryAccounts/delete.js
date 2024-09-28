@@ -1,8 +1,7 @@
 
 
 
-$('html,body').on('click','.deleteDeliveryPerson',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteDeliveryPerson',function(e){
     let deliveryAccountId = $(this).attr('delivery');
     let deliveryAccount = website.deliveries.find(item=> item.id == deliveryAccountId);
     if(typeof(deliveryAccount) === 'undefined'){return;}
@@ -24,8 +23,7 @@ $('html,body').on('click','.deleteDeliveryPerson',function(e){
         )
     })
 });
-$('html,body').on('click','#deleteDeliveryAccount-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteDeliveryAccount-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     let deliveryAccountId = $(this).attr('delivery');
     let deliveryAccount = website.deliveries.find(item=> item.id == deliveryAccountId);

@@ -108,18 +108,16 @@ getBrowserDialCode = function(){
     }
 }
 // ///////////
-$('html,body').on('focus select click','.accountPhoneSelectCountryCode',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus select click','.accountPhoneSelectCountryCode',function(e){
     $('.accountPhoneSelectKeysListContainer').scrollTop(0).removeClass('none').css({
         'left':$(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlag').position().left
     })
 })
-$('html,body').on('click',function(){
+$('body').on('click',function(){
     if($('.accountPhoneSelectKeysListContainer:hover').length > 0 || $('.accountPhoneSelectCountryCode:hover').length > 0){return}
     $('.accountPhoneSelectKeysListContainer').addClass('none')
 })
-$('html,body').on('click','.accountPhoneSelectKeysElem',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.accountPhoneSelectKeysElem',function(e){
     $(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlag').addClass('none').attr('src',null)
     $(this).closest('.accountPhoneSelectContainer').find('.accountPhoneSelectFlagIcon').removeClass('none');
     for(const key in window.countries){
@@ -131,8 +129,7 @@ $('html,body').on('click','.accountPhoneSelectKeysElem',function(e){
         }
     }
 })
-$('html,body').on('input change','.accountPhoneSelectCountryCode',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.accountPhoneSelectCountryCode',function(e){
     $(this).val($(this).val().replace(/[^0-9]/g, ''));
     let codeVal = null;
     $('.accountPhoneSelectKeysElem').addClass('none');
@@ -153,8 +150,7 @@ $('html,body').on('input change','.accountPhoneSelectCountryCode',function(e){
     }
 })
 ///////
-$('html,body').on('click','#account-createPhoneBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-createPhoneBtn',function(e){
     if($('#account-phoneCountryCode').val() == '' || $('#account-phoneNumber').val() == ''){return;}
     showBtnLoading($('#account-createPhoneBtn'))
     let phoneNumber = `+${$('#account-phoneCountryCode').val()}${$('#account-phoneNumber').val()}`;
@@ -189,8 +185,7 @@ $('html,body').on('click','#account-createPhoneBtn',function(e){
     })
 })
 //////
-$('html,body').on('click','#security-verifyPhone-btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#security-verifyPhone-btn',function(e){
     showBtnLoading($('#security-verifyPhone-btn'))
     $.ajax({
         url:'security',
@@ -229,8 +224,7 @@ resendPhoneVerifycodeBtnTimer = function(){
         $('#security-resendPhoneVerifycode').text(texts.security.resendCode)
     }
 }
-$('html,body').on('click','#security-resendPhoneVerifycode',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#security-resendPhoneVerifycode',function(e){
     showBtnLoading($('#security-resendPhoneVerifycode'))
     $.ajax({
         url:'security',
@@ -251,8 +245,7 @@ $('html,body').on('click','#security-resendPhoneVerifycode',function(e){
     })
 });
 
-$('html,body').on('click','#account-changePhoneBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-changePhoneBtn',function(e){
     if($('#account-newPhone').val() == '' || $('#account-newPhone_password').val() == ''){return;}
     showPopup('changePhoneConfirm',function(){
         let newPhone = `+${$('#account-newPhoneCountryCode').val()}${$('#account-newPhoneNumber').val()}`;
@@ -271,8 +264,7 @@ $('html,body').on('click','#account-changePhoneBtn',function(e){
         )
     })
 });
-$('html,body').on('click','#account-newPhoneBtn-confirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-newPhoneBtn-confirm',function(e){
     showBtnLoading($('#account-newPhoneBtn-confirm'));
     showBtnLoading($('#account-newPhoneBtn'));
     let newPhone = `+${$('#account-newPhoneCountryCode').val()}${$('#account-newPhoneNumber').val()}`;

@@ -1,5 +1,4 @@
-$('html,body').on('click','.productOptionDelete',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionDelete',function(e){
     let product = website.products.find(item=> item.name == window.history.state.product);
     let option = product.product_options.find(item=> item.id == $(this).closest('.productOptionContainer').attr('option'));
     showPopup('delete-popup',function(){
@@ -21,8 +20,7 @@ $('html,body').on('click','.productOptionDelete',function(e){
     });
 })
 
-$('html,body').on('click','#deleteOption-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteOption-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#deleteOption-confirmBtn'))
     let option_id = $(this).attr('option');

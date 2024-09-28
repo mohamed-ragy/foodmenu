@@ -1,5 +1,5 @@
-$('html,body').on('click','#manageUsers-loadUserBtn',function(e){
-    e.stopImmediatePropagation();
+
+$('body').on('click','#manageUsers-loadUserBtn',function(e){
     showBtnLoading($('#manageUsers-loadUserBtn'))
     drawManageUserLoading();
     if($('#manageUsers-usersInputList').attr('key') == null || $('#manageUsers-usersInputList').attr('key') == ''){
@@ -16,8 +16,7 @@ $('html,body').on('click','#manageUsers-loadUserBtn',function(e){
         pushHistory(false);
     })
 })
-$('html,body').on('click','.blockUserBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.blockUserBtn',function(e){
     let user = website.users.find(item=>item.id == window.history.state.user);
     let confirmMsgElem;let popupTitle;let banAction;
     if(!user.isBanned){
@@ -49,9 +48,7 @@ $('html,body').on('click','.blockUserBtn',function(e){
         )
     })
 });
-
-$('html,body').on('click','#banUser-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#banUser-confirmBtn',function(e){
     showBtnLoading($('#banUser-confirmBtn'))
     let action;
     $(this).attr('action') == 'ban' ? action = 1 : $(this).attr('action') == 'unban' ? action = 0 : null;
@@ -78,20 +75,45 @@ $('html,body').on('click','#banUser-confirmBtn',function(e){
         }
     })
 })
-$('html,body').on('click','.editUser-unsetLocation',function(){
-    window.editUserMapMarker.setLatLng([0,0]);
-    window.editUserMap.flyTo([0,0], 2, {
+
+$('body').on('click','.manageUser_add_new_address',function(e){
+    let user = website.users.find(item=>item.id == window.history.state.user);
+    let address = {
+        'is_default':user.addresses.length == 0 ? '1' : '0',
+        'address':'',
+        'lat':null,
+        'lng':null,
+    }
+    drawEditUserAddress(address);
+    scrollToDiv($('#bodyPage'),$(`.manageUser_address_container`).last())
+})
+$('body').on('click','.manage_user_remove_address',function(e){
+    $(this).closest('.manageUser_address_container').remove();
+})
+$('body').on('click','.manage_user_address_default',function(e){
+    if($(this).hasClass('ico-check0')){
+        $('.manage_user_address_default').removeClass("ico-check1").addClass("ico-check0")
+        $(this).addClass("ico-check1").removeClass("ico-check0")
+    }
+})
+$('body').on('click','.editUser-unsetLocation',function(){
+    let user_id = $(this).attr('user_id');
+    let address_key = $(this).attr('address_key');
+    let map_element = $(this).closest('.manage_user_address_map')[0];
+    let map = map_element._map;
+    let marker = map_element._marker;
+    marker.setLatLng([0,0]);
+    map.flyTo([0,0], 2, {
         animate: false,
         duration: 1
     });
-    window.editUserMap.removeLayer(window.editUserMapMarker)
+    map.removeLayer(marker)
 });
-$('html,body').on('click','#cancelEditUSerBtn',function(e){
-    e.stopImmediatePropagation();
+
+$('body').on('click','#cancelEditUSerBtn',function(e){
     drawManageUser(window.history.state.user)
 })
-$('html,body').on('click','#saveEditUSerBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#saveEditUSerBtn',function(e){
     user = website.users.find(item=> item.id == $('#editUser-container').attr('user'));
     if(typeof(user) === 'undefined'){return;}
     showBtnLoading($('#editUser-saveBtn'))
@@ -99,11 +121,22 @@ $('html,body').on('click','#saveEditUSerBtn',function(e){
     let password = $('#editUser-password').val();
     let name = $('#editUser-name').val();
     let phoneNumber = $('#editUser-phoneNumber').val();
-    let address = $('#editUser-address').val();
-    let lat = window.editUserMapMarker.getLatLng().lat;
-    let lng = window.editUserMapMarker.getLatLng().lng;
     let changePassword;
-    password == '' ? changePassword = 0 : changePassword = 1;
+    let addresses = [];
+    
+    $('#editUser-addresses').find('.manageUser_address_container').each(function(){
+        let this_address = $(this);
+        let address_key = this_address.attr('address_key');
+        let lat = this_address.find('.manage_user_address_map')[0]._marker.getLatLng().lat ?? null;
+        let lng = this_address.find('.manage_user_address_map')[0]._marker.getLatLng().lng ?? null;
+        addresses.push({
+            'is_default': this_address.find('.manage_user_address_default').hasClass('ico-check1') ? '1' : '0',
+            'address':this_address.find('.manage_user_full_address').val(),
+            'lat':lat == '0' ? null : lat,
+            'lng':lng  == '0' ? null : lng,
+        })
+    })
+    password == '' ? changePassword = 0 : changePassword = 1
     $.ajax({
         url:'users',
         type:'put',
@@ -116,9 +149,7 @@ $('html,body').on('click','#saveEditUSerBtn',function(e){
             changePassword:changePassword,
             name:name,
             phoneNumber:phoneNumber,
-            address:address,
-            lat:lat,
-            lng:lng,
+            addresses:addresses,
         },success:function(r){
             hideBtnLoading($('#editUser-saveBtn'))
             if(r.editUserStatus == 0){
@@ -130,9 +161,7 @@ $('html,body').on('click','#saveEditUSerBtn',function(e){
                         website.users[key].email = email;
                         website.users[key].name = name;
                         website.users[key].phoneNumber = phoneNumber;
-                        website.users[key].address = address;
-                        website.users[key].lat = lat;
-                        website.users[key].lng = lng;
+                        website.users[key].addresses = JSON.parse(JSON.stringify(addresses));
                         if(window.history.state.page == 'manage_users' && window.history.state.user == user.id){
                             drawManageUser(user.id)
                         }
@@ -154,9 +183,6 @@ $('html,body').on('click','#saveEditUSerBtn',function(e){
             }else if(r.editUserStatus == 5){
                 showAlert('error',r.msg.name[0],4000,true);
                 inputTextError($('#editUser-name'))
-            }else if(r.editUserStatus == 6){
-                showAlert('error',r.msg.address[0],4000,true);
-                inputTextError($('#editUser-address'))
             }else if(r.editUserStatus == 7){
                 showAlert('error',r.msg.phoneNumber[0],4000,true);
                 inputTextError($('#editUser-phoneNumber'))

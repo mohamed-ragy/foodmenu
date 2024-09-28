@@ -1,11 +1,9 @@
-$('html,body').on('input change','#createSubaccount_name',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','#createSubaccount_name',function(e){
     $(this).val() == '' || $(this).val() == null ? $('#createSubaccount_loginName').val(''):
     $('#createSubaccount_loginName').val(`${$(this).val()}@${website.domainName}`);
 })
 
-$('html,body').on('click','#createSubaccountBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createSubaccountBtn',function(e){
     if(!coolDownChecker()){return;}
     let authority0;let authority1;let authority2;let authority3;let authority4;let authority5;
     $('#createNewSubAccount_authority0').prop('checked') ? authority0 = '1' : authority0 = '0';

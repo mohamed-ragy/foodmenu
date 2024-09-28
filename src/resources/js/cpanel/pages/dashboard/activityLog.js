@@ -6,8 +6,7 @@ let noMoreActivites = false;
 let activities_year;
 let activities_month;
 let activities_day;
-$('html,body').on('click','#findActivites_btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#findActivites_btn',function(e){
     if(!coolDownChecker()){return;}
     activityLog_load();
 })
@@ -79,8 +78,7 @@ $('#bodyPage').on('scroll',function(e){
     }
 
 });
-$('html,body').on('click','#activityLog_loadMore',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#activityLog_loadMore',function(e){
     activityLog_loadMore();
 })
 activityLog_loadMore = function(){
@@ -380,14 +378,12 @@ drawActivityLog = function(activity,is_live){
 }
 
 //
-$('html,body').on('click','.activityGroupSeemore',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.activityGroupSeemore',function(e){
     $(this).text('').addClass('none');
     $(this).closest('.activityGroupContainer').children().removeClass('activityContainer_hidden')
 })
 //
-$('html,body').on('click','.deleteActivityLog',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteActivityLog',function(e){
     let activity_elem = $(this).closest('.activityContainer').html()
     let activity_id = $(this).closest('.activityContainer').attr('activity');
     showPopup('delete-popup',function(){
@@ -409,8 +405,7 @@ $('html,body').on('click','.deleteActivityLog',function(e){
         )
     })
 })
-$('html,body').on('click','#deleteActivityLog-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteActivityLog-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     let activity_id = $(this).attr('activity');
     showBtnLoading($('#deleteActivityLog-confirmBtn'));
@@ -434,8 +429,7 @@ $('html,body').on('click','#deleteActivityLog-confirmBtn',function(e){
     })
 })
 //
-$('html,body').on('click','.seeChanges_activityLog',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.seeChanges_activityLog',function(e){
     let activity = window.activity_log.find(item=>item._id == $(this).attr('activity'));
     if(typeof(activity) == 'undefined'){
         activity = window.last_activites.find(item=>item._id == $(this).attr('activity'));
@@ -1114,20 +1108,6 @@ seeChanges_activityLog = function(activity){
                     )
                 )
             }
-            if(activity.old_lang.direction != activity.new_lang.direction){
-                from.append(
-                    $('<div/>',{class:'fs08'}).append(
-                        $('<span/>',{class:' c_white-10 mie-3',text:texts.dashboard.langDirection}),
-                        $('<span/>',{class:'',text:texts.dashboard[activity.old_lang.direction]})
-                    )
-                )
-                to.append(
-                    $('<div/>',{class:'fs08'}).append(
-                        $('<span/>',{class:' c_white-10 mie-3',text:texts.dashboard.langDirection}),
-                        $('<span/>',{class:'',text:texts.dashboard[activity.new_lang.direction]})
-                    )
-                )
-            }
         break;
         case 'settings.dinein.service':
             if(
@@ -1482,18 +1462,90 @@ seeChanges_activityLog = function(activity){
         case 'user.edited_by_account':
             for(const key in activity.old_user){
                 if(activity.old_user[key] != activity.new_user[key]){
-                    from.append(
-                        $('<div/>',{class:`fs08`}).append(
-                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard[`user_${key}`]}),
-                            $('<span/>',{class:'',text:activity.old_user[key]}),
-                        ),
-                    )
-                    to.append(
-                        $('<div/>',{class:`fs08`}).append(
-                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard[`user_${key}`]}),
-                            $('<span/>',{class:'',text:activity.new_user[key]}),
-                        ),
-                    )
+                    if(key == 'addresses'){
+                        let from_addresses = $('<div/>')
+                        let from_addresses_obj = activity.old_user.addresses;
+                        if(from_addresses_obj.length == 0){
+                            from_addresses.append($('<div/>',{text:texts.dashboard.user_no_addresses}))
+                        }
+                        for(const key in from_addresses_obj){
+                            let address = from_addresses_obj[key]
+                            from_addresses.append(
+                                $('<ul/>',{class:'mY0'}).append( 
+                                    $('<li/>',{class:'m5'}).append(
+                                        $('<div/>',{class:'bold600',text:`${texts.dashboard.user_address} ${parseInt(key) + 1}`}),
+                                        address.is_default == '1' ? $('<div/>',{class:'mis-3',text:texts.dashboard.user_address_default}):'',
+                                        $('<div/>',{class:'mis-3'}).append(
+                                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard.user_full_address}),
+                                            $('<span/>',{text:address.address})
+                                        ),
+                                        address.lat !== null ? $('<div/>',{class:'mis-3'}).append(
+                                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard.user_lat}),
+                                            $('<span/>',{text:address.lat})
+                                        ) : '',
+                                        address.lng !== null ? $('<div/>',{class:'mis-3'}).append(
+                                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard.user_lng}),
+                                            $('<span/>',{text:address.lng})
+                                        ) : '',
+                                    )
+                                )
+                            )
+                        }
+                        from.append(
+                            $('<div/>',{class:`fs08`}).append(
+                                $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard[`user_${key}`]}),
+                                from_addresses
+                            ),
+                        )
+                        let to_addresses = $('<div/>')
+                        let to_addresses_obj = activity.new_user.addresses;
+                        if(to_addresses_obj.length == 0){
+                            to_addresses.append($('<div/>',{text:texts.dashboard.user_no_addresses}))
+                        }
+                        for(const key in to_addresses_obj){
+                            let address = to_addresses_obj[key]
+                            to_addresses.append(
+                                $('<ul/>',{class:'mY0'}).append(
+                                    $('<li/>',{class:'m5'}).append(
+                                        $('<div/>',{class:'bold600',text:`${texts.dashboard.user_address} ${parseInt(key) + 1}`}),
+                                        address.is_default == '1' ? $('<div/>',{class:'mis-3',text:texts.dashboard.user_address_default}):'',
+                                        $('<div/>',{class:'mis-3'}).append(
+                                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard.user_full_address}),
+                                            $('<span/>',{text:address.address})
+                                        ),
+                                        address.lat !== null ? $('<div/>',{class:'mis-3'}).append(
+                                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard.user_lat}),
+                                            $('<span/>',{text:address.lat})
+                                        ) : '',
+                                        address.lng !== null ? $('<div/>',{class:'mis-3'}).append(
+                                            $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard.user_lng}),
+                                            $('<span/>',{text:address.lng})
+                                        ) : '',
+                                    )
+                                )
+                            )
+                        }
+                        to.append(
+                            $('<div/>',{class:`fs08`}).append(
+                                $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard[`user_${key}`]}),
+                                to_addresses
+                            ),
+                        )
+                    }else{
+                        from.append(
+                            $('<div/>',{class:`fs08`}).append(
+                                $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard[`user_${key}`]}),
+                                $('<span/>',{class:'',text:activity.old_user[key]}),
+                            ),
+                        )
+                        to.append(
+                            $('<div/>',{class:`fs08`}).append(
+                                $('<span/>',{class:'c_white-10 mie-3',text:texts.dashboard[`user_${key}`]}),
+                                $('<span/>',{class:'',text:activity.new_user[key]}),
+                            ),
+                        )
+                    }
+
                 }
             }
             if(activity.new_user.password_changed == 1){

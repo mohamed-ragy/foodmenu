@@ -1,16 +1,30 @@
-FROM nginx:1.24.0
+# Use OpenResty (Nginx with Lua) as the base image
+FROM openresty/openresty:alpine
 
-# Arguments defined in docker-compose.yml
+# Install OpenSSL for SSL support
+RUN apk update && apk add openssl
+
+# Arguments for user and UID passed from docker-compose.yml
 ARG user
 ARG uid
 
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
+# Create a system user with the specified UID using Alpine's adduser
+RUN adduser -u $uid -D -h /home/$user $user && \
+    addgroup $user www-data && \
+    addgroup $user root
+
+# Set up the home directory permissions for Composer
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+# Copy the Nginx configuration file to the container
 ADD /nginx/default.prod.conf /etc/nginx/conf.d/
-ADD /nginx/foodmenu.pem /etc/nginx/keys/
-ADD /nginx/foodmenu.key /etc/nginx/keys/
 
+# Create the document root directory for the application
 RUN mkdir -p /var/www/foodmenu
+
+# Expose HTTP and HTTPS ports
+EXPOSE 80 443
+
+# Start OpenResty (Nginx + Lua)
+CMD ["openresty", "-g", "daemon off;"]

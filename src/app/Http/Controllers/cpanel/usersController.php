@@ -36,7 +36,7 @@ class usersController extends Controller
                 ->where(function($q) use ($findUser){
                     $q->where('name','LIKE','%'.$findUser.'%')
                     ->orWhere('phoneNumber','LIKE','%'.$findUser.'%');
-                })->select(['id','name','phoneNumber','address','lat','lng'])->get();
+                })->select(['id','name','phoneNumber','addresses'])->get();
             return response(['users'=>$users]);
         }
         else if($request->has(['createNewUser'])){
@@ -84,17 +84,6 @@ class usersController extends Controller
                 return response(['createNewUserStatus' => 5,'msg'=> $nameValidate->errors()]);
             }
 
-
-            $addressValidate = Validator::make(['address' => $request->address],[
-                'address' => 'required',
-            ],[
-                'address.required' => Lang::get('cpanel/users/responses.addressRequired'),
-            ]);
-            if($addressValidate->fails()){
-                return response(['createNewUserStatus' => 6,'msg'=>$addressValidate->errors()]);
-            }
-
-
             $phoneValidate = Validator::make(['phoneNumber'=>$request->phoneNumber],[
                 'phoneNumber' => 'required|regex:/^[+0-9]+$/|min:5',
             ],[
@@ -113,12 +102,10 @@ class usersController extends Controller
                 'password'=>bcrypt($request->password),
                 'name'=>strip_tags($request->name),
                 'phoneNumber'=>strip_tags($request->phoneNumber),
-                'address'=>strip_tags($request->address),
+                'addresses' => [],
                 'lastSeen'=> null,
                 'cart' => '[]',
                 'cart_lastUpdate' => null,
-                'lat' => $request->lat,
-                'lng' => $request->lng,
             ]);
             if($createNewuser){
                 foodmenuFunctions::notification('user.created_by_cpanel',[
@@ -233,17 +220,6 @@ class usersController extends Controller
                 return response(['editUserStatus' => 5,'msg'=> $nameValidate->errors()]);
             }
 
-
-            $addressValidate = Validator::make(['address' => $request->address],[
-                'address' => 'required',
-            ],[
-                'address.required' => Lang::get('cpanel/users/responses.addressRequired'),
-            ]);
-            if($addressValidate->fails()){
-                return response(['editUserStatus' => 6,'msg'=>$addressValidate->errors()]);
-            }
-
-
             $phoneValidate = Validator::make(['phoneNumber'=>$request->phoneNumber],[
                 'phoneNumber' => 'required|regex:/^[+0-9]+$/|min:5',
             ],[
@@ -254,7 +230,20 @@ class usersController extends Controller
             if($phoneValidate->fails()){
                 return response(['editUserStatus' => 7,'msg'=>$phoneValidate->errors()]);
             }
+
             $old_user = User::where(['website_id'=>$this->website_id,'id'=>$request->userId])->first();
+
+            $addresses = [];
+            if($request->addresses){
+                foreach($request->addresses as $address){
+                    array_push($addresses,[
+                        'is_default' => strip_tags($address['is_default']),
+                        'address' => strip_tags($address['address']),
+                        'lat' => $address['lat'],
+                        'lng' => $address['lng'],
+                    ]);
+                }
+            }
             if($request->changePassword == 1){
                 $updateUser = User::where(['website_id'=>$this->website_id,'id'=>$request->userId])
                     ->update([
@@ -262,9 +251,7 @@ class usersController extends Controller
                         'password'=>bcrypt($request->password),
                         'name' => strip_tags($request->name),
                         'phoneNumber' => strip_tags($request->phoneNumber),
-                        'address' => strip_tags($request->address),
-                        'lat' => strip_tags($request->lat),
-                        'lng' => strip_tags($request->lng),
+                        'addresses' => $addresses,
                         'updated_at' => Carbon::now()->timestamp
                     ]);
             }else{
@@ -273,9 +260,7 @@ class usersController extends Controller
                     'email' => strip_tags($request->email),
                     'name' => strip_tags($request->name),
                     'phoneNumber' => strip_tags($request->phoneNumber),
-                    'address' => strip_tags($request->address),
-                    'lat' => strip_tags($request->lat),
-                    'lng' => strip_tags($request->lng),
+                    'addresses' => $addresses,
                     'updated_at' => Carbon::now()->timestamp
                 ]);
             }
@@ -286,9 +271,7 @@ class usersController extends Controller
                     $old_user->email != strip_tags($request->email) ||
                     $old_user->name != strip_tags($request->name) ||
                     $old_user->phoneNumber != strip_tags($request->phoneNumber) ||
-                    $old_user->address != strip_tags($request->address) ||
-                    $old_user->lat != strip_tags($request->lat) ||
-                    $old_user->lng != strip_tags($request->lng) ||
+                    $old_user->addresses != $addresses ||
                     $request->changePassword == 1
                 ){
                     $activity = [
@@ -302,17 +285,13 @@ class usersController extends Controller
                             'email' => $old_user->email,
                             'name' => $old_user->name,
                             'phoneNumber' => $old_user->phoneNumber,
-                            'address' => $old_user->address,
-                            'lat' => $old_user->lat,
-                            'lng' => $old_user->lng,
+                            'addresses' => $old_user->addresses,
                         ],
                         'new_user' => [
                             'email' => strip_tags($request->email),
                             'name' => strip_tags($request->name),
                             'phoneNumber' => strip_tags($request->phoneNumber),
-                            'address' => strip_tags($request->address),
-                            'lat' => strip_tags($request->lat),
-                            'lng' => strip_tags($request->lng),
+                            'addresses' => $addresses,
                             'password_changed' => $request->changePassword
                         ]
                     ];
@@ -322,9 +301,7 @@ class usersController extends Controller
                     'email' => $request->email,
                     'name' => $request->name,
                     'phoneNumber' => $request->phoneNumber,
-                    'address' => $request->address,
-                    'lat' => $request->lat,
-                    'lng' => $request->lng,
+                    'addresses' => $addresses,
                 ]);
                 foodmenuFunctions::notification_website('user.reload',$this->website_id,'user',$request->userId,[]);
                 return response(['editUserStatus' => 1, 'msg' => Lang::get('cpanel/users/responses.userUpdateSaved')]);

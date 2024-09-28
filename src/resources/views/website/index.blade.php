@@ -15,7 +15,6 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="website" />
-
     <meta name="twitter:title" content="{{ $title }}" />
     <meta name="twitter:description" content="{{ $description }}" />
     <meta name="twitter:image" content="https://{!! $website->url.$website->metaImg !!}" />
@@ -34,14 +33,14 @@
     </div>
 </body>
 <script>
-    window.website_id = "{{ $website_id }}"
-    window.website = {!! $website !!}
-    window.lang = "{{ $lang }}"
-    window.title = "{{ $title }}"
-    window.description = "{{ $description }}"
-    window.user = {!! $user !!}
-    window.guest = {!! $guest !!}
-    window.page = "{{ request()->route()->getName() }}".split('_')[1];
+    window.website_id = "{{ $website_id }}";
+    window.website = {!! $website !!};
+    window.lang = "{{ $lang }}";
+    window.title = "{{ $title }}";
+    window.description = "{{ $description }}";
+    window.user = {!! $user !!};
+    window.guest = {!! $guest !!};
+    window.page_data = {!! $page_data !!};
 </script>
 <script src="/js/website/script.js"></script>
 <script src="/storage/websites/{{ $website_id }}/script/script_{{ $lang }}.js?v={{ $website->style_version }}"></script>

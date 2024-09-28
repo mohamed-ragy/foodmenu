@@ -11,14 +11,13 @@ dineinServiceNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('input change','#dineinServicePercent, #dineinServiceCost',function(){
+$('body').on('input change','#dineinServicePercent, #dineinServiceCost',function(){
     if($(this).val() == ''){$(this).val('0.00')}
     website_temp.dineInServiceCost = parseFloat($('#dineinServiceCost').val());
     website_temp.dineInServicePercentage = parseFloat($('#dineinServicePercent').val());
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','.useDineinServiceCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.useDineinServiceCost',function(e){
     website_temp.useDineInServiceCost = 1
     $('.useDineinServiceCostCheck').removeClass('ico-check0').addClass('ico-check1')
     $('.useDineinServicePercentCheck').removeClass('ico-check1').addClass('ico-check0')
@@ -26,8 +25,7 @@ $('html,body').on('click','.useDineinServiceCost',function(e){
     $('.dineinServicePercentContainer').addClass('none')
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','.useDineinServicePercent',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.useDineinServicePercent',function(e){
     website_temp.useDineInServiceCost = 0;
     $('.useDineinServiceCostCheck').removeClass('ico-check1').addClass('ico-check0')
     $('.useDineinServicePercentCheck').removeClass('ico-check0').addClass('ico-check1')
@@ -35,8 +33,7 @@ $('html,body').on('click','.useDineinServicePercent',function(e){
     $('.dineinServicePercentContainer').removeClass('none')
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','#dineinServiceCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#dineinServiceCancelBtn',function(e){
     website_temp.useDineInServiceCost = website.useDineInServiceCost;
     website_temp.dineInServiceCost = website.dineInServiceCost;
     website_temp.dineInServicePercentage = website.dineInServicePercentage;
@@ -55,8 +52,7 @@ $('html,body').on('click','#dineinServiceCancelBtn',function(e){
     }
     dine_in_settings_unsave_check();
 })
-$('html,body').on('click','#dineinServiceSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#dineinServiceSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#dineinServiceSaveBtn'));
     $.ajax({

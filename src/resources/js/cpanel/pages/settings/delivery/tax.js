@@ -11,14 +11,13 @@ homeDeliveryTaxNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('input change','#deliveryTaxPercent, #deliveryTaxCost',function(){
+$('body').on('input change','#deliveryTaxPercent, #deliveryTaxCost',function(){
     if($(this).val() == ''){$(this).val('0.00')}
     website_temp.deliveryTaxCost = parseFloat($('#deliveryTaxCost').val());
     website_temp.deliveryTaxPercentage = parseFloat($('#deliveryTaxPercent').val());
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','.useDeliveryTaxCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.useDeliveryTaxCost',function(e){
     website_temp.useDeliveryTaxCost = 1
     $('.useDeliveryTaxCostCheck').removeClass('ico-check0').addClass('ico-check1')
     $('.useDeliveryTaxPercentCheck').removeClass('ico-check1').addClass('ico-check0')
@@ -26,8 +25,7 @@ $('html,body').on('click','.useDeliveryTaxCost',function(e){
     $('.deliveryTaxPercentContainer').addClass('none')
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','.useDeliveryTaxPercent',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.useDeliveryTaxPercent',function(e){
     website_temp.useDeliveryTaxCost = 0;
     $('.useDeliveryTaxCostCheck').removeClass('ico-check1').addClass('ico-check0')
     $('.useDeliveryTaxPercentCheck').removeClass('ico-check0').addClass('ico-check1')
@@ -36,8 +34,7 @@ $('html,body').on('click','.useDeliveryTaxPercent',function(e){
     home_delivery_settings_unsave_check();
 })
 
-$('html,body').on('click','#deliveryTaxCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryTaxCancelBtn',function(e){
     website_temp.useDeliveryTaxCost = website.useDeliveryTaxCost;
     website_temp.deliveryTaxCost = website.deliveryTaxCost;
     website_temp.deliveryTaxPercentage = website.deliveryTaxPercentage;
@@ -56,8 +53,7 @@ $('html,body').on('click','#deliveryTaxCancelBtn',function(e){
     }
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','#deliveryTaxSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryTaxSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#deliveryTaxSaveBtn'));
     $.ajax({

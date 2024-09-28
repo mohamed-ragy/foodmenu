@@ -1,4 +1,4 @@
-$('html,body').on('click',function(e){
+$('body').on('click',function(e){
     if($('.confirm-btn:hover').length == 0){
         $('.confirm-btn').removeClass('confirm-btn');
     }

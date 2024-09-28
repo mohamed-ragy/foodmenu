@@ -1,6 +1,5 @@
 let deliveryPopupIdInterval;
-$('html,body').on('mouseenter','.popupId',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseenter','.popupId',function(e){
     let thisPopupIdElem = $(this);
     switch($(this).attr('popupId')){
         case 'review':
@@ -261,14 +260,13 @@ showPopupId = function(thisPopupIdElem){
 
 
 }
-$('html,body').on('mousemove',function(e){
+$('body').on('mousemove',function(e){
     if($('.popupId:hover').length == 0 && $('#popupId:hover').length == 0){
         $('#popupId').addClass('none')
         clearInterval(deliveryPopupIdInterval);
     }
 });
-$('html,body').on('click','.popupIdClose',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.popupIdClose',function(e){
     clearInterval(deliveryPopupIdInterval);
     $('#popupId').text('').addClass('none')
 })

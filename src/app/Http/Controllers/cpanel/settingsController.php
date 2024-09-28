@@ -26,9 +26,12 @@ use Illuminate\Support\Facades\App;
 use App\Models\websiteText;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class settingsController extends Controller
 {
+    
     protected $website_id;
     protected $account;
     public function __construct()
@@ -619,6 +622,7 @@ class settingsController extends Controller
             $updateRestaurantLocation = website::where('id',$this->website_id)->update([
                 'lat'=>$request->lat,
                 'lng' => $request->lng,
+                'delivery_range' => $request->delivery_range,
                 'updated_at' => Carbon::now()->timestamp,
             ]);
             if($updateRestaurantLocation){
@@ -630,6 +634,7 @@ class settingsController extends Controller
                 ],[
                     'lat' => $request->lat,
                     'lng' => $request->lng,
+                    'delivery_range' => $request->delivery_range,
                 ]);
                 return response(['saveRestaurantLocationStatus' => 1,'msg' => Lang::get('cpanel/settings/responses.restaurantLocationSaved')]);
             }else{
@@ -1067,7 +1072,6 @@ class settingsController extends Controller
             $addLang = foodmenuFunctions::languages()[$request->addLang];
             $newLang = [
                 'code' => $addLang['code'],
-                'direction' => $addLang['direction'],
                 'flag' => $addLang['flag'],
                 'name' => $addLang['name'],
                 'receiptDefault' => false,
@@ -1235,7 +1239,6 @@ class settingsController extends Controller
             }
             $newLang = [
                 'code' => strip_tags($request->code),
-                'direction' => strip_tags($request->direction),
                 'flag' => strip_tags($request->flag),
                 'name' => strip_tags($request->name),
                 'receiptDefault' => false,
@@ -1279,11 +1282,9 @@ class settingsController extends Controller
                 if($lang['code'] == $request->editLangOptions){
                     $websiteLangs[$key]['name'] = $request->name;
                     $websiteLangs[$key]['flag'] = $request->flag;
-                    $websiteLangs[$key]['direction'] = $request->direction;
                     $old_lang = [
                         'name' => $lang['name'],
                         'flag' => $lang['flag'],
-                        'direction' => $lang['direction'],
                     ];
                 }
             }
@@ -1295,8 +1296,7 @@ class settingsController extends Controller
                 $activity = null;
                 if(
                     $old_lang['name'] != $request->name ||
-                    $old_lang['flag'] != $request->flag ||
-                    $old_lang['direction'] != $request->direction
+                    $old_lang['flag'] != $request->flag
                 ){
                     $activity = [
                         'website_id' => $this->website_id,
@@ -1309,7 +1309,6 @@ class settingsController extends Controller
                         'new_lang' =>[
                             'name' => $request->name,
                             'flag' => $request->flag,
-                            'direction' => $request->direction,
                         ]
                     ];
                 }
@@ -1317,7 +1316,6 @@ class settingsController extends Controller
                     'lang' => $request->editLangOptions,
                     'name' => $request->name,
                     'flag' => $request->flag,
-                    'direction' => $request->direction,
                     'languages' => $websiteLangs,
                 ]);
                 return response(['editLangOptionsStatus'=>1,'msg'=>Lang::get('cpanel/settings/responses.editLangOptionsSaved')]);
@@ -1930,6 +1928,60 @@ class settingsController extends Controller
             ]);
         }
         //////////////////////
+        else if($request->has('add_user_domain')){
 
+            $validator = Validator::make([
+                'domain' => $request->add_user_domain,
+            ],[
+                'domain' => 'required|regex:/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i',
+
+            ]);
+
+            if($validator->fails()){
+                return response(['status' => '0', 'msg'=> Lang::get('cpanel/settings/responses.domain_required')]);
+            }
+            $domain = parse_url($request->add_user_domain, PHP_URL_HOST) ?: $request->add_user_domain;
+
+            $add_domain = Http::withToken(env('CLOUDFLARE_KEY'))->post("https://api.cloudflare.com/client/v4/zones", [
+                'name'       => $domain,
+                'account'    => ['id' => env('CLOUDFLARE_ID')],
+                'jump_start' => true,
+            ]);
+
+            if($add_domain['success'] == false){
+                return response(['status' => '0', 'msg'=> Lang::get('cpanel/settings/responses.domain_add_fail')]);
+            }
+            
+            $user_domainNameServers = $add_domain['result']['name_servers'];
+            $update_website = website::where('id',$this->website_id)->update([
+                'user_domainName' => $domain,
+                'user_domainNameServers' => $user_domainNameServers,                    
+                
+            ]);
+            if($update_website){
+                return response([
+                    'status' => 1,
+                    'msg' => Lang::get('cpanel/settings/responses.domain_added'),
+                    'user_domainName' => $domain,
+                    'user_domainNameServers' => $user_domainNameServers,                    
+                ]);
+            }else{
+                return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.domain_save_website_fail')]);
+            }
+
+
+        }
+        else if($request->has('check_domain_nameservers')){
+            try{
+                $current_nameservers = dns_get_record($domain,DNS_NS);
+            }catch (\Exception $e){
+                $current_nameservers = null;
+            }
+            
+            $response = Http::withToken(env('CLOUDFLARE_KEY'))->get("https://api.cloudflare.com/client/v4/zones", [
+                'name' => 'huohuade.ch',
+                'account' => ['id' => env('CLOUDFLARE_ID')],
+            ]);
+        }
     }
 }

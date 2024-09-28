@@ -1,15 +1,12 @@
-$('html,body').on('click','.productOptionEdit',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionEdit',function(e){
     showEditProductOptionPopup(window.history.state.product,$(this).closest('.productOptionContainer').attr('option'))
 });
-$('html,body').on('click','.productOptionEdit_guideAlert',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionEdit_guideAlert',function(e){
     showEditProductOptionPopup($(this).attr('product'),$(this).attr('option'));
     $(`#editOption_name-${$(this).attr('lang')}`).focus();
     highlightElem($(`#editOption_name-${$(this).attr('lang')}`))
 });
-$('html,body').on('click','.productOptionEdit_activityLog',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionEdit_activityLog',function(e){
     showEditProductOptionPopup($(this).attr('product'),$(this).attr('option'));
 });
 showEditProductOptionPopup = function(product_name,option_id){
@@ -39,13 +36,11 @@ showEditProductOptionPopup = function(product_name,option_id){
     })
 }
 
-$('html,body').on('click','#editOption_cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editOption_cancelBtn',function(e){
     closePopup();
 })
 
-$('html,body').on('click','#editOption_saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editOption_saveBtn',function(e){
     let product = website.products.find(item=>item.id == $('#editOptionInputsContainer').attr('product'));
     let option_id = $('#editOptionInputsContainer').attr('option')
     let option = product.product_options.find(item=> item.id == option_id);

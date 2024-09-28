@@ -1,5 +1,4 @@
-$('html,body').on('click','.deleteSubaccount',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteSubaccount',function(e){
     let subaccountId = $(this).attr('subaccount');
     let subaccount = website.accounts.find(item=> item.id == subaccountId);
     if(typeof(subaccount) === 'undefined'){return;}
@@ -21,8 +20,7 @@ $('html,body').on('click','.deleteSubaccount',function(e){
         )
     })
 });
-$('html,body').on('click','#deleteSubaccount-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteSubaccount-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     let subaccountId = $(this).attr('subaccount');
     let subaccount = website.accounts.find(item=> item.id == subaccountId);

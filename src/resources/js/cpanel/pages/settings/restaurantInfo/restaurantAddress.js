@@ -11,16 +11,14 @@ websiteAddressNoSaveCheck  =  function(){
     }
 }
 
-$('html,body').on('input change','.restaurantAddressInputText',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.restaurantAddressInputText',function(e){
     for(const key in website.languages){
         let lang = website.languages[key];
         website_temp.addresses[lang.code] = $(`#setting-restaurantAddress_${lang.code}`).val();
     }
     restaurant_information_unsave_chack();
 })
-$('html,body').on('click','#setting-websiteAddressCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-websiteAddressCancelBtn',function(e){
     website_temp.addresses = JSON.parse(JSON.stringify(website.addresses));
     for(const key in website.languages){
         let lang = website.languages[key];
@@ -29,7 +27,7 @@ $('html,body').on('click','#setting-websiteAddressCancelBtn',function(e){
     restaurant_information_unsave_chack();
 })
 
-$('html,body').on('click','#setting-websiteAddressSaveBtn',function(){
+$('body').on('click','#setting-websiteAddressSaveBtn',function(){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#setting-websiteAddressSaveBtn'));
     $.ajax({

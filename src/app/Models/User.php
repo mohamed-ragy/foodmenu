@@ -22,7 +22,7 @@ class User extends Authenticatable
     protected $guard = 'user';
     public $timestamps = false;
     protected static function boot() {
-        parent::boot();
+    parent::boot();
 
         static::creating(function ($post) {
             $post->created_at = Carbon::now()->timestamp;
@@ -41,7 +41,8 @@ class User extends Authenticatable
         'website_id',
         'name',
         'phoneNumber',
-        'address',
+        // 'address',
+        'addresses',
         'cart',
         'cart_lastUpdate',
         'isBanned',
@@ -52,7 +53,9 @@ class User extends Authenticatable
 
         'lat','lng',
     ];
-
+    protected $casts = [
+        'addresses' => 'array',
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -89,8 +89,7 @@ drawPromoCodeRow = function(promocode){
     $(`.promocodeTableAvailability-${promocode.id}`).prop('checked',promocode.is_active)
 }
 
-$('html,body').on('click','.promocodeTableAvailability',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.promocodeTableAvailability',function(e){
     if(!coolDownChecker()){return;}
     let is_active = 0;
     if($(`.promocodeTableAvailability-${$(this).closest('.promocodeTableRow').attr('promocode')}`).prop('checked')){is_active = 1}

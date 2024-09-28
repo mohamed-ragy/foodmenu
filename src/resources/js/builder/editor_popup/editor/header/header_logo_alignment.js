@@ -23,7 +23,6 @@ draw_editor_popup_header_logo_alignment = function(){
                             variable_key:'css',
                             key:'gap',
                             units:['px'],
-                            step:1,
                         })
                     ),
                 ]

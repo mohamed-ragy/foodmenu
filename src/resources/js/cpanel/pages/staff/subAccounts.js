@@ -23,8 +23,7 @@ setSubaccountOnlineStatus = function(subaccountId){
 }
 
 
-$('html,body').on('click','.subAccount-unblock',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.subAccount-unblock',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
 
@@ -56,8 +55,7 @@ $('html,body').on('click','.subAccount-unblock',function(e){
     })
 })
 ///////////////////////////force logout///////////////////////////////////
-$('html,body').on('click','.subAccount-forceLogout',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.subAccount-forceLogout',function(e){
     if(!coolDownChecker()){return;}
     if($(this).find('.subAccount-forceLogout').hasClass('none')){return}
     let thisElem = $(this);

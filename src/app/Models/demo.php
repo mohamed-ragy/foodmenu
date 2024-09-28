@@ -85,8 +85,8 @@ class demo
         $demoWebsite->active = true;
         $demoWebsite->domainName = $website->domainName;
         $demoWebsite->url = $website->domainName.'.'.env('APP_DOMAIN');
-        $demoWebsite->lat = '40.1987535946463';
-        $demoWebsite->lng = '-74.30637861990314';
+        // $demoWebsite->lat = '40.1987535946463';
+        // $demoWebsite->lng = '-74.30637861990314';
         $demoWebsite->restaurantEmail = $website->domainName.'@example.com';
         $demoWebsite->phoneNumbers = [0 => '+1-098-765-4321', 1 => '+1-123-456-7890'];
         $demoWebsite->addresses = [
@@ -166,13 +166,13 @@ class demo
             'es' => '<p style="max-width:1000px;">Aquí es donde puede agregar la política de privacidad de su empresa e informar a los visitantes del sitio web sobre los datos que recopila y por qué los recopila. Al incluir su política de privacidad en su sitio web, muestra a sus visitantes que valora su privacidad. Utilice las etiquetas HTML permitidas para clasificar el texto de su política de privacidad en la estructura que prefiera.</p>'
         ];
         $demoWebsite->languages = [
-            'en' => ['code'=>'en','name'=>'English','direction'=>'ltr','flag'=>'USA','websiteDefault'=>1,'receiptDefault'=>1],
-            'es' => ['code'=>'es','name'=>'Española','direction'=>'ltr','flag'=>'ESP','websiteDefault'=>0,'receiptDefault'=>0],
-            'fr' => ['code'=>'fr','name'=>'français','direction'=>'ltr','flag'=>'FRA','websiteDefault'=>0,'receiptDefault'=>0],
-            'de' => ['code'=>'de','name'=>'Deutsche','direction'=>'ltr','flag'=>'DEU','websiteDefault'=>0,'receiptDefault'=>0],
-            'ar' => ['code'=>'ar','name'=>'العربية','direction'=>'rtl','flag'=>'SAU','websiteDefault'=>0,'receiptDefault'=>0],
-            'ua' => ['code'=>'ua','name'=>'українська','direction'=>'ltr','flag'=>'UKR','websiteDefault'=>0,'receiptDefault'=>0],
-            'it' => ['code'=>'it','name'=>'Italiana','direction'=>'ltr','flag'=>'ITA','websiteDefault'=>0,'receiptDefault'=>0],
+            'en' => ['code'=>'en','name'=>'English','flag'=>'USA','websiteDefault'=>1,'receiptDefault'=>1],
+            'es' => ['code'=>'es','name'=>'Española','flag'=>'ESP','websiteDefault'=>0,'receiptDefault'=>0],
+            'fr' => ['code'=>'fr','name'=>'français','flag'=>'FRA','websiteDefault'=>0,'receiptDefault'=>0],
+            'de' => ['code'=>'de','name'=>'Deutsche','flag'=>'DEU','websiteDefault'=>0,'receiptDefault'=>0],
+            'ar' => ['code'=>'ar','name'=>'العربية','flag'=>'SAU','websiteDefault'=>0,'receiptDefault'=>0],
+            'ua' => ['code'=>'ua','name'=>'українська','flag'=>'UKR','websiteDefault'=>0,'receiptDefault'=>0],
+            'it' => ['code'=>'it','name'=>'Italiana','flag'=>'ITA','websiteDefault'=>0,'receiptDefault'=>0],
         ];
 
         $demoWebsite->template_id = '000';
@@ -808,42 +808,55 @@ class demo
 
     public static function users ($websiteId){
         $faker = Container::getInstance()->make(Generator::class);
-        $users = [];
+        // $users = [];
         for($i=0;$i<=40;$i++){
-            $lat = '0';
-            $lng = '0';
+            $lat = null;
+            $lng = null;
             if(random_int(0,1)){
                 $lat = $faker->latitude((33.7490 - (rand(0,20) / 1000)), (33.7490 + (rand(0,20) / 1000)));
                 $lng = $faker->longitude((-84.3880 - (rand(0,20) / 1000)), (-84.3880 + (rand(0,20) / 1000)));
             }
-            array_push($users,[
+            // array_push($users,[
+            User::create([
                 'website_id'=>$websiteId,
                 'email' => $faker->unique()->safeEmail(),
                 'name' => $faker->firstName().' '.$faker->lastName(),
                 'password' => bcrypt('l;ipuopihbgv39ubv'),
                 'phoneNumber' => $faker->e164PhoneNumber(),
-                'address' => str_replace("\n", "", $faker->address()),
-                'lat' => $lat,
-                'lng' => $lng,
+                'addresses' => [
+                        [
+                            'is_default' => '1',
+                            'address' => $faker->address(),
+                            'lat' => $lat,
+                            'lng' => $lng,
+                        ]
+                    ],
+
                 'lastSeen' => Carbon::now()->timestamp,
                 'cart' => '{}',
                 'cart_lastUpdate' => Carbon::now()->timestamp,
                 'created_at' => Carbon::now()->timestamp,
-            ]);
+                ]);
+            // ]);
         }
-        User::insert($users);
+        // User::insert($users);
         User::create([
             'website_id' => $websiteId,
             'email' => 'muha@gmail.com',
             'name' => 'moha',
             'password' => bcrypt('1234'),
             'phoneNumber' => $faker->e164PhoneNumber(),
-            'address' => str_replace("\n", "", $faker->address()),
+            'addresses' => [
+                [
+                    'is_default' => '1',
+                    'address' => $faker->address(),
+                    'lat' => $lat,
+                    'lng' => $lng,
+                ]
+            ],
             'lastSeen' => Carbon::now()->timestamp,
             'cart' => '{}',
             'cart_lastUpdate' => Carbon::now()->timestamp,
-            'lat' => $lat,
-            'lng' => $lng,
         ]);
     }
     public static function reviews ($product){
@@ -1322,9 +1335,9 @@ class demo
 
                 foodmenuFunctions::archiveStatistice($thisDayOrders,$reviews,(int)$website->id,(int)$ordersDay->day,(int)$ordersDay->month,(int)$ordersDay->year,$website->timeZone);
                 $restaurant_Month_Expenses = [
-                    0=>["name"=>"electricity","amount"=>random_int(1000,2500).".00"],
-                    1=>["name"=>"food ingredients","amount"=>random_int(10000,15000).".00"],
-                    2=>["name"=>"advertising","amount"=>random_int(1000,2000).".00"]
+                    0=>["id"=>1,"name"=>"electricity","amount"=>random_int(1000,2500).".00"],
+                    1=>["id"=>2,"name"=>"food ingredients","amount"=>random_int(10000,15000).".00"],
+                    2=>["id"=>3,"name"=>"advertising","amount"=>random_int(1000,2000).".00"]
                 ];
                 website::where('id',$website->id)->update([
                     'month_expenses' => $restaurant_Month_Expenses,

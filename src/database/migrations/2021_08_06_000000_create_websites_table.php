@@ -27,12 +27,14 @@ class CreateWebsitesTable extends Migration
 
             $table->boolean('active')->default(true);
             $table->string('domainName')->unique();
-            $table->string('specialDomainName')->nullable()->unique();
+            $table->string('user_domainName')->nullable()->unique();
+            $table->json('user_domainNameServers')->nullable();
 
             $table->json('languages');
 
-            $table->string('lat')->default('0');
-            $table->string('lng')->default('0');
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+            $table->text('delivery_range')->nullable();
             $table->string('url')->unique();
             $table->string('timeZone');
             $table->boolean('hour12')->default(true);

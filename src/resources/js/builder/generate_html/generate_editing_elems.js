@@ -31,6 +31,9 @@ genrate_editing_elems = function(elem,key_tree){
     else if(elem.type == 'form_elements'){
         html = `${html}${generate_editing_elems_form_elements(elem,key_tree)}`
     }
+    else if(elem.type == 'form_element'){
+        html = `${html}${generate_editing_elems_form_element(elem,key_tree)}`
+    }
     return html;
 }
 
@@ -38,7 +41,9 @@ genrate_editing_elems = function(elem,key_tree){
 //
 generate_editing_elems_elem = function(elem,key_tree){
     let html = '';
-    html = `${html}<div class="select_edit_elem_title builder_font">${elem.name ?? texts.elems[elem.elem_type]}</div>`;
+    // if('elem_type' in elem || 'name' in elem){
+        html = `${html}<div class="select_edit_elem_title builder_font ${elem._name == 'hidden' ? 'hidden_name' : ''}">${elem.name ?? texts.elems[elem.elem_type]}</div>`;
+    // }
     html = `${html}${draw_spacing_edit_elems(elem,'edit_elem_')}`
 
     // let variable_key = 'css';
@@ -278,5 +283,10 @@ generate_editing_elems_popup_window = function(elem,key_tree,style){
 generate_editing_elems_form_elements = function(elem,key_tree,style){
     let html = '';
     html = `${html}<div class="select_edit_form_elements_title builder_font">${texts.website_style.website_form}</div>`;
+    return html;
+}
+generate_editing_elems_form_element = function(elem,key_tree,style){
+    let html = '';
+    html = `${html}<div class="select_edit_form_element_title builder_font  ${elem._name == 'hidden' ? 'hidden_name' : ''}">${texts.website_style[elem.form_element]}</div>`;
     return html;
 }

@@ -7,28 +7,24 @@ pickupPaymentMethodsNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('click','.card_at_restaurant',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.card_at_restaurant',function(e){
     $('.card_at_restaurant_check').hasClass('ico-check1') ? website_temp.card_at_restaurant = 0 : website_temp.card_at_restaurant = 1;
     website_temp.card_at_restaurant ? $('.card_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','.cash_at_restaurant',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.cash_at_restaurant',function(e){
     $('.cash_at_restaurant_check').hasClass('ico-check1') ? website_temp.cash_at_restaurant = 0 : website_temp.cash_at_restaurant = 1;
     website_temp.cash_at_restaurant ? $('.cash_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#pickupPaymentMethodsCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupPaymentMethodsCancelBtn',function(e){
     website_temp.cash_at_restaurant = website.cash_at_restaurant;
     website_temp.cash_at_restaurant ? $('.cash_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.cash_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     website_temp.card_at_restaurant = website.card_at_restaurant;
     website_temp.card_at_restaurant ? $('.card_at_restaurant_check').removeClass('ico-check0').addClass('ico-check1') : $('.card_at_restaurant_check').removeClass('ico-check1').addClass('ico-check0');
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#pickupPaymentMethodsSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupPaymentMethodsSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#pickupPaymentMethodsSaveBtn'));
     $.ajax({

@@ -22,8 +22,7 @@ checkWebsiteStatus = function(){
 };
 
 
-$('html,body').on('change','#system-websiteSwitch',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change','#system-websiteSwitch',function(e){
     if(!coolDownChecker()){
         setTimeout(function(){
             checkWebsiteStatus();

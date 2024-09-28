@@ -63,6 +63,12 @@ get_elem_class = function(elem){
         classes.push(`${elem.class_selector}_error`)
     }
 
+    if(elem.general_class_selector == 'user_account_menu_elem'){
+        if(elem.attr.account_page === window.selected_account_page){
+            classes.push('user_account_menu_elem_selected')
+        }
+    }
+    
     classes = classes.filter((item, index) => classes.indexOf(item) === index);
 
     let classes_str = '';
@@ -72,7 +78,11 @@ get_elem_class = function(elem){
             classes_str = `${classes_str} ${classes[key]}`
         }
     }
-
+    if(classes_str.includes('account_page_content')){
+        if(elem.attr.account_page === window.selected_account_page){
+            classes_str = classes_str.replace('none','')
+        }
+    }
     return classes_str;
 }
 get_elem_attrs = function(elem){
@@ -106,16 +116,31 @@ get_elem_attrs = function(elem){
     return attrs;
 }
 generate_html_has_container = function(elem){
-    if(elem.type == 'elem' || elem.type == 'section_block' || elem.type == 'container' || elem.type == 'form_elements'){
+    if(elem.type == 'elem' || elem.type == 'section_block' || elem.type == 'container' || elem.type == 'form_elements' || elem.type == 'form_element'){
         return true;
     }else{return false}
+}
+filter_access_key_tree = function(access_key_tree,key_tree){
+    if(access_key_tree.includes('this')){
+        access_key_tree = access_key_tree.replace('this',key_tree);
+    }
+    if(access_key_tree.includes('parent')){
+        let lastDotIndex = key_tree.lastIndexOf('.children');
+        if (lastDotIndex !== -1) {
+            console.log(key_tree)
+            key_tree = key_tree.substring(0, lastDotIndex);
+            console.log(key_tree)
+        }
+        access_key_tree = access_key_tree.replace('parent',key_tree);
+    }
+    return access_key_tree;
 }
 generate_html = function(elem,key_tree){
     let access_key_tree = key_tree;
     let origin_key_tree = '';
     if('access_key_tree' in elem){
         origin_key_tree = `origin_key_tree="${key_tree}"`;
-        access_key_tree = elem.access_key_tree;
+        access_key_tree = filter_access_key_tree(elem.access_key_tree,key_tree);
     }
     if('children' in elem){
         generate_html_sort_children(elem);
@@ -128,9 +153,10 @@ generate_html = function(elem,key_tree){
     }
 
     let html = '';
+    let elem_classes = get_elem_class(elem);
     if(elem.tag !== undefined){
         if(generate_html_has_container(elem)){
-            html = `${html}<div class="${elem.class_selector ?? ''}_container ${elem.general_class_selector ? `${elem.general_class_selector}_container` : ''} ${elem.type}"  key_tree="${access_key_tree}" ${origin_key_tree}>`;
+            html = `${html}<div class="${elem_classes.includes('none') ? 'none' : ''} ${elem.class_selector ?? ''}_container ${elem.general_class_selector ? `${elem.general_class_selector}_container` : ''} ${elem.type}"  key_tree="${access_key_tree}" ${origin_key_tree}>`;
             html = `${html}${genrate_editing_elems(elem,key_tree)}`;
         }
 
@@ -145,7 +171,7 @@ generate_html = function(elem,key_tree){
         //     general_html = generate_html(get_element_data(elem.general_html),elem.general_html)
         // }
         
-        html = `${html}<${elem.tag} class="edit ${get_elem_class(elem)}" ${get_elem_attrs(elem)} key_tree="${access_key_tree}" ${ !generate_html_has_container(elem) ? origin_key_tree : null} ${contenteditable}>${get_elem_text(elem)}${elem.html ?? ''}`;
+        html = `${html}<${elem.tag} class="edit ${elem_classes}" ${get_elem_attrs(elem)} key_tree="${access_key_tree}" ${ !generate_html_has_container(elem) ? origin_key_tree : null} ${contenteditable}>${get_elem_text(elem)}${elem.html ?? ''}`;
 
         if(!generate_html_has_container(elem)){
             html = `${html}${genrate_editing_elems(elem,key_tree)}`;

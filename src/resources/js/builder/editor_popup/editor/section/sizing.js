@@ -32,12 +32,23 @@ draw_editor_popup_section_sizing = function(){
                             key_tree:`${window.selected}.children.section_wrapper`,
                             variable_key:'css',
                             key:'max-width',
+                            editor_class:'section_max_width_select_box',
                             selections:[
-                                {text:texts.styling.max_content,key:'var(--page_max_width)'},
-                                {text:texts.styling.full_page,key:'100%'}
+                                {text:texts.styling.max_content,key:'var(--page_max_width)',hide_elem:'section_max_width_custom'},
+                                {text:texts.styling.full_page,key:'100%',hide_elem:'section_max_width_custom'},
+                                {text:texts.styling.custom,key:'custom',custom_val:'1000px',show_elem:'section_max_width_custom'}
                             ],
                         }),
                     ),
+                    $('<div/>',{class:`editor_popup_col editor_popup_brdrT_none section_max_width_custom`}).append(
+                        draw_number_picker({
+                            editor_class:'section_max_width_number_picker',
+                            key_tree:`${window.selected}.children.section_wrapper`,
+                            variable_key:'css',
+                            key:'max-width',
+                            units:['px','%'],
+                        })
+                    )
                 ],
             })
     )
@@ -49,4 +60,7 @@ draw_editor_popup_section_sizing = function(){
 }
 $('body').on('click','.editor_section_sizing',function(e){
     draw_editor_popup_section_sizing();
+})
+$('body').on('change','.section_max_width_select_box',function(){
+    set_number_picker($('.section_max_width_number_picker'))
 })

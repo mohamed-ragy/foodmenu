@@ -146,16 +146,14 @@ getTickets = function(page=1,orderBy='created_at',order='desc'){
         }
     })
 }
-$('html,body').on('click','.ticketHistoryTR',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.ticketHistoryTR',function(e){
     let order = 'desc';
     if($(this).find('.ticketHistoryTRArrow').hasClass('ico-down')){
         order = 'asc';
     }
     getTickets(1,$(this).attr('key'),order)
 })
-$('html,body').on('click','.ticketHistoryNext',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.ticketHistoryNext',function(e){
     if($(this).hasClass('ticketHistoryArrow_dump')){return;}
     let orderBy; let order;
     $('.ticketHistoryTRArrow').each(function(e){
@@ -170,8 +168,7 @@ $('html,body').on('click','.ticketHistoryNext',function(e){
     getTickets(parseInt($('.ticketsCountContainer').attr('page')) + 1,orderBy,order)
 
 })
-$('html,body').on('click','.ticketHistoryPrev',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.ticketHistoryPrev',function(e){
     if($(this).hasClass('ticketHistoryArrow_dump')){return;}
     let orderBy; let order;
     $('.ticketHistoryTRArrow').each(function(e){
@@ -290,8 +287,7 @@ openHelpTicket = function(ticketNumber){
 }
 
 
-$('html,body').on('click','#ticketBrowserSendBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#ticketBrowserSendBtn',function(e){
     if($('#ticketBrowserInput').val() == ''){return}
     if(!coolDownChecker()){return;}
     showBtnLoading($('#ticketBrowserSendBtn'))

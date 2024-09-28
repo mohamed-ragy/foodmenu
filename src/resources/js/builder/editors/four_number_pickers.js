@@ -15,7 +15,6 @@ draw_four_number_pickers = function(data){
                 dummy:true,
                 dummy_class:'four_number_pickers_0',
                 units:data.units,
-                step:data.step,
                 editor_class:`four_number_pickers_detail_head ${data.editor_class ?? ''}`
             })
         ),
@@ -26,7 +25,6 @@ draw_four_number_pickers = function(data){
                     dummy:true,
                     dummy_class:'four_number_pickers_1',
                     units:data.units,
-                    step:data.step,
                     editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
@@ -36,7 +34,6 @@ draw_four_number_pickers = function(data){
                     dummy:true,
                     dummy_class:'four_number_pickers_2',
                     units:data.units,
-                    step:data.step,
                     editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
@@ -46,7 +43,6 @@ draw_four_number_pickers = function(data){
                     dummy:true,
                     dummy_class:'four_number_pickers_3',
                     units:data.units,
-                    step:data.step,
                     editor_class:` ${data.editor_class ?? ''}`
                 })
             ),
@@ -56,7 +52,6 @@ draw_four_number_pickers = function(data){
                     dummy:true,
                     dummy_class:'four_number_pickers_4',
                     units:data.units,
-                    step:data.step,
                     editor_class:` ${data.editor_class ?? ''}`
                 })
             ),

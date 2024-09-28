@@ -1,4 +1,4 @@
-$('html,body').on('click','.changeOrderType',function(e){
+$('body').on('click','.changeOrderType',function(e){
     e.stopImmediatePropagation();
     let thisElem = $(this);
     let type;
@@ -20,13 +20,12 @@ $('html,body').on('click','.changeOrderType',function(e){
     })
 
 })
-$('html,body').on('click',function(e){
+$('body').on('click',function(e){
     if($('#changeOrderType').is(':hover')){return}
     $('#changeOrderType').text('').addClass('none')
 })
 
-$('html,body').on('click','.changeOrderType_action',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderType_action',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     $('#changeOrderType').text('').addClass('none')

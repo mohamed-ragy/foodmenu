@@ -23,11 +23,11 @@ process_data = function(r) {
         window.pexels_search_results = [];
         window.select_image_editor = null;
         //
-
-        window.selected_page = null;
-        window.selected_popup = null;
-        window.selected_website_form = 'login'
-        window.website_popup_opened = false;
+        window.selected_account_page = 'account_information';
+        // window.selected_page = null;
+        // window.selected_popup = null;
+        // window.selected_website_form = 'login'
+        // window.website_popup_opened = false;
         window.selected;
         window.builder_clipboard = null;
         //

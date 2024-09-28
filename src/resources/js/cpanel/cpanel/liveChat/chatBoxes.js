@@ -103,7 +103,7 @@ $('#showGuestsChatBoxes').on('click',function(e){
     drawGuestsChatBoxes();
 })
 //
-$('html,body').on('click','.liveChatBoxSeeMore',function(e){
+$('body').on('click','.liveChatBoxSeeMore',function(e){
     e.stopImmediatePropagation();
     let user;let type = $(this).attr('type');
     if(type == 'user'){
@@ -163,13 +163,13 @@ $('html,body').on('click','.liveChatBoxSeeMore',function(e){
     }
 
 })
-$('html,body').on('mouseleave','#liveChatBoxMenu',function(e){
+$('body').on('mouseleave','#liveChatBoxMenu',function(e){
     e.stopImmediatePropagation();
     if(!$('#liveChatBoxMenu').is(':hover')){
         $('#liveChatBoxMenu').addClass('none')
     }
 });
-$('html,body').on('click','.liveChatBoxMenuItem',function(e){
+$('body').on('click','.liveChatBoxMenuItem',function(e){
     $('#liveChatBoxMenu').addClass('none')
 
 });
@@ -197,7 +197,7 @@ $('body').on('click','.deletAllChats',function(e){
         )
     })
 })
-$('html,body').on('click','#deleteAllChats-confirmBtn',function(){
+$('body').on('click','#deleteAllChats-confirmBtn',function(){
     let userId = $(this).attr('user');
     let type = $(this).attr('type');
     showBtnLoading($('#deleteAllChats-confirmBtn'));

@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
             $table->UnsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->string('name');
-            $table->string('address')->nullable();
+            // $table->string('address')->nullable();
+            $table->json('addresses');
             $table->string('phoneNumber')->nullable();
             $table->text('cart');
             $table->integer('cart_lastUpdate')->nullable();

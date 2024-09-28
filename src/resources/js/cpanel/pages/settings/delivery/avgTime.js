@@ -49,8 +49,7 @@ resetDeliverAvgTime = function(){
 
 let deliveryTimeUIntervalCheck = false;
 let deliveryTimeUInterval;
-$('html,body').on('click','#avgDeliveryTimeU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgDeliveryTimeU',function(e){
     if(website_temp.averageDeliveryTime == 0){
         //min
         website_temp.averageDeliveryTime = 1;
@@ -81,8 +80,7 @@ $('html,body').on('click','#avgDeliveryTimeU',function(e){
 })
 let deliveryTimeDIntervalCheck = false;
 let deliveryTimeDInterval;
-$('html,body').on('click','#avgDeliveryTimeD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgDeliveryTimeD',function(e){
     if(website_temp.averageDeliveryTime == 0){
         return;
     }else if(website_temp.averageDeliveryTime - 1 == 0){
@@ -110,7 +108,7 @@ $('html,body').on('click','#avgDeliveryTimeD',function(e){
         $('#avgDeliveryTimeD').trigger('click');
     },150);
 })
-$(document).on('mouseup touchend',function(e){
+$('body').on('mouseup touchend',function(e){
     if(deliveryTimeDIntervalCheck){
         clearInterval(deliveryTimeDInterval);
         deliveryTimeDIntervalCheck = false;
@@ -121,14 +119,12 @@ $(document).on('mouseup touchend',function(e){
     }
 });
 
-$('html,body').on('click','#avgDeliveryTimeCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgDeliveryTimeCancelBtn',function(e){
     website_temp.averageDeliveryTime = website.averageDeliveryTime;
     resetDeliverAvgTime();
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','#avgDeliveryTimeSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgDeliveryTimeSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#avgDeliveryTimeSaveBtn'));
     $.ajax({

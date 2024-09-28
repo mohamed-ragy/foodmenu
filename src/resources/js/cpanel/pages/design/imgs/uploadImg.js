@@ -1,10 +1,8 @@
-$('html,body').on('click','.imgs-uploadImgBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.imgs-uploadImgBtn',function(e){
     $('#imgs-uploadImg').trigger('click');
 });
 
-$('html,body').on('change','#imgs-uploadImg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change','#imgs-uploadImg',function(e){
     showBtnLoading($('.imgs-uploadImgBtn'))
     img = $('#imgs-uploadImg').prop('files')[0];
     if(img){

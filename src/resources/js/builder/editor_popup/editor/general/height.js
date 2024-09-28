@@ -12,7 +12,6 @@ draw_editor_popup_height = function(){
                             variable_key:'css',
                             key:'height',
                             units:['auto','px','%'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col '}).append(
@@ -22,7 +21,6 @@ draw_editor_popup_height = function(){
                             variable_key:'css',
                             key:'max-height',
                             units:['px','%'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col '}).append(
@@ -32,7 +30,6 @@ draw_editor_popup_height = function(){
                             variable_key:'css',
                             key:'min-height',
                             units:['auto','px','%'],
-                            step:1,
                         })
                     ),
                 ]

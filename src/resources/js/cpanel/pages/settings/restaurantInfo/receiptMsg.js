@@ -10,8 +10,7 @@ websiteReceiptMsgsNoSaveFunction = function(){
     }
 }
 
-$('html,body').on('input change','.receiptMsgInputText',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.receiptMsgInputText',function(e){
     for(const key in website.languages){
         let lang = website.languages[key];
         website_temp.website_receiptMsgs[lang.code] = $(`#settings_ReceiptMsg_${lang.code}`).val();
@@ -19,8 +18,7 @@ $('html,body').on('input change','.receiptMsgInputText',function(e){
     restaurant_information_unsave_chack();
 })
 
-$('html,body').on('click','#settings-receiptMsgCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#settings-receiptMsgCancelBtn',function(e){
     website_temp.website_receiptMsgs = JSON.parse(JSON.stringify(website.website_receiptMsgs));
     for(const key in website.languages){
         let lang = website.languages[key];
@@ -28,7 +26,7 @@ $('html,body').on('click','#settings-receiptMsgCancelBtn',function(e){
     }
     restaurant_information_unsave_chack();
 });
-$('html,body').on('click','#settings-receiptMsgSaveBtn',function(){
+$('body').on('click','#settings-receiptMsgSaveBtn',function(){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#settings-receiptMsgSaveBtn'));
     $.ajax({

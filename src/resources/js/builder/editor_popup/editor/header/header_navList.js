@@ -23,76 +23,11 @@ draw_editor_popup_header_navList = function(){
                                 variable_key:'css',
                                 key:'gap',
                                 units:['px'],
-                                step:1,
                             })
                         ),
                     ]
                 })
             ),
-            // $('<div/>',{class:'w100p editor_popup_container none',key:'header_navList_items_style',parent_key:'header_navList'}).append(
-            //     draw_editors_container({
-            //         is_responsive:false,
-            //         interactions:['hover','click'],
-            //         editors:[
-            //             draw_editor_show_container({
-            //                 key:'header_navList_font_style',
-            //                 name:texts.styling.font_style,
-            //                 row_class:true,
-            //                 container_class:'editor_popup_brdrT_none'
-            //             }),
-            //             $('<div/>',{class:'editor_popup_row'}).append(
-            //                 $('<div/>',{class:'fs09',text:texts.styling.font_color}),
-            //                 draw_color_picker({
-            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     variable_key:'css',
-            //                     key:'color',
-            //                 })
-            //             ),
-            //             $('<div/>',{class:'editor_popup_col'}).append(
-            //                 $('<div/>',{class:'fs09',text:texts.styling.font_size}),
-            //                 draw_number_picker({
-            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     variable_key:'css',
-            //                     key:'font-size',
-            //                     units:['px','em'],
-            //                     step:1,
-            //                 }),
-            //             ),
-            //             $('<div/>',{class:'editor_popup_col'}).append(
-            //                 $('<div/>',{class:'fs09',text:texts.styling.font_weight}),
-            //                 draw_select_box({
-            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     variable_key:'css',
-            //                     key:'font-weight',
-            //                     selections:[{text:texts.styling.bold,key:'bold'},{text:texts.styling.normal,key:'normal'}],
-            //                 })
-            //             ),
-            //             $('<div/>',{class:'editor_popup_col'}).append(
-            //                 $('<div/>',{class:'fs09',text:texts.styling.italic}),
-            //                 draw_select_box({
-            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     variable_key:'css',
-            //                     key:'font-style',
-            //                     selections:[{text:texts.styling.italic,key:'italic'},{text:texts.styling.normal,key:'normal'}],
-            //                 })
-            //             ),
-            //             $('<div/>',{class:'editor_popup_col'}).append(
-            //                 $('<div/>',{class:'fs09',text:texts.styling.underline}),
-            //                 draw_select_box({
-            //                     key_tree:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     render:'website_header.children.header_wrapper.children.header_navList_item',
-            //                     variable_key:'css',
-            //                     key:'text-decoration',
-            //                     selections:[{text:texts.styling.underline,key:'underline'},{text:texts.styling.normal,key:'none'}],
-            //                 })
-            //             ),
-            //         ]
-            //     })
-            // ),
             $('<div/>',{class:'w100p editor_popup_container none',key:'header_navList_manage',parent_key:'header_navList'}).append(
                 draw_editors_container({
                     is_responsive:false,

@@ -50,8 +50,7 @@ sortOptions = function(){
         showAlert('error',r.msg,4000,true);
     })
 }
-$('html,body').on('mousedown touchstart','.optionCardMoveContainer',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','.optionCardMoveContainer',function(e){
     optionCardOnMove = true;
     optionCardOnMoveFrom = $(this).closest('.productOptionContainer').attr('option');
     $(this).closest('.productOptionContainer').addClass('optionCardSelectedOnMove');

@@ -101,7 +101,7 @@ class websiteController extends Controller
 
                 'languages',
                 'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
-                'domainName','specialDomainName',
+                'domainName','user_domainName',
                 'trendingProducts',
 
                 'website_colors','useCustomColors','customColorsHexCode',

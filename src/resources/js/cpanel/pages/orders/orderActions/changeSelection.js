@@ -1,4 +1,4 @@
-$('html,body').on('click','.order-selection',function(e){
+$('body').on('click','.order-selection',function(e){
     e.stopImmediatePropagation();
     let item = website.incompleteOrders.find(o=>o._id == window.history.state.order).order_items.find(i=>i._id == $(this).closest('.order-item').attr('item'));
     let product = website.products.find(p=>p.id == item.product_id);
@@ -29,8 +29,7 @@ $('html,body').on('click','.order-selection',function(e){
         }
     }
 })
-$('html,body').on('click','.order-changeItemSelection-selection',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-changeItemSelection-selection',function(e){
     let item_id = $(this).attr('item');
     let option_id = $(this).attr('option');
     let selection_id = $(this).attr('selection');

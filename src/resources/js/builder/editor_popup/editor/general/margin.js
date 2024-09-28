@@ -39,7 +39,7 @@ $('body').on('change','.edit_margin_four_number_pickers',function(){
     let key_tree = $(this).closest('.four_number_pickers_editor').attr('key_tree')
     if(key_tree.includes('website_header')){
         try{
-            generate_elem_style(get_element_data(`${window.selected_page}.0`))
+            generate_elem_style(get_element_data(`${window.template.settings.selected_page}.0`))
         }catch{}
     }
 })

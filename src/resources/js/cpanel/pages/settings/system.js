@@ -2,6 +2,7 @@
 require('./system/systemSettings.js');//done//
 require('./system/privacyPolicy.js');//done//
 require('./system/deleteHistoryData.js');//done//
+require('./system/website_domain.js');//done//
 require('./system/country.js');//done//
 require('./system/timeZone.js');//done//
 

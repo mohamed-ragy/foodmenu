@@ -57,7 +57,6 @@ set_loading_spinner_editor = function(editor){
                         variable_key:'vars',
                         key:key,
                         units:['px'],
-                        step:1,
                     })
                 )
             )

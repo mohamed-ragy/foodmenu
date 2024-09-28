@@ -1,5 +1,4 @@
-$('html,body').on('click','.pageTab',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('click','.pageTab',function(e){
     for(const key in window.menu){
         for(const key2 in window.menu[key].pages){
             if(window.menu[key].pages[key2].name == window.history.state.page){
@@ -38,14 +37,12 @@ $(window).resize(function(){
     fixPageTabsArrows();
 })
 
-$('html,body').on('click','.pageTabArrowLeft',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.pageTabArrowLeft',function(e){
     $(this).closest('.pageTabs').find('.pageTab_selected').prev().trigger('click');
 
 })
 
-$('html,body').on('click','.pageTabArrowRight',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.pageTabArrowRight',function(e){
     $(this).closest('.pageTabs').find('.pageTab_selected').next().trigger('click');
 
 })

@@ -23,7 +23,6 @@ draw_editor_popup_transition = function(){
                             key_tree:window.selected,
                             variable_key:'css',
                             key:'animation-duration',
-                            step:1,
                             units:['ms'],
                         })
                     ),

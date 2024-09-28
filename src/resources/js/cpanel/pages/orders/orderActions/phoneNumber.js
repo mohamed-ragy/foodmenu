@@ -1,9 +1,7 @@
-$('html,body').on('click','.changeOrderPhoneNumberEditBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderPhoneNumberEditBtn',function(e){
     $('.changeOrderPhoneNumber').select()
 })
-$('html,body').on('focus click input change','.changeOrderPhoneNumber',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus click input change','.changeOrderPhoneNumber',function(e){
     getOrder(window.history.state.order).then(function(order){
         if(order.phoneNumber != $('.changeOrderPhoneNumber').val()){
             $('.orderPhoneNumbereNoSave').removeClass('none')
@@ -14,16 +12,14 @@ $('html,body').on('focus click input change','.changeOrderPhoneNumber',function(
         }
     })
 })
-$('html,body').on('click','.cancelChangeOrderPhoneNumberBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.cancelChangeOrderPhoneNumberBtn',function(e){
     getOrder(window.history.state.order).then(function(order){
         $('.changeOrderPhoneNumber').val(order.phoneNumber)
         $('.orderPhoneNumbereNoSave').addClass('none')
         $('.changeOrderPhoneNumberBtns').addClass('none')
     })
 })
-$('html,body').on('click','.changeOrderPhoneNumberBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderPhoneNumberBtn',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     showBtnLoading($('.changeOrderPhoneNumberBtn'))

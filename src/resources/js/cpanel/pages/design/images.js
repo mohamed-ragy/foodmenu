@@ -99,8 +99,7 @@ $('#bodyPage').on('scroll',function(e){
         }
     }
 })
-$('html,body').on('click','#imgs_loadMore',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#imgs_loadMore',function(e){
     scrollToDiv($('#bodyPage'),$('#imgs_imgsContainer').children().last())
     getImgs(true).then(function(imgs){
         for(const key in imgs){

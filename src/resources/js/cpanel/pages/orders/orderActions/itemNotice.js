@@ -1,10 +1,8 @@
-$('html,body').on('click','.order-editItemNotice',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-editItemNotice',function(e){
     $(this).closest('.order-itemNoticeContainer').find('.order-itemNotice').select();
 })
 
-$('html,body').on('change','.order-itemNotice',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change','.order-itemNotice',function(e){
     if(!coolDownChecker()){return;}
     let item_id = $(this).closest('.order-item').attr('item');
     let itemNotice = $(this).val();

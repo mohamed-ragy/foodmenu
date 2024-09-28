@@ -15,15 +15,18 @@ generate_elem_style = function(elem){
     if(elem.class_selector === undefined){return;}
     remove_css_rule(`.${elem.class_selector}`)
     remove_css_rule(`.${elem.class_selector}_container`)
-    // remove_css_rule(`.${elem.class_selector}:hover`)
-    // remove_css_rule(`.${elem.class_selector}_container:hover`)
-    // remove_css_rule(`.${elem.class_selector}:active`)
-    // remove_css_rule(`.${elem.class_selector}_container:active`)
-    // remove_css_rule(`.${elem.class_selector}:disabled`)
-    // remove_css_rule(`.${elem.class_selector}_container:disabled`)
-    // remove_css_rule(`.${elem.class_selector}:focus`)
-    // remove_css_rule(`.${elem.class_selector}_container:focus`)
-    // remove_css_rule(`.${elem.class_selector}::placeholder`)
+    remove_css_rule(`.${elem.class_selector}:hover`)
+    remove_css_rule(`.${elem.class_selector}_container:hover`)
+    remove_css_rule(`.${elem.class_selector}:focus`)
+    remove_css_rule(`.${elem.class_selector}_container:focus`)
+    remove_css_rule(`.${elem.class_selector}:disabled`)
+    remove_css_rule(`.${elem.class_selector}_container:disabled`)
+    remove_css_rule(`.${elem.class_selector}:active`)
+    remove_css_rule(`.${elem.class_selector}_container:active`)
+    remove_css_rule(`.${elem.class_selector}_error`)
+    remove_css_rule(`.${elem.class_selector}_container_error`)
+    remove_css_rule(`.${elem.class_selector}_selected`)
+    remove_css_rule(`.${elem.class_selector}_selected`)
     let style_obj = {};
     for(const key in elem.css){
         let val = elem.css[key];
@@ -41,7 +44,6 @@ generate_elem_style = function(elem){
         }
         if(window.preview_language in elem.font_style){
             if(elem.font_style[window.preview_language] !== ''){
-                console.log(elem)
                 style_obj['font-family'] = elem.font_style[window.preview_language];
             }
         }
@@ -74,8 +76,32 @@ generate_elem_style = function(elem){
         }
     }
 
-    genrate_elem_style_class(elem,`.${elem.class_selector}`,'',style_obj);
     if('accessibility' in elem){
+        if(elem.accessibility.includes('selected')){
+            let style_obj_selected = {};
+            for(const key in elem.css_selected){
+                let val = elem.css_selected[key];
+                style_obj_selected[key] = val;
+            }
+            if(window.current_view == 'mobile'){
+                for(const key in elem.css_selected_mobile){
+                    style_obj_selected[key] = elem.css_selected_mobile[key]
+                }
+                if('background_selected_mobile' in elem){
+                    set_background_style(elem.background_selected_mobile,style_obj_selected)
+                }
+            }else{
+                if('background_selected' in elem){
+                    set_background_style(elem.background_selected,style_obj_selected);
+                }
+            }
+            console.log(style_obj_selected)
+            genrate_elem_style_class(elem,`.${elem.class_selector}_selected`,'',style_obj_selected);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_selected`,':focus',style_obj_selected);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_selected`,':hover',style_obj_selected);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_selected`,':active',style_obj_selected);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_selected`,':disabled',style_obj_selected);
+        }
         if(elem.accessibility.includes('error')){
             let style_obj_error = {};
             for(const key in elem.css_error){
@@ -83,8 +109,8 @@ generate_elem_style = function(elem){
                 style_obj_error[key] = val;
             }
             if(window.current_view == 'mobile'){
-                for(const key in elem.css_error){
-                    style_obj_error[key] = elem.css_error[key];
+                for(const key in elem.css_error_mobile){
+                    style_obj_error[key] = elem.css_error_mobile[key];
                 }
                 if('background_error_mobile' in elem){
                     set_background_style(elem.background_error_mobile,style_obj_error);
@@ -94,15 +120,19 @@ generate_elem_style = function(elem){
                     set_background_style(elem.background_error,style_obj_error);
                 }
             }
-            genrate_elem_style_class(elem,`.${elem.class_selector}_error, .${elem.class_selector}_error:hover, .${elem.class_selector}_error:focus`,'',style_obj_error);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_error`,'',style_obj_error);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_error`,':focus',style_obj_error);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_error`,':hover',style_obj_error);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_error`,':active',style_obj_error);
+            genrate_elem_style_class(elem,`.${elem.class_selector}_error`,':disabled',style_obj_error);
         }
         if(elem.accessibility.includes('hyperlink')){
-            genrate_elem_style_class(elem,`.${elem.class_selector} a`,'',{
+            genrate_elem_style_class(elem,`.${elem.class_selector}`,' a',{
                 color:elem.css_hyperlink.color,
                 'text-decoration':elem.css_hyperlink['text-decoration']
             });
             if(elem.accessibility.includes('hover')){
-                genrate_elem_style_class(elem,`.${elem.class_selector} a`,':hover',{
+                genrate_elem_style_class(elem,`.${elem.class_selector}`,' a:hover',{
                     color:elem.css_hyperlink_hover.color,
                     'text-decoration':elem.css_hyperlink_hover['text-decoration']
                 })
@@ -193,8 +223,8 @@ generate_elem_style = function(elem){
             let child = elem.children[key];
             if('accessibility' in child){
                 if(child.accessibility.includes('can_parent_hover')){
-                    remove_css_rule(`.${elem.class_selector}:hover .${child.class_selector}`)
-                    remove_css_rule(`.${elem.class_selector}:hover .${child.class_selector}_container`)
+                    // remove_css_rule(`.${elem.class_selector}:hover .${child.class_selector}`)
+                    // remove_css_rule(`.${elem.class_selector}:hover .${child.class_selector}_container`)
                 }
                 if(child.accessibility.includes('parent_hover')){
                     let style_obj_parent_hover = {};
@@ -214,7 +244,8 @@ generate_elem_style = function(elem){
                             set_background_style(child.background_hover,style_obj_parent_hover);
                         }
                     }
-                    genrate_elem_style_class(child,`.${elem.class_selector}:hover .${child.class_selector}`,``,style_obj_parent_hover);
+                    genrate_elem_style_class(child,`.${elem.class_selector}`,``,style_obj_parent_hover);
+                    genrate_elem_style_class(child,`.${elem.class_selector}`,`:hover`,style_obj_parent_hover);
                 }
             }
         }
@@ -233,6 +264,8 @@ generate_elem_style = function(elem){
         }
         genrate_elem_style_class(elem,`.${elem.class_selector}`,'::placeholder',style_obj_placeholder)
     }
+    genrate_elem_style_class(elem,`.${elem.class_selector}`,'',style_obj);
+
     if('css_children' in elem){
         for(const key in elem.css_children){
             apply_css_rule(`.${elem.class_selector} ${key}`,elem.css_children[key],elem.vars)
@@ -256,7 +289,7 @@ genrate_elem_style_class = function(elem,selector,selector_prefix,style_obj){
         if('transition-timing-function' in style_obj){style_container_obj['transition-timing-function'] = style_obj['transition-timing-function'];}
         style_obj['width'] = '100%';
         style_obj['height'] = '100%';
-    }else if(elem.type == 'elem' || elem.type == 'container' || elem.type == 'form_elements'){
+    }else if(elem.type == 'elem' || elem.type == 'container' || elem.type == 'form_elements' || elem.type == 'form_element'){
         if('width' in style_obj){style_container_obj['width'] = style_obj['width']; style_obj['width'] = '100%'}
         if('height' in style_obj){style_container_obj['height'] = style_obj['height']; style_obj['height'] = '100%'}
         if('min-width' in style_obj){style_container_obj['min-width'] = style_obj['min-width']; delete style_obj['min-width']}
@@ -270,7 +303,14 @@ genrate_elem_style_class = function(elem,selector,selector_prefix,style_obj){
         if('z-index' in style_obj){style_container_obj['z-index'] = style_obj['z-index'];style_obj['z-index'] = 'unset'}
         if('transition-duration' in style_obj){style_container_obj['transition-duration'] = style_obj['transition-duration'];}
         if('transition-delay' in style_obj){style_container_obj['transition-delay'] = style_obj['transition-delay'];}
+        if('position' in style_obj){style_container_obj['position'] = style_obj['position'];}
+        if('inset' in style_obj){style_container_obj['inset'] = style_obj['inset'];}
         if('transition-timing-function' in style_obj){style_container_obj['transition-timing-function'] = style_obj['transition-timing-function'];}
+        if('display' in style_obj){
+            if(style_obj['display'] == 'none'){
+                style_container_obj = {};
+            }
+        }
     }
 
     if('animation' in elem){

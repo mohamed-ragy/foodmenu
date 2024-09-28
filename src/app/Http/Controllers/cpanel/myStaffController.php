@@ -261,10 +261,10 @@ class myStaffController extends Controller
             $validation = Validator::make(['password'=>$request->password],[
                 'password' => 'required|min:8|max:100|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ],[
-                'password.required' => lang::get('cpanel/staff/responses.newPasswordRequired'),
-                'password.min' => lang::get('cpanel/staff/responses.newPasswordMin'),
-                'password.max' => lang::get('cpanel/staff/responses.newPasswordMax'),
-                'password.regex' => lang::get('cpanel/staff/responses.newPasswordRegex'),
+                'password.required' => lang::get('cpanel/staff/responses.passwordRequired'),
+                'password.min' => lang::get('cpanel/staff/responses.passwordMin'),
+                'password.max' => lang::get('cpanel/staff/responses.passwordMax'),
+                'password.regex' => lang::get('cpanel/staff/responses.passwordRegex'),
             ]);
 
             if(!$validation->fails()){

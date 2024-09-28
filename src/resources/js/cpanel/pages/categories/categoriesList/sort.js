@@ -64,8 +64,7 @@ sortCategories = function(){
 }
 
 
-$('html,body').on('mousedown touchstart','.categoryCardMove',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','.categoryCardMove',function(e){
     e.preventDefault();
     categoryOnMove = true;
     categoryOnMoveFrom = $(this).closest('.categoryCardContainer').attr('category');
@@ -85,7 +84,7 @@ $('html,body').on('mousedown touchstart','.categoryCardMove',function(e){
         });
     }
 });
-$('html,body').on('mousemove touchmove',function(e){
+$('body').on('mousemove touchmove',function(e){
     if(categoryOnMove){
         e.stopImmediatePropagation();
         e.preventDefault();
@@ -129,7 +128,7 @@ $('html,body').on('mousemove touchmove',function(e){
     }
 
 });
-$('html,body').on('mouseup touchend','#bodyPage',function(e){
+$('body').on('mouseup touchend','#bodyPage',function(e){
     clearInterval(categoryOnMoveInterval)
     if(categoryOnMove){
         e.stopImmediatePropagation();

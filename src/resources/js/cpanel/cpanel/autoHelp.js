@@ -1,10 +1,10 @@
 let sKeyPressed = false;
-$('html,body').keydown(function(e){
+$('body').keydown(function(e){
     if(e.keyCode  == 83){
         sKeyPressed = true;
     }
 })
-$('html,body').keyup(function(e){
+$('body').keyup(function(e){
     if(e.keyCode  == 83){
         sKeyPressed = false;
     }
@@ -259,57 +259,50 @@ loadPinnedHelp = function(){
     }
 }
 
-$('html,body').on('click','.help-icon, [helpid]',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.help-icon, [helpid]',function(e){
     let helpTip = new autoHelp($(this).attr('helpId'));
     helpTip.show()
     helpTip.select();
 });
-$('html,body').on('mouseleave','.help-icon',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseleave','.help-icon',function(e){
     new autoHelp($(this).attr('helpId')).unselect();
 })
-$('html,body').on('mouseenter','.help-icon',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseenter','.help-icon',function(e){
     if($(this).attr('helpId') == null || $(this).attr('helpId') == ''){return;}
     new autoHelp($(this).attr('helpId')).select();
 })
-$('html,body').on('mouseenter','[autohelp]',function(e){
+$('body').on('mouseenter','[autohelp]',function(e){
     if($(this).attr('autohelp') == null || $(this).attr('autohelp') == ''){return;}
     let helpTip = new autoHelp($(this).attr('autohelp'));
     helpTip.show()
     helpTip.select();
 });
 
-$('html,body').on('mouseleave','[autohelp]',function(){
+$('body').on('mouseleave','[autohelp]',function(){
     if($(this).attr('autohelp') == null || $(this).attr('autohelp') == ''){return;}
     new autoHelp($(this).attr('autohelp')).unselect();
 });
 
-$('html,body').on('click','.autoHelpClose',function(e){
+$('body').on('click','.autoHelpClose',function(e){
     e.stopImmediatePropagation();
     new autoHelp($(this).closest('.autoHelpContainer').attr('helpNumber')).close();
 });
-$('html,body').on('click','.autoHelpMinMax,.autoHelpHead',function(e){
+$('body').on('click','.autoHelpMinMax,.autoHelpHead',function(e){
     e.stopImmediatePropagation();
     new autoHelp($(this).closest('.autoHelpContainer').attr('helpNumber')).minMax();
 });
-$('html,body').on('click','.autoHelpPinUnpin',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.autoHelpPinUnpin',function(e){
     new autoHelp($(this).closest('.autoHelpContainer').attr('helpNumber')).pinUnpin();
 })
 
-$('html,body').on('click','.autoHelpUp',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.autoHelpUp',function(e){
     new autoHelp($(this).closest('.autoHelpContainer').attr('helpNumber')).rateUp();
 })
-$('html,body').on('click','.autoHelpDown',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.autoHelpDown',function(e){
     new autoHelp($(this).closest('.autoHelpContainer').attr('helpNumber')).rateDown();
 })
 
-$('html,body').on('click','.autoHelpFullScreenClass',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.autoHelpFullScreenClass',function(e){
     $('#windowsCover_autoHelp').show();
     $('#windowsCover_autoHelp').text('');
     $('#windowsCover_autoHelp').append(
@@ -324,7 +317,6 @@ $('html,body').on('click','.autoHelpFullScreenClass',function(e){
     );
 })
 $('#windowsCover_autoHelp').on('click','.closeFullScreenAutoHelp',function(e){
-    e.stopPropagation();
     $('#windowsCover_autoHelp').text('');
     $('#windowsCover_autoHelp').hide();
 });

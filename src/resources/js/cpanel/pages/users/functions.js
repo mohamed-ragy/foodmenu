@@ -1,5 +1,5 @@
 let findUserInputListTimeout;
-$('html,body').on('input','.findUser',function(e){
+$('body').on('input','.findUser',function(e){
     e.stopImmediatePropagation();
     clearTimeout(findUserInputListTimeout);
     let thisFindUserInput = $(this);

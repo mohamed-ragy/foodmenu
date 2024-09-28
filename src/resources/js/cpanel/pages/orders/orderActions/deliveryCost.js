@@ -9,24 +9,21 @@ orderDeliveryCost_nosave = function(){
         }
     })
 }
-$('html,body').on('click','#order-editDeliveryCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#order-editDeliveryCost',function(e){
     $('#order-deliveryCost').select();
 })
-$('html,body').on('change input','#order-deliveryCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change input','#order-deliveryCost',function(e){
+    $(this)[0].value = $(this)[0].value.replace(/[^0-9.]/g, '');
     orderDeliveryCost_nosave();
 })
-$('html,body').on('click','.cancelChangeOrderDeliveryCostBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.cancelChangeOrderDeliveryCostBtn',function(e){
     getOrder(window.history.state.order).then((order)=>{
         $('#order-deliveryCost').val(bigFloat(order.deliveryCost))
         orderDeliveryCost_nosave();
     });
 })
 
-$('html,body').on('click','.changeOrderDeliveryCostBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderDeliveryCostBtn',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     showBtnLoading($('.changeOrderDeliveryCostBtn'))
@@ -55,7 +52,7 @@ $('html,body').on('click','.changeOrderDeliveryCostBtn',function(e){
                     drawPopupPage_order_fillData(order_id)
                 }
                 showAlert('success',r.msg,4000,true)
-            }else if(r.changeDiscountStat == 0){
+            }else if(r.changeDeliveryCostStat == 0){
                 showAlert('error',r.msg,4000,true)
             }
         }

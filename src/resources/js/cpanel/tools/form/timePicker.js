@@ -86,40 +86,39 @@ calcTimePicker = function(timePicker,action){
     timePicker.find('.timePickerAMPM').text(time[2])
 }
 let timePickerInterval;
-$('html,body').on('click','.timePickerHU',function(e){
+$('body').on('click','.timePickerHU',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }
     calcTimePicker($(this).closest('.timePickerControls'),'HU');
 })
-$('html,body').on('click','.timePickerHD',function(e){
+$('body').on('click','.timePickerHD',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }
     calcTimePicker($(this).closest('.timePickerControls'),'HD');
 })
 
-$('html,body').on('click','.timePickerMU',function(e){
+$('body').on('click','.timePickerMU',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }
     calcTimePicker($(this).closest('.timePickerControls'),'MU');
 })
-$('html,body').on('click','.timePickerMD',function(e){
+$('body').on('click','.timePickerMD',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }
     calcTimePicker($(this).closest('.timePickerControls'),'MD');
 })
-$('html,body').on('click','.timePickerAMPMU,.timePickerAMPMD',function(e){
+$('body').on('click','.timePickerAMPMU,.timePickerAMPMD',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }
     calcTimePicker($(this).closest('.timePickerControls'),'AMPM');
 })
 
-$('html,body').on('mousedown touchstart','.timePickerHU,.timePickerHD,.timePickerMU,.timePickerMD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','.timePickerHU,.timePickerHD,.timePickerMU,.timePickerMD',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }
@@ -128,8 +127,7 @@ $('html,body').on('mousedown touchstart','.timePickerHU,.timePickerHD,.timePicke
         elem.trigger('click');
     },100);
 });
-$('html,body').on('mouseup mouseleave touchend','.timePickerHU,.timePickerHD,.timePickerMU,.timePickerMD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseup mouseleave touchend','.timePickerHU,.timePickerHD,.timePickerMU,.timePickerMD',function(e){
     if($(this).closest('.timePickerContainer').hasClass('timePickerDump')){
         return;
     }

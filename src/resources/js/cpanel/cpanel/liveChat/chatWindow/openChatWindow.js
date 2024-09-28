@@ -1,5 +1,4 @@
-$('html,body').on('click','.openChatWindow',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.openChatWindow',function(e){
     openChatWindow($(this).attr('user'),$(this).attr('type'));
 })
 openChatWindow = function(id,type){

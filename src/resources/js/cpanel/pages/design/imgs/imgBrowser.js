@@ -79,7 +79,7 @@ showImgBrowser = function(title,imgBrowserClass,append='append'){
 
 }
 
-$('html,body').on('wheel','.popupBody',function(e){
+$('body').on('wheel','.popupBody',function(e){
     if(window.imgBrowser.opened  && window.imgs_getMore && !window.imgs_noMore && $('.img_browser_tab[tab="storage"]').hasClass('img_browser_tab_selected')){
         if($('.popupBody')[0].scrollHeight - $('.popupBody').scrollTop() < $('.popupBody').innerHeight() + 300){
             getImgs(true).then(function(imgs){
@@ -91,8 +91,7 @@ $('html,body').on('wheel','.popupBody',function(e){
     }
 })
 
-$('html,body').on('click','#imgBrowser_loadMore',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#imgBrowser_loadMore',function(e){
     scrollToDiv($('.popupBody'),$('#imgsBrowserContainer').children().last())
     getImgs(true).then(function(imgs){
         for(const key in imgs){
@@ -101,8 +100,7 @@ $('html,body').on('click','#imgBrowser_loadMore',function(e){
     });
 })
 //
-$('html,body').on('click','.img_browser_tab',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.img_browser_tab',function(e){
     $('.img_browser_tab').removeClass('img_browser_tab_selected');
     $(this).addClass('img_browser_tab_selected');
     $('.img_browser_tab_container').addClass('none');
@@ -227,29 +225,24 @@ add_pexel_image_to_library = function(img_id,callback=()=>{}){
     })
 }
 //events
-$('html,body').on('click','#imgBrowser_pexels_search_btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#imgBrowser_pexels_search_btn',function(e){
     if($('.pexels_search').val() == ''){return;}
     request_pexels_search($('.pexels_search').val(),1)
 })
-$('html,body').on('click','.imgBrowser_pexels_pagination_next',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.imgBrowser_pexels_pagination_next',function(e){
     if($(this).hasClass('imgBrowser_pexels_pagination_arrow_dump')){return;}
     request_pexels_search($('.pexels_search').val(),parseInt(window.imgBrowser.pexels_search_page) + 1)
 })
-$('html,body').on('click','.imgBrowser_pexels_pagination_prev',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.imgBrowser_pexels_pagination_prev',function(e){
     if($(this).hasClass('imgBrowser_pexels_pagination_arrow_dump')){return;}
     request_pexels_search($('.pexels_search').val(),parseInt(window.imgBrowser.pexels_search_page) - 1)
 })
-$('html,body').on('click','.pexels_ToLibrary',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.pexels_ToLibrary',function(e){
     showBtnLoading($('.pexels_ToLibrary_save'))
     showBtnLoading($('.pexels_ToLibrary'))
     add_pexel_image_to_library($(this).closest('.imgsImgCard_pexels').attr('imgId'))
 })
-$('html,body').on('click','.pexels_ToLibrary_save',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.pexels_ToLibrary_save',function(e){
     showBtnLoading($('.pexels_ToLibrary_save'))
     showBtnLoading($('.pexels_ToLibrary'))
     add_pexel_image_to_library($(this).closest('.imgsImgCard_pexels').attr('imgId'),function(img){

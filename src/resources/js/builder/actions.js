@@ -1,5 +1,5 @@
 new_action = function( render_key_tree = '') {
-    if(JSON.stringify(window.template) == JSON.stringify(window.template_edit_history[`_${window.template_current_edit}`])){
+    if(JSON.stringify(window.template) === JSON.stringify(window.template_edit_history[`_${window.template_current_edit}`])){
         return;
     }
     // unset_preview_mode();
@@ -227,13 +227,13 @@ set_all_editors = function(){
 }
 generate_website_style = function(generate){
     if(generate == 'all'){
-        for(const key in window.template[window.selected_page]){
-            generate_elems_style(window.template[window.selected_page][key])
+        for(const key in window.template[window.template.settings.selected_page]){
+            generate_elems_style(window.template[window.template.settings.selected_page][key])
         }
         generate_elems_style(window.template.website_header)
-        if (window.website_popup_opened == true) {
+        if (window.template.settings.website_popup_opened == '1') {
             generate_elems_style(window.template.popup_window)
-            generate_elems_style(window.template[selected_popup])
+            generate_elems_style(window.template[template.settings.selected_popup])
         }
     }else{
         let elem = get_element_data(generate);
@@ -243,7 +243,7 @@ generate_website_style = function(generate){
 }
 render = function(key_tree){
     if(key_tree == 'all'){
-        render_page(window.selected_page)
+        render_page(window.template.settings.selected_page)
         render_website_header();
         render_website_popup()
         render_form_elements();
@@ -257,7 +257,7 @@ render = function(key_tree){
             }else if(key_tree[key] == 'website_header'){
                 render_website_header()
             }else if(key_tree[key] == 'page'){
-                render_page(window.selected_page)
+                render_page(window.template.settings.selected_page)
             }else if(key_tree[key] == 'popup_window' || key_tree[key] == 'popup_window.children.popup_card'){
                 render_website_popup();
             }else{
@@ -301,6 +301,7 @@ render = function(key_tree){
     }catch{}
     set_website_default_classes();
 }
+
 //events
 $('body').on('click', '.undo', function(e) {
     if ($('.undo').hasClass('header_icon_disabled')) { return; }

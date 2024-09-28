@@ -70,8 +70,7 @@ productReveiws_hideMoreFilters = function(){
     $('.productReviewMoreFiltersSwitch').text(texts.products.moreFilters).removeClass('mT50').addClass('mT10')
 }
 
-$('html,body').on('click','.productReviewMoreFiltersSwitch',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productReviewMoreFiltersSwitch',function(e){
     if($('.reviewsMoreFiltersContainer').hasClass('reviewsMoreFiltersContainer_show')){
         productReveiws_hideMoreFilters();
     }else{
@@ -79,8 +78,7 @@ $('html,body').on('click','.productReviewMoreFiltersSwitch',function(e){
     }
 })
 ///////////
-$('html,body').on('click','.productReviewsWith',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productReviewsWith',function(e){
     if($(this).find('.productReviewsWithCheck').hasClass('ico-check1')){
         let productReviewsWithCheck = 0;
         $('.productReviewsWithCheck').each(function(){
@@ -93,8 +91,7 @@ $('html,body').on('click','.productReviewsWith',function(e){
         $(this).find('.productReviewsWithCheck').removeClass('ico-check0').addClass('ico-check1');
     }
 })
-$('html,body').on('click','.productReviewsBy',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productReviewsBy',function(e){
     if($(this).attr('productReviewsBy') == 'users' || $(this).attr('productReviewsBy') == 'guests'){
         if($(this).find('.productReviewsByCheck').hasClass('ico-check1')){
             let productReviewsByCheck = 0;

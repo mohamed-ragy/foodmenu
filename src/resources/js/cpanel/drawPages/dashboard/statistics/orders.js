@@ -76,8 +76,7 @@ fill_statistics_orders = function(key){
         break;
     }
 }
-$('html,body').on('click','.statistics_ordersHeadElem',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statistics_ordersHeadElem',function(e){
     $('.statistics_ordersHeadElem').removeClass('statistics_ordersHeadElem_selected');
     $(this).addClass('statistics_ordersHeadElem_selected')
 

@@ -43,7 +43,6 @@ draw_editor_popup_check_box = function(){
                             variable_key:'css',
                             key:'width',
                             units:['px'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col'}).append(
@@ -53,7 +52,6 @@ draw_editor_popup_check_box = function(){
                             variable_key:'css',
                             key:'border-radius',
                             units:['px'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col'}).append(
@@ -63,7 +61,6 @@ draw_editor_popup_check_box = function(){
                             variable_key:'css',
                             key:'padding',
                             units:['px'],
-                            step:1,
                         })
                     ),
                 ]

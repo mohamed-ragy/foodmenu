@@ -45,19 +45,16 @@ getFinancialReports = function(page){
         }
     })
 }
-$('html,body').on('click','.financialReportsNext',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.financialReportsNext',function(e){
     if($(this).hasClass('financialReportsArrow_dump')){return;}
     getFinancialReports(parseInt($('.financialReportsCountContainer').attr('page')) + 1)
 })
-$('html,body').on('click','.financialReportsPrev',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.financialReportsPrev',function(e){
     if($(this).hasClass('financialReportsArrow_dump')){return;}
     getFinancialReports(parseInt($('.financialReportsCountContainer').attr('page')) - 1)
 })
 //
-$('html,body').on('click','.delete_financial_report',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.delete_financial_report',function(e){
     let report_id = $(this).closest('.financial_report_container').attr('report');
     let report = window.financialReports.find(item=>item.id == report_id);
     let report_date = getDate(Date.parse(new Date(report.year,(parseInt(report.month) - 1),5)) / 1000);
@@ -80,8 +77,7 @@ $('html,body').on('click','.delete_financial_report',function(e){
         )
     })
 })
-$('html,body').on('click','#delete_financial_report-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#delete_financial_report-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     let report_id = $(this).attr('report');
     $.ajax({
@@ -103,15 +99,13 @@ $('html,body').on('click','#delete_financial_report-confirmBtn',function(e){
     })
 })
 
-$('html,body').on('click','.open_financial_report',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.open_financial_report',function(e){
     let report_id = $(this).attr('report');
     checkUseenNotifications(['system.financial_report'],'financialReport_id',report_id)
     window.open(`/financialreport/view?year=${$(this).attr('year')}&month=${$(this).attr('month')}&currency_symbol=${website.currency}&lang=${account.language}`, '_blank').focus();
 });
 
-$('html,body').on('click','.download_financial_report',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.download_financial_report',function(e){
     let report_id = $(this).closest('.financial_report_container').attr('report');
     let report = window.financialReports.find(item=>item.id == report_id);
     checkUseenNotifications(['system.financial_report'],'financialReport_id',report_id)

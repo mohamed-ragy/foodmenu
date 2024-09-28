@@ -30,7 +30,6 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                                 key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_restaurant_name',
                                 variable_key:'css',
                                 key:'font-size',
-                                step:1,
                                 units:['px','em']
                             })
                         ),
@@ -41,7 +40,6 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                                 variable_key:'css',
                                 key:'line-height',
                                 units:['px','em','inherit'],
-                                step:1,
                             }),
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(
@@ -51,7 +49,6 @@ draw_editor_popup_header_logo_restaurant_name = function(){
                                 variable_key:'css',
                                 key:'letter-spacing',
                                 units:['px','em','inherit'],
-                                step:1,
                             }),
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(

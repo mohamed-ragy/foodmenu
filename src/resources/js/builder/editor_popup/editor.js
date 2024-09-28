@@ -7,6 +7,7 @@ require('./editor/general.js');
 set_editor_popup_editor = function(){
     if(window.selected == null || window.selected === undefined){return;}
     let elem = get_element_data(window.selected);
+    console.log(elem)
     $("#editor").css({
         top:'unset',
         bottom:'unset',
@@ -27,12 +28,12 @@ set_editor_popup_editor = function(){
                 set_editor_popup_editor_position_section_block(window.selected);
             break;
             case 'elem':
-                $('#editor').find('.editor_popup_title').text(texts.elems[elem.elem_type])
+                $('#editor').find('.editor_popup_title').text(elem.name ?? texts.elems[elem.elem_type])
                     set_editor_popup_editor_position_elem(window.selected);
             break;
             case 'container':
                 $('#editor').find('.editor_popup_title').text(elem.name)
-                    set_editor_popup_editor_position_container(window.selected);
+                set_editor_popup_editor_position_container(window.selected);
             break;
             case 'website_header': 
                 $('#editor').find('.editor_popup_title').text(texts.website_tools.header)

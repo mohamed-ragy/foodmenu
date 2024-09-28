@@ -1,11 +1,9 @@
-$('html,body').on('input change','#createDeliveryAccount_name',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','#createDeliveryAccount_name',function(e){
     $(this).val() == '' || $(this).val() == null ? $('#createDeliveryAccount_loginName').val(''):
     $('#createDeliveryAccount_loginName').val(`${$(this).val()}@${website.domainName}`);
 })
 
-$('html,body').on('click','#createNewDeliveryAccountBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createNewDeliveryAccountBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#createNewDeliveryAccountBtn'));
     let deliveryName = $('#createDeliveryAccount_name').val();

@@ -169,7 +169,7 @@ $('body').on('mouseenter','.open_page, .open_popup, .scroll_to_section',function
             $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.open_popup}:</div><div class="fs101 cB underline">${texts.website_pages[$(this).attr('popup')]}</div>`)
         }
     }else if($(this).hasClass('scroll_to_section')){
-        let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
+        let section = window.template[window.template.settings.selected_page].find(item=>item.class_selector == $(this).attr('section'))
         let section_name = '';
         try{
             section_name = section.name;
@@ -184,7 +184,7 @@ $('body').on('mouseenter','.open_page, .open_popup, .scroll_to_section',function
 //         $(this).attr('tooltip',`<div class="fs101">${texts.website_pages.add_to_cart}:</div><div class="fs101 cB underline">${$(this).attr('product')}</div>`)
 
 //     }else if($(this).hasClass('scroll_to_section')){
-//         let section = window.template[window.selected_page].find(item=>item.class_selector == $(this).attr('section'))
+//         let section = window.template[window.template.settings.selected_page].find(item=>item.class_selector == $(this).attr('section'))
 //         let section_name = '';
 //         try{
 //             section_name = section.name;

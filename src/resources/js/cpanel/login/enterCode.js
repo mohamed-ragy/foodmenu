@@ -1,13 +1,11 @@
-$('html,body').on('keypress','#resetPasswordCode',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keypress','#resetPasswordCode',function(e){
     if(e.which == 13){
         $('#resetPasswordCodeBtn').trigger('click');
     }
 })
 
 
-$('html,body').on('click','#resetPasswordCodeBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#resetPasswordCodeBtn',function(e){
     showBtnLoading($('#resetPasswordCodeBtn'))
     $('#resetPasswordCode').prop('disabled',true);
     window.resetPasswordCode = $('#resetPasswordCode').val()

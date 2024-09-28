@@ -7,26 +7,22 @@ deliveryCostNoSavecheck = function(){
         return false;
     }
 }
-$('html,body').on('click','#deliveryCanChangeMsg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryCanChangeMsg',function(e){
     $(this).prop('checked') ? website_temp.showDeliveryCostChangable = 1 : website_temp.showDeliveryCostChangable = 0 ;
     home_delivery_settings_unsave_check();
 });
-$('html,body').on('input change','#deliveryCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','#deliveryCost',function(e){
     website_temp.deliveryCost = parseFloat($(this).val());
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','#deliveryCostCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryCostCancelBtn',function(e){
     website_temp.deliveryCost = website.deliveryCost;
     website_temp.showDeliveryCostChangable = website.showDeliveryCostChangable;
     $('#deliveryCost').val(parseFloat(website_temp.deliveryCost).toFixed(2));
     website_temp.showDeliveryCostChangable == 1 ? $('#deliveryCanChangeMsg').prop('checked',true) : $('#deliveryCanChangeMsg').prop('checked',false);
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','#deliveryCostSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryCostSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#deliveryCostSaveBtn'));
     $.ajax({

@@ -40,7 +40,6 @@ draw_page_setup = function(){
                                 key_tree:'page_setup',
                                 variable_key:null,
                                 key:'font_size',
-                                step:1,
                                 units:['px','em']
                             })
                         ),
@@ -51,7 +50,6 @@ draw_page_setup = function(){
                                 variable_key:null,
                                 key:'line_height',
                                 units:['px','em'],
-                                step:1,
                             }),
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(
@@ -61,7 +59,6 @@ draw_page_setup = function(){
                                 variable_key:null,
                                 key:'letter_spacing',
                                 units:['px','em'],
-                                step:1,
                             }),
                         ),
                     ),
@@ -104,7 +101,6 @@ draw_page_setup = function(){
                             key_tree:'page_setup',
                             variable_key:null,
                             key:'mobile_max_width',
-                            step:'10',
                             units:['px'],
                         })
                     )

@@ -627,7 +627,8 @@ guideHintsClass = class  {
     restaurantLocation(drawAlerts=true){
         if(account.authorities[4] == false){return}
         this.deleteGuideAlert(26)
-        if(website.lat == 0 && website.lng == 0){
+        this.deleteGuideAlert(19)
+        if(website.lat == null || website.lng == null){
             window.guideAlertsOBJ.push({
                 code:26,
                 priority:4,
@@ -635,6 +636,23 @@ guideHintsClass = class  {
                 img:null,
                 lang:null,
                 text:texts.cpanel.guideHints.restaurantLocation,
+                cpPage:'restaurant_information',
+                openTab:'restaurant_location',
+                popupPage:'',
+                popup:null,
+                scrollToElem:null,
+                selectElem:null,
+                attrs:{},
+            })
+        }
+        if(website.delivery_range == null){
+            window.guideAlertsOBJ.push({
+                code:19,
+                priority:4,
+                icon:'ico-location',
+                img:null,
+                lang:null,
+                text:texts.cpanel.guideHints.deliveryRange,
                 cpPage:'restaurant_information',
                 openTab:'restaurant_location',
                 popupPage:'',

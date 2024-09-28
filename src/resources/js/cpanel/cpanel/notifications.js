@@ -546,8 +546,10 @@ handelCpanelChannel = function(n,code){
         case 'settings.restaurantLocation':
             website.lat = n.lat;
             website.lng = n.lng;
+            website.delivery_range = n.delivery_range;
             website_temp.lat = n.lat;
             website_temp.lng = n.lng;
+            website_temp.delivery_range = n.delivery_range;
             setTimeout(function(){
                 $('#setting-restaurantLocation_cancelBtn').trigger('click');
                 window.guideHints.restaurantLocation()
@@ -708,10 +710,8 @@ handelCpanelChannel = function(n,code){
         case 'settings.editLangOptions':
             website.languages[n.lang].name = n.name
             website.languages[n.lang].flag = n.flag
-            website.languages[n.lang].direction = n.direction
             website_temp.languages[n.lang].name = n.name
             website_temp.languages[n.lang].flag = n.flag
-            website_temp.languages[n.lang].direction = n.direction
             setWebsiteLangs();
             if(window.history.state.popupPage == 'edit_language_options' && window.history.state.language == n.lang){
                 $('#langOptions-cancelBtn').trigger('click');
@@ -873,9 +873,7 @@ handelCpanelChannel = function(n,code){
                     website.users[key].email = n.email;
                     website.users[key].name = n.name;
                     website.users[key].phoneNumber = n.phoneNumber;
-                    website.users[key].address = n.address;
-                    website.users[key].lat = n.lat;
-                    website.users[key].lng = n.lng;
+                    website.users[key].addresses = JSON.parse(JSON.stringify(n.addresses));
                     if(window.history.state.page == 'manage_users' && window.history.state.user == n.user_id){
                         drawManageUser(n.user_id)
                     }

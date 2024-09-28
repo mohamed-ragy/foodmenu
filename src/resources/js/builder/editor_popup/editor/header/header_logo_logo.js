@@ -20,7 +20,6 @@ draw_editor_popup_header_logo_logo = function(){
                             key_tree:'website_header.children.header_wrapper.children.header_logo.children.header_logo_logo',
                             variable_key:'css',
                             key:'height',
-                            step:1,
                             units:['px','em'],
                         })
                     ),

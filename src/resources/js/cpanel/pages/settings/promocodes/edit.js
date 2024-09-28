@@ -38,15 +38,13 @@ editPromocodeNoSaveCheck = function(){
 
 let editpromocodeDiscountUpInterval = null;
 let editpromocodeDiscountDownInterval = null;
-$('html,body').on('click','#editPromocode-discountU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode-discountU',function(e){
     if($('#editPromocode-discount').text() >= 100){return;}
     $('#editPromocode-discount').text(parseInt($('#editPromocode-discount').text()) + 1);
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).discount = $('#editPromocode-discount').text();
     promo_codes_unsave_check();
 })
-$('html,body').on('mousedown','#editPromocode-discountU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown','#editPromocode-discountU',function(e){
     editpromocodeDiscountUpInterval = setInterval(function(){
         if($('#editPromocode-discount').text() == 100){clearInterval(editpromocodeDiscountUpInterval);return;}
         $('#editPromocode-discount').text(parseInt($('#editPromocode-discount').text()) + 1);
@@ -54,15 +52,13 @@ $('html,body').on('mousedown','#editPromocode-discountU',function(e){
 }).on('mouseleave mouseup',function(){
     clearInterval(editpromocodeDiscountUpInterval)
 })
-$('html,body').on('click','#editPromocode-discountD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode-discountD',function(e){
     if($('#editPromocode-discount').text() <= 1){return;}
     $('#editPromocode-discount').text(parseInt($('#editPromocode-discount').text()) - 1);
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).discount = $('#editPromocode-discount').text();
     promo_codes_unsave_check();
 })
-$('html,body').on('mousedown','#editPromocode-discountD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown','#editPromocode-discountD',function(e){
     editpromocodeDiscountDownInterval = setInterval(function(){
     if($('#editPromocode-discount').text() == 1){clearInterval(editpromocodeDiscountDownInterval);return;}
         $('#editPromocode-discount').text(parseInt($('#editPromocode-discount').text()) - 1);
@@ -71,8 +67,7 @@ $('html,body').on('mousedown','#editPromocode-discountD',function(e){
     clearInterval(editpromocodeDiscountDownInterval)
 })
 
-$('html,body').on('click change','#editPromocode-isExpire',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click change','#editPromocode-isExpire',function(e){
     if($(this).prop('checked') == true){
         $('#datePicker-editPromocodesContainer').parent().removeClass('none')
         window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).year = $('#datePicker-editPromocodes').find('.datePickerYear').attr('year');
@@ -87,8 +82,7 @@ $('html,body').on('click change','#editPromocode-isExpire',function(e){
     $(this).prop('checked') == true ? window.promocodes_temp.find(item=>item.code == window.history.state.promocode).is_expires = true : window.promocodes_temp.find(item=>item.code == window.history.state.promocode).is_expires = false;
     promo_codes_unsave_check();
 })
-$('html,body').on('click','.datePickerDay_editPromocode',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('click','.datePickerDay_editPromocode',function(e){
     if(window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).is_expires == true){
         window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).year = $('#datePicker-editPromocodes').find('.datePickerYear').attr('year');
         window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).month = $('#datePicker-editPromocodes').find('.datePickerMonth').attr('month');
@@ -102,20 +96,17 @@ $('html,body').on('click','.datePickerDay_editPromocode',function(e){
     promo_codes_unsave_check();
 })
 
-$('html,body').on('change input','#editPromocode-minimum',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change input','#editPromocode-minimum',function(e){
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).minimum = $('#editPromocode-minimum').val();
     promo_codes_unsave_check();
 })
-$('html,body').on('change input','#editPromocode-cap',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change input','#editPromocode-cap',function(e){
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).cap = $('#editPromocode-cap').val();
     promo_codes_unsave_check();
 })
 
 
-$('html,body').on('click','#editPromocode-isOneUse',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode-isOneUse',function(e){
     if($('#editPromocode-isGuest').prop('checked') == true && $('#editPromocode-isOneUse').prop('checked') == true){
         $('#editPromocode-isGuest').prop('checked',false)
     }
@@ -123,8 +114,7 @@ $('html,body').on('click','#editPromocode-isOneUse',function(e){
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).is_guest = $('#editPromocode-isGuest').prop('checked');
     promo_codes_unsave_check();
 })
-$('html,body').on('click','#editPromocode-isGuest',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode-isGuest',function(e){
     if($('#editPromocode-isGuest').prop('checked') == true && $('#editPromocode-isOneUse').prop('checked') == true){
         showAlert('error',texts.settings.promocodeGuestNo,4000,true);
         setTimeout(function(){
@@ -140,19 +130,16 @@ $('html,body').on('click','#editPromocode-isGuest',function(e){
 });
 
 
-$('html,body').on('click','#editPromocode-isDelivery',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode-isDelivery',function(e){
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).is_delivery = $('#editPromocode-isDelivery').prop('checked');
     promo_codes_unsave_check();
 });
-$('html,body').on('click','#editPromocode-isPickup',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode-isPickup',function(e){
     window.promocodes_temp.find(item=>item.code == window.popupPage.promocode).is_pickup = $('#editPromocode-isPickup').prop('checked');
     promo_codes_unsave_check();
 });
 
-$('html,body').on('click','#editPromocode_cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode_cancelBtn',function(e){
     for(const key in window.promocodes){
         if(window.promocodes[key].code == window.popupPage.promocode){
             for(const key2 in window.promocodes_temp){
@@ -165,8 +152,7 @@ $('html,body').on('click','#editPromocode_cancelBtn',function(e){
     }
     promo_codes_unsave_check();
 })
-$('html,body').on('click','#editPromocode_saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editPromocode_saveBtn',function(e){
     if(account.authorities[4] == 0){return;}
     if(!coolDownChecker()){return;}
     let edit_promocode = window.promocodes_temp.find(item=> item.code == window.popupPage.promocode);

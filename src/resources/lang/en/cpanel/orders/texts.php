@@ -35,7 +35,11 @@ return [
     //order by
     'placeOrderFor' => 'Place order for',
     'phoneNumber' => 'Phone number',
-    'address' => 'Address',
+    //new
+    'address' => 'Full address',
+    'select_address' => 'Select address',
+    'user_has_no_addresses' => 'The selected user has no address saved!',
+    //
     'addLocation' => 'Add location',
     'removeLocation' => 'Remove location',
     ///

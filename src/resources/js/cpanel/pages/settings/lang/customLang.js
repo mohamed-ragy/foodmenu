@@ -7,7 +7,7 @@ getCustomLangFlags = function(){
         addToInputList($('#lang-customLangTextsPack-list'),foodMenuData.langs[key].name,foodMenuData.langs[key].code)
     }
 }
-$('html,body').on('click','#lang-customLanguageFlag-list .inputListElement',function(){
+$('body').on('click','#lang-customLanguageFlag-list .inputListElement',function(){
     if($(this).attr('key') == '' ||$(this).attr('key') == null){
         $('#lang-customLanguageFlag').closest('.inputListContainer').find('.inputListIcon').text('').append(
             $('<span/>',{class:'ico-flag'})
@@ -18,8 +18,7 @@ $('html,body').on('click','#lang-customLanguageFlag-list .inputListElement',func
         )
     }
 })
-$('html,body').on('keyup','#lang-customLanguageFlag',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keyup','#lang-customLanguageFlag',function(e){
     if($(this).attr('key') == '' ||$(this).attr('key') == null){
         $('#lang-customLanguageFlag').closest('.inputListContainer').find('.inputListIcon').text('').append(
             $('<span/>',{class:'ico-flag'})
@@ -30,13 +29,7 @@ $('html,body').on('keyup','#lang-customLanguageFlag',function(e){
         )
     }
 })
-$('html,body').on('click','.createCustomLang-direction',function(e){
-    e.stopImmediatePropagation();
-    $('.createCustomLang-directionCheck').addClass('ico-check0').removeClass('ico-check1');
-    $(this).find('.createCustomLang-directionCheck').removeClass('ico-check0').addClass('ico-check1')
-})
-$('html,body').on('click','#lang-customLanguageSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#lang-customLanguageSaveBtn',function(e){
     if($('#lang-customLanguageName').val() == ''){
         showAlert('error',texts.settings.customLangNameRequired,4000,true);
         inputTextError($('#lang-customLanguageName'))
@@ -58,7 +51,6 @@ $('html,body').on('click','#lang-customLanguageSaveBtn',function(e){
         return;
     }
     showBtnLoading($('#lang-customLanguageSaveBtn'));
-    let customLang_direction = $('.createCustomLang-directionCheck.ico-check1').closest('.createCustomLang-direction').attr('direction');
     let customLang_name = $('#lang-customLanguageName').val();
     let customLang_code = $('#lang-customLanguageCode').val();
     let customLang_flag = $('#lang-customLanguageFlag').attr('key');
@@ -73,7 +65,6 @@ $('html,body').on('click','#lang-customLanguageSaveBtn',function(e){
             name:customLang_name,
             code:customLang_code,
             flag:customLang_flag,
-            direction:customLang_direction,
             pack:customLang_pack,
         },success:function(r){
             hideBtnLoading($('#lang-customLanguageSaveBtn'));

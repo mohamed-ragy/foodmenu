@@ -322,8 +322,7 @@ drawdatePicker = function(datePickerContainer,firstLoad=false){
 
 }
 
-$('html,body').on('click','.datePickerNextMonthBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.datePickerNextMonthBtn',function(e){
     let datePickerContainer = $('#'+$(this).attr('datePickerContainer'));
     let selectedYear = parseInt(datePickerContainer.find('.datePickerYear').attr('year'));
     let selectedMonth = parseInt(datePickerContainer.find('.datePickerMonth').attr('month'));
@@ -392,8 +391,7 @@ $('html,body').on('click','.datePickerNextMonthBtn',function(e){
 
 })
 
-$('html,body').on('click','.datePickerPrevMonthBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.datePickerPrevMonthBtn',function(e){
     let datePickerContainer = $('#'+$(this).attr('datePickerContainer'));
     let selectedYear = parseInt(datePickerContainer.find('.datePickerYear').attr('year'));
     let selectedMonth = parseInt(datePickerContainer.find('.datePickerMonth').attr('month'));
@@ -471,8 +469,7 @@ $('html,body').on('click','.datePickerPrevMonthBtn',function(e){
         });
     },200);
 });
-$('html,body').on('click','.datePickerDay',function(e){
-    // e.stopPropagation();
+$('body').on('click','.datePickerDay',function(e){
     datePickerContainer = $(this).parent().parent().parent();
     if($(this).text() == ''){return;}
     let now = new Date();
@@ -511,13 +508,13 @@ $('html,body').on('click','.datePickerDay',function(e){
     }
     datePickerContainer.hide();
 })
-$('html,body').on('click','.datePickerSelectedDateContainer',function(e){
+$('body').on('click','.datePickerSelectedDateContainer',function(e){
     e.stopImmediatePropagation();
     $('.datePickerContainer').hide();
     $('#'+$(this).attr('datePickerContainer')).css({'display':'flex','left':$(this).position().left + ($(this).width() - $('#'+$(this).attr('datePickerContainer')).width()),'top':($(this).position().top) + $(this).outerHeight()});
 });
 
-$('html,body').on('click',function(e){
+$('body').on('click',function(e){
     $('.datePickerContainer').each(function(){
         if(!$(this).is(':hover')){
             $(this).hide();

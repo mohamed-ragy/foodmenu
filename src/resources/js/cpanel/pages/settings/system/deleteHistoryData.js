@@ -1,6 +1,5 @@
 //////////////////////delete data/////////////////////////////////
-$('html,body').on('click','#deleteOrdersAndStatistics-btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteOrdersAndStatistics-btn',function(e){
     if(!account.is_master){return;}
     if($('#deleteOrdersAndStatistics-password').val() == ''){
         inputTextError($('#deleteOrdersAndStatistics-password'))
@@ -27,8 +26,7 @@ $('html,body').on('click','#deleteOrdersAndStatistics-btn',function(e){
 
 });
 
-$('html,body').on('click','#deleteOrdersAndStatistics-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteOrdersAndStatistics-confirmBtn',function(e){
     if(!account.is_master){return;}
         if(!coolDownChecker()){return;}
         showBtnLoading($('#deleteOrdersAndStatistics-confirmBtn'))

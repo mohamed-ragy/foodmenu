@@ -4,8 +4,9 @@ $('body').on('click','.signup_button',function(){
     let password = $('.signup_password').find('.form_input_box_input');
     let password_confirm = $('.signup_password_confirm').find('.form_input_box_input');
     let privacy_policy;
+    let this_btn = $(this);
     $('.signup_privacy_policy').find('.check_box_marker').hasClass('none') ? privacy_policy = 0 : privacy_policy = 1;
-    form_message('','')
+    form_message(this_btn,'','')
     show_website_form_loading();
     $.ajax({
         url:'/api/auth',
@@ -39,16 +40,21 @@ $('body').on('click','.signup_button',function(){
             }
             else if(r.status == 'success'){
                 let email_val = email.val();
-                open_popup(window.popups.login,function(){
-                    form_message('success',get_text(r.msg))
-                    $('.login_email').find('.form_input_box_input').val(email_val)
-                    $('.login_password').find('.form_input_box_input').focus()
+                open_popup({
+                    popup:'login',
+                    before_animation:function(){
+                        form_message(this_btn,'success',get_text(r.msg))
+                        $('.login_email').find('.form_input_box_input').val(email_val)
+                    },
+                    after_animation:function(){
+                        $('.login_password').find('.form_input_box_input').focus()
+                    }
                 })
             }
         },error(r){
             clear_form_errors();
             hide_website_form_loading()
-            form_message('error',window.texts.other.unknown_error)
+            form_message(this_btn,'error',get_text('other.unknown_error'))
         }
     })
 });

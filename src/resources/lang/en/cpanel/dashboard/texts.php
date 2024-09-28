@@ -60,9 +60,15 @@ return [
     'user_email' => 'Email',
     'user_name' => 'Name',
     'user_phoneNumber' => 'Phone number',
+    //new
     'user_address' => 'Address',
+    'user_addresses' => 'Addresses',
+    'user_full_address' => 'Full address',
+    'user_address_default' => 'Default address',
     'user_lat' => 'Location (latitude)',
     'user_lng' => 'Location (longitude)',
+    'user_no_addresses' => 'No addresses',
+    //
     'user_password_changed' => 'Password changed',
     //
     'statisticsSmallScreenMsg' => 'Unable to load the statistics page because your screen is too small!Please try zooming out and refreshing your browser before making another attempt.',

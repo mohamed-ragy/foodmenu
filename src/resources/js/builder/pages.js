@@ -1,8 +1,9 @@
 
 set_page = function(page){
+    window.template.settings.selected_page = page;
     $('.current_page_name').text(texts.website_pages[page])
     page_transition(page);
-    hide_popup_window();
+    // hide_popup_window();
 }
 page_transition = function(page){
     $('#page').removeClass(`${window.template.page_setup.pageTransition}_in`)
@@ -15,7 +16,7 @@ page_transition = function(page){
         $('#page').removeClass(`${window.template.page_setup.pageTransition}_out`).addClass(`${window.template.page_setup.pageTransition}_in`)
         scroll_elem_animation('top');
         $('#website').scrollTop(0)
-        window.selected_page = page;
+        window.template.settings.selected_page = page;
         setTimeout(()=>{
             $('#page').removeClass(`${window.template.page_setup.pageTransition}_in`)
             // $('#website').css('overflow-x','');
@@ -28,7 +29,7 @@ render_page = function(page){
     if(page == null){return;}
     let website_scrolltop = $('#website').scrollTop();
     $('#page').text('')
-    window.selected_page = page;
+    window.template.settings.selected_page = page;
     //
     window.template[page].sort((a,b)=>{
         return parseInt(a.sort) - parseInt(b.sort);
@@ -49,6 +50,7 @@ render_page = function(page){
                 )
             }
         break;
+
     }
     $('#website').scrollTop(website_scrolltop);
     try{
@@ -66,9 +68,9 @@ delete_selected = function(){
     let class_selector = elem.class_selector;
     if(elem.type == 'section'){
         if(!accessibility_check(window.selected,'section_delete')){return;}
-        window.template[window.selected_page].splice(elem.sort,1)
-        for(const key in window.template[window.selected_page]){
-            window.template[window.selected_page][key].sort = parseInt(key);
+        window.template[window.template.settings.selected_page].splice(elem.sort,1)
+        for(const key in window.template[window.template.settings.selected_page]){
+            window.template[window.template.settings.selected_page][key].sort = parseInt(key);
         }
         render('page')
     }else if(elem.type == 'elem' || elem.type == 'container'){

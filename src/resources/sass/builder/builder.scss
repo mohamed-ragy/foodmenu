@@ -228,8 +228,14 @@ body{
         .select_popup_title{display: none !important;}
     }
     .form_elements::after{outline:none !important}
-    .form_element{outline:none !important}
+    .form_elements_selected{
+        .form_element{
+            outline:none !important
+        }
+    }
+    .form_element::after{outline:none !important}
     .select_edit_form_elements_title{display: none !important;}
+    .select_edit_form_element_title{display: none !important;}
 }
 
 ///

@@ -28,7 +28,6 @@ draw_editor_popup_icon = function(){
                                             key_tree:window.selected,
                                             variable_key:'css',
                                             key:'width',
-                                            step:'1',
                                             units:['px','em','%']
                                         })
                                 ),

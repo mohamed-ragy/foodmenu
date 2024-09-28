@@ -1,13 +1,13 @@
 render_website_popup = function(){
     $('#website').find('.popup_container').remove();
     $('#website').prepend(generate_html(window.template.popup_window,'popup_window'))
-    if(window.website_popup_opened == true){
-        open_website_popup(window.selected_popup)
+    if(window.template.settings.website_popup_opened == '1'){
+        open_website_popup(window.template.settings.selected_popup)
     }
     console.log('popup rendered')
 }
 draw_popup = function(popup){
-    window.selected_popup = popup;
+    window.template.settings.selected_popup = popup;
     $('#website').find('.popup_card').append(
         generate_html(window.template[popup],popup),
     )
@@ -16,7 +16,7 @@ draw_popup = function(popup){
     }catch{}
 }
 open_website_popup = function(popup){
-    window.selected_popup = popup;
+    window.template.settings.selected_popup = popup;
     $('#website').css('overflow-y','hidden').scrollTop(0)
     $('#website').find('.popup_container').removeClass('none')
     $('#website').find('.popup_card').children()
@@ -27,23 +27,19 @@ open_website_popup = function(popup){
     .not('.edit_popup_padding_left')
     .not('.select_popup_title')
     .remove()
-    if(window.selected_popup === null){
-        $('.current_page_name').text(texts.website_pages[window.selected_page])
-    }else{
-        draw_popup(window.selected_popup)
-        $('.current_page_name').text(texts.website_pages[window.selected_popup])
+    if(popup !== null){
+        draw_popup(window.template.settings.selected_popup)
     }
-    if(!window.website_popup_opened){
+    if(window.template.settings.website_popup_opened == '0'){
         $('#website').find('.popup_container').find('.popup_card').addClass(window.template.popup_window.children.popup_card.transition)
-        window.website_popup_opened = true;
+        window.template.settings.website_popup_opened = '1';
     }
 }
 hide_popup_window = function(){
-    window.website_popup_opened = false;
-    // window.selected_popup = 'popup_window';
+    window.template.settings.website_popup_opened = '0';
     $('#website').find('.popup_container').addClass('none')
     $('#website').css('overflow-y','auto')
-    $('.current_page_name').text(texts.website_pages[window.selected_page])
+    $('.current_page_name').text(texts.website_pages[window.template.settings.selected_page])
 }
 set_editor_popup_editor_position_popup = function(){
     $('#editor').css({

@@ -1,5 +1,4 @@
-$('html,body').on('click','.productOptionAddSelection',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionAddSelection',function(e){
     let product = website.products.find(item=> item.name == window.history.state.product);
     let option = product.product_options.find(item=>item.id == $(this).closest('.productOptionContainer').attr('option'));
     showPopup('createNewProductSelection',function(){
@@ -31,8 +30,7 @@ $('html,body').on('click','.productOptionAddSelection',function(e){
         $('#createSelection_identifier').focus();
     })
 })
-$('html,body').on('click','#createNewSelection_btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createNewSelection_btn',function(e){
     if(!coolDownChecker()){return;}
     let product = website.products.find(item=> item.name == window.history.state.product);
     let option = product.product_options.find(item=>item.id == $(this).attr('option'));

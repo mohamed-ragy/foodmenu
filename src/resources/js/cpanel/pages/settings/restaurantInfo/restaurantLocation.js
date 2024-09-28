@@ -1,7 +1,9 @@
+
 restaurantLocationNoSaveCheck = function(){
     if(
         website_temp.lat == website.lat &&
-        website_temp.lng == website.lng
+        website_temp.lng == website.lng && 
+        website_temp.delivery_range == website.delivery_range
     ){
         $('.restaurantLocationNoSave').addClass('none');
         return true;
@@ -17,36 +19,92 @@ drawRestaurantLocationMap = function(){
         iconAnchor:   [12.5, 41], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -41] // point from which the popup should open relative to the iconAnchor
      });
+     let drawControl = new L.Control.Draw({
+        draw: {
+            polygon: {
+                shapeOptions: {
+                    color: 'var(--green)',          // Border color
+                    weight: 2,             // Border width
+                    fillColor: 'var(--green)',   // Fill color
+                    fillOpacity: 0.2       // Fill transparency
+                }
+            },
+            polyline: false,  // Disable polyline (we only want polygons)
+            circle: false,    // Disable circle
+            rectangle: false, // Disable rectangle
+            marker: false,    // Disable marker
+            circlemarker:false,
+        }
+    });
     let websiteLocation = [parseFloat(website_temp.lat),parseFloat(website_temp.lng)];
-    let LocationZoom = 18;
-    if(website_temp.lng == '0' && website_temp.lat == '0' ){
+    let LocationZoom = 15;
+    if(website_temp.lng === null || website_temp.lat === null ){
         LocationZoom = 2;
+        websiteLocation = [0,0]
     }
-    window.restaurantLocationMap = L.map('setting-restaurantLocation_map').setView(websiteLocation, LocationZoom);
-
+    let map = L.map('setting-restaurantLocation_map').setView(websiteLocation, LocationZoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
             '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors' +
             ', Tiles courtesy of <a href="https://geo6.be/">GEO-6</a>',
-    }).addTo(window.restaurantLocationMap);
-    window.websiteLocationMarker = L.marker(websiteLocation,{icon: markerIcon})
+    }).addTo(map);
 
-    if(website_temp.lng != '0' && website_temp.lat != '0' ){
-        window.websiteLocationMarker.addTo(window.restaurantLocationMap);
+    let marker = L.marker(websiteLocation,{icon: markerIcon})
+    map.addControl(drawControl);
+
+    if(website_temp.lng !== null || website_temp.lat !== null ){
+        marker.addTo(map);
     }
+    let deliveryRangePolygon;
+    if(website_temp.delivery_range !== null){
+        deliveryRangePolygon = L.polygon(JSON.parse(website_temp.delivery_range), {
+            color: 'var(--green)',           // Polygon border color
+            weight: 2,             // Border width
+            fillColor: 'var(--green)',  // Fill color
+            fillOpacity: 0.2         // Fill opacity
+        })
+        map.addLayer(deliveryRangePolygon);
+    }
+    
+    map.on(L.Draw.Event.DRAWSTART, function(event) {
+        $('#setting-restaurantLocation_map')[0]._is_drawing = true;
+        if(deliveryRangePolygon){
+            map.removeLayer(deliveryRangePolygon)   
+        }
+    });
+    map.on(L.Draw.Event.DRAWSTOP, function(event) {
+        $('#setting-restaurantLocation_map')[0]._is_drawing = false;
 
-    window.restaurantLocationMap.on('click',function(e){
+    });
+    map.on(L.Draw.Event.CREATED, function(event) {
+        $('#setting-restaurantLocation_map')[0]._is_drawing = false;
+        website_temp.delivery_range = JSON.stringify(event.layer.getLatLngs())
+        deliveryRangePolygon = L.polygon(JSON.parse(website_temp.delivery_range), {
+            color: 'var(--green)',           // Polygon border color
+            weight: 2,             // Border width
+            fillColor: 'var(--green)',  // Fill color
+            fillOpacity: 0.2         // Fill opacity
+        })
+        map.addLayer(deliveryRangePolygon);
+        $('#setting-restaurantLocation_map')[0]._deliveryRangePolygon = deliveryRangePolygon;
+        restaurant_information_unsave_chack();
+    });
+    map.on('click',function(e){
+        if($('#setting-restaurantLocation_map')[0]._is_drawing === true){return;}
         if($('.restaurantLocation_currentLocationBtn:hover').length > 0){return;}
         if($('.restaurantLocation_unsetLocationBtn:hover').length > 0){return;}
-        window.websiteLocationMarker.addTo(window.restaurantLocationMap).setLatLng(e.latlng);
+
+        marker.addTo(map).setLatLng(e.latlng);
         website_temp.lat = e.latlng.lat;
         website_temp.lng = e.latlng.lng;
         $('#setting-restaurantLocation_mapWindowNoSave').removeClass('none');
         restaurant_information_unsave_chack();
     })
-    window.restaurantLocationMap.invalidateSize();
+    map.invalidateSize();
 
+    $('#setting-restaurantLocation_map').find('.leaflet-draw-draw-polygon').text('').addClass('ico-polygon fs104').attr('title',null).attr('tooltip',texts.settings.accept_delivery_range)
     $('#setting-restaurantLocation_map').find('.leaflet-control-zoom-in').text('').addClass('ico-plus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomIn)
+    $('#setting-restaurantLocation_map').find('.leaflet-control-zoom-out').text('').addClass('ico-minus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomOut)
     $('#setting-restaurantLocation_map').find('.leaflet-control-zoom-out').text('').addClass('ico-minus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomOut)
     $('#setting-restaurantLocation_map').find('.leaflet-control-zoom').append(
         $('<a/>',{
@@ -68,33 +126,39 @@ drawRestaurantLocationMap = function(){
             $('<div/>',{class:'btnLoading',})
         )
     )
+    $('#setting-restaurantLocation_map')[0]._map = map;
+    $('#setting-restaurantLocation_map')[0]._marker = marker;
+    $('#setting-restaurantLocation_map')[0]._deliveryRangePolygon = deliveryRangePolygon;
 }
 
-$('html,body').on('click','.restaurantLocation_currentLocationBtn',function(e){
+$('body').on('click','.restaurantLocation_currentLocationBtn',function(e){
     // e.preventDefault();
     // e.stopPropagation();
-    e.stopImmediatePropagation();
+    let map = $('#setting-restaurantLocation_map')[0]._map;
+    let marker = $('#setting-restaurantLocation_map')[0].mar_ker;
     navigator.geolocation.getCurrentPosition(function(pos){
-        window.restaurantLocationMap.flyTo([pos.coords.latitude,pos.coords.longitude], 15, {
+        map.flyTo([pos.coords.latitude,pos.coords.longitude], 15, {
             animate: true,
             duration: 1
         });
-        window.websiteLocationMarker.addTo(window.restaurantLocationMap).setLatLng([pos.coords.latitude,pos.coords.longitude]);
+        marker.addTo(map).setLatLng([pos.coords.latitude,pos.coords.longitude]);
         website_temp.lat = pos.coords.latitude;
         website_temp.lng = pos.coords.longitude;
         restaurant_information_unsave_chack();
     });
 })
 
-$('html,body').on('click','.restaurantLocation_unsetLocationBtn',function(e){
+$('body').on('click','.restaurantLocation_unsetLocationBtn',function(e){
     // e.preventDefault();
     // e.stopPropagation();
-    e.stopImmediatePropagation();
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     if(!coolDownChecker()){return;}
+    let map = $('#setting-restaurantLocation_map')[0]._map;
+    let marker = $('#setting-restaurantLocation_map')[0]._marker;
+    let deliveryRangePolygon = $('#setting-restaurantLocation_map')[0]._deliveryRangePolygon;
     showBtnLoading($('.restaurantLocation_unsetLocationBtn'));
-    let new_lat = 0;
-    let new_lng = 0;
+    let new_lat = null;
+    let new_lng = null;
     $.ajax({
         url:'settings',
         type:'put',
@@ -103,20 +167,23 @@ $('html,body').on('click','.restaurantLocation_unsetLocationBtn',function(e){
             saveRestaurantLocation:true,
             lat:new_lat,
             lng:new_lng,
+            delivery_range:null,
         },success:function(response){
             hideBtnLoading($('.restaurantLocation_unsetLocationBtn'));
             if(response.saveRestaurantLocationStatus == 1){
                 showAlert('success',response.msg,4000,true);
                 website.lat = new_lat;
                 website.lng = new_lng;
+                website.delivery_range = null,
                 website_temp.lat = new_lat;
                 website_temp.lng = new_lng;
-                window.restaurantLocationMap.removeLayer(websiteLocationMarker)
+                website_temp.delivery_range = null,
                 window.guideHints.restaurantLocation();
-                window.restaurantLocationMap.flyTo([0,0], 2, {
-                    animate: false,
-                    duration: 0
-                });
+                map.flyTo([0, 0], 2, { animate: false, duration: 1 });
+                map.removeLayer(marker);
+                if(deliveryRangePolygon){
+                    map.removeLayer(deliveryRangePolygon)
+                }
                 restaurant_information_unsave_chack();
             }else if(response.saveRestaurantLocationStatus == 0){
                 showAlert('error',response.msg,4000,true);
@@ -126,34 +193,56 @@ $('html,body').on('click','.restaurantLocation_unsetLocationBtn',function(e){
     })
 })
 
-$('html,body').on('click','#setting-restaurantLocation_cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-restaurantLocation_cancelBtn',function(e){
     website_temp.lat = website.lat;
     website_temp.lng = website.lng;
+    website_temp.delivery_range = website.delivery_range;
+
+    let map = $('#setting-restaurantLocation_map')[0]._map;
+    let marker = $('#setting-restaurantLocation_map')[0]._marker;
+    let deliveryRangePolygon = $('#setting-restaurantLocation_map')[0]._deliveryRangePolygon;
+
     let websiteLocation = [parseFloat(website.lat),parseFloat(website.lng)];
     let LocationZoom = 15;
-    if(website_temp.lng == '0' && website_temp.lat == '0' ){
+    if(website_temp.lng === null || website_temp.lat === null ){
         LocationZoom = 2;
+        websiteLocation = [0,0]
     }
-    window.restaurantLocationMap.flyTo([parseFloat(website_temp.lat),parseFloat(website_temp.lng)], LocationZoom, {
+    map.flyTo(websiteLocation, LocationZoom, {
         animate: true,
         duration: 1
     });
-    if(website_temp.lng != '0' && website_temp.lat != '0' ){
-        window.websiteLocationMarker.addTo(window.restaurantLocationMap);
-        window.websiteLocationMarker.setLatLng(websiteLocation);
+    if(website_temp.lng !== null || website_temp.lat !== null ){
+        marker.addTo(map);
+        marker.setLatLng(websiteLocation);
     }else{
-        window.restaurantLocationMap.removeLayer(window.websiteLocationMarker)
+        map.removeLayer(marker)
     }
+
+    if(deliveryRangePolygon){
+        map.removeLayer(deliveryRangePolygon)   
+    }
+
+    if(website_temp.delivery_range !== null){
+        let deliveryRangePolygon = L.polygon(JSON.parse(website_temp.delivery_range), {
+            color: 'var(--green)',           // Polygon border color
+            weight: 2,             // Border width
+            fillColor: 'var(--green)',  // Fill color
+            fillOpacity: 0.2         // Fill opacity
+        })
+        map.addLayer(deliveryRangePolygon);
+        $('#setting-restaurantLocation_map')[0]._deliveryRangePolygon = deliveryRangePolygon;
+    }
+    
     restaurant_information_unsave_chack();
 });
 
-$('html,body').on('click','#setting-restaurantLocation_saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-restaurantLocation_saveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#setting-restaurantLocation_saveBtn'));
-    let new_lat = websiteLocationMarker.getLatLng().lat
-    let new_lng = websiteLocationMarker.getLatLng().lng
+    let new_lat = website_temp.lat;
+    let new_lng = website_temp.lng;
+    let delivery_range = website_temp.delivery_range;
     $.ajax({
         url:'settings',
         type:'put',
@@ -162,14 +251,17 @@ $('html,body').on('click','#setting-restaurantLocation_saveBtn',function(e){
             saveRestaurantLocation:true,
             lat:new_lat,
             lng:new_lng,
+            delivery_range:delivery_range,
         },success:function(response){
             hideBtnLoading($('#setting-restaurantLocation_saveBtn'));
             if(response.saveRestaurantLocationStatus == 1){
                 showAlert('success',response.msg,4000,true);
                 website.lat = new_lat;
                 website.lng = new_lng;
+                website.delivery_range = delivery_range;
                 website_temp.lat = new_lat;
                 website_temp.lng = new_lng;
+                website_temp.delivery_range = delivery_range;
                 window.guideHints.restaurantLocation();
                 restaurant_information_unsave_chack();
             }else if(response.saveRestaurantLocationStatus == 0){

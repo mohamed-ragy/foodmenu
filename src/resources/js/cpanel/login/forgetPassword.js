@@ -12,14 +12,12 @@ enableRecoverInputs = function(){
 }
 
 
-$('html,body').on('keypress','#recoverPasswordEmailInput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keypress','#recoverPasswordEmailInput',function(e){
     if(e.which == 13){
         $('#recoverPasswordEmailBtn').trigger('click');
     }
 })
-$('html,body').on('keypress','#recoverPasswordPhoneInput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keypress','#recoverPasswordPhoneInput',function(e){
     if(e.which == 13){
         $('#recoverPasswordPhoneBtn').trigger('click');
     }
@@ -27,8 +25,7 @@ $('html,body').on('keypress','#recoverPasswordPhoneInput',function(e){
 
 
 
-$('html,body').on('click','#recoverPasswordEmailBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#recoverPasswordEmailBtn',function(e){
     disableRecoverInputs();
     window.resetPassword = 'email';
     window.resetPasswordEmail = $('#recoverPasswordEmailInput').val()
@@ -55,8 +52,7 @@ $('html,body').on('click','#recoverPasswordEmailBtn',function(e){
 })
 
 
-$('html,body').on('click','#recoverPasswordPhoneBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#recoverPasswordPhoneBtn',function(e){
     disableRecoverInputs();
     window.resetPassword = 'phone';
     window.resetPasswordPhone= $('#recoverPasswordPhoneInput').val()

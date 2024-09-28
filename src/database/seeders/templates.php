@@ -96,7 +96,7 @@ class templates extends Seeder
             ],
             'paths' => [[
                 'path' => 'M1200 120L0 16.48 0 0 1200 0 1200 120z',
-                'color' => 'rgba(255,255,255,1)',
+                'color' => 'rgba(var(--color_4_7),1)',
             ]],
             'css' => [
                 'height' => '100px',
@@ -117,6 +117,10 @@ class templates extends Seeder
                 'view' => 'desktop',
                 'mobile_view_width' => '414',
                 'mobile_view_height' => '736',
+                'selected_page' => 'home',
+                'selected_popup' => null,
+                'website_popup_opened' => '0',
+                'selected_website_form' => 'login',
                 'animations' => [
 
                 ],
@@ -188,7 +192,7 @@ class templates extends Seeder
                     'general_class' => '1',
                     'type' => 'form_elements',
                     'class_selector' => 'website_form',
-                    'font_style' => [],
+                    'font_style' => (object)[],
                     'accessibility' => [
                         'interactions',
                         'can_hover',
@@ -243,8 +247,8 @@ class templates extends Seeder
                         'padding' => '10px 10px 10px 10px',
                         'margin' => '20px 20px 20px 20px'
                     ],
-                    'css_hover' => [],
-                    'css_hover_mobile' => [],
+                    'css_hover' => (object)[],
+                    'css_hover_mobile' => (object)[],
                     'css_hyperlink' => [
                         'color' => 'rgba(var(--color_1_2),1)',
                         'text-decoration' => 'none'
@@ -259,7 +263,7 @@ class templates extends Seeder
                     'form_element' => 'form_title',
                     'general_class' => '1',
                     'class_selector' => 'form_title',
-                    'font_style' => [],
+                    'font_style' => (object)[],
                     'accessibility' => [
                         'website_form',
                         'text_style',
@@ -304,7 +308,7 @@ class templates extends Seeder
                     'form_element' => 'form_message',
                     'general_class' => '1',
                     'class_selector' => 'form_message',
-                    'font_style' => [],
+                    'font_style' => (object)[],
                     'accessibility' => [
                         'website_form',
                         'form_response_colors',
@@ -354,11 +358,8 @@ class templates extends Seeder
                     'class_selector' => 'form_input_box',
                     'class' => '',
                     'accessibility' => [
-                        'website_form',
                         'interactions',
-                        'can_hover',
-                        'can_focus',
-                        'can_error',
+                        'website_form',
                         'hover',
                         'focus',
                         'error',
@@ -426,11 +427,15 @@ class templates extends Seeder
                             'attr' => [
                                 'type' => ''
                             ],
-                            'font_style' => [],
+                            'font_style' => (object)[],
                             'placeholder' => [
                                 'key' => ''
                             ],
                             'accessibility' => [
+                                'interactions',
+                                'can_hover',
+                                'can_focus',
+                                'can_error',
                                 'hover',
                                 'focus',
                                 'error'
@@ -457,7 +462,7 @@ class templates extends Seeder
                                 'padding' => '10px 15px 10px 15px',
                                 'transition-duration' => '200ms'
                             ],
-                            'css_hover' => [],
+                            'css_hover' => (object)[],
                             'css_focus' => [
                                 'box-shadow' => '0 0 2px 3px rgba(var(--color_1_3),.4)',
                                 'border-top' => '1px solid rgba(var(--color_1_3),.3)',
@@ -532,7 +537,7 @@ class templates extends Seeder
                                         'icon' => [
                                             'tag' => 'svg',
                                             'class_selector' => 'form_check_box_marker',
-                                            'css' => [],
+                                            'css' => (object)[],
                                             'class' => 'check_box_marker',
                                             'attr' => [
                                                 'viewBox' => '0 0 1920 1920',
@@ -551,7 +556,7 @@ class templates extends Seeder
                                         ],
                                     ]
                                 ],
-                                'check_box_text' => []
+                                'check_box_text' => (object)[]
                             ]
                         ],
                         'validation_message' => [
@@ -572,7 +577,7 @@ class templates extends Seeder
                     'tag' => 'button',
                     'form_element' => 'form_button',
                     'class_selector' => 'form_button',
-                    'font_style' => [],
+                    'font_style' => (object)[],
                     'class' => '',
                     'accessibility' => [
                         'website_form',
@@ -624,8 +629,8 @@ class templates extends Seeder
                         'border-radius' => '5px 5px 5px 5px',
                         'transition-duration' => '200ms'
                     ],
-                    'css_hover' => [],
-                    'css_click' => [],
+                    'css_hover' => (object)[],
+                    'css_click' => (object)[],
                     'css_disabled' => [
                         'cursor' => 'not-allowed',
                         'pointer-events' => 'none',
@@ -1215,7 +1220,9 @@ class templates extends Seeder
                                 'attr' => ['sort' => '0'],
                                 'general_class' => '1',
                                 'is_responsive' => '0',
-                                'accessibility' => [],
+                                'accessibility' => [
+                                    'interactions','can_hover','can_click',
+                                ],
                                 'css' => [
                                     'fill' => 'rgba(var(--color_4_1),1)',
                                     'stroke' => 'rgba(var(--color_4_1),1)',
@@ -1429,6 +1436,7 @@ class templates extends Seeder
                             'animation-duration' => '400ms',
                             'padding' => '0px 0px 0px 0px',
                             'min-width' => '400px',
+                            'min-height' => '200px',
                         ],
                         'css_mobile' => [
                             'width' => 'calc(100% - 20px)',
@@ -1441,7 +1449,7 @@ class templates extends Seeder
                             'popup_close' => [
                                 'tag' => 'svg',
                                 'class_selector' => 'popup_close_icon',
-                                'accessibility' => [],
+                                'accessibility' => ['interactions','can_hover','can_click'],
                                 'class' => 'popup_close',
                                 'css' => [
                                     'position' => 'absolute',
@@ -1468,10 +1476,10 @@ class templates extends Seeder
                                     'fill' => 'rgba(var(--color_4_4),1)',
                                     'stroke' => 'rgba(var(--color_4_4),1)'
                                 ],
-                                'css_hover' => [],
-                                'css_hover_mobile' => [],
-                                'css_click' => [],
-                                'css_click_mobile' => [],
+                                'css_hover' => (object)[],
+                                'css_hover_mobile' => (object)[],
+                                'css_click' => (object)[],
+                                'css_click_mobile' => (object)[],
                                 'attr' => [
                                     'viewBox' => '0 0 1024 1024',
                                     'xmlns' => 'http://www.w3.org/2000/svg'
@@ -1539,6 +1547,7 @@ class templates extends Seeder
                     [
                         'general_html' => 'form_elements.form_input_box',
                         'replace' => [
+                            '_name' => 'hidden',
                             'class' => 'login_password',
                             'children.input_label.text.key' => 'authentication.password',
                             'children.input_box.placeholder.key' => 'authentication.password',
@@ -1649,6 +1658,7 @@ class templates extends Seeder
                     [
                         'general_html' => 'form_elements.form_input_box',
                         'replace' => [
+                            '_name' => 'hidden',
                             'class' => 'signup_email',
                             'children.input_label.text.key' => 'authentication.email',
                             'children.input_box.placeholder.key' => 'authentication.email',
@@ -1658,6 +1668,7 @@ class templates extends Seeder
                     [
                         'general_html' => 'form_elements.form_input_box',
                         'replace' => [
+                            '_name' => 'hidden',
                             'class' => 'signup_password',
                             'children.input_label.text.key' => 'authentication.password',
                             'children.input_box.placeholder.key' => 'authentication.password',
@@ -1667,6 +1678,7 @@ class templates extends Seeder
                     [
                         'general_html' => 'form_elements.form_input_box',
                         'replace' => [
+                            '_name' => 'hidden',
                             'class' => 'signup_password_confirm',
                             'children.input_label.text.key' => 'authentication.confirm_password',
                             'children.input_box.placeholder.key' => 'authentication.confirm_password',
@@ -1778,9 +1790,219 @@ class templates extends Seeder
                         'access_key_tree' => 'form_elements.form_button',
                         'tag' => 'button',
                         'general_class_selector' => 'form_button',
-                        'text' => ['key' => 'authentication.reset_password_send_link'],
+                        'text' => ['key' => 'authentication.reset_password_send_code'],
                         'class' => 'reset_password_1_button',
                     ],
+                ]
+            ]),
+            'reset_password_2' => json_encode([
+                'type' => 'form_elements',
+                'name' => 'Reset password setp 3 Form',
+                'access_key_tree' => 'form_elements.website_form',
+                'tag' => 'div',
+                "general_class_selector" => "website_form",
+                'children' => [
+                    [
+                        'general_html' => 'form_elements.form_loading_spinner',
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_title',
+                        'access_key_tree' => 'form_elements.form_title',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_title",
+                        'text' => ['key' => 'authentication.reset_password'],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_message',
+                        'access_key_tree' => 'form_elements.form_message',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_message",
+                        'text' => ['key' => 'authentication.reset_password_sent'],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'reset_password_2_code',
+                            'children.input_label.text.key' => 'authentication.reset_password_code',
+                            'children.input_box.placeholder.key' => 'authentication.reset_password_code',
+                            'children.input_box.attr.type' => 'text',
+                        ],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_button',
+                        'access_key_tree' => 'form_elements.form_button',
+                        'tag' => 'button',
+                        'general_class_selector' => 'form_button',
+                        'text' => ['key' => 'other.confirm'],
+                        'class' => 'reset_password_2_button',
+                    ],
+                    
+                ]
+            ]),
+            'reset_password_3' => json_encode([
+                'type' => 'form_elements',
+                'name' => 'Reset password setp 2 Form',
+                'access_key_tree' => 'form_elements.website_form',
+                'tag' => 'div',
+                "general_class_selector" => "website_form",
+                'children' => [
+                    [
+                        'general_html' => 'form_elements.form_loading_spinner',
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_title',
+                        'access_key_tree' => 'form_elements.form_title',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_title",
+                        'text' => ['key' => 'authentication.reset_password'],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_message',
+                        'access_key_tree' => 'form_elements.form_message',
+                        'tag' => 'div',
+                        "general_class_selector" => "form_message",
+                        'text' => ['key' => 'authentication.reset_password_enter_new_password'],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            'class' => 'reset_password_3_password',
+                            'children.input_label.text.key' => 'authentication.password',
+                            'children.input_box.placeholder.key' => 'authentication.password',
+                            'children.input_box.attr.type' => 'password',
+                        ],
+                    ],
+                    [
+                        'general_html' => 'form_elements.form_input_box',
+                        'replace' => [
+                            '_name' => 'hidden',
+                            'class' => 'reset_password_3_password_confirm',
+                            'children.input_label.text.key' => 'authentication.confirm_password',
+                            'children.input_box.placeholder.key' => 'authentication.confirm_password',
+                            'children.input_box.attr.type' => 'password',
+                        ],
+                    ],
+                    [
+                        'type' => 'form_element',
+                        'form_element' => 'form_button',
+                        'access_key_tree' => 'form_elements.form_button',
+                        'tag' => 'button',
+                        'general_class_selector' => 'form_button',
+                        'text' => ['key' => 'other.save'],
+                        'class' => 'reset_password_3_button',
+                    ],
+                ]
+            ]),
+            'account' => json_encode([
+                [
+                    'name' => 'User profile section',
+                    'sort' => 0,
+                    'type' => 'section',
+                    'tag' => 'section',
+                    'accessibility' => [
+                        'user_account_section',
+                        'interactions','can_hover',
+                        'add_section',
+                        'section_swap',
+                        'section_sizing',
+                        'section_spacing',
+                        'section_adapt_header', 
+                        'section_driver',
+                        'background','background_gradient','background_image',
+                    ],
+                    'class_selector' => 'user_account_section',
+                    'css' => [
+                        'position' => 'relative',
+                        'box-sizing' => 'border-box',
+                        'width' => '100%',
+                    ],
+                    'attr' => [
+                        'adapt_header' => '0',
+                        'adapt_header_color' => 'rgba(var(--color_4_7),1)',
+                    ],
+                    'class' => '',
+                    'has_driver' => '0',
+                    'driver' => $driver,
+                    'children' => [
+                        'section_wrapper' => [
+                            'tag' => 'div',
+                            'type' => 'section_wrapper',
+                            'class_selector' => 'section_wrapper_user_account_section',
+                            'css' => [
+                                'grid-template-areas' => "'elem1'",
+                                'grid-template-columns' => 'repeat(1, 1fr)',
+
+                                'box-sizing' => 'border-box',
+                                'position' => 'relative',
+                                'display' => 'grid',
+                                'padding-right' =>'0px',
+                                'padding-left' =>'0px',
+                                'margin-right' => 'auto',
+                                'margin-left' => 'auto',
+                
+                                'max-width' => 'var(--page_max_width)',
+                                'min-height' => '500px',
+                                'padding-top' => '100px',
+                                'padding-bottom' => '100px',
+                                'grid-gap' => '10px',
+                                'margin-top' => '0px',
+                                'margin-bottom' => '0px',
+                            ],
+                            'css_mobile' => [
+                                'grid-template-areas' => "'elem1'",
+                                'grid-template-columns' => 'repeat(1, 1fr)',
+                            ],
+                            'children' => [
+                                [
+                                    'type' => 'section_block',
+                                    'tag' => 'div',
+                                    'accessibility' => [
+                                        'interactions','can_hover',
+                                        'alignment',
+                                        'arrange',
+                                        'spacing','margin','padding',
+                                        'styling','border','border_radius','box_shadow',
+                                        'animation',
+                                        'background','background_gradient','background_backdrop_filter','background_image',
+                                        'block_elems',
+                                    ],
+                                    'class' => 'user_account',
+                                    'class_selector' => 'section_block_user_account',
+                                    'css' => [
+                                        'display' => 'flex',
+                                        'position' => 'relative',
+                                        'box-sizing' => 'border-box',
+                                        'grid-area' => "'elem1'",
+                                        'z-index' =>'1',
+                                        'flex-direction' => 'column',
+                                        'flex-wrap' => 'nowrap',
+                                        'align-items' => 'center',
+                                        'justify-content' => 'center',
+                                        'margin' =>'0px 0px 0px 0px',
+                                        'padding' =>'0px 0px 0px 0px',
+                                        'overflow' =>'visible',
+                                    ],
+                                    'css_mobile' => [
+                                        'flex-direction' => 'column',
+                                        'flex-wrap' => 'nowrap',
+                                        'align-items' => 'center',
+                                        'justify-content' => 'center',
+                                        'margin' =>'0px 0px 0px 0px',
+                                        'padding' =>'0px 0px 0px 0px',
+                                        'overflow' =>'visible',
+                                    ],
+                                    'children' => [
+
+                                    ]
+                                ],
+                            ]
+                        ]
+                    ]
                 ]
             ]),
             

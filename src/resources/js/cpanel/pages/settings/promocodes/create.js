@@ -1,13 +1,11 @@
 
 let promocodeDiscountUpInterval = null;
 let promocodeDiscountDownInterval = null;
-$('html,body').on('click','#createPromocode-discountU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createPromocode-discountU',function(e){
     if($('#createPromocode-discount').text() >= 100){return;}
     $('#createPromocode-discount').text(parseInt($('#createPromocode-discount').text()) + 1);
 })
-$('html,body').on('mousedown','#createPromocode-discountU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown','#createPromocode-discountU',function(e){
     promocodeDiscountUpInterval = setInterval(function(){
         if($('#createPromocode-discount').text() == 100){clearInterval(promocodeDiscountUpInterval);return;}
         $('#createPromocode-discount').text(parseInt($('#createPromocode-discount').text()) + 1);
@@ -15,13 +13,11 @@ $('html,body').on('mousedown','#createPromocode-discountU',function(e){
 }).on('mouseleave mouseup',function(){
     clearInterval(promocodeDiscountUpInterval)
 })
-$('html,body').on('click','#createPromocode-discountD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createPromocode-discountD',function(e){
     if($('#createPromocode-discount').text() <= 1){return;}
     $('#createPromocode-discount').text(parseInt($('#createPromocode-discount').text()) - 1);
 })
-$('html,body').on('mousedown','#createPromocode-discountD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown','#createPromocode-discountD',function(e){
     promocodeDiscountDownInterval = setInterval(function(){
     if($('#createPromocode-discount').text() == 1){clearInterval(promocodeDiscountDownInterval);return;}
         $('#createPromocode-discount').text(parseInt($('#createPromocode-discount').text()) - 1);
@@ -32,22 +28,19 @@ $('html,body').on('mousedown','#createPromocode-discountD',function(e){
 
 
 
-$('html,body').on('click change','#createPromocode-isExpire',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click change','#createPromocode-isExpire',function(e){
     if($(this).prop('checked') == true){
         $('#datePicker-promocodesContainer').parent().removeClass('none')
     }else{
         $('#datePicker-promocodesContainer').parent().addClass('none')
     }
 })
-$('html,body').on('click','#createPromocode-isOneUse',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createPromocode-isOneUse',function(e){
     if($('#createPromocode-isGuest').prop('checked') == true && $('#createPromocode-isOneUse').prop('checked') == true){
         $('#createPromocode-isGuest').prop('checked',false)
     }
 })
-$('html,body').on('click','#createPromocode-isGuest',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createPromocode-isGuest',function(e){
     if($('#createPromocode-isGuest').prop('checked') == true && $('#createPromocode-isOneUse').prop('checked') == true){
         showAlert('error',texts.settings.promocodeGuestNo,4000,true);
         setTimeout(function(){
@@ -58,8 +51,7 @@ $('html,body').on('click','#createPromocode-isGuest',function(e){
 
 
 
-$('html,body').on('click','#createPromocode-createBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createPromocode-createBtn',function(e){
     if(account.authorities[4] == 0){return;}
     if(!coolDownChecker()){return;}
     if(plans[website.plan].promocodes <= Object.keys(window.promocodes).length ){

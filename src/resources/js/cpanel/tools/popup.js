@@ -1,6 +1,5 @@
 
-$('html,body').on('click','.popupContainer',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('click','.popupContainer',function(e){
     if(
         $('.popupCard:hover').length > 0
         || $('.popupCard').attr('popup') == 'connectionLost'
@@ -10,8 +9,7 @@ $('html,body').on('click','.popupContainer',function(e){
     closePopup();
 })
 ////////////
-$('html,body').on('click','.popupClose',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.popupClose',function(e){
     e.preventDefault();
     $('.popupContainer').addClass('none');
 })

@@ -9,19 +9,17 @@ require('./placeNewOrder/check_functions.js')//done//
 require('./placeNewOrder/check_events.js')//done//
 //
 require('./placeNewOrder/load.js')//done//
-require('./placeNewOrder/reset.js')//done//
 //
 
-$('html,body').on('click','#placeOrder-cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#placeOrder-cancelBtn',function(e){
     window.placeOrder = {
         isGuest:false,
         user_id:null,
         userName:null,
-        phoneNumber:'',
-        address:'',
-        lat:'0',
-        lng:'0',
+        phoneNumber:null,
+        address:null,
+        lat:null,
+        lng:null,
         type:'2',
         notice:'',
         paymentMethod:null,
@@ -30,11 +28,11 @@ $('html,body').on('click','#placeOrder-cancelBtn',function(e){
         discount:0,
     }
     popupPageClose(true)
+    placeOrder_set('type');
 
 })
 //
-$('html,body').on('click','#placeOrder-btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#placeOrder-btn',function(e){
 
     if(!window.placeOrder.isGuest && window.placeOrder.user_id == null ||  !window.placeOrder.isGuest && window.placeOrder.userName == null ){
         showAlert('error',texts.orders.placeOrderErrorSelectUser,4000,true);
@@ -43,17 +41,14 @@ $('html,body').on('click','#placeOrder-btn',function(e){
         return;
     }
     if(
-        window.placeOrder.type == '0' && window.placeOrder.phoneNumber == '' ||
-        window.placeOrder.type == '1' && window.placeOrder.phoneNumber == '' ||
-        window.placeOrder.type == '2' && window.placeOrder.phoneNumber == ''
-
+        window.placeOrder.phoneNumber == null
     ){
         showAlert('error',texts.orders.placeOrderErrorPhoneNumberRequired,4000,true);
         $('.popupPageTab[tab="order_details"]').trigger('click');
         inputTextError($('#placeOrder-phoneNumber'));
         return;
     }
-    if(window.placeOrder.type == '0' && window.placeOrder.address == ''){
+    if(window.placeOrder.type == '0' && window.placeOrder.address == null){
         showAlert('error',texts.orders.placeOrderErrorAddressRequired,4000,true);
         $('.popupPageTab[tab="order_details"]').trigger('click');
         inputTextError($('#placeOrder-address'));
@@ -103,10 +98,10 @@ $('html,body').on('click','#placeOrder-btn',function(e){
                     isGuest:false,
                     user_id:null,
                     userName:null,
-                    phoneNumber:'',
-                    address:'',
-                    lat:'0',
-                    lng:'0',
+                    phoneNumber:null,
+                    address:null,
+                    lat:null,
+                    lng:null,
                     type:'2',
                     notice:'',
                     paymentMethod:null,
@@ -114,6 +109,7 @@ $('html,body').on('click','#placeOrder-btn',function(e){
                     deliveryCost:parseFloat(website.deliveryCost),
                     discount:0,
                 }
+                placeOrder_set('type');
                 showAlert('success',r.msg,4000,true);
             }else if(r.placeOrderStat == 0){
                 showAlert('error',r.msg,4000,true);

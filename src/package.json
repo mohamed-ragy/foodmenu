@@ -23,5 +23,8 @@
         "sass": "^1.67.0",
         "sass-loader": "^12.6.0",
         "webpack": "^5.88.2"
+    },
+    "dependencies": {
+        "leaflet-draw": "^1.0.4"
     }
 }

@@ -25,10 +25,10 @@ cut = function(){
 }
 remove_cut_elem = function(cut_elem){
     if(cut_elem.type == 'section'){
-        window.template[window.selected_page].splice(cut_elem.sort,1)
+        window.template[window.template.settings.selected_page].splice(cut_elem.sort,1)
         unselect()
-        for(const key in window.template[window.selected_page]){
-            window.template[window.selected_page][key].sort = parseInt(key);
+        for(const key in window.template[window.template.settings.selected_page]){
+            window.template[window.template.settings.selected_page][key].sort = parseInt(key);
         }
         new_action('page')
     }else if(cut_elem.type == 'section_block'){
@@ -65,19 +65,19 @@ paste_section = function(paste_elem){
     let selected_section = get_element_data(window.selected,'section');
     let new_section_sort = parseInt(selected_section.sort) + 1;
     let new_section = JSON.parse(JSON.stringify(paste_elem));
-    for(const key in window.template[window.selected_page]){
-        if(window.template[window.selected_page][key].sort > selected_section.sort ){
-            window.template[window.selected_page][key].sort = parseInt(window.template[window.selected_page][key].sort) + 1
+    for(const key in window.template[window.template.settings.selected_page]){
+        if(window.template[window.template.settings.selected_page][key].sort > selected_section.sort ){
+            window.template[window.template.settings.selected_page][key].sort = parseInt(window.template[window.template.settings.selected_page][key].sort) + 1
         }
     }
     new_section.sort = new_section_sort;
     reset_class_selectors(new_section);
-    window.template[window.selected_page].push((new_section));
-    window.template[window.selected_page].sort((a,b)=>{
+    window.template[window.template.settings.selected_page].push((new_section));
+    window.template[window.template.settings.selected_page].sort((a,b)=>{
         return a.sort - b.sort;
     })
     new_action('page');
-    $('#website').animate({scrollTop:$(`section[key_tree="${window.selected_page}.${new_section.sort}"]`).position().top - 50},300)
+    $('#website').animate({scrollTop:$(`section[key_tree="${window.template.settings.selected_page}.${new_section.sort}"]`).position().top - 50},300)
 }
 paste_section_block = function(paste_elem){
     if(window.selected == null || window.selected === undefined){return false;}

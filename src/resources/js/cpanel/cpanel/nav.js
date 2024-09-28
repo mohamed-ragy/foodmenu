@@ -5,19 +5,12 @@ hideList = function(){
 }
 
 
-$(document).on('click',function(e){
-    // e.stopImmediatePropagation();
-    if(
-    $('#guideHintsList').is(':hover') ||
-    $('#menuOrdersList').is(':hover') ||
-    $('#liveChatMsgsList').is(':hover') ||
-    $('#notificationsList').is(':hover') ||
-    $('#menuList').is(':hover')
-    ){return}
+$('body').on('click',function(e){
+    if($('.navElement:hover').length > 0){return} 
+    if($('.navList:hover').length > 0){return} 
     hideList();
 });
-$('html,body').on('click','.navElement',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.navElement',function(e){
     if(window.waitFor_loadWebsiteOrdersAndChats && $(this).attr('id') != 'Menu' && $(this).attr('id') != 'guideHints' ){return;}
     hideList();
     $(`#${$(this).attr('navListId')}`).removeClass('none');

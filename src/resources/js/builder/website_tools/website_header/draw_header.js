@@ -10,10 +10,10 @@
     console.log('header rendered')
 }
 set_adapted_header = function(){
-    if(window.selected_page == null){return}
-    if(typeof(window.template[window.selected_page][0]) === 'undefined'){return;}
-    if(window.template[window.selected_page][0].attr.adapt_header == '1' && $('#website').scrollTop() == 0){
-        $(':root').css('--adapt_header_color',window.template[window.selected_page][0].attr.adapt_header_color);
+    if(window.template.settings.selected_page == null){return}
+    if(typeof(window.template[window.template.settings.selected_page][0]) === 'undefined'){return;}
+    if(window.template[window.template.settings.selected_page][0].attr.adapt_header == '1' && $('#website').scrollTop() == 0){
+        $(':root').css('--adapt_header_color',window.template[window.template.settings.selected_page][0].attr.adapt_header_color);
         $('.website_header').addClass('adapted_header')
         $('section').first().find('.select_section_title').css('top',$('.website_header').outerHeight())
     }else{

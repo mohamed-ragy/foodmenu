@@ -1,9 +1,7 @@
-$('html,body').on('click','.pageTab_incompleteOrders',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.pageTab_incompleteOrders',function(e){
     drawIncompleteOrdersTable($(this).attr('status'),window.history.state.order_by ?? 'placed_at',window.history.state.sort ?? 'desc')
 })
-$('html,body').on('click','.incompleteOrdersTR',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.incompleteOrdersTR',function(e){
     window.page.order_by = $(this).attr('order_by');
     let sort = 'desc';
     if($(this).find('.incompleteOrdersTRArrow').hasClass('ico-down')){sort = 'asc'}

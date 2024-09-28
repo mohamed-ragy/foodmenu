@@ -14,16 +14,18 @@ set_editor_popup_editor_position_container = function(key_tree){
 $('body').on('mousedown','.container',function(e){
     if($(this).hasClass('edit_container_selected')){return;}
     if($('.elem:hover').length > 0){return}
+    if($('.form_elements:hover').length > 0){return;}
     select($(this).attr('key_tree'))
     $(this).find('.edit_btns').first().addClass('edit_btns_animation_slide_up')
 })
 $('body').on('contextmenu','.container',function(e){
     if($('.elem:hover').length > 0){return}
-
+    if($('.form_elements:hover').length > 0){return;}
     show_contextMenu('container',$(this).attr('key_tree'),{x:e.pageX,y:e.pageY})
 })
 $('body').on('dblclick','.container',function(e){
     if($('.elem:hover').length > 0){return}
+    if($('.form_elements:hover').length > 0){return;}
     draw_editor_popup_section_block_alignment();
 })
 //swap, dublicate and delete .. using elem events

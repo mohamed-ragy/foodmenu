@@ -77,43 +77,76 @@ drawManageUser = function(userId){
                 drawInputText('','ico-phone_number','',texts.users.phoneNumber,'editUser-phoneNumber','text',texts.users.phoneNumber,200,'clearVal','inputTextContainer_100p',user.phoneNumber,false),
 
             ),
-            drawInputText('','ico-address','',texts.users.address,'editUser-address','text',texts.users.address,200,'clearVal','inputTextContainer_100p',user.address,false),
-            $('<div/>',{class:'area mT20',autoHelp:'user_location'}).append(
-                $('<div/>',{class:'areaTitle',text:texts.users.userLocation}),
-                $('<div/>',{id:'editUser-Location',class:'m10 w100p-20 h250 zx1'}),
+            $('<div/>',{class:'area mY30'}).append(
+                $('<div/>',{class:'areaTitle',text:texts.users.addresses}),
+                $('<div/>',{class:'btnContainer mT20 manageUser_add_new_address'}).append(
+                    $('<button/>',{class:'btn btn-cancel',text:texts.users.add_new_address})
+                ),
+                $('<div/>',{id:'editUser-addresses',class:'m10 w100p-20 column alnC jstfyS'}),
             ),
             drawSaveCancelBtns('saveEditUSerBtn','cancelEditUSerBtn','mT40')
         )
     )
     setUserOnlineStatus(user.id,'user')
     setUnseenChat('user',user.id)
-    drawEditUserMap(user.lat,user.lng);
+    drawEditUserAddresses(user);
+}
+drawEditUserAddresses = function (user){
+    let addresses = user.addresses;
+    $('#editUser-addresses').text('')
+    for(const key in addresses){
+        drawEditUserAddress(addresses[key])
+
+    }
+}
+drawEditUserAddress = function(address){
+    let manage_user_address_map;
+    $('#editUser-addresses').append(
+        $('<div/>',{class:'manageUser_address_container brdrT1_w3 pT30 mT30 w100p-60'}).append(
+            $('<div/>',{class:'mX5 w100p-10 row alnC jstfyS'}).append(
+                $('<div/>',{class:'mie-20 fs09',text:texts.users.default_address}),
+                $('<div/>',{class:`manage_user_address_default ${address.is_default == '1' ? 'ico-check1' : 'ico-check0'} pointer`}),
+            ),
+            drawInputText('','ico-address','',texts.users.full_address,'','text',texts.users.full_address,200,'clearVal','inputTextContainer_100p',address.address,false,'manage_user_full_address'),
+            $('<div/>',{class:'area mT20',autoHelp:'user_location'}).append(
+                $('<div/>',{class:'areaTitle',text:texts.users.address_location}),
+                manage_user_address_map = $('<div/>',{class:'manage_user_address_map m10 w100p-20 h250 zx1'}),
+            ),
+            $('<div/>',{class:'btnContainer'}).append(
+                $('<button/>',{class:'btn btn-delete manage_user_remove_address',text:texts.users.removeAddress})
+            )
+        )
+    )
+    drawEditUserAddressMap(address,manage_user_address_map)
 }
 
-drawEditUserMap = function(lat,lng){
-    window.editUserMap = L.map('editUser-Location').setView([0,0],2);
+drawEditUserAddressMap = function(address,map_element){
+    let map = L.map(map_element[0]).setView([0,0],2);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
             '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors' +
             ', Tiles courtesy of <a href="https://geo6.be/">GEO-6</a>',
-    }).addTo(window.editUserMap);
+    }).addTo(map);
 
-    window.editUserMapIcon = L.icon({
+    let icon = L.icon({
         iconUrl: '/storage/imgs/marker-icon.png',
         iconSize:     [25, 41], // size of the icon
         iconAnchor:   [12.5, 41], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -41] // point from which the popup should open relative to the iconAnchor
     });
-    window.editUserMapMarker = L.marker([0,0],{icon: window.editUserMapIcon}).addTo(window.editUserMap);
-    window.editUserMap.on('click',function(e){
-        window.editUserMapMarker.setLatLng(e.latlng);
-        window.editUserMap.addLayer(window.editUserMapMarker)
+
+    let marker = L.marker([0,0],{icon: icon}).addTo(map);
+
+    map.on('click',function(e){
+        marker.setLatLng(e.latlng);
+        map.addLayer(marker)
     });
-    window.editUserMap.invalidateSize();
-    $('#editUser-Location').find('.leaflet-control-zoom-in').text('').addClass('ico-plus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomIn)
-    $('#editUser-Location').find('.leaflet-control-zoom-out').text('').addClass('ico-minus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomOut)
-    $('#editUser-Location').find('.leaflet-control-zoom').append(
+
+    map.invalidateSize();
+    map_element.find('.leaflet-control-zoom-in').text('').addClass('ico-plus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomIn)
+    map_element.find('.leaflet-control-zoom-out').text('').addClass('ico-minus fs08').attr('title',null).attr('tooltip',texts.cpanel.public.zoomOut)
+    map_element.find('.leaflet-control-zoom').append(
         $('<a/>',{
             class:'fs105 row editUser-unsetLocation relative',
             'aria-disabled':false,
@@ -125,10 +158,13 @@ drawEditUserMap = function(lat,lng){
             $('<div/>',{class:'btnTxt ico-no ma'}),
         )
     )
-    if(lat != 0 || lng != 0){
-        window.editUserMapMarker.setLatLng([lat,lng]);
-        window.editUserMap.addLayer(window.editUserMapMarker).setView([lat,lng],15)
+    if(address.lat !== null && address.lng !== null){
+        marker.setLatLng([address.lat,address.lng]);
+        map.addLayer(marker).setView([address.lat,address.lng],15)
     }else{
-        window.editUserMap.removeLayer(window.editUserMapMarker)
+        map.removeLayer(marker).setView([0,0],1)
     }
+
+    map_element[0]._map = map;
+    map_element[0]._marker = marker;
 }

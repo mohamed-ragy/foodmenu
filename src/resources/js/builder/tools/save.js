@@ -16,6 +16,7 @@ save = function(){
             popup_window:0,
             home:0,
             login:0,
+            account:0,
         }
         if(JSON.stringify(window.template.settings) != JSON.stringify(window.last_saved_template.settings)){
             save_template.settings = JSON.stringify(window.template.settings);
@@ -37,6 +38,9 @@ save = function(){
         }
         if(JSON.stringify(window.template.home) != JSON.stringify(window.last_saved_template.home)){
             save_template.home = JSON.stringify(window.template.home);
+        }
+        if(JSON.stringify(window.template.account) != JSON.stringify(window.last_saved_template.account)){
+            save_template.account = JSON.stringify(window.template.account);
         }
         $.ajax({
             url:'api',

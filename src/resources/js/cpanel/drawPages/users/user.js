@@ -42,6 +42,13 @@ drawPopupPage_user =function(user){
     let userIconClass;let usericonTooltip;
     user.isBanned ? userIconClass ='ico-userBlock cR fs1' : userIconClass = 'ico-user fs1';
     user.isBanned ? usericonTooltip = texts.users.bannedUser : usericonTooltip = null;
+    let user_addresses =$('<ul/>',{class:'m0 p0 pis-20'});
+    for(const key in user.addresses){
+        user_addresses.append(
+            $('<li/>',{class:`${user.addresses[key].is_default == '1' ? 'bold600' : ''}`,text:user.addresses[key].address})
+        )
+    }
+
     $('#popupPageBody').text('').addClass('mxw100p-40 p20').append(
         $('<div/>',{class:'column alnS jstfyS'}).append(
             $('<div/>',{class:'row alnBL jstfyS mX10'}).append(
@@ -66,11 +73,11 @@ drawPopupPage_user =function(user){
                 ),
                 $('<div/>',{class:'fs085 mT10 row alnBL jstfyS'}).append(
                     $('<span/>',{class:'ico-phone_number mie-5',tooltip:texts.users.userPhoneNumber}),
-                    $('<span/>',{text:user.phoneNumber})
+                    $('<span/>',{text:user.phoneNumber == null ? texts.users.user_no_phone_number : user.phoneNumber})
                 ),
                 $('<div/>',{class:'fs085 mT10 row alnBL jstfyS'}).append(
-                    $('<span/>',{class:'ico-address mie-5',tooltip:texts.users.userAddress}),
-                    $('<span/>',{text:user.address})
+                    $('<span/>',{class:'ico-address mie-5',tooltip:texts.users.userAddresses}),
+                    user.addresses.length == 0 ? $('<span/>',{text:texts.users.user_no_address}) : user_addresses,
                 ),
                 $('<div/>',{class:'fs085 mT10 row alnBL jstfyS'}).append(
                     $('<span/>',{class:'ico-user mie-5',tooltip:texts.users.userSignedUp}),

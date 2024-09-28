@@ -1,5 +1,4 @@
-$('html,body').on('click','#account-changePassword_btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-changePassword_btn',function(e){
     if($('#account-current_password').val() == '' || $('#account-new_password').val() == '' || $('#account-new_password_confirm').val() == ''){return;}
     showPopup('changePasswordConfirm',function(){
         $('.popupBody').append(
@@ -17,8 +16,7 @@ $('html,body').on('click','#account-changePassword_btn',function(e){
         )
     })
 })
-$('html,body').on('click','#account-newPassword-confirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-newPassword-confirm',function(e){
     showBtnLoading($('#account-changePassword_btn'));
     showBtnLoading($('#account-newPassword-confirm'));
     let oldPassword = $('#account-current_password').val();

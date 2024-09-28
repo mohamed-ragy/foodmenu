@@ -14,7 +14,7 @@ checkSocailMediaLinksNoSave = function(){
         return false;
     }
 }
-$('html,body').on('input change','#settings-facebookLink,#settings-twitterLink,#settings-youtubeLink,#settings-linkedinLink,#settings-instagramLink',function(){
+$('body').on('input change','#settings-facebookLink,#settings-twitterLink,#settings-youtubeLink,#settings-linkedinLink,#settings-instagramLink',function(){
     website_temp.facebookLink = $('#settings-facebookLink').val();
     website_temp.twitterLink = $('#settings-twitterLink').val();
     website_temp.youtubeLink = $('#settings-youtubeLink').val();
@@ -23,7 +23,7 @@ $('html,body').on('input change','#settings-facebookLink,#settings-twitterLink,#
     restaurant_information_unsave_chack();
 });
 
-$('html,body').on('click','#settings-socialMediaLinksCancelBtn',function(){
+$('body').on('click','#settings-socialMediaLinksCancelBtn',function(){
     website_temp.facebookLink = website.facebookLink;
     website_temp.twitterLink = website.twitterLink;
     website_temp.youtubeLink = website.youtubeLink;
@@ -36,7 +36,7 @@ $('html,body').on('click','#settings-socialMediaLinksCancelBtn',function(){
     $('#settings-instagramLink').val(website.instagramLink);
     restaurant_information_unsave_chack();
 });
-$('html,body').on('click','#settings-socialMediaLinksSaveBtn',function(){
+$('body').on('click','#settings-socialMediaLinksSaveBtn',function(){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#settings-socialMediaLinksSaveBtn'))
     $.ajax({

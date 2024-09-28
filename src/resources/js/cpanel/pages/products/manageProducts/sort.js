@@ -69,8 +69,7 @@ sortProducts = function(){
 }
 
 
-$('html,body').on('mousedown touchstart','.manageProductCardMove',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','.manageProductCardMove',function(e){
     e.preventDefault();
     productCardOnMove = true;
     productCardOnMoveFrom = $(this).closest('.manageProductCardContainer').attr('product');

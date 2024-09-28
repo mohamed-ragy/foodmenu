@@ -1,5 +1,4 @@
-$('html,body').on('click','.promocodeDeleteBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.promocodeDeleteBtn',function(e){
     let promocode = window.promocodes.find(item=> item.id == $(this).attr('promocode'));
     if(typeof(promocode) === 'undefined'){return;}
     showPopup('delete-popup',function(){
@@ -20,8 +19,7 @@ $('html,body').on('click','.promocodeDeleteBtn',function(e){
         )
     })
 })
-$('html,body').on('click','#deletePromocode-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deletePromocode-confirmBtn',function(e){
     if(!coolDownChecker()){return}
     let promocode = window.promocodes.find(item=> item.id == $(this).attr('promocode'));
     if(typeof(promocode) === 'undefined'){return;}

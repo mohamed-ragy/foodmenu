@@ -28,14 +28,14 @@ $('body').on('click','.swap_section_down_btn',function(e){
     if(!accessibility_check(window.selected,'section_swap')){return;}
     let section_from = get_element_data(window.selected);
     let section_sort = section_from.sort
-    let section_to = window.template[window.selected_page].find(item=> item.sort == (section_sort) + (1));
+    let section_to = window.template[window.template.settings.selected_page].find(item=> item.sort == (section_sort) + (1));
     section_from.sort = (section_sort) + (1);
     section_to.sort = section_sort;
-    $(`section[key_tree="${window.selected_page}.${section_sort}"]`).css({
-        'transform':`translateY(${$(`section[key_tree="${window.selected_page}.${(section_sort) + (1)}"]`).height()}px)`,
+    $(`section[key_tree="${window.template.settings.selected_page}.${section_sort}"]`).css({
+        'transform':`translateY(${$(`section[key_tree="${window.template.settings.selected_page}.${(section_sort) + (1)}"]`).height()}px)`,
     })
-    $(`section[key_tree="${window.selected_page}.${(section_sort) + (1)}"]`).css({
-        'transform':`translateY(-${$(`section[key_tree="${window.selected_page}.${section_sort}"]`).height()}px)`,
+    $(`section[key_tree="${window.template.settings.selected_page}.${(section_sort) + (1)}"]`).css({
+        'transform':`translateY(-${$(`section[key_tree="${window.template.settings.selected_page}.${section_sort}"]`).height()}px)`,
     })
     setTimeout(()=>{
         new_action('page');
@@ -47,14 +47,14 @@ $('body').on('click','.swap_section_up_btn',function(e){
     if(!accessibility_check(window.selected,'section_swap')){return;}
     let section_from = get_element_data(window.selected);
     let section_sort = section_from.sort
-    let section_to = window.template[window.selected_page].find(item=> item.sort == (section_sort) - (1));
+    let section_to = window.template[window.template.settings.selected_page].find(item=> item.sort == (section_sort) - (1));
     section_from.sort = (section_sort) - (1);
     section_to.sort = section_sort;
-    $(`section[key_tree="${window.selected_page}.${section_sort}"]`).css({
-        'transform':`translateY(-${$(`section[key_tree="${window.selected_page}.${(section_sort) - (1)}"]`).height()}px)`,
+    $(`section[key_tree="${window.template.settings.selected_page}.${section_sort}"]`).css({
+        'transform':`translateY(-${$(`section[key_tree="${window.template.settings.selected_page}.${(section_sort) - (1)}"]`).height()}px)`,
     })
-    $(`section[key_tree="${window.selected_page}.${(section_sort) - (1)}"]`).css({
-        'transform':`translateY(${$(`section[key_tree="${window.selected_page}.${section_sort}"]`).height()}px)`,
+    $(`section[key_tree="${window.template.settings.selected_page}.${(section_sort) - (1)}"]`).css({
+        'transform':`translateY(${$(`section[key_tree="${window.template.settings.selected_page}.${section_sort}"]`).height()}px)`,
     })
     setTimeout(()=>{
         new_action('page');
@@ -67,25 +67,25 @@ $('body').on('click','.dublicate_section_btn',function(e){
     if(!accessibility_check(window.selected,'section_dublicate')){return;}
     let section = get_element_data(window.selected);
     let new_section = JSON.parse(JSON.stringify(section));
-    $(`section[key_tree="${window.selected_page}.${$(this).attr('section')}"]`).css({
-        'margin-bottom': `${ $(`section[key_tree="${window.selected_page}.${$(this).attr('section')}"]`).height()}px`
+    $(`section[key_tree="${window.template.settings.selected_page}.${$(this).attr('section')}"]`).css({
+        'margin-bottom': `${ $(`section[key_tree="${window.template.settings.selected_page}.${$(this).attr('section')}"]`).height()}px`
     })
     setTimeout(()=>{
-        for(const key in window.template[window.selected_page]){
-            if(window.template[window.selected_page][key].sort > new_section.sort ){
-                window.template[window.selected_page][key].sort = parseInt(window.template[window.selected_page][key].sort) + 1
+        for(const key in window.template[window.template.settings.selected_page]){
+            if(window.template[window.template.settings.selected_page][key].sort > new_section.sort ){
+                window.template[window.template.settings.selected_page][key].sort = parseInt(window.template[window.template.settings.selected_page][key].sort) + 1
             }
         }
         new_section.sort = parseInt(new_section.sort) + 1
         new_section.name = texts.copy_untitled_section.replace(':name:',new_section.name)
         reset_class_selectors(new_section)
-        window.template[window.selected_page].push((new_section));
-        window.template[window.selected_page].sort((a,b)=>{
+        window.template[window.template.settings.selected_page].push((new_section));
+        window.template[window.template.settings.selected_page].sort((a,b)=>{
             return a.sort - b.sort;
         })
         new_action('page');
         unselect()
-        $('#website').animate({scrollTop:$(`section[key_tree="${window.selected_page}.${new_section.sort}"]`).position().top - 50},300)
+        $('#website').animate({scrollTop:$(`section[key_tree="${window.template.settings.selected_page}.${new_section.sort}"]`).position().top - 50},300)
     },200)
 
 });

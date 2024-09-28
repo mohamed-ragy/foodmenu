@@ -16,7 +16,6 @@ draw_editor_header_drop_down_list = function(){
                             variable_key:'css',
                             key:'gap',
                             units:['px'],
-                            step:1,
                         })
                     ),
                 ]
@@ -52,7 +51,6 @@ draw_editor_header_drop_down_list_item = function(){
                                 key_tree:window.selected,
                                 variable_key:'css',
                                 key:'font-size',
-                                step:1,
                                 units:['px','em']
                             })
                         ),

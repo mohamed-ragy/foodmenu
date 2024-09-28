@@ -75,7 +75,6 @@ return [
     'downgradeFail_products' => 'The <b>:plan:</b> allows you to have a maximum of <b>:max:</b> products. You already have <b>:created:</b> products created.',
     'downgradeFail_productOptions1' => 'The <b>:plan:</b> allows for a maximum of <b>:max:</b> variant(s) per product. You have exceeded this limit of variants in <b>:created:</b> products.',
     'downgradeFail_productOptions2' => 'The <b>:plan:</b> allows for a maximum of <b>:max:</b> variant(s) per product. You have exceeded this limit of variants in <b>:created:</b> product.',
-    'downgradeFail_specialDomainName' => 'The <b>:plan:</b> does not include the option for a website domain name. A domain name is provided to you since you subscribed to the premium plan. For further assistance, kindly submit a help ticket or contact us on support@food-menu.net',
     'downgradeFail_storage' => 'The <b>:plan:</b> allows for image storage of up to <b>:max:</b> MBs. Your current image storage is <b>:created:</b> MBs.',
     'downgradeFail_deliveryAccounts' => 'The <b>:plan:</b> allows you to have a maximum of <b>:max:</b> delivery accounts. You already have <b>:created:</b> accounts created.',
     'downgradeFail_websiteLangs' => 'The <b>:plan:</b> allows you to have <b>:max:</b> language(s) available for your website. You currently have <b>:created:</b> languages used.',

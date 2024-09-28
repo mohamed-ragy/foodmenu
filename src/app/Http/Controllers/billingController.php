@@ -29,7 +29,7 @@ class billingController extends Controller
     protected $lang;
     public function __construct(Request $request)
     {
-        $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+        // $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         // dd($stripe->subscriptions->retrieve(
         //     'sub_1NdERRIYxD8tIsOHkd3nGS6w',
         //     []
@@ -172,7 +172,6 @@ class billingController extends Controller
 
                 }
             }
-            $specialDomainName = $website->specialDomainName;
             $storage =(img::where('website_id',$website_id)->sum('size') / 1024 / 1024 );
             $deliveryAccounts = delivery::where('website_id',$website_id)->count();
             $websiteLangs = count($website->languages);
@@ -204,13 +203,6 @@ class billingController extends Controller
                     'current' => $productOptions,
                     'plan_request' =>$plan_request['productOptions'],
                     'productOptions_products' => $productOptions_products,
-                ];
-                $downGradeValid = false;
-            }
-            if($plan_request['specialDomainName'] == false && $specialDomainName != null){
-                $errors->specialDomainName = [
-                    'current' => $specialDomainName,
-                    'plan_request' =>$plan_request['specialDomainName']
                 ];
                 $downGradeValid = false;
             }
@@ -300,7 +292,7 @@ class billingController extends Controller
             }
         }
         else if($request->has('createPaymentIntent')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id'])->first();
             $intent = $stripe->setupIntents->create([
                 'customer' => $website->customer_id,
@@ -309,7 +301,7 @@ class billingController extends Controller
             return response($intent);
         }
         else if($request->has('setPaymentMethodDefault')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id','subscription_status'])->first();
             if($website->subscription_status == 'canceled' || $website->subscription_status == 'incomplete_expired'){return;}
             $paymentMethod_id = payment_method::where(['website_id'=>Auth::guard('account')->user()->website_id,'id'=>$request->setPaymentMethodDefault])->pluck('paymentMethod_id')->first();
@@ -319,14 +311,14 @@ class billingController extends Controller
             );
         }
         else if($request->has('deletePaymentMethod')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $paymentMethod = payment_method::where(['website_id'=>Auth::guard('account')->user()->website_id,'id'=>$request->deletePaymentMethod])->select(['paymentMethod_id','is_default'])->first();
             if($paymentMethod->is_default == 0){
                 $stripe->paymentMethods->detach($paymentMethod->paymentMethod_id,[]);
             }
         }
         else if($request->has('retryPlanPayment')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
             $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
             $invoice = $stripe->invoices->retrieve($subscription->latest_invoice,[]);
@@ -339,14 +331,14 @@ class billingController extends Controller
 
         }
         else if($request->has('getLastInvoice')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
             $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
             $lastInvoice = $stripe->invoices->retrieve($subscription->latest_invoice,['expand' => ['payment_intent']]);
             return response(['lastInvoice'=>$lastInvoice]);
         }
         else if($request->has('activate_plan')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['plan','billingPeriod','customer_id'])->first();
             $plan = collect(foodmenuFunctions::plans())->where('name',$website->plan)->first();
             if($website->billingPeriod == 'year'){$price_id = $plan['yearlyId'];}else if($website->billingPeriod == 'month'){$price_id = $plan['monthlyId'];}
@@ -367,7 +359,7 @@ class billingController extends Controller
             }
         }
         else if($request->has('activate_planAndPay')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['plan','billingPeriod','customer_id'])->first();
             $plan = collect(foodmenuFunctions::plans())->where('name',$website->plan)->first();
             if($website->billingPeriod == 'year'){$price_id = $plan['yearlyId'];}else if($website->billingPeriod == 'month'){$price_id = $plan['monthlyId'];}
@@ -417,7 +409,7 @@ class billingController extends Controller
                 return response(['cancelSubscriptionStatus' => 2, 'msg' => Lang::get('cpanel/login.accountBlocked') ]);
             }
             if( Hash::check($request->password,Account::where('id',Auth::guard('account')->user()->id)->pluck('password')->first())){
-                $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+                $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
                 $subscription_id = website::where('id',Auth::guard('account')->user()->website_id)->pluck('subscription_id')->first();
                 $subscription = $stripe->subscriptions->retrieve($subscription_id,[]);
                 if($subscription->delete()){
@@ -433,7 +425,7 @@ class billingController extends Controller
             return response(['subscriptionStatus'=>$subscriptionStatus]);
         }
         else if($request->has('changePlan')){
-            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','billingPeriod','plan','specialDomainName','languages'])->first();
+            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','billingPeriod','plan','languages'])->first();
             $plan_request = foodmenuFunctions::plans()[$request->changePlan];
             $checkDowngrade = self::checkDowngrade($website,$plan_request,$request->changePlan);
             if($website->subscription_status == 'incomplete_expired'
@@ -460,8 +452,8 @@ class billingController extends Controller
             }
         }
         else if($request->has('calcUpdateSubscription')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','customer_id','subscription_id','plan','billingPeriod','specialDomainName','languages'])->first();
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
+            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','customer_id','subscription_id','plan','billingPeriod','languages'])->first();
             if($website->subscription_status == 'incomplete_expired'
                 || $website->subscription_status == 'canceled'
                 || $website->subscription_status == 'unpaid'
@@ -516,8 +508,8 @@ class billingController extends Controller
             }
         }
         else if($request->has('updateSubscription')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
-            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','customer_id','subscription_id','plan','billingPeriod','specialDomainName','languages'])->first();
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
+            $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['subscription_status','customer_id','subscription_id','plan','billingPeriod','languages'])->first();
             if($website->subscription_status == 'incomplete_expired'
                 || $website->subscription_status == 'canceled'
                 || $website->subscription_status == 'unpaid'
@@ -563,7 +555,7 @@ class billingController extends Controller
         }
         
         else if($request->has('refund')){
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $website = website::where('id',Auth::guard('account')->user()->website_id)->select(['customer_id','subscription_id'])->first();
             $customer = $stripe->customers->retrieve($website->customer_id,[]);
             // $subscription = $stripe->subscriptions->retrieve($website->subscription_id,['expand'=>['latest_invoice']]);
@@ -606,7 +598,7 @@ class billingController extends Controller
         else if($request->has('payInvoice')){
             $invoice = invoice::where(['id'=>$request->payInvoice,'website_id'=>Auth::guard('account')->user()->website_id])->first();
             if($invoice == null){return;}
-            $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
             $stripeInvoice = $stripe->invoices->retrieve(
                     $invoice->invoice_id,
                     []

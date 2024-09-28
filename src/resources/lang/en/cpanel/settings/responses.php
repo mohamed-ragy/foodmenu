@@ -92,4 +92,9 @@
         'workingDaySaveFail' => 'Unknown error occurred! Failed to save the working day details.',
         'copyWorkingDaysSaved' => 'The working hours have been copied successfully.',
         'copyWorkingDaysSavefail' => 'Unknown error occurred! Failed to copy the working hours.',
+        //
+        'domain_required' => 'Please enter your vaild domain.',
+        'domain_add_fail' => 'Unknown error occurred! Failed to add your domain. please make sure that you entered a correct domain. if you need further help please <a class="cpPage" cppage="submit_a_help_ticket">Submit a help ticket</a>.',
+        'domain_added' => 'Your domain has been added successfully.',
+        'domain_save_website_fail' => 'Unknown error occurred! please <a class="cpPage" cppage="submit_a_help_ticket">Submit a help ticket</a>.',
     ];

@@ -10,27 +10,23 @@ pickupMinimumChargeNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('click','#pickupMinimumChargeIncludes',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupMinimumChargeIncludes',function(e){
     $(this).prop('checked') == true ? website_temp.pickupMinimumChargeIncludes = 1 : website_temp.pickupMinimumChargeIncludes = 0 ;
     order_pickup_settings_unsave_check();
 });
-$('html,body').on('input change','#pickupMinimumCharge',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','#pickupMinimumCharge',function(e){
     $(this).val() == '' ? $(this).val('0.00') : null ;
     website_temp.pickupMinimumCharge = parseFloat($(this).val())
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#pickupMinimumChargeCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupMinimumChargeCancelBtn',function(e){
     website_temp.pickupMinimumChargeIncludes = website.pickupMinimumChargeIncludes;
     website_temp.pickupMinimumCharge = website.pickupMinimumCharge;
     $('#pickupMinimumCharge').val(parseFloat(website_temp.pickupMinimumCharge).toFixed(2));
     website_temp.pickupMinimumChargeIncludes == 1 ? $('#pickupMinimumChargeIncludes').prop('checked',true) : $('#pickupMinimumChargeIncludes').prop('checked',false) ;
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#pickupMinimumChargeSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupMinimumChargeSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#pickupMinimumChargeSaveBtn'));
     $.ajax({

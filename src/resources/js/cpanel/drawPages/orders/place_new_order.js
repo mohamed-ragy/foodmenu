@@ -86,9 +86,11 @@ drawPopupPage_place_new_order = function(){
                 ),
                 drawInputList('','ico-users','',texts.users.findUser,'placeOrder-usersInputList',texts.users.findUserPlaceholder,250,'placeOrder-usersInputListList',false,'zx2000','findUserList','findUser'),
                 drawInputText('','ico-phone_number','',texts.orders.phoneNumber,'placeOrder-phoneNumber','text',texts.orders.phoneNumber,'200','clearVal','','',false,''),
-                drawInputText('','ico-address','',texts.orders.address,'placeOrder-address','text',texts.orders.address,'200','clearVal','inputTextContainer_100p','',false,''),
-                $('<div/>',{class:'w100p h200 none',id:'placeOrder-userLocation'}),
-                $('<div/>',{class:'w100p-20 mX10 mT5 row alnC jstfyE fs09'}).append($('<a/>',{id:'placeOrder-locationToggle',action:'show'})),
+                $('<div/>',{class:'w100p placeOrder-address_container'}).append(
+                    drawInputList('','ico-address','',texts.orders.select_address,'placeOrder-select_address',texts.orders.select_address,200,'placeOrder-select_address_list',false,'zx5','',''),
+                    drawInputText('','ico-address','',texts.orders.address,'placeOrder-address','text',texts.orders.address,'200','clearVal','inputTextContainer_100p','',false,''),
+                    $('<div/>',{class:'w100p h200 zx1',id:'placeOrder-userLocation'}),
+                ),
             ),
             $('<div/>',{class:'column w100p alnS jstfyS brdrB1 mT20',autoHelp:'order_additional_comment'}).append(
                 drawTextArea('','ico-description','',texts.orders.orderComment,'placeOrder-comment','1000','','','')
@@ -107,5 +109,7 @@ drawPopupPage_place_new_order = function(){
             ),
         )
     )
-    placeOrder_load();
+    drawPlaceOrderMap();
+    placeOrder_set('type');
+    placeOrder_set('place_for')
 }

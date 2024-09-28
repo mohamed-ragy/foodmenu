@@ -17,7 +17,11 @@ draw_editor_popup_website_form = function(){
                                     selections:[
                                         {name:texts.website_pages.login,val:'login'},
                                         {name:texts.website_pages.signup,val:'signup'},
-                                        {name:texts.website_pages.reset_password_1,val:'reset_password_1'}
+                                        {name:texts.website_pages.reset_password_1,val:'reset_password_1'},
+                                        {name:texts.website_pages.reset_password_2,val:'reset_password_2'},
+                                        {name:texts.website_pages.reset_password_3,val:'reset_password_3'},
+                                        {name:texts.website_pages.account_information,val:'account_information'},
+                                        {name:texts.website_pages.change_account_password,val:'change_account_password'},
                                     ]
                                 })
                             ),
@@ -44,7 +48,6 @@ draw_editor_popup_website_form = function(){
                             variable_key:'css',
                             key:'gap',
                             units:['px'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col'}).append(
@@ -80,7 +83,7 @@ draw_editor_popup_website_form = function(){
             })
         )
         setTimeout(()=>{
-            set_dummy_val($('.change_preview_form_inputlist'),window.selected_website_form)
+            set_dummy_val($('.change_preview_form_inputlist'),window.template.settings.selected_website_form)
             $('.editor_popup_title2').text(texts.website_style.website_form)
             $(`.editor_popup_body_shortcut.editor_website_form`).addClass('editor_popup_body_shortcut_selected')
         });
@@ -91,6 +94,21 @@ $('body').on('click','.editor_website_form',function(e){
 })
 $('body').on('change','.change_preview_form_inputlist',function(){
     let val = get_dummy_val($(this));
-    window.selected_website_form = val;
-    open_website_popup(val)
+    window.template.settings.selected_website_form = val;
+    show_website_form(val);
+
 })
+show_website_form = function(form){
+    if(['login','signup','reset_password_1','reset_password_2','reset_password_3'].includes(form)){
+        open_website_popup(form)
+    }else{
+        hide_popup_window();
+        if(form == 'account_information'){
+            window.selected_account_page = 'account_information';
+            render_page('account')
+        }else if(form == 'change_account_password'){
+            window.selected_account_page = 'change_account_password';
+            render_page('account');
+        }
+    }
+}

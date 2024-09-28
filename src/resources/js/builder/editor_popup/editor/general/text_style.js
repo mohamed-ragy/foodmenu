@@ -76,7 +76,6 @@ draw_editor_popup_text_style = function(){
                                 variable_key:'css',
                                 key:'font-size',
                                 units:['px','em','inherit'],
-                                step:1,
                             }),
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(
@@ -86,7 +85,6 @@ draw_editor_popup_text_style = function(){
                                 variable_key:'css',
                                 key:'line-height',
                                 units:['px','em','inherit'],
-                                step:1,
                             }),
                         ),
                         $('<div/>',{class:'editor_popup_col'}).append(
@@ -96,7 +94,6 @@ draw_editor_popup_text_style = function(){
                                 variable_key:'css',
                                 key:'letter-spacing',
                                 units:['px','em','inherit'],
-                                step:1,
                             }),
                         ),
                         !elem.accessibility.includes('edit_text') ? $('<div/>',{class:'editor_popup_col'}).append(
@@ -176,7 +173,6 @@ draw_editor_popup_text_style = function(){
                                     variable_key:'css',
                                     key:'font-size',
                                     units:['px','em','inherit'],
-                                    step:1,
                                 }),
                             ),
                             $('<div/>',{class:'editor_popup_col'}).append(
@@ -186,7 +182,6 @@ draw_editor_popup_text_style = function(){
                                     variable_key:'css',
                                     key:'line-height',
                                     units:['px','em','inherit'],
-                                    step:1,
                                 }),
                             ),
                             $('<div/>',{class:'editor_popup_col'}).append(
@@ -196,7 +191,6 @@ draw_editor_popup_text_style = function(){
                                     variable_key:'css',
                                     key:'letter-spacing',
                                     units:['px','em','inherit'],
-                                    step:1,
                                 }),
                             ),
                             $('<div/>',{class:'editor_popup_col'}).append(
@@ -267,7 +261,6 @@ draw_editor_popup_text_style = function(){
                                 variable_key:'css',
                                 key:'font-size',
                                 units:['px','em','inherit'],
-                                step:1,
                             }),
                         ),
                     ]
@@ -302,7 +295,7 @@ draw_editor_popup_text_style = function(){
             $('<div/>',{class:'editor_popup_container none w100p',key:'text_color',parent_key:'editor_text_style'}).append(
                 draw_editors_container({
                     is_responsive:false,
-                    interactions:['hover','click','focus','disabled'],
+                    interactions:['hover','click','focus','disabled','selected','error'],
                     editors:[
                         $('<div/>',{class:'editor_popup_row editor_popup_brdrT_none'}).append(
                             $('<div/>',{class:'fs09',text:texts.styling.text_color}),

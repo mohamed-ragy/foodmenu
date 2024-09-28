@@ -1,15 +1,12 @@
-$('html,body').on('click','.productOptionSelectionEdit',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionSelectionEdit',function(e){
     drawEditProductSelectionPopup(window.history.state.product,$(this).closest('.productOptionContainer').attr('option'),$(this).closest('.productOptionSelectionContainer').attr('selection'))
 })
-$('html,body').on('click','.productOptionSelectionEdit_guideAlert',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionSelectionEdit_guideAlert',function(e){
     drawEditProductSelectionPopup($(this).attr('product'),$(this).attr('option'),$(this).attr('selection'))
     $(`#editSelection_name-${$(this).attr('lang')}`).focus();
     highlightElem($(`#editSelection_name-${$(this).attr('lang')}`))
 })
-$('html,body').on('click','.productOptionSelectionEdit_activityLog',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.productOptionSelectionEdit_activityLog',function(e){
     drawEditProductSelectionPopup($(this).attr('product'),$(this).attr('option'),$(this).attr('selection'))
 })
 drawEditProductSelectionPopup = function(product_name,option_id,selection_id){
@@ -43,13 +40,11 @@ drawEditProductSelectionPopup = function(product_name,option_id,selection_id){
         }
     })
 }
-$('html,body').on('click','#editSelection_cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editSelection_cancelBtn',function(e){
     closePopup();
 })
 
-$('html,body').on('click','#editSelection_saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editSelection_saveBtn',function(e){
     if(!coolDownChecker()){return;}
     let product = website.products.find(item=>item.name == $('#editSelectionInputsContainer').attr('product'));
     let option = product.product_options.find(item=>item.id == $('#editSelectionInputsContainer').attr('option'));

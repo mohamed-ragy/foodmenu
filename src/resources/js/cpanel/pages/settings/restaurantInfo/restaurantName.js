@@ -1,14 +1,12 @@
 
-$('html,body').on('input change','.restaurantNameInputText',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.restaurantNameInputText',function(e){
     for(const key in website.languages){
         let lang = website.languages[key];
         website_temp.websiteNames[lang.code] = $(`#setting-restaurantName-${lang.code}`).val();
     }
     restaurant_information_unsave_chack();
 })
-$('html,body').on('click','#setting-restaurantName-CancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#setting-restaurantName-CancelBtn',function(e){
     website_temp.websiteNames = JSON.parse(JSON.stringify(website.websiteNames));
     for(const key in website.languages){
         let lang = website.languages[key];
@@ -16,8 +14,7 @@ $('html,body').on('click','#setting-restaurantName-CancelBtn',function(e){
     }
     restaurant_information_unsave_chack();
 });
-$('html,body').on('click','#setting-restaurantName-SaveBtn',function(e){
-    e.stopImmediatePropagation()
+$('body').on('click','#setting-restaurantName-SaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#setting-restaurantName-SaveBtn'))
     $.ajax({

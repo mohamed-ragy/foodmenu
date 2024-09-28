@@ -61,81 +61,69 @@ calcCartLifeTime = function(action=null){
 }
 let cartLifeTimeUpInterval;
 let cartLifeTimeDownInterval;
-$('html,body').on('click','#systemSettings-cartLifeTimeU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#systemSettings-cartLifeTimeU',function(e){
     calcCartLifeTime('up');
     website_temp.cart_lifeTime = $('#systemSettings-cartLifeTime').attr('cartLifeTime');
     system_unsave_check();
 })
-$('html,body').on('click','#systemSettings-cartLifeTimeD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#systemSettings-cartLifeTimeD',function(e){
     calcCartLifeTime('down');
     website_temp.cart_lifeTime = $('#systemSettings-cartLifeTime').attr('cartLifeTime');
     system_unsave_check();
 });
-$('html,body').on('mousedown touchstart','#systemSettings-cartLifeTimeU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','#systemSettings-cartLifeTimeU',function(e){
     cartLifeTimeUpInterval = setInterval(function(){
         $('#systemSettings-cartLifeTimeU').trigger('click');
     },150);
 });
-$('html,body').on('mouseup mouseleave touchend','#systemSettings-cartLifeTimeU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseup mouseleave touchend','#systemSettings-cartLifeTimeU',function(e){
     clearInterval(cartLifeTimeUpInterval);
 });
-$('html,body').on('mousedown touchstart','#systemSettings-cartLifeTimeD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','#systemSettings-cartLifeTimeD',function(e){
     cartLifeTimeDownInterval = setInterval(function(){
         $('#systemSettings-cartLifeTimeD').trigger('click');
     },150);
 });
-$('html,body').on('mouseup mouseleave touchend','#systemSettings-cartLifeTimeD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseup mouseleave touchend','#systemSettings-cartLifeTimeD',function(e){
     clearInterval(cartLifeTimeDownInterval);
 });
 
 
 let printerWidthUpInterval;
 let printerWidthDownInterval;
-$('html,body').on('click','#systemSettings-printerWidthU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#systemSettings-printerWidthU',function(e){
     if($('#systemSettings-printerWidth').text() > 499){return}
     $('#systemSettings-printerWidth').text(parseInt($('#systemSettings-printerWidth').text()) + 1);
     website_temp.printerWidth = $('#systemSettings-printerWidth').text();
     system_unsave_check();
 })
-$('html,body').on('click','#systemSettings-printerWidthD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#systemSettings-printerWidthD',function(e){
     if($('#systemSettings-printerWidth').text() < 41){return}
     $('#systemSettings-printerWidth').text(parseInt($('#systemSettings-printerWidth').text()) - 1);
     website_temp.printerWidth = $('#systemSettings-printerWidth').text();
     system_unsave_check();
 })
-$('html,body').on('mousedown touchstart','#systemSettings-printerWidthU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','#systemSettings-printerWidthU',function(e){
     printerWidthUpInterval = setInterval(function(){
         $('#systemSettings-printerWidthU').trigger('click');
     },150);
 });
-$('html,body').on('mouseup mouseleave touchend','#systemSettings-printerWidthU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseup mouseleave touchend','#systemSettings-printerWidthU',function(e){
     clearInterval(printerWidthUpInterval);
 });
-$('html,body').on('mousedown touchstart','#systemSettings-printerWidthD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','#systemSettings-printerWidthD',function(e){
     printerWidthDownInterval = setInterval(function(){
         $('#systemSettings-printerWidthD').trigger('click');
     },150);
 });
-$('html,body').on('mouseup mouseleave touchend','#systemSettings-printerWidthD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseup mouseleave touchend','#systemSettings-printerWidthD',function(e){
     clearInterval(printerWidthDownInterval);
 });
 
 
 
 
-$('html,body').on('click',`#systemSettings-productReviews,
+$('body').on('click',`#systemSettings-productReviews,
 #systemSettings-guestReviews,
 #systemSettings-collectReviews,
 #systemSettings-guestOrders,
@@ -203,8 +191,7 @@ systemSettingsNoSaveCheck = function(){
     }
 }
 
-$('html,body').on('click','#systemSettingsCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#systemSettingsCancelBtn',function(e){
     if(!account.authorities[4]){return;}
     website_temp.usePickup = website.usePickup;
     website_temp.useDelivery = website.useDelivery;
@@ -247,8 +234,7 @@ $('html,body').on('click','#systemSettingsCancelBtn',function(e){
     system_unsave_check();
 });
 
-$('html,body').on('click','#systemSettingsSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#systemSettingsSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#systemSettingsSaveBtn'))
     let useDelivery;let usePickup;let productReviews;let guestReviews;let collectReviews;let guestOrders;let acceptPickupOrders24;let acceptDeliveryOrders24;let discountAnnouncement;let cancelOrder;let dineinWorkingHours;let liveChat;let guestLiveChat;let cookiesMsg;let langPopup;let fastLoading;

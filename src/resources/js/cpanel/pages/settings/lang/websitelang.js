@@ -5,7 +5,7 @@ langsOptionsNoSaveCheck = function(){
         for(const key2 in website_temp.languages){
             let lang2 = website_temp.languages[key2];
             if(lang.code == lang2.code){
-                if(lang.flag == lang2.flag && lang.name == lang2.name && lang.direction == lang2.direction){
+                if(lang.flag == lang2.flag && lang.name == lang2.name){
                     $(`.websiteLangsNoSave-${lang.code}`).addClass('none')
                 }else{
                     $(`.websiteLangsNoSave-${lang.code}`).removeClass('none')
@@ -30,7 +30,6 @@ setWebsiteLangs = function(){
             $('<th/>',{class:'tnw',text:texts.settings.flag,class:''}),
             $('<th/>',{class:'tnw',text:texts.settings.name}),
             $('<th/>',{class:'tnw',text:texts.settings.code}),
-            $('<th/>',{class:'tnw',text:texts.settings.textDirection}),
             $('<th/>',{class:'tnw taC',text:texts.settings.default}),
             $('<th/>',{class:'tnw taC',text:texts.settings.receipt}),
             $('<th/>',{class:'tnw taC',}),
@@ -47,7 +46,6 @@ setWebsiteLangs = function(){
                 $('<td/>',{class:'vaM tnw '}).append($('<img/>',{class:'h20 br5 ',src:`./storage/imgs/flags/${lang.flag}.png`})),
                 $('<td/>',{class:'vaM fs09 tnw',text:lang.name}),
                 $('<td/>',{class:'vaM taC fs09 tnw',text:lang.code}),
-                $('<td/>',{class:'vaM fs08 tnw',text:texts.settings[`lang_${lang.direction}`]}),
                 $('<td/>',{class:'taC tnw vaM'}).append($('<span/>',{lang:lang.code,class:`setLangDefault ${defaultClass} fs101 pointer`,tooltip:texts.settings.setAsWebsiteDefault,}),$('<div/>',{class:'setLangDefault_loading loading_s none'})),
                 $('<td/>',{class:'taC tnw vaM'}).append($('<span/>',{lang:lang.code,class:`setReceiptLang ${receiptClass} fs101 pointer`,tooltip:texts.settings.setAsReceiptLang,}),$('<div/>',{class:'setReceiptLang_loading loading_s none'})),
                 $('<td/>',{class:'taC tnw vaM'}).append(
@@ -63,8 +61,7 @@ setWebsiteLangs = function(){
     languages_unsave_check();
 }
 
-$('html,body').on('click','.setLangDefault',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.setLangDefault',function(e){
     if($(this).hasClass('ico-check1')){return;}
     if(!coolDownChecker()){return;}
     let lang = $(this).attr('lang');
@@ -98,8 +95,7 @@ $('html,body').on('click','.setLangDefault',function(e){
         }
     })
 })
-$('html,body').on('click','.setReceiptLang',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.setReceiptLang',function(e){
     if($(this).hasClass('ico-check1')){return;}
     if(!coolDownChecker()){return;}
     let lang = $(this).attr('lang');
@@ -134,8 +130,7 @@ $('html,body').on('click','.setReceiptLang',function(e){
         }
     })
 });
-$('html,body').on('click','.deleteLang',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteLang',function(e){
     let lang = null;
     for(const key in website.languages){
         if($(this).attr('lang') == website.languages[key].code){
@@ -168,8 +163,7 @@ $('html,body').on('click','.deleteLang',function(e){
         )
     })
 })
-$('html,body').on('click','#deleteLang-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteLang-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     let lang = $(this).attr('lang');
     showBtnLoading($('#deleteLang-confirmBtn'));
@@ -195,8 +189,7 @@ $('html,body').on('click','#deleteLang-confirmBtn',function(e){
         }
     })
 })
-$('html,body').on('click','#langs-addNewLang',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#langs-addNewLang',function(e){
     showPopup('addNewLang',function(){
         $('.addNewLangList').append(
             $('<div/>',{class:' mB10 pX10 w100p-20 row alnC jstfyE'}).append(
@@ -231,8 +224,7 @@ $('html,body').on('click','#langs-addNewLang',function(e){
 
     })
 })
-$('html,body').on('click','.addNewLangBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.addNewLangBtn',function(e){
     if(Object.keys(website.languages).length >= plans[website.plan].websiteLangs){
         showAlert('warning',texts.settings.planLangLimitError,15000,true);
         return;

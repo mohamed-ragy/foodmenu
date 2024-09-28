@@ -94,14 +94,12 @@ draw_statistics_deliveries_list = function(order,sort){
     }
 }
 //
-$('body,html').on('click','.statistics_deliveries_list_th',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statistics_deliveries_list_th',function(e){
     let sort = 'desc';
     $(this).find('.statistics_deliveries_list_thArrow').hasClass('ico-down') ? sort = 'asc' : null;
     draw_statistics_deliveries_list($(this).attr('order'),sort)
 })
-$('html,body').on('click','.statistics_users_list_showDelivery',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statistics_users_list_showDelivery',function(e){
     let delivery_name = $(this).attr('delivery');
     $('#statistics_deliveries_list').addClass('opacity0');
     setTimeout(function(){
@@ -114,8 +112,7 @@ $('html,body').on('click','.statistics_users_list_showDelivery',function(e){
     },200)
 
 })
-$('html,body').on('click','.statistics_deliveries_list_showList',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('click','.statistics_deliveries_list_showList',function(e){
     $('#statistics_deliveries_delivery').addClass('opacity0');
     setTimeout(function(){
         $('#statistics_deliveries_delivery').addClass('none');

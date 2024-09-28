@@ -19,6 +19,7 @@ src/storage/app/public/ragy
 src/.env
 mysql
 mongodb
+ssl
 .DS_Store
 .idea
 docker-compose.yml

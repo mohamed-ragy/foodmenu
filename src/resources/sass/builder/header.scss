@@ -88,7 +88,14 @@
 }
 .builder_header_menu_elem:hover, .builder_header_menu_elem_submenu:hover{background-color: var(--white-2);}
 .builder_header_menu_elem:last-child, .builder_header_menu_elem_submenu:last-child{border-bottom: none;}
-
+.select_website_page, .select_website_popup{
+    display:flex;
+    align-items: center;
+    justify-self: center;
+}
+.select_website_page span:nth-child(1), .select_website_popup span:nth-child(2){
+    margin-inline-end: 5px;
+}
 .builder_header_submenu{
     position: fixed;
     z-index: 190;

@@ -50,10 +50,14 @@ class generate_js
         string);
 
         self::add_to_file("window.mobile_max_width = '{$this->template['page_setup']['mobile_max_width']}';");
-        //////////////////////
-        ////loading////
-        //////////////////////
-
+        self::add_to_file("window.page_transition = '{$this->template['page_setup']['pageTransition']}';");
+        self::add_to_file("window.page_transition_duration = '{$this->template['page_setup']['transitionDuration']}';");
+        self::add_to_file("window.popup_transition = '{$this->template['popup_window']['children']['popup_card']['transition']}';");
+        self::add_to_file("window.popup_transition_duration = '{$this->template['popup_window']['children']['popup_card']['css']['animation-duration']}';");
+        self::add_to_file("window.smooth_scroll = '{$this->template['page_setup']['smooth_scroll']}';");
+        self::add_to_file("window.smooth_scroll_duration = '{$this->template['page_setup']['smooth_scroll_duration']}';");
+        self::add_to_file("window.smooth_scroll_distance = '{$this->template['page_setup']['smooth_scroll_distance']}';");
+       
         //////////////////////
         ////draw header////
         //////////////////////
@@ -66,49 +70,6 @@ class generate_js
         $headrer_view_html = '';
         $headrer_view_html = $headrer_view_html.self::generate_html_elem($this->template['website_header'],true);
         Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/website_header.html', $headrer_view_html);
-
-        // if(!empty($this->template['home'])){
-        //     if($this->template['home'][0]['adapt_header'] == '1'){
-        //         self::add_to_file(<<<string
-        //         $(document).ready(function(e){
-        //             if(window.route == 'home' && $('body').scrollTop() == 0){
-        //                 $('header').addClass('adapted_header');
-        //             }else{
-        //                 $('header').removeClass('adapted_header');
-        //             }
-        //         });
-        //         $('body').on('scroll',function(e){
-        //             if(window.route == 'home' && $('body').scrollTop() == 0){
-        //                 $('header').addClass('adapted_header');
-        //             }else{
-        //                 $('header').removeClass('adapted_header');
-        //             }
-        //         });
-        //         string);
-        //     }
-        // }
-
-        /////////////////
-        ////open_page////
-        /////////////////
-        $page_transitionDuration = str_replace('ms','',$this->template['page_setup']['transitionDuration']);
-        self::add_to_file("open_page = function(html,callback=()=>{}){
-            $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
-            $('#page').addClass(`{$this->template['page_setup']['pageTransition']}_out`);
-            $('body').css('overflow-x','hidden');
-            setTimeout(()=>{
-                $('body').scrollTop(0);
-                $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_out`).addClass(`{$this->template['page_setup']['pageTransition']}_in`);
-                $('#page').html(html);
-                set_website_data();
-                scroll_elem_animation('top');
-                setTimeout(()=>{
-                    callback();
-                    $('body').css('overflow-x','');
-                    $('#page').removeClass(`{$this->template['page_setup']['pageTransition']}_in`);
-                },{$page_transitionDuration});
-            },{$page_transitionDuration} - 100);
-        };");
         //////////////////////
         ////draw home page////
         //////////////////////
@@ -122,39 +83,25 @@ class generate_js
             $home_view_html = $home_view_html.self::generate_html_elem($section,true);
         }
         Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/website_home.html', $home_view_html);
+        //////////////////////
+        ////draw account page////
+        //////////////////////
+        $account_html = '';
+        foreach($this->template['account'] as $section){
+            $account_html = $account_html.self::generate_html_elem($section,false);
+        }
+        self::add_to_file("window.pages.account = `{$account_html}`;");
+        $account_view_html = '';
+        foreach($this->template['account'] as $section){
+            $account_view_html = $account_view_html.self::generate_html_elem($section,true);
+        }
+        Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/website_account.html', $account_view_html);
 
         /////////////////////////////////////
         ////create popup window html file////
         /////////////////////////////////////
-        // foreach($this->langs as $lang){
-            $popup_html = self::generate_html_elem($this->template['popup_window'],true);
-            Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/popup_window.html', $popup_html);
-        // }
-        //////////////////
-        ////open_popup////
-        //////////////////
-        $popup_transition_duration = str_replace($this->template['popup_window']['children']['popup_card']['css']['animation-duration'],'ms','');
-        self::add_to_file("open_popup = function(html,callback=()=>{}){
-            $('.popup_card').removeClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
-            setTimeout(()=>{
-                $('.popup_card').children().not('.popup_close').remove();
-                $('.popup_card').append(html);
-                $('.popup_container').removeClass('none');
-                $('.popup_card').addClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
-                setTimeout(()=>{
-                    callback();
-                },{$popup_transition_duration});
-            });
-        };");
-        ///////////////////
-        ////close_popup////
-        ///////////////////
-        self::add_to_file("close_popup = function(callback=()=>{}){
-            $('.popup_container').addClass('none');
-            $('.popup_card').removeClass('{$this->template['popup_window']['children']['popup_card']['transition']}');
-            $('.popup_card').children().not('.popup_close').remove();
-            user_status({'status':`user_browse_`+window.page});
-        };");
+        $popup_html = self::generate_html_elem($this->template['popup_window'],true);
+        Storage::put('websites/'.$this->template['website_id'].'/views/'.$this->lang_code.'/popup_window.html', $popup_html);
         ///////////////////
         ////login////
         ///////////////////
@@ -167,61 +114,19 @@ class generate_js
         self::add_to_file("window.popups.signup = `{$signup_html}`;");
         //////////////////////
         /////reset_password_1
-        /////////
+        //////////////////////
         $reset_password_1_html = self::generate_html_elem($this->template['reset_password_1'],false);
         self::add_to_file("window.popups.reset_password_1 = `{$reset_password_1_html}`;");
-        ///////////////////////
-        ////loading spinner////
-        ///////////////////////
-        ///////////////////////
-        /////smooth scrolling
-        ///////////////////////
-        if($this->template['page_setup']['smooth_scroll'] == '1'){
-            $scroll_duration = str_replace('ms','',$this->template['page_setup']['smooth_scroll_duration']);
-            $scroll_distance = str_replace('px','',$this->template['page_setup']['smooth_scroll_distance']);
-            self::add_to_file("
-                $('body, html').off('wheel');
-                document.body.addEventListener('wheel', function(event) {
-                    if(window.window.scrolling == true){
-                        event.preventDefault();
-                        return;
-                    }
-                    if(!$('.popup_container').hasClass('none')){return;}
-                    if(event.wheelDelta < 0){
-                        window.scrolling = true;
-                        $('body').stop(true,false).animate({scrollTop:$('body').scrollTop() + parseFloat({$scroll_distance})},{duration: {$scroll_duration},specialEasing: {width: 'easeOutQuint',height: 'easeOutQuint'}});
-                        setTimeout(()=>{
-                            window.scrolling = false;
-                        },{$scroll_duration})
-                    }else{
-                        window.scrolling = true;
-                        $('body').stop(true,false).animate({scrollTop:$('body').scrollTop() - parseFloat({$scroll_distance})},{duration: {$scroll_duration},specialEasing: {width: 'easeOutQuint',height: 'easeOutQuint'}});
-                        setTimeout(()=>{
-                            window.scrolling = false;
-                        },{$scroll_duration})
-                    }
-                }, { passive: false });
-            ");
-
-        }
-        //////////////////////////
-        ////apply page_setup styling////
-        //////////////////////////
-        // dd($this->template['page_setup']['font_style']);
-        // try{
-        // if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
-        //     self::add_to_file("
-        //         $('body').css({
-        //             'font-family':'{$this->template['page_setup']['font_style'][$this->lang_code]}'
-        //         });
-        //     ");
-        // }
-
-            
-
-
-        // }catch (\Exception $e){}
-            ////////////////////
+        //////////////////////
+        /////reset_password_2
+        //////////////////////
+        $reset_password_2_html = self::generate_html_elem($this->template['reset_password_2'],false);
+        self::add_to_file("window.popups.reset_password_2 = `{$reset_password_2_html}`;");
+        //////////////////////
+        /////reset_password_3
+        //////////////////////
+        $reset_password_3_html = self::generate_html_elem($this->template['reset_password_3'],false);
+        self::add_to_file("window.popups.reset_password_3 = `{$reset_password_3_html}`;");
         ////save js file////
         ////////////////////
         $this->js_file = "window.texts = ".json_encode($this->lang_text).";".$this->js_file;
@@ -250,8 +155,6 @@ class generate_js
         $html = '';
         $html_end = '';
         if(array_key_exists('tag',$elem)){
-    
-    
             $html_start = "<{$elem['tag']}";
 
             $html_start = $html_start." class=\"";
@@ -263,25 +166,7 @@ class generate_js
             }
             if(array_key_exists('general_class_selector',$elem)){
                 $html_start = $html_start." ".$elem['general_class_selector'];
-                $html_start = $html_start." ".$elem['general_class_selector']."_".$this->lang_code;
-                // if(in_array($this->lang_code,$this->template['page_setup']['font_style'])){
-                //     $html_start = $html_start." font_".$this->template['page_setup']['font_style'][$this->lang_code];
-                // }
             }
-            // if(array_key_exists('font_style',$elem)){
-            //     if(is_array($elem['font_style'])){
-            //         $font_name = '';
-            //         if(array_key_exists($this->lang_code,$elem['font_style'])){
-            //             $font_name = $elem['font_style'][$this->lang_code] ?? '';
-            //         }
-            //         if($font_name == ''){
-            //             if(array_key_exists($this->lang_code,$this->template['page_setup']['font_style'])){
-            //                 $font_name = $this->template['page_setup']['font_style'][$this->lang_code]  ?? '';
-            //             }
-            //         }
-            //         $html_start = $html_start." font_".$font_name;
-            //     }
-            // }
             if(array_key_exists('transition',$elem)){
                 $html_start = $html_start." ".$elem['transition'];
             }
@@ -386,7 +271,7 @@ class generate_js
                     }
                 }
             }
-            $generated_html = self::generate_html_elem($general_html_elem,false);
+            $generated_html = self::generate_html_elem($general_html_elem,$is_html);
             $html = $html.$generated_html;
         }
         return strip_tags($html_start.$html.$html_end,['section','div','span','svg','path','circle','header','a','img','ul','li','h1','h2','h3','h4','h5','h6','p','button','input']);

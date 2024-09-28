@@ -5,8 +5,14 @@ return [
     'password' => 'Password',
     'name' => 'Name',
     'phoneNumber' => 'Phone number',
-    'address' => 'Address',
-    'userLocation' => 'User location',
+    //new
+    'full_address' => 'Full address',
+    'addresses' => 'User addresses',
+    'default_address' => 'Default address',
+    'address_location' => 'Address location',
+    'add_new_address' => 'Add new address',
+    'removeAddress' => 'Remove address',
+    //
     'userUnsetLocation' => 'Unset location',
     'bannedUser' => 'Banned user',
 
@@ -18,7 +24,11 @@ return [
     'userInfo' => 'User information',
     'userEmail' => 'Email address',
     'userPhoneNumber' => 'Phone number',
-    'userAddress' => 'Address',
+    //new
+    'userAddresses' => 'Addresses',
+    'user_no_phone_number' => 'No phone number added.',
+    'user_no_address' => 'No any address added.',
+    //
     'userSince' => 'User since',
     'userCart' => 'User cart',
     'useCartEmpty' => ":name:'s cart is empty.",
@@ -39,25 +49,36 @@ return [
     'user_online' => 'Online',
     'user_offline' => 'Offline',
     'user_idle' => 'Idle',
+
     'user_browse_home' => 'Browsing home page',
     'user_browse_allproducts' => 'Browsing all products page',
     'user_browse_category' => 'Browsing :category: category page',
     'user_browse_product' => 'Browsing :product: product page',
-    'user_changeLang' => 'Changing the website language',
+    'user_browse_privacyPolicy' => 'Browsing privacy policy page',
+    'user_browse_aboutus' => 'Browsing about us page',
+
+    // 'user_changeLang' => 'Changing the website language',
     'user_checkingCart' => 'Checking their cart',
-    'user_manageProfile' => 'Managing their profile',
-    'user_changePassword' => 'Changing their password',
-    'user_changeEmail' => 'Changing their email address',
-    'user_checkOrderHistory' => 'Checking their order history',
+    // 'user_changeEmail' => 'Changing their email address',
+    //new
+    'user_browse_account_information' => 'Managing their profile',
+    'user_browse_change_account_password' => 'Changing their password',
+    'user_browse_my_addresses' => 'Managing their addresses',
+    //
+    'user_browse_my_orders' => 'Checking their order history',
     'user_loggingOut' => 'Logging out',
-    'user_loggingIn' => 'Logging in',
-    'user_signingUp' => 'Signing up',
+    'user_browse_login' => 'Logging in',
+    'user_browse_signup' => 'Signing up',
+    //new
+    'user_browse_reset_password_1' => 'Recovering password',
+    'user_browse_reset_password_2' => 'Recovering password',
+    'user_browse_reset_password_3' => 'Recovering password',
+    //
     'user_trackOrder' => 'Tracking order :order:',
     'user_placeOrder' => 'Placing an order',
     'user_writeReview' => 'Writing a Review on :product:',
     'user_addItemToCart' => 'Adding :product: to their cart',
-    'user_browse_privacyPolicy' => 'Browsing privacy policy page',
-    'user_browse_aboutus' => 'Browsing about us page',
+ 
     ///
     'findUser' => 'Find a user',
     'findUserPlaceholder' => "Enter a user's name or phone number",

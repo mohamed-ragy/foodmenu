@@ -31,8 +31,7 @@ emailVerification_NoSave = function(){
 }
 
 
-$('html,body').on('click','#security-verifyEmail-btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#security-verifyEmail-btn',function(e){
     showBtnLoading($('#security-verifyEmail-btn'))
     $.ajax({
         url:'security',
@@ -72,8 +71,7 @@ resendEmailVerifycodeBtnTimer = function(){
     }
 }
 
-$('html,body').on('click','#security-resendEmailVerifycode',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#security-resendEmailVerifycode',function(e){
     showBtnLoading($('#security-resendEmailVerifycode'))
     $.ajax({
         url:'security',
@@ -93,8 +91,7 @@ $('html,body').on('click','#security-resendEmailVerifycode',function(e){
         }
     })
 });
-$('html,body').on('click','#account-changeEmailBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-changeEmailBtn',function(e){
     if($('#account-newEmail').val() == '' || $('#account-newEmail_password').val() == ''){return;}
     showPopup('changeEmailConfirm',function(){
         $('.popupBody').append(
@@ -112,8 +109,7 @@ $('html,body').on('click','#account-changeEmailBtn',function(e){
         )
     })
 });
-$('html,body').on('click','#account-newEmailBtn-confirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#account-newEmailBtn-confirm',function(e){
     showBtnLoading($('#account-newEmailBtn-confirm'));
     showBtnLoading($('#account-newEmailBtn'));
     let newEmail = $('#account-newEmail').val();

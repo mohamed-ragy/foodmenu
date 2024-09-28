@@ -1,5 +1,4 @@
-$('html,body').on('click','.categoryCardDelete',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.categoryCardDelete',function(e){
     let category = website.categories.find(item=> item.id == $(this).attr('category'));
     showPopup('delete-popup',function(){
         $('.popupBody').append(
@@ -19,8 +18,7 @@ $('html,body').on('click','.categoryCardDelete',function(e){
         )
     })
 })
-$('html,body').on('click','#deleteCategory-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteCategory-confirmBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#deleteCategory-confirmBtn'));
     let categoryId = $(this).attr('category')

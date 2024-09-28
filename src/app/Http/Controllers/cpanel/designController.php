@@ -131,6 +131,7 @@ class designController extends Controller
             if($request->template_data['popup_window'] != 0){$update_data['popup_window'] = $request->template_data['popup_window'];}
             // if($request->template_data['loading_screen'] != 0){$update_data['loading_screen'] = $request->template_data['loading_screen'];}
             if($request->template_data['home'] != 0){$update_data['home'] = $request->template_data['home'];}
+            if($request->template_data['account'] != 0){$update_data['account'] = $request->template_data['account'];}
             // if($request->changed_data != null){
             //     foreach($request->changed_data as $key => $val){
             //         $update_data[$key] = strip_tags($val,['section','div','span','svg','path','circle','header','a','img','ul','li']);
@@ -771,7 +772,7 @@ class designController extends Controller
                 $fileExtention = $file->guessExtension();
                 $tempname = 'foodmenu-'. $this->website_id .'-'. strtolower( Str::random(20) );
                 $file->storeAs('websites/'. $this->website_id.'/ticketsImgs' ,$tempname.'.'.$fileExtention);
-                return response(['ticketUploadImgStatus' => 1 , 'msg'=> Lang::get('cpanel/design/responses.uploaded'),'url'=>'websites/'. $this->website_id.'/ticketsImgs/'.$tempname.'.'.$fileExtention]);
+                return response(['ticketUploadImgStatus' => 1 , 'msg'=> Lang::get('cpanel/design/responses.imgUploaded'),'url'=>'websites/'. $this->website_id.'/ticketsImgs/'.$tempname.'.'.$fileExtention]);
             }
         }
         else if($request->has(['deleteTicketAttachment'])){

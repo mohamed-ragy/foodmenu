@@ -29,8 +29,7 @@ minimizeChatWindow = function(chatWindow){
     chatWindow.removeClass('activeChatWindow')
 }
 //////move window
-$('html,body').on('mousedown touchstart','.chatWindowHead, .chatwindowBody',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mousedown touchstart','.chatWindowHead, .chatwindowBody',function(e){
     $(this).parent().attr('onMove','true');
     $(this).parent().addClass('chatWindowOnMove');
     if(window.matchMedia("(pointer: coarse)").matches){
@@ -41,15 +40,13 @@ $('html,body').on('mousedown touchstart','.chatWindowHead, .chatwindowBody',func
         $(this).parent().attr('gapY', e.pageY - $(this).parent().position().top);
     }
 })
-$('html,body').on('mouseup touchend','.chatWindowHead, .chatwindowBody',function(e){
-    e.stopImmediatePropagation();
+$('body').on('mouseup touchend','.chatWindowHead, .chatwindowBody',function(e){
     $(this).parent().attr('onMove','false');
     $(this).parent().removeClass('chatWindowOnMove');
 
 })
-$('html,body').on('mousemove touchmove','.chatWindowHead, .chatwindowBody',function(e){
+$('body').on('mousemove touchmove','.chatWindowHead, .chatwindowBody',function(e){
     e.preventDefault();
-    e.stopImmediatePropagation();
     if( $(this).parent().attr('onMove') == 'true' ){
         if(window.matchMedia("(pointer: coarse)").matches){
             $(this).parent().css({
@@ -66,10 +63,9 @@ $('html,body').on('mousemove touchmove','.chatWindowHead, .chatwindowBody',funct
     }
 })
 //////chat window
-$('html,body').on('click','.chatWindow' ,function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatWindow' ,function(e){
     if($(this).hasClass('chatWindow_mini')){return;}
-    if($(this).find('.chatWindowHeadIconsContainer').is(':hover')){return;}
+    if($(this).find('.chatWindowHeadIconsContainer:hover').length > 0){return;}
 
     if(!$(this).hasClass('activeChatWindow')){
         if(checkForUnseenMsgs($(this).attr('type'),$(this).attr('user')) && $(this).find('.chatwindowBody').scrollTop() == 0){
@@ -79,18 +75,16 @@ $('html,body').on('click','.chatWindow' ,function(e){
         $(this).addClass('activeChatWindow');
     }
 })
-$(document).on('click',function(){
-    if(!$('.action_chat:hover').length > 0){
+$('body').on('click',function(){
+    if($('.chatWindow:hover').length == 0){
         $('.chatWindow').removeClass('activeChatWindow');
     }
 })
-$('html,body').on('click','.closeChatWindowIcon' ,function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.closeChatWindowIcon' ,function(e){
     closeChatWindow($(this).closest('.chatWindow'))
 
 })
-$('html,body').on('click','.minMaxChatWindow' ,function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.minMaxChatWindow' ,function(e){
     if($(this).closest('.chatWindow').find('.minMaxChatWindow').hasClass('ico-maximize')){
         maximizeChatWindow($(this).closest('.chatWindow'))
     }else if($(this).closest('.chatWindow').find('.minMaxChatWindow').hasClass('ico-minimize')){
@@ -99,15 +93,13 @@ $('html,body').on('click','.minMaxChatWindow' ,function(e){
 
 });
 
-$('html,body').on('click','.chatWindowScrollToBottom',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatWindowScrollToBottom',function(e){
     $(this).closest('.chatWindow').find('.chatwindowBody').animate({'scrollTop':'0'},500);
 })
 //input
 let typingChecker = false;
 let typingCheckerTimeout;
-$('html,body').on('input','.chatWindowInputMsg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input','.chatWindowInputMsg',function(e){
     $(this).closest('.chatWindow').addClass('activeChatWindow')
     if($(this).closest('.chatWindow').scrollTop() == 0){
         if(checkForUnseenMsgs($(this).closest('.chatWindow').attr('type'),$(this).closest('.chatWindow').attr('user')) && $(this).closest('.chatWindow').find('.chatwindowBody').scrollTop() == 0){
@@ -133,8 +125,7 @@ $('html,body').on('input','.chatWindowInputMsg',function(e){
     }
 });
 ///send msg
-$('html,body').on('keypress','.chatWindowInputMsg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keypress','.chatWindowInputMsg',function(e){
     if(e.which == 13) {
         clearTimeout(typingCheckerTimeout);
         typingChecker = false;
@@ -142,28 +133,24 @@ $('html,body').on('keypress','.chatWindowInputMsg',function(e){
         sendChatMsg($(this).closest('.chatWindow').attr('type'),$(this).closest('.chatWindow').attr('user'));
     }
 })
-$('html,body').on('click','.chatWindowSendBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatWindowSendBtn',function(e){
     clearTimeout(typingCheckerTimeout);
     typingChecker = false;
     if(!coolDownChecker()){return}
     sendChatMsg($(this).closest('.chatWindow').attr('type'),$(this).closest('.chatWindow').attr('user'));
 })
-$('html,body').on('click','.chatResendMsg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatResendMsg',function(e){
     $(this).closest('.chatWindow').find('.chatWindowInputMsg').val(window.sendingMsgs[$(this).closest('.ChatWindowMsgCard').attr('msgId')])
     delete window.sendingMsgs[$(this).closest('.ChatWindowMsgCard').attr('msgId')];
     sendChatMsg($(this).closest('.chatWindow').attr('type'),$(this).closest('.chatWindow').attr('user'));
     $(this).closest('.ChatWindowMsgCard').remove();
 })
 //delete msg
-$('html,body').on('click','.chatWindowDeleteTempMsg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatWindowDeleteTempMsg',function(e){
     delete window.sendingMsgs[$(this).closest('.ChatWindowMsgCard').attr('msgId')];
     $(this).closest('.ChatWindowMsgCard').remove();
 })
-$('html,body').on('click','.chatWindowDeleteMsg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatWindowDeleteMsg',function(e){
     let msgId = $(this).closest('.ChatWindowMsgCard').attr('msgId');
     let id = $(this).closest('.chatWindow').attr('user');
     let type = $(this).closest('.chatWindow').attr('type');
@@ -186,8 +173,7 @@ $('html,body').on('click','.chatWindowDeleteMsg',function(e){
         )
     })
 })
-$('html,body').on('click','#deleteChatMsg-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteChatMsg-confirmBtn',function(e){
     if(!coolDownChecker()){return}
     showBtnLoading($('#deleteChatMsg-confirmBtn'))
     let msgId = $(this).attr('msgId');
@@ -250,12 +236,10 @@ $('html,body').on('click','#deleteChatMsg-confirmBtn',function(e){
     })
 })
 //share product
-$('html,body').on('click','.chatShareProductClose',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatShareProductClose',function(e){
     $(this).closest('.chatWindow').find('.chatWindowShareProductContainer').removeClass('chatWindowShareProductContainer_show')
 })
-$('html,body').on('input change','.chatWindowShareProductInput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.chatWindowShareProductInput',function(e){
     let thisVal = $(this).val();
     if(thisVal == ''){
         $(this).closest('.chatWindow').find('.chatShareProductProduct').removeClass('none')
@@ -269,8 +253,7 @@ $('html,body').on('input change','.chatWindowShareProductInput',function(e){
 
     }
 })
-$('html,body').on('click','.chatShareProduct',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.chatShareProduct',function(e){
 
     if($(this).closest('.chatWindow').find('.chatWindowShareProductContainer').hasClass('chatWindowShareProductContainer_show')){
         $(this).closest('.chatWindow').find('.chatWindowShareProductContainer').removeClass('chatWindowShareProductContainer_show')
@@ -336,8 +319,7 @@ $('html,body').on('click','.chatShareProduct',function(e){
         }
     }
 })
-$('html,body').on('click','.action-chatShareProductSend',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.action-chatShareProductSend',function(e){
     let productName = $(this).attr('product');
     let chatWindow = $(this).closest('.chatWindow');
     chatWindow.find('.chatWindowShareProductContainer').removeClass('chatWindowShareProductContainer_show')

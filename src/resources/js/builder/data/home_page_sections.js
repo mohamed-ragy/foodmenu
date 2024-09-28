@@ -1,58 +1,3 @@
-//accessibility
-//interactions,can_hover,can_click,can_focus,can_disabled,can_parent_hover
-//hover
-//parent_hover
-//click
-//focus
-//disabled
-//copy
-//add_section
-//section_swap
-//section_dublicate
-//section_delete
-//rename
-//section_sizing
-//section_spacing
-//section_adapt_header
-//section_layout
-//section_driver
-//add_elem
-//add_elem_title
-//add_elem_paragraph
-//add_elem_image
-//add_elem_button
-//add_elem_icon
-//alignment
-//sizing
-//width
-//height
-//spacing
-//padding
-//margin
-//styling
-//filter
-//border
-//border_radius
-//box_shadow
-//transform
-//animation
-//background
-//block_elems
-//arrange
-//elem_swap
-//elem_dublicate
-//elem_delete
-//button
-//text
-//edit_text
-//image
-//select_image
-//icon
-//select_icon
-//display
-//header_sizing
-//header_layout
-//header_logo_alignment
 get_blank_section = function() {
     return {
         name: ``,
@@ -103,7 +48,7 @@ get_blank_section = function() {
             },
             paths: [{
                 path: 'M1200 120L0 16.48 0 0 1200 0 1200 120z',
-                color: 'rgba(255,255,255,1)',
+                color: 'rgba(var(--color_4_7),1)',
             }],
             css: {
                 height: '100px',
@@ -148,6 +93,7 @@ get_section_block = function(child_num) {
             'justify-content': 'center',
             'margin':'0px 0px 0px 0px',
             'overflow':'visible',
+            'gap':'0px',
         }),
         css_mobile:get_default_styles(['padding'],{
             'flex-direction': 'column',
@@ -156,12 +102,32 @@ get_section_block = function(child_num) {
             'justify-content': 'center',
             'margin':'0px 0px 0px 0px',
             'overflow':'visible',
+            'gap':'0px',
         }),
         children: []
     }
 }
-get_sections_layouts = function() {
-    return [{
+apply_return_element_changes = function(object, path, value){
+    const keys = path.split('.');
+    let current = object;
+    for (let i = 0; i < keys.length - 1; i++) {
+        // current = current[keys[i]];
+        const key = keys[i];
+            // If current is undefined or null, create an empty object or array depending on the key
+            if (!current[key]) {
+                current[key] = isNaN(keys[i + 1]) ? {} : []; // Create {} for objects, [] for arrays
+            }
+            current = current[key];
+    }
+    if(value === null){
+        delete current[keys[keys.length - 1]];
+    }else{
+        current[keys[keys.length - 1]] = value;
+    }
+}
+
+get_sections_layouts = function(key = null,changes = null) {
+    let layouts = [{
             tag: 'div',
             type: 'section_wrapper',
             class_selector: `section_wrapper${hash()}`,
@@ -527,11 +493,28 @@ get_sections_layouts = function() {
             ]
         },
 
-    ]
+    ];
+    if(key !== null){
+        let selected_layout = { ...layouts[key] };
+        if(changes !== null){
+            Object.keys(changes).forEach(changeKey => {
+                apply_return_element_changes(selected_layout, changeKey, changes[changeKey]);
+            });
+            for(const _key in selected_layout.children){
+                selected_layout.children[_key].sort = parseInt(_key);
+                for(const _key2 in selected_layout.children[_key].children){
+                    selected_layout.children[_key].children[_key2].sort = parseInt(_key2)
+                }
+            }
+        }
+        return selected_layout;
+    }else{
+        return layouts
+    }
 }
-elem_title = function(){
+elem_title = function(changes=null){
     let this_hash = hash();
-    return {
+    let title = {
         type: 'elem',
         elem_type: 'title',
         tag: 'h1',
@@ -581,6 +564,12 @@ elem_title = function(){
             val: {}
         },
     }
+    if(changes !== null){
+        Object.keys(changes).forEach(changeKey => {
+            apply_return_element_changes(title, changeKey, changes[changeKey]);
+        });
+    }
+    return title;
 }
 elem_paragraph = function(){
     let this_hash = hash();
@@ -797,9 +786,9 @@ elem_icon = function(){
         }
     }
 }
-elem_container = function(){
+elem_container = function(changes = null){
     let child_key = hash();
-    return {
+    let container =  {
         type:'container',
         name:texts.elems.container,
         tag:'div',
@@ -832,6 +821,7 @@ elem_container = function(){
             'justify-content': 'center',
             'align-self':'auto',
             'overflow':'visible',
+            'gap':'10px',
         }),
         css_mobile:get_default_styles(['width','height','padding','margin'],{
             'flex-direction': 'column',
@@ -840,8 +830,17 @@ elem_container = function(){
             'justify-content': 'center',
             'align-self':'auto',
             'overflow':'visible',
+            'gap':'10px',
         }),
         children: []
     }
-
+    if(changes !== null){
+        Object.keys(changes).forEach(changeKey => {
+            apply_return_element_changes(container, changeKey, changes[changeKey]);
+        });
+        for(const _key in container.children){
+            container.children[_key].sort = _key
+        }
+    }
+    return container;
 }

@@ -138,22 +138,22 @@ add_section = function(section,section_name_prefix){
 
     let section_name_num = 1
     let section_name = `${section_name_prefix} ${section_name_num}`
-    for(const key in window.template[window.selected_page]){
-        if(window.template[window.selected_page][key].name == section_name){
+    for(const key in window.template[window.template.settings.selected_page]){
+        if(window.template[window.template.settings.selected_page][key].name == section_name){
             section_name_num++;
             section_name = `${section_name_prefix} ${section_name_num}`
         }
         if(key >= new_section_sort){
-            window.template[window.selected_page][key].sort = parseInt(window.template[window.selected_page][key].sort) + 1
+            window.template[window.template.settings.selected_page][key].sort = parseInt(window.template[window.template.settings.selected_page][key].sort) + 1
         }
     }
     section.name = section_name;
-    window.template[window.selected_page].push(JSON.parse(JSON.stringify(section)))
+    window.template[window.template.settings.selected_page].push(JSON.parse(JSON.stringify(section)))
     new_action('page');
     
     try{
-        $('#website').animate({scrollTop:$(`section[key_tree="${window.selected_page}.${new_section_sort}"]`).position().top - 50},300)
-        select(`${window.selected_page}.${new_section_sort}`)
+        $('#website').animate({scrollTop:$(`section[key_tree="${window.template.settings.selected_page}.${new_section_sort}"]`).position().top - 50},300)
+        select(`${window.template.settings.selected_page}.${new_section_sort}`)
     }catch{}
     close_popup();
 }

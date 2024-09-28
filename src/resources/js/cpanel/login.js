@@ -156,8 +156,7 @@ require("./login/changePassword.js")
 window.resetCodeFails = 0;
 
 
-$('html,body').on('click','.changeForm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeForm',function(e){
     changeForm($(this).attr('changeForm'))
 })
 

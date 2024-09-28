@@ -1,4 +1,3 @@
-$('html,body').on('click','.printOrderReceipt',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.printOrderReceipt',function(e){
     printOrderReceipt($(this).attr('order'))
 })

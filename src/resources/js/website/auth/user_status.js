@@ -1,3 +1,4 @@
+let user_status_timeout;
 user_status = function(status){
     if(status == null){return;}
     status.status !== 'user_idle' ?  auth.last_status = status : null;

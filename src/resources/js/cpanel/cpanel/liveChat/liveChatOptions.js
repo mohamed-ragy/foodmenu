@@ -1,4 +1,5 @@
-$('#navLiveChat-optionsIcon').on('click',function(){
+$('#navLiveChat-optionsIcon').on('click',function(e){
+    // e.stopImmediatePropagation();
     $('.navLiveChat-optionsContainer').removeClass('none');
     $('.navLiveChat-optionsContainer').css({
         'top':$(this).offset().top + $(this).outerHeight(),
@@ -6,15 +7,14 @@ $('#navLiveChat-optionsIcon').on('click',function(){
     })
 })
 
-$(document).on('click',function(){
+$('body').on('click',function(){
     if($('.navLiveChat-optionsContainer:hover').length == 0 && $('#navLiveChat-optionsIcon:hover').length == 0){
         $('.navLiveChat-optionsContainer').addClass('none');
     }
 })
 
 //////
-$('html,body').on('click','#LiveChat-goInvisible',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#LiveChat-goInvisible',function(e){
     if(!coolDownChecker()){return;}
     if($('#LiveChat-goInvisible').prop('checked') == true){
         account.isInvisible = 1;
@@ -31,8 +31,7 @@ $('html,body').on('click','#LiveChat-goInvisible',function(e){
 })
 ////
 
-$('html,body').on('click','#navLiveChat-mute',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#navLiveChat-mute',function(e){
     if(settings.muteChat == 1){
         settings.muteChat = 0;
         $('#navLiveChat-mute').find('.navLiveChat-muteCheck').removeClass('ico-check1').addClass('ico-check0')

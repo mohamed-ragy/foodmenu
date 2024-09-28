@@ -11,7 +11,6 @@ draw_number_picker = function(data){
     let editor = $('<div/>',{
         class:`editor number_picker_editor ${data.dummy === true ? 'dummy_editor' : ''} ${data.dummy === true ? data.dummy_class : ''} ${data.editor_class ?? ''}`,
         units:units,
-        step:data.step,
         key_tree:data.key_tree,
         variable_key:data.variable_key,
         key:data.key,
@@ -137,15 +136,20 @@ $('body').on('click','.number_picker_units_elem',function(e){
 
 $('body').on('mousedown','.number_picker_btn',function(e){
     let editor = $(this).closest('.editor');
-    if(editor.find('.number_picker_unit_select').text() == 'auto'){
-        $(this).val('');
-        return;
-    }
-    if(editor.find('.number_picker_unit_select').text() == 'inherit'){
-        $(this).val('');
-        return;
-    }
     let step = parseFloat(editor.attr('step'));
+    let selected_unit = editor.find('.number_picker_unit_select').text(); 
+    if(selected_unit == 'auto' || selected_unit == 'inherit'){
+        $(this).val('');
+        return;
+    }else if(selected_unit == 'em'){
+        step = .1;
+    }else if(selected_unit == 'px' || selected_unit == '%'){
+        step = 1;
+    }else if(selected_unit == 'ms'){
+        step = 100;
+    }else{
+        step = 100;
+    }
     let val_num = editor.find('.number_picker_input').val();
     if(val_num == '--' ){
         val_num = step;

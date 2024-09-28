@@ -51,8 +51,7 @@ share_pop = function(){
 }
 
 
-$('html,body').on('click','.shareBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.shareBtn',function(e){
     if($('#shareLangInputList').val() == ''){
         showAlert('error',texts.cpanel.public.errorSelectSareLang,4000,true)
         inputListError($('#shareLangInputList'))

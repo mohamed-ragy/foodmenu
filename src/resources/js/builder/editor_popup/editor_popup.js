@@ -76,15 +76,7 @@ show_editor_popup = function(elem,callback=()=>{}){
         $('.editor_popup_title2').text('')
     }
     $(`#${elem}`).css({'animation-duration':'300ms'})
-    // switch(elem){
-    //     case 'website_header':
-    //         window.selected = 'website_header.children.header_wrapper';
-    //         select(window.selected);
-    //     break;
-    //     default:
 
-    //     break;
-    // }
 
     if(!$(`#${elem}`).hasClass('none') && elem !== 'editor'){
         $(`#${elem}`).removeClass('editor_popup_dump').addClass('editor_popup_flash')

@@ -97,6 +97,9 @@ return [
     'linkedinLink' => 'LinkedIn link',
     'instagramLink' => 'Instagram link',
     'socialMediaLinksNotice' => 'To enter the link correctly, please start with https://',
+    //new
+    'accept_delivery_range' => 'Set delivery service range',
+    //
     ///lang
     'flag' => 'Flag',
     'name' => 'Name',
@@ -203,4 +206,8 @@ return [
     'card_at_restaurant' => 'Payment card at the restaurant',
     'pickupMinimumChargeIncludes' => 'Include tax',
     'serviceCharge' =>  'Service charge',
+    //domain
+    'website_domain' => 'Website domain',
+    'website_domain_des' => '<div>Connect your own domain to your Foodmenu website. Enter your own domain in the input box bellow then click on add my domain button.<div><div><b>Do not use www (ex. restaurantname.com)<b/><div>',
+    'add_domain' => 'Add my domain',
 ];

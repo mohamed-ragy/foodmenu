@@ -19,7 +19,6 @@ draw_editor_popup_width = function(){
                             variable_key:'css',
                             key:'width',
                             units:['auto','px','%'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col '}).append(
@@ -29,7 +28,6 @@ draw_editor_popup_width = function(){
                             variable_key:'css',
                             key:'max-width',
                             units:['px','%'],
-                            step:1,
                         })
                     ),
                     $('<div/>',{class:'editor_popup_col '}).append(
@@ -39,7 +37,6 @@ draw_editor_popup_width = function(){
                             variable_key:'css',
                             key:'min-width',
                             units:['auto','px','%'],
-                            step:1,
                         })
                     ),
                 ]

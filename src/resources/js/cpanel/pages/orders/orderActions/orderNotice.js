@@ -1,9 +1,7 @@
-$('html,body').on('click','.changeOrderNoticeEditBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderNoticeEditBtn',function(e){
     $('.changeOrderNotice').select()
 })
-$('html,body').on('focus click input change','.changeOrderNotice',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus click input change','.changeOrderNotice',function(e){
     getOrder(window.history.state.order).then(function(order){
         if(order.notice != $('.changeOrderNotice').val()){
             $('.orderNoticeNoSave').removeClass('none')
@@ -14,16 +12,14 @@ $('html,body').on('focus click input change','.changeOrderNotice',function(e){
         }
     })
 })
-$('html,body').on('click','.cancelChangeOrderNoticeBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.cancelChangeOrderNoticeBtn',function(e){
     getOrder(window.history.state.order).then(function(order){
         $('.changeOrderNotice').val(order.notice)
         $('.orderNoticeNoSave').addClass('none')
         $('.changeOrderNoticeBtns').addClass('none')
     })
 })
-$('html,body').on('click','.changeOrderNoticeBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderNoticeBtn',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     showBtnLoading($('.changeOrderNoticeBtn'))

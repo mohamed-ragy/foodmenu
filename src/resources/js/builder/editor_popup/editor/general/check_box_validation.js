@@ -32,7 +32,6 @@ draw_editor_popup_check_box_validation = function(){
                             variable_key:'css',
                             key:'font-size',
                             units:['px','em'],
-                            step:1,
                         }),
                     ),
                 ]

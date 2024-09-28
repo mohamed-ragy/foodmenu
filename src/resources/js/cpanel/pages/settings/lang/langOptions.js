@@ -1,7 +1,7 @@
 
 
 //
-$('html,body').on('click','#langOptions-langFlag-list .inputListElement',function(){
+$('body').on('click','#langOptions-langFlag-list .inputListElement',function(){
     if($(this).attr('key') == '' || $(this).attr('key') == null){
         $('#langOptions-langFlag').closest('.inputListContainer').find('.inputListIcon').text('').append(
             $('<span/>',{class:'ico-flag'})
@@ -14,8 +14,7 @@ $('html,body').on('click','#langOptions-langFlag-list .inputListElement',functio
     website_temp.languages[window.editLangOptionsCode].flag = $(this).attr('key')
     languages_unsave_check();
 })
-$('html,body').on('keyup','#langOptions-langFlag',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keyup','#langOptions-langFlag',function(e){
     if($(this).attr('key') == '' || $(this).attr('key') == null){
         $('#langOptions-langFlag').closest('.inputListContainer').find('.inputListIcon').text('').append(
             $('<span/>',{class:'ico-flag'})
@@ -28,34 +27,19 @@ $('html,body').on('keyup','#langOptions-langFlag',function(e){
     website_temp.languages[window.editLangOptionsCode].flag = $(this).attr('key')
     languages_unsave_check();
 });
-$('html,body').on('change input','#langOptions-langName',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change input','#langOptions-langName',function(e){
     website_temp.languages[window.editLangOptionsCode].name = $(this).val()
     languages_unsave_check();
 })
 
 
-$('html,body').on('click','.langOptions-direction',function(e){
-    e.stopImmediatePropagation();
-    $('.langOptions-directionCheck').addClass('ico-check0').removeClass('ico-check1');
-    $(this).find('.langOptions-directionCheck').removeClass('ico-check0').addClass('ico-check1')
-    if($(this).attr('direction') == 'rtl'){
-        website_temp.languages[window.editLangOptionsCode].direction = 'rtl'
-    }else if($(this).attr('direction') == 'ltr'){
-        website_temp.languages[window.editLangOptionsCode].direction = 'ltr'
-    }
-    languages_unsave_check();
-})
-
-$('html,body').on('click','#langOptions-cancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#langOptions-cancelBtn',function(e){
     website_temp.languages = JSON.parse(JSON.stringify(website.languages));
     popupPageClose(true);
     languages_unsave_check();
 })
 
-$('html,body').on('click','#langOptions-saveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#langOptions-saveBtn',function(e){
     if($('#langOptions-langName').val() == ''){
         showAlert('error',texts.settings.customLangNameRequired,4000,true);
         inputTextError($('#langOptions-langName'))
@@ -77,7 +61,6 @@ $('html,body').on('click','#langOptions-saveBtn',function(e){
             editLangOptions:website_temp.languages[window.editLangOptionsCode].code,
             name:website_temp.languages[window.editLangOptionsCode].name,
             flag:website_temp.languages[window.editLangOptionsCode].flag,
-            direction:website_temp.languages[window.editLangOptionsCode].direction,
         },success:function(r){
             hideBtnLoading($('#langOptions-langFlag'));
             if(r.editLangOptionsStatus == 1){
@@ -85,7 +68,6 @@ $('html,body').on('click','#langOptions-saveBtn',function(e){
                 website.languages[window.editLangOptionsCode].code = website_temp.languages[window.editLangOptionsCode].code
                 website.languages[window.editLangOptionsCode].name = website_temp.languages[window.editLangOptionsCode].name
                 website.languages[window.editLangOptionsCode].flag = website_temp.languages[window.editLangOptionsCode].flag
-                website.languages[window.editLangOptionsCode].direction = website_temp.languages[window.editLangOptionsCode].direction
                 window.editLangOptionsCode = null;
                 setWebsiteLangs();
                 popupPageClose(true);

@@ -1,5 +1,4 @@
-$('html,body').on('click','.popupPageTab',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('click','.popupPageTab',function(e){
     $(this).closest('.popupPageTabs').find('.popupPageTab').removeClass('popupPageTab_selected');
     $(this).addClass('popupPageTab_selected');
 
@@ -26,14 +25,12 @@ $(window).resize(function(){
     fixpopupPageTabsArrows();
 })
 
-$('html,body').on('click','.popupPageTabArrowLeft',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.popupPageTabArrowLeft',function(e){
     $(this).closest('.popupPageTabs').find('.popupPageTab_selected').prev().trigger('click');
 
 })
 
-$('html,body').on('click','.popupPageTabArrowRight',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.popupPageTabArrowRight',function(e){
     $(this).closest('.popupPageTabs').find('.popupPageTab_selected').next().trigger('click');
 
 })

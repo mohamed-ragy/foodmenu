@@ -31,8 +31,7 @@ drawInputList = function(autoHelp,icon,iconFlag,tooltip,id,placeholder,maxlength
         listContainer,
     )
 }
-$('html,body').on('click','.inputListElement',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.inputListElement',function(e){
     $(this).closest('.inputListContainer').find('.inputList').val($(this).text()).attr('key',$(this).attr('key'));
     $(this).closest('.inputListContainer').find('.inputListIcon').removeClass('cR cO cG');
     $(this).closest('.inputListContainer').find('.listContainer').hide();
@@ -42,12 +41,10 @@ $('html,body').on('click','.inputListElement',function(e){
 
 })
 
-$('html,body').on('click','.inputListIcon, .inputListDownIcon',function(e){
-    e.stopImmediatePropagation()
+$('body').on('click','.inputListIcon, .inputListDownIcon',function(e){
     $(this).closest('.inputListContainer').find('.inputList').select();
 });
-$('html,body').on('focus','.inputList',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focus','.inputList',function(e){
     let thisInputList = $(this);
     $(this).closest('.inputListContainer').addClass('inputListContainer_active')
     $(this).closest('.inputListContainer').find('.inputListIcon').addClass('cG').removeClass('cR cO');
@@ -61,8 +58,7 @@ $('html,body').on('focus','.inputList',function(e){
         }
     })
 })
-$('html,body').on('focusout','.inputList',function(e){
-    e.stopImmediatePropagation();
+$('body').on('focusout','.inputList',function(e){
     $(this).closest('.inputListContainer').removeClass('inputListContainer_active')
     if($(this).parent().find('.listContainer:hover').length > 0){return;}
     let inputlistValCheck = false;
@@ -80,8 +76,7 @@ $('html,body').on('focusout','.inputList',function(e){
     $(this).closest('.inputListContainer').find('.inputListElement').css('display','flex');
 });
 
-$('html,body').on('keydown','.inputList',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keydown','.inputList',function(e){
     let thisListElem;
     if(e.which == 40){
         $(this).closest('.inputListContainer').find('.listContainer').css('display','block');
@@ -149,8 +144,7 @@ $('html,body').on('keydown','.inputList',function(e){
 
 })
 
-$('html,body').on('input','.inputList',function(e){
-    // e.stopImmediatePropagation();
+$('body').on('input','.inputList',function(e){
     let thisInputList = $(this);
     thisInputList.closest('.inputListContainer').find('.listContainer').children().removeClass('selectedinputListElement');
     thisInputList.closest('.inputListContainer').find('.inputList').attr('key','');

@@ -1,6 +1,5 @@
 
-$('html,body').on('keypress','#changePasswordPassword, #changePasswordConfirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keypress','#changePasswordPassword, #changePasswordConfirm',function(e){
     if(e.which == 13){
         $('#changePasswordBtn').trigger('click');
     }
@@ -8,8 +7,7 @@ $('html,body').on('keypress','#changePasswordPassword, #changePasswordConfirm',f
 
 
 
-$('html,body').on('click','#changePasswordBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#changePasswordBtn',function(e){
     showBtnLoading($('#changePasswordBtn'));
     $('#changePasswordPassword').prop('disabled',true);
     $('#changePasswordConfirm').prop('disabled',true);

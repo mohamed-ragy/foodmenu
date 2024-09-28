@@ -11,8 +11,9 @@ hide_website_form_loading = function(not=[]){
     }
     website_form_children.not('.form_loading_spinner').removeClass('hidden')
 }
-form_message = function(type,msg){
-    $('.form_message').removeClass('website_form_success website_form_error website_form_warning').addClass(`website_form_${type}`).text(msg)
+form_message = function(elem,type,msg){
+
+    elem.closest('.website_form').find('.form_message').removeClass('website_form_success website_form_error website_form_warning').addClass(`website_form_${type}`).text(msg)
 }
 form_input_error = function(input,message){
     input.find('.form_input_box_input').addClass('form_input_box_input_error');

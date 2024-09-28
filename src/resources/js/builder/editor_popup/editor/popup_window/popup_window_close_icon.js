@@ -58,7 +58,6 @@ draw_editor_popup_popup_window_close_icon = function(){
                                 key_tree:`${window.selected}.children.popup_close`,
                                 variable_key:'css',
                                 key:'padding',
-                                step:1,
                                 units:['px']
                             })
                         ),
@@ -68,7 +67,6 @@ draw_editor_popup_popup_window_close_icon = function(){
                                 key_tree:`${window.selected}.children.popup_close`,
                                 variable_key:'css',
                                 key:'border-radius',
-                                step:1,
                                 units:['px','%']
                             })
                         ),

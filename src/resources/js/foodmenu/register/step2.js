@@ -361,13 +361,12 @@ drawMap = function(){
 /////
 for(const key in window.plans){
     const plan = window.plans[key];
-    let productOptionsTxt; let websiteLangsTxt; let promocodeTxt; let subAccountsTxt; let deliveryAccountsTxt; let specialDomainNameTxt; let bestSellerElem;
+    let productOptionsTxt; let websiteLangsTxt; let promocodeTxt; let subAccountsTxt; let deliveryAccountsTxt; let bestSellerElem;
     plan.productOptions == 1 ? productOptionsTxt = plansTxt.productOption : productOptionsTxt = plansTxt.productOptions;
     plan.websiteLangs == 1 ? websiteLangsTxt = plansTxt.websiteLang : websiteLangsTxt = plansTxt.websiteLangs;
     plan.promocodes == 1 ? promocodeTxt = plansTxt.promocode : promocodeTxt = plansTxt.promocodes;
     plan.subAccounts == 1 ? subAccountsTxt = plansTxt.subAccount : subAccountsTxt = plansTxt.subAccounts;
     plan.deliveryAccounts == 1 ? deliveryAccountsTxt = plansTxt.deliveryAccount : deliveryAccountsTxt = plansTxt.deliveryAccounts;
-    plan.specialDomainName ? specialDomainNameTxt = plansTxt.restaurantDotCom : specialDomainNameTxt = plansTxt.subdomain;
     plan.name == 'standard' ? bestSellerElem = $('<div/>',{class:'bestSellerElem',text:plansTxt.bestSeller}) : bestSellerElem = '';
     $('.plansCards').append(
         $('<div/>',{
@@ -415,10 +414,6 @@ for(const key in window.plans){
                 $('<div/>',{class:'w100p row alnC jstfyS'}).append(
                     $('<div/>',{class:'ico-images planCardItemsIcon'}),
                     $('<div/>',{text:`${plan.storage}${plansTxt.storage}`})
-                ),
-                $('<div/>',{class:'w100p row alnC jstfyS'}).append(
-                    $('<div/>',{class:'ico-link planCardItemsIcon'}),
-                    $('<div/>',{text:`${specialDomainNameTxt}`})
                 ),
                 // $('<div/>',{class:'w100p row alnC jstfyS'}).append(
                 //     $('<div/>',{class:'ico-categories mie-3'}),

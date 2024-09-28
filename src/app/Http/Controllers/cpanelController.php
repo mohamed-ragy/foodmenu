@@ -597,7 +597,7 @@ class cpanelController extends Controller
                         'addresses',
                         'lat','lng','url','timeZone','hour12','country_code',
                         'currencies','websiteNames','websiteDescriptions',
-                        'website_announcements','website_receiptMsgs','languages','facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink','restaurantEmail','domainName','specialDomainName','trendingProducts',
+                        'website_announcements','website_receiptMsgs','languages','facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink','restaurantEmail','domainName','user_domainName','trendingProducts',
                         // 'website_colors','useCustomColors','customColorsHexCode',
                         'icon','logo','template_id',
                         'icon_id','logo_id',

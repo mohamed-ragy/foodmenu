@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class stripeController extends Controller
 {
     public function invoices(){
-        $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+        $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         $endpoint_secret = 'whsec_7Znbefwo22w9AIhLfHQ1yi93llUdYCm5';
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -169,7 +169,7 @@ class stripeController extends Controller
     }
 
     public function subscriptions(){
-        $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+        $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         $endpoint_secret = 'whsec_KH9qwSOiChMLfvRogu8kmuQEecCKCArN';
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -255,7 +255,7 @@ class stripeController extends Controller
     }
 
     public function paymentmethods(){
-        $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+        $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         $endpoint_secret = 'whsec_SX0M8NneLWdyRCCkt6ov6YW8vkHnbdf7';
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];

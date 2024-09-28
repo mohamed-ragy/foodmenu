@@ -1,5 +1,4 @@
-$('html,body').on('click','#statistics_select_period',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#statistics_select_period',function(e){
     showPopup('statistics_select_period',function(){
         $('.popupBody').append(
             $('<div/>',{class:'mB10',text:texts.dashboard.selectPeriod}),
@@ -106,8 +105,7 @@ $('html,body').on('click','#statistics_select_period',function(e){
     })
 })
 //
-$('html,body').on('click','.statisticsPeriodCheck',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.statisticsPeriodCheck',function(e){
     $('#datePicker-statistics1').hide()
     $('#datePicker-statistics2').hide()
     $('#datePicker-statistics1').attr('selectBy',$(this).attr('period'))
@@ -119,7 +117,7 @@ $('html,body').on('click','.statisticsPeriodCheck',function(e){
 
 })
 //
-$('html,body').on('click','#statistics-periodSelect-compare',function(e){
+$('body').on('click','#statistics-periodSelect-compare',function(e){
     e.stopImmediatePropagation();
     $('#datePicker-statistics1').hide()
     $('#datePicker-statistics2').hide()
@@ -133,7 +131,7 @@ $('html,body').on('click','#statistics-periodSelect-compare',function(e){
 
 })
 //
-$('html,body').on('click','#loadStatistics_btn',function(e){
+$('body').on('click','#loadStatistics_btn',function(e){
     e.stopImmediatePropagation();
     $('#datePicker-statistics1').hide()
     $('#datePicker-statistics2').hide()

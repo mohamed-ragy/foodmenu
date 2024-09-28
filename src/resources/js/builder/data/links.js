@@ -87,19 +87,19 @@ get_hyperlinks = function(){
         }
     }
 
-    if(window.selected_page == 'home'){
-        for(const key in window.template.home){
-            let section = window.template.home[key];
+    // if(window.template.settings.selected_page == 'home'){
+        for(const key in window.template[window.template.settings.selected_page]){
+            let section = window.template[window.template.settings.selected_page][key];
             hyperlinks[`scroll_to_${section.name}`] = {
                 name:texts.scroll_to.replace(':name:',section.name),
                 class:'scroll_to_section',
                 attr:{
                     // href:'/#scroll_to_section',
-                    section:window.template.home[key].class_selector,
+                    section:window.template[window.template.settings.selected_page][key].class_selector,
                 }
             }
         }
-    }
+    // }
     return hyperlinks
 
 }

@@ -1,11 +1,9 @@
-$('html,body').on('click','#order-discountD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#order-discountD',function(e){
     if(parseInt($('#order-discount').text()) == 0){return}
     $('#order-discount').text(parseInt($('#order-discount').text())  - 1);
     orderDiscount_nosave();
 })
-$('html,body').on('click','#order-discountU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#order-discountU',function(e){
     if(parseInt($('#order-discount').text()) == 100){return}
     $('#order-discount').text(parseInt($('#order-discount').text())  + 1);
     orderDiscount_nosave();
@@ -23,16 +21,14 @@ orderDiscount_nosave = function(){
     })
 }
 
-$('html,body').on('click','.cancelChangeOrderDiscountBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.cancelChangeOrderDiscountBtn',function(e){
     getOrder(window.history.state.order).then((order)=>{
         $('#order-discount').text(order.discount)
         orderDiscount_nosave();
     });
 })
 
-$('html,body').on('click','.changeOrderDiscountBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.changeOrderDiscountBtn',function(e){
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
     showBtnLoading($('.changeOrderDiscountBtn'))

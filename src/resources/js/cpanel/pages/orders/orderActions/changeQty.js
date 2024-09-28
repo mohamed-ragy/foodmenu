@@ -1,5 +1,4 @@
-$('html,body').on('click','.order-qtyMins',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-qtyMins',function(e){
     if(!$(this).hasClass('ico-left')){return;}
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}
@@ -39,8 +38,7 @@ $('html,body').on('click','.order-qtyMins',function(e){
         }
     });
 });
-$('html,body').on('click','.order-qtyPlus',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-qtyPlus',function(e){
     if(!$(this).hasClass('ico-right')){return;}
     if(!coolDownChecker()){return;}
     if(!confirmBtn($(this),e.pageX,e.pageY)){return;}

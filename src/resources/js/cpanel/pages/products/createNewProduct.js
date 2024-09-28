@@ -1,16 +1,14 @@
-$('html,body').on('click','#createProduct_img',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createProduct_img',function(e){
     showImgBrowser(texts.products.selectProductImg,'imgBrowser_createProductImg');
 });
-$('html,body').on('click','.imgBrowser_createProductImg',function(){
+$('body').on('click','.imgBrowser_createProductImg',function(){
     closePopup();
     let imgId = $(this).attr('imgId')
     let imgUrl = $(this).attr('src');
     $('#createProduct_img').attr('imgId',imgId)
     $('#createProduct_img').attr('src',imgUrl)
 });
-$('html,body').on('click','#createProductBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createProductBtn',function(e){
     let productName = $('#createProduct_productName').val();
     let productPrice = $('#createProduct_productPrice').val();
     if(productPrice == '' || productPrice == null){productPrice = 0.00;$('#createProduct_productPrice').val('0.00')}
@@ -40,7 +38,7 @@ $('html,body').on('click','#createProductBtn',function(e){
             _token:$('meta[name="csrf-token"]').attr('content'),
             createNewProduct:true,
             productName:productName,
-            price:productPrice,
+            price:productPrice.replace(/[^0-9.]/g, ''),
             categoryId:categoryId,
             productImgId:productImg,
             productNames:productNames,

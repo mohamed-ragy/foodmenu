@@ -51,6 +51,9 @@ class generate_css
         foreach($this->template['home'] as $section){
             self::generate_class($section);
         }
+        foreach($this->template['account'] as $section){
+            self::generate_class($section);
+        }
 
         //
         foreach($this->animations as $animation){
@@ -474,7 +477,7 @@ class generate_css
                 }
                 if(in_array('error',$elem['accessibility'])){
                     $css_error = '';
-                    $css_error_start = ".{$elem['class_selector']}_error, .{$elem['class_selector']}_error:hover, .{$elem['class_selector']}_error:focus{";
+                    $css_error_start = ".{$elem['class_selector']}_error, .{$elem['class_selector']}_error:hover, .{$elem['class_selector']}_error:focus, .{$elem['class_selector']}_error:active, .{$elem['class_selector']}_error:disabled{";
                     if(array_key_exists('css_error',$elem)){
                         $css_error = $css_error.self::add_css_style($elem['vars'] ?? null,$elem['css_error'],$has_animation);
                     }
@@ -491,6 +494,26 @@ class generate_css
                     $css_error = $css_error."}";
                     $css_error_end = "}";
                     $final_css = $final_css.$css_error_start.$css_error.$css_error_end;
+                }
+                if(in_array('selected',$elem['accessibility'])){
+                    $css_selected = '';
+                    $css_selected_start = ".{$elem['class_selector']}_selected, .{$elem['class_selector']}_selected:hover, .{$elem['class_selector']}_selected:focus, .{$elem['class_selector']}_selected:active, .{$elem['class_selector']}_selected:disabled{";
+                    if(array_key_exists('css_selected',$elem)){
+                        $css_selected = $css_selected.self::add_css_style($elem['vars'] ?? null,$elem['css_selected'],$has_animation);
+                    }
+                    if(array_key_exists('background_selected',$elem)){
+                        $css_selected = $css_selected.self::add_background_style($elem['background_selected']);
+                    }
+                    $css_selected = $css_selected."@media (max-width:{$this->template['page_setup']['mobile_max_width']}){";
+                    if(array_key_exists('css_selected_mobile',$elem)){
+                        $css_selected = $css_selected.self::add_css_style($elem['vars'] ?? null,$elem['css_selected_mobile'],$has_animation);
+                    }
+                    if(array_key_exists('background_selected_mobile',$elem)){
+                        $css_selected = $css_selected.self::add_background_style($elem['background_selected_mobile']);
+                    }
+                    $css_selected = $css_selected."}";
+                    $css_selected_end = "}";
+                    $final_css = $final_css.$css_selected_start.$css_selected.$css_selected_end;
                 }
                 if(in_array('hyperlink', $elem['accessibility'])){
                     $hyperlink_css = ".{$elem['class_selector']} a{color:{$elem['css_hyperlink']['color']};text-decoration:{$elem['css_hyperlink']['text-decoration']};}";
@@ -640,7 +663,7 @@ class generate_css
         $css = <<<string
         *{-webkit-tap-highlight-color: transparent;}
         html {margin: 0;padding: 0;height: 100%;width: 100%;overflow: hidden;}
-        body{font-family:{$body_font_name};user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow-y: auto;overflow-x:hidden;position: relative;color:{$this->template['page_setup']['font_color']};background-color:{$this->template['page_setup']['bg_color']};font-size:{$this->template['page_setup']['font_size']};line-height:{$this->template['page_setup']['line_height']};letter-spacing:{$this->template['page_setup']['letter_spacing']};}
+        body{font-family:{$body_font_name};user-select: none;width:100%;height:100%;box-sizing: border-box;margin:auto;overflow: auto;position: relative;color:{$this->template['page_setup']['font_color']};background-color:{$this->template['page_setup']['bg_color']};font-size:{$this->template['page_setup']['font_size']};line-height:{$this->template['page_setup']['line_height']};letter-spacing:{$this->template['page_setup']['letter_spacing']};}
         button{all:unset;}
         input{all:unset;}
         input[type='number'] {-moz-appearance:textfield;}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}

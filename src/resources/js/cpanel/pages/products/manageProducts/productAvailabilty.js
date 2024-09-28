@@ -1,5 +1,4 @@
-$('html,body').on('click','.manageProductCardProductAvailability',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.manageProductCardProductAvailability',function(e){
     if(!coolDownChecker()){
         if($(this).prop('checked')){
             $(this).prop('checked',false)

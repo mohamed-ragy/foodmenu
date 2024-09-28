@@ -38,8 +38,7 @@ a:hover{color:unset;text-decoration: unset;cursor: pointer;}
     height: 100%;
     box-sizing: border-box;
     margin: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
     position: relative;
 }
 .window_height {

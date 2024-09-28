@@ -3,8 +3,7 @@ $('.reportBug').on('click',function(){
         $('#reportBugMsg').focus();
     });
 })
-$('html,body').on('click','#reportBugBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#reportBugBtn',function(e){
     if($('#reportBugMsg').val() == ''){
         showAlert('error',texts.cpanel.reportBug.msgRequired,4000,true)
         textareaError($('#reportBugMsg'))

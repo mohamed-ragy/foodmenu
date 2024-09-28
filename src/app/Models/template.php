@@ -51,6 +51,9 @@ class template extends Model
         $template['login'] = json_decode($template['login'],true);
         $template['signup'] = json_decode($template['signup'],true);
         $template['reset_password_1'] = json_decode($template['reset_password_1'],true);
+        $template['reset_password_2'] = json_decode($template['reset_password_2'],true);
+        $template['reset_password_3'] = json_decode($template['reset_password_3'],true);
+        $template['account'] = json_decode($template['account'],true);
 
         return $template;
     }

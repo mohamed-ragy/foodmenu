@@ -226,11 +226,18 @@ $website = function(){
         return redirect()->route('website_home','en');
     })->name('website.root');
 
-    Route::prefix('{lang}')->group(function(){
+    Route::prefix('{lang}')->group(function($lang){
         Route::get('/', function () {
-            return redirect()->route('website_home','en');
-        });
+            return redirect()->route('website_home',request()->route('lang'));
+        });    
+
         Route::get('/home',[websiteController::class,'home'])->name('website_home');
+
+        Route::get('/account', function (){
+            return redirect()->route('website_account',['account_page' => 'account_information', 'lang' => request()->route('lang')]);
+        });
+
+        Route::get('/account/{account_page}',[websiteController::class,'account'])->name('website_account');
     });
     Route::prefix('api')->group(function () {
         Route::post('/website',[websiteController::class,'website'])->name('website_activity');

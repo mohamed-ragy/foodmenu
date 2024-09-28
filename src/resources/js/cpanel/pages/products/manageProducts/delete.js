@@ -1,4 +1,4 @@
-$('html,body').on('click','.manageProductCardDelete',function(e){
+$('body').on('click','.manageProductCardDelete',function(e){
     e.stopImmediatePropagation();
     let product = website.products.find(item=> item.id == $(this).attr('product'));
     showPopup('delete-popup',function(){
@@ -19,7 +19,7 @@ $('html,body').on('click','.manageProductCardDelete',function(e){
         )
     });
 })
-$('html,body').on('click','#deleteProduct-confirmBtn',function(e){
+$('body').on('click','#deleteProduct-confirmBtn',function(e){
     e.stopImmediatePropagation();
     showBtnLoading($('#deleteProduct-confirmBtn'));
     if(!coolDownChecker()){return;}

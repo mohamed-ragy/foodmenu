@@ -55,8 +55,7 @@ orderHistory_hideMoreFilters = function(){
     $('.orderHistoryFiltersContainer').removeClass('orderHistoryFiltersContainer_show')
     $('.orderHistoryMoreFiltersSwitch').text(texts.orders.moreFilters).removeClass('mT50').addClass('mT10')
 }
-$('html,body').on('click','.orderHistoryMoreFiltersSwitch',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.orderHistoryMoreFiltersSwitch',function(e){
     if($('.orderHistoryFiltersContainer').hasClass('orderHistoryFiltersContainer_show')){
         orderHistory_hideMoreFilters();
     }else{
@@ -64,8 +63,7 @@ $('html,body').on('click','.orderHistoryMoreFiltersSwitch',function(e){
     }
 })
 //
-$('html,body').on('click','.orderHistoryStatusBy',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.orderHistoryStatusBy',function(e){
     if($(this).find('.orderHistoryStatusByCheck').hasClass('ico-check1')){
         let orderHistoryStatusByCheck = 0;
         $('.orderHistoryStatusByCheck').each(function(){
@@ -78,8 +76,7 @@ $('html,body').on('click','.orderHistoryStatusBy',function(e){
         $(this).find('.orderHistoryStatusByCheck').removeClass('ico-check0').addClass('ico-check1');
     }
 })
-$('html,body').on('click','.orderHistoryFor',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.orderHistoryFor',function(e){
     if($(this).attr('orderHistoryFor') == 'users' || $(this).attr('orderHistoryFor') == 'guests'){
         if($(this).find('.orderHistoryForCheck').hasClass('ico-check1')){
             let orderHistoryForCheck = 0;

@@ -47,33 +47,28 @@ setInterval(() => {
 ///////////////////control settings events /////////////////////////////
 
 
-$('html,body').on('click','#cpanelSettings-tooltip',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-tooltip',function(e){
     settings_temp.tooltip = $(this).prop('checked')
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-oneAlert',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-oneAlert',function(e){
     settings_temp.oneAlert = $(this).prop('checked')
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-dClickConfirm',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-dClickConfirm',function(e){
     settings_temp.dClickConfirm = $(this).prop('checked')
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-shareReminder',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-shareReminder',function(e){
     settings_temp.shareReminder = $(this).prop('checked')
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-chatPopup',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-chatPopup',function(e){
     settings_temp.chatPopup = $(this).prop('checked')
     $('#LiveChat-chatPopup').prop('checked',settings_temp.chatPopup);
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-controlSettingsCancelBtn',function(){
+$('body').on('click','#cpanelSettings-controlSettingsCancelBtn',function(){
     settings_temp.tooltip = settings.tooltip
     settings_temp.oneAlert = settings.oneAlert
     settings_temp.dClickConfirm = settings.dClickConfirm
@@ -87,8 +82,7 @@ $('html,body').on('click','#cpanelSettings-controlSettingsCancelBtn',function(){
     $('#LiveChat-chatPopup').prop('checked',settings.chatPopup);
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-controlSettingsSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-controlSettingsSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#cpanelSettings-controlSettingsSaveBtn'))
     if($('#cpanelSettings-tooltip').prop('checked')){tooltip = 1}else{tooltip = 0}

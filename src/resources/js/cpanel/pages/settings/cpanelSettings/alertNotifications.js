@@ -24,44 +24,36 @@ alertNotificationsNoSaveCheck = function(){
 
 //////////////////alert notifications settings//////////////////////////////
 
-$('html,body').on('click','#cpanelSettings-NewOrderAlerts',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-NewOrderAlerts',function(e){
     settings_temp.NewOrderAlerts = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-DeliveredOrderAlerts',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-DeliveredOrderAlerts',function(e){
     settings_temp.DeliveredOrderAlerts = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-NewUserAlerts',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-NewUserAlerts',function(e){
     settings_temp.NewUserAlerts = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-NewReviewAlerts',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-NewReviewAlerts',function(e){
     settings_temp.NewReviewAlerts = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-CanceledOrderAlerts',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-CanceledOrderAlerts',function(e){
     settings_temp.CanceledOrderAlerts = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-onlineUserAlert',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-onlineUserAlert',function(e){
     settings_temp.onlineUserAlert = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-onlineGuestAlert',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-onlineGuestAlert',function(e){
     settings_temp.onlineGuestAlert = $(this).prop('checked');
     control_panel_settings_unsave_check();
 })
 
-$('html,body').on('click','#cpanelSettings-alertNotificationsCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-alertNotificationsCancelBtn',function(e){
     settings_temp.NewOrderAlerts = settings.NewOrderAlerts;
     settings_temp.DeliveredOrderAlerts = settings.DeliveredOrderAlerts;
     settings_temp.NewUserAlerts = settings.NewUserAlerts;
@@ -78,8 +70,7 @@ $('html,body').on('click','#cpanelSettings-alertNotificationsCancelBtn',function
     $('#cpanelSettings-onlineGuestAlert').prop('checked',settings.onlineGuestAlert);
     control_panel_settings_unsave_check();
 });
-$('html,body').on('click','#cpanelSettings-alertNotificationsSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-alertNotificationsSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     let NewOrderAlerts;let DeliveredOrderAlerts;let NewUserAlerts;let NewReviewAlerts;let CanceledOrderAlerts;let onlineUserAlert;let onlineGuestAlert;
     showBtnLoading($('#cpanelSettings-alertNotificationsSaveBtn'))

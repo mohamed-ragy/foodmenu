@@ -315,7 +315,7 @@ class foodmenuController extends Controller
 
                 $plan = $plans->where('name',$request->plan)->first();
                 // $template = $templates->where('id',$request->template)->first();
-                $stripe = new \Stripe\StripeClient('sk_test_51NV5sdIYxD8tIsOHGtIyOTrQbxUq7Nb6Zl2fHSbiaSYjgg80vm5CsifxrCc3XNxTDszMbuGucWP6IdTNhZkU3TWT00IuEY1ouI');
+                $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
                 $testClock = $stripe->testHelpers->testClocks->create([
                     'frozen_time' => Carbon::now()->timestamp,
                     'name' => Auth::guard('account')->user()->name,

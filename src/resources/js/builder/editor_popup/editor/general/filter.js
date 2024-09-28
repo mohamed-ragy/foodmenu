@@ -11,7 +11,7 @@ draw_editor_popup_filter = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled'],
+                interactions:['hover','click','focus','disabled','selected'],
                 editors:[
                     draw_filter_editor({
                         key_tree:key_tree,

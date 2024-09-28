@@ -103,7 +103,6 @@ draw_filter_editor = function(data){
                         dummy:true,
                         dummy_class:'filter_box_shadow_offset_x',
                         units:['px'],
-                        step:1,
                     })
                 ),
                 $('<div/>',{class:'editor_popup_box_shadow_row'}).append(
@@ -112,7 +111,6 @@ draw_filter_editor = function(data){
                         dummy:true,
                         dummy_class:'filter_box_shadow_offset_y',
                         units:['px'],
-                        step:1,
                     })
                 ),
                 $('<div/>',{class:'editor_popup_box_shadow_row'}).append(
@@ -121,7 +119,6 @@ draw_filter_editor = function(data){
                         dummy:true,
                         dummy_class:'filter_box_shadow_blur',
                         units:['px'],
-                        step:1,
                     })
                 ),
             )           

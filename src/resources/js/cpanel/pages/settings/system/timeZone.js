@@ -12,25 +12,22 @@ timeZoneNoSaveCheck = function(){
         return false
     }
 }
-$('html,body').on('change','#system-timeZone-hour12',function(e){
-    e.stopImmediatePropagation();
+$('body').on('change','#system-timeZone-hour12',function(e){
     website_temp.hour12 = $(this).prop('checked');
     system_unsave_check();
 });
 
-$('html,body').on('click','#system-timeZonesList .inputListElement',function(e){
+$('body').on('click','#system-timeZonesList .inputListElement',function(e){
     website_temp.timeZone = $(this).attr('key');
     system_unsave_check()
 })
-$('html,body').on('keyup','#system-timeZones',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keyup','#system-timeZones',function(e){
     console.log('gaga')
     website_temp.timeZone = $('#system-timeZones').attr('key');
     system_unsave_check()
 });
 
-$('html,body').on('click','#system-timeZoneCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#system-timeZoneCancelBtn',function(e){
     if(!account.authorities[4]){return;}
     website_temp.hour12 = website.hour12;
     $('#system-timeZone-hour12').prop('checked',website.hour12);
@@ -42,8 +39,7 @@ $('html,body').on('click','#system-timeZoneCancelBtn',function(e){
     })
 });
 
-$('html,body').on('click','#system-timeZoneSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#system-timeZoneSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#system-timeZoneSaveBtn'));
     let hour12 = false;

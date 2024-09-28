@@ -99,7 +99,7 @@ draw_contextMenu = function(){
     if(accessibility.includes('section_swap')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-arrowUp fs08',class:`swap_section_up_btn ${elem.sort == 0 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_up}),
-            draw_contextMenu_elem({icon:'ico-arrowDown fs08',class:`swap_section_down_btn ${elem.sort == window.template.home.length - 1 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_down}),
+            draw_contextMenu_elem({icon:'ico-arrowDown fs08',class:`swap_section_down_btn ${elem.sort == window.template[window.template.settings.selected_page].length - 1 ? 'contextMenu_elem_dummy' : ''}`,child1_text:texts.move_section_down}),
         )
     }
     if(accessibility.includes('section_dublicate')){
@@ -141,6 +141,11 @@ draw_contextMenu = function(){
     }
     contextMenu.append(draw_contextMenu_line())
     //main edits
+    if(accessibility.includes('user_account_section')){
+        contextMenu.append(
+            draw_contextMenu_elem({icon:'ico-layout',class:'editor_user_account_section',child1_text:texts.website_pages.account,})
+        )
+    }
     if(accessibility.includes('website_form')){
         contextMenu.append(
             draw_contextMenu_elem({icon:'ico-form',class:`editor_website_form`,child1_text:texts.website_style.website_form})

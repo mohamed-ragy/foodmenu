@@ -96,8 +96,7 @@ drawImg = function(img,append='append'){
 //         return false;
 //     }else{return true;}
 // }
-$('html,body').on('click','.deleteImg',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteImg',function(e){
     // if(!checkDeleteImg($(this).attr('img'))){return;}
     let img = website.imgs.find(item=> item.id == $(this).attr('img'));
     showPopup('delete-popup',function(){
@@ -118,8 +117,7 @@ $('html,body').on('click','.deleteImg',function(e){
         )
     })
 })
-$('html,body').on('click','#deleteImage-confirmBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deleteImage-confirmBtn',function(e){
     let imgId = $(this).attr('img');
     showBtnLoading($('#deleteImage-confirmBtn'))
     $.ajax({
@@ -168,8 +166,7 @@ $('html,body').on('click','#deleteImage-confirmBtn',function(e){
     });
 })
 
-$('html,body').on('click','.copyImageLink',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.copyImageLink',function(e){
     let imgUrl = website.imgs.find(item=>item.id == $(this).attr('img')).url
     navigator.clipboard.writeText(`https://${website.url}${imgUrl}`).then(function(){
         showAlert('normal',texts.design.copyed,4000,true);
@@ -315,7 +312,7 @@ $('.imgs-imgPreviewimg').on('mousedown touchstart',function(e){
         $('.imgs-imgPreviewimg').css('cursor','grabbing')
     }
 })
-$('html,body').on('mouseup touchend',function(){
+$('body').on('mouseup touchend',function(){
     if($('.imgs-imgPreviewimg').attr('zoomLvl') >= 1){
         $('.imgs-imgPreviewimg').css('cursor','grab')
     }
@@ -323,7 +320,10 @@ $('html,body').on('mouseup touchend',function(){
     imgPreviewInPan = false;
     $('.imgs-imgPreviewimg').removeClass('imgs-imgPreviewimg_onPan')
 })
-$('html,body').on('mousemove touchmove',function(e){
+$('body').on('mousedown touchstart','img',function(e){
+    e.preventDefault();
+})
+$('body').on('mousemove touchmove',function(e){
     if(imgPreviewInPan){
         if($('.imgs-imgPreviewimg').attr('zoomLvl') >= 1){
             $('.imgs-imgPreviewimg').css('cursor','grabbing');

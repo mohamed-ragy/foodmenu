@@ -20,20 +20,56 @@ show_header_drop_down = function(list){
                         class:'header_drop_down_list_item open_popup',
                         input_focus:'.login_email .form_input_box_input',
                         popup:'login',
-                        text:window.texts.authentication.login,
+                        text:get_text('authentication.login'),
                     }),
                     $('<a/>',{
                         class:'header_drop_down_list_item open_popup',
                         popup:'signup',
                         input_focus:'.signup_name .form_input_box_input',
-                        text:window.texts.authentication.signup,
+                        text:get_text('authentication.signup'),
                     })
                 )
             }else if(window.auth.type == 'user'){
                 $('.header_drop_down_list').append(
                     $('<a/>',{
+                        class:'header_drop_down_list_item open_page',
+                        page:'account',
+                        page_params:'account_page:account_information;',
+                        account_page:'account_information',
+                        text:get_text('authentication.account_information'),
+                    }),
+                ),
+                $('.header_drop_down_list').append(
+                    $('<a/>',{
+                        class:'header_drop_down_list_item open_page',
+                        page:'account',
+                        page_params:'account_page:change_account_password;',
+                        account_page:'change_account_password',
+                        text:get_text('authentication.change_account_password'),
+                    }),
+                ),
+                $('.header_drop_down_list').append(
+                    $('<a/>',{
+                        class:'header_drop_down_list_item open_page',
+                        page:'account',
+                        page_params:'account_page:my_orders;',
+                        account_page:'my_orders',
+                        text:get_text('authentication.my_orders'),
+                    }),
+                ),
+                $('.header_drop_down_list').append(
+                    $('<a/>',{
+                        class:'header_drop_down_list_item open_page',
+                        page:'account',
+                        page_params:'account_page:my_addresses;',
+                        account_page:'my_addresses',
+                        text:get_text('authentication.my_addresses'),
+                    }),
+                ),
+                $('.header_drop_down_list').append(
+                    $('<a/>',{
                         class:'header_drop_down_list_item logout',
-                        text:window.texts.authentication.logout,
+                        text:get_text('authentication.logout'),
                     }),
                 )
             }
@@ -116,5 +152,13 @@ fix_header_nav_list = function(){
         if(header_width < $('.header_logo').outerWidth() + $('.header_navList').outerWidth() + $('.header_iconsList').outerWidth()){
             fix_header_nav_list();
         }
+    }
+}
+set_adapt_header = function(){
+    if($('body').scrollTop() == 0 && $('section').first().attr('adapt_header') == '1'){
+        $(':root').css('--adapt_header_color',$('section').first().attr('adapt_header_color'))
+        $('header').addClass("adapted_header")
+    }else{
+        $('header').removeClass("adapted_header")
     }
 }

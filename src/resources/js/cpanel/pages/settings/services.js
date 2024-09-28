@@ -109,22 +109,19 @@ drawWorkingDaysTable = function(service){
 
 
 //
-$('html,body').on('click','.workingHoursFromContainer',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.workingHoursFromContainer',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day].from = `${$('.workingHoursFromContainer').find('.timePickerH').attr('hour')}.${$('.workingHoursFromContainer').find('.timePickerM').attr('mins')}`
     drawWorkingDaysTable(service)
 })
-$('html,body').on('click','.workingHoursToContainer',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.workingHoursToContainer',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day].to = `${$('.workingHoursToContainer').find('.timePickerH').attr('hour')}.${$('.workingHoursToContainer').find('.timePickerM').attr('mins')}`
     drawWorkingDaysTable(service)
 })
-$('html,body').on('click','.setAsWorkingDaySwtichBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.setAsWorkingDaySwtichBtn',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     $(`#${service}-setAsWorkingDay`).prop('checked') ? website_temp[`workingDays_${service}`][day].working = 1 : website_temp[`workingDays_${service}`][day].working = 0;
@@ -132,8 +129,7 @@ $('html,body').on('click','.setAsWorkingDaySwtichBtn',function(e){
     $(`#${service}-setAsWorkingDay`).prop('checked') ? $(`#${service}-happyHoursContainer`).removeClass('none') : $(`#${service}-happyHoursContainer`).addClass('none')
     drawWorkingDaysTable(service)
 })
-$('html,body').on('click','.setAsworking24DaySwtichBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.setAsworking24DaySwtichBtn',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     if($(`#${service}-working24`).prop('checked')){
@@ -148,22 +144,19 @@ $('html,body').on('click','.setAsworking24DaySwtichBtn',function(e){
     drawWorkingDaysTable(service)
 })
 ///////
-$('html,body').on('click','.happyHoursFromContainer',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.happyHoursFromContainer',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day].Dfrom = `${$('.happyHoursFromContainer').find('.timePickerH').attr('hour')}.${$('.happyHoursFromContainer').find('.timePickerM').attr('mins')}`
     drawWorkingDaysTable(service)
 })
-$('html,body').on('click','.happyHoursToContainer',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.happyHoursToContainer',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day].Dto = `${$('.happyHoursToContainer').find('.timePickerH').attr('hour')}.${$('.happyHoursToContainer').find('.timePickerM').attr('mins')}`
     drawWorkingDaysTable(service)
 })
-$('html,body').on('click','.happyHourDiscountD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.happyHourDiscountD',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day].discount <= 0 ? website_temp[`workingDays_${service}`][day].discount = 0 :
@@ -173,8 +166,7 @@ $('html,body').on('click','.happyHourDiscountD',function(e){
     website_temp[`workingDays_${service}`][day].discount <= 0 ? $('.happyHoursToContainer').addClass('timePickerDump') : $('.happyHoursToContainer').removeClass('timePickerDump') ;
     drawWorkingDaysTable(service)
 })
-$('html,body').on('click','.happyHourDiscountU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.happyHourDiscountU',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day].discount >= 100 ? website_temp[`workingDays_${service}`][day].discount = 100 :
@@ -185,16 +177,14 @@ $('html,body').on('click','.happyHourDiscountU',function(e){
     drawWorkingDaysTable(service)
 })
 //
-$('html,body').on('click','#cancelWorkingDayBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cancelWorkingDayBtn',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
     website_temp[`workingDays_${service}`][day] = JSON.parse(JSON.stringify(website[`workingDays_${service}`][day]))
     drawWorkingDaysTable(service)
     drawPopupPage_working_days(service,day)
 })
-$('html,body').on('click','#saveWorkingDayBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#saveWorkingDayBtn',function(e){
     let day = window.history.state.day;
     let service = window.history.state.service;
 
@@ -223,8 +213,7 @@ $('html,body').on('click','#saveWorkingDayBtn',function(e){
     })
 });
 /////
-$('html,body').on('click','.copyWorkingday',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.copyWorkingday',function(e){
     if($(this).hasClass('copyWorkingdayDump')){return;}
     let dayName = $(this).attr('day');
     let service = $(this).attr('service');
@@ -290,12 +279,10 @@ $('html,body').on('click','.copyWorkingday',function(e){
 
     })
 })
-$('html,body').on('click','.copyDayWorkingHappyHours',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.copyDayWorkingHappyHours',function(e){
     $(this).find('.copyDayWorkingHappyHoursCheck').hasClass('ico-check1') ? $(this).find('.copyDayWorkingHappyHoursCheck').removeClass('ico-check1').addClass('ico-check0') : $(this).find('.copyDayWorkingHappyHoursCheck').addClass('ico-check1').removeClass('ico-check0');
 });
-$('html,body').on('click','.copyDayPopupDay',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.copyDayPopupDay',function(e){
     if($(this).attr('key') == 'allWeekDays'){
         if($(this).find('.copyDayPopupDayCheck').hasClass('ico-check1')){
             $('.copyDayPopupDayCheck').removeClass('ico-check1').addClass('ico-check0')
@@ -311,8 +298,7 @@ $('html,body').on('click','.copyDayPopupDay',function(e){
         }
     }
 })
-$('html,body').on('click','#copyWorkingHoursBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#copyWorkingHoursBtn',function(e){
     let service = $(this).attr('service');
     let copyFrom = website_temp[`workingDays_${service}`][$(this).attr('copy')];
     let copyTo = [];
@@ -345,8 +331,7 @@ $('html,body').on('click','#copyWorkingHoursBtn',function(e){
     drawWorkingDaysTable(service)
     closePopup();
 })
-$('html,body').on('click','#copySaveWorkingHoursBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#copySaveWorkingHoursBtn',function(e){
     if(!coolDownChecker()){return;}
     let service = $(this).attr('service');
     let copyFrom = website_temp[`workingDays_${service}`][$(this).attr('copy')];

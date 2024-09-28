@@ -15,15 +15,12 @@ handleLoginRequest = function(r){
 /////
 
 //////
-$('html,body').on('keypress','#loginEmailinput, #loginPasswordinput',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keypress','#loginEmailinput, #loginPasswordinput',function(e){
     if(e.which == 13){
         $('#loginBtn').trigger('click');
     }
 })
-$('html,body').on('click','#loginBtn',function(e){
-    e.stopImmediatePropagation();
-
+$('body').on('click','#loginBtn',function(e){
     showBtnLoading($('#loginBtn'));
     $('#loginEmailinput').prop('disabled',true)
     $('#loginPasswordinput').prop('disabled',true)

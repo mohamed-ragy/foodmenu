@@ -1,9 +1,8 @@
 
-$('html,body').on('click','#createCategory_img',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createCategory_img',function(e){
     showImgBrowser(texts.products.selectCategoryImg,'imgBrowser-createCatImg');
 });
-$('html,body').on('click','.imgBrowser-createCatImg',function(){
+$('body').on('click','.imgBrowser-createCatImg',function(){
     closePopup();
     let imgId = $(this).attr('imgId')
     let imgUrl = $(this).attr('src');
@@ -11,8 +10,7 @@ $('html,body').on('click','.imgBrowser-createCatImg',function(){
     $('#createCategory_img').attr('src',imgUrl)
 });
 
-$('html,body').on('click','#createCategoryBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createCategoryBtn',function(e){
     let categoryName =$('#createCategory_categoryName').val();
     let categoryImg = $('#createCategory_img').attr('imgId') ?? null;
     if(categoryImg == ''){categoryImg = null;}

@@ -11,14 +11,13 @@ pickupTaxNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('input change','#pickupTaxPercent, #pickupTaxCost',function(){
+$('body').on('input change','#pickupTaxPercent, #pickupTaxCost',function(){
     if($(this).val() == ''){$(this).val('0.00')}
     website_temp.pickupTaxCost = parseFloat($('#pickupTaxCost').val());
     website_temp.pickupTaxPercentage = parseFloat($('#pickupTaxPercent').val());
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','.usePickupTaxCost',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.usePickupTaxCost',function(e){
     website_temp.usePickupTaxCost = 1
     $('.usePickupTaxCostCheck').removeClass('ico-check0').addClass('ico-check1')
     $('.usePickupTaxPercentCheck').removeClass('ico-check1').addClass('ico-check0')
@@ -26,8 +25,7 @@ $('html,body').on('click','.usePickupTaxCost',function(e){
     $('.pickupTaxPercentContainer').addClass('none')
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','.usePickupTaxPercent',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.usePickupTaxPercent',function(e){
     website_temp.usePickupTaxCost = 0;
     $('.usePickupTaxCostCheck').removeClass('ico-check1').addClass('ico-check0')
     $('.usePickupTaxPercentCheck').removeClass('ico-check0').addClass('ico-check1')
@@ -35,8 +33,7 @@ $('html,body').on('click','.usePickupTaxPercent',function(e){
     $('.pickupTaxPercentContainer').removeClass('none')
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#pickupTaxCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupTaxCancelBtn',function(e){
     website_temp.usePickupTaxCost = website.usePickupTaxCost;
     website_temp.pickupTaxCost = website.pickupTaxCost;
     website_temp.pickupTaxPercentage = website.pickupTaxPercentage;
@@ -55,8 +52,7 @@ $('html,body').on('click','#pickupTaxCancelBtn',function(e){
     }
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#pickupTaxSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#pickupTaxSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#pickupTaxSaveBtn'));
     $.ajax({

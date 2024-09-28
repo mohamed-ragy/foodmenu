@@ -10,7 +10,7 @@ draw_select_box = function(data){
         let selection = data.selections[key];
         let selection_elem;
         editor.append(
-            selection_elem = $('<div/>',{class:`select_box ${selection.class ?? ''} ${selection.class ? 'select_box_icon' : ''}`,text:selection.text,key:selection.key})
+            selection_elem = $('<div/>',{class:`select_box ${selection.class ?? ''} ${selection.class ? 'select_box_icon' : ''}`,text:selection.text,key:selection.key,custom_val:selection.custom_val ?? ''})
         )
         if('show_elem' in selection){
             selection_elem.attr('show_elem',selection.show_elem)
@@ -26,7 +26,9 @@ set_select_box = function(editor){
     let val = get_editor_val(editor)
     editor.find(`.select_box`).removeClass('select_box_selected');
     editor.find(`.select_box[key="${val}"]`).addClass('select_box_selected');
-
+    if(editor.find('.select_box_selected').length == 0){
+        editor.find(`.select_box[key="custom"]`).addClass('select_box_selected');
+    }
     if(typeof(editor.find('.select_box_selected').attr('show_elem')) !== 'undefined'){
         let show_elems = editor.find('.select_box_selected').attr('show_elem').split('.');
         for(const key in show_elems){
@@ -61,6 +63,9 @@ $('body').on('change','.select_box_editor',function(){
     let editor = $(this);
     if(editor.hasClass('dummy_editor')){return;}
     let new_val = editor.find('.select_box_selected').attr('key');
+    if(new_val == 'custom'){
+        new_val = editor.find('.select_box_selected').attr('custom_val')
+    }
     set_val(editor,new_val);
     new_action(editor.attr('render'));
 })

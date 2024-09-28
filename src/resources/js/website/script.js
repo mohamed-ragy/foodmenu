@@ -5,41 +5,26 @@ loadTouchEvents($);
 window.Cookies = require('js-cookie');
 window.L = require("leaflet");
 
+window.is_websocket_conected = false;
+$.ajaxSetup({
+    headers: {
+        'X-Csrf-Token':$('meta[name="csrf-token"]').attr('content'),
+        'X-Website-Id':website_id,
+    },
+    type:'POST',
+});
+
+require('./general_events.js')
+require('./functions/functions.js')
+require('./navigation/navigation.js')
 require('./auth/auth.js')
 require('./websocket/websocket.js')
-require('./events/general_events.js')
+require('./components/components.js')
+require('./pages/pages.js')
 
-require('./components/header.js')
-require('./components/website_form.js')
 
-set_website_data = function(){
-    $('.website_logo').attr('src',window.website.logo);
-    $('.restaurant_name').text(window.website.websiteNames[window.lang]);
-    $('.page_title').text(window.title);
-    $('.page_description').text(window.description);
-}
-set_adapt_header = function(){
-    if($('body').scrollTop() == 0 && $('section').first().attr('adapt_header') == '1'){
-        $(':root').css('--adapt_header_color',$('section').first().attr('adapt_header_color'))
-        $('header').addClass("adapted_header")
-    }else{
-        $('header').removeClass("adapted_header")
-    }
-}
 set_adapt_header();
-
-get_text = function(tree){
-    let text = window.texts;
-    tree = tree.split('.')
-    for(const key in tree){
-        text = text[tree[key]]
-    }
-    return text
-}
-
-
 $(document).ready(function(){
-
     set_website_data();
     $(':root').css('--screen_height_minus_header',`${$(window).outerHeight() - $('header').outerHeight()}px`)
     $(':root').css('--screen_height',`${$(window).outerHeight()}px`)
@@ -56,29 +41,22 @@ $(document).ready(function(){
         fix_header_nav_list();
     })
     scroll_elem_animation('top');
+    if(window.smooth_scroll == '1'){
+        smooth_scroll_event();
+    }
+    let params = new URLSearchParams(window.location.search)
 
-    // set_website_data();
-    // $(':root').css('--screen_height_minus_header',`${$('body').outerHeight() - $('header').outerHeight()}px`)
-    // $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
-    // $(':root').css('--header_height',`${$('header').outerHeight()}px`)
-    // fix_header_nav_list();
+    let params_obj = Object.fromEntries(params.entries());
+    for(const key in window.page_data){
+        params_obj[key] = window.page_data[key]    
+    }
+    window.window_history.replace(params_obj);
+    set_page();
+    let popup = params.get('popup')
+    if(popup !== null){
+        open_popup({popup:params.get('popup')})
+    }
 
-    // window.texts = window.texts
-    // text.page.title = window.title;
-    // text.page.description = window.description;
-    
-
-    // open_page(function(){
-    //     $('#page').append(draw_home_page())
-    // })
-
-    // call this function after getting the website data
-    // set_website_data = function(){
-    //     $('.website_logo').attr('src',window.website.logo);
-    //     $('.restaurant_name').text(window.website.websiteNames[window.lang]);
-    //     $('.page_title').text(window.title);
-    //     $('.page_description').text(window.description);
-    // }
 })
 
 set_elem_animation = function(class_selector,animation,immediate=false){
@@ -213,20 +191,3 @@ $('body').on('scroll',function(e){
         }
     }
 })
-
-
-// get_website_data = function(){
-//     $.ajax({
-//         'url':'/api/website',
-//         data:{
-//             get_website_data:true,
-//         },success:function(r){
-//             window.website = r;
-//             set_website_data();
-// $(':root').css('--screen_height_minus_header',`${$('body').outerHeight() - $('header').outerHeight()}px`)
-//             $(':root').css('--screen_height',`calc(${$('body').height()}px)`)
-//             $(':root').css('--header_height',`${$('header').outerHeight()}px`)
-//             fix_header_nav_list();
-//         }
-//     })
-// }

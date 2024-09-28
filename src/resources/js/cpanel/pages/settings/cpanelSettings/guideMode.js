@@ -246,8 +246,7 @@ hotkeys = function(){
 hotkeys();
 
 /////////////guide Mode events/////////////////
-$('html,body').on('click','#cpanelSettings-GuideMode',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-GuideMode',function(e){
     settings_temp.guideMode = $('#cpanelSettings-GuideMode').prop('checked')
     if(settings_temp.guideMode == true && $(window).width() < 1360){
         setTimeout(function(){
@@ -261,26 +260,22 @@ $('html,body').on('click','#cpanelSettings-GuideMode',function(e){
     }
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-helpIcons',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-helpIcons',function(e){
     settings_temp.helpIcons = $('#cpanelSettings-helpIcons').prop('checked')
     helpIconsToggle(settings_temp.helpIcons);
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-autoHelp',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-autoHelp',function(e){
     settings_temp.autoHelp = $('#cpanelSettings-autoHelp').prop('checked')
     autoHelpToggle(settings_temp.autoHelp);
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-guideHints',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-guideHints',function(e){
     settings_temp.guideHints = $('#cpanelSettings-guideHints').prop('checked')
     guideHintsToggle(settings_temp.guideHints);
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-GuideModeCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-GuideModeCancelBtn',function(e){
     settings_temp.guideMode = settings.guideMode;
     settings_temp.autoHelp = settings.autoHelp;
     settings_temp.helpIcons = settings.helpIcons;
@@ -308,8 +303,7 @@ $('html,body').on('click','#cpanelSettings-GuideModeCancelBtn',function(e){
     guideModeToggle(settings.guideMode);
     control_panel_settings_unsave_check();
 })
-$('html,body').on('click','#cpanelSettings-GuideModeSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#cpanelSettings-GuideModeSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#cpanelSettings-GuideModeSaveBtn'))
     let guideMode; let autoHelp; let helpIcons;

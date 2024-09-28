@@ -34,4 +34,10 @@ return [
     'newPasswordMin' =>  'The new password you entered is less than :min characters.',
     'newPasswordMax' => 'The new password you entered is longer than :max characters.',
     'newPasswordRegex' => 'The new password must contain at least a lowercase letter, an uppercase letter, and a number.',
+    //new
+    'passwordRequired' => 'Please create a new valid password.',
+    'passwordMin' =>  'The password you entered is less than :min characters.',
+    'passwordMax' => 'The password you entered is longer than :max characters.',
+    'passwordRegex' => 'The password must contain at least a lowercase letter, an uppercase letter, and a number.',
+    //
 ];

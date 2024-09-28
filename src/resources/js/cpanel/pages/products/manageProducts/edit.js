@@ -38,26 +38,24 @@ editProductsNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('click','#editProduct_productAvailability',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editProduct_productAvailability',function(e){
     $(this).prop('checked') ? website_temp.products.find(item=>item.name == window.history.state.product).availability = 1 :
     website_temp.products.find(item=>item.name == window.history.state.product).availability = 0;
     manage_products_unsave_check();
 })
-$('html,body').on('input change','#editProduct_productPrice',function(e){
-    e.stopImmediatePropagation();
+
+$('body').on('change input','#editProduct_productPrice',function(e){
     website_temp.products.find(item=>item.name == window.history.state.product).price = $(this).val() == '' || $(this).val() == null ? '0.00':$(this).val();
     manage_products_unsave_check();
 })
-$('html,body').on('click','#editProduct_productCategoryList .inputListElement',function(e){
+$('body').on('click','#editProduct_productCategoryList .inputListElement',function(e){
     website_temp.products.find(item=>item.name == window.history.state.product).category_id = $(this).attr('key') == 'uncategorized' ? null : website.categories.find(item=>item.name == $(this).attr('key')).id;
     manage_products_unsave_check();
 })
-$('html,body').on('click','#editProduct_img',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editProduct_img',function(e){
     showImgBrowser(texts.products.selectProductImg,'imgBrowser_editProductImg');
 });
-$('html,body').on('click','.imgBrowser_editProductImg',function(){
+$('body').on('click','.imgBrowser_editProductImg',function(){
     closePopup();
     let imgId = $(this).attr('imgId')
     let imgUrl = $(this).attr('src');
@@ -67,8 +65,7 @@ $('html,body').on('click','.imgBrowser_editProductImg',function(){
     website_temp.products.find(item=> item.name == window.history.state.product).img = imgUrl;
     manage_products_unsave_check();
 });
-$('html,body').on('input change','.editProductNamesInputText',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.editProductNamesInputText',function(e){
     for(const key in website_temp.products){
         if(website_temp.products[key].name == window.history.state.product){
             for(const key2 in website.languages){
@@ -79,8 +76,7 @@ $('html,body').on('input change','.editProductNamesInputText',function(e){
     }
     manage_products_unsave_check();
 })
-$('html,body').on('input change','.editProductDescriptionsTextarea',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','.editProductDescriptionsTextarea',function(e){
     for(const key in website_temp.products){
         if(website_temp.products[key].name == window.history.state.product){
             for(const key2 in website.languages){
@@ -91,8 +87,7 @@ $('html,body').on('input change','.editProductDescriptionsTextarea',function(e){
     }
     manage_products_unsave_check();
 })
-$('html,body').on('click','#editProduct_cancel',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editProduct_cancel',function(e){
     for(const key in website_temp.products){
         if(website_temp.products[key].name == window.history.state.product){
             website_temp.products[key] = JSON.parse(JSON.stringify(website.products.find(item=>item.name == window.history.state.product)))
@@ -102,8 +97,7 @@ $('html,body').on('click','#editProduct_cancel',function(e){
     manage_products_unsave_check();
 })
 
-$('html,body').on('click','#editProduct_save',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#editProduct_save',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#editProduct_save'));
     let product = website_temp.products.find(item=>item.name == window.history.state.product);
@@ -115,7 +109,7 @@ $('html,body').on('click','#editProduct_save',function(e){
             editProduct:true,
             id:product.id,
             name:product.name,
-            price:product.price,
+            price:product.price.replace(/[^0-9.]/g, ''),
             availability:product.availability,
             category_id:product.category_id,
             img_id:product.img_id,

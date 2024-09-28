@@ -401,6 +401,9 @@ return [
         "websiteReceiptMsg" => "You haven't entered a message to be placed at the footer of your order receipts.",
         "websitePrivacyPolicy" => "You haven't set the website privacy policy in (:lang:).",
         "restaurantLocation" => "You haven't set your restaurant location yet.",
+        //new
+        "deliveryRange" => "You haven't set your delivery service range yet.",
+        //
         "restaurantEmail" => "You haven't yet entered a contact email address for your restaurant.",
         'noPaymentMethod' => 'You haven\'t added any payment method to your account’s billing center. This may cause subscription cancelation.',
         'websiteSwitch' => 'Your website is offline.',

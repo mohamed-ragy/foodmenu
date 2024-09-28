@@ -1,5 +1,4 @@
-$('html,body').on('click','.editDeliveryAccountPassword',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.editDeliveryAccountPassword',function(e){
     let deliveryAccountId = $(this).attr('delivery');
     let deliveryAccount = website.deliveries.find(item=> item.id == deliveryAccountId);
     showPopup('changeDeliveryAccountPassword',function(){
@@ -15,8 +14,7 @@ $('html,body').on('click','.editDeliveryAccountPassword',function(e){
         )
     })
 })
-$('html,body').on('click','#changeDeliveryAccountPasswordBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#changeDeliveryAccountPasswordBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#changeDeliveryAccountPasswordBtn'))
     let deliveryId = $(this).attr('delivery');

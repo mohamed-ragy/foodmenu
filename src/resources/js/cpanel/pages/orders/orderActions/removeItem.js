@@ -1,5 +1,4 @@
-$('html,body').on('click','.order-deleteItem',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.order-deleteItem',function(e){
     if(website.incompleteOrders.find(i=>i._id == window.history.state.order).order_items.length <= 1){
         showAlert('error',texts.orders.cantRemoveLastItem,4000,true);
         return;

@@ -48,8 +48,7 @@ resetPickupAvgTime = function(){
 }
 let pickupTimeUIntervalCheck = false;
 let pickupTimeUInterval;
-$('html,body').on('click','#avgPickupTimeU',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgPickupTimeU',function(e){
     if(website_temp.averagePickupTime == 0){
         //min
         website_temp.averagePickupTime = 1;
@@ -80,8 +79,7 @@ $('html,body').on('click','#avgPickupTimeU',function(e){
 })
 let pickupTimeDIntervalCheck = false;
 let pickupTimeDInterval;
-$('html,body').on('click','#avgPickupTimeD',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgPickupTimeD',function(e){
     if(website_temp.averagePickupTime == 0){
         return;
     }else if(website_temp.averagePickupTime - 1 == 0){
@@ -109,7 +107,7 @@ $('html,body').on('click','#avgPickupTimeD',function(e){
         $('#avgPickupTimeD').trigger('click');
     },150);
 })
-$(document).on('mouseup touchend',function(e){
+$('body').on('mouseup touchend',function(e){
     if(pickupTimeUIntervalCheck){
         clearInterval(pickupTimeUInterval);
         pickupTimeUIntervalCheck = false;
@@ -119,14 +117,12 @@ $(document).on('mouseup touchend',function(e){
         pickupTimeDIntervalCheck = false;
     }
 });
-$('html,body').on('click','#avgPickupTimeCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgPickupTimeCancelBtn',function(e){
     website_temp.averagePickupTime = website.averagePickupTime;
     resetPickupAvgTime();
     order_pickup_settings_unsave_check();
 })
-$('html,body').on('click','#avgPickupTimeSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#avgPickupTimeSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#avgPickupTimeSaveBtn'));
     $.ajax({

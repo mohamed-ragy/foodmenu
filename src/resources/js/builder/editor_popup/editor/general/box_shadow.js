@@ -13,7 +13,7 @@ draw_editor_popup_box_shadow = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled','error'],
+                interactions:['hover','click','focus','disabled','error','selected'],
                 editors:[
                     draw_box_shadow_editor({
                         key_tree:key_tree,

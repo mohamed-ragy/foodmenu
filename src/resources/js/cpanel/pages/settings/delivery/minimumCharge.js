@@ -10,27 +10,23 @@ deliveryMinimumChargeNoSaveCheck = function(){
         return false;
     }
 }
-$('html,body').on('click','#deliveryMinimumChargeIncludes',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryMinimumChargeIncludes',function(e){
     $(this).prop('checked') == true ? website_temp.deliveryMinimumChargeIncludes = 1 : website_temp.deliveryMinimumChargeIncludes = 0 ;
     home_delivery_settings_unsave_check();
 });
-$('html,body').on('input change','#deliveryMinimumCharge',function(e){
-    e.stopImmediatePropagation();
+$('body').on('input change','#deliveryMinimumCharge',function(e){
     $(this).val() == '' ? $(this).val('0.00') : null ;
     website_temp.deliveryMinimumCharge = parseFloat($(this).val())
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','#deliveryMinimumChargeCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryMinimumChargeCancelBtn',function(e){
     website_temp.deliveryMinimumChargeIncludes = website.deliveryMinimumChargeIncludes;
     website_temp.deliveryMinimumCharge = website.deliveryMinimumCharge;
     $('#deliveryMinimumCharge').val(parseFloat(website_temp.deliveryMinimumCharge).toFixed(2));
     website_temp.deliveryMinimumChargeIncludes == 1 ? $('#deliveryMinimumChargeIncludes').prop('checked',true) : $('#deliveryMinimumChargeIncludes').prop('checked',false) ;
     home_delivery_settings_unsave_check();
 })
-$('html,body').on('click','#deliveryMinimumChargeSaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#deliveryMinimumChargeSaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#deliveryMinimumChargeSaveBtn'));
     $.ajax({

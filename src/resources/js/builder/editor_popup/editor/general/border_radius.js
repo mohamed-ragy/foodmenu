@@ -13,7 +13,7 @@ draw_editor_popup_border_radius = function(){
         $('#editor').find('.editor_popup_body').text('').append(
             draw_editors_container({
                 is_responsive:is_responsive,
-                interactions:['hover','click','focus','disabled','error'],
+                interactions:['hover','click','focus','disabled','error','selected'],
                 editors:[
                     draw_four_number_pickers({
                         key_tree:key_tree,

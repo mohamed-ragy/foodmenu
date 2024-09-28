@@ -1,5 +1,4 @@
-$('html,body').on('click','.deleteProductReview',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','.deleteProductReview',function(e){
     let reviewId = $(this).closest('.productReviewContainer').attr('review');
     let reviewHTML;
     showPopup('delete-popup',function(){
@@ -24,7 +23,7 @@ $('html,body').on('click','.deleteProductReview',function(e){
     });
 
 })
-$('html,body').on('click','#deleteReview-confirmBtn',function(){
+$('body').on('click','#deleteReview-confirmBtn',function(){
     showBtnLoading($('#deleteReview-confirmBtn'));
     let reviewId = $(this).attr('review');
     $.ajax({

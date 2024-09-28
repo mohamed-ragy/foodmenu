@@ -1,5 +1,4 @@
-$('html,body').on('click','#createNewProductOption',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createNewProductOption',function(e){
     let product = website.products.find(item=> item.name == window.history.state.product);
     showPopup('createNewProductOption',function(){
         $('.popupBody').addClass('m0 p10 w100p-20').append(
@@ -27,8 +26,7 @@ $('html,body').on('click','#createNewProductOption',function(e){
     })
 
 })
-$('html,body').on('click','#createNewOption_btn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#createNewOption_btn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#createNewOption_btn'));
     let product = website.products.find(item=> item.name == window.history.state.product);

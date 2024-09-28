@@ -1,6 +1,5 @@
 ////////////////////////////////country////////////////////////////////////////////
-$('html,body').on('click','#system-countrySaveBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#system-countrySaveBtn',function(e){
     if(!coolDownChecker()){return;}
     showBtnLoading($('#system-countrySaveBtn'))
     let saveCountry = $('#system-countries').attr('key')
@@ -28,8 +27,7 @@ $('html,body').on('click','#system-countrySaveBtn',function(e){
     })
 
 });
-$('html,body').on('click','#system-countryCancelBtn',function(e){
-    e.stopImmediatePropagation();
+$('body').on('click','#system-countryCancelBtn',function(e){
     if(!account.authorities[4]){return;}
     website_temp.country_code = website.country_code
     $('#system-countryFlag').attr('src','storage/imgs/flags/'+website.country_code+'.png');
@@ -52,15 +50,14 @@ countryunSavedCheck = function(){
     }
 }
 
-$('html,body').on('click','#system-countriesList .inputListElement',function(e){
+$('body').on('click','#system-countriesList .inputListElement',function(e){
     website_temp.country_code = $(this).attr('key');
     if($(this).attr('key') != null && $(this).attr('key') != ''){
         $('#system-countryFlag').attr('src','storage/imgs/flags/'+website_temp.country_code+'.png');
     }
     system_unsave_check()
 })
-$('html,body').on('keyup','#system-countries',function(e){
-    e.stopImmediatePropagation();
+$('body').on('keyup','#system-countries',function(e){
     website_temp.country_code = $('#system-countries').attr('key');
     if($('#system-countries').attr('key') != null && $('#system-countries').attr('key') != ''){
         $('#system-countryFlag').attr('src','storage/imgs/flags/'+website_temp.country_code+'.png');
