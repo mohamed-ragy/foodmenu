@@ -1957,30 +1957,31 @@ class settingsController extends Controller
             $update_website = website::where('id',$this->website_id)->update([
                 'user_domainName' => $domain,
                 'user_domainNameServers' => $user_domainNameServers,
+                'user_domain_status' => 'pending',
             ]);
 
-            $zoneId = $add_domain['result']['id'];
+            // $zoneId = $add_domain['result']['id'];
 
-            $create_certificate = Http::withToken(env('CLOUDFLARE_KEY'))->post("https://api.cloudflare.com/client/v4/zones/{$zoneId}/origin_certificates", [
-                'hostnames' => [$domain],  // Array of domain(s)
-                'requested_validity' => 3650,  // Validity in days (up to 10 years)
-                'request_type' => 'origin-rsa',  // Type of certificate, origin-rsa or origin-ecc
-            ]);
+            // $create_certificate = Http::withToken(env('CLOUDFLARE_KEY'))->post("https://api.cloudflare.com/client/v4/zones/{$zoneId}/origin_certificates", [
+            //     'hostnames' => [$domain],  // Array of domain(s)
+            //     'requested_validity' => 3650,  // Validity in days (up to 10 years)
+            //     'request_type' => 'origin-rsa',  // Type of certificate, origin-rsa or origin-ecc
+            // ]);
 
-            if ($create_certificate->successful()) {
-                $result = $create_certificate->json('result');
-                $certPem = $result['certificate'];  // The certificate in PEM format
-                $certKey = $result['private_key'];  // The private key in PEM format
-                $sslPath = "~/foodmenu/ssl/{$domain}/";
-                if (!file_exists($sslPath)) {
-                    mkdir($sslPath, 0755, true);
-                }
-                file_put_contents($sslPath . 'origin.pem', $certPem);
-                file_put_contents($sslPath . 'origin.key', $certKey);
-            }else{
+            // if ($create_certificate->successful()) {
+            //     $result = $create_certificate->json('result');
+            //     $certPem = $result['certificate'];  // The certificate in PEM format
+            //     $certKey = $result['private_key'];  // The private key in PEM format
+            //     $sslPath = "~/foodmenu/ssl/{$domain}/";
+            //     if (!file_exists($sslPath)) {
+            //         mkdir($sslPath, 0755, true);
+            //     }
+            //     file_put_contents($sslPath . 'origin.pem', $certPem);
+            //     file_put_contents($sslPath . 'origin.key', $certKey);
+            // }else{
 
-                dd($create_certificate);
-            }
+            //     dd($create_certificate);
+            // }
 
 
             if($update_website){
@@ -1989,6 +1990,7 @@ class settingsController extends Controller
                     'msg' => Lang::get('cpanel/settings/responses.domain_added'),
                     'user_domainName' => $domain,
                     'user_domainNameServers' => $user_domainNameServers,
+                    'user_domain_status' => 'pending',
                 ]);
             }else{
                 return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.domain_save_website_fail')]);
