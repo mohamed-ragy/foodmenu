@@ -5,6 +5,7 @@ namespace App\Http\Controllers\cpanel;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\activityLog;
+use App\Models\cloudflare;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\cpanelSettings;
@@ -1929,7 +1930,7 @@ class settingsController extends Controller
         }
         //////////////////////
         else if($request->has('add_user_domain')){
-
+            if($this->account->is_master == false){return;}
             $validator = Validator::make([
                 'domain' => $request->add_user_domain,
             ],[
@@ -1940,26 +1941,42 @@ class settingsController extends Controller
             if($validator->fails()){
                 return response(['status' => '0', 'msg'=> Lang::get('cpanel/settings/responses.domain_required')]);
             }
+            
             $domain = parse_url($request->add_user_domain, PHP_URL_HOST) ?: $request->add_user_domain;
 
-            $add_domain = Http::withToken(env('CLOUDFLARE_KEY'))->post("https://api.cloudflare.com/client/v4/zones", [
-                'name'       => $domain,
-                'account'    => ['id' => env('CLOUDFLARE_ID')],
-                'jump_start' => true,
-            ]);
+            $cloudflare = new cloudflare();
+            $add_domain = $cloudflare->add_website($domain);
 
-            if($add_domain['success'] == false){
+            if(!$add_domain){
                 return response(['status' => '0', 'msg'=> Lang::get('cpanel/settings/responses.domain_add_fail')]);
             }
 
-            $user_domainNameServers = $add_domain['result']['name_servers'];
+            $user_domainName_data = [
+                'id' => $add_domain['id'],
+                'status' => $add_domain['status'],
+                'name_servers' => $add_domain['name_servers'],
+                'original_name_servers' => $add_domain['original_name_servers'],
+            ];
 
             $update_website = website::where('id',$this->website_id)->update([
                 'user_domainName' => $domain,
-                'user_domainNameServers' => $user_domainNameServers,
-                'user_domain_status' => 'pending',
+                'user_domainName_data' => $user_domainName_data,
             ]);
-
+            if($update_website){
+                cron_jobs::create([
+                    'type' => '2',
+                    'website_id' => $this->website_id,
+                    'timeZone' => null,
+                ]);
+                return response([
+                    'status' => 1,
+                    'msg' => Lang::get('cpanel/settings/responses.domain_added'),
+                    'user_domainName' => $domain,
+                    'user_domainName_data' => $user_domainName_data,
+                ]);
+            }else{
+                return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.domain_save_website_fail')]);
+            }
             // $zoneId = $add_domain['result']['id'];
 
             // $create_certificate = Http::withToken(env('CLOUDFLARE_KEY'))->post("https://api.cloudflare.com/client/v4/zones/{$zoneId}/origin_certificates", [
@@ -1984,31 +2001,66 @@ class settingsController extends Controller
             // }
 
 
-            if($update_website){
-                return response([
-                    'status' => 1,
-                    'msg' => Lang::get('cpanel/settings/responses.domain_added'),
-                    'user_domainName' => $domain,
-                    'user_domainNameServers' => $user_domainNameServers,
-                    'user_domain_status' => 'pending',
-                ]);
-            }else{
-                return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.domain_save_website_fail')]);
-            }
-
 
         }
-        else if($request->has('check_domain_nameservers')){
-            try{
-                $current_nameservers = dns_get_record($domain,DNS_NS);
-            }catch (\Exception $e){
-                $current_nameservers = null;
+        else if($request->has('delete_user_domainName')){
+            if($this->account->is_master == false){
+                return;
+            }
+            if($this->account->password_fails > 10){
+                Account::where('id',$this->account->id)->update([
+                    'account_unblock_code' => Str::random(100),
+                    'updated_at' => Carbon::now()->timestamp,
+                ]);
+                foodmenuFunctions::notification('0',null,[
+                    'account_id' => $this->account->id
+                ]);
+                Auth::guard('account')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response(['deleteHistoryDataStatus' => 2]);
+                ///send email with the unblock link
+
+            }else{
+                if(Hash::check($request->password, $this->account->password)){
+                    $user_domainName_data = website::where('id',$this->website_id)->select(['user_domainName_data','domainName'])->first();
+                    $cloudflare = new cloudflare();
+                    if($cloudflare->delete_user_domainName($user_domainName_data->user_domainName_data['id'])){
+                        cron_jobs::where(['website_id'=>$this->website_id,'type'=>2])->delete();
+                        website::where('id',$this->website_id)->update([
+                            'user_domainName_data' => NULL,
+                            'user_domainName' => NULL,
+                            'url' => $user_domainName_data->domainName.".".env('APP_DOMAIN'),
+                        ]);
+                        return response(['status' => 1, 'msg' => Lang::get('cpanel/settings/responses.deleteUserDomainSuccess')]);
+                    }else{
+                        return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.deleteUserDomainFail')]);
+                    }
+                }else{
+                    Account::where('email',$this->account->email)->increment('password_fails');
+                    return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.wrongPassword')]);
+                }
             }
 
-            $response = Http::withToken(env('CLOUDFLARE_KEY'))->get("https://api.cloudflare.com/client/v4/zones", [
-                'name' => 'huohuade.ch',
-                'account' => ['id' => env('CLOUDFLARE_ID')],
-            ]);
+        }
+        else if($request->has('get_user_domainName_data')){
+            if($this->account->is_master == false){return;}
+            $user_domainName_data = website::where('id',$this->website_id)->pluck('user_domainName_data')->first();
+            return response(['user_domainName_data' => $user_domainName_data]);
+  
+            // $cloudflare = new cloudflare();
+            // $domain_data = $cloudflare->get_domain_data($user_domainName_id);
+            // if(!$domain_data){
+            //     return response(['status' => 0]);
+            // }
+            
+            // if($cloudflare->compareNameservers($domain_data['name_servers'],$domain_data['original_name_servers'])){
+            //     return response('true');
+            //     // set tip the domain on cloudflare 
+            // }else{
+            //     return response(['status' => 2,'nameservers' => $domain_data['name_servers']]);
+            // }
+            // return response($domain);
         }
     }
 }

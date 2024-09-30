@@ -31,7 +31,7 @@ class website extends Model
         'active',
         'url',
         'domainName',
-        'user_domainName','user_domainNameServers',
+        'user_domainName','user_domainName_data',
         'lat','lng','delivery_range',
         'timeZone',
         'hour12',
@@ -106,7 +106,7 @@ class website extends Model
         'workingDays_dinein',
     ];
     protected $casts = [
-        'user_domainNameServers' => 'array',
+        'user_domainName_data' => 'array',
         'trendingProducts' => 'array',
         'addresses' => 'array',
         'currencies' => 'array',

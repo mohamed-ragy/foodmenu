@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('website_id')->nullable();
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
-            $table->string('timeZone');
+            $table->string('timeZone')->nullable();
             $table->integer('type');
             //0 => daily statistics
         });

@@ -31,14 +31,15 @@ class websiteController extends Controller
     {
 
         $this->middleware(function ($request, $next) {
-            $this->website_id = $request->header('X-Website-Id');
+            $this->request_host = str_replace('www.','',$request->getHost());
+            $this->website_id = website::where('url',$this->request_host)->pluck('id')->first();
             self::auth_check($request->server('HTTP_X_FORWARDED_FOR') ?? $request->ip());//need to be checked
             return $next($request);
         })->except(['home','category','product','allproducts','privacypolicy','aboutus','account']);
 
         $this->middleware(function ($request, $next) {
 
-            $this->request_host = $request->getHost();
+            $this->request_host = str_replace('www.','',$request->getHost());
 
             self::get_website_data();
             //
@@ -134,13 +135,14 @@ class websiteController extends Controller
         }
     }
     public function get_website_data(){
-        $domain = explode('.', $this->request_host);
-        if (count($domain) >= 3 && $domain[1] === 'food-menu') {
-            $_website = website::where('domainName',$domain[0]);
-        }else{
-            $_website = website::where('user_domainName',$this->request_host);
-        }
-        $this->website =$_website->select([
+        $_website = website::where('url',$this->request_host);
+        // $domain = explode('.', $this->request_host);
+        // if (count($domain) >= 3 && $domain[1] === 'food-menu') {
+        //     $_website = website::where('domainName',$domain[0]);
+        // }else{
+        //     $_website = website::where('user_domainName',$this->request_host);
+        // }
+        $this->website = $_website->select([
             'id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','metaImg','style_version'])
         ->with(['categories'])->with(['products'])->first();
         if(!$this->website){

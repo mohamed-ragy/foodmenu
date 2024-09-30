@@ -28,7 +28,7 @@ class CreateWebsitesTable extends Migration
             $table->boolean('active')->default(true);
             $table->string('domainName')->unique();
             $table->string('user_domainName')->nullable()->unique();
-            $table->json('user_domainNameServers')->nullable();
+            $table->json('user_domainName_data')->nullable();
 
             $table->json('languages');
 

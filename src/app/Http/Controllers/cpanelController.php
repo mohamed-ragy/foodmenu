@@ -34,6 +34,7 @@ use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\automatedEmails;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 
 class cpanelController extends Controller
 {
@@ -43,6 +44,8 @@ class cpanelController extends Controller
     {
 
         $this->middleware(function ($request, $next) {
+            
+            // dd(Http::withToken(env('CLOUDFLARE_KEY'))->get("https://api.cloudflare.com/client/v4/zones/cf4b05fd2ef23569b42342835f58f8e5/dns_records")->json());
             if(!Auth::guard('account')->check()){
                 return redirect()->route('account.login',$request->all());
             }
@@ -575,37 +578,120 @@ class cpanelController extends Controller
     {
         if($request->has('firstLoad')){
             if($this->account->is_master == true){
-                $website = website::where('id',$this->account->website_id)
-                        ->with(['deliveries'])
-                        ->withCount('paymentMethods')
-                        ->with(['accounts'=>function($q){
-                            $q->select('authorities','is_master','email','website_id','id','name','password_fails','lastSeen');
-                        }])
-                        ->with(['categories'=>function($q){
-                            $q->orderBy('sort','asc');
-                        }])
-                        ->with(['products'=> function($q){
-                            $q->with(['product_options'=>function($q){
-                                    $q->with('product_option_selections');
-                                }]);
-                        }])
+                $website = website::where('id',$this->account->website_id)->select([
+                    'id','plan','subscription_status',
+                    'active','url','domainName','user_domainName',
+                    'lat','lng','delivery_range',
+                    'timeZone',
+                    'hour12',
+                    'country_code',
+                    'restaurantEmail',
+                    'phoneNumbers',
+                    'addresses',
+                    'currencies',
+                    'websiteNames',
+                    'websiteDescriptions',
+                    'website_announcements',
+                    'website_receiptMsgs',
+                    'website_privacyPolicy',
+            
+                    'languages',
+            
+                    'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
+            
+                    'expenses',
+                    'month_expenses',
+            
+                    'icon','logo','icon_id','logo_id','metaImg','metaImg_id',
+            
+                    'productReviews',
+                    'guestReviews',
+                    'collectReviews',
+                    'guestOrders',
+                    'cancelOrder',
+                    'dineinWorkingHours',
+                    'liveChat',
+                    'guestLiveChat',
+                    'discountAnnouncement',
+                    'cookies_msg',
+                    'langPopup',
+                    'printerWidth',
+                    'cart_lifeTime',
+                    'fastLoading',
+            
+                    'useDelivery',
+                    'cash_on_delivery',
+                    'card_on_delivery',
+                    'acceptDeliveryOrders24',
+                    'deliveryCost',
+                    'showDeliveryCostChangable',
+                    'deliveryTaxCost',
+                    'deliveryTaxPercentage',
+                    'useDeliveryTaxCost',
+                    'deliveryMinimumCharge',
+                    'deliveryMinimumChargeIncludes',
+                    'averageDeliveryTime',
+                    'workingDays_delivery',
+            
+                    'usePickup',
+                    'cash_at_restaurant',
+                    'card_at_restaurant',
+                    'acceptPickupOrders24',
+                    'pickupTaxCost',
+                    'pickupTaxPercentage',
+                    'usePickupTaxCost',
+                    'pickupMinimumCharge',
+                    'pickupMinimumChargeIncludes',
+                    'averagePickupTime',
+                    'workingDays_pickup',
+            
+                    'dineInTaxPercentage',
+                    'dineInTaxCost',
+                    'useDineInTaxCost',
+                    'dineInServicePercentage',
+                    'dineInServiceCost',
+                    'useDineInServiceCost',
+                    'workingDays_dinein',
+                ])
+                ->with(['deliveries'])
+                ->withCount('paymentMethods')
+                ->with(['accounts'=>function($q){
+                    $q->select('authorities','is_master','email','website_id','id','name','password_fails','lastSeen');
+                }])
+                ->with(['categories'=>function($q){
+                    $q->orderBy('sort','asc');
+                }])
+                ->with(['products'=> function($q){
+                    $q->with(['product_options'=>function($q){
+                            $q->with('product_option_selections');
+                        }]);
+                }])
                 ->first();
             }else{
                 $website = website::where('id',Auth::guard('account')->user()->website_id)
                     ->select([
-                        'id','plan','active','subscription_status','phoneNumbers',
+                        'id','plan','subscription_status',
+                        'active',
+                        'url',
+                        'domainName',
+                        'user_domainName',
+                        'lat','lng','delivery_range',
+                        'timeZone',
+                        'hour12',
+                        'country_code',
+                        'restaurantEmail',
+                        'phoneNumbers',
                         'addresses',
-                        'lat','lng','url','timeZone','hour12','country_code',
-                        'currencies','websiteNames','websiteDescriptions',
-                        'website_announcements','website_receiptMsgs','languages','facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink','restaurantEmail','domainName','user_domainName','trendingProducts',
-                        // 'website_colors','useCustomColors','customColorsHexCode',
-                        'icon','logo','template_id',
-                        'icon_id','logo_id',
-                        // 'intro',
-                        // 'info',
-                        // 'ourStory',
-                        // 'slideShow',
-                        // 'gallery',
+                        'currencies',
+                        'websiteNames',
+                        'websiteDescriptions',
+                        'website_announcements',
+                        'website_receiptMsgs',
+                        'website_privacyPolicy',
+
+                        'languages',
+                        'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
+                        'icon','logo','icon_id','logo_id','metaImg','metaImg_id',
                         'productReviews',
                         'guestReviews',
                         'collectReviews',
@@ -616,9 +702,12 @@ class cpanelController extends Controller
                         'guestLiveChat',
                         'discountAnnouncement',
                         'cookies_msg',
-                        'fastLoading',
-                        'useDelivery',
                         'langPopup',
+                        'printerWidth',
+                        'cart_lifeTime',
+                        'fastLoading',
+                
+                        'useDelivery',
                         'cash_on_delivery',
                         'card_on_delivery',
                         'acceptDeliveryOrders24',
@@ -629,8 +718,9 @@ class cpanelController extends Controller
                         'useDeliveryTaxCost',
                         'deliveryMinimumCharge',
                         'deliveryMinimumChargeIncludes',
-                        'workingDays_delivery',
                         'averageDeliveryTime',
+                        'workingDays_delivery',
+                
                         'usePickup',
                         'cash_at_restaurant',
                         'card_at_restaurant',
@@ -640,8 +730,9 @@ class cpanelController extends Controller
                         'usePickupTaxCost',
                         'pickupMinimumCharge',
                         'pickupMinimumChargeIncludes',
-                        'workingDays_pickup',
                         'averagePickupTime',
+                        'workingDays_pickup',
+                
                         'dineInTaxPercentage',
                         'dineInTaxCost',
                         'useDineInTaxCost',
@@ -649,22 +740,20 @@ class cpanelController extends Controller
                         'dineInServiceCost',
                         'useDineInServiceCost',
                         'workingDays_dinein',
-                        'cart_lifeTime',
-                        'printerWidth',
-                        ])
-                        ->with(['accounts'=>function($q){
-                            $q->select('id','name','website_id');
-                        }])
-                        ->with(['deliveries'])
+                    ])
+                    ->with(['accounts'=>function($q){
+                        $q->select('id','name','website_id');
+                    }])
+                    ->with(['deliveries'])
 
-                        ->with(['categories'=>function($q){
-                            $q->orderBy('sort','asc');
-                        }])
-                        ->with(['products'=> function($q){
-                            $q->with(['product_options'=>function($q){
-                                    $q->with('product_option_selections');
-                                }]);
-                        }])
+                    ->with(['categories'=>function($q){
+                        $q->orderBy('sort','asc');
+                    }])
+                    ->with(['products'=> function($q){
+                        $q->with(['product_options'=>function($q){
+                                $q->with('product_option_selections');
+                            }]);
+                    }])
                 ->first();
             }
             // $website->websiteColorsHexCode = foodmenuFunctions::websiteColors()[$website->website_colors];

@@ -207,7 +207,15 @@ return [
     'pickupMinimumChargeIncludes' => 'Include tax',
     'serviceCharge' =>  'Service charge',
     //domain
+    //new
     'website_domain' => 'Website domain',
     'website_domain_des' => '<div>Connect your own domain to your Foodmenu website. Enter your own domain in the input box bellow then click on add my domain button.<div><div><b>Do not use www (ex. restaurantname.com)<b/><div>',
     'add_domain' => 'Add my domain',
+    'domain_error' => 'There is an unknown error occurred! <a class="cpPage" cppage="submit_a_help_ticket">Submit a help ticket</a>. ',
+    'domain_pending_nameservers_1' => 'Your domain status is pending. Please add the following nameservers to your domain registrar.',
+    'domain_pending_nameservers_2' => 'If you have already added the nameservers, please wait. Registrars can take up to 48 hours to process nameserver changes (in most cases take much less). We will let you know when your domain is active.',
+    'remove_domain' => 'Remove domain',
+    'delete_user_domainName_confirm' => 'Are you sure you want to remove <b>:user_domain:</b> from your Foodmenu account?',
+    'delete_user_domainName_confirm_msg1' => 'By performing this action ur website will run on the subdomain <b>:subdomain:</b>.',
+    'delete_user_domainName_confirm_msg2' => 'Please enter your main account password then click on delete to confirm this action.',
 ];
