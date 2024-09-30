@@ -1,7 +1,8 @@
-FROM php:8.1-fpm-buster
+FROM php:8.2-fpm-bullseye
 
-ARG user
-ARG uid
+# Define build arguments with default values
+ARG user=muha
+ARG uid=1000
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -33,16 +34,34 @@ RUN pecl install mongodb \
     && docker-php-ext-enable imagick \
     && pecl clear-cache
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.1.3
+# Install Composer (latest stable version)
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Add user
-RUN useradd -G www-data,root -u $uid -d /home/$user $user \
+# Create application user without adding to root group
+RUN useradd -m -u $uid -s /bin/bash $user \
+    && usermod -aG www-data $user \
     && mkdir -p /home/$user/.composer \
-    && chown -R $user:$user /home/$user
+    && chown -R $user:www-data /home/$user/.composer
+
+# Create /var/ssl directory and set permissions
+RUN mkdir -p /var/ssl \
+    && chown -R $user:www-data /var/ssl \
+    && chmod 755 /var/ssl
 
 # Set working directory
 WORKDIR /var/www/foodmenu
 
-# Set user
-USER $user
+# Copy application code with correct ownership
+COPY --chown=muha:www-data ./src /var/www/foodmenu
+
+# Switch to the application user
+USER muha
+
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Expose ports if necessary (optional)
+EXPOSE 9000
+
+# Start the PHP-FPM process
+CMD ["php-fpm"]

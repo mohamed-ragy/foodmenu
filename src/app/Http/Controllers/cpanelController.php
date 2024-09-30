@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Validator;
 use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\automatedEmails;
+use App\Models\cloudflare;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 
@@ -44,8 +45,8 @@ class cpanelController extends Controller
     {
 
         $this->middleware(function ($request, $next) {
-            
-            // dd(Http::withToken(env('CLOUDFLARE_KEY'))->get("https://api.cloudflare.com/client/v4/zones/cf4b05fd2ef23569b42342835f58f8e5/dns_records")->json());
+            // // $cloudflare = new cloudflare('cf4b05fd2ef23569b42342835f58f8e5');
+            // dd($cloudflare->create_origin_ssl());
             if(!Auth::guard('account')->check()){
                 return redirect()->route('account.login',$request->all());
             }
@@ -594,16 +595,16 @@ class cpanelController extends Controller
                     'website_announcements',
                     'website_receiptMsgs',
                     'website_privacyPolicy',
-            
+
                     'languages',
-            
+
                     'facebookLink','youtubeLink','linkedinLink','twitterLink','instagramLink',
-            
+
                     'expenses',
                     'month_expenses',
-            
+
                     'icon','logo','icon_id','logo_id','metaImg','metaImg_id',
-            
+
                     'productReviews',
                     'guestReviews',
                     'collectReviews',
@@ -618,7 +619,7 @@ class cpanelController extends Controller
                     'printerWidth',
                     'cart_lifeTime',
                     'fastLoading',
-            
+
                     'useDelivery',
                     'cash_on_delivery',
                     'card_on_delivery',
@@ -632,7 +633,7 @@ class cpanelController extends Controller
                     'deliveryMinimumChargeIncludes',
                     'averageDeliveryTime',
                     'workingDays_delivery',
-            
+
                     'usePickup',
                     'cash_at_restaurant',
                     'card_at_restaurant',
@@ -644,7 +645,7 @@ class cpanelController extends Controller
                     'pickupMinimumChargeIncludes',
                     'averagePickupTime',
                     'workingDays_pickup',
-            
+
                     'dineInTaxPercentage',
                     'dineInTaxCost',
                     'useDineInTaxCost',
@@ -706,7 +707,7 @@ class cpanelController extends Controller
                         'printerWidth',
                         'cart_lifeTime',
                         'fastLoading',
-                
+
                         'useDelivery',
                         'cash_on_delivery',
                         'card_on_delivery',
@@ -720,7 +721,7 @@ class cpanelController extends Controller
                         'deliveryMinimumChargeIncludes',
                         'averageDeliveryTime',
                         'workingDays_delivery',
-                
+
                         'usePickup',
                         'cash_at_restaurant',
                         'card_at_restaurant',
@@ -732,7 +733,7 @@ class cpanelController extends Controller
                         'pickupMinimumChargeIncludes',
                         'averagePickupTime',
                         'workingDays_pickup',
-                
+
                         'dineInTaxPercentage',
                         'dineInTaxCost',
                         'useDineInTaxCost',

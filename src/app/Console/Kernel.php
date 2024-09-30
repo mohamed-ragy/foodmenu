@@ -106,25 +106,18 @@ class Kernel extends ConsoleKernel
         })->dailyAt('9:19');
         // $schedule->command('websocket:restart')->dailyAt('11:00');
         $schedule->call(function(){
+            return true;
             $jobs = cron_jobs::where('type','2')->get();
             foreach($jobs as $job){
                 $website = website::where('id',$job->website_id)->select(['user_domainName','user_domainName_data'])->first();
-                $cloudflare = new cloudflare();
-                $domain_data = $cloudflare->get_domain_data($website->user_domainName_data['id']);
-                if($domain_data['status'] === 'active'){
-                    $add_dns_records = $cloudflare->add_dns_records($domain_data);
-      
-                }
-                $cpanel = new stdClass();
-                $cpanel->website_id = 2;
-                $cpanel->code = 'test.test';
-                $cpanel->notification = $add_dns_records;
-                broadcast(new cpanelChannel($cpanel)); 
+                $cloudflare = new cloudflare($website->user_domainName_data['id']);
+                $cloudflare->setup_domain();
+
+
 
 
             }
-        })->everySixHours();
-        // })->everyMinute();
+        })->everyMinute();
         // })->everyFiveMinutes();
     }
 
