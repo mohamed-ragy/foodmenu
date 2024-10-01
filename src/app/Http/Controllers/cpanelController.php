@@ -45,7 +45,7 @@ class cpanelController extends Controller
     {
 
         $this->middleware(function ($request, $next) {
-            // // $cloudflare = new cloudflare('cf4b05fd2ef23569b42342835f58f8e5');
+            // $cloudflare = new cloudflare('cf4b05fd2ef23569b42342835f58f8e5');
             // dd($cloudflare->create_origin_ssl());
             if(!Auth::guard('account')->check()){
                 return redirect()->route('account.login',$request->all());

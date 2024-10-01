@@ -140,24 +140,31 @@ class cloudflare
     public function create_origin_ssl(){
         $csr = $this->generate_csr($this->zone_data['name']);
         $store_key = $this->store_private_key($this->zone_data['name'],$csr['private_key']);
-        return $store_key;
-        $origin_ssl = Http::withToken($this->CLOUDFLARE_KEY)->post("https://api.cloudflare.com/client/v4/certificates",[
+        // if(!$store_key){return;}
+
+        $origin_ssl = Http::withToken($this->CLOUDFLARE_KEY)->withHeaders([
+            'Content-Type' => 'application/json',
+            'X-Auth-User-Service-Key'=> env('CLOUDFLARE_ORIGIN_CA_KEY'),
+        ])->post("https://api.cloudflare.com/client/v4/certificates",[
             'hostnames' => [$this->zone_data['name'],"*.{$this->zone_data['name']}"],
             'requested_validity' => 5475,
             'request_type' => 'origin-rsa',
+            'csr' => $csr['csr']
         ]);
+        $certificate_data = $origin_ssl->json();
 
-        return $origin_ssl->json();
-        if ($response->successful()) {
-            $certificate_data = $origin_ssl->json();
+        if ($origin_ssl->successful()) {
+            if($certificate_data['success'] !== true){return;}
             $certificate = $certificate_data['result']['certificate'];
-            $privateKey = $certificate_data['result']['private_key'];
-            $baseDir = "/etc/nginx/ssl/{$this->zone_data['name']}";
-            if (!file_exists($baseDir)) {
-                mkdir($baseDir, 0755, true);
-            }
-            file_put_contents("$baseDir/origin.pem", $certificate);
-            file_put_contents("$baseDir/origin.key", $privateKey);
+            // $privateKey = $certificate_data['result']['private_key'];
+            // $baseDir = "/var/ssl";
+            $this->store_certificate($this->zone_data['name'],$certificate);
+
+            // if (!file_exists($baseDir)) {
+            //     mkdir($baseDir, 0755, true);
+            // }
+            // file_put_contents("$baseDir/{$this->zone_data['name']}.pem", $certificate);
+            // file_put_contents("$baseDir/{$this->zone_data['name']}.key", $privateKey);
         }
     }
     public function generate_csr(string $domain): array
@@ -176,8 +183,31 @@ class cloudflare
             throw new \Exception('Failed to generate private key: ' . openssl_error_string());
         }
 
-        // Generate the CSR
-        $csrResource = openssl_csr_new($dn, $privateKeyResource, ['digest_alg' => 'sha256']);
+        // Create a temporary OpenSSL config file with SANs
+        $sanConfig = [
+            'config' => '/tmp/openssl.cnf',
+            'digest_alg' => 'sha256',
+        ];
+
+        $san = "subjectAltName=DNS:{$domain},DNS:*.{$domain}";
+
+        file_put_contents($sanConfig['config'], "
+        [ req ]
+        default_bits = 2048
+        prompt = no
+        default_md = sha256
+        req_extensions = req_ext
+        distinguished_name = dn
+
+        [ dn ]
+        CN = {$domain}
+
+        [ req_ext ]
+        {$san}
+        ");
+
+        // Generate the CSR with SANs
+        $csrResource = openssl_csr_new($dn, $privateKeyResource, $sanConfig);
 
         if (!$csrResource) {
             throw new \Exception('Failed to generate CSR: ' . openssl_error_string());
@@ -187,7 +217,8 @@ class cloudflare
         openssl_pkey_export($privateKeyResource, $privateKey);
         openssl_csr_export($csrResource, $csr);
 
-        // No need to free the resources manually; PHP handles it automatically.
+        // Clean up temporary config file
+        unlink($sanConfig['config']);
 
         return [
             'private_key' => $privateKey,
@@ -196,26 +227,29 @@ class cloudflare
     }
     public function store_private_key(string $domain, string $privateKey)
     {
-        // Ensure the directory exists
-        $directory = "/var/ssl";
+        $directory = "/var/ssl/{$domain}/";
 
-        // if (!is_dir($directory)) {
-        //     // Use appropriate permissions
-        //     mkdir($directory, 0755, true);
-        //     // Set ownership if necessary
-        //     chown($directory, posix_getuid());
-        //     chgrp($directory, posix_getgid());
-
-        // }
-
-        // Store the private key
-        $filePath = $directory . "/{$domain}.key";
-        // Storage::put($filePath, $privateKey);
+        if (!is_dir($directory)) {
+            mkdir($directory, 0755, true);
+            chown($directory, posix_getuid());
+            chgrp($directory, posix_getgid());
+        }
+        $filePath = $directory . "/origin.key";
         file_put_contents($filePath, $privateKey);
+        // Store the private key
         chmod($filePath, 0600); // Set permissions to owner read/write only
+        chown($filePath, posix_getuid());
+        chgrp($filePath, posix_getgid());
+        // if(file_put_contents($filePath, $privateKey)){
+        //     chmod($filePath, 0600); // Set permissions to owner read/write only
+        //     chown($filePath, posix_getuid());
+        //     return true;
+        // }
+        // return false;
     }
     public function store_certificate(string $domain, string $certificate)
     {
+        // $directory = "/var/ssl";
         $directory = "/var/ssl/{$domain}/";
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true);
@@ -225,6 +259,8 @@ class cloudflare
         $filePath = $directory . "/origin.pem";
         file_put_contents($filePath, $certificate);
         chmod($filePath, 0644);
+        chown($filePath, posix_getuid());
+        chgrp($filePath, posix_getgid());
     }
 
     public function compareNameservers($assigned, $current){

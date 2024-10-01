@@ -1,8 +1,13 @@
 # Use OpenResty (Nginx with Lua) as the base image
 FROM openresty/openresty:alpine
 
-# Install OpenSSL for SSL support
-RUN apk update && apk add --no-cache openssl
+# Install OpenSSL and other required packages
+RUN apk update && apk add --no-cache \
+    openssl \
+    perl \
+    curl \
+    git
+
 
 # Arguments for user and UID passed from docker-compose.yml
 ARG user=muha
@@ -21,6 +26,11 @@ RUN mkdir -p /home/$user/.composer && \
 ADD Dockerfiles/nginx/default.prod.conf /etc/nginx/conf.d/
 ADD Dockerfiles/nginx/foodmenu.pem /etc/nginx/keys/
 ADD Dockerfiles/nginx/foodmenu.key /etc/nginx/keys/
+
+# Ensure SSL directory and set correct permissions (shared with PHP container)
+RUN mkdir -p /var/ssl && \
+    chown -R $user:www-data /var/ssl && \
+    chmod -R 755 /var/ssl
 
 # Create the document root directory for the application
 RUN mkdir -p /var/www/foodmenu
@@ -41,3 +51,4 @@ USER $user
 
 # Start OpenResty (Nginx + Lua)
 CMD ["openresty", "-g", "daemon off;"]
+# CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
