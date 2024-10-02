@@ -22,10 +22,18 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:www-data /home/$user
 
 # Copy the Nginx configuration file to the container
-# Ensure paths are relative to the build context
 ADD Dockerfiles/nginx/default.prod.conf /etc/nginx/conf.d/
 ADD Dockerfiles/nginx/foodmenu.pem /etc/nginx/keys/
 ADD Dockerfiles/nginx/foodmenu.key /etc/nginx/keys/
+
+# Set the correct ownership and permissions for the /etc/nginx/keys directory
+RUN chown -R $user:www-data /etc/nginx/keys && \
+    chmod 750 /etc/nginx/keys
+
+# Set the correct ownership and permissions for SSL files
+RUN chown $user:www-data /etc/nginx/keys/foodmenu.pem /etc/nginx/keys/foodmenu.key && \
+    chmod 644 /etc/nginx/keys/foodmenu.pem && \
+    chmod 600 /etc/nginx/keys/foodmenu.key
 
 # Ensure SSL directory and set correct permissions (shared with PHP container)
 RUN mkdir -p /etc/nginx/keys/websites && \
