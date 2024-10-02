@@ -201,7 +201,7 @@ class foodmenuFunctions
                     'name' => 'Name',
                     'phone_number' => 'Phone Number',
                     'remember_me' => 'Remember me',
-                    'forget_password_q' => 'Forgot Password?',  
+                    'forget_password_q' => 'Forgot Password?',
                     'reset_password'=>'Reset Password',
                     'dont_have_account_q' => "Don't have an account?",
                     'login_description' => 'Please enter your email and password.',
@@ -235,7 +235,7 @@ class foodmenuFunctions
                     'reset_password_description' => 'Please enter your registered email address.',
                     'reset_password_wait'=> 'We already sent a password reset message to your email. If you do not find the message in your inbox, please check your spam folder.',
                     'reset_password_sent'=>'Please enter the code we sent to your email. If you do not find the message in your inbox, please check your spam folder.',
-                    
+
                     'reset_password_expired_code'=>'The password reset code you used has expired.',
                     'reset_password_wrong_code'=>'Invalid password reset code.',
                     'reset_password_enter_new_password' => 'Please enter and confirm your new password',
@@ -545,7 +545,7 @@ class foodmenuFunctions
                     'name' => 'Name',
                     'phone_number' => 'Phone Number',
                     'remember_me' => 'Remember me',
-                    'forget_password_q' => 'Forgot Password?',  
+                    'forget_password_q' => 'Forgot Password?',
                     'reset_password'=>'Reset Password',
                     'dont_have_account_q' => "Don't have an account?",
                     'login_description' => 'Please enter your email and password.',
@@ -572,14 +572,14 @@ class foodmenuFunctions
                     'profile_saved' => 'Data saved successfully.',
                     'change_password_saved'=>'Your password has been changed successfully.',
                     'wrong_password' => 'Wrong password!',
-                    
+
                     'reset_password_code' => 'Reset password code',
                     'reset_password_send_code' => 'Send reset code',
                     'reset_password_email_incorrect' => 'The email you entered is not registered.',
                     'reset_password_description' => 'Please enter your registered email address.',
                     'reset_password_wait'=> 'We already sent a password reset message to your email. If you do not find the message in your inbox, please check your spam folder.',
                     'reset_password_sent'=>'Please enter the code we sent to your email. If you do not find the message in your inbox, please check your spam folder.',
-                    
+
                     'reset_password_expired_code'=>'The password reset code you used has expired.',
                     'reset_password_wrong_code'=>'Invalid password reset code.',
                     'reset_password_enter_new_password' => 'Please enter and confirm your new password',

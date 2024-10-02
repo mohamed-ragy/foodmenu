@@ -336,6 +336,9 @@ return [
         'subaccountBlocked_msg' => ":subaccount:'s account is blocked due to multiple password failures",
         "statistics_day_created_title" => "Statistics archived",
         "statistics_day_created_msg" => ":date: statistics and analytics has been archived.",
+        //new
+        "website_domain_active" => "You domain :domain: is now active."
+        //
     ],
     'liveChat' => [
         'liveChat'=>'Live chat',

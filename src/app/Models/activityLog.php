@@ -79,6 +79,7 @@ class activityLog extends Model
         'new_type','old_type',
         'new_deliveryCost','old_deliveryCost',
         'new_discount','old_discount',
+        'domain',
     ];
 
     public function websites(){

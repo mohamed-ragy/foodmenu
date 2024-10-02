@@ -28,9 +28,9 @@ ADD Dockerfiles/nginx/foodmenu.pem /etc/nginx/keys/
 ADD Dockerfiles/nginx/foodmenu.key /etc/nginx/keys/
 
 # Ensure SSL directory and set correct permissions (shared with PHP container)
-RUN mkdir -p /var/ssl && \
-    chown -R $user:www-data /var/ssl && \
-    chmod -R 755 /var/ssl
+RUN mkdir -p /etc/nginx/keys/websites && \
+    chown -R $user:www-data /etc/nginx/keys/websites && \
+    chmod -R 755 /etc/nginx/keys/websites
 
 # Create the document root directory for the application
 RUN mkdir -p /var/www/foodmenu

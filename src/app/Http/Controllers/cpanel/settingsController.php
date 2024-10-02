@@ -1941,10 +1941,10 @@ class settingsController extends Controller
             if($validator->fails()){
                 return response(['status' => '0', 'msg'=> Lang::get('cpanel/settings/responses.domain_required')]);
             }
-            
+
             $domain = parse_url($request->add_user_domain, PHP_URL_HOST) ?: $request->add_user_domain;
 
-            $cloudflare = new cloudflare();
+            $cloudflare = new cloudflare(null);
             $add_domain = $cloudflare->add_website($domain);
 
             if(!$add_domain){
@@ -1968,6 +1968,13 @@ class settingsController extends Controller
                     'website_id' => $this->website_id,
                     'timeZone' => null,
                 ]);
+                activityLog::create([
+                    'website_id' => $this->website_id,
+                    'code' => 'website.domain_added',
+                    'account_id' => $this->account->id,
+                    'account_name' => $this->account->name,
+                    'domain' => $domain,
+                ]);
                 return response([
                     'status' => 1,
                     'msg' => Lang::get('cpanel/settings/responses.domain_added'),
@@ -1977,31 +1984,6 @@ class settingsController extends Controller
             }else{
                 return response(['status' => 0, 'msg' => Lang::get('cpanel/settings/responses.domain_save_website_fail')]);
             }
-            // $zoneId = $add_domain['result']['id'];
-
-            // $create_certificate = Http::withToken(env('CLOUDFLARE_KEY'))->post("https://api.cloudflare.com/client/v4/zones/{$zoneId}/origin_certificates", [
-            //     'hostnames' => [$domain],  // Array of domain(s)
-            //     'requested_validity' => 3650,  // Validity in days (up to 10 years)
-            //     'request_type' => 'origin-rsa',  // Type of certificate, origin-rsa or origin-ecc
-            // ]);
-
-            // if ($create_certificate->successful()) {
-            //     $result = $create_certificate->json('result');
-            //     $certPem = $result['certificate'];  // The certificate in PEM format
-            //     $certKey = $result['private_key'];  // The private key in PEM format
-            //     $sslPath = "~/foodmenu/ssl/{$domain}/";
-            //     if (!file_exists($sslPath)) {
-            //         mkdir($sslPath, 0755, true);
-            //     }
-            //     file_put_contents($sslPath . 'origin.pem', $certPem);
-            //     file_put_contents($sslPath . 'origin.key', $certKey);
-            // }else{
-
-            //     dd($create_certificate);
-            // }
-
-
-
         }
         else if($request->has('delete_user_domainName')){
             if($this->account->is_master == false){
@@ -2024,13 +2006,21 @@ class settingsController extends Controller
             }else{
                 if(Hash::check($request->password, $this->account->password)){
                     $user_domainName_data = website::where('id',$this->website_id)->select(['user_domainName_data','domainName'])->first();
-                    $cloudflare = new cloudflare();
-                    if($cloudflare->delete_user_domainName($user_domainName_data->user_domainName_data['id'])){
+                    $cloudflare = new cloudflare($user_domainName_data->user_domainName_data['id']);
+                    $delete_zone = $cloudflare->delete_user_domainName();
+                    if($delete_zone){
                         cron_jobs::where(['website_id'=>$this->website_id,'type'=>2])->delete();
                         website::where('id',$this->website_id)->update([
                             'user_domainName_data' => NULL,
                             'user_domainName' => NULL,
                             'url' => $user_domainName_data->domainName.".".env('APP_DOMAIN'),
+                        ]);
+                        activityLog::create([
+                            'website_id' => $this->website_id,
+                            'code' => 'website.domain_deleted',
+                            'account_id' => $this->account->id,
+                            'account_name' => $this->account->name,
+                            'domain' => $user_domainName_data->domainName,
                         ]);
                         return response(['status' => 1, 'msg' => Lang::get('cpanel/settings/responses.deleteUserDomainSuccess')]);
                     }else{
@@ -2047,20 +2037,7 @@ class settingsController extends Controller
             if($this->account->is_master == false){return;}
             $user_domainName_data = website::where('id',$this->website_id)->pluck('user_domainName_data')->first();
             return response(['user_domainName_data' => $user_domainName_data]);
-  
-            // $cloudflare = new cloudflare();
-            // $domain_data = $cloudflare->get_domain_data($user_domainName_id);
-            // if(!$domain_data){
-            //     return response(['status' => 0]);
-            // }
-            
-            // if($cloudflare->compareNameservers($domain_data['name_servers'],$domain_data['original_name_servers'])){
-            //     return response('true');
-            //     // set tip the domain on cloudflare 
-            // }else{
-            //     return response(['status' => 2,'nameservers' => $domain_data['name_servers']]);
-            // }
-            // return response($domain);
         }
     }
 }
+

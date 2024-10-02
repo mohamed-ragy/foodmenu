@@ -43,6 +43,7 @@ drawNotification = function(notification,append){
     let attrs = {};
     let cpPage = null;
     let popupPage = null;
+    let opentab = null;
     let user = texts.cpanel.public.aGuest;
     notification.user_id != null ? user = `<span>${notification.userName}</span>` : null;
     switch(notification.code){
@@ -126,6 +127,13 @@ drawNotification = function(notification,append){
             attrs.year1 = notification.year;
             notificationsMsg = texts.cpanel.notifications.statistics_day_created_msg.replace(':date:',`<span>${getDate(Date.parse(new Date(notification.year,notification.month - 1,notification.day,10,10)) / 1000).date.restaurant}</span>`)
         break;
+        case 'system.domain.active':
+            icon = 'ico-link';
+            containerClass = 'cpPage';
+            cpPage = 'system';
+            opentab = 'website_domain';
+            notificationsMsg = texts.cpanel.notifications.website_domain_active.replace(':domain:',`<span>${notification.domain}</span>`)
+        break;
 
     }
     !notification.seen ? unseenDotClass = '' : 'none';
@@ -135,6 +143,7 @@ drawNotification = function(notification,append){
         class:`notificationContainer ${containerClass}`,
         popupPage:popupPage,
         cpPage:cpPage,
+        opentab:opentab,
     }).append(
                 $('<div/>',{class:`notificationIcon ${icon}`}),
                 $('<div/>',{class:'notificationBody'}).append(
@@ -274,6 +283,19 @@ handelCpanelChannel = function(n,code){
         break;
 
         /////system
+        case 'system.domain.active':
+            window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.helpTicket_title;
+            cpanelTitle(true);
+            drawNotification(n.notification,'prepend');
+            notificationsMsg = texts.cpanel.notifications.website_domain_active.replace(':domain:',`<span><a class="cpPage" cpPage="system" opentab="website_domain">${n.notification.domain}</a></span>`)
+            showAlert('normal',notificationsMsg,4000,true);
+            website_temp.url = n.domain;
+            website.url = n.domain;
+            website.user_domainName_data.status = 'active';
+            website_temp.user_domainName_data.status = 'active';
+            draw_website_domain_page();
+        break;
         case 'system.subaccount_blocked':
             window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
             window.pageNotifications.titleAlert = texts.cpanel.notifications.subaccountBlocked_title;

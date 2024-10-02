@@ -1,5 +1,6 @@
 draw_website_domain_page = function(){
     if(!account.is_master){return;}
+    checkUseenNotifications(['system.domain.active'],null,null)
     $('.website_domain_container').text('').append(
         $('<div/>',{class:'relative m50 mxw200'}).append(
             $('<div/>',{class:'loading_L vV'})
@@ -25,7 +26,8 @@ draw_website_domain_page = function(){
         }else{
             draw_website_add_domain_nameservers_page();
         }
-
+    }else if(website.user_domainName === website.url){
+        draw_website_user_domain_active();
     }
 }
 draw_website_add_domain_page = function(){
@@ -47,7 +49,22 @@ draw_website_add_domain_page = function(){
         )
     )
 }
-
+draw_website_user_domain_active = function(){
+    //need to be done
+    $('.website_domain_container').text('').append(
+        $('<div/>',{class:'wFC mxw400'}).append(
+            $('<div/>',{class:'mX20 wFC'}).append(
+                drawInputText('','ico-link','',texts.settings.website_domain,'add_user_domain_input','text',texts.settings.website_domain,100,'copy','',website.user_domainName,true,''),
+                $('<div/>',{class:'btnContainer mT20'}).append(
+                    $('<button/>',{id:'delete_user_domainName_btn',class:'btn btn-delete'}).append(
+                        $('<div/>',{class:'btnLoading'}),
+                        $('<div/>',{class:'btnTxt',text:texts.settings.remove_domain})
+                    )
+                )
+            )
+        ),
+    )
+}
 draw_website_add_domain_nameservers_page = function(){
     if(website.user_domainName_data.status === 'active'){
         draw_website_user_domain_active();

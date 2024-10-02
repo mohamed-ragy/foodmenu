@@ -37,6 +37,7 @@ class notification extends Model
         'product_id','productName',
         'delivery_id','deliveryName',
         'subaccount_id','subaccount_name',
+        'domain',
     ];
 
     public function websites(){

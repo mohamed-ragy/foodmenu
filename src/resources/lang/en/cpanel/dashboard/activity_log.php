@@ -119,4 +119,8 @@ return [
     'user.password_changed' => ":user: has changed his password.",
     //
     'website.installed' => "Your restaurant's website has been installed successfully.",
+    //new
+    'website.domain_added' => 'The domain :domain: has been added by :account:',
+    'website.domain_deleted' => 'The domain :domain: has been deleted by :account:',
+    //
 ];

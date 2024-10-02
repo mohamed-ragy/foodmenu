@@ -34,6 +34,7 @@ use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\automatedEmails;
 use App\Models\cloudflare;
+use App\Models\cron_jobs;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 
@@ -45,8 +46,15 @@ class cpanelController extends Controller
     {
 
         $this->middleware(function ($request, $next) {
-            // $cloudflare = new cloudflare('cf4b05fd2ef23569b42342835f58f8e5');
-            // dd($cloudflare->create_origin_ssl());
+            // $jobs = cron_jobs::where('type','2')->get();
+            // foreach($jobs as $job){
+            //     $website = website::where('id',$job->website_id)->select(['user_domainName','user_domainName_data'])->first();
+            //     $cloudflare = new cloudflare($website->user_domainName_data['id']);
+            //     $cloudflare->delete_current_cert($job->website_id);
+            // }
+            // $cloudflare = new cloudflare("cf4b05fd2ef23569b42342835f58f8e5");
+            // dd($cloudflare->delete_current_cert());
+            // dd(cron_jobs::where('website_id',2)->get());
             if(!Auth::guard('account')->check()){
                 return redirect()->route('account.login',$request->all());
             }
@@ -364,7 +372,7 @@ class cpanelController extends Controller
         if($request->has(['getNotifications'])){
             $notificationCodes =[];
             if($this->account->is_master == true){
-                $notificationCodes = ['system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
+                $notificationCodes = ['system.domain.active','system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
             }else{
                 if(str_split($this->account->authorities)[0] == true){
                     array_push($notificationCodes,'orders.new_order_user');
@@ -816,7 +824,7 @@ class cpanelController extends Controller
             $last_activites = [];
             if($this->account->is_master == true){
                 $timezone =website::where('id',$this->website_id)->pluck('timeZone')->first();
-                $notificationCodes = ['system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
+                $notificationCodes = ['system.domain.active','system.subaccount_blocked','orders.new_order_user','orders.delivered_by_delivery','orders.canceled_by_user','user.signup','review.posted','review.posted_survey','system.ticket_reply','system.financial_report','system.statistics_day.created'];
                 $todayOrders = order::where(function($q) use ($timezone){
                     $q->where('dinedin_at','>',Carbon::today($timezone)->timestamp);
                 })->orWhere(function($q) use ($timezone){

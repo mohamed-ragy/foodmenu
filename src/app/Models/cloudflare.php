@@ -2,11 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Http; // Ensure to import Http facade
-
-use App\Events\cpanelChannel;
-use Illuminate\Support\Facades\Storage;
-use stdClass;
+use Illuminate\Support\Facades\Http;
 
 class cloudflare
 {
@@ -19,7 +15,9 @@ class cloudflare
     {
         $this->CLOUDFLARE_KEY = env('CLOUDFLARE_KEY');
         $this->CLOUDFLARE_ID = env('CLOUDFLARE_ID');
-        $this->zone_data = $this->get_domain_data($zone_id);
+        if($zone_id !== null){
+            $this->zone_data = $this->get_domain_data($zone_id);
+        }
     }
 
     public function add_website($domain){
@@ -34,12 +32,14 @@ class cloudflare
         // compareNameservers();
         return $response['result'];
     }
-    public function delete_user_domainName($zoneId){
+    public function delete_user_domainName(){
         $response = Http::withToken(env('CLOUDFLARE_KEY'))
-        ->delete("{$this->$apiBaseUrl}/{$zoneId}");
+        ->delete("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}");
         if ($response->failed()) {
             return false;
         }
+        $delete_cert_files = $this->delete_current_cert_files();
+        if(!$delete_cert_files){return false;}
         return true;
     }
     public function get_domain_data($zone_id){
@@ -49,20 +49,32 @@ class cloudflare
         }
         return $response['result'];
     }
-    public function setup_domain(){
+    public function setup_domain($website_id){
         if($this->zone_data['status'] === 'active'){
-            if($this->add_dns_records()){
-                if($this->set_ssl_settings()){
+            $add_dns_records = $this->add_dns_records();
+            if($add_dns_records === true){
+                $set_zone_settings = $this->set_zone_settings();
+                if($set_zone_settings === true){
                     $create_origin_ssl = $this->create_origin_ssl();
-                    // if($this->create_origin_ssl()){
-                        $cpanel = new stdClass();
-                        $cpanel->website_id = 2;
-                        $cpanel->code = 'test.test';
-                        $cpanel->notification = $create_origin_ssl;
-                        broadcast(new cpanelChannel($cpanel));
-                    // }
+                    if($create_origin_ssl === true){
+                        $set_user_domain = website::where('id',$website_id)->update([
+                            'url' => $this->zone_data['name'],
+                        ]);
+                        cron_jobs::where(['website_id'=>$website_id,'type'=>2])->delete();
+                        if($set_user_domain){
+                            $notification = notification::create([
+                                'code' => 'system.domain.active',
+                                'seen' => false,
+                                'website_id'=> $website_id,
+                                'domain'=> $this->zone_data['name'],
+                            ]);
+                            foodmenuFunctions::notification('system.domain.active',null,['notification' => $notification],$website_id);
+                        }
+                    }
                 }
             }
+        }else{
+            return false;
         }
     }
     public function get_dns_records(){
@@ -112,35 +124,142 @@ class cloudflare
 
         return $records_added;
     }
-    public function check_ssl_settings(){
-        $check_ssl_settings = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/ssl");
-        return $check_ssl_settings['result'];
-    }
-    public function set_ssl_settings()
+
+    public function set_zone_settings()
     {
-        $ssl_settings = $this->check_ssl_settings();
-        if($ssl_settings['value'] === 'strict'){
-            return true;
-        }
-        $set_strict = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/ssl", [
-            'value' => 'strict'
-        ]);
-        if ($set_strict->successful()) {
-            if($set_strict['success']){
-                return true;
+        $zone_settings_complete = true;
+        //ssl settings
+        $check_ssl_settings = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/ssl");
+        if($check_ssl_settings['result']['value'] !== 'strict'){
+            $set_strict = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/ssl", [
+                'value' => 'strict'
+            ]);
+            if ($set_strict->successful()) {
+                if($set_strict['success'] !== true){
+                    $zone_settings_complete =  false;
+                }
+            }else{
+                $zone_settings_complete =  false;
             }
-        }else{
-            return false;
         }
+        //always https
+        $check_always_https = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/always_use_https");
+        if($check_always_https['result']['value'] !== 'on'){
+            $set_always_https = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/always_use_https",[
+                'value' =>'on'
+            ]);
+            if($set_always_https->successful()){
+                if($set_always_https['success'] !== true){
+                    $zone_settings_complete =  false;
+                }
+            }else{
+                $zone_settings_complete =  false;
+            }
+        }
+        //auto https Rewrites
+        $check_auto_https_rewrites = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/automatic_https_rewrites");
+        if($check_auto_https_rewrites['result']['value'] !== 'on'){
+            $set_auto_https_rewrites = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/automatic_https_rewrites",[
+                'value' =>'on'
+            ]);
+            if($set_auto_https_rewrites->successful()){
+                if($set_auto_https_rewrites['success'] !== true){
+                    $zone_settings_complete =  false;
+                }
+            }else{
+                $zone_settings_complete =  false;
+            }
+        }
+        //Authenticated Origin Pulls
+        $check_authenticated_origin = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/tls_client_auth");
+        if($check_authenticated_origin['result']['value'] !== 'on'){
+            $set_authenticated_origin = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/tls_client_auth",[
+                'value' =>'on'
+            ]);
+            if($set_authenticated_origin->successful()){
+                if($set_authenticated_origin['success'] !== true){
+                    $zone_settings_complete =  false;
+                }
+            }else{
+                $zone_settings_complete =  false;
+            }
+        }
+        //IP Geolocation
+        $check_ip_geolocation = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/ip_geolocation");
+        if($check_ip_geolocation['result']['value'] !== 'on'){
+            $set_ip_geolocation = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/ip_geolocation",[
+                'value' =>'on'
+            ]);
+            if($set_ip_geolocation->successful()){
+                if($set_ip_geolocation['success'] !== true){
+                    $zone_settings_complete =  false;
+                }
+            }else{
+                $zone_settings_complete =  false;
+            }
+        }
+        //allow WebSockets
+        $check_allow_webSockets = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/websockets");
+        if($check_allow_webSockets['result']['value'] !== 'on'){
+            $set_allow_webSockets = Http::withToken($this->CLOUDFLARE_KEY)->patch("https://api.cloudflare.com/client/v4/zones/{$this->zone_data['id']}/settings/websockets",[
+                'value' =>'on'
+            ]);
+            if($set_allow_webSockets->successful()){
+                if($set_allow_webSockets['success'] !== true){
+                    $zone_settings_complete =  false;
+                }
+            }else{
+                $zone_settings_complete =  false;
+            }
+        }
+
+        return $zone_settings_complete;
     }
-    public function check_origin_ssl(){
-        $zone_certificate = Http::withToken($this->CLOUDFLARE_KEY)->get("https://api.cloudflare.com/client/v4/certificates?zone_id={$this->zone_data['id']}");
-        return $zone_certificate->json();
+    public function delete_current_cert(){
+        $zone_certificates = Http::withToken($this->CLOUDFLARE_KEY)->withHeaders([
+            'Content-Type' => 'application/json',
+            'X-Auth-User-Service-Key'=> env('CLOUDFLARE_ORIGIN_CA_KEY'),
+        ])->get("https://api.cloudflare.com/client/v4/certificates?zone_id={$this->zone_data['id']}");
+        if (!$zone_certificates->successful()) {return false;}
+        if (count($zone_certificates['result']) === 0){return true;}
+        $delete_current_cert = true;
+        foreach($zone_certificates['result'] as $cert){
+            $delete_zone = Http::withToken($this->CLOUDFLARE_KEY)->withHeaders([
+                'Content-Type' => 'application/json',
+                'X-Auth-User-Service-Key'=> env('CLOUDFLARE_ORIGIN_CA_KEY'),
+            ])->delete("https://api.cloudflare.com/client/v4/certificates/{$cert['id']}");
+            if(!$delete_zone->successful()){$delete_current_cert = false;}
+            if(!$delete_zone['success']){$delete_current_cert = false;}
+
+        }
+        return $delete_current_cert;
+    }
+    public function delete_current_cert_files(){
+        $directory = "/etc/nginx/keys/websites/{$this->zone_data['name']}/";
+        if (is_dir($directory)) {
+            if(file_exists("{$directory}origin.pem")){
+                if(!unlink("{$directory}origin.pem")){
+                    return false;
+                }
+            }
+            if(file_exists("{$directory}origin.key")){
+                if(!unlink("{$directory}origin.key")){
+                    return false;
+                }
+            }
+            if(!rmdir($directory)){
+                return false;
+            }
+        }
+        return true;
     }
     public function create_origin_ssl(){
+        $delete_current_cert_files = $this->delete_current_cert_files();
+        $delete_current_cert = $this->delete_current_cert();
+        if($delete_current_cert === false || $delete_current_cert_files === false){return false;}
+
         $csr = $this->generate_csr($this->zone_data['name']);
-        $store_key = $this->store_private_key($this->zone_data['name'],$csr['private_key']);
-        // if(!$store_key){return;}
+        $this->store_private_key($this->zone_data['name'],$csr['private_key']);
 
         $origin_ssl = Http::withToken($this->CLOUDFLARE_KEY)->withHeaders([
             'Content-Type' => 'application/json',
@@ -151,21 +270,14 @@ class cloudflare
             'request_type' => 'origin-rsa',
             'csr' => $csr['csr']
         ]);
+
+        if(!$origin_ssl->successful()){return false;}
         $certificate_data = $origin_ssl->json();
+        if($certificate_data['success'] !== true){return;}
 
-        if ($origin_ssl->successful()) {
-            if($certificate_data['success'] !== true){return;}
-            $certificate = $certificate_data['result']['certificate'];
-            // $privateKey = $certificate_data['result']['private_key'];
-            // $baseDir = "/var/ssl";
-            $this->store_certificate($this->zone_data['name'],$certificate);
-
-            // if (!file_exists($baseDir)) {
-            //     mkdir($baseDir, 0755, true);
-            // }
-            // file_put_contents("$baseDir/{$this->zone_data['name']}.pem", $certificate);
-            // file_put_contents("$baseDir/{$this->zone_data['name']}.key", $privateKey);
-        }
+        $certificate = $certificate_data['result']['certificate'];
+        $this->store_certificate($this->zone_data['name'],$certificate);
+        return true;
     }
     public function generate_csr(string $domain): array
     {
@@ -227,8 +339,7 @@ class cloudflare
     }
     public function store_private_key(string $domain, string $privateKey)
     {
-        $directory = "/var/ssl/{$domain}/";
-
+        $directory = "/etc/nginx/keys/websites/{$domain}/";
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true);
             chown($directory, posix_getuid());
@@ -236,21 +347,13 @@ class cloudflare
         }
         $filePath = $directory . "/origin.key";
         file_put_contents($filePath, $privateKey);
-        // Store the private key
-        chmod($filePath, 0600); // Set permissions to owner read/write only
+        chmod($filePath, 0600);
         chown($filePath, posix_getuid());
         chgrp($filePath, posix_getgid());
-        // if(file_put_contents($filePath, $privateKey)){
-        //     chmod($filePath, 0600); // Set permissions to owner read/write only
-        //     chown($filePath, posix_getuid());
-        //     return true;
-        // }
-        // return false;
     }
     public function store_certificate(string $domain, string $certificate)
     {
-        // $directory = "/var/ssl";
-        $directory = "/var/ssl/{$domain}/";
+        $directory = "/etc/nginx/keys/websites/{$domain}/";
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true);
             chown($directory, posix_getuid());
@@ -261,15 +364,5 @@ class cloudflare
         chmod($filePath, 0644);
         chown($filePath, posix_getuid());
         chgrp($filePath, posix_getgid());
-    }
-
-    public function compareNameservers($assigned, $current){
-        $current = is_array($current) ? $current : [];
-
-        $assignedLower = array_map('strtolower', $assigned);
-
-        $currentLower = array_map('strtolower', $current);
-
-        return !array_diff($assignedLower, $currentLower);
     }
 }

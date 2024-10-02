@@ -183,6 +183,9 @@ drawActivityLog = function(activity,is_live){
     activity_body = activity_body.replace(':service_name_workingHours:',texts.dashboard[`service_name_workingHours_${activity.service}`])
     activity_body = activity_body.replace(':service_name:',texts.dashboard[`service_name_${activity.service}`])
 
+    activity_body = activity_body.replace(':domain:',`<span><a class="cpPage" cpPage="system" openTab="website_domain">${activity.domain}</a></span>`)
+
+
     activity.code.split('.')[1] == 'promocode' && lastActivity.code.split('.')[1] == 'promocode' && activity.promocode_id == lastActivity.promocode_id ? activity_group = true : null;
     activity.code.split('.')[1] == 'restaurant_info' && lastActivity.code.split('.')[1] == 'restaurant_info'? activity_group = true : null;
     activity.code.split('.')[1] == 'country' && lastActivity.code.split('.')[1] == 'country'? activity_group = true : null;
@@ -325,6 +328,8 @@ drawActivityLog = function(activity,is_live){
         case 'user.password_changed': activity_icon = 'ico-user';show_seeChanges=false;break;
 
         case 'website.installed': activity_icon = 'ico-templates';break;
+        case 'website.domain_added': activity_icon = 'ico-link cG'; break;
+        case 'website.domain_deleted': activity_icon = 'ico-link cR'; break;
         default: break;
     }
     lastActivity = activity;
@@ -1471,7 +1476,7 @@ seeChanges_activityLog = function(activity){
                         for(const key in from_addresses_obj){
                             let address = from_addresses_obj[key]
                             from_addresses.append(
-                                $('<ul/>',{class:'mY0'}).append( 
+                                $('<ul/>',{class:'mY0'}).append(
                                     $('<li/>',{class:'m5'}).append(
                                         $('<div/>',{class:'bold600',text:`${texts.dashboard.user_address} ${parseInt(key) + 1}`}),
                                         address.is_default == '1' ? $('<div/>',{class:'mis-3',text:texts.dashboard.user_address_default}):'',
