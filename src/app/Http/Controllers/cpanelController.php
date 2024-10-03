@@ -857,7 +857,9 @@ class cpanelController extends Controller
                 }
                 $todayOrders = [];
             }
-            $notifications = notification::where(['website_id'=>$this->website_id,'seen'=>false])->whereIn('code',$notificationCodes)->get();
+            $notifications = notification::where(['website_id'=>$this->website_id,'seen'=>false])
+            ->orderBy('created_at','desc')
+            ->whereIn('code',$notificationCodes)->get();
             ////
             return response([
                 'notifications' => $notifications,

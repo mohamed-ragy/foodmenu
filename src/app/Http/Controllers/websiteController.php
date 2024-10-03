@@ -41,7 +41,11 @@ class websiteController extends Controller
 
             $this->request_host = str_replace('www.','',$request->getHost());
 
-            self::get_website_data();
+            $get_website_data = self::get_website_data();
+
+            if($get_website_data){
+                return $get_website_data;
+            }
             //
             if($this->request_host != $this->website->url){
                 return redirect()->to(env('APP_URL_HTTP').$this->website->url);
@@ -135,17 +139,16 @@ class websiteController extends Controller
         }
     }
     public function get_website_data(){
-        $_website = website::where('url',$this->request_host);
-        // $domain = explode('.', $this->request_host);
-        // if (count($domain) >= 3 && $domain[1] === 'food-menu') {
-        //     $_website = website::where('domainName',$domain[0]);
-        // }else{
-        //     $_website = website::where('user_domainName',$this->request_host);
-        // }
-        $this->website = $_website->select([
+
+        $this->website = website::where('url',$this->request_host)->select([
             'id','subscription_status','active','url','domainName','languages','websiteNames','websiteDescriptions','icon','logo','metaImg','style_version'])
         ->with(['categories'])->with(['products'])->first();
         if(!$this->website){
+            $domain = explode('.', $this->request_host);
+            if (count($domain) > 2) {
+                $website_url = website::where('domainName',$domain[0])->pluck('url')->first();
+                return redirect(env('APP_URL_HTTP').$website_url);
+            }
             return abort(404);
         }
         $this->website_id = $this->website->id;
@@ -456,16 +459,6 @@ class websiteController extends Controller
         }
     }
     public function website(Request $request){
-        // if($request->has('get_website_data')){
-        //     $website = website::where('id',$this->website_id)->select([
-        //         'id',
-        //         'websiteNames',
-        //         'websiteDescriptions',
-        //         'logo','icon',
-        //         'languages',
-        //     ])->with(['categories'])->with(['products'])->first();
-        //     return response($website);
-        // }else 
         if($request->has('change_language')){
             $website_languages = website::where('id',$this->website_id)->pluck('languages')->first();
             $language_check = false;

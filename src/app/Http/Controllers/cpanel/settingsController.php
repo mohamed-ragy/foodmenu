@@ -1955,13 +1955,13 @@ class settingsController extends Controller
                 'id' => $add_domain['id'],
                 'status' => $add_domain['status'],
                 'name_servers' => $add_domain['name_servers'],
-                'original_name_servers' => $add_domain['original_name_servers'],
             ];
 
             $update_website = website::where('id',$this->website_id)->update([
                 'user_domainName' => $domain,
                 'user_domainName_data' => $user_domainName_data,
             ]);
+            
             if($update_website){
                 cron_jobs::create([
                     'type' => '2',

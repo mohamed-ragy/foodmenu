@@ -132,7 +132,7 @@ drawNotification = function(notification,append){
             containerClass = 'cpPage';
             cpPage = 'system';
             opentab = 'website_domain';
-            notificationsMsg = texts.cpanel.notifications.website_domain_active.replace(':domain:',`<span>${notification.domain}</span>`)
+            notificationsMsg = texts.cpanel.notifications.website_domain_active_msg.replace(':domain:',`<span>${notification.domain}</span>`)
         break;
 
     }
@@ -285,16 +285,21 @@ handelCpanelChannel = function(n,code){
         /////system
         case 'system.domain.active':
             window.pageNotifications.notifications = window.pageNotifications.notifications + 1;
-            window.pageNotifications.titleAlert = texts.cpanel.notifications.helpTicket_title;
+            window.pageNotifications.titleAlert = texts.cpanel.notifications.website_domain_active_title;
             cpanelTitle(true);
             drawNotification(n.notification,'prepend');
-            notificationsMsg = texts.cpanel.notifications.website_domain_active.replace(':domain:',`<span><a class="cpPage" cpPage="system" opentab="website_domain">${n.notification.domain}</a></span>`)
+            notificationsMsg = texts.cpanel.notifications.website_domain_active_msg.replace(':domain:',`<span><a class="cpPage" cpPage="system" opentab="website_domain">${n.notification.domain}</a></span>`)
             showAlert('normal',notificationsMsg,4000,true);
             website_temp.url = n.domain;
             website.url = n.domain;
-            website.user_domainName_data.status = 'active';
-            website_temp.user_domainName_data.status = 'active';
-            draw_website_domain_page();
+            website.notifications_unseen.push(n.notification)
+            
+            if(website.user_domainName_data !== undefined){
+                website.user_domainName_data.status = 'active';
+                if(window.history.state.page === 'system'){
+                    draw_website_domain_page();
+                }
+            }
         break;
         case 'system.subaccount_blocked':
             window.pageNotifications.notifications = window.pageNotifications.notifications + 1;

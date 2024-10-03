@@ -112,9 +112,8 @@ class Kernel extends ConsoleKernel
                 $cloudflare = new cloudflare($website->user_domainName_data['id']);
                 $cloudflare->setup_domain((int)$job->website_id);
             }
-        })->everyFiveMinutes();
+        })->everyTenMinutes();
         // })->everyMinute();
-        // })->yearly();
     }
 
 

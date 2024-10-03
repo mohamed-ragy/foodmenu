@@ -59,6 +59,8 @@ class cloudflare
                     if($create_origin_ssl === true){
                         $set_user_domain = website::where('id',$website_id)->update([
                             'url' => $this->zone_data['name'],
+                            'user_domainName_data->status' => 'active',
+                            'user_domainName_data->email_dns' => false,
                         ]);
                         cron_jobs::where(['website_id'=>$website_id,'type'=>2])->delete();
                         if($set_user_domain){

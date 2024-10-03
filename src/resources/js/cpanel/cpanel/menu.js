@@ -506,7 +506,7 @@ showPage = function(pageId,tab,keysObj){
                     clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
-                            $('<span/>',{text:texts.cpanel.menu.submit_a_help_ticket}),
+                            $('<span/>',{text:texts.cpanel.menu.ticket_history}),
                             $('<span/>',{class:'ico-help help-icon',helpId:'submit_ticket'})
                         ),
                     )
@@ -518,11 +518,20 @@ showPage = function(pageId,tab,keysObj){
                     clear_cpPage(pageId,pushHistory);
                     $('#navTitle').text('').append(
                         $('<div/>',{class:'row alnBL jstfyS bold600'}).append(
-                            $('<span/>',{text:texts.cpanel.menu.ticket_history}),
+                            $('<span/>',{text:texts.cpanel.menu.submit_a_help_ticket}),
                             $('<span/>',{class:'ico-help help-icon',helpId:'ticket_history'})
                         ),
                     )
                     drawPage_submit_a_help_ticket();
+                    if(keysObj.ticket_code){
+                        $('#support-submitTicket-ticketCodeList').find(`.inputListElement[key="${keysObj.ticket_code}"]`).trigger('click')
+                    }
+                    if(keysObj.ticket_title){
+                        $('#support-submitTicket-ticketTitle').val(keysObj.ticket_title)
+                    }
+                    if(keysObj.ticket_desciption){
+                        $('#support_submitTicket_ticketDescription').text(keysObj.ticket_desciption)
+                    }
                     resolve(pushHistory);
                 break;
                 default:

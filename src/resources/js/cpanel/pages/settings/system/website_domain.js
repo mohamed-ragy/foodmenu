@@ -1,15 +1,12 @@
 draw_website_domain_page = function(){
     if(!account.is_master){return;}
-    checkUseenNotifications(['system.domain.active'],null,null)
     $('.website_domain_container').text('').append(
         $('<div/>',{class:'relative m50 mxw200'}).append(
             $('<div/>',{class:'loading_L vV'})
         )
     )
     if(website.user_domainName === null){
-
         draw_website_add_domain_page();
-
     }else if(website.user_domainName !== website.url){
         if(website.user_domainName_data === undefined){
             $.ajax({
@@ -27,7 +24,21 @@ draw_website_domain_page = function(){
             draw_website_add_domain_nameservers_page();
         }
     }else if(website.user_domainName === website.url){
-        draw_website_user_domain_active();
+        if(website.user_domainName_data === undefined){
+            $.ajax({
+                url:'settings',
+                type:'put',
+                data:{
+                    _token:$('meta[name="csrf-token"]').attr('content'),
+                    get_user_domainName_data:true,
+                },success:function(r){
+                    website.user_domainName_data = r.user_domainName_data;
+                    draw_website_user_domain_active();
+                }
+            })
+        }else{
+            draw_website_user_domain_active();
+        }
     }
 }
 draw_website_add_domain_page = function(){
@@ -50,9 +61,47 @@ draw_website_add_domain_page = function(){
     )
 }
 draw_website_user_domain_active = function(){
+    checkUseenNotifications(['system.domain.active'],'domain',website.user_domainName)
     //need to be done
     $('.website_domain_container').text('').append(
         $('<div/>',{class:'wFC mxw400'}).append(
+            $('<div/>',{class:'msgBox_green'}).append(
+                $('<span/>',{class:'ico-success fs2 mB10'}),
+                $('<span/>',{class:'fs09 taS',html:texts.settings.userdomain_active}),
+                $('<div/>',{class:'w100p mT10'}).append(
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10'}).append(
+                        $('<div/>',{class:'fs09 ',text:texts.settings.domainActive_cloudflare}),
+                        $('<div>',{class:'ico-check fs09'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10 brdrT1_g20'}).append(
+                        $('<div/>',{class:'fs09 ',text:texts.settings.domainActive_ssl_edage}),
+                        $('<div>',{class:'ico-check fs09'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10 brdrT1_g20'}).append(
+                        $('<div/>',{class:'fs09 ',text:texts.settings.domainActive_ssl_origin}),
+                        $('<div>',{class:'ico-check fs09'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10 brdrT1_g20'}).append(
+                        $('<div/>',{class:'fs09 ',text:texts.settings.domainActive_auto_https}),
+                        $('<div>',{class:'ico-check fs09'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10 brdrT1_g20'}).append(
+                        $('<div/>',{class:'fs09 ',text:texts.settings.domainActive_websockets}),
+                        $('<div>',{class:'ico-check fs09'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10 brdrT1_g20'}).append(
+                        $('<div/>',{class:'fs09 ',text:texts.settings.domainActive_geolocation}),
+                        $('<div>',{class:'ico-check fs09'})
+                    ),
+                    $('<div/>',{class:'row alnC jstfySB w100p-10 pX5 pT10 mT10 brdrT1_g20'}).append(
+                        $('<div/>',{class:'fs09 row alnC jstfyC'}).append(
+                            $('<span/>',{text:texts.settings.domainActive_email_dns}),
+                            $('<span/>',{class:'cpPage fs105 mis-5 pointer cO  ico-submit_a_help_ticket',cpPage:'submit_a_help_ticket',ticket_code:'6',ticket_title:texts.settings.request_email_dns_ticket_title,ticket_desciption:texts.settings.request_email_dns_ticket_des,tooltip:texts.settings.request_email_dns_tooltip})
+                        ),
+                        $('<div>',{class:`${website.user_domainName_data.email_dns ? 'ico-check':'ico-close cR'} fs09`})
+                    ),
+                )
+            ),
             $('<div/>',{class:'mX20 wFC'}).append(
                 drawInputText('','ico-link','',texts.settings.website_domain,'add_user_domain_input','text',texts.settings.website_domain,100,'copy','',website.user_domainName,true,''),
                 $('<div/>',{class:'btnContainer mT20'}).append(
@@ -99,8 +148,6 @@ draw_website_add_domain_nameservers_page = function(){
         ),
     )
 }
-
-
 //
 draw_website_domain_error = function(){
     $('.website_domain_container').text('').append(
@@ -135,7 +182,7 @@ $('body').on('click','#add_user_domain_btn',function(){
                 website_temp.user_domainName = r.user_domainName;
                 website.user_domainName = r.user_domainName;
                 website.user_domainName_data = r.user_domainName_data;
-                draw_website_domain_page(r.nameservers);
+                draw_website_domain_page();
             }
         }
     })

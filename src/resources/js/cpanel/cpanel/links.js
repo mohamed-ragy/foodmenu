@@ -58,6 +58,11 @@ $('body').on('click','.cpPage',function(e){
     let selectElem = $(this).attr('selectElem');
     let keysObj = {};
     switch($(this).attr('cpPage')){
+        case 'submit_a_help_ticket':
+            keysObj.ticket_code = $(this).attr('ticket_code')
+            keysObj.ticket_title = $(this).attr('ticket_title')
+            keysObj.ticket_desciption = $(this).attr('ticket_desciption')
+        break;
         case 'statistics_and_analytics':
             keysObj.year1 = $(this).attr('year1')
             keysObj.month1 = $(this).attr('month1')

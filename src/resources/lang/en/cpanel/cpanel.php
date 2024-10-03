@@ -337,7 +337,9 @@ return [
         "statistics_day_created_title" => "Statistics archived",
         "statistics_day_created_msg" => ":date: statistics and analytics has been archived.",
         //new
-        "website_domain_active" => "You domain :domain: is now active."
+        "website_domain_active_title" => "You domain is now active.",
+        "website_domain_active_msg" => "You domain :domain: is now active.",
+
         //
     ],
     'liveChat' => [
